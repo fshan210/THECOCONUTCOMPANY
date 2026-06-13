@@ -1,0 +1,44 @@
+[
+  {
+    "page": "File:Coconut Tree Kappil Beach.jpg",
+    "target": "public/assets/farming/kerala-coconut-palm.jpg",
+    "webp": "public/assets/farming/kerala-coconut-palm.webp",
+    "role": "About journey Kerala origin photography",
+    "error": "Command failed: sips -s format webp -s formatOptions 82 public/assets/farming/kerala-coconut-palm.jpg --out public/assets/farming/kerala-coconut-palm.webp\nError: Can't write format: org.webmproject.webp\nError 13: an unknown error occurred\nTry 'sips --help' for help using this tool\n"
+  },
+  {
+    "page": "File:Coconut Farms Perumathura.jpg",
+    "target": "public/assets/farming/coconut-grove.jpg",
+    "webp": "public/assets/farming/coconut-grove.webp",
+    "role": "Palm shadow and farming depth",
+    "error": "Command failed: sips -s format webp -s formatOptions 82 public/assets/farming/coconut-grove.jpg --out public/assets/farming/coconut-grove.webp\nError: Can't write format: org.webmproject.webp\nError 13: an unknown error occurred\nTry 'sips --help' for help using this tool\n"
+  },
+  {
+    "page": "File:Copra - coconut oil mill.JPG",
+    "target": "public/assets/products/copra-processing.jpg",
+    "webp": "public/assets/products/copra-processing.webp",
+    "role": "Processing and manufacturing story",
+    "error": "Download failed: https://upload.wikimedia.org/wikipedia/commons/e/ef/Copra_-_coconut_oil_mill.JPG"
+  },
+  {
+    "page": "File:Coconut oil bottle in the background of dried coconuts from Kaleeswari Farm.jpg",
+    "target": "public/assets/products/coconut-oil.jpg",
+    "webp": "public/assets/products/coconut-oil.webp",
+    "role": "Wellness/product ecosystem",
+    "error": "Download failed: https://upload.wikimedia.org/wikipedia/commons/3/3e/Coconut_oil_bottle_in_the_background_of_dried_coconuts_from_Kaleeswari_Farm.jpg"
+  },
+  {
+    "page": "File:Coconut8020.jpg",
+    "target": "public/assets/coconut/whole-coconut.jpg",
+    "webp": "public/assets/coconut/whole-coconut.webp",
+    "role": "Hero coconut material reference",
+    "error": "Download failed: https://upload.wikimedia.org/wikipedia/commons/5/56/Coconut8020.jpg"
+  },
+  {
+    "page": "File:Coconut Palm art.jpg",
+    "target": "public/assets/textures/palm-leaf-shadow.jpg",
+    "webp": "public/assets/textures/palm-leaf-shadow.webp",
+    "role": "Organic luxury texture overlay",
+    "error": "Download failed: https://upload.wikimedia.org/wikipedia/commons/2/21/Coconut_Palm_art.jpg"
+  }
+]

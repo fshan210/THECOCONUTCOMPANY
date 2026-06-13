@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #fffdf8;
+  color: #211915;
+  text-rendering: geometricPrecision;
+}
+
+::selection {
+  background: #654026;
+  color: #fffdf8;
+}
+
+.editorial-rule {
+  background-image: linear-gradient(to right, rgba(101, 64, 38, 0.32) 1px, transparent 1px);
+  background-size: 16.66% 100%;
+}
