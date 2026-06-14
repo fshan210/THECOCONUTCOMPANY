@@ -91,16 +91,7 @@ for (const [name, svg] of assets) {
   await sharp(png).webp({ quality: 86 }).toFile(path.join(outDir, `${name}.webp`));
 }
 
-const faviconMark = `
-<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <rect width="512" height="512" rx="88" fill="${colors.cream}"/>
-  <circle cx="82" cy="348" r="33" fill="${colors.brown}"/>
-  <path d="M248 330c-22 17-50 27-82 27-64 0-111-43-111-101s47-101 111-101c34 0 63 11 85 31l-43 48c-11-12-25-18-42-18-25 0-43 17-43 40s18 40 43 40c16 0 30-6 41-17l41 51Z" fill="${colors.brown}"/>
-  <circle cx="356" cy="256" r="103" fill="${colors.brown}"/>
-  <circle cx="356" cy="256" r="55" fill="${colors.cream}"/>
-  <ellipse cx="374" cy="249" rx="44" ry="28" fill="${colors.green}" transform="rotate(21 374 249)"/>
-  <ellipse cx="390" cy="238" rx="32" ry="16" fill="${colors.cream}" transform="rotate(21 390 238)" opacity=".82"/>
-</svg>`;
+const faviconSource = "/Users/fazilshersha/Desktop/dot CO/ChatGPT Image Jun 15, 2026, 12_53_39 AM.png";
 for (const [name, size] of [
   ["favicon-16x16.png", 16],
   ["favicon-32x32.png", 32],
@@ -109,9 +100,8 @@ for (const [name, size] of [
   ["android-chrome-512x512.png", 512],
   ["favicon.ico", 32]
 ]) {
-  await sharp(Buffer.from(faviconMark))
-    .resize(size, size, { fit: "contain", background: colors.cream })
-    .flatten({ background: colors.cream })
+  await sharp(faviconSource)
+    .resize(size, size, { fit: "cover", position: "center" })
     .png()
     .toFile(path.join(root, "public", name));
 }
