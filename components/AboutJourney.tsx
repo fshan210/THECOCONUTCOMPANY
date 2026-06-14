@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
 
 const journey = [
   {
@@ -38,8 +39,9 @@ const journey = [
 
 export function AboutJourney() {
   const ref = useRef<HTMLDivElement>(null);
+  const motionMode = useCoconutMotionMode();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-78%"]);
+  const x = useTransform(scrollYProgress, [0, 1], motionMode.shouldReduce ? ["0%", "-68%"] : ["0%", "-78%"]);
 
   return (
     <section ref={ref} className="relative min-h-[360vh] bg-paper">
@@ -64,7 +66,7 @@ export function AboutJourney() {
                   <p className="mt-6 max-w-sm text-base leading-8 text-muted">{item.detail}</p>
                 </div>
               </div>
-              <JourneyVisual index={index} />
+              <JourneyVisual index={index} reduceMotion={motionMode.shouldReduce} />
             </article>
           ))}
         </motion.div>
@@ -73,7 +75,7 @@ export function AboutJourney() {
   );
 }
 
-function JourneyVisual({ index }: { index: number }) {
+function JourneyVisual({ index, reduceMotion }: { index: number; reduceMotion: boolean }) {
   const nodes = Array.from({ length: 8 }, (_, item) => item);
 
   return (
@@ -109,8 +111,8 @@ function JourneyVisual({ index }: { index: number }) {
         className="absolute left-[18%] top-1/2 h-px w-[64%] origin-left bg-gradient-to-r from-coconut/10 via-grove/60 to-coconut/10"
       />
       <motion.div
-        animate={{ x: ["-8%", "8%", "-8%"], y: ["2%", "-3%", "2%"] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        animate={reduceMotion ? { x: "0%", y: "0%" } : { x: ["-8%", "8%", "-8%"], y: ["2%", "-3%", "2%"] }}
+        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
         className="absolute bottom-10 right-10 h-28 w-20 rounded-full bg-[radial-gradient(circle_at_45%_28%,#fffdf8,#d8c6b1_54%,#654026_100%)] shadow-soft"
       />
     </div>

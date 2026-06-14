@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { CinematicWords } from "@/components/CinematicWords";
 import { CoconutEcosystem } from "@/components/CoconutEcosystem";
@@ -6,11 +7,20 @@ import { MagneticButton } from "@/components/MagneticButton";
 import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Motion";
 import { SectionHeader } from "@/components/SectionHeader";
+import { StructuredData } from "@/components/seo/StructuredData";
 import { products } from "@/lib/content";
+import { createPageMetadata } from "@/lib/seo/metadata";
+
+export const metadata: Metadata = createPageMetadata({
+  title: ".CO | The Coconut Company",
+  description: "A modern coconut-origin lifestyle brand from Palakkad, Kerala. Made for Living.",
+  path: "/"
+});
 
 export default function HomePage() {
   return (
     <>
+      <StructuredData breadcrumbs={[{ name: "Home", path: "/" }]} />
       <CoconutEcosystem />
 
       <section className="editorial-rule mx-auto grid max-w-7xl items-center gap-12 px-5 py-24 md:grid-cols-[1fr_0.86fr] md:px-8">
@@ -22,12 +32,22 @@ export default function HomePage() {
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
             <MagneticButton>
-              <Link href="/products" className="inline-flex items-center gap-3 bg-ink px-6 py-4 text-sm text-paper">
+              <Link
+                href="/products"
+                data-analytics="cta_click"
+                data-analytics-label="home_view_products"
+                className="inline-flex items-center gap-3 bg-ink px-6 py-4 text-sm text-paper"
+              >
                 View products <ArrowUpRight size={16} />
               </Link>
             </MagneticButton>
             <MagneticButton>
-              <Link href="/sustainability" className="inline-flex items-center gap-3 border border-shell px-6 py-4 text-sm text-coconut">
+              <Link
+                href="/sustainability"
+                data-analytics="cta_click"
+                data-analytics-label="home_farm_network"
+                className="inline-flex items-center gap-3 border border-shell px-6 py-4 text-sm text-coconut"
+              >
                 Farm network <ArrowUpRight size={16} />
               </Link>
             </MagneticButton>

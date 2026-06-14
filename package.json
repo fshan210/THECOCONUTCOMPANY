@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "assets:optimize": "node scripts/optimize-assets.mjs",
+    "favicons:generate": "node scripts/generate-favicons.mjs",
+    "godaddy:dns:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/godaddy-dns-sync.ts",
+    "godaddy:dns:apply": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/godaddy-dns-sync.ts --apply"
   },
   "dependencies": {
     "framer-motion": "^11.3.21",
@@ -23,6 +27,7 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.5",
     "postcss": "^8.4.39",
+    "sharp": "^0.35.1",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.5.3"
   }

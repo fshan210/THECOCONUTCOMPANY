@@ -13,6 +13,8 @@ type ProductCardProps = {
 export function ProductCard({ name, role, detail, image }: ProductCardProps) {
   return (
     <motion.article
+      data-analytics="product_interaction"
+      data-analytics-label={name}
       whileHover={{ y: -8 }}
       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
       className="group relative grid gap-6 overflow-hidden border border-shell/80 bg-porcelain/74 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.85),0_18px_60px_rgba(33,25,21,0.04)] backdrop-blur md:grid-cols-[0.8fr_1fr_1.2fr] md:items-center md:p-6"

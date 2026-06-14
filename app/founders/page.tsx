@@ -1,26 +1,36 @@
 import Image from "next/image";
+import type { Metadata } from "next";
 import { JournalGrid } from "@/components/JournalGrid";
 import { Reveal } from "@/components/Motion";
 import { SectionHeader } from "@/components/SectionHeader";
+import { StructuredData } from "@/components/seo/StructuredData";
+import { createPageMetadata } from "@/lib/seo/metadata";
 
 const founders = [
   {
     name: "Fazil Shersha",
     role: "Founder / Brand and growth",
-    image: "/images/social media mockup 2.png",
+    image: "/optimized/images-social-media-mockup-2.webp",
     bio: "Leads the company's global positioning, commercial architecture, and premium coconut house vision from Palakkad outward."
   },
   {
     name: "Afsala Muthali",
     role: "Co-founder / Product and culture",
-    image: "/images/social media mockups 1 .png",
+    image: "/optimized/images-social-media-mockups-1.webp",
     bio: "Shapes the product sensibility, everyday ritual lens, and human warmth that keeps .CO grounded as it scales."
   }
 ];
 
+export const metadata: Metadata = createPageMetadata({
+  title: "Founders",
+  description: "Meet Fazil Shersha and Afsala Muthali, the founders building .CO from Palakkad to a global coconut house.",
+  path: "/founders"
+});
+
 export default function FoundersPage() {
   return (
     <>
+      <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Founders", path: "/founders" }]} />
       <section className="mx-auto max-w-7xl px-5 py-24 md:px-8">
         <Reveal className="max-w-5xl">
           <p className="mb-8 text-[0.72rem] uppercase tracking-editorial text-grove">Founders</p>
@@ -36,7 +46,7 @@ export default function FoundersPage() {
             <Reveal key={founder.name} delay={index * 0.1}>
               <article className="bg-porcelain">
                 <div className="relative aspect-[4/3] overflow-hidden bg-shell">
-                  <Image src={founder.image} alt={founder.name} fill className="object-cover" />
+                  <Image src={founder.image} alt={founder.name} fill sizes="(min-width: 768px) 46vw, 90vw" className="object-cover" />
                 </div>
                 <div className="p-8 md:p-10">
                   <p className="mb-4 text-[0.7rem] uppercase tracking-editorial text-grove">{founder.role}</p>

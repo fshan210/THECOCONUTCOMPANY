@@ -1,0 +1,21 @@
+{
+  "name": ".CO | The Coconut Company",
+  "short_name": ".CO",
+  "description": "A modern coconut-origin lifestyle brand. Made for Living.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fffdf8",
+  "theme_color": "#654026",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -12,7 +12,7 @@ export function FounderStory() {
   return (
     <section ref={ref} className="mx-auto grid max-w-7xl gap-12 px-5 py-24 md:grid-cols-[0.9fr_1.1fr] md:px-8">
       <motion.div style={{ y: imageY }} className="relative min-h-[560px] overflow-hidden bg-shell">
-        <Image src="/images/social media mockup 2.png" alt="Founder story visual" fill sizes="(min-width: 768px) 46vw, 90vw" className="object-cover" />
+        <Image src="/optimized/images-social-media-mockup-2.webp" alt="Founder story visual" fill sizes="(min-width: 768px) 46vw, 90vw" className="object-cover" />
       </motion.div>
       <div className="flex flex-col justify-center">
         <motion.p

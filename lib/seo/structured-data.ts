@@ -1,0 +1,72 @@
+import { siteName, siteUrl } from "@/lib/seo/metadata";
+
+export function organizationSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteName,
+    alternateName: [".CO", "The Coconut Company"],
+    slogan: "Made for Living.",
+    url: siteUrl,
+    logo: `${siteUrl}/images/logo.svg`,
+    foundingLocation: {
+      "@type": "Place",
+      name: "Palakkad, Kerala, India"
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Palakkad",
+      addressRegion: "Kerala",
+      addressCountry: "IN"
+    },
+    sameAs: [
+      "https://www.instagram.com/cothecoconutcompany",
+      "https://www.linkedin.com/company/dotcolife"
+    ]
+  };
+}
+
+export function websiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteName,
+    url: siteUrl,
+    description: "A modern coconut-origin lifestyle brand. Made for Living.",
+    inLanguage: "en"
+  };
+}
+
+export function breadcrumbSchema(items: Array<{ name: string; path: string }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `${siteUrl}${item.path}`
+    }))
+  };
+}
+
+export function productSchemaPlaceholder() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "Future .CO product schema placeholder",
+    brand: {
+      "@type": "Brand",
+      name: siteName
+    }
+  };
+}
+
+export function articleSchemaPlaceholder() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "Future .CO article schema placeholder",
+    publisher: organizationSchema()
+  };
+}

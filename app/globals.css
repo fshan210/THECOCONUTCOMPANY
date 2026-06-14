@@ -30,3 +30,18 @@ body {
   background-image: linear-gradient(to right, rgba(101, 64, 38, 0.32) 1px, transparent 1px);
   background-size: 16.66% 100%;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

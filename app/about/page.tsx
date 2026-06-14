@@ -1,10 +1,20 @@
+import type { Metadata } from "next";
 import { AboutJourney } from "@/components/AboutJourney";
 import { FounderStory } from "@/components/FounderStory";
 import { Reveal } from "@/components/Motion";
+import { StructuredData } from "@/components/seo/StructuredData";
+import { createPageMetadata } from "@/lib/seo/metadata";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "About",
+  description: "The roots, sourcing journey, and global vision behind .CO | The Coconut Company from Palakkad, Kerala.",
+  path: "/about"
+});
 
 export default function AboutPage() {
   return (
     <>
+      <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "About", path: "/about" }]} />
       <section className="mx-auto max-w-7xl px-5 py-24 md:px-8">
         <Reveal className="max-w-4xl">
           <p className="mb-8 text-[0.72rem] uppercase tracking-editorial text-grove">About .CO</p>

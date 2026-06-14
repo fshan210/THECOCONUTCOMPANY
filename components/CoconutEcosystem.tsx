@@ -2,6 +2,7 @@
 
 import { motion, useMotionValue, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
 import { useRef } from "react";
+import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
 
 const stages = [
   "Whole Coconut",
@@ -20,6 +21,7 @@ const emergeItems = [
 
 export function CoconutEcosystem() {
   const ref = useRef<HTMLDivElement>(null);
+  const motionMode = useCoconutMotionMode();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const x = useSpring(mouseX, { stiffness: 120, damping: 22, mass: 0.5 });
@@ -71,8 +73,8 @@ export function CoconutEcosystem() {
         >
           <motion.div style={{ x, y, scale, rotate }} className="relative h-[360px] w-[360px] md:h-[470px] md:w-[470px]">
             <motion.div
-              animate={{ rotateY: [0, 360] }}
-              transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+              animate={motionMode.shouldReduce ? { rotateY: 0 } : { rotateY: [0, 360] }}
+              transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
               className="absolute inset-0 rounded-full"
               style={{ transformStyle: "preserve-3d" }}
             >
@@ -100,7 +102,13 @@ export function CoconutEcosystem() {
                 key={item.label}
                 initial={{ opacity: 0, scale: 0.92, x: "-50%", y: "-50%" }}
                 animate={{ opacity: [0, 1, 0.72], scale: [0.92, 1, 0.98] }}
-                transition={{ duration: 4.8, delay: item.delay, repeat: Infinity, repeatDelay: 8, ease: [0.16, 1, 0.3, 1] }}
+                transition={{
+                  duration: motionMode.shouldReduce ? 3.2 : 4.8,
+                  delay: item.delay,
+                  repeat: motionMode.shouldReduce ? 0 : Infinity,
+                  repeatDelay: 8,
+                  ease: [0.16, 1, 0.3, 1]
+                }}
                 className="absolute left-1/2 top-1/2 rounded-full border border-coconut/10 bg-porcelain/80 px-4 py-2 text-[0.65rem] uppercase tracking-editorial text-coconut shadow-soft backdrop-blur-md"
                 style={{ marginLeft: item.x, marginTop: item.y }}
               >

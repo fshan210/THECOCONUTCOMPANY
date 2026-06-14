@@ -1,11 +1,21 @@
+import type { Metadata } from "next";
 import { impactMetrics } from "@/lib/content";
 import { Reveal } from "@/components/Motion";
 import { SectionHeader } from "@/components/SectionHeader";
+import { StructuredData } from "@/components/seo/StructuredData";
+import { createPageMetadata } from "@/lib/seo/metadata";
 import { AnimatedMetric } from "./sustainability-metric";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Sustainability",
+  description: "Direct farm systems, village aggregation, and responsible coconut sourcing from Kerala.",
+  path: "/sustainability"
+});
 
 export default function SustainabilityPage() {
   return (
     <>
+      <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Sustainability", path: "/sustainability" }]} />
       <section className="mx-auto max-w-7xl px-5 py-24 md:px-8">
         <Reveal className="max-w-5xl">
           <p className="mb-8 text-[0.72rem] uppercase tracking-editorial text-grove">Sustainability</p>

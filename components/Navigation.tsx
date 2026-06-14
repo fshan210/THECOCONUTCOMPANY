@@ -34,7 +34,13 @@ export function Navigation() {
         </Link>
         <div className="hidden items-center gap-7 text-[0.72rem] uppercase tracking-editorial text-muted md:flex">
           {links.map((link) => (
-            <Link key={link.href} href={link.href} className="group relative py-3 transition hover:text-coconut">
+            <Link
+              key={link.href}
+              href={link.href}
+              data-analytics="cta_click"
+              data-analytics-label={`nav_${link.label.toLowerCase()}`}
+              className="group relative py-3 transition hover:text-coconut"
+            >
               {link.label}
               <motion.span
                 layoutId={pathname === link.href ? "active-nav" : undefined}
@@ -45,6 +51,8 @@ export function Navigation() {
         </div>
         <Link
           href="/products"
+          data-analytics="cta_click"
+          data-analytics-label="nav_explore"
           className="hidden border border-coconut px-4 py-2 text-[0.7rem] uppercase tracking-editorial text-coconut transition hover:bg-coconut hover:text-porcelain md:block"
         >
           Explore
@@ -72,6 +80,8 @@ export function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
+                data-analytics="cta_click"
+                data-analytics-label={`mobile_nav_${link.label.toLowerCase()}`}
                 onClick={() => setOpen(false)}
                 className="block border-b border-shell/70 py-4 text-sm uppercase tracking-editorial text-muted last:border-0"
               >

@@ -1,10 +1,20 @@
+import type { Metadata } from "next";
 import { JournalGrid } from "@/components/JournalGrid";
 import { Reveal } from "@/components/Motion";
 import { SectionHeader } from "@/components/SectionHeader";
+import { StructuredData } from "@/components/seo/StructuredData";
+import { createPageMetadata } from "@/lib/seo/metadata";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Journal",
+  description: "Editorial notes on coconut culture, product thinking, origin, and the future of .CO.",
+  path: "/journal"
+});
 
 export default function JournalPage() {
   return (
     <>
+      <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Journal", path: "/journal" }]} />
       <section className="mx-auto max-w-7xl px-5 py-24 md:px-8">
         <Reveal className="max-w-5xl">
           <p className="mb-8 text-[0.72rem] uppercase tracking-editorial text-grove">Journal</p>
