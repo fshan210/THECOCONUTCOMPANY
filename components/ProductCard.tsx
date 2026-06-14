@@ -13,7 +13,7 @@ type ProductCardProps = {
 export function ProductCard({ name, role, detail, image }: ProductCardProps) {
   return (
     <motion.article
-      data-analytics="product_interaction"
+      data-analytics="product_interest_click"
       data-analytics-label={name}
       whileHover={{ y: -8 }}
       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}

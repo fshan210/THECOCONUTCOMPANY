@@ -1,9 +1,9 @@
 export type AnalyticsEventName =
   | "cta_click"
-  | "contact_submission"
-  | "distributor_inquiry"
-  | "newsletter_signup"
-  | "product_interaction"
+  | "contact_submit"
+  | "distributor_inquiry_submit"
+  | "newsletter_submit"
+  | "product_interest_click"
   | "scroll_depth";
 
 type AnalyticsEventParams = Record<string, string | number | boolean | undefined>;
@@ -26,17 +26,17 @@ export function trackEvent(name: AnalyticsEventName, params: AnalyticsEventParam
 }
 
 export function trackContactSubmission(status: "success" | "error") {
-  trackEvent("contact_submission", { status });
+  trackEvent("contact_submit", { status });
 }
 
 export function trackDistributorInquiry(status: "success" | "error") {
-  trackEvent("distributor_inquiry", { status });
+  trackEvent("distributor_inquiry_submit", { status });
 }
 
 export function trackNewsletterSignup(status: "success" | "error") {
-  trackEvent("newsletter_signup", { status });
+  trackEvent("newsletter_submit", { status });
 }
 
 export function trackProductInteraction(product: string, action = "view") {
-  trackEvent("product_interaction", { product, action });
+  trackEvent("product_interest_click", { product, action });
 }

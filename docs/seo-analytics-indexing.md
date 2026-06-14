@@ -16,18 +16,18 @@
 
 ### Critical Issues
 
-- No production Google Search Console verification token has been supplied yet.
+- Google Search Console HTML verification file is deployed at `/google87b5a5382bb4f7a0.html`.
 - No production Bing Webmaster verification token has been supplied yet.
 - GA4 and Microsoft Clarity are integrated but inactive until IDs are added in Vercel environment variables.
-- Social profile URLs in Organization JSON-LD are placeholders and should be replaced with real brand profiles once created.
+- Official Instagram and LinkedIn profiles are present in Organization JSON-LD.
 
 ### Recommended Fixes
 
-- Add `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` in Vercel after creating the Search Console property.
+- Click Verify in Google Search Console using the HTML file upload method.
 - Add `NEXT_PUBLIC_BING_SITE_VERIFICATION` in Vercel after creating the Bing Webmaster property.
 - Add `NEXT_PUBLIC_GA_MEASUREMENT_ID` and `NEXT_PUBLIC_CLARITY_PROJECT_ID` in Vercel.
 - Submit `https://cothecoconutcompany.com/sitemap.xml` in Google Search Console and Bing Webmaster Tools.
-- Replace social profile placeholders in `lib/seo/structured-data.ts` when official profiles are live.
+- Keep social profile URLs current if official profile handles change.
 
 ### Ranking Opportunities
 
@@ -47,14 +47,21 @@ URL-prefix property: https://cothecoconutcompany.com
 Recommended verification method:
 
 ```text
-DNS TXT verification
+HTML file upload
 ```
 
-Why: DNS verification is stable across framework changes and validates domain ownership cleanly. Since GoDaddy DNS is active, add the TXT record in GoDaddy if Google provides one.
+Verification file:
+
+```text
+https://cothecoconutcompany.com/google87b5a5382bb4f7a0.html
+```
+
+After deployment, click Verify in Google Search Console.
 
 Alternative methods:
 
 - HTML file verification: upload the file into `public/` if Google provides it.
+- DNS TXT verification: add the TXT record in GoDaddy if Google provides one.
 - Meta tag verification: set `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` to the content value from Google.
 
 Meta tag environment variable:
@@ -95,10 +102,10 @@ Implemented tracking:
 - Page views on App Router navigation
 - Scroll depth at 25, 50, 75, and 90 percent
 - CTA clicks
-- Product interactions through product cards
-- Future contact submissions through `data-analytics-form="contact"`
-- Future distributor inquiries through `data-analytics-form="distributor"`
-- Future newsletter signups through `data-analytics-form="newsletter"`
+- Product interactions through `product_interest_click`
+- Future contact submissions through `contact_submit`
+- Future distributor inquiries through `distributor_inquiry_submit`
+- Future newsletter signups through `newsletter_submit`
 
 Reusable event helpers live in:
 
@@ -160,7 +167,7 @@ Implemented:
 - Organization schema
 - WebSite schema
 - BreadcrumbList schema per primary page
-- Social profile placeholders
+- Official social profile references
 
 Prepared for future support:
 

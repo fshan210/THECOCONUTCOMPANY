@@ -7,6 +7,7 @@ import { trackEvent } from "@/lib/analytics/events";
 
 const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 const clarityProjectId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID;
+const isProduction = process.env.NODE_ENV === "production";
 
 export function Analytics() {
   return (
@@ -22,7 +23,7 @@ export function Analytics() {
 }
 
 function GoogleAnalytics() {
-  if (!gaMeasurementId) return null;
+  if (!isProduction || !gaMeasurementId) return null;
 
   return (
     <>
@@ -41,7 +42,7 @@ function GoogleAnalytics() {
 }
 
 function MicrosoftClarity() {
-  if (!clarityProjectId) return null;
+  if (!isProduction || !clarityProjectId) return null;
 
   return (
     <Script id="microsoft-clarity" strategy="afterInteractive">
@@ -106,9 +107,9 @@ function AnalyticsEventListeners() {
       const formType = form?.dataset.analyticsForm;
       if (!formType) return;
 
-      if (formType === "contact") trackEvent("contact_submission", { status: "attempt" });
-      if (formType === "distributor") trackEvent("distributor_inquiry", { status: "attempt" });
-      if (formType === "newsletter") trackEvent("newsletter_signup", { status: "attempt" });
+      if (formType === "contact") trackEvent("contact_submit", { status: "attempt" });
+      if (formType === "distributor") trackEvent("distributor_inquiry_submit", { status: "attempt" });
+      if (formType === "newsletter") trackEvent("newsletter_submit", { status: "attempt" });
     }
 
     function handleScroll() {

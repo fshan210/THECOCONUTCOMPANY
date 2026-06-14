@@ -204,7 +204,13 @@ https://cothecoconutcompany.com
 Recommended verification:
 
 ```text
-DNS TXT record in GoDaddy
+HTML file upload
+```
+
+Verification file:
+
+```text
+https://cothecoconutcompany.com/google87b5a5382bb4f7a0.html
 ```
 
 Alternative meta verification:
@@ -251,6 +257,8 @@ Add in Vercel:
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 
+GA4 loads only in production when this value is present.
+
 Consumed in:
 
 ```text
@@ -289,6 +297,8 @@ Add in Vercel:
 ```env
 NEXT_PUBLIC_CLARITY_PROJECT_ID=your_project_id
 ```
+
+Clarity loads only in production when this value is present.
 
 Consumed in:
 
