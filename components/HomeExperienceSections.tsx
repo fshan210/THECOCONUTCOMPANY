@@ -14,38 +14,33 @@ export function MadeForLivingVisual() {
   const { shouldReduce } = useCoconutMotionMode();
 
   return (
-    <section className="bg-porcelain px-5 py-20 md:px-8 md:py-28">
-      <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[0.95fr_1.05fr] md:items-center">
-        <Reveal>
-          <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-grove">Brand statement</p>
-          <h2 className="font-display text-5xl leading-tight text-ink md:text-7xl">Made for Living.</h2>
-          <p className="mt-7 max-w-xl text-lg leading-9 text-muted">
-            A coconut-origin lifestyle brand built for everyday rituals, modern wellness, and global living.
-          </p>
-        </Reveal>
+    <section className="bg-porcelain px-5 py-16 md:px-8 md:py-24">
+      <div className="mx-auto max-w-7xl">
         <motion.div
           {...CoconutMotion.NatureFade}
-          className="relative min-h-[360px] overflow-hidden border border-shell bg-paper shadow-soft md:min-h-[520px]"
+          className="relative overflow-hidden border border-shell bg-[#fbf4e8] shadow-soft"
         >
           <motion.div
-            animate={shouldReduce ? undefined : { y: [0, -10, 0] }}
-            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-0"
+            animate={shouldReduce ? undefined : { y: [0, -5, 0] }}
+            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+            className="relative aspect-[1983/793]"
           >
             <Image
-              src="/optimized/assets-coconut-made-for-living-banner.webp"
-              alt="Coconut grove visual representing the Made for Living brand statement"
+              src="/optimized/assets-coconut-made-for-living-reference.webp"
+              alt="Made for Living brand statement with soft palm shadow and .CO coconut mark"
               fill
-              sizes="(min-width: 768px) 50vw, 100vw"
-              className="object-cover"
+              sizes="100vw"
+              className="object-contain"
               priority={false}
             />
           </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/45 via-ink/10 to-transparent" />
-          <div className="absolute bottom-0 left-0 max-w-lg p-6 text-paper md:p-10">
-            <p className="text-[0.7rem] uppercase tracking-editorial">Palakkad / Everyday rituals / Global living</p>
-          </div>
         </motion.div>
+        <Reveal className="mx-auto mt-8 max-w-3xl text-center">
+          <p className="mb-4 text-[0.72rem] uppercase tracking-editorial text-grove">Brand statement</p>
+          <p className="text-lg leading-9 text-muted">
+            A coconut-origin lifestyle brand built for everyday rituals, modern wellness, and global living.
+          </p>
+        </Reveal>
       </div>
     </section>
   );
@@ -55,43 +50,61 @@ export function HonestTruthSection() {
   const cards = [
     {
       title: "Cold processed where possible",
-      body: "Heat can damage natural character. Our process is designed to preserve freshness, taste and integrity."
+      badge: "Where possible",
+      body: "Heat can change natural character. Our process direction is designed to preserve freshness, taste and integrity."
     },
     {
       title: "No artificial shortcuts",
+      badge: "Zero",
       body: "No unnecessary fillers, no artificial preservatives, no overcomplicated ingredient lists."
     },
     {
       title: "Direct sourcing mindset",
+      badge: "Always",
       body: "We work toward closer relationships with coconut farmers and traceable origin systems."
     },
     {
       title: "Plant-first by nature",
+      badge: "Future",
       body: "From beverages to skincare, our ecosystem is built around one of nature's most versatile resources."
     }
   ];
 
   return (
-    <section className="bg-grove px-5 py-24 text-paper md:px-8">
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-        <Reveal>
-          <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-paper/70">The honest truth</p>
-          <h2 className="font-display text-5xl leading-tight md:text-7xl">Most coconut products aren&apos;t what they say they are.</h2>
-          <p className="mt-7 max-w-xl text-base leading-8 text-paper/74">
+    <section className="relative overflow-hidden bg-[#17260f] px-5 py-24 text-paper md:px-8 lg:py-32">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_26%,rgba(247,243,236,0.08),transparent_32%),linear-gradient(90deg,rgba(255,253,248,0.03),transparent_45%)]" />
+      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+        <Reveal className="relative">
+          <p className="mb-7 text-[0.72rem] uppercase tracking-editorial text-paper/58">The honest truth</p>
+          <h2 className="max-w-2xl font-display text-5xl leading-[0.98] text-paper md:text-7xl">
+            Most coconut products aren&apos;t what they say they are.
+          </h2>
+          <p className="mt-8 max-w-2xl text-base leading-8 text-paper/62 md:text-lg md:leading-9">
             We are building .CO differently, with traceable sourcing, clean processing, honest ingredients and products designed around every meaningful part
             of the coconut.
           </p>
+          <Link
+            href="/shop"
+            className="mt-10 inline-flex items-center justify-center bg-clay px-7 py-4 text-sm text-paper transition hover:bg-paper hover:text-ink"
+          >
+            Explore catalogue
+          </Link>
         </Reveal>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="relative grid gap-4">
           {cards.map((card, index) => (
             <motion.article
               key={card.title}
               {...CoconutMotion.ProductLift}
-              className="border border-paper/12 bg-paper/[0.08] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_24px_70px_rgba(0,0,0,0.12)] backdrop-blur"
+              className="group relative overflow-hidden border border-paper/10 bg-[#101f0b]/78 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_24px_70px_rgba(0,0,0,0.12)] backdrop-blur md:p-8"
             >
-              <p className="mb-5 text-[0.68rem] uppercase tracking-editorial text-paper/55">0{index + 1}</p>
-              <h3 className="font-display text-3xl">{card.title}</h3>
-              <p className="mt-4 text-sm leading-7 text-paper/72">{card.body}</p>
+              {index === 2 ? <div className="absolute inset-y-0 left-[42%] w-28 bg-clay/10 blur-2xl" /> : null}
+              <div className="relative flex items-start justify-between gap-6">
+                <div>
+                  <h3 className="font-sans text-2xl leading-tight text-paper md:text-3xl">{card.title}</h3>
+                  <p className="mt-4 max-w-2xl text-base leading-8 text-paper/58 md:text-lg">{card.body}</p>
+                </div>
+                <span className="shrink-0 rounded-full border border-paper/10 bg-paper/[0.06] px-4 py-2 text-xs text-paper/50">{card.badge}</span>
+              </div>
             </motion.article>
           ))}
         </div>
