@@ -6,10 +6,13 @@ import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { CartButton } from "@/components/cart/CartDrawer";
 
 const links = [
   { href: "/about", label: "About" },
   { href: "/products", label: "Products" },
+  { href: "/shop", label: "Shop" },
+  { href: "/recipes", label: "Recipes" },
   { href: "/sustainability", label: "Sustainability" },
   { href: "/founders", label: "Founders" },
   { href: "/journal", label: "Journal" }
@@ -19,8 +22,8 @@ export function Navigation() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const { scrollY } = useScroll();
-  const navPadding = useTransform(scrollY, [0, 120], [16, 10]);
-  const logoScale = useTransform(scrollY, [0, 120], [1, 0.82]);
+  const navPadding = useTransform(scrollY, [0, 120], [18, 11]);
+  const logoScale = useTransform(scrollY, [0, 120], [1, 0.9]);
 
   return (
     <motion.header
@@ -28,11 +31,11 @@ export function Navigation() {
     >
       <motion.nav style={{ paddingTop: navPadding, paddingBottom: navPadding }} className="mx-auto flex max-w-7xl items-center justify-between px-5 md:px-8">
         <Link href="/" className="flex items-center gap-3" aria-label=".CO home">
-          <motion.span style={{ scale: logoScale }} className="block origin-left">
-            <Image src="/images/logo.svg" alt=".CO The Coconut Company" width={82} height={66} priority />
+          <motion.span style={{ scale: logoScale }} className="block w-[92px] origin-left md:w-[112px]">
+            <Image src="/images/logo.svg" alt=".CO The Coconut Company" width={124} height={100} priority className="h-auto w-full" />
           </motion.span>
         </Link>
-        <div className="hidden items-center gap-7 text-[0.72rem] uppercase tracking-editorial text-muted md:flex">
+        <div className="hidden items-center gap-5 text-[0.7rem] uppercase tracking-editorial text-muted lg:flex xl:gap-7">
           {links.map((link) => (
             <Link
               key={link.href}
@@ -49,14 +52,17 @@ export function Navigation() {
             </Link>
           ))}
         </div>
-        <Link
-          href="/products"
-          data-analytics="cta_click"
-          data-analytics-label="nav_explore"
-          className="hidden border border-coconut px-4 py-2 text-[0.7rem] uppercase tracking-editorial text-coconut transition hover:bg-coconut hover:text-porcelain md:block"
-        >
-          Explore
-        </Link>
+        <div className="hidden items-center gap-3 md:flex">
+          <Link
+            href="/shop"
+            data-analytics="cta_click"
+            data-analytics-label="nav_shop"
+            className="border border-coconut px-4 py-2 text-[0.7rem] uppercase tracking-editorial text-coconut shadow-[0_12px_30px_rgba(33,25,21,0.06)] transition hover:bg-coconut hover:text-porcelain"
+          >
+            Shop
+          </Link>
+          <CartButton />
+        </div>
         <button
           type="button"
           aria-label="Toggle navigation"

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
@@ -8,32 +9,44 @@ const journey = [
   {
     title: "Kerala",
     detail: "A quiet map reveal begins in Palakkad, where the brand keeps its sourcing intelligence close to the land.",
-    accent: "Map reveal"
+    accent: "Map reveal",
+    image: "/optimized/assets-farming-kerala-coconut-palm.webp"
   },
   {
     title: "Farmers",
     detail: "Direct relationships form the first line of quality, with measured harvest windows and accountable supply.",
-    accent: "Connection lines"
+    accent: "Connection lines",
+    image: "/optimized/assets-farms-coconut-harvesting.webp"
   },
   {
     title: "Village Aggregation",
     detail: "Collection points reduce handling loss and create local participation before the product reaches production.",
-    accent: "Network nodes"
+    accent: "Network nodes",
+    image: "/optimized/assets-coconut-made-for-living-banner.webp"
   },
   {
     title: "Production",
     detail: "Cold-chain discipline, bottling standards, and format development turn raw origin into a modern house system.",
-    accent: "Bottling flow"
+    accent: "Bottling flow",
+    image: "/optimized/assets-coconut-tender-coconut-water.webp"
   },
   {
-    title: "UAE Expansion",
+    title: "Export",
+    detail: "Formats are prepared for export discipline, shelf clarity, and hospitality conversations beyond the local launch.",
+    accent: "Export route",
+    image: "/optimized/assets-products-co-water-reserve.webp"
+  },
+  {
+    title: "UAE",
     detail: "A first international route connects Kerala to Dubai through hospitality, premium retail, and diaspora demand.",
-    accent: "Kerala to Dubai"
+    accent: "Kerala to Dubai",
+    image: "/optimized/assets-social-founder-journey.webp"
   },
   {
     title: "Global Vision",
     detail: "The long horizon is a coconut lifestyle house: beverage, food, care, kitchen, and culture.",
-    accent: "World reveal"
+    accent: "World reveal",
+    image: "/optimized/assets-textures-palm-shadow.webp"
   }
 ];
 
@@ -52,7 +65,7 @@ export function AboutJourney() {
             From a Kerala grove to a global table.
           </h2>
         </div>
-        <motion.div style={{ x }} className="flex w-[560vw] gap-5 md:w-[360vw]">
+        <motion.div style={{ x }} className="flex w-[650vw] gap-5 md:w-[430vw]">
           {journey.map((item, index) => (
             <article
               key={item.title}
@@ -66,7 +79,7 @@ export function AboutJourney() {
                   <p className="mt-6 max-w-sm text-base leading-8 text-muted">{item.detail}</p>
                 </div>
               </div>
-              <JourneyVisual index={index} reduceMotion={motionMode.shouldReduce} />
+              <JourneyVisual index={index} reduceMotion={motionMode.shouldReduce} image={item.image} title={item.title} />
             </article>
           ))}
         </motion.div>
@@ -75,11 +88,13 @@ export function AboutJourney() {
   );
 }
 
-function JourneyVisual({ index, reduceMotion }: { index: number; reduceMotion: boolean }) {
+function JourneyVisual({ index, reduceMotion, image, title }: { index: number; reduceMotion: boolean; image: string; title: string }) {
   const nodes = Array.from({ length: 8 }, (_, item) => item);
 
   return (
     <div className="relative mt-8 min-h-72 overflow-hidden bg-[linear-gradient(135deg,#f7f3ec,#fffdf8)] md:mt-0">
+      <Image src={image} alt={`${title} stage of the .CO coconut journey`} fill sizes="(min-width: 768px) 31vw, 80vw" className="object-cover opacity-45" />
+      <div className="absolute inset-0 bg-gradient-to-br from-porcelain/70 via-porcelain/40 to-paper/72" />
       <motion.div
         initial={{ opacity: 0, pathLength: 0 }}
         whileInView={{ opacity: 1, pathLength: 1 }}

@@ -38,7 +38,7 @@ export default function ShopPage() {
                 href={`/shop/${product.slug}`}
                 data-analytics="product_interest_click"
                 data-analytics-label={product.name}
-                className="group block border border-shell bg-porcelain p-4 transition duration-500 hover:-translate-y-1 hover:shadow-soft"
+                className="group co-soft-depth co-soft-depth-hover block border border-shell bg-porcelain p-4"
               >
                 <div className="relative mb-6 aspect-[4/5] overflow-hidden bg-shell">
                   <Image src={product.image} alt={product.name} fill sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw" className="object-cover transition duration-700 group-hover:scale-[1.03]" />

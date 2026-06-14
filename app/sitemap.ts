@@ -14,6 +14,7 @@ const routes = [
   "/shop/melt-co-mango-coconut",
   "/shop/co-kitchen-coconut-oil",
   "/shop/co-botanica-coconut-care",
+  "/shop/co-lifestyle",
   "/recipes",
   "/sign-in",
   "/sign-up",

@@ -3,6 +3,8 @@ import { Footer } from "@/components/Footer";
 import { Navigation } from "@/components/Navigation";
 import { Analytics } from "@/components/seo/Analytics";
 import { StructuredData } from "@/components/seo/StructuredData";
+import { CartDrawer } from "@/components/cart/CartDrawer";
+import { CartProvider } from "@/lib/cart/cart-context";
 import { defaultDescription, siteName, siteUrl } from "@/lib/seo/metadata";
 import "./globals.css";
 
@@ -63,11 +65,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className="font-sans antialiased">
-        <StructuredData />
-        <Navigation />
-        <main>{children}</main>
-        <Footer />
-        <Analytics />
+        <CartProvider>
+          <StructuredData />
+          <Navigation />
+          <main>{children}</main>
+          <Footer />
+          <CartDrawer />
+          <Analytics />
+        </CartProvider>
       </body>
     </html>
   );

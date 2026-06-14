@@ -38,7 +38,7 @@ export default function RecipesPage() {
         <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-2 lg:grid-cols-3">
           {recipes.map((recipe, index) => (
             <Reveal key={recipe.slug} delay={index * 0.04}>
-              <article id={recipe.slug} className="border border-shell bg-porcelain p-4">
+              <article id={recipe.slug} className="co-soft-depth border border-shell bg-porcelain p-4">
                 <div className="relative mb-6 aspect-[4/3] overflow-hidden bg-shell">
                   <Image src={recipe.image} alt={recipe.title} fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover" />
                 </div>
@@ -47,6 +47,10 @@ export default function RecipesPage() {
                 </p>
                 <h2 className="font-display text-3xl text-ink">{recipe.title}</h2>
                 <p className="mt-4 text-sm leading-7 text-muted">{recipe.description}</p>
+                <div className="mt-6 border-t border-shell pt-5">
+                  <p className="mb-3 text-[0.62rem] uppercase tracking-editorial text-grove">Ingredients</p>
+                  <p className="text-sm leading-7 text-muted">{recipe.ingredients.join(", ")}</p>
+                </div>
                 <p className="mt-6 text-xs uppercase tracking-editorial text-coconut">Product used: {recipe.product}</p>
               </article>
             </Reveal>

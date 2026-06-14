@@ -162,7 +162,7 @@ export function CataloguePreview() {
             href={`/shop/${product.slug}`}
             data-analytics="product_interest_click"
             data-analytics-label={product.name}
-            className="group border border-shell bg-porcelain p-4 transition duration-500 hover:-translate-y-1 hover:shadow-soft"
+            className="group co-soft-depth co-soft-depth-hover border border-shell bg-porcelain p-4"
           >
             <div className="relative mb-6 aspect-[4/5] overflow-hidden bg-shell">
               <Image src={product.image} alt={product.name} fill sizes="(min-width: 768px) 25vw, 90vw" className="object-cover transition duration-700 group-hover:scale-[1.03]" />
@@ -188,7 +188,7 @@ export function RecipesPreview() {
       />
       <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3">
         {recipes.slice(0, 3).map((recipe) => (
-          <motion.article key={recipe.slug} {...CoconutMotion.RecipeReveal} className="border border-shell bg-porcelain p-4">
+          <motion.article key={recipe.slug} {...CoconutMotion.RecipeReveal} className="co-soft-depth border border-shell bg-porcelain p-4">
             <div className="relative mb-6 aspect-[4/3] overflow-hidden bg-shell">
               <Image src={recipe.image} alt={recipe.title} fill sizes="(min-width: 768px) 33vw, 90vw" className="object-cover" />
             </div>
@@ -242,7 +242,7 @@ export function TestimonialsSection() {
       />
       <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3">
         {communityNotes.map((note) => (
-          <motion.article key={note.label} {...CoconutMotion.TestimonialFade} className="border border-shell bg-paper p-7">
+          <motion.article key={note.label} {...CoconutMotion.TestimonialFade} className="co-soft-depth co-soft-depth-hover border border-shell bg-paper p-7">
             <p className="mb-6 text-[0.65rem] uppercase tracking-editorial text-grove">{note.label}</p>
             <p className="font-display text-3xl leading-tight text-ink">“{note.note}”</p>
             <p className="mt-8 text-xs uppercase tracking-editorial text-muted">{note.source}</p>
@@ -272,7 +272,7 @@ export function SocialFounderBanners() {
         <div className="grid gap-4 sm:grid-cols-2">
           {socialStories.map((story, index) => (
             <Reveal key={story} delay={index * 0.04}>
-              <div className="min-h-40 border border-shell bg-porcelain p-6">
+              <div className="co-soft-depth co-soft-depth-hover min-h-40 border border-shell bg-porcelain p-6">
                 <Sparkles className="mb-8 text-clay" size={18} />
                 <h3 className="font-display text-3xl text-ink">{story}</h3>
               </div>

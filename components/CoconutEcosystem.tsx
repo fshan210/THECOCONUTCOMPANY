@@ -1,8 +1,16 @@
 "use client";
 
 import { motion, useMotionValue, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
+import dynamic from "next/dynamic";
 import { useRef } from "react";
 import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
+
+const HeroCoconut3D = dynamic(() => import("@/components/HeroCoconut3D"), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[330px] w-[330px] rounded-full bg-[radial-gradient(circle_at_38%_30%,#9a6a43_0,#654026_44%,#2f2018_100%)] shadow-[inset_-28px_-24px_60px_rgba(0,0,0,0.22),0_34px_90px_rgba(33,25,21,0.2)] md:h-[470px] md:w-[470px]" />
+  )
+});
 
 const stages = [
   "Whole Coconut",
@@ -36,6 +44,7 @@ export function CoconutEcosystem() {
   const shellGap = useTransform(scrollYProgress, [0, 0.28, 0.65, 1], [0, 34, 54, 76]);
   const leftShellX = useTransform(shellGap, (value) => -value);
   const rightShellX = useTransform(shellGap, (value) => value);
+  const shellOverlayOpacity = useTransform(scrollYProgress, [0.08, 0.34], [0, 0.22]);
   const waterOpacity = useTransform(scrollYProgress, [0.12, 0.28, 0.48], [0, 1, 0.35]);
   const creamOpacity = useTransform(scrollYProgress, [0.34, 0.5, 0.7], [0, 1, 0.45]);
   const lifeOpacity = useTransform(scrollYProgress, [0.55, 0.72, 0.95], [0, 1, 0.5]);
@@ -75,18 +84,17 @@ export function CoconutEcosystem() {
             <motion.div
               animate={motionMode.shouldReduce ? { rotateY: 0 } : { rotateY: [0, 360] }}
               transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-0 rounded-full"
-              style={{ transformStyle: "preserve-3d" }}
+              className="absolute inset-0 grid place-items-center rounded-full"
             >
+              <HeroCoconut3D />
               <motion.div
-                style={{ x: leftShellX }}
-                className="absolute left-[8%] top-[7%] h-[86%] w-[48%] rounded-l-full bg-[radial-gradient(circle_at_72%_35%,#9a6a43_0,#654026_35%,#2f2018_100%)] shadow-[inset_-22px_0_42px_rgba(255,255,255,0.08),0_30px_80px_rgba(33,25,21,0.18)]"
+                style={{ x: leftShellX, opacity: shellOverlayOpacity }}
+                className="absolute left-[8%] top-[8%] h-[84%] w-[46%] rounded-l-full border border-coconut/10 bg-coconut/10 blur-[0.5px]"
               />
               <motion.div
-                style={{ x: rightShellX }}
-                className="absolute right-[8%] top-[7%] h-[86%] w-[48%] rounded-r-full bg-[radial-gradient(circle_at_24%_32%,#a8754a_0,#654026_38%,#2b1d16_100%)] shadow-[inset_18px_0_36px_rgba(255,255,255,0.08),0_30px_80px_rgba(33,25,21,0.18)]"
+                style={{ x: rightShellX, opacity: shellOverlayOpacity }}
+                className="absolute right-[8%] top-[8%] h-[84%] w-[46%] rounded-r-full border border-coconut/10 bg-coconut/10 blur-[0.5px]"
               />
-              <div className="absolute left-[18%] top-[16%] h-[68%] w-[64%] rounded-full bg-[radial-gradient(circle_at_50%_35%,#fffdf8_0,#f2eadf_42%,#d8c6b1_100%)] shadow-inner" />
             </motion.div>
 
             <motion.div style={{ opacity: waterOpacity }} className="absolute left-[31%] top-[24%] h-28 w-28 rounded-full bg-[radial-gradient(circle,#d8f4ef_0,#8cc9bd_52%,#4a6f4a_100%)] blur-[1px]" />
