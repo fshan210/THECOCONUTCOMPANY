@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, useGLTF } from "@react-three/drei";
-import { Suspense, useRef } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import type { Group } from "three";
 import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
 
@@ -31,10 +31,24 @@ function CoconutFallback() {
   );
 }
 
+function supportsWebGL() {
+  try {
+    const canvas = document.createElement("canvas");
+    return Boolean(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"));
+  } catch {
+    return false;
+  }
+}
+
 export default function HeroCoconut3D() {
   const { shouldReduce } = useCoconutMotionMode();
+  const [canRender3D, setCanRender3D] = useState(false);
 
-  if (shouldReduce) {
+  useEffect(() => {
+    setCanRender3D(!shouldReduce && supportsWebGL());
+  }, [shouldReduce]);
+
+  if (shouldReduce || !canRender3D) {
     return (
       <div className="relative h-[330px] w-[330px] md:h-[470px] md:w-[470px]">
         <div className="absolute inset-x-12 bottom-8 h-8 rounded-full bg-ink/10 blur-xl" />

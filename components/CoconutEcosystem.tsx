@@ -2,7 +2,7 @@
 
 import { motion, useMotionValue, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
 import dynamic from "next/dynamic";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
 
 const HeroCoconut3D = dynamic(() => import("@/components/HeroCoconut3D"), {
@@ -27,9 +27,25 @@ const emergeItems = [
   { label: "Coconut Cosmetics", x: "30%", y: "20%", delay: 2.35 }
 ];
 
+function CoconutFallback() {
+  return (
+    <div className="h-[330px] w-[330px] rounded-full bg-[radial-gradient(circle_at_38%_30%,#9a6a43_0,#654026_44%,#2f2018_100%)] shadow-[inset_-28px_-24px_60px_rgba(0,0,0,0.22),0_34px_90px_rgba(33,25,21,0.2)] md:h-[470px] md:w-[470px]" />
+  );
+}
+
+function supportsWebGL() {
+  try {
+    const canvas = document.createElement("canvas");
+    return Boolean(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"));
+  } catch {
+    return false;
+  }
+}
+
 export function CoconutEcosystem() {
   const ref = useRef<HTMLDivElement>(null);
   const motionMode = useCoconutMotionMode();
+  const [canUse3D, setCanUse3D] = useState(false);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const x = useSpring(mouseX, { stiffness: 120, damping: 22, mass: 0.5 });
@@ -49,6 +65,21 @@ export function CoconutEcosystem() {
   const creamOpacity = useTransform(scrollYProgress, [0.34, 0.5, 0.7], [0, 1, 0.45]);
   const lifeOpacity = useTransform(scrollYProgress, [0.55, 0.72, 0.95], [0, 1, 0.5]);
   const globalOpacity = useTransform(scrollYProgress, [0.72, 0.95], [0, 1]);
+
+  useEffect(() => {
+    if (motionMode.shouldReduce) {
+      setCanUse3D(false);
+      return;
+    }
+
+    const media = window.matchMedia("(min-width: 768px)");
+    const update = () => setCanUse3D(media.matches && supportsWebGL());
+
+    update();
+    media.addEventListener("change", update);
+
+    return () => media.removeEventListener("change", update);
+  }, [motionMode.shouldReduce]);
 
   return (
     <section ref={ref} className="relative min-h-[420vh] bg-porcelain">
@@ -86,7 +117,7 @@ export function CoconutEcosystem() {
               transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
               className="absolute inset-0 grid place-items-center rounded-full"
             >
-              <HeroCoconut3D />
+              {canUse3D ? <HeroCoconut3D /> : <CoconutFallback />}
               <motion.div
                 style={{ x: leftShellX, opacity: shellOverlayOpacity }}
                 className="absolute left-[8%] top-[8%] h-[84%] w-[46%] rounded-l-full border border-coconut/10 bg-coconut/10 blur-[0.5px]"
