@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Navigation } from "@/components/Navigation";
 import { Analytics } from "@/components/seo/Analytics";
@@ -7,6 +8,13 @@ import { CartDrawer } from "@/components/cart/CartDrawer";
 import { CartProvider } from "@/lib/cart/cart-context";
 import { defaultDescription, siteName, siteUrl } from "@/lib/seo/metadata";
 import "./globals.css";
+
+const brandFont = Roboto({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "500", "700"],
+  display: "swap",
+  variable: "--font-brand"
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -64,7 +72,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased">
+      <body className={`${brandFont.variable} font-sans antialiased`}>
         <CartProvider>
           <StructuredData />
           <Navigation />

@@ -27,8 +27,8 @@ export default function Image() {
           Palakkad, Kerala
         </div>
         <div>
-          <div style={{ fontSize: 112, lineHeight: 0.95, fontFamily: "serif" }}>.CO</div>
-          <div style={{ marginTop: 24, fontSize: 56, lineHeight: 1.05, fontFamily: "serif" }}>
+          <div style={{ fontSize: 112, lineHeight: 0.95, fontFamily: "Roboto, Arial, sans-serif", fontWeight: 300 }}>.CO</div>
+          <div style={{ marginTop: 24, fontSize: 56, lineHeight: 1.05, fontFamily: "Roboto, Arial, sans-serif", fontWeight: 300 }}>
             The Coconut Company
           </div>
         </div>

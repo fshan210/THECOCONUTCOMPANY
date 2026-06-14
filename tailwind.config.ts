@@ -9,18 +9,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: "#f7f3ec",
+        paper: "#F5EBD7",
         porcelain: "#fffdf8",
-        ink: "#211915",
+        ink: "#2d2d2d",
         muted: "#76695f",
-        coconut: "#654026",
-        grove: "#4a6f4a",
+        coconut: "#3e2e1f",
+        grove: "#4A6F4A",
+        palm: "#A8B07B",
+        sun: "#D8C07A",
         clay: "#b88664",
         shell: "#e9dfd1"
       },
       fontFamily: {
-        display: ["Cormorant Garamond", "Georgia", "Times New Roman", "serif"],
-        sans: ["Inter", "Avenir Next", "Helvetica Neue", "Arial", "sans-serif"]
+        display: ["var(--font-brand)", "Roboto", "Inter", "Avenir Next", "Helvetica Neue", "Arial", "sans-serif"],
+        sans: ["var(--font-brand)", "Roboto", "Inter", "Avenir Next", "Helvetica Neue", "Arial", "sans-serif"]
       },
       letterSpacing: {
         editorial: "0.08em"

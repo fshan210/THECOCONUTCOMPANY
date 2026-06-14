@@ -17,18 +17,42 @@ html {
 body {
   margin: 0;
   background: #fffdf8;
-  color: #211915;
+  color: #2d2d2d;
   text-rendering: geometricPrecision;
 }
 
 ::selection {
-  background: #654026;
+  background: #3e2e1f;
   color: #fffdf8;
 }
 
 .editorial-rule {
-  background-image: linear-gradient(to right, rgba(101, 64, 38, 0.32) 1px, transparent 1px);
+  background-image: linear-gradient(to right, rgba(62, 46, 31, 0.32) 1px, transparent 1px);
   background-size: 16.66% 100%;
+}
+
+.co-wave-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='68' height='176' viewBox='0 0 68 176' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18 0C38 24 38 44 18 68C-2 92 -2 116 18 140C28 152 33 164 33 176' stroke='%23A8B07B' stroke-opacity='.52' stroke-width='1.4'/%3E%3Cpath d='M50 0C70 24 70 44 50 68C30 92 30 116 50 140C60 152 65 164 65 176' stroke='%23D8C07A' stroke-opacity='.46' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 68px 176px;
+}
+
+.co-wave-edge::after {
+  pointer-events: none;
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: min(36vw, 420px);
+  content: "";
+  background-image: linear-gradient(to right, transparent, rgba(255, 253, 248, 0.68) 28%, rgba(255, 253, 248, 0.92)), url("data:image/svg+xml,%3Csvg width='68' height='176' viewBox='0 0 68 176' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18 0C38 24 38 44 18 68C-2 92 -2 116 18 140C28 152 33 164 33 176' stroke='%23A8B07B' stroke-opacity='.5' stroke-width='1.4'/%3E%3Cpath d='M50 0C70 24 70 44 50 68C30 92 30 116 50 140C60 152 65 164 65 176' stroke='%23D8C07A' stroke-opacity='.44' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: auto, 68px 176px;
+  opacity: 0.62;
+}
+
+.co-brand-doodle {
+  pointer-events: none;
+  color: #3e2e1f;
+  opacity: 0.16;
 }
 
 .co-soft-depth {

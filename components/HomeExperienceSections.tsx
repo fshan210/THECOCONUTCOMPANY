@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { MagneticButton } from "@/components/MagneticButton";
 import { Reveal } from "@/components/Motion";
 import { SectionHeader } from "@/components/SectionHeader";
+import { CoconutSliceDoodle, PalmLeafDoodle, TenderCoconutDoodle } from "@/components/BrandDoodles";
 import { communityNotes, recipes, shopProducts, socialStories, usageDirections } from "@/lib/catalog";
 import { CoconutMotion, useCoconutMotionMode } from "@/lib/animations/coconut-motion";
 
@@ -18,8 +19,9 @@ export function MadeForLivingVisual() {
       <div className="mx-auto max-w-7xl">
         <motion.div
           {...CoconutMotion.NatureFade}
-          className="relative overflow-hidden border border-shell bg-[#fbf4e8] shadow-soft"
+          className="co-wave-edge relative overflow-hidden border border-shell bg-[#fbf4e8] shadow-soft"
         >
+          <PalmLeafDoodle className="co-brand-doodle absolute -bottom-7 left-7 z-10 hidden w-40 rotate-[-8deg] md:block" />
           <motion.div
             animate={shouldReduce ? undefined : { y: [0, -5, 0] }}
             transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
@@ -73,6 +75,7 @@ export function HonestTruthSection() {
   return (
     <section className="relative overflow-hidden bg-[#17260f] px-5 py-24 text-paper md:px-8 lg:py-32">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_26%,rgba(247,243,236,0.08),transparent_32%),linear-gradient(90deg,rgba(255,253,248,0.03),transparent_45%)]" />
+      <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 w-[28vw] min-w-52 opacity-[0.08]" />
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
         <Reveal className="relative">
           <p className="mb-7 text-[0.72rem] uppercase tracking-editorial text-paper/58">The honest truth</p>
@@ -149,7 +152,8 @@ export function ProductHighlight() {
 
 export function CataloguePreview() {
   return (
-    <section className="bg-paper px-5 py-24 md:px-8">
+    <section className="relative overflow-hidden bg-paper px-5 py-24 md:px-8">
+      <CoconutSliceDoodle className="co-brand-doodle absolute left-4 top-10 hidden w-32 md:block" />
       <SectionHeader
         kicker="Pre-launch catalogue"
         title="Coconut products without the cart noise."
@@ -180,7 +184,8 @@ export function CataloguePreview() {
 
 export function RecipesPreview() {
   return (
-    <section className="px-5 py-24 md:px-8">
+    <section className="relative overflow-hidden px-5 py-24 md:px-8">
+      <TenderCoconutDoodle className="co-brand-doodle absolute right-6 top-8 hidden w-28 text-grove md:block" />
       <SectionHeader
         kicker="Recipes"
         title="Everyday coconut rituals."
@@ -255,7 +260,8 @@ export function TestimonialsSection() {
 
 export function SocialFounderBanners() {
   return (
-    <section className="bg-paper px-5 py-24 md:px-8">
+    <section className="relative overflow-hidden bg-paper px-5 py-24 md:px-8">
+      <PalmLeafDoodle className="co-brand-doodle absolute bottom-8 right-8 hidden w-44 md:block" />
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <Reveal>
           <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-grove">Founder journey</p>
@@ -287,7 +293,8 @@ export function SocialFounderBanners() {
 export function DistributorPartnershipCta() {
   return (
     <section className="px-5 py-24 md:px-8">
-      <div className="mx-auto grid max-w-7xl gap-8 bg-ink p-8 text-paper md:grid-cols-[1fr_0.8fr] md:p-12">
+      <div className="relative mx-auto grid max-w-7xl gap-8 overflow-hidden bg-ink p-8 text-paper md:grid-cols-[1fr_0.8fr] md:p-12">
+        <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 w-72 opacity-[0.07]" />
         <div>
           <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-paper/60">Partnerships</p>
           <h2 className="font-display text-5xl leading-tight md:text-7xl">Bring .CO into retail, hospitality, and new markets.</h2>
