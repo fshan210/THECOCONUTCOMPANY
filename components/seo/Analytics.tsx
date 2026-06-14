@@ -27,14 +27,18 @@ function GoogleAnalytics() {
 
   return (
     <>
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`} strategy="afterInteractive" />
-      <Script id="ga4-init" strategy="afterInteractive">
+      <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`} strategy="lazyOnload" />
+      <Script id="ga4-init" strategy="lazyOnload">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           window.gtag = gtag;
           gtag('js', new Date());
-          gtag('config', '${gaMeasurementId}', { send_page_view: false });
+          gtag('config', '${gaMeasurementId}', {
+            page_path: window.location.pathname + window.location.search,
+            page_location: window.location.href,
+            page_title: document.title
+          });
         `}
       </Script>
     </>
@@ -45,7 +49,7 @@ function MicrosoftClarity() {
   if (!isProduction || !clarityProjectId) return null;
 
   return (
-    <Script id="microsoft-clarity" strategy="afterInteractive">
+    <Script id="microsoft-clarity" strategy="lazyOnload">
       {`
         (function(c,l,a,r,i,t,y){
           c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
