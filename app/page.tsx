@@ -8,6 +8,17 @@ import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Motion";
 import { SectionHeader } from "@/components/SectionHeader";
 import { StructuredData } from "@/components/seo/StructuredData";
+import {
+  CataloguePreview,
+  DistributorPartnershipCta,
+  HonestTruthSection,
+  MadeForLivingVisual,
+  ProductHighlight,
+  RecipesPreview,
+  SocialFounderBanners,
+  TestimonialsSection,
+  WellnessUsageSection
+} from "@/components/HomeExperienceSections";
 import { products } from "@/lib/content";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
@@ -22,6 +33,7 @@ export default function HomePage() {
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }]} />
       <CoconutEcosystem />
+      <MadeForLivingVisual />
 
       <section className="editorial-rule mx-auto grid max-w-7xl items-center gap-12 px-5 py-24 md:grid-cols-[1fr_0.86fr] md:px-8">
         <Reveal>
@@ -75,22 +87,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-10 px-5 py-24 md:grid-cols-[0.85fr_1.15fr] md:px-8">
-        <Reveal>
-          <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-grove">Brand posture</p>
-          <h2 className="font-display text-5xl leading-tight text-ink md:text-7xl">Quiet luxury, accountable origin.</h2>
-        </Reveal>
-        <Reveal delay={0.12} className="grid gap-6 md:grid-cols-2">
-          {["Direct aggregation", "Cold-chain discipline", "Minimal formulation", "Hospitality-ready design"].map((item) => (
-            <div key={item} className="border-t border-shell pt-6">
-              <h3 className="mb-4 font-display text-3xl text-ink">{item}</h3>
-              <p className="text-sm leading-7 text-muted">
-                Built for repeat trust: clean sourcing, measured quality, and understated design that belongs in refined everyday spaces.
-              </p>
-            </div>
-          ))}
-        </Reveal>
-      </section>
+      <HonestTruthSection />
+      <ProductHighlight />
+      <CataloguePreview />
+      <RecipesPreview />
+      <WellnessUsageSection />
+      <TestimonialsSection />
+      <SocialFounderBanners />
+      <DistributorPartnershipCta />
     </>
   );
 }

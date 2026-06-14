@@ -25,9 +25,17 @@ export function Footer() {
         </div>
         <div className="space-y-4 text-sm text-paper/70">
           <p className="text-[0.7rem] uppercase tracking-editorial text-paper">Pages</p>
-          {["About", "Products", "Sustainability", "Founders", "Journal"].map((item) => (
-            <Link key={item} href={`/${item.toLowerCase()}`} className="block transition hover:text-paper">
-              {item}
+          {[
+            { label: "About", href: "/about" },
+            { label: "Products", href: "/products" },
+            { label: "Shop", href: "/shop" },
+            { label: "Recipes", href: "/recipes" },
+            { label: "Sustainability", href: "/sustainability" },
+            { label: "Founders", href: "/founders" },
+            { label: "Journal", href: "/journal" }
+          ].map((item) => (
+            <Link key={item.href} href={item.href} className="block transition hover:text-paper">
+              {item.label}
             </Link>
           ))}
         </div>

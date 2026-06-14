@@ -2,7 +2,23 @@ import type { MetadataRoute } from "next";
 
 const siteUrl = "https://cothecoconutcompany.com";
 
-const routes = ["", "/about", "/products", "/sustainability", "/founders", "/journal"];
+const routes = [
+  "",
+  "/about",
+  "/products",
+  "/sustainability",
+  "/founders",
+  "/journal",
+  "/shop",
+  "/shop/co-water",
+  "/shop/melt-co-mango-coconut",
+  "/shop/co-kitchen-coconut-oil",
+  "/shop/co-botanica-coconut-care",
+  "/recipes",
+  "/sign-in",
+  "/sign-up",
+  "/account"
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => ({

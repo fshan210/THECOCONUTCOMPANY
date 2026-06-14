@@ -1,4 +1,5 @@
 import { siteName, siteUrl } from "@/lib/seo/metadata";
+import type { ShopProduct } from "@/lib/catalog";
 
 export function organizationSchema() {
   return {
@@ -67,6 +68,51 @@ export function articleSchemaPlaceholder() {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: "Future .CO article schema placeholder",
+    publisher: organizationSchema()
+  };
+}
+
+export function productSchema(product: ShopProduct) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    brand: {
+      "@type": "Brand",
+      name: siteName
+    },
+    category: product.category,
+    description: product.shortDescription,
+    image: `${siteUrl}${product.image}`,
+    url: `${siteUrl}/shop/${product.slug}`,
+    offers: {
+      "@type": "Offer",
+      availability: "https://schema.org/PreOrder",
+      priceCurrency: "INR",
+      url: `${siteUrl}/shop/${product.slug}`
+    }
+  };
+}
+
+export function recipeSchema(recipe: {
+  title: string;
+  description: string;
+  image: string;
+  time: string;
+  difficulty: string;
+  product: string;
+  slug: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    name: recipe.title,
+    description: recipe.description,
+    image: `${siteUrl}${recipe.image}`,
+    url: `${siteUrl}/recipes#${recipe.slug}`,
+    recipeCategory: recipe.difficulty,
+    recipeIngredient: [recipe.product],
+    totalTime: recipe.time,
     publisher: organizationSchema()
   };
 }
