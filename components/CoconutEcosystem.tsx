@@ -82,12 +82,12 @@ export function CoconutEcosystem() {
   }, [motionMode.shouldReduce]);
 
   return (
-    <section ref={ref} className="relative min-h-[420vh] bg-porcelain">
+    <section ref={ref} className="relative min-h-[240vh] bg-porcelain md:min-h-[420vh]">
       <div className="sticky top-20 mx-auto grid min-h-[calc(100vh-80px)] max-w-7xl items-center gap-10 px-5 py-14 md:grid-cols-[0.9fr_1.1fr] md:px-8">
         <div className="max-w-md">
           <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-grove">One coconut. Endless possibilities.</p>
           <motion.h2
-            style={{ opacity: globalOpacity }}
+            style={{ opacity: motionMode.shouldReduce ? 1 : globalOpacity }}
             className="mb-8 font-display text-5xl leading-tight text-ink md:text-7xl"
           >
             A lifestyle house, grown from a single origin.
