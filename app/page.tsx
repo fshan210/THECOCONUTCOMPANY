@@ -9,6 +9,7 @@ import {
   DistributorPartnershipCta,
   HonestTruthSection,
   MadeForLivingVisual,
+  NewsletterSignupSection,
   ProductHighlight,
   RecipesPreview,
   SocialFounderBanners,
@@ -54,6 +55,7 @@ export default function HomePage() {
       <TestimonialsSection />
       <SocialFounderBanners />
       <DistributorPartnershipCta />
+      <NewsletterSignupSection />
     </>
   );
 }

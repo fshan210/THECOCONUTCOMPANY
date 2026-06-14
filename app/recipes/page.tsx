@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
+import { CoconutSliceDoodle } from "@/components/BrandDoodles";
 import { Reveal } from "@/components/Motion";
 import { SectionHeader } from "@/components/SectionHeader";
 import { StructuredData } from "@/components/seo/StructuredData";
@@ -22,7 +23,8 @@ export default function RecipesPage() {
         breadcrumbs={[{ name: "Home", path: "/" }, { name: "Recipes", path: "/recipes" }]}
         extra={recipes.map(recipeSchema)}
       />
-      <section className="px-5 py-24 md:px-8">
+      <section className="relative overflow-hidden px-5 py-24 md:px-8">
+        <CoconutSliceDoodle className="co-brand-doodle absolute left-5 top-10 hidden w-36 text-coconut md:block" />
         <SectionHeader
           kicker="Recipes"
           title="Coconut rituals for modern living."
@@ -30,7 +32,7 @@ export default function RecipesPage() {
         />
         <div className="mx-auto mb-10 flex max-w-7xl flex-wrap justify-center gap-3">
           {categories.map((category) => (
-            <span key={category} className="border border-shell bg-paper px-4 py-3 text-xs uppercase tracking-editorial text-muted">
+            <span key={category} className="co-neu px-4 py-3 text-xs uppercase tracking-editorial text-muted">
               {category}
             </span>
           ))}
@@ -38,7 +40,7 @@ export default function RecipesPage() {
         <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-2 lg:grid-cols-3">
           {recipes.map((recipe, index) => (
             <Reveal key={recipe.slug} delay={index * 0.04}>
-              <article id={recipe.slug} className="co-soft-depth border border-shell bg-porcelain p-4">
+              <article id={recipe.slug} className="co-glass co-soft-depth p-4">
                 <div className="relative mb-6 aspect-[4/3] overflow-hidden bg-shell">
                   <Image src={recipe.image} alt={recipe.title} fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover" />
                 </div>

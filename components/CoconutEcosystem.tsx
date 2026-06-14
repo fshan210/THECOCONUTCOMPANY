@@ -1,16 +1,11 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowUpRight, Bell } from "lucide-react";
 import { motion, useMotionValue, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
-import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
-
-const HeroCoconut3D = dynamic(() => import("@/components/HeroCoconut3D"), {
-  ssr: false,
-  loading: () => (
-    <div className="h-[330px] w-[330px] rounded-full bg-[radial-gradient(circle_at_38%_30%,#D8C07A_0,#3e2e1f_44%,#2d2d2d_100%)] shadow-[inset_-28px_-24px_60px_rgba(0,0,0,0.22),0_34px_90px_rgba(62,46,31,0.2)] md:h-[470px] md:w-[470px]" />
-  )
-});
 
 const stages = [
   "Whole Coconut",
@@ -29,23 +24,22 @@ const emergeItems = [
 
 function CoconutFallback() {
   return (
-    <div className="h-[330px] w-[330px] rounded-full bg-[radial-gradient(circle_at_38%_30%,#D8C07A_0,#3e2e1f_44%,#2d2d2d_100%)] shadow-[inset_-28px_-24px_60px_rgba(0,0,0,0.22),0_34px_90px_rgba(62,46,31,0.2)] md:h-[470px] md:w-[470px]" />
+    <div className="relative h-[330px] w-[330px] md:h-[470px] md:w-[470px]">
+      <Image
+        src="/assets/generated/hero-coconut-render.webp"
+        alt="Half-open coconut with visible coconut flesh and water"
+        fill
+        priority
+        sizes="(min-width: 768px) 470px, 330px"
+        className="object-contain drop-shadow-[0_34px_46px_rgba(62,46,31,0.22)]"
+      />
+    </div>
   );
-}
-
-function supportsWebGL() {
-  try {
-    const canvas = document.createElement("canvas");
-    return Boolean(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"));
-  } catch {
-    return false;
-  }
 }
 
 export function CoconutEcosystem() {
   const ref = useRef<HTMLDivElement>(null);
   const motionMode = useCoconutMotionMode();
-  const [canUse3D, setCanUse3D] = useState(false);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const x = useSpring(mouseX, { stiffness: 120, damping: 22, mass: 0.5 });
@@ -66,21 +60,6 @@ export function CoconutEcosystem() {
   const lifeOpacity = useTransform(scrollYProgress, [0.55, 0.72, 0.95], [0, 1, 0.5]);
   const globalOpacity = useTransform(scrollYProgress, [0.72, 0.95], [0, 1]);
 
-  useEffect(() => {
-    if (motionMode.shouldReduce) {
-      setCanUse3D(false);
-      return;
-    }
-
-    const media = window.matchMedia("(min-width: 768px)");
-    const update = () => setCanUse3D(media.matches && supportsWebGL());
-
-    update();
-    media.addEventListener("change", update);
-
-    return () => media.removeEventListener("change", update);
-  }, [motionMode.shouldReduce]);
-
   return (
     <section ref={ref} className="relative min-h-[240vh] bg-porcelain md:min-h-[420vh]">
       <div className="sticky top-20 mx-auto grid min-h-[calc(100vh-80px)] max-w-7xl items-center gap-10 px-5 py-14 md:grid-cols-[0.9fr_1.1fr] md:px-8">
@@ -92,6 +71,17 @@ export function CoconutEcosystem() {
           >
             A lifestyle house, grown from a single origin.
           </motion.h2>
+          <p className="mb-8 text-sm leading-7 text-muted md:text-base">
+            Coconut water, frozen desserts, kitchen essentials, care rituals, and future lifestyle expressions, all built around one versatile ingredient.
+          </p>
+          <div className="mb-8 flex flex-wrap gap-3">
+            <Link href="/shop" className="co-button-soft inline-flex items-center gap-3 bg-coconut px-5 py-3 text-sm text-paper transition hover:bg-ink">
+              Explore products <ArrowUpRight size={15} />
+            </Link>
+            <Link href="/sign-up" className="co-neu inline-flex items-center gap-3 px-5 py-3 text-sm text-coconut transition hover:-translate-y-0.5">
+              Notify me <Bell size={15} />
+            </Link>
+          </div>
           <div className="space-y-4">
             {stages.map((stage, index) => (
               <StageIndicator key={stage} stage={stage} index={index} progress={scrollYProgress} />
@@ -117,7 +107,7 @@ export function CoconutEcosystem() {
               transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
               className="absolute inset-0 grid place-items-center rounded-full"
             >
-              {canUse3D ? <HeroCoconut3D /> : <CoconutFallback />}
+              <CoconutFallback />
               <motion.div
                 style={{ x: leftShellX, opacity: shellOverlayOpacity }}
                 className="absolute left-[8%] top-[8%] h-[84%] w-[46%] rounded-l-full border border-coconut/10 bg-coconut/10 blur-[0.5px]"
@@ -154,6 +144,24 @@ export function CoconutEcosystem() {
                 {item.label}
               </motion.div>
             ))}
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="co-glass absolute bottom-4 left-3 max-w-[172px] p-4 text-xs leading-5 text-muted md:left-8"
+            >
+              <span className="mb-2 block text-[0.62rem] uppercase tracking-editorial text-grove">Launching soon</span>
+              .CO Water in a 330 ml everyday format.
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: -18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="co-glass absolute right-3 top-8 max-w-[168px] p-4 text-xs leading-5 text-muted md:right-4"
+            >
+              <span className="mb-2 block text-[0.62rem] uppercase tracking-editorial text-coconut">One ingredient</span>
+              Beverage, food, care, kitchen, and lifestyle.
+            </motion.div>
           </motion.div>
         </div>
       </div>

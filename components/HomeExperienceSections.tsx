@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Bell, Handshake, Sparkles } from "lucide-react";
+import { ArrowUpRight, Bell, Handshake, Mail, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { MagneticButton } from "@/components/MagneticButton";
 import { Reveal } from "@/components/Motion";
@@ -126,8 +126,8 @@ export function ProductHighlight() {
 
   return (
     <section className="mx-auto grid max-w-7xl gap-10 px-5 py-24 md:grid-cols-[1.05fr_0.95fr] md:items-center md:px-8">
-      <Reveal className="relative aspect-[4/5] overflow-hidden bg-shell md:aspect-[5/4]">
-        <Image src={water.image} alt={`${water.name} product highlight`} fill sizes="(min-width: 768px) 52vw, 100vw" className="object-cover" />
+      <Reveal className="co-glass relative aspect-[4/5] overflow-hidden md:aspect-[5/4]">
+        <Image src={water.image} alt={`${water.name} product highlight`} fill sizes="(min-width: 768px) 52vw, 100vw" className="object-contain p-8" />
       </Reveal>
       <Reveal delay={0.1}>
         <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-grove">First release</p>
@@ -171,10 +171,10 @@ export function CataloguePreview() {
             href={`/shop/${product.slug}`}
             data-analytics="product_interest_click"
             data-analytics-label={product.name}
-            className="group co-soft-depth co-soft-depth-hover border border-shell bg-porcelain p-4"
+            className="group co-neu co-soft-depth-hover p-4"
           >
-            <div className="relative mb-6 aspect-[4/5] overflow-hidden bg-shell">
-              <Image src={product.image} alt={product.name} fill sizes="(min-width: 768px) 25vw, 90vw" className="object-cover transition duration-700 group-hover:scale-[1.03]" />
+            <div className="relative mb-6 aspect-[4/5] overflow-hidden bg-shell/70">
+              <Image src={product.image} alt={product.name} fill sizes="(min-width: 768px) 25vw, 90vw" className="object-contain p-4 transition duration-700 group-hover:scale-[1.03]" />
             </div>
             <p className="mb-3 text-[0.65rem] uppercase tracking-editorial text-grove">{product.category}</p>
             <h3 className="font-display text-3xl text-ink">{product.name}</h3>
@@ -198,7 +198,7 @@ export function RecipesPreview() {
       />
       <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3">
         {recipes.slice(0, 3).map((recipe) => (
-          <motion.article key={recipe.slug} {...CoconutMotion.RecipeReveal} className="co-soft-depth border border-shell bg-porcelain p-4">
+          <motion.article key={recipe.slug} {...CoconutMotion.RecipeReveal} className="co-glass co-soft-depth p-4">
             <div className="relative mb-6 aspect-[4/3] overflow-hidden bg-shell">
               <Image src={recipe.image} alt={recipe.title} fill sizes="(min-width: 768px) 33vw, 90vw" className="object-cover" />
             </div>
@@ -252,7 +252,7 @@ export function TestimonialsSection() {
       />
       <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3">
         {communityNotes.map((note) => (
-          <motion.article key={note.label} {...CoconutMotion.TestimonialFade} className="co-soft-depth co-soft-depth-hover border border-shell bg-paper p-7">
+          <motion.article key={note.label} {...CoconutMotion.TestimonialFade} className="co-glass co-soft-depth-hover p-7">
             <p className="mb-6 text-[0.65rem] uppercase tracking-editorial text-grove">{note.label}</p>
             <p className="font-display text-3xl leading-tight text-ink">“{note.note}”</p>
             <p className="mt-8 text-xs uppercase tracking-editorial text-muted">{note.source}</p>
@@ -283,7 +283,7 @@ export function SocialFounderBanners() {
         <div className="grid gap-4 sm:grid-cols-2">
           {socialStories.map((story, index) => (
             <Reveal key={story} delay={index * 0.04}>
-              <div className="co-soft-depth co-soft-depth-hover min-h-40 border border-shell bg-porcelain p-6">
+              <div className="co-glass co-soft-depth-hover min-h-40 p-6">
                 <Sparkles className="mb-8 text-clay" size={18} />
                 <h3 className="font-display text-3xl text-ink">{story}</h3>
               </div>
@@ -312,6 +312,38 @@ export function DistributorPartnershipCta() {
             Distributor Enquiry <Handshake size={16} />
           </Link>
         </div>
+      </div>
+    </section>
+  );
+}
+
+export function NewsletterSignupSection() {
+  return (
+    <section className="relative overflow-hidden bg-porcelain px-5 py-20 md:px-8">
+      <CoconutSliceDoodle className="co-brand-doodle absolute right-6 top-8 hidden w-36 text-grove md:block" />
+      <div className="co-glass mx-auto grid max-w-7xl gap-8 p-6 md:grid-cols-[0.9fr_1.1fr] md:p-10">
+        <div>
+          <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-grove">Launch notes</p>
+          <h2 className="font-display text-4xl leading-tight text-ink md:text-6xl">Fresh drops, recipes, and early access.</h2>
+          <p className="mt-5 max-w-xl text-sm leading-7 text-muted">
+            Join the .CO circle for launch timing, product tastings, recipe rituals, and distributor updates.
+          </p>
+        </div>
+        <form className="grid content-end gap-3 sm:grid-cols-[1fr_auto]" data-analytics-form="newsletter">
+          <label className="sr-only" htmlFor="newsletter-email">
+            Email
+          </label>
+          <input
+            id="newsletter-email"
+            type="email"
+            placeholder="you@example.com"
+            className="co-neu-inset min-h-14 px-4 text-sm text-ink outline-none focus:border-coconut"
+          />
+          <button type="button" className="co-button-soft inline-flex min-h-14 items-center justify-center gap-3 bg-coconut px-6 text-sm text-paper">
+            Notify Me <Mail size={16} />
+          </button>
+          <p className="text-xs leading-6 text-muted sm:col-span-2">Pre-launch only. No checkout or payment is active yet.</p>
+        </form>
       </div>
     </section>
   );

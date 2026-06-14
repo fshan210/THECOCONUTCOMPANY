@@ -27,7 +27,7 @@ export function Navigation() {
 
   return (
     <motion.header
-      className="sticky top-0 z-50 border-b border-shell/70 bg-porcelain/72 shadow-[0_10px_40px_rgba(62,46,31,0.04)] backdrop-blur-2xl"
+      className="co-glass sticky top-0 z-50 border-x-0 border-t-0"
     >
       <motion.nav style={{ paddingTop: navPadding, paddingBottom: navPadding }} className="mx-auto flex max-w-7xl items-center justify-between px-5 md:px-8">
         <Link href="/" className="flex items-center gap-3" aria-label=".CO home">
@@ -63,15 +63,18 @@ export function Navigation() {
           </Link>
           <CartButton />
         </div>
-        <button
-          type="button"
-          aria-label="Toggle navigation"
-          aria-expanded={open}
-          onClick={() => setOpen((value) => !value)}
-          className="grid h-10 w-10 place-items-center border border-shell text-coconut md:hidden"
-        >
-          {open ? <X size={18} /> : <Menu size={18} />}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <CartButton />
+          <button
+            type="button"
+            aria-label="Toggle navigation"
+            aria-expanded={open}
+            onClick={() => setOpen((value) => !value)}
+            className="co-neu grid h-10 w-10 place-items-center text-coconut"
+          >
+            {open ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </div>
       </motion.nav>
       <AnimatePresence>
         {open ? (
@@ -80,7 +83,7 @@ export function Navigation() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.98, y: -8 }}
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="mx-5 mb-4 border border-shell bg-porcelain/94 p-4 shadow-soft backdrop-blur-2xl md:hidden"
+            className="co-glass mx-5 mb-4 p-4 md:hidden"
           >
             {links.map((link) => (
               <Link

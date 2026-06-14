@@ -6,7 +6,8 @@ import { motion } from "framer-motion";
 
 export function Footer() {
   return (
-    <footer className="border-t border-shell bg-ink text-paper">
+    <footer className="relative overflow-hidden border-t border-shell bg-ink text-paper">
+      <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 w-80 opacity-[0.06]" />
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-[1.2fr_0.8fr_0.8fr] md:px-8">
         <div>
           <div className="relative mb-8 inline-block">

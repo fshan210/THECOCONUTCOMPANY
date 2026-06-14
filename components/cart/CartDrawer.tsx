@@ -13,7 +13,7 @@ export function CartButton() {
     <button
       type="button"
       onClick={() => cart.setOpen(true)}
-      className="relative hidden h-10 w-10 place-items-center border border-shell text-coconut shadow-[0_12px_30px_rgba(62,46,31,0.06)] transition hover:bg-paper md:grid"
+      className="co-neu relative grid h-10 w-10 place-items-center text-coconut transition hover:-translate-y-0.5"
       aria-label="Open cart"
     >
       <ShoppingBag size={16} />
@@ -47,7 +47,7 @@ export function CartDrawer() {
             animate={{ opacity: 1, scale: 1, x: 0 }}
             exit={{ opacity: 0, scale: 0.98, x: 24 }}
             transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed right-3 top-3 z-[90] flex max-h-[calc(100vh-24px)] w-[calc(100vw-24px)] max-w-md flex-col border border-shell bg-porcelain shadow-[0_34px_100px_rgba(62,46,31,0.2)] md:right-5 md:top-5 md:max-h-[calc(100vh-40px)]"
+            className="co-glass fixed right-3 top-3 z-[90] flex max-h-[calc(100vh-24px)] w-[calc(100vw-24px)] max-w-md flex-col md:right-5 md:top-5 md:max-h-[calc(100vh-40px)]"
           >
             <div className="flex items-center justify-between border-b border-shell p-5">
               <div>
@@ -62,7 +62,7 @@ export function CartDrawer() {
               {cart.products.length ? (
                 <div className="space-y-4">
                   {cart.products.map((product) => (
-                    <article key={product.slug} className="grid grid-cols-[84px_1fr] gap-4 border border-shell bg-paper p-3">
+                    <article key={product.slug} className="co-neu grid grid-cols-[84px_1fr] gap-4 p-3">
                       <div className="relative aspect-square overflow-hidden bg-shell">
                         <Image src={product.image} alt={product.name} fill sizes="84px" className="object-cover" />
                       </div>
@@ -73,16 +73,16 @@ export function CartDrawer() {
                           <button
                             type="button"
                             onClick={() => cart.updateQuantity(product.slug, product.quantity - 1)}
-                            className="grid h-8 w-8 place-items-center border border-shell text-coconut"
+                            className="co-neu-inset grid h-8 w-8 place-items-center text-coconut"
                             aria-label={`Decrease ${product.name}`}
                           >
                             <Minus size={14} />
                           </button>
-                          <span className="grid h-8 min-w-8 place-items-center text-sm text-ink">{product.quantity}</span>
+                          <span className="co-neu-inset grid h-8 min-w-8 place-items-center text-sm text-ink">{product.quantity}</span>
                           <button
                             type="button"
                             onClick={() => cart.updateQuantity(product.slug, product.quantity + 1)}
-                            className="grid h-8 w-8 place-items-center border border-shell text-coconut"
+                            className="co-neu grid h-8 w-8 place-items-center text-coconut"
                             aria-label={`Increase ${product.name}`}
                           >
                             <Plus size={14} />
@@ -100,7 +100,7 @@ export function CartDrawer() {
             </div>
             <div className="border-t border-shell p-5">
               <p className="mb-4 text-xs leading-6 text-muted">Checkout and payments are intentionally disabled until the commerce launch phase.</p>
-              <Link href="/sign-up" onClick={() => cart.setOpen(false)} className="block bg-ink px-6 py-4 text-center text-sm text-paper">
+              <Link href="/sign-up" onClick={() => cart.setOpen(false)} className="co-button-soft block bg-ink px-6 py-4 text-center text-sm text-paper">
                 Join early access
               </Link>
             </div>

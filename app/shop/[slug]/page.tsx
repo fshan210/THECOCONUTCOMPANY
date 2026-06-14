@@ -51,8 +51,8 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
         extra={[productSchema(product)]}
       />
       <section className="mx-auto grid max-w-7xl gap-12 px-5 py-20 md:grid-cols-[0.95fr_1.05fr] md:px-8 md:py-28">
-        <Reveal className="relative aspect-[4/5] overflow-hidden bg-shell">
-          <Image src={product.image} alt={product.name} fill priority sizes="(min-width: 768px) 48vw, 100vw" className="object-cover" />
+        <Reveal className="co-glass relative aspect-[4/5] overflow-hidden">
+          <Image src={product.image} alt={product.name} fill priority sizes="(min-width: 768px) 48vw, 100vw" className="object-contain p-5" />
         </Reveal>
         <Reveal delay={0.1} className="self-center">
           <Link href="/shop" className="mb-10 inline-flex items-center gap-2 text-xs uppercase tracking-editorial text-muted">
@@ -77,7 +77,7 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
         <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-4">
           {sections.map((section) => (
             <Reveal key={section.title}>
-              <article className="co-soft-depth h-full border border-shell bg-porcelain p-6">
+              <article className="co-glass h-full p-6">
                 <h2 className="mb-6 font-display text-3xl text-ink">{section.title}</h2>
                 <ul className="space-y-4 text-sm leading-7 text-muted">
                   {section.items.map((item) => (

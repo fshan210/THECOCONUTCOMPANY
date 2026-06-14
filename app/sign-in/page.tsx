@@ -17,8 +17,8 @@ export default function SignInPage() {
   return (
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Sign In", path: "/sign-in" }]} />
-      <section className="mx-auto grid min-h-[70vh] max-w-5xl place-items-center px-5 py-24 md:px-8">
-        <div className="w-full max-w-xl border border-shell bg-porcelain p-6 shadow-soft md:p-10">
+      <section className="co-wave-edge relative mx-auto grid min-h-[70vh] max-w-5xl place-items-center overflow-hidden px-5 py-24 md:px-8">
+        <div className="co-glass w-full max-w-xl p-6 md:p-10">
           <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-grove">Account</p>
           <h1 className="font-display text-5xl text-ink md:text-6xl">Sign in to .CO</h1>
           <p className="mt-5 text-sm leading-7 text-muted">
@@ -32,9 +32,9 @@ export default function SignInPage() {
               id="email"
               type="email"
               placeholder="you@example.com"
-              className="w-full border border-shell bg-paper px-4 py-4 text-sm text-ink outline-none focus:border-coconut"
+              className="co-neu-inset w-full px-4 py-4 text-sm text-ink outline-none focus:border-coconut"
             />
-            <button type="button" className="inline-flex w-full items-center justify-center gap-3 bg-ink px-6 py-4 text-sm text-paper">
+            <button type="button" className="co-button-soft inline-flex w-full items-center justify-center gap-3 bg-ink px-6 py-4 text-sm text-paper">
               Send magic link <Mail size={16} />
             </button>
           </form>

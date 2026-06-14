@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PalmLeafDoodle } from "@/components/BrandDoodles";
 import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Motion";
 import { SectionHeader } from "@/components/SectionHeader";
@@ -16,7 +17,8 @@ export default function ProductsPage() {
   return (
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Products", path: "/products" }]} />
-      <section className="mx-auto max-w-7xl px-5 py-24 md:px-8">
+      <section className="relative mx-auto max-w-7xl overflow-hidden px-5 py-24 md:px-8">
+        <PalmLeafDoodle className="co-brand-doodle absolute right-6 top-12 hidden w-44 text-grove md:block" />
         <Reveal className="max-w-5xl">
           <p className="mb-8 text-[0.72rem] uppercase tracking-editorial text-grove">Products</p>
           <h1 className="font-display text-6xl leading-none text-ink md:text-8xl">
@@ -25,7 +27,7 @@ export default function ProductsPage() {
         </Reveal>
       </section>
 
-      <section className="bg-paper px-5 py-24 md:px-8">
+      <section className="co-wave-edge relative overflow-hidden bg-paper px-5 py-24 md:px-8">
         <SectionHeader
           kicker="Portfolio"
           title="No cart. No noise. Just the house system."
