@@ -27,7 +27,7 @@ function CoconutModel() {
 
 function CoconutFallback() {
   return (
-    <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_38%_30%,#9a6a43_0,#654026_44%,#2f2018_100%)] shadow-[inset_-28px_-24px_60px_rgba(0,0,0,0.22),0_34px_90px_rgba(33,25,21,0.2)]" />
+    <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_38%_30%,#D8C07A_0,#3e2e1f_44%,#2d2d2d_100%)] shadow-[inset_-28px_-24px_60px_rgba(0,0,0,0.22),0_34px_90px_rgba(62,46,31,0.2)]" />
   );
 }
 

@@ -19,11 +19,11 @@ export default function Image() {
           flexDirection: "column",
           justifyContent: "space-between",
           background: "#fffdf8",
-          color: "#211915",
+          color: "#2d2d2d",
           padding: 72
         }}
       >
-        <div style={{ fontSize: 28, letterSpacing: 4, textTransform: "uppercase", color: "#4a6f4a" }}>
+        <div style={{ fontSize: 28, letterSpacing: 4, textTransform: "uppercase", color: "#4A6F4A" }}>
           Palakkad, Kerala
         </div>
         <div>
@@ -32,7 +32,7 @@ export default function Image() {
             The Coconut Company
           </div>
         </div>
-        <div style={{ fontSize: 30, color: "#654026" }}>A modern coconut-origin lifestyle brand. Made for Living.</div>
+        <div style={{ fontSize: 30, color: "#3e2e1f" }}>A modern coconut-origin lifestyle brand. Made for Living.</div>
       </div>
     ),
     size

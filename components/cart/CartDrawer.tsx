@@ -13,7 +13,7 @@ export function CartButton() {
     <button
       type="button"
       onClick={() => cart.setOpen(true)}
-      className="relative hidden h-10 w-10 place-items-center border border-shell text-coconut shadow-[0_12px_30px_rgba(33,25,21,0.06)] transition hover:bg-paper md:grid"
+      className="relative hidden h-10 w-10 place-items-center border border-shell text-coconut shadow-[0_12px_30px_rgba(62,46,31,0.06)] transition hover:bg-paper md:grid"
       aria-label="Open cart"
     >
       <ShoppingBag size={16} />
@@ -47,7 +47,7 @@ export function CartDrawer() {
             animate={{ opacity: 1, scale: 1, x: 0 }}
             exit={{ opacity: 0, scale: 0.98, x: 24 }}
             transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed right-3 top-3 z-[90] flex max-h-[calc(100vh-24px)] w-[calc(100vw-24px)] max-w-md flex-col border border-shell bg-porcelain shadow-[0_34px_100px_rgba(33,25,21,0.2)] md:right-5 md:top-5 md:max-h-[calc(100vh-40px)]"
+            className="fixed right-3 top-3 z-[90] flex max-h-[calc(100vh-24px)] w-[calc(100vw-24px)] max-w-md flex-col border border-shell bg-porcelain shadow-[0_34px_100px_rgba(62,46,31,0.2)] md:right-5 md:top-5 md:max-h-[calc(100vh-40px)]"
           >
             <div className="flex items-center justify-between border-b border-shell p-5">
               <div>

@@ -15,16 +15,27 @@ export function MadeForLivingVisual() {
   const { shouldReduce } = useCoconutMotionMode();
 
   return (
-    <section className="bg-porcelain px-5 py-16 md:px-8 md:py-24">
-      <div className="mx-auto max-w-7xl">
+    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#fffdf8_0%,#F5EBD7_46%,#fffdf8_100%)] px-0 py-10 md:px-8 md:py-20">
+      <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 hidden w-[32vw] opacity-[0.06] md:block" />
+      <div className="mx-auto max-w-7xl px-5 md:px-0">
         <motion.div
-          {...CoconutMotion.NatureFade}
-          className="co-wave-edge relative overflow-hidden border border-shell bg-[#fbf4e8] shadow-soft"
+          initial={shouldReduce ? false : { opacity: 0, y: 36, clipPath: "inset(10% 6% 10% 6%)" }}
+          whileInView={shouldReduce ? undefined : { opacity: 1, y: 0, clipPath: "inset(0% 0% 0% 0%)" }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="relative overflow-hidden bg-paper shadow-[0_26px_90px_rgba(62,46,31,0.08)]"
         >
-          <PalmLeafDoodle className="co-brand-doodle absolute -bottom-7 left-7 z-10 hidden w-40 rotate-[-8deg] md:block" />
+          <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_12%_18%,rgba(168,176,123,0.16),transparent_30%),linear-gradient(90deg,rgba(255,253,248,0.22),transparent_18%,transparent_82%,rgba(255,253,248,0.24))]" />
           <motion.div
-            animate={shouldReduce ? undefined : { y: [0, -5, 0] }}
-            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+            aria-hidden="true"
+            animate={shouldReduce ? undefined : { x: ["-18%", "18%", "-18%"], opacity: [0.12, 0.22, 0.12] }}
+            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+            className="pointer-events-none absolute -inset-y-10 left-0 z-10 w-2/3 rotate-[-6deg] bg-[linear-gradient(100deg,transparent,rgba(74,111,74,0.12),transparent)] blur-xl"
+          />
+          <PalmLeafDoodle className="co-brand-doodle absolute -bottom-8 left-8 z-20 hidden w-44 rotate-[-8deg] text-coconut md:block" />
+          <motion.div
+            animate={shouldReduce ? undefined : { scale: [1, 1.012, 1] }}
+            transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
             className="relative aspect-[1983/793]"
           >
             <Image
@@ -32,17 +43,11 @@ export function MadeForLivingVisual() {
               alt="Made for Living brand statement with soft palm shadow and .CO coconut mark"
               fill
               sizes="100vw"
-              className="object-contain"
+              className="object-contain mix-blend-multiply"
               priority={false}
             />
           </motion.div>
         </motion.div>
-        <Reveal className="mx-auto mt-8 max-w-3xl text-center">
-          <p className="mb-4 text-[0.72rem] uppercase tracking-editorial text-grove">Brand statement</p>
-          <p className="text-lg leading-9 text-muted">
-            A coconut-origin lifestyle brand built for everyday rituals, modern wellness, and global living.
-          </p>
-        </Reveal>
       </div>
     </section>
   );
@@ -73,8 +78,8 @@ export function HonestTruthSection() {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[#17260f] px-5 py-24 text-paper md:px-8 lg:py-32">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_26%,rgba(247,243,236,0.08),transparent_32%),linear-gradient(90deg,rgba(255,253,248,0.03),transparent_45%)]" />
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#2d2d2d_0%,#3e2e1f_48%,#4A6F4A_100%)] px-5 py-24 text-paper md:px-8 lg:py-32">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_26%,rgba(245,235,215,0.08),transparent_32%),linear-gradient(90deg,rgba(255,253,248,0.03),transparent_45%)]" />
       <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 w-[28vw] min-w-52 opacity-[0.08]" />
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
         <Reveal className="relative">

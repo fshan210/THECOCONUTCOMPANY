@@ -17,7 +17,7 @@ const config: Config = {
         grove: "#4A6F4A",
         palm: "#A8B07B",
         sun: "#D8C07A",
-        clay: "#b88664",
+        clay: "#D8C07A",
         shell: "#e9dfd1"
       },
       fontFamily: {

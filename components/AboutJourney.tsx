@@ -69,7 +69,7 @@ export function AboutJourney() {
           {journey.map((item, index) => (
             <article
               key={item.title}
-              className="grid h-[560px] w-[86vw] shrink-0 overflow-hidden border border-shell bg-porcelain p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_24px_80px_rgba(33,25,21,0.05)] md:w-[56vw] md:grid-cols-[0.9fr_1.1fr] md:p-10"
+              className="grid h-[560px] w-[86vw] shrink-0 overflow-hidden border border-shell bg-porcelain p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_24px_80px_rgba(62,46,31,0.05)] md:w-[56vw] md:grid-cols-[0.9fr_1.1fr] md:p-10"
             >
               <div className="flex flex-col justify-between">
                 <p className="text-[0.7rem] uppercase tracking-editorial text-grove">{item.accent}</p>
@@ -92,7 +92,7 @@ function JourneyVisual({ index, reduceMotion, image, title }: { index: number; r
   const nodes = Array.from({ length: 8 }, (_, item) => item);
 
   return (
-    <div className="relative mt-8 min-h-72 overflow-hidden bg-[linear-gradient(135deg,#f7f3ec,#fffdf8)] md:mt-0">
+    <div className="relative mt-8 min-h-72 overflow-hidden bg-[linear-gradient(135deg,#F5EBD7,#fffdf8)] md:mt-0">
       <Image src={image} alt={`${title} stage of the .CO coconut journey`} fill sizes="(min-width: 768px) 31vw, 80vw" className="object-cover opacity-45" />
       <div className="absolute inset-0 bg-gradient-to-br from-porcelain/70 via-porcelain/40 to-paper/72" />
       <motion.div
@@ -128,7 +128,7 @@ function JourneyVisual({ index, reduceMotion, image, title }: { index: number; r
       <motion.div
         animate={reduceMotion ? { x: "0%", y: "0%" } : { x: ["-8%", "8%", "-8%"], y: ["2%", "-3%", "2%"] }}
         transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-10 right-10 h-28 w-20 rounded-full bg-[radial-gradient(circle_at_45%_28%,#fffdf8,#d8c6b1_54%,#654026_100%)] shadow-soft"
+        className="absolute bottom-10 right-10 h-28 w-20 rounded-full bg-[radial-gradient(circle_at_45%_28%,#fffdf8,#F5EBD7_54%,#3e2e1f_100%)] shadow-soft"
       />
     </div>
   );

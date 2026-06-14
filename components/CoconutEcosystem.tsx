@@ -8,7 +8,7 @@ import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
 const HeroCoconut3D = dynamic(() => import("@/components/HeroCoconut3D"), {
   ssr: false,
   loading: () => (
-    <div className="h-[330px] w-[330px] rounded-full bg-[radial-gradient(circle_at_38%_30%,#9a6a43_0,#654026_44%,#2f2018_100%)] shadow-[inset_-28px_-24px_60px_rgba(0,0,0,0.22),0_34px_90px_rgba(33,25,21,0.2)] md:h-[470px] md:w-[470px]" />
+    <div className="h-[330px] w-[330px] rounded-full bg-[radial-gradient(circle_at_38%_30%,#D8C07A_0,#3e2e1f_44%,#2d2d2d_100%)] shadow-[inset_-28px_-24px_60px_rgba(0,0,0,0.22),0_34px_90px_rgba(62,46,31,0.2)] md:h-[470px] md:w-[470px]" />
   )
 });
 
@@ -29,7 +29,7 @@ const emergeItems = [
 
 function CoconutFallback() {
   return (
-    <div className="h-[330px] w-[330px] rounded-full bg-[radial-gradient(circle_at_38%_30%,#9a6a43_0,#654026_44%,#2f2018_100%)] shadow-[inset_-28px_-24px_60px_rgba(0,0,0,0.22),0_34px_90px_rgba(33,25,21,0.2)] md:h-[470px] md:w-[470px]" />
+    <div className="h-[330px] w-[330px] rounded-full bg-[radial-gradient(circle_at_38%_30%,#D8C07A_0,#3e2e1f_44%,#2d2d2d_100%)] shadow-[inset_-28px_-24px_60px_rgba(0,0,0,0.22),0_34px_90px_rgba(62,46,31,0.2)] md:h-[470px] md:w-[470px]" />
   );
 }
 
@@ -128,9 +128,9 @@ export function CoconutEcosystem() {
               />
             </motion.div>
 
-            <motion.div style={{ opacity: waterOpacity }} className="absolute left-[31%] top-[24%] h-28 w-28 rounded-full bg-[radial-gradient(circle,#d8f4ef_0,#8cc9bd_52%,#4a6f4a_100%)] blur-[1px]" />
-            <motion.div style={{ opacity: creamOpacity }} className="absolute right-[22%] top-[28%] h-24 w-24 rounded-full bg-[radial-gradient(circle,#fffdf8_0,#efe2ce_60%,#c5a47d_100%)]" />
-            <motion.div style={{ opacity: lifeOpacity }} className="absolute bottom-[22%] left-[30%] h-24 w-16 rounded-full bg-[linear-gradient(160deg,#fffdf8,#d8c6b1,#654026)] shadow-soft" />
+            <motion.div style={{ opacity: waterOpacity }} className="absolute left-[31%] top-[24%] h-28 w-28 rounded-full bg-[radial-gradient(circle,#fffdf8_0,#A8B07B_52%,#4A6F4A_100%)] blur-[1px]" />
+            <motion.div style={{ opacity: creamOpacity }} className="absolute right-[22%] top-[28%] h-24 w-24 rounded-full bg-[radial-gradient(circle,#fffdf8_0,#F5EBD7_60%,#D8C07A_100%)]" />
+            <motion.div style={{ opacity: lifeOpacity }} className="absolute bottom-[22%] left-[30%] h-24 w-16 rounded-full bg-[linear-gradient(160deg,#fffdf8,#F5EBD7,#3e2e1f)] shadow-soft" />
             <motion.div style={{ opacity: globalOpacity }} className="absolute inset-[22%] rounded-full border border-grove/40">
               <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-grove/20" />
               <div className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-grove/20" />

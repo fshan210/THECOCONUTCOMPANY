@@ -27,7 +27,7 @@ export function Navigation() {
 
   return (
     <motion.header
-      className="sticky top-0 z-50 border-b border-shell/70 bg-porcelain/72 shadow-[0_10px_40px_rgba(33,25,21,0.04)] backdrop-blur-2xl"
+      className="sticky top-0 z-50 border-b border-shell/70 bg-porcelain/72 shadow-[0_10px_40px_rgba(62,46,31,0.04)] backdrop-blur-2xl"
     >
       <motion.nav style={{ paddingTop: navPadding, paddingBottom: navPadding }} className="mx-auto flex max-w-7xl items-center justify-between px-5 md:px-8">
         <Link href="/" className="flex items-center gap-3" aria-label=".CO home">
@@ -57,7 +57,7 @@ export function Navigation() {
             href="/shop"
             data-analytics="cta_click"
             data-analytics-label="nav_shop"
-            className="border border-coconut px-4 py-2 text-[0.7rem] uppercase tracking-editorial text-coconut shadow-[0_12px_30px_rgba(33,25,21,0.06)] transition hover:bg-coconut hover:text-porcelain"
+            className="border border-coconut px-4 py-2 text-[0.7rem] uppercase tracking-editorial text-coconut shadow-[0_12px_30px_rgba(62,46,31,0.06)] transition hover:bg-coconut hover:text-porcelain"
           >
             Shop
           </Link>
