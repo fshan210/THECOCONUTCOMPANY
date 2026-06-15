@@ -56,12 +56,12 @@ body {
 }
 
 .co-glass {
-  border: 1px solid rgba(62, 46, 31, 0.12);
-  background: rgba(255, 253, 248, 0.72);
+  border: 1px solid rgba(62, 46, 31, 0.16);
+  background: rgba(255, 253, 248, 0.78);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.72),
-    0 22px 70px rgba(62, 46, 31, 0.08);
-  backdrop-filter: blur(22px);
+    0 22px 70px rgba(62, 46, 31, 0.12);
+  backdrop-filter: blur(18px);
 }
 
 .co-glass-dark {
@@ -74,10 +74,10 @@ body {
 }
 
 .co-neu {
-  border: 1px solid rgba(62, 46, 31, 0.1);
+  border: 1px solid rgba(62, 46, 31, 0.14);
   background: #fffdf8;
   box-shadow:
-    14px 18px 42px rgba(62, 46, 31, 0.08),
+    14px 18px 42px rgba(62, 46, 31, 0.12),
     -10px -12px 32px rgba(255, 255, 255, 0.74),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
@@ -92,7 +92,7 @@ body {
 
 .co-button-soft {
   box-shadow:
-    0 16px 38px rgba(62, 46, 31, 0.14),
+    0 16px 38px rgba(62, 46, 31, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 

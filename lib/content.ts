@@ -4,28 +4,28 @@ export const products = [
     role: "Tender coconut water",
     detail:
       "A chilled, clear expression of Kerala coconuts built for daily hydration, hospitality, and retail-ready rituals.",
-    image: "/optimized/images-coconut-drink-glass-bottle.webp"
+    image: "/assets/transparent/co-water.webp"
   },
   {
     name: ".CO Reserve",
     role: "Single-origin batches",
     detail:
       "Limited village and estate selections with harvest notes, mineral balance, and quietly numbered releases.",
-    image: "/optimized/images-coconut-drink-glass-bottle-2.webp"
+    image: "/assets/transparent/co-water-reserve.webp"
   },
   {
     name: ".CO Creamery",
     role: "Coconut-led indulgence",
     detail:
       "Silken desserts, frozen formats, and dairy-adjacent coconut craft for modern cafes and premium homes.",
-    image: "/optimized/images-icecream-sample.webp"
+    image: "/assets/transparent/mango-coconut-dessert.webp"
   },
   {
     name: ".CO Botanica",
     role: "Care and wellness",
     detail:
       "Botanical coconut applications for body, hair, and everyday wellness, rooted in Kerala ingredient intelligence.",
-    image: "/optimized/images-social-media-mockups-1.webp"
+    image: "/assets/transparent/coconut-care.webp"
   },
   {
     name: ".CO Kitchen",

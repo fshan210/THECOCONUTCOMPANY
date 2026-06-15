@@ -65,22 +65,27 @@ export function MadeForLivingVisual() {
   const { shouldReduce } = useCoconutMotionMode();
 
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#fffdf8_0%,#F5EBD7_46%,#fffdf8_100%)] px-0 py-10 md:px-8 md:py-20">
-      <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 hidden w-[32vw] opacity-[0.06] md:block" />
+    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#3E2E1F_0%,#4A6F4A_54%,#F5EBD7_100%)] px-0 py-12 md:px-8 md:py-24">
+      <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 hidden w-[32vw] opacity-[0.16] md:block" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(216,192,122,0.2),transparent_26%),radial-gradient(circle_at_84%_40%,rgba(245,235,215,0.18),transparent_30%)]" />
       <div className="mx-auto max-w-7xl px-5 md:px-0">
+        <div className="mx-auto mb-8 max-w-3xl text-center text-paper">
+          <p className="mb-4 text-[0.72rem] uppercase tracking-editorial text-paper/62">The conclusion</p>
+          <h2 className="font-display text-4xl leading-tight md:text-6xl">From coconut to product, made for living.</h2>
+        </div>
         <motion.div
           initial={shouldReduce ? false : { opacity: 0, y: 36, clipPath: "inset(10% 6% 10% 6%)" }}
           whileInView={shouldReduce ? undefined : { opacity: 1, y: 0, clipPath: "inset(0% 0% 0% 0%)" }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="relative overflow-hidden bg-paper shadow-[0_26px_90px_rgba(62,46,31,0.08)]"
+          className="co-glass relative overflow-hidden bg-paper/90 shadow-[0_26px_90px_rgba(62,46,31,0.18)]"
         >
           <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_12%_18%,rgba(168,176,123,0.16),transparent_30%),linear-gradient(90deg,rgba(255,253,248,0.22),transparent_18%,transparent_82%,rgba(255,253,248,0.24))]" />
           <motion.div
             aria-hidden="true"
             animate={shouldReduce ? undefined : { x: ["-18%", "18%", "-18%"], opacity: [0.12, 0.22, 0.12] }}
             transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-            className="pointer-events-none absolute -inset-y-10 left-0 z-10 w-2/3 rotate-[-6deg] bg-[linear-gradient(100deg,transparent,rgba(74,111,74,0.12),transparent)] blur-xl"
+            className="pointer-events-none absolute -inset-y-10 left-0 z-10 w-2/3 rotate-[-6deg] bg-[linear-gradient(100deg,transparent,rgba(74,111,74,0.18),transparent)] blur-xl"
           />
           <PalmLeafDoodle className="co-brand-doodle absolute -bottom-8 left-8 z-20 hidden w-44 rotate-[-8deg] text-coconut md:block" />
           <motion.div
@@ -254,8 +259,9 @@ export function CataloguePreview() {
             data-analytics-label={product.name}
             className="group co-neu co-soft-depth-hover p-4"
           >
-            <div className="relative mb-6 aspect-[4/5] overflow-hidden bg-shell/70">
-              <Image src={product.image} alt={product.name} fill sizes="(min-width: 768px) 25vw, 90vw" className="object-contain p-4 transition duration-700 group-hover:scale-[1.03]" />
+            <div className="relative mb-6 aspect-[4/5] overflow-hidden">
+              <div className="absolute inset-x-8 bottom-7 h-8 rounded-full bg-coconut/12 blur-xl" />
+              <Image src={product.image} alt={product.name} fill sizes="(min-width: 768px) 25vw, 90vw" className="object-contain p-4 drop-shadow-[0_22px_30px_rgba(62,46,31,0.18)] transition duration-700 group-hover:scale-[1.03]" />
             </div>
             <p className="mb-3 text-[0.65rem] uppercase tracking-editorial text-grove">{product.category}</p>
             <h3 className="font-display text-3xl text-ink">{product.name}</h3>

@@ -7,21 +7,21 @@ import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
 
 const journey = [
   {
-    title: "Palakkad roots",
+    title: "Palakkad",
     detail: "The brand begins in Kerala's coconut country, keeping origin, community knowledge, and sourcing intelligence close to the land.",
     accent: "Map reveal",
     image: "/optimized/assets-farming-kerala-coconut-palm.webp",
     visual: "map"
   },
   {
-    title: "Coconut farms",
+    title: "Farmers",
     detail: "Farm relationships form the first line of quality, with accountable supply, harvest discipline, and closer origin visibility.",
     accent: "Connection lines",
     image: "/optimized/assets-farms-coconut-harvesting.webp",
     visual: "farm"
   },
   {
-    title: "VAP network",
+    title: "VAP",
     detail: "Village aggregation points reduce handling loss and create a practical, local route into the product system.",
     accent: "Village aggregation",
     image: "/assets/generated/journey-aggregation.webp",
@@ -35,14 +35,14 @@ const journey = [
     visual: "manufacturing"
   },
   {
-    title: "India to UAE",
+    title: "UAE",
     detail: "A first international route connects Kerala to Dubai through hospitality, premium retail, and diaspora demand.",
     accent: "Kerala to Dubai",
     image: "/assets/generated/journey-uae.webp",
     visual: "route"
   },
   {
-    title: "Global lifestyle vision",
+    title: "Global Expansion",
     detail: "The long horizon is a coconut lifestyle house: beverage, food, care, kitchen, and culture.",
     accent: "World reveal",
     image: "/assets/generated/journey-global.webp",
@@ -54,22 +54,22 @@ export function AboutJourney() {
   const ref = useRef<HTMLDivElement>(null);
   const motionMode = useCoconutMotionMode();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const x = useTransform(scrollYProgress, [0, 1], motionMode.shouldReduce ? ["0%", "-78%"] : ["0%", "-82%"]);
+  const x = useTransform(scrollYProgress, [0, 1], motionMode.shouldReduce || motionMode.isMobile ? ["0%", "0%"] : ["0%", "-82%"]);
 
   return (
     <section ref={ref} className="relative bg-paper md:min-h-[320vh]">
-      <div className="sticky top-20 overflow-hidden px-5 py-20 md:px-8">
+      <div className="overflow-hidden px-5 py-16 md:sticky md:top-20 md:px-8 md:py-20">
         <div className="mx-auto mb-12 max-w-7xl">
           <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-grove">Coconut journey</p>
           <h2 className="max-w-4xl font-display text-5xl leading-tight text-ink md:text-7xl">
             From a Kerala grove to a global table.
           </h2>
         </div>
-        <motion.div style={{ x }} className="flex w-[560vw] gap-5 md:w-[368vw]">
+        <motion.div style={{ x }} className="grid gap-5 md:flex md:w-[368vw]">
           {journey.map((item, index) => (
             <article
               key={item.title}
-              className="grid h-[560px] w-[86vw] shrink-0 overflow-hidden border border-shell bg-porcelain p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_24px_80px_rgba(62,46,31,0.05)] md:w-[56vw] md:grid-cols-[0.9fr_1.1fr] md:p-10"
+              className="co-glass grid min-h-[560px] shrink-0 overflow-hidden p-6 md:w-[56vw] md:grid-cols-[0.9fr_1.1fr] md:p-10"
             >
               <div className="flex flex-col justify-between">
                 <p className="text-[0.7rem] uppercase tracking-editorial text-grove">{item.accent}</p>

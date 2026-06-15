@@ -1,5 +1,83 @@
 # Website Production Optimization Report
 
+## v1.6.0 Hero Storytelling Experience
+
+### Scope
+
+Implemented the core first-screen product story:
+
+```text
+Whole Coconut -> Coconut Water -> .CO Bottle -> Made for Living
+```
+
+### Key Fixes
+
+- Replaced the previous hero object with a scroll-linked HTML5 Canvas storytelling scene using only local assets.
+- Added canvas image preprocessing to key out the local JPEG backgrounds so the coconut and bottle float naturally.
+- Added liquid morph illusion with dissolve particles, water ripple distortion, flowing liquid shapes, and progressive bottle reveal.
+- Connected scroll progress to Framer Motion stage cards and CTA reveal.
+- Added animated inline SVG doodles for coconut outlines, palm leaves, water ripples, sun marks, and organic texture.
+- Moved Made for Living directly after the hero transformation so it reads as the conclusion of the product story.
+- Increased Earth Brown and Leaf Green presence across hero, glass surfaces, product cards, and section transitions.
+- Updated product cards/shop imagery to use transparent WebP assets where available, with realistic warm shadows.
+- Fixed About journey stage naming and mobile layout for Palakkad, Farmers, VAP, Manufacturing, UAE, and Global Expansion.
+- Added mobile simplified canvas mode: lower pixel ratio and scroll-trigger redraw instead of a continuous loop.
+
+### Local Assets Used
+
+```text
+public/assets/coconut.jpg
+public/assets/bottle.jpg
+public/assets/transparent/co-water.webp
+public/assets/transparent/co-water-reserve.webp
+public/assets/transparent/mango-coconut-dessert.webp
+public/assets/transparent/coconut-care.webp
+public/assets/generated/product-kitchen-oil.webp
+public/assets/generated/product-lifestyle.webp
+```
+
+### Screenshots
+
+```text
+docs/screenshots/v1.6-hero-coconut.png
+docs/screenshots/v1.6-hero-liquid.png
+docs/screenshots/v1.6-hero-bottle.png
+docs/screenshots/v1.6-made-for-living.png
+docs/screenshots/v1.6-mobile-hero.png
+```
+
+### Verification
+
+```text
+npm run lint: passed
+npx tsc --noEmit --incremental false: passed
+npm run build: passed
+```
+
+Lighthouse mobile:
+
+```text
+Performance: 91
+Accessibility: 96
+Best Practices: 100
+SEO: 100
+Largest Contentful Paint: 3.1s
+Total Blocking Time: 170ms
+Cumulative Layout Shift: 0.026
+```
+
+Lighthouse desktop:
+
+```text
+Performance: 99
+Accessibility: 96
+Best Practices: 100
+SEO: 100
+Largest Contentful Paint: 0.7s
+Total Blocking Time: 70ms
+Cumulative Layout Shift: 0
+```
+
 ## v1.5.0 Consumer Brand Experience
 
 ### Scope

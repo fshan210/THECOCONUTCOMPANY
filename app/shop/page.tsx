@@ -47,8 +47,9 @@ export default function ShopPage() {
                 data-analytics-label={product.name}
                 className="group co-neu co-soft-depth-hover block h-full p-4"
               >
-                <div className="relative mb-6 aspect-[4/5] overflow-hidden bg-shell/70">
-                  <Image src={product.image} alt={product.name} fill sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw" className="object-contain p-4 transition duration-700 group-hover:scale-[1.03]" />
+                <div className="relative mb-6 aspect-[4/5] overflow-hidden">
+                  <div className="absolute inset-x-8 bottom-7 h-8 rounded-full bg-coconut/12 blur-xl" />
+                  <Image src={product.image} alt={product.name} fill sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw" className="object-contain p-4 drop-shadow-[0_22px_30px_rgba(62,46,31,0.18)] transition duration-700 group-hover:scale-[1.03]" />
                 </div>
                 <p className="mb-3 text-[0.65rem] uppercase tracking-editorial text-grove">{product.category}</p>
                 <h2 className="font-display text-3xl text-ink">{product.name}</h2>

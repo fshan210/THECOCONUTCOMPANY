@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CoconutEcosystem } from "@/components/CoconutEcosystem";
+import { HeroStoryCanvas } from "@/components/HeroStoryCanvas";
 import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Motion";
 import { SectionHeader } from "@/components/SectionHeader";
@@ -31,9 +31,9 @@ export default function HomePage() {
   return (
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }]} />
-      <CoconutEcosystem />
-      <TrustStrip />
+      <HeroStoryCanvas />
       <MadeForLivingVisual />
+      <TrustStrip />
 
       <section className="bg-paper px-5 py-24 md:px-8">
         <SectionHeader

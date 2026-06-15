@@ -52,7 +52,8 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
       />
       <section className="mx-auto grid max-w-7xl gap-10 px-5 py-16 md:grid-cols-[0.95fr_1.05fr] md:px-8 md:py-24">
         <Reveal className="co-glass relative aspect-[4/5] overflow-hidden">
-          <Image src={product.image} alt={product.name} fill priority sizes="(min-width: 768px) 48vw, 100vw" className="object-contain p-5" />
+          <div className="absolute inset-x-16 bottom-12 h-10 rounded-full bg-coconut/14 blur-xl" />
+          <Image src={product.image} alt={product.name} fill priority sizes="(min-width: 768px) 48vw, 100vw" className="object-contain p-5 drop-shadow-[0_26px_36px_rgba(62,46,31,0.2)]" />
         </Reveal>
         <Reveal delay={0.1} className="self-center">
           <Link href="/shop" className="mb-10 inline-flex items-center gap-2 text-xs uppercase tracking-editorial text-muted">
