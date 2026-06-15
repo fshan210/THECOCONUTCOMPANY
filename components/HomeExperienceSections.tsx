@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Bell, Handshake, Mail, Sparkles } from "lucide-react";
+import { ArrowUpRight, Bell, Droplets, Handshake, HeartPulse, Leaf, Mail, ShieldCheck, Sparkles, Sprout, Waves } from "lucide-react";
 import { motion } from "framer-motion";
 import { MagneticButton } from "@/components/MagneticButton";
 import { Reveal } from "@/components/Motion";
@@ -10,6 +10,56 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { CoconutSliceDoodle, PalmLeafDoodle, TenderCoconutDoodle } from "@/components/BrandDoodles";
 import { communityNotes, recipes, shopProducts, socialStories, usageDirections } from "@/lib/catalog";
 import { CoconutMotion, useCoconutMotionMode } from "@/lib/animations/coconut-motion";
+
+const trustItems = [
+  { label: "Kerala-origin sourcing", icon: Sprout },
+  { label: "Everyday hydration", icon: Droplets },
+  { label: "Clean ingredient mindset", icon: ShieldCheck },
+  { label: "Full coconut ecosystem", icon: Leaf }
+];
+
+const benefitItems = [
+  {
+    title: "Hydrates beautifully",
+    body: "A chilled coconut ritual for heat, travel, movement, hosting, and mid-day resets.",
+    icon: Droplets
+  },
+  {
+    title: "Naturally versatile",
+    body: "One ingredient stretches across beverage, dessert, kitchen, care, and wellness occasions.",
+    icon: Waves
+  },
+  {
+    title: "Built with origin",
+    body: "Palakkad sourcing, village aggregation, and farmer relationships give the brand its spine.",
+    icon: Sprout
+  },
+  {
+    title: "Easy to trust",
+    body: "Short ingredient thinking, honest launch notes, and no exaggerated coconut claims.",
+    icon: HeartPulse
+  }
+];
+
+export function TrustStrip() {
+  return (
+    <section className="relative z-10 -mt-1 bg-coconut px-5 py-5 text-paper md:px-8">
+      <div className="mx-auto grid max-w-7xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {trustItems.map((item) => {
+          const Icon = item.icon;
+          return (
+            <div key={item.label} className="co-glass-dark flex min-h-16 items-center gap-3 px-4 py-3">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-paper/10 text-sun">
+                <Icon size={18} />
+              </span>
+              <p className="text-xs uppercase tracking-editorial text-paper/78">{item.label}</p>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
 
 export function MadeForLivingVisual() {
   const { shouldReduce } = useCoconutMotionMode();
@@ -121,11 +171,40 @@ export function HonestTruthSection() {
   );
 }
 
+export function BenefitsSection() {
+  return (
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#fffdf8_0%,#F5EBD7_54%,rgba(168,176,123,0.38)_100%)] px-5 py-16 md:px-8 md:py-24">
+      <PalmLeafDoodle className="co-brand-doodle absolute left-5 top-10 hidden w-44 text-grove md:block" />
+      <SectionHeader
+        kicker="Coconut benefits"
+        title="Simple reasons people come back to coconut."
+        body="Consumer-friendly benefits that stay grounded: hydration, versatility, origin, and daily ease."
+      />
+      <div className="mx-auto grid max-w-7xl gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {benefitItems.map((item, index) => {
+          const Icon = item.icon;
+          return (
+            <Reveal key={item.title} delay={index * 0.05}>
+              <article className="co-neu co-soft-depth-hover h-full p-6">
+                <span className="mb-8 grid h-12 w-12 place-items-center rounded-full bg-grove text-paper">
+                  <Icon size={20} />
+                </span>
+                <h3 className="font-display text-3xl leading-tight text-ink">{item.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-muted">{item.body}</p>
+              </article>
+            </Reveal>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 export function ProductHighlight() {
   const water = shopProducts[0];
 
   return (
-    <section className="mx-auto grid max-w-7xl gap-10 px-5 py-24 md:grid-cols-[1.05fr_0.95fr] md:items-center md:px-8">
+    <section className="mx-auto grid max-w-7xl gap-8 px-5 py-16 md:grid-cols-[1.05fr_0.95fr] md:items-center md:px-8 md:py-24">
       <Reveal className="co-glass relative aspect-[4/5] overflow-hidden md:aspect-[5/4]">
         <Image src={water.image} alt={`${water.name} product highlight`} fill sizes="(min-width: 768px) 52vw, 100vw" className="object-contain p-8" />
       </Reveal>
@@ -133,19 +212,21 @@ export function ProductHighlight() {
         <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-grove">First release</p>
         <h2 className="font-display text-5xl leading-tight text-ink md:text-7xl">{water.name}</h2>
         <p className="mt-6 text-lg leading-9 text-muted">{water.shortDescription}</p>
-        <div className="mt-8 grid gap-3 text-sm text-muted">
-          <p>{water.category}</p>
-          <p>{water.format}</p>
-          <p>{water.availability}</p>
+        <div className="mt-8 grid gap-3 sm:grid-cols-3">
+          {water.benefits.map((benefit) => (
+            <div key={benefit} className="co-neu-inset px-4 py-3 text-sm leading-6 text-coconut">
+              {benefit}
+            </div>
+          ))}
         </div>
         <div className="mt-10 flex flex-wrap gap-4">
           <MagneticButton>
-            <Link href="/shop/co-water" className="inline-flex items-center gap-3 bg-ink px-6 py-4 text-sm text-paper">
+            <Link href="/shop/co-water" className="inline-flex min-h-12 items-center gap-3 bg-ink px-6 py-4 text-sm text-paper">
               Notify Me <Bell size={16} />
             </Link>
           </MagneticButton>
           <MagneticButton>
-            <Link href="/shop" className="inline-flex items-center gap-3 border border-shell px-6 py-4 text-sm text-coconut">
+            <Link href="/shop" className="inline-flex min-h-12 items-center gap-3 border border-shell px-6 py-4 text-sm text-coconut">
               View catalogue <ArrowUpRight size={16} />
             </Link>
           </MagneticButton>
@@ -157,7 +238,7 @@ export function ProductHighlight() {
 
 export function CataloguePreview() {
   return (
-    <section className="relative overflow-hidden bg-paper px-5 py-24 md:px-8">
+    <section className="relative overflow-hidden bg-paper px-5 py-16 md:px-8 md:py-24">
       <CoconutSliceDoodle className="co-brand-doodle absolute left-4 top-10 hidden w-32 md:block" />
       <SectionHeader
         kicker="Pre-launch catalogue"
@@ -178,7 +259,7 @@ export function CataloguePreview() {
             </div>
             <p className="mb-3 text-[0.65rem] uppercase tracking-editorial text-grove">{product.category}</p>
             <h3 className="font-display text-3xl text-ink">{product.name}</h3>
-            <p className="mt-3 text-sm leading-7 text-muted">{product.format}</p>
+            <p className="mt-3 text-sm leading-7 text-muted">{product.shortDescription}</p>
             <p className="mt-5 text-[0.65rem] uppercase tracking-editorial text-coconut">Coming soon</p>
           </Link>
         ))}
@@ -189,7 +270,7 @@ export function CataloguePreview() {
 
 export function RecipesPreview() {
   return (
-    <section className="relative overflow-hidden px-5 py-24 md:px-8">
+    <section className="relative overflow-hidden px-5 py-16 md:px-8 md:py-24">
       <TenderCoconutDoodle className="co-brand-doodle absolute right-6 top-8 hidden w-28 text-grove md:block" />
       <SectionHeader
         kicker="Recipes"
@@ -211,7 +292,7 @@ export function RecipesPreview() {
         ))}
       </div>
       <div className="mt-10 text-center">
-        <Link href="/recipes" className="inline-flex items-center gap-3 border border-shell px-6 py-4 text-sm text-coconut">
+        <Link href="/recipes" className="inline-flex min-h-12 items-center gap-3 border border-shell px-6 py-4 text-sm text-coconut">
           Explore recipes <ArrowUpRight size={16} />
         </Link>
       </div>
@@ -221,7 +302,7 @@ export function RecipesPreview() {
 
 export function WellnessUsageSection() {
   return (
-    <section className="bg-porcelain px-5 py-24 md:px-8">
+    <section className="bg-porcelain px-5 py-16 md:px-8 md:py-24">
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[0.9fr_1.1fr]">
         <Reveal>
           <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-grove">Future expressions</p>
@@ -230,7 +311,7 @@ export function WellnessUsageSection() {
         <div className="grid gap-4 sm:grid-cols-2">
           {usageDirections.map((item) => (
             <Reveal key={item.title}>
-              <div className="border-t border-shell pt-6">
+              <div className="co-neu h-full p-6">
                 <h3 className="font-display text-3xl text-ink">{item.title}</h3>
                 <p className="mt-4 text-sm leading-7 text-muted">{item.body}</p>
               </div>
@@ -244,12 +325,8 @@ export function WellnessUsageSection() {
 
 export function TestimonialsSection() {
   return (
-    <section className="px-5 py-24 md:px-8">
-      <SectionHeader
-        kicker="Community notes"
-        title="Early feedback, clearly marked."
-        body="Placeholder notes for launch planning. These are not customer reviews and will be replaced with verified feedback."
-      />
+    <section className="px-5 py-16 md:px-8 md:py-24">
+      <SectionHeader kicker="Community notes" title="Built with early tasters, buyers, and believers." body="Signals from the people closest to the launch: hospitality partners, founder community, and early tasting circles." />
       <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3">
         {communityNotes.map((note) => (
           <motion.article key={note.label} {...CoconutMotion.TestimonialFade} className="co-glass co-soft-depth-hover p-7">
@@ -265,7 +342,7 @@ export function TestimonialsSection() {
 
 export function SocialFounderBanners() {
   return (
-    <section className="relative overflow-hidden bg-paper px-5 py-24 md:px-8">
+    <section className="relative overflow-hidden bg-paper px-5 py-16 md:px-8 md:py-24">
       <PalmLeafDoodle className="co-brand-doodle absolute bottom-8 right-8 hidden w-44 md:block" />
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <Reveal>
@@ -297,7 +374,7 @@ export function SocialFounderBanners() {
 
 export function DistributorPartnershipCta() {
   return (
-    <section className="px-5 py-24 md:px-8">
+    <section className="px-5 py-16 md:px-8 md:py-24">
       <div className="relative mx-auto grid max-w-7xl gap-8 overflow-hidden bg-ink p-8 text-paper md:grid-cols-[1fr_0.8fr] md:p-12">
         <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 w-72 opacity-[0.07]" />
         <div>
@@ -308,7 +385,7 @@ export function DistributorPartnershipCta() {
           <p className="mb-8 text-base leading-8 text-paper/72">
             We are preparing distributor, hospitality, and GCC conversations before the full product rollout.
           </p>
-          <Link href="/shop" className="inline-flex items-center gap-3 bg-paper px-6 py-4 text-sm text-ink">
+          <Link href="/shop" className="inline-flex min-h-12 items-center gap-3 bg-paper px-6 py-4 text-sm text-ink">
             Distributor Enquiry <Handshake size={16} />
           </Link>
         </div>

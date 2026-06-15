@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { ArrowLeft, Bell, Handshake } from "lucide-react";
+import { ArrowLeft, Bell, Handshake, Leaf } from "lucide-react";
 import { Reveal } from "@/components/Motion";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
@@ -50,7 +50,7 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
         ]}
         extra={[productSchema(product)]}
       />
-      <section className="mx-auto grid max-w-7xl gap-12 px-5 py-20 md:grid-cols-[0.95fr_1.05fr] md:px-8 md:py-28">
+      <section className="mx-auto grid max-w-7xl gap-10 px-5 py-16 md:grid-cols-[0.95fr_1.05fr] md:px-8 md:py-24">
         <Reveal className="co-glass relative aspect-[4/5] overflow-hidden">
           <Image src={product.image} alt={product.name} fill priority sizes="(min-width: 768px) 48vw, 100vw" className="object-contain p-5" />
         </Reveal>
@@ -64,10 +64,10 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
           <p className="mt-8 max-w-2xl text-lg leading-9 text-muted">{product.shortDescription}</p>
           <div className="mt-10 flex flex-wrap gap-4">
             <AddToCartButton slug={product.slug} />
-            <Link href="/sign-up" className="inline-flex items-center gap-3 border border-shell px-6 py-4 text-sm text-coconut">
+            <Link href="/sign-up" className="inline-flex min-h-12 items-center gap-3 border border-shell px-6 py-4 text-sm text-coconut">
               Notify Me <Bell size={16} />
             </Link>
-            <Link href="/shop" className="inline-flex items-center gap-3 border border-shell px-6 py-4 text-sm text-coconut">
+            <Link href="/shop" className="inline-flex min-h-12 items-center gap-3 border border-shell px-6 py-4 text-sm text-coconut">
               Distributor Enquiry <Handshake size={16} />
             </Link>
           </div>
@@ -77,7 +77,8 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
         <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-4">
           {sections.map((section) => (
             <Reveal key={section.title}>
-              <article className="co-glass h-full p-6">
+              <article className="co-neu h-full p-6">
+                <Leaf className="mb-6 text-grove" size={20} />
                 <h2 className="mb-6 font-display text-3xl text-ink">{section.title}</h2>
                 <ul className="space-y-4 text-sm leading-7 text-muted">
                   {section.items.map((item) => (

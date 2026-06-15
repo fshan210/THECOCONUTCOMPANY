@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Droplets, Leaf, Sparkles, Waves } from "lucide-react";
 import { PalmLeafDoodle } from "@/components/BrandDoodles";
 import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Motion";
@@ -13,11 +14,18 @@ export const metadata: Metadata = createPageMetadata({
   path: "/products"
 });
 
+const rituals = [
+  { title: "Drink", body: "Tender coconut water for daily hydration and hospitality chillers.", icon: Droplets },
+  { title: "Scoop", body: "Coconut-led desserts for cafe counters and home freezers.", icon: Sparkles },
+  { title: "Cook", body: "Kitchen formats for sauces, finishing, pantry, and chef use.", icon: Leaf },
+  { title: "Care", body: "Future body, hair, and wellness rituals with restrained claims.", icon: Waves }
+];
+
 export default function ProductsPage() {
   return (
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Products", path: "/products" }]} />
-      <section className="relative mx-auto max-w-7xl overflow-hidden px-5 py-24 md:px-8">
+      <section className="relative mx-auto max-w-7xl overflow-hidden px-5 py-16 md:px-8 md:py-24">
         <PalmLeafDoodle className="co-brand-doodle absolute right-6 top-12 hidden w-44 text-grove md:block" />
         <Reveal className="max-w-5xl">
           <p className="mb-8 text-[0.72rem] uppercase tracking-editorial text-grove">Products</p>
@@ -27,7 +35,24 @@ export default function ProductsPage() {
         </Reveal>
       </section>
 
-      <section className="co-wave-edge relative overflow-hidden bg-paper px-5 py-24 md:px-8">
+      <section className="px-5 pb-16 md:px-8">
+        <div className="mx-auto grid max-w-7xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {rituals.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Reveal key={item.title}>
+                <article className="co-neu h-full p-6">
+                  <Icon className="mb-8 text-grove" size={24} />
+                  <h2 className="font-display text-3xl text-ink">{item.title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-muted">{item.body}</p>
+                </article>
+              </Reveal>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="co-wave-edge relative overflow-hidden bg-paper px-5 py-16 md:px-8 md:py-24">
         <SectionHeader
           kicker="Portfolio"
           title="No cart. No noise. Just the house system."

@@ -6,6 +6,7 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { StructuredData } from "@/components/seo/StructuredData";
 import {
   CataloguePreview,
+  BenefitsSection,
   DistributorPartnershipCta,
   HonestTruthSection,
   MadeForLivingVisual,
@@ -14,6 +15,7 @@ import {
   RecipesPreview,
   SocialFounderBanners,
   TestimonialsSection,
+  TrustStrip,
   WellnessUsageSection
 } from "@/components/HomeExperienceSections";
 import { products } from "@/lib/content";
@@ -30,6 +32,7 @@ export default function HomePage() {
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }]} />
       <CoconutEcosystem />
+      <TrustStrip />
       <MadeForLivingVisual />
 
       <section className="bg-paper px-5 py-24 md:px-8">
@@ -50,6 +53,7 @@ export default function HomePage() {
       <HonestTruthSection />
       <ProductHighlight />
       <CataloguePreview />
+      <BenefitsSection />
       <RecipesPreview />
       <WellnessUsageSection />
       <TestimonialsSection />

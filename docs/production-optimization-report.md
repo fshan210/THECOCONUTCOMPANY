@@ -1,5 +1,69 @@
 # Website Production Optimization Report
 
+## v1.5.0 Consumer Brand Experience
+
+### Scope
+
+Transformed the site from a sparse premium presentation into a fuller consumer-friendly coconut brand experience across Home, About, Products, Sustainability, Founders, Journal, Shop, and product detail pages.
+
+### Key Fixes
+
+- Added coconut doodles, palm leaf illustration usage, wave pattern depth, hydration icons, coconut benefit cards, recipe previews, founder journey cards, and community/testimonial storytelling.
+- Rebalanced the palette toward Earth Brown `#3E2E1F` and Leaf Green `#4A6F4A`, with Cream Beige `#F5EBD7`, Palm Green `#A8B07B`, and Sun Yellow `#D8C07A` used as supporting surfaces and accents.
+- Removed fake coconut geometry cues from the hero and used the premium transparent coconut render because no suitable GLTF/GLB coconut asset exists in `public`.
+- Fixed the About journey by matching animation treatments to Palakkad, farms, VAP, manufacturing, UAE, and global vision stages.
+- Improved mobile density, CTA tap targets, image scaling, and animation behavior.
+- Migrated lint execution to ESLint flat config so `npm run lint` works with the installed Next 16 lint stack.
+
+### Assets Used
+
+```text
+public/assets/generated/hero-coconut-render.webp
+public/assets/transparent/co-water.webp
+public/assets/transparent/mango-coconut-dessert.webp
+public/assets/transparent/coconut-care.webp
+public/assets/generated/product-kitchen-oil.webp
+public/assets/generated/product-lifestyle.webp
+public/assets/generated/recipe-smoothie-bowl.webp
+public/assets/generated/recipe-coffee-chill.webp
+public/optimized/assets-farming-kerala-coconut-palm.webp
+public/optimized/assets-farming-coconut-grove.webp
+public/optimized/assets-farms-coconut-harvesting.webp
+public/optimized/assets-coconut-made-for-living-reference.webp
+```
+
+### Verification
+
+```text
+npm run lint: passed
+npx tsc --noEmit --incremental false: passed
+npm run build: passed
+```
+
+Lighthouse mobile:
+
+```text
+Performance: 94
+Accessibility: 96
+Best Practices: 100
+SEO: 100
+Largest Contentful Paint: 3.2s
+Total Blocking Time: 10ms
+Cumulative Layout Shift: 0
+```
+
+Lighthouse desktop:
+
+```text
+Performance: 100
+Accessibility: 96
+Best Practices: 100
+SEO: 100
+Largest Contentful Paint: 0.6s
+Total Blocking Time: 0ms
+Cumulative Layout Shift: 0
+```
+
 ## Production URL
 
 ```text

@@ -24,18 +24,20 @@ type CartContextValue = {
 const CartContext = createContext<CartContextValue | null>(null);
 const storageKey = "co-cart";
 
-export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [open, setOpen] = useState(false);
+function readInitialCart(): CartItem[] {
+  if (typeof window === "undefined") return [];
 
-  useEffect(() => {
-    try {
-      const stored = window.localStorage.getItem(storageKey);
-      if (stored) setItems(JSON.parse(stored));
-    } catch {
-      setItems([]);
-    }
-  }, []);
+  try {
+    const stored = window.localStorage.getItem(storageKey);
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function CartProvider({ children }: { children: ReactNode }) {
+  const [items, setItems] = useState<CartItem[]>(readInitialCart);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     window.localStorage.setItem(storageKey, JSON.stringify(items));
