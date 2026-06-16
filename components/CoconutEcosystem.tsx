@@ -26,8 +26,8 @@ function CoconutFallback() {
   return (
     <div className="relative h-[330px] w-[330px] md:h-[470px] md:w-[470px]">
       <Image
-        src="/assets/generated/hero-coconut-render.webp"
-        alt="Half-open coconut with visible coconut flesh and water"
+        src="/assets/transparent/co-tender-coconut.webp"
+        alt="Tender green coconut with water droplets"
         fill
         priority
         sizes="(min-width: 768px) 470px, 330px"

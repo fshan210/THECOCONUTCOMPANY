@@ -4,7 +4,7 @@ import { journalEntries } from "@/lib/content";
 const journalImages = [
   "/optimized/assets-farming-kerala-coconut-palm.webp",
   "/optimized/assets-coconut-made-for-living-banner.webp",
-  "/assets/generated/product-lifestyle.webp",
+  "/assets/transparent/co-social-media-pack.webp",
   "/optimized/assets-farms-coconut-harvesting.webp"
 ];
 

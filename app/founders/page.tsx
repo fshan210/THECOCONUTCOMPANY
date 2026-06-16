@@ -11,7 +11,7 @@ const founders = [
   {
     name: "Fazil Shersha",
     role: "Founder / Brand and growth",
-    image: "/optimized/images-social-media-mockup-2.webp",
+    image: "/assets/transparent/co-social-media-pack.webp",
     bio: "Leads the company's global positioning, commercial architecture, and premium coconut house vision from Palakkad outward."
   },
   {

@@ -67,9 +67,9 @@ function createKeyedCanvas(image: HTMLImageElement, mode: "coconut" | "bottle") 
   if (!context) return image;
 
   if (mode === "bottle") {
-    canvas.width = 520;
-    canvas.height = 940;
-    context.drawImage(image, 520, 130, 860, 1560, 0, 0, canvas.width, canvas.height);
+    canvas.width = image.width;
+    canvas.height = image.height;
+    context.drawImage(image, 0, 0);
   } else {
     canvas.width = image.width;
     canvas.height = image.height;
@@ -87,8 +87,10 @@ function createKeyedCanvas(image: HTMLImageElement, mode: "coconut" | "bottle") 
     const spread = Math.max(red, green, blue) - Math.min(red, green, blue);
 
     if (mode === "coconut") {
-      if (average > 238 && spread < 34) data[index + 3] = 0;
-      else if (average > 222 && spread < 42) data[index + 3] = Math.round(data[index + 3] * ((245 - average) / 23));
+      const paleGreenBackground = average > 174 && green > red && green > blue && spread < 72;
+      const nearWhite = average > 236 && spread < 42;
+      if (nearWhite || paleGreenBackground) data[index + 3] = 0;
+      else if (average > 220 && spread < 58) data[index + 3] = Math.round(data[index + 3] * 0.2);
     } else {
       const edgeLike = red > 224 && green > 206 && blue > 162 && spread < 72;
       const farEdge = index / 4 % canvas.width < 80 || index / 4 % canvas.width > canvas.width - 80;
@@ -288,7 +290,10 @@ function useCanvasStory(progress: number, reduceMotion: boolean) {
     let cancelled = false;
 
     async function setup() {
-      const [coconut, bottle] = await Promise.all([loadStoryImage("/assets/coconut.jpg"), loadStoryImage("/assets/bottle.jpg")]);
+      const [coconut, bottle] = await Promise.all([
+        loadStoryImage("/assets/transparent/co-tender-coconut.png"),
+        loadStoryImage("/assets/transparent/co-water-bottle.png")
+      ]);
       imagesRef.current = { coconut: createKeyedCanvas(coconut, "coconut"), bottle: createKeyedCanvas(bottle, "bottle") };
 
       const draw = (time: number) => {
