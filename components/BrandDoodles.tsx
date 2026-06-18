@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 type BrandDoodleProps = {
   className?: string;
 };
@@ -49,5 +53,42 @@ export function PalmLeafDoodle({ className }: BrandDoodleProps) {
       <path d="M37 69c1-20 5-34 16-49M52 58c8-19 16-32 31-45M68 48c13-18 26-29 44-38M85 39c18-15 33-23 56-28M101 31c18-9 33-13 52-14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
       <path d="M32 73c21 0 37 5 52 16M49 61c20 3 34 10 47 23M66 50c19 3 33 9 49 20M86 39c20 2 35 6 51 15M105 30c17 1 31 4 45 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
     </svg>
+  );
+}
+
+const doodleSet = [
+  { Doodle: PalmLeafDoodle, className: "left-[4%] top-[12%] w-36 text-grove md:w-48", drift: 9, rotate: 2 },
+  { Doodle: CoconutSliceDoodle, className: "right-[6%] top-[18%] w-28 text-coconut md:w-40", drift: -7, rotate: -2 },
+  { Doodle: TenderCoconutDoodle, className: "bottom-[10%] left-[12%] w-24 text-palm md:w-32", drift: 6, rotate: 1.5 }
+];
+
+export function FloatingDoodleLayer({ density = "normal" }: { density?: "light" | "normal" }) {
+  const visibleDoodles = density === "light" ? doodleSet.slice(0, 2) : doodleSet;
+
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+      {visibleDoodles.map(({ Doodle, className, drift, rotate }, index) => (
+        <motion.div
+          key={className}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          animate={{
+            y: [0, drift, 0],
+            rotate: [0, rotate, 0],
+            x: [0, index % 2 === 0 ? 4 : -4, 0]
+          }}
+          transition={{
+            opacity: { duration: 0.8, delay: index * 0.08 },
+            y: { duration: 16 + index * 3, repeat: Infinity, ease: "easeInOut" },
+            x: { duration: 18 + index * 2, repeat: Infinity, ease: "easeInOut" },
+            rotate: { duration: 20 + index * 4, repeat: Infinity, ease: "easeInOut" }
+          }}
+          className={`co-brand-doodle absolute hidden md:block ${className}`}
+        >
+          <Doodle className="h-full w-full" />
+        </motion.div>
+      ))}
+    </div>
   );
 }

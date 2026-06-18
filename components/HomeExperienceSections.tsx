@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { MagneticButton } from "@/components/MagneticButton";
 import { Reveal } from "@/components/Motion";
 import { SectionHeader } from "@/components/SectionHeader";
-import { CoconutSliceDoodle, PalmLeafDoodle, TenderCoconutDoodle } from "@/components/BrandDoodles";
+import { CoconutSliceDoodle, FloatingDoodleLayer, PalmLeafDoodle, TenderCoconutDoodle } from "@/components/BrandDoodles";
 import { communityNotes, recipes, shopProducts, socialStories, usageDirections } from "@/lib/catalog";
 import { CoconutMotion, useCoconutMotionMode } from "@/lib/animations/coconut-motion";
 
@@ -41,9 +41,28 @@ const benefitItems = [
   }
 ];
 
+const heroCompositions = [
+  {
+    title: "Poolside hydration",
+    body: "The everyday bottle in bright, social, warm-weather moments.",
+    image: "/assets/generated/composition-poolside.webp"
+  },
+  {
+    title: "Morning ritual",
+    body: "A softer lifestyle scene for homes, cafes, and calm resets.",
+    image: "/assets/generated/composition-morning.webp"
+  },
+  {
+    title: "Shelf-ready pack",
+    body: "The tetra format shows where the coconut water system can stretch.",
+    image: "/assets/generated/composition-tetra.webp"
+  }
+];
+
 export function TrustStrip() {
   return (
-    <section className="relative z-10 -mt-1 bg-coconut px-5 py-5 text-paper md:px-8">
+    <section className="relative z-10 -mt-1 overflow-hidden bg-coconut px-5 py-5 text-paper md:px-8">
+      <div className="co-wave-pattern pointer-events-none absolute inset-y-0 left-0 w-72 opacity-[0.08]" />
       <div className="mx-auto grid max-w-7xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {trustItems.map((item) => {
           const Icon = item.icon;
@@ -56,6 +75,46 @@ export function TrustStrip() {
             </div>
           );
         })}
+      </div>
+    </section>
+  );
+}
+
+export function HeroCompositionSection() {
+  return (
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#fffdf8_0%,#F5EBD7_46%,rgba(168,176,123,0.42)_100%)] px-5 py-16 md:px-8 md:py-24">
+      <FloatingDoodleLayer density="light" />
+      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+        <Reveal>
+          <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-grove">Fresh by design</p>
+          <h2 className="font-display text-5xl leading-[0.98] text-ink md:text-7xl">
+            Real product moments, not empty brand space.
+          </h2>
+          <p className="mt-7 max-w-xl text-base leading-8 text-muted md:text-lg md:leading-9">
+            The .CO world moves from coconut to bottle to everyday scenes: poolside hydration, morning resets, shelves, cafes, and home rituals.
+          </p>
+        </Reveal>
+        <div className="grid gap-4 md:grid-cols-3">
+          {heroCompositions.map((item, index) => (
+            <Reveal key={item.title} delay={index * 0.07}>
+              <article className="co-glass co-soft-depth-hover relative h-full overflow-hidden p-3">
+                <div className="relative aspect-[4/5] overflow-hidden bg-[linear-gradient(160deg,#fffdf8,#F5EBD7_58%,rgba(74,111,74,0.16))]">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    sizes="(min-width: 1024px) 22vw, (min-width: 768px) 30vw, 90vw"
+                    className="object-contain p-3"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-display text-3xl leading-tight text-ink">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-muted">{item.body}</p>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -209,9 +268,12 @@ export function ProductHighlight() {
   const water = shopProducts[0];
 
   return (
-    <section className="mx-auto grid max-w-7xl gap-8 px-5 py-16 md:grid-cols-[1.05fr_0.95fr] md:items-center md:px-8 md:py-24">
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#fffdf8_0%,rgba(168,176,123,0.2)_50%,#F5EBD7_100%)] px-5 py-16 md:px-8 md:py-24">
+      <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1.05fr_0.95fr] md:items-center">
       <Reveal className="co-glass relative aspect-[4/5] overflow-hidden md:aspect-[5/4]">
-        <Image src={water.image} alt={`${water.name} product highlight`} fill sizes="(min-width: 768px) 52vw, 100vw" className="object-contain p-8" />
+        <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 w-44 opacity-[0.1]" />
+        <div className="absolute inset-x-14 bottom-12 h-12 rounded-full bg-coconut/14 blur-2xl" />
+        <Image src={water.image} alt={`${water.name} product highlight`} fill sizes="(min-width: 768px) 52vw, 100vw" className="object-contain p-8 drop-shadow-[0_28px_48px_rgba(62,46,31,0.2)]" />
       </Reveal>
       <Reveal delay={0.1}>
         <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-grove">First release</p>
@@ -237,28 +299,30 @@ export function ProductHighlight() {
           </MagneticButton>
         </div>
       </Reveal>
+      </div>
     </section>
   );
 }
 
 export function CataloguePreview() {
   return (
-    <section className="relative overflow-hidden bg-paper px-5 py-16 md:px-8 md:py-24">
+    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#F5EBD7_0%,#fffdf8_64%,rgba(74,111,74,0.12)_100%)] px-5 py-16 md:px-8 md:py-24">
       <CoconutSliceDoodle className="co-brand-doodle absolute left-4 top-10 hidden w-32 md:block" />
       <SectionHeader
         kicker="Pre-launch catalogue"
         title="Coconut products without the cart noise."
         body="A commerce foundation for discovery, early access, and distributor conversations before checkout goes live."
       />
-      <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-4">
-        {shopProducts.map((product) => (
+      <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-2 lg:grid-cols-4">
+        {shopProducts.map((product, index) => (
           <Link
             key={product.slug}
             href={`/shop/${product.slug}`}
             data-analytics="product_interest_click"
             data-analytics-label={product.name}
-            className="group co-neu co-soft-depth-hover p-4"
+            className={`group co-neu co-soft-depth-hover relative overflow-hidden p-4 ${index === 0 ? "md:col-span-2 lg:col-span-1" : ""}`}
           >
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_28%_12%,rgba(74,111,74,0.12),transparent_34%)] opacity-0 transition duration-500 group-hover:opacity-100" />
             <div className="relative mb-6 aspect-[4/5] overflow-hidden">
               <div className="absolute inset-x-8 bottom-7 h-8 rounded-full bg-coconut/12 blur-xl" />
               <Image src={product.image} alt={product.name} fill sizes="(min-width: 768px) 25vw, 90vw" className="object-contain p-4 drop-shadow-[0_22px_30px_rgba(62,46,31,0.18)] transition duration-700 group-hover:scale-[1.03]" />
@@ -276,7 +340,7 @@ export function CataloguePreview() {
 
 export function RecipesPreview() {
   return (
-    <section className="relative overflow-hidden px-5 py-16 md:px-8 md:py-24">
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#fffdf8_0%,#F5EBD7_58%,rgba(216,192,122,0.22)_100%)] px-5 py-16 md:px-8 md:py-24">
       <TenderCoconutDoodle className="co-brand-doodle absolute right-6 top-8 hidden w-28 text-grove md:block" />
       <SectionHeader
         kicker="Recipes"
@@ -285,7 +349,7 @@ export function RecipesPreview() {
       />
       <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3">
         {recipes.slice(0, 3).map((recipe) => (
-          <motion.article key={recipe.slug} {...CoconutMotion.RecipeReveal} className="co-glass co-soft-depth p-4">
+          <motion.article key={recipe.slug} {...CoconutMotion.RecipeReveal} className="co-glass co-soft-depth-hover p-4">
             <div className="relative mb-6 aspect-[4/3] overflow-hidden bg-shell">
               <Image src={recipe.image} alt={recipe.title} fill sizes="(min-width: 768px) 33vw, 90vw" className="object-cover" />
             </div>
@@ -308,7 +372,7 @@ export function RecipesPreview() {
 
 export function WellnessUsageSection() {
   return (
-    <section className="bg-porcelain px-5 py-16 md:px-8 md:py-24">
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#fffdf8_0%,rgba(74,111,74,0.1)_48%,#F5EBD7_100%)] px-5 py-16 md:px-8 md:py-24">
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[0.9fr_1.1fr]">
         <Reveal>
           <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-grove">Future expressions</p>
@@ -331,7 +395,7 @@ export function WellnessUsageSection() {
 
 export function TestimonialsSection() {
   return (
-    <section className="px-5 py-16 md:px-8 md:py-24">
+    <section className="relative overflow-hidden px-5 py-16 md:px-8 md:py-24">
       <SectionHeader kicker="Community notes" title="Built with early tasters, buyers, and believers." body="Signals from the people closest to the launch: hospitality partners, founder community, and early tasting circles." />
       <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3">
         {communityNotes.map((note) => (
@@ -348,7 +412,7 @@ export function TestimonialsSection() {
 
 export function SocialFounderBanners() {
   return (
-    <section className="relative overflow-hidden bg-paper px-5 py-16 md:px-8 md:py-24">
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#F5EBD7_0%,#fffdf8_48%,rgba(168,176,123,0.28)_100%)] px-5 py-16 md:px-8 md:py-24">
       <PalmLeafDoodle className="co-brand-doodle absolute bottom-8 right-8 hidden w-44 md:block" />
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <Reveal>
@@ -402,7 +466,7 @@ export function DistributorPartnershipCta() {
 
 export function NewsletterSignupSection() {
   return (
-    <section className="relative overflow-hidden bg-porcelain px-5 py-20 md:px-8">
+    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#fffdf8,#F5EBD7)] px-5 py-20 md:px-8">
       <CoconutSliceDoodle className="co-brand-doodle absolute right-6 top-8 hidden w-36 text-grove md:block" />
       <div className="co-glass mx-auto grid max-w-7xl gap-8 p-6 md:grid-cols-[0.9fr_1.1fr] md:p-10">
         <div>

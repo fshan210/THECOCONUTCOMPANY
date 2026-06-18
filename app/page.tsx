@@ -8,6 +8,7 @@ import {
   CataloguePreview,
   BenefitsSection,
   DistributorPartnershipCta,
+  HeroCompositionSection,
   HonestTruthSection,
   MadeForLivingVisual,
   NewsletterSignupSection,
@@ -34,8 +35,9 @@ export default function HomePage() {
       <HeroStoryCanvas />
       <MadeForLivingVisual />
       <TrustStrip />
+      <HeroCompositionSection />
 
-      <section className="bg-paper px-5 py-24 md:px-8">
+      <section className="relative overflow-hidden bg-[linear-gradient(135deg,#F5EBD7_0%,#fffdf8_48%,rgba(74,111,74,0.16)_100%)] px-5 py-20 md:px-8 md:py-28">
         <SectionHeader
           kicker="House universe"
           title="Coconut, edited into modern rituals."

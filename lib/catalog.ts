@@ -99,7 +99,7 @@ export const recipes = [
     time: "5 min",
     difficulty: "Easy",
     product: ".CO Water",
-    image: "/assets/transparent/co-water-tetra-pack.webp",
+    image: "/optimized/assets-coconut-tender-coconut-water.webp",
     description: "A chilled mango and coconut water drink for warm afternoons and simple hosting.",
     ingredients: ["Coconut water", "Mango", "Lime", "Ice"]
   },
@@ -132,7 +132,7 @@ export const recipes = [
     time: "12 min",
     difficulty: "Medium",
     product: "MELT.CO Mango Coconut",
-    image: "/assets/transparent/co-coconut-icecream.webp",
+    image: "/assets/transparent/mango-coconut-dessert.webp",
     description: "A layered dessert cup using coconut creaminess, mango, and a minimal finish.",
     ingredients: ["MELT.CO Mango Coconut", "Coconut flakes", "Mango", "Shortbread crumb"]
   },
