@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Heart, Menu, UserRound, X } from "lucide-react";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { CartButton } from "@/components/cart/CartDrawer";
+import { useCustomerSession } from "@/components/auth/CustomerAuthProvider";
 
 const links = [
   { href: "/about", label: "About" },
@@ -21,6 +22,7 @@ const links = [
 export function Navigation() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const session = useCustomerSession();
   const { scrollY } = useScroll();
   const navPadding = useTransform(scrollY, [0, 120], [18, 11]);
   const logoScale = useTransform(scrollY, [0, 120], [1, 0.9]);
@@ -56,6 +58,13 @@ export function Navigation() {
         </div>
         <div className="hidden items-center gap-3 md:flex">
           <Link
+            href="/wishlist"
+            aria-label="Wishlist"
+            className="co-neu grid h-10 w-10 place-items-center text-coconut transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coconut"
+          >
+            <Heart size={16} />
+          </Link>
+          <Link
             href="/shop"
             data-analytics="cta_click"
             data-analytics-label="nav_shop"
@@ -63,9 +72,34 @@ export function Navigation() {
           >
             Shop
           </Link>
+          {session ? (
+            <Link
+              href="/account"
+              aria-label="My Account"
+              className="grid h-10 min-w-10 place-items-center rounded-full bg-coconut px-3 text-sm font-medium text-paper shadow-[0_12px_30px_rgba(62,46,31,0.18)] transition hover:bg-grove focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coconut"
+            >
+              {session.initials}
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className="inline-flex min-h-10 items-center gap-2 rounded-lg bg-coconut px-4 text-[0.7rem] uppercase tracking-editorial text-paper shadow-[0_12px_30px_rgba(62,46,31,0.16)] transition hover:bg-grove focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coconut"
+            >
+              <UserRound size={15} /> Login
+            </Link>
+          )}
           <CartButton />
         </div>
         <div className="flex items-center gap-2 md:hidden">
+          {session ? (
+            <Link href="/account" aria-label="My Account" className="grid h-10 min-w-10 place-items-center rounded-full bg-coconut px-2 text-xs font-medium text-paper">
+              {session.initials}
+            </Link>
+          ) : (
+            <Link href="/login" aria-label="Login" className="co-neu grid h-10 w-10 place-items-center text-coconut">
+              <UserRound size={16} />
+            </Link>
+          )}
           <CartButton />
           <button
             type="button"
@@ -99,6 +133,12 @@ export function Navigation() {
                 {link.label}
               </Link>
             ))}
+            <Link href="/wishlist" onClick={() => setOpen(false)} className="block border-b border-shell/70 py-4 text-sm uppercase tracking-editorial text-muted">
+              Wishlist
+            </Link>
+            <Link href={session ? "/account" : "/login"} onClick={() => setOpen(false)} className="block py-4 text-sm uppercase tracking-editorial text-coconut">
+              {session ? "My Account" : "Login"}
+            </Link>
           </motion.div>
         ) : null}
       </AnimatePresence>

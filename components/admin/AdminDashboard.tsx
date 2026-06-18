@@ -17,6 +17,7 @@ import {
   topProducts,
   trafficSources
 } from "@/lib/admin/data";
+import { getAdminPath } from "@/lib/admin/path";
 
 const spring = { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const };
 
@@ -80,7 +81,7 @@ export function AdminModulePage({ module }: { module: string }) {
               Enterprise-ready controls for the .CO operating system. Data is wired to the current site content and ready for database persistence.
             </p>
           </div>
-          <Link href="/admin" className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-coconut/12 px-4 text-sm text-coconut dark:border-paper/20 dark:text-paper">
+          <Link href={getAdminPath()} className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-coconut/12 px-4 text-sm text-coconut dark:border-paper/20 dark:text-paper">
             Dashboard <ArrowUpRight size={15} />
           </Link>
         </div>
@@ -103,9 +104,9 @@ function AdminHero() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             {[
-              ["Edit homepage", "/admin/website"],
-              ["Upload media", "/admin/media-library"],
-              ["Review SEO", "/admin/seo"]
+              ["Edit homepage", getAdminPath("website")],
+              ["Upload media", getAdminPath("media-library")],
+              ["Review SEO", getAdminPath("seo")]
             ].map(([label, href]) => (
               <Link key={href} href={href} className="co-neu inline-flex min-h-11 items-center gap-2 rounded-lg px-4 text-sm text-coconut dark:bg-paper">
                 {label} <ArrowUpRight size={15} />

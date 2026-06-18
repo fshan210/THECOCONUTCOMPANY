@@ -8,6 +8,7 @@ import { Bell, ChevronRight, Command, LogOut, Menu, Moon, Search, Sun, X } from 
 import { useMemo, useState } from "react";
 import { logoutAdmin } from "@/lib/admin/actions";
 import { adminNavItems } from "@/lib/admin/data";
+import { getAdminPath } from "@/lib/admin/path";
 import { type AdminRole, canAccess } from "@/lib/admin/rbac";
 
 type AdminShellProps = {
@@ -93,7 +94,7 @@ function AdminSidebar({
 }) {
   return (
     <div className="flex h-full flex-col">
-      <Link href="/admin" onClick={onNavigate} className="mb-6 flex items-center gap-3 px-2">
+      <Link href={getAdminPath()} onClick={onNavigate} className="mb-6 flex items-center gap-3 px-2">
         <span className="block w-24">
           <Image src="/images/logo.svg" alt=".CO The Coconut Company" width={124} height={100} className="h-auto w-full" />
         </span>
@@ -102,11 +103,12 @@ function AdminSidebar({
       <nav className="min-h-0 flex-1 space-y-1 overflow-y-auto pr-1">
         {nav.map((item) => {
           const Icon = item.icon;
-          const active = pathname === item.href;
+          const configuredHref = item.href === "/admin" ? getAdminPath() : getAdminPath(item.href.replace("/admin/", ""));
+          const active = pathname === item.href || pathname === configuredHref;
           return (
             <Link
               key={item.href}
-              href={item.href}
+              href={configuredHref}
               onClick={onNavigate}
               className={`group flex min-h-11 items-center gap-3 rounded-lg px-3 text-sm transition ${
                 active ? "bg-coconut text-paper shadow-[0_16px_34px_rgba(62,46,31,0.18)]" : "text-muted hover:bg-paper hover:text-coconut"

@@ -100,6 +100,118 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
+.co-input {
+  min-height: 56px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid rgba(62, 46, 31, 0.22);
+  background: rgba(255, 253, 248, 0.92);
+  padding: 0.95rem 1rem;
+  color: #3e2e1f;
+  font-size: 1rem;
+  line-height: 1.5;
+  box-shadow:
+    inset 8px 8px 18px rgba(62, 46, 31, 0.055),
+    inset -8px -8px 18px rgba(255, 255, 255, 0.62);
+  outline: none;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.co-input::placeholder {
+  color: rgba(62, 46, 31, 0.46);
+}
+
+.co-input:hover {
+  border-color: rgba(62, 46, 31, 0.44);
+  background: #fffdf8;
+}
+
+.co-input:focus,
+.co-input:focus-visible {
+  border-color: #3e2e1f;
+  box-shadow:
+    0 0 0 4px rgba(216, 192, 122, 0.34),
+    inset 6px 6px 14px rgba(62, 46, 31, 0.05),
+    inset -6px -6px 14px rgba(255, 255, 255, 0.7);
+}
+
+.co-input[aria-invalid="true"] {
+  border-color: #7f1d1d;
+  box-shadow: 0 0 0 4px rgba(127, 29, 29, 0.12);
+}
+
+.co-input:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.co-input:-webkit-autofill,
+.co-input:-webkit-autofill:hover,
+.co-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #3e2e1f;
+  box-shadow: 0 0 0 1000px #fffdf8 inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.co-admin-primary-button {
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(62, 46, 31, 0.22);
+  background: #3e2e1f;
+  padding: 0.95rem 1.25rem;
+  color: #fffdf8;
+  font-size: 0.94rem;
+  font-weight: 600;
+  box-shadow:
+    0 18px 40px rgba(62, 46, 31, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.co-admin-primary-button:hover {
+  background: #4a6f4a;
+  transform: translateY(-1px);
+  box-shadow:
+    0 22px 46px rgba(62, 46, 31, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.co-admin-primary-button:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.co-admin-primary-button:focus-visible {
+  outline: 3px solid rgba(216, 192, 122, 0.86);
+  outline-offset: 3px;
+}
+
+.co-admin-primary-button:disabled {
+  cursor: not-allowed;
+  background: rgba(62, 46, 31, 0.5);
+  transform: none;
+  box-shadow: none;
+}
+
+.co-admin-login-panel {
+  border-radius: 12px;
+  border: 1px solid rgba(62, 46, 31, 0.16);
+  background: rgba(255, 253, 248, 0.82);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.74),
+    0 28px 90px rgba(62, 46, 31, 0.14);
+  backdrop-filter: blur(22px);
+}
+
 .co-soft-depth {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.74),

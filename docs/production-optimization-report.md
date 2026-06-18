@@ -593,3 +593,70 @@ Local route verification:
 /admin without session -> 307 redirect to /admin/login
 /admin/login -> 200
 ```
+
+## Auth And Admin Hardening Release
+
+Prepared release:
+
+```text
+v1.9.0-auth-admin-os
+```
+
+Implemented:
+
+- Configurable public admin path through `NEXT_PUBLIC_ADMIN_PATH`.
+- Default admin path is `/dashboard-os`; legacy `/admin` redirects to the configured path.
+- Middleware rewrites the configured admin path internally while keeping public navigation free of `/admin` links.
+- Redesigned admin login with stronger hierarchy, visible labels, editable inputs, focus rings, password reveal, loading state, accessible errors, and high-contrast buttons.
+- Admin security hardening: signed httpOnly session cookies, SameSite cookies, CSRF token verification, RBAC checks, failed login rate limiting, audit logging, secure redirect flow, password hash support, and automatic session expiry.
+- Separate customer authentication flow at `/login` and `/register`.
+- Protected customer routes: `/account`, `/orders`, `/wishlist`, and `/profile`.
+- Dynamic public header state for Login, My Account avatar, Wishlist, and Cart.
+- Separate backend database models for `admin_users` and `customers`.
+
+Recommended production environment:
+
+```env
+NEXT_PUBLIC_ADMIN_PATH=/dashboard-os
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD_HASH=scrypt$...
+ADMIN_SESSION_SECRET=replace-with-random-secret
+CUSTOMER_SESSION_SECRET=replace-with-random-secret
+```
+
+Validated:
+
+```text
+npx tsc --noEmit --incremental false
+npm run lint
+npm run build
+```
+
+Local route verification:
+
+```text
+/admin -> 307 redirect to /dashboard-os
+/dashboard-os/login -> 200
+/dashboard-os without session -> 307 redirect to /dashboard-os/login
+/dashboard-os with signed admin session -> 200
+/dashboard-os/analytics with signed admin session -> 200
+/dashboard-os/media-library with signed admin session -> 200
+/login -> 200
+/register -> 200
+/account without customer session -> 307 redirect to /login
+/orders without customer session -> 307 redirect to /login
+/account with signed customer session -> 200
+/orders with signed customer session -> 200
+/wishlist with signed customer session -> 200
+/profile with signed customer session -> 200
+```
+
+Browser interaction verification:
+
+```text
+Admin email input focused and accepted typed text.
+Tab order moved from email to password.
+Password input accepted typed text.
+Submit button enabled and high contrast.
+Mobile screenshot saved to /tmp/co-admin-login-mobile.png.
+```

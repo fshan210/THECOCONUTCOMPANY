@@ -5,7 +5,9 @@ import { Navigation } from "@/components/Navigation";
 import { Analytics } from "@/components/seo/Analytics";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { CartDrawer } from "@/components/cart/CartDrawer";
+import { CustomerAuthProvider } from "@/components/auth/CustomerAuthProvider";
 import { CartProvider } from "@/lib/cart/cart-context";
+import { getCustomerSession } from "@/lib/customer/auth";
 import { defaultDescription, siteName, siteUrl } from "@/lib/seo/metadata";
 import "./globals.css";
 
@@ -69,7 +71,9 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const customerSession = await getCustomerSession();
+
   return (
     <html lang="en">
       <head>
@@ -77,14 +81,16 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="preload" as="image" href="/assets/transparent/co-water-bottle.webp" fetchPriority="high" />
       </head>
       <body className={`${brandFont.variable} font-sans antialiased`}>
-        <CartProvider>
-          <StructuredData />
-          <Navigation />
-          <main>{children}</main>
-          <Footer />
-          <CartDrawer />
-          <Analytics />
-        </CartProvider>
+        <CustomerAuthProvider session={customerSession}>
+          <CartProvider>
+            <StructuredData />
+            <Navigation />
+            <main>{children}</main>
+            <Footer />
+            <CartDrawer />
+            <Analytics />
+          </CartProvider>
+        </CustomerAuthProvider>
       </body>
     </html>
   );

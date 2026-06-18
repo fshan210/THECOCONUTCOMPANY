@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AdminForgotPasswordForm } from "@/components/admin/AdminForms";
 import { isAdminAuthConfigured } from "@/lib/admin/auth";
+import { getAdminPath } from "@/lib/admin/path";
 
 export default function AdminForgotPasswordPage() {
   const configured = isAdminAuthConfigured();
@@ -19,6 +20,9 @@ export default function AdminForgotPasswordPage() {
           This validates admin identity and is ready to connect to the configured transactional email provider.
         </p>
         <AdminForgotPasswordForm configured={configured} />
+        <Link href={getAdminPath("login")} className="mt-6 inline-flex text-sm text-coconut underline underline-offset-4">
+          Return to secure login
+        </Link>
       </div>
     </section>
   );
