@@ -3,8 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 export function Footer() {
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/admin")) return null;
+
   return (
     <footer className="relative overflow-hidden border-t border-shell bg-ink text-paper">
       <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 w-80 opacity-[0.06]" />

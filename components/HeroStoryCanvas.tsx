@@ -291,8 +291,8 @@ function useCanvasStory(progress: number, reduceMotion: boolean) {
 
     async function setup() {
       const [coconut, bottle] = await Promise.all([
-        loadStoryImage("/assets/transparent/co-tender-coconut.png"),
-        loadStoryImage("/assets/transparent/co-water-bottle.png")
+        loadStoryImage("/assets/transparent/co-tender-coconut.webp"),
+        loadStoryImage("/assets/transparent/co-water-bottle.webp")
       ]);
       imagesRef.current = { coconut: createKeyedCanvas(coconut, "coconut"), bottle: createKeyedCanvas(bottle, "bottle") };
 

@@ -542,3 +542,54 @@ Included:
 - Live Lighthouse verification.
 
 GitHub push requires a configured Git remote.
+
+## Admin Operating System Release
+
+Prepared release:
+
+```text
+v1.8.0-admin-os
+```
+
+Implemented:
+
+- Enterprise admin dashboard at `/admin` with protected module routes.
+- Secure signed-cookie admin login and recovery entry points.
+- Role based access control for Super Admin, Admin, Content Editor, Marketing, Customer Support, and Read-only Analytics.
+- Analytics, Website CMS, Products, Categories, Recipes, Journal, Media Library, Orders, Customers, Newsletter, Forms, SEO, Brand Assets, Menus, Pages, Founders, Sustainability, Settings, Users, and Activity Logs workspaces.
+- Responsive admin shell with brand-aligned light/dark mode, glass surfaces, warm neumorphic controls, motion transitions, and mobile navigation.
+- CMS-ready data models for editable page sections, product content, media metadata, SEO tasks, brand assets, user management, activity logs, and future analytics integrations.
+
+Required admin environment variables:
+
+```env
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=replace-with-strong-password
+ADMIN_SESSION_SECRET=replace-with-random-secret
+ADMIN_NAME=.CO Admin
+ADMIN_ROLE=Super Admin
+```
+
+Validated:
+
+```text
+npx tsc --noEmit --incremental false
+npm run lint
+npm run build
+```
+
+Local route verification:
+
+```text
+/admin -> 200 with signed admin session
+/admin/analytics -> 200 with signed admin session
+/admin/website -> 200 with signed admin session
+/admin/products -> 200 with signed admin session
+/admin/media-library -> 200 with signed admin session
+/admin/seo -> 200 with signed admin session
+/admin/users -> 200 with signed admin session
+/admin/settings -> 200 with signed admin session
+/admin/activity-logs -> 200 with signed admin session
+/admin without session -> 307 redirect to /admin/login
+/admin/login -> 200
+```

@@ -25,6 +25,8 @@ export function Navigation() {
   const navPadding = useTransform(scrollY, [0, 120], [18, 11]);
   const logoScale = useTransform(scrollY, [0, 120], [1, 0.9]);
 
+  if (pathname.startsWith("/admin")) return null;
+
   return (
     <motion.header
       className="co-glass sticky top-0 z-50 border-x-0 border-t-0"
