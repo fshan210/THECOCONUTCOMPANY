@@ -37,8 +37,9 @@ export type AdminNavItem = {
 };
 
 export const adminNavItems: AdminNavItem[] = [
-  { title: "Dashboard", href: "/admin", permission: "analytics", icon: LayoutDashboard },
+  { title: "Dashboard", href: "/admin/dashboard", permission: "analytics", icon: LayoutDashboard },
   { title: "Analytics", href: "/admin/analytics", permission: "analytics", icon: BarChart3 },
+  { title: "CMS", href: "/admin/cms", permission: "content", icon: FolderKanban },
   { title: "Website", href: "/admin/website", permission: "content", icon: Globe2 },
   { title: "Products", href: "/admin/products", permission: "commerce", icon: Package },
   { title: "Categories", href: "/admin/categories", permission: "commerce", icon: Boxes },

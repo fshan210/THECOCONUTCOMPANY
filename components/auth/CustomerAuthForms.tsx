@@ -55,13 +55,14 @@ export function CustomerLoginForm() {
       className="mt-8 space-y-5"
       onSubmit={async (event) => {
         event.preventDefault();
+        const form = event.currentTarget;
         if (!(await trigger())) {
           if (errors.email) setFocus("email");
           else setFocus("password");
           return;
         }
         setState(initialState);
-        const data = new FormData(event.currentTarget);
+        const data = new FormData(form);
         startTransition(async () => {
           try {
             if (!isFirebasePublicConfigured()) {
@@ -82,6 +83,7 @@ export function CustomerLoginForm() {
             const idToken = await credential.user.getIdToken();
             await establishCustomerSession({ idToken });
           } catch (error) {
+            if (isNextRedirectError(error)) throw error;
             setState({ ok: false, status: "error", message: formatFirebaseError(error) });
           }
         });
@@ -218,6 +220,7 @@ export function CustomerRegisterForm() {
       className="mt-8 grid gap-5 md:grid-cols-2"
       onSubmit={async (event) => {
         event.preventDefault();
+        const form = event.currentTarget;
         if (!(await trigger())) {
           if (errors.name) setFocus("name");
           else if (errors.email) setFocus("email");
@@ -225,7 +228,7 @@ export function CustomerRegisterForm() {
           return;
         }
         setState(initialState);
-        const data = new FormData(event.currentTarget);
+        const data = new FormData(form);
         startTransition(async () => {
           try {
             if (!isFirebasePublicConfigured()) {
@@ -254,6 +257,7 @@ export function CustomerRegisterForm() {
               newsletterOptIn: true
             });
           } catch (error) {
+            if (isNextRedirectError(error)) throw error;
             setState({ ok: false, status: "error", message: formatFirebaseError(error) });
           }
         });
@@ -303,6 +307,7 @@ async function loginWithGoogle(setState: (state: CustomerAuthState) => void) {
     const idToken = await credential.user.getIdToken();
     await establishCustomerSession({ idToken, name: credential.user.displayName || undefined });
   } catch (error) {
+    if (isNextRedirectError(error)) throw error;
     setState({ ok: false, status: "error", message: formatFirebaseError(error) });
   }
 }
@@ -337,6 +342,13 @@ function formatFirebaseError(error: unknown) {
   if (message.includes("auth/weak-password")) return "Use a stronger password.";
   if (message.includes("auth/popup-closed-by-user")) return "Google sign-in was closed before completion.";
   return message.replace("Firebase: ", "");
+}
+
+function isNextRedirectError(error: unknown) {
+  if (!error || typeof error !== "object") return false;
+  const digest = "digest" in error ? String(error.digest) : "";
+  const message = error instanceof Error ? error.message : "";
+  return digest.startsWith("NEXT_REDIRECT") || message.includes("NEXT_REDIRECT");
 }
 
 function AuthInput({ id, label, type, autoComplete, disabled, error, register }: { id: string; label: string; type: string; autoComplete: string; disabled: boolean; error?: string; register: UseFormRegisterReturn }) {

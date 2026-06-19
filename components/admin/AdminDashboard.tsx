@@ -49,7 +49,9 @@ export function AdminModulePage({ module }: { module: string }) {
     .join(" ");
 
   const moduleMap: Record<string, React.ReactNode> = {
+    dashboard: <AdminDashboardHome />,
     analytics: <AnalyticsBoard expanded />,
+    cms: <ContentEditor />,
     website: <CmsOverview expanded />,
     products: <ProductOps expanded />,
     categories: <CategoryManager />,

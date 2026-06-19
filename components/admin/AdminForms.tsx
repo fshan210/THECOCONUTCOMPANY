@@ -51,13 +51,14 @@ export function AdminLoginForm({ configured, csrfToken }: { configured: boolean;
       ref={formRef}
       onSubmit={async (event) => {
         event.preventDefault();
+        const form = event.currentTarget;
         const valid = await trigger();
         if (!valid) {
           if (errors.email) setFocus("email");
           else if (errors.password) setFocus("password");
           return;
         }
-        const values = new FormData(event.currentTarget);
+        const values = new FormData(form);
         startTransition(async () => {
           if (!isFirebasePublicConfigured()) {
             action(createAdminTokenFormData("", csrfToken, Boolean(values.get("remember"))));
@@ -178,11 +179,12 @@ export function AdminForgotPasswordForm({ configured }: { configured: boolean })
       ref={formRef}
       onSubmit={async (event) => {
         event.preventDefault();
+        const form = event.currentTarget;
         if (!(await trigger())) {
           setFocus("email");
           return;
         }
-        const formData = new FormData(event.currentTarget);
+        const formData = new FormData(form);
         startTransition(async () => {
           try {
             const email = String(formData.get("email"));
