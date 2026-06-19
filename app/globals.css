@@ -16,8 +16,8 @@ html {
 
 body {
   margin: 0;
-  background: #fffdf8;
-  color: #2d2d2d;
+  background: #f5ebd7;
+  color: #3e2e1f;
   text-rendering: geometricPrecision;
 }
 
@@ -57,12 +57,12 @@ body {
 
 .co-glass {
   border-radius: 8px;
-  border: 1px solid rgba(62, 46, 31, 0.16);
-  background: rgba(255, 253, 248, 0.78);
+  border: 1px solid rgba(62, 46, 31, 0.1);
+  background: rgba(245, 235, 215, 0.88);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.72),
-    0 22px 70px rgba(62, 46, 31, 0.12);
-  backdrop-filter: blur(18px);
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    0 18px 54px rgba(62, 46, 31, 0.08);
+  backdrop-filter: blur(12px);
 }
 
 .co-glass-dark {
@@ -77,21 +77,20 @@ body {
 
 .co-neu {
   border-radius: 8px;
-  border: 1px solid rgba(62, 46, 31, 0.14);
-  background: #fffdf8;
+  border: 1px solid rgba(62, 46, 31, 0.1);
+  background: #fff8ea;
   box-shadow:
-    14px 18px 42px rgba(62, 46, 31, 0.12),
-    -10px -12px 32px rgba(255, 255, 255, 0.74),
+    0 18px 48px rgba(62, 46, 31, 0.07),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .co-neu-inset {
   border-radius: 8px;
-  border: 1px solid rgba(62, 46, 31, 0.12);
+  border: 1px solid rgba(62, 46, 31, 0.1);
   background: #f5ebd7;
   box-shadow:
-    inset 8px 8px 18px rgba(62, 46, 31, 0.08),
-    inset -8px -8px 18px rgba(255, 255, 255, 0.54);
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    0 10px 28px rgba(62, 46, 31, 0.045);
 }
 
 .co-button-soft {
