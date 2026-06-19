@@ -2,14 +2,25 @@
 
 import Link from "next/link";
 import { useRef, useState, useTransition } from "react";
-import { useFormState } from "react-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { UseFormRegisterReturn } from "react-hook-form";
-import { CheckCircle2, Eye, EyeOff, Loader2, LogIn, UserPlus } from "lucide-react";
-import { loginCustomer, registerCustomer, type CustomerAuthState } from "@/lib/customer/actions";
+import { CheckCircle2, Eye, EyeOff, Loader2, LogIn, Mail, UserPlus } from "lucide-react";
+import {
+  confirmPasswordReset,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  updateProfile
+} from "firebase/auth";
+import { useSearchParams } from "next/navigation";
+import { establishCustomerSession, type CustomerAuthState } from "@/lib/customer/actions";
 import { productCategories } from "@/lib/catalog";
+import { getFirebaseClientAuth, getGoogleAuthProvider } from "@/lib/firebase/client";
+import { isFirebasePublicConfigured } from "@/lib/firebase/config";
 
 const initialState: CustomerAuthState = { ok: false, message: "" };
 
@@ -28,7 +39,7 @@ type RegisterFields = z.infer<typeof registerSchema>;
 
 export function CustomerLoginForm() {
   const formRef = useRef<HTMLFormElement>(null);
-  const [state, action] = useFormState(loginCustomer, initialState);
+  const [state, setState] = useState<CustomerAuthState>(initialState);
   const [pending, startTransition] = useTransition();
   const [showPassword, setShowPassword] = useState(false);
   const { register, trigger, setFocus, formState: { errors } } = useForm<LoginFields>({
@@ -47,7 +58,21 @@ export function CustomerLoginForm() {
           else setFocus("password");
           return;
         }
-        startTransition(() => action(new FormData(event.currentTarget)));
+        setState(initialState);
+        const data = new FormData(event.currentTarget);
+        startTransition(async () => {
+          try {
+            if (!isFirebasePublicConfigured()) {
+              setState({ ok: false, status: "error", message: "Firebase web configuration is missing." });
+              return;
+            }
+            const credential = await signInWithEmailAndPassword(getFirebaseClientAuth(), String(data.get("email")), String(data.get("password")));
+            const idToken = await credential.user.getIdToken();
+            await establishCustomerSession({ idToken });
+          } catch (error) {
+            setState({ ok: false, status: "error", message: formatFirebaseError(error) });
+          }
+        });
       }}
     >
       <AuthMessage message={state.message} positive={state.ok} />
@@ -57,6 +82,18 @@ export function CustomerLoginForm() {
         {pending ? <Loader2 className="animate-spin" size={18} /> : <LogIn size={18} />}
         {pending ? "Signing you in..." : "Login"}
       </button>
+      <button type="button" disabled={pending} onClick={() => startTransition(() => void loginWithGoogle(setState))} className="inline-flex min-h-12 w-full items-center justify-center rounded-lg border border-coconut/15 bg-porcelain px-5 text-sm font-medium text-coconut transition hover:bg-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coconut">
+        Continue with Google
+      </button>
+      <button type="button" disabled={pending} onClick={() => void sendResetFromForm(formRef.current, setState)} className="inline-flex w-full items-center justify-center gap-2 text-sm text-coconut underline underline-offset-4">
+        <Mail size={15} /> Forgot password?
+      </button>
+      <p className="text-center text-sm text-coconut/72">
+        Need the reset page?{" "}
+        <Link href="/forgot-password" className="font-medium text-coconut underline underline-offset-4">
+          Open password reset
+        </Link>
+      </p>
       <p className="text-center text-sm text-coconut/72">
         New to .CO?{" "}
         <Link href="/register" className="font-medium text-coconut underline underline-offset-4">
@@ -67,9 +104,86 @@ export function CustomerLoginForm() {
   );
 }
 
+export function CustomerForgotPasswordForm() {
+  const [state, setState] = useState<CustomerAuthState>(initialState);
+  const [pending, startTransition] = useTransition();
+  const { register, handleSubmit, formState: { errors } } = useForm<{ email: string }>({
+    resolver: zodResolver(z.object({ email: z.string().email("Use a valid email.") })),
+    defaultValues: { email: "" }
+  });
+
+  return (
+    <form
+      className="mt-8 space-y-5"
+      onSubmit={handleSubmit(({ email }) => {
+        startTransition(async () => {
+          try {
+            await sendPasswordResetEmail(getFirebaseClientAuth(), email);
+            setState({ ok: true, status: "success", message: "Password reset email sent. Check your inbox." });
+          } catch (error) {
+            setState({ ok: false, status: "error", message: formatFirebaseError(error) });
+          }
+        });
+      })}
+    >
+      <AuthMessage message={state.message} positive={state.ok} />
+      <AuthInput id="forgot-email" label="Email" type="email" autoComplete="username" disabled={pending} error={errors.email?.message} register={register("email")} />
+      <button type="submit" disabled={pending} className="co-admin-primary-button w-full">
+        {pending ? <Loader2 className="animate-spin" size={18} /> : <Mail size={18} />}
+        {pending ? "Sending reset link..." : "Send reset link"}
+      </button>
+      <Link href="/login" className="block text-center text-sm text-coconut underline underline-offset-4">
+        Back to login
+      </Link>
+    </form>
+  );
+}
+
+export function CustomerResetPasswordForm() {
+  const searchParams = useSearchParams();
+  const oobCode = searchParams.get("oobCode") || "";
+  const [state, setState] = useState<CustomerAuthState>(initialState);
+  const [pending, startTransition] = useTransition();
+  const [showPassword, setShowPassword] = useState(false);
+  const { register, handleSubmit, formState: { errors } } = useForm<{ password: string }>({
+    resolver: zodResolver(z.object({ password: z.string().min(8, "Password must be at least 8 characters.") })),
+    defaultValues: { password: "" }
+  });
+
+  return (
+    <form
+      className="mt-8 space-y-5"
+      onSubmit={handleSubmit(({ password }) => {
+        startTransition(async () => {
+          try {
+            if (!oobCode) {
+              setState({ ok: false, status: "error", message: "Reset code is missing. Use the link from your email." });
+              return;
+            }
+            await confirmPasswordReset(getFirebaseClientAuth(), oobCode, password);
+            setState({ ok: true, status: "success", message: "Password updated. You can now log in." });
+          } catch (error) {
+            setState({ ok: false, status: "error", message: formatFirebaseError(error) });
+          }
+        });
+      })}
+    >
+      <AuthMessage message={state.message} positive={state.ok} />
+      <PasswordInput id="reset-password" label="New password" show={showPassword} onToggle={() => setShowPassword((value) => !value)} disabled={pending} error={errors.password?.message} register={register("password")} />
+      <button type="submit" disabled={pending} className="co-admin-primary-button w-full">
+        {pending ? <Loader2 className="animate-spin" size={18} /> : <CheckCircle2 size={18} />}
+        {pending ? "Updating password..." : "Update password"}
+      </button>
+      <Link href="/login" className="block text-center text-sm text-coconut underline underline-offset-4">
+        Back to login
+      </Link>
+    </form>
+  );
+}
+
 export function CustomerRegisterForm() {
   const formRef = useRef<HTMLFormElement>(null);
-  const [state, action] = useFormState(registerCustomer, initialState);
+  const [state, setState] = useState<CustomerAuthState>(initialState);
   const [pending, startTransition] = useTransition();
   const [showPassword, setShowPassword] = useState(false);
   const { register, trigger, setFocus, formState: { errors } } = useForm<RegisterFields>({
@@ -89,7 +203,29 @@ export function CustomerRegisterForm() {
           else setFocus("password");
           return;
         }
-        startTransition(() => action(new FormData(event.currentTarget)));
+        setState(initialState);
+        const data = new FormData(event.currentTarget);
+        startTransition(async () => {
+          try {
+            if (!isFirebasePublicConfigured()) {
+              setState({ ok: false, status: "error", message: "Firebase web configuration is missing." });
+              return;
+            }
+            const auth = getFirebaseClientAuth();
+            const credential = await createUserWithEmailAndPassword(auth, String(data.get("email")), String(data.get("password")));
+            await updateProfile(credential.user, { displayName: String(data.get("name")) });
+            await sendEmailVerification(credential.user);
+            const idToken = await credential.user.getIdToken(true);
+            await establishCustomerSession({
+              idToken,
+              name: String(data.get("name")),
+              preference: String(data.get("preference")),
+              newsletterOptIn: true
+            });
+          } catch (error) {
+            setState({ ok: false, status: "error", message: formatFirebaseError(error) });
+          }
+        });
       }}
     >
       <div className="md:col-span-2">
@@ -116,6 +252,43 @@ export function CustomerRegisterForm() {
       </button>
     </form>
   );
+}
+
+async function loginWithGoogle(setState: (state: CustomerAuthState) => void) {
+  try {
+    if (!isFirebasePublicConfigured()) {
+      setState({ ok: false, status: "error", message: "Firebase web configuration is missing." });
+      return;
+    }
+    const credential = await signInWithPopup(getFirebaseClientAuth(), getGoogleAuthProvider());
+    const idToken = await credential.user.getIdToken();
+    await establishCustomerSession({ idToken, name: credential.user.displayName || undefined });
+  } catch (error) {
+    setState({ ok: false, status: "error", message: formatFirebaseError(error) });
+  }
+}
+
+async function sendResetFromForm(form: HTMLFormElement | null, setState: (state: CustomerAuthState) => void) {
+  const email = form ? String(new FormData(form).get("email") || "") : "";
+  if (!email) {
+    setState({ ok: false, status: "error", message: "Enter your email first, then request a reset link." });
+    return;
+  }
+  try {
+    await sendPasswordResetEmail(getFirebaseClientAuth(), email);
+    setState({ ok: true, status: "success", message: "Password reset email sent. Check your inbox." });
+  } catch (error) {
+    setState({ ok: false, status: "error", message: formatFirebaseError(error) });
+  }
+}
+
+function formatFirebaseError(error: unknown) {
+  const message = error instanceof Error ? error.message : "Firebase authentication failed.";
+  if (message.includes("auth/invalid-credential")) return "Invalid email or password.";
+  if (message.includes("auth/email-already-in-use")) return "An account already exists for this email.";
+  if (message.includes("auth/weak-password")) return "Use a stronger password.";
+  if (message.includes("auth/popup-closed-by-user")) return "Google sign-in was closed before completion.";
+  return message.replace("Firebase: ", "");
 }
 
 function AuthInput({ id, label, type, autoComplete, disabled, error, register }: { id: string; label: string; type: string; autoComplete: string; disabled: boolean; error?: string; register: UseFormRegisterReturn }) {

@@ -1,16 +1,21 @@
 import "server-only";
 
-import { createHmac, randomBytes, scryptSync, timingSafeEqual } from "crypto";
+import { createHmac, randomBytes, timingSafeEqual } from "crypto";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { adminCsrfCookie, adminIdleTimeoutMs, adminSessionCookie } from "@/lib/admin/auth-config";
 import { getAdminPath } from "@/lib/admin/path";
 import { adminRoles, canAccess, type AdminRole } from "@/lib/admin/rbac";
+import { getFirebaseAdminAuth, getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
+import { isFirebasePublicConfigured } from "@/lib/firebase/config";
+import { firestoreCollections } from "@/lib/firebase/collections";
 
 export type AdminSession = {
+  uid: string;
   email: string;
   name: string;
   role: AdminRole;
+  permissions: string[];
   issuedAt: number;
   expiresAt: number;
 };
@@ -34,7 +39,7 @@ function sign(payload: string) {
 }
 
 export function isAdminAuthConfigured() {
-  return Boolean(process.env.ADMIN_EMAIL && (process.env.ADMIN_PASSWORD_HASH || process.env.ADMIN_PASSWORD));
+  return Boolean(isFirebasePublicConfigured() && isFirebaseAdminConfigured());
 }
 
 export function getConfiguredAdminRole(): AdminRole {
@@ -42,35 +47,55 @@ export function getConfiguredAdminRole(): AdminRole {
   return adminRoles.includes(role as AdminRole) ? (role as AdminRole) : "Super Admin";
 }
 
-export function createAdminSession(email: string, role: AdminRole = getConfiguredAdminRole()): string {
-  const now = Date.now();
-  const payload: AdminSession = {
-    email,
-    name: process.env.ADMIN_NAME || email.split("@")[0] || "Admin",
-    role,
-    issuedAt: now,
-    expiresAt: now + adminAbsoluteSessionMs
-  };
-  const encoded = base64Url(JSON.stringify(payload));
-  return `${encoded}.${sign(encoded)}`;
+export async function createFirebaseAdminSessionCookie(idToken: string, remember = false) {
+  return (await getFirebaseAdminAuth()).createSessionCookie(idToken, {
+    expiresIn: remember ? adminAbsoluteSessionMs : adminIdleTimeoutMs
+  });
 }
 
-export function verifyAdminSession(token?: string): AdminSession | null {
-  if (!token) return null;
-  const [encoded, signature] = token.split(".");
-  if (!encoded || !signature) return null;
+async function getAdminProfile(uid: string, email?: string) {
+  const db = await getFirebaseAdminDb();
+  const snapshot = await db.collection(firestoreCollections.admins).doc(uid).get();
+  if (snapshot.exists) return snapshot.data();
 
-  const expected = sign(encoded);
-  const signatureBuffer = Buffer.from(signature);
-  const expectedBuffer = Buffer.from(expected);
-  if (signatureBuffer.length !== expectedBuffer.length || !timingSafeEqual(signatureBuffer, expectedBuffer)) return null;
+  const bootstrapEmail = process.env.ADMIN_EMAIL;
+  if (bootstrapEmail && email?.toLowerCase() === bootstrapEmail.toLowerCase()) {
+    const now = new Date().toISOString();
+    const profile = {
+      uid,
+      email,
+      displayName: process.env.ADMIN_NAME || email.split("@")[0] || "Admin",
+      role: getConfiguredAdminRole(),
+      permissions: ["*"],
+      status: "active",
+      createdAt: now,
+      updatedAt: now,
+      lastLoginAt: now
+    };
+    await db.collection(firestoreCollections.admins).doc(uid).set(profile, { merge: true });
+    return profile;
+  }
 
+  return null;
+}
+
+export async function verifyAdminSession(token?: string): Promise<AdminSession | null> {
+  if (!token || !isFirebaseAdminConfigured()) return null;
   try {
-    const session = JSON.parse(fromBase64Url(encoded)) as AdminSession;
-    if (!session.email || !session.role || Date.now() > session.expiresAt) return null;
-    if (Date.now() - session.issuedAt > adminAbsoluteSessionMs) return null;
-    if (Date.now() > session.expiresAt) return null;
-    return session;
+    const decoded = await (await getFirebaseAdminAuth()).verifySessionCookie(token, true);
+    const profile = await getAdminProfile(decoded.uid, decoded.email);
+    if (!profile || profile.status !== "active") return null;
+
+    const role = adminRoles.includes(profile.role as AdminRole) ? (profile.role as AdminRole) : "Read-only Analytics";
+    return {
+      uid: decoded.uid,
+      email: decoded.email || String(profile.email || ""),
+      name: String(profile.displayName || decoded.name || decoded.email?.split("@")[0] || "Admin"),
+      role,
+      permissions: Array.isArray(profile.permissions) ? (profile.permissions as string[]) : [],
+      issuedAt: decoded.iat ? decoded.iat * 1000 : Date.now(),
+      expiresAt: decoded.exp ? decoded.exp * 1000 : Date.now() + adminIdleTimeoutMs
+    };
   } catch {
     return null;
   }
@@ -98,36 +123,6 @@ export function verifyAdminCsrfToken(token?: string | null) {
   } catch {
     return false;
   }
-}
-
-function verifyScryptPassword(password: string, stored: string) {
-  const [algorithm, n, r, p, salt, key] = stored.split("$");
-  if (algorithm !== "scrypt" || !n || !r || !p || !salt || !key) return false;
-  const derived = scryptSync(password, salt, Buffer.from(key, "base64url").length, {
-    N: Number(n),
-    r: Number(r),
-    p: Number(p)
-  });
-  const storedBuffer = Buffer.from(key, "base64url");
-  return derived.length === storedBuffer.length && timingSafeEqual(derived, storedBuffer);
-}
-
-export function hashAdminPassword(password: string) {
-  const salt = randomBytes(16).toString("base64url");
-  const parameters = { N: 16384, r: 8, p: 1 };
-  const key = scryptSync(password, salt, 64, parameters).toString("base64url");
-  return `scrypt$${parameters.N}$${parameters.r}$${parameters.p}$${salt}$${key}`;
-}
-
-export function verifyAdminPassword(password: string) {
-  const hash = process.env.ADMIN_PASSWORD_HASH;
-  if (hash) return verifyScryptPassword(password, hash);
-
-  const legacyPassword = process.env.ADMIN_PASSWORD;
-  if (!legacyPassword) return false;
-  const provided = Buffer.from(password);
-  const expected = Buffer.from(legacyPassword);
-  return provided.length === expected.length && timingSafeEqual(provided, expected);
 }
 
 export async function getAdminSession() {

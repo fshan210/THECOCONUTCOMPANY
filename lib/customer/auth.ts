@@ -1,27 +1,13 @@
 import "server-only";
 
-import { createHmac, timingSafeEqual } from "crypto";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { customerSessionCookie, type CustomerSession } from "@/lib/customer/auth-config";
+import { getFirebaseAdminAuth } from "@/lib/firebase/admin";
+import { firestoreCollections } from "@/lib/firebase/collections";
+import { getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
 
 const customerSessionMs = 1000 * 60 * 60 * 24 * 14;
-
-function getSecret() {
-  return process.env.CUSTOMER_SESSION_SECRET || process.env.NEXTAUTH_SECRET || "local-customer-session-secret-change-me";
-}
-
-function base64Url(input: string) {
-  return Buffer.from(input).toString("base64url");
-}
-
-function fromBase64Url(input: string) {
-  return Buffer.from(input, "base64url").toString("utf8");
-}
-
-function sign(payload: string) {
-  return createHmac("sha256", getSecret()).update(payload).digest("base64url");
-}
 
 function initialsFromName(name: string) {
   return name
@@ -32,32 +18,36 @@ function initialsFromName(name: string) {
     .join("") || "CO";
 }
 
-export function createCustomerSession(email: string, name: string) {
-  const now = Date.now();
-  const payload: CustomerSession = {
-    email,
-    name,
-    initials: initialsFromName(name),
-    issuedAt: now,
-    expiresAt: now + customerSessionMs
-  };
-  const encoded = base64Url(JSON.stringify(payload));
-  return `${encoded}.${sign(encoded)}`;
+export const customerSessionMaxAge = customerSessionMs / 1000;
+
+export async function createFirebaseCustomerSessionCookie(idToken: string) {
+  return (await getFirebaseAdminAuth()).createSessionCookie(idToken, { expiresIn: customerSessionMs });
 }
 
-export function verifyCustomerSession(token?: string): CustomerSession | null {
-  if (!token) return null;
-  const [encoded, signature] = token.split(".");
-  if (!encoded || !signature) return null;
-  const expected = sign(encoded);
-  const signatureBuffer = Buffer.from(signature);
-  const expectedBuffer = Buffer.from(expected);
-  if (signatureBuffer.length !== expectedBuffer.length || !timingSafeEqual(signatureBuffer, expectedBuffer)) return null;
-
+async function getUserProfile(uid: string) {
   try {
-    const session = JSON.parse(fromBase64Url(encoded)) as CustomerSession;
-    if (!session.email || !session.name || Date.now() > session.expiresAt) return null;
-    return session;
+    const snapshot = await (await getFirebaseAdminDb()).collection(firestoreCollections.users).doc(uid).get();
+    return snapshot.exists ? snapshot.data() : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function verifyCustomerSession(token?: string): Promise<CustomerSession | null> {
+  if (!token || !isFirebaseAdminConfigured()) return null;
+  try {
+    const decoded = await (await getFirebaseAdminAuth()).verifySessionCookie(token, true);
+    const profile = await getUserProfile(decoded.uid);
+    const name = (profile?.displayName as string | undefined) || decoded.name || decoded.email?.split("@")[0] || "Customer";
+    return {
+      uid: decoded.uid,
+      email: decoded.email || "",
+      name,
+      initials: initialsFromName(name),
+      emailVerified: Boolean(decoded.email_verified),
+      issuedAt: decoded.iat ? decoded.iat * 1000 : Date.now(),
+      expiresAt: decoded.exp ? decoded.exp * 1000 : Date.now() + customerSessionMs
+    };
   } catch {
     return null;
   }

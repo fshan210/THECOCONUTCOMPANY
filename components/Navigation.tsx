@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { CartButton } from "@/components/cart/CartDrawer";
 import { useCustomerSession } from "@/components/auth/CustomerAuthProvider";
+import { logoutCustomer } from "@/lib/customer/actions";
 
 const links = [
   { href: "/about", label: "About" },
@@ -73,13 +74,23 @@ export function Navigation() {
             Shop
           </Link>
           {session ? (
-            <Link
-              href="/account"
-              aria-label="My Account"
-              className="grid h-10 min-w-10 place-items-center rounded-full bg-coconut px-3 text-sm font-medium text-paper shadow-[0_12px_30px_rgba(62,46,31,0.18)] transition hover:bg-grove focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coconut"
-            >
-              {session.initials}
-            </Link>
+            <>
+              <Link href="/orders" className="text-[0.7rem] uppercase tracking-editorial text-coconut transition hover:text-grove">
+                Orders
+              </Link>
+              <Link
+                href="/account"
+                aria-label="My Account"
+                className="grid h-10 min-w-10 place-items-center rounded-full bg-coconut px-3 text-sm font-medium text-paper shadow-[0_12px_30px_rgba(62,46,31,0.18)] transition hover:bg-grove focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coconut"
+              >
+                {session.initials}
+              </Link>
+              <form action={logoutCustomer}>
+                <button type="submit" className="text-[0.7rem] uppercase tracking-editorial text-muted transition hover:text-coconut">
+                  Logout
+                </button>
+              </form>
+            </>
           ) : (
             <Link
               href="/login"
@@ -139,6 +150,18 @@ export function Navigation() {
             <Link href={session ? "/account" : "/login"} onClick={() => setOpen(false)} className="block py-4 text-sm uppercase tracking-editorial text-coconut">
               {session ? "My Account" : "Login"}
             </Link>
+            {session ? (
+              <>
+                <Link href="/orders" onClick={() => setOpen(false)} className="block border-t border-shell/70 py-4 text-sm uppercase tracking-editorial text-muted">
+                  Orders
+                </Link>
+                <form action={logoutCustomer}>
+                  <button type="submit" className="block w-full py-4 text-left text-sm uppercase tracking-editorial text-coconut">
+                    Logout
+                  </button>
+                </form>
+              </>
+            ) : null}
           </motion.div>
         ) : null}
       </AnimatePresence>

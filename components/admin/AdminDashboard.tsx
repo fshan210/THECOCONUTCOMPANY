@@ -17,7 +17,8 @@ import {
   topProducts,
   trafficSources
 } from "@/lib/admin/data";
-import { getAdminPath } from "@/lib/admin/path";
+import { useAdminHref } from "@/components/admin/AdminPathContext";
+import { uploadMediaAsset } from "@/lib/admin/media-actions";
 
 const spring = { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const };
 
@@ -40,6 +41,7 @@ export function AdminDashboardHome() {
 }
 
 export function AdminModulePage({ module }: { module: string }) {
+  const adminHome = useAdminHref();
   const title = module
     .split("-")
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
@@ -81,7 +83,7 @@ export function AdminModulePage({ module }: { module: string }) {
               Enterprise-ready controls for the .CO operating system. Data is wired to the current site content and ready for database persistence.
             </p>
           </div>
-          <Link href={getAdminPath()} className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-coconut/12 px-4 text-sm text-coconut dark:border-paper/20 dark:text-paper">
+          <Link href={adminHome} className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-coconut/12 px-4 text-sm text-coconut dark:border-paper/20 dark:text-paper">
             Dashboard <ArrowUpRight size={15} />
           </Link>
         </div>
@@ -92,6 +94,9 @@ export function AdminModulePage({ module }: { module: string }) {
 }
 
 function AdminHero() {
+  const websiteHref = useAdminHref("website");
+  const mediaHref = useAdminHref("media-library");
+  const seoHref = useAdminHref("seo");
   return (
     <section className="co-glass relative overflow-hidden p-6 md:p-8">
       <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 w-72 opacity-[0.08]" />
@@ -104,9 +109,9 @@ function AdminHero() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             {[
-              ["Edit homepage", getAdminPath("website")],
-              ["Upload media", getAdminPath("media-library")],
-              ["Review SEO", getAdminPath("seo")]
+              ["Edit homepage", websiteHref],
+              ["Upload media", mediaHref],
+              ["Review SEO", seoHref]
             ].map(([label, href]) => (
               <Link key={href} href={href} className="co-neu inline-flex min-h-11 items-center gap-2 rounded-lg px-4 text-sm text-coconut dark:bg-paper">
                 {label} <ArrowUpRight size={15} />
@@ -273,6 +278,14 @@ function MediaLibrary() {
   return (
     <section className="co-glass p-5 md:p-6">
       <PanelHeader eyebrow="Asset manager" title="Media library" action="Bulk upload" icon={<Upload size={15} />} />
+      <form action={uploadMediaAsset} className="co-neu mt-5 grid gap-3 p-4 md:grid-cols-[1fr_160px_1fr_auto] dark:bg-paper">
+        <input name="asset" type="file" accept="image/*,.svg,.webp,video/*,.glb,.gltf" className="co-input bg-porcelain" />
+        <input name="folder" defaultValue="uploads" className="co-input bg-porcelain" aria-label="Folder" />
+        <input name="tags" placeholder="tags, comma separated" className="co-input bg-porcelain" aria-label="Tags" />
+        <button type="submit" className="co-admin-primary-button">
+          Upload
+        </button>
+      </form>
       <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {mediaAssets.map((asset) => (
           <article key={asset.path} className="co-neu p-4 dark:bg-paper">

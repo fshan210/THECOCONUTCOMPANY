@@ -12,7 +12,6 @@ class Customer(Base):
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     email: Mapped[str] = mapped_column(String(255), unique=True, index=True, nullable=False)
     name: Mapped[str] = mapped_column(String(120), nullable=False)
-    password_hash: Mapped[str | None] = mapped_column(String(255), nullable=True)
     newsletter_opt_in: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     preferred_category: Mapped[str | None] = mapped_column(String(120), nullable=True)
     default_country: Mapped[str | None] = mapped_column(String(80), nullable=True)

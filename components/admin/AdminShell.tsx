@@ -8,7 +8,7 @@ import { Bell, ChevronRight, Command, LogOut, Menu, Moon, Search, Sun, X } from 
 import { useMemo, useState } from "react";
 import { logoutAdmin } from "@/lib/admin/actions";
 import { adminNavItems } from "@/lib/admin/data";
-import { getAdminPath } from "@/lib/admin/path";
+import { AdminPathProvider, buildAdminHref, useAdminBasePath } from "@/components/admin/AdminPathContext";
 import { type AdminRole, canAccess } from "@/lib/admin/rbac";
 
 type AdminShellProps = {
@@ -18,15 +18,17 @@ type AdminShellProps = {
     name: string;
     role: AdminRole;
   };
+  adminBasePath: string;
 };
 
-export function AdminShell({ children, session }: AdminShellProps) {
+export function AdminShell({ children, session, adminBasePath }: AdminShellProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
   const visibleNav = useMemo(() => adminNavItems.filter((item) => canAccess(session.role, item.permission)), [session.role]);
 
   return (
+    <AdminPathProvider basePath={adminBasePath}>
     <div className={dark ? "dark" : ""}>
       <div className="min-h-dvh bg-[linear-gradient(135deg,#fffdf8_0%,#F5EBD7_42%,rgba(168,176,123,0.28)_100%)] text-ink dark:bg-[linear-gradient(135deg,#1f1711_0%,#2d2d2d_50%,#243824_100%)] dark:text-paper">
         <div className="co-wave-pattern pointer-events-none fixed inset-y-0 right-0 w-[28vw] opacity-[0.05]" />
@@ -80,6 +82,7 @@ export function AdminShell({ children, session }: AdminShellProps) {
         </div>
       </div>
     </div>
+    </AdminPathProvider>
   );
 }
 
@@ -92,9 +95,11 @@ function AdminSidebar({
   nav: typeof adminNavItems;
   onNavigate?: () => void;
 }) {
+  const adminBasePath = useAdminBasePath();
+  const adminHome = buildAdminHref(adminBasePath);
   return (
     <div className="flex h-full flex-col">
-      <Link href={getAdminPath()} onClick={onNavigate} className="mb-6 flex items-center gap-3 px-2">
+      <Link href={adminHome} onClick={onNavigate} className="mb-6 flex items-center gap-3 px-2">
         <span className="block w-24">
           <Image src="/images/logo.svg" alt=".CO The Coconut Company" width={124} height={100} className="h-auto w-full" />
         </span>
@@ -103,7 +108,7 @@ function AdminSidebar({
       <nav className="min-h-0 flex-1 space-y-1 overflow-y-auto pr-1">
         {nav.map((item) => {
           const Icon = item.icon;
-          const configuredHref = item.href === "/admin" ? getAdminPath() : getAdminPath(item.href.replace("/admin/", ""));
+          const configuredHref = item.href === "/admin" ? adminHome : buildAdminHref(adminBasePath, item.href.replace("/admin/", ""));
           const active = pathname === item.href || pathname === configuredHref;
           return (
             <Link

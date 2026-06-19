@@ -3,6 +3,7 @@ import { AdminModulePage } from "@/components/admin/AdminDashboard";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { adminNavItems } from "@/lib/admin/data";
 import { requireAdminSession } from "@/lib/admin/auth";
+import { getAdminPath } from "@/lib/admin/path";
 
 type AdminModuleProps = {
   params: Promise<{ module: string }>;
@@ -19,7 +20,7 @@ export default async function AdminModuleRoute({ params }: AdminModuleProps) {
   const session = await requireAdminSession(item.permission);
 
   return (
-    <AdminShell session={{ email: session.email, name: session.name, role: session.role }}>
+    <AdminShell session={{ email: session.email, name: session.name, role: session.role }} adminBasePath={getAdminPath()}>
       <AdminModulePage module={module} />
     </AdminShell>
   );

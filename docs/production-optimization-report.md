@@ -660,3 +660,133 @@ Password input accepted typed text.
 Submit button enabled and high contrast.
 Mobile screenshot saved to /tmp/co-admin-login-mobile.png.
 ```
+
+## Firebase Integration Release
+
+Prepared release:
+
+```text
+v2.0.0-firebase-auth-cms
+```
+
+Audit summary:
+
+```text
+Authentication: existing customer/admin pages reused; temporary local password ownership replaced with Firebase Auth identity.
+Routing: customer routes remain /login, /register, /account, /orders, /wishlist, /profile; admin now uses ADMIN_BASE_PATH with /control-center default.
+Middleware: protects customer routes and configured admin base path, redirects legacy /admin, and rewrites internally to App Router admin routes.
+Dashboard: existing Admin OS retained; Firebase-ready media upload and Firestore collection contracts added.
+Database: existing SQL backend models kept, with password fields removed; Firestore models added for CMS and auth data.
+Forms: customer login/register/forgot/reset now use Firebase client SDK; admin login uses Firebase Auth and server-side Firebase Admin verification.
+Analytics: existing GA4/Clarity retained; Firebase Analytics initialized when web config exists.
+```
+
+Files added:
+
+```text
+lib/firebase/admin.ts
+lib/firebase/client.ts
+lib/firebase/collections.ts
+lib/firebase/config.ts
+lib/firebase/models.ts
+lib/admin/media-actions.ts
+components/admin/AdminPathContext.tsx
+app/forgot-password/page.tsx
+app/reset-password/page.tsx
+firestore.rules
+storage.rules
+firebase.json
+```
+
+Firebase configuration status:
+
+```text
+Firebase code integration complete.
+Local Firebase Web config not present in .env.example values yet.
+Firebase Admin credentials not present locally.
+Production requires Firebase Web App config plus Service Account credentials in Vercel.
+```
+
+Firestore collections:
+
+```text
+users
+admins
+products
+recipes
+journal
+newsletter
+wishlist
+orders
+activityLogs
+roles
+permissions
+brandAssets
+settings
+mediaLibrary
+contactForms
+```
+
+Security rules:
+
+```text
+firestore.rules added for public read content, owner-only customer data, admin-only CMS/media/settings/users, and immutable activity log reads.
+storage.rules added for public media reads, admin media writes, and user-owned private uploads.
+```
+
+Firebase environment variables:
+
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=
+FIREBASE_SERVICE_ACCOUNT_JSON=
+FIREBASE_PROJECT_ID=
+FIREBASE_CLIENT_EMAIL=
+FIREBASE_PRIVATE_KEY=
+FIREBASE_STORAGE_BUCKET=
+ADMIN_BASE_PATH=/control-center
+ADMIN_EMAIL=
+ADMIN_NAME=.CO Admin
+ADMIN_ROLE=Super Admin
+```
+
+Manual Firebase Console steps:
+
+```text
+1. Enable Authentication > Sign-in method > Email/Password.
+2. Optional: enable Google provider.
+3. Copy Web App config from Firebase Console > Project settings > General > Your apps > Web app.
+4. Download Service Account JSON from Firebase Console > Project settings > Service accounts > Generate new private key.
+5. Add FIREBASE_SERVICE_ACCOUNT_JSON as a single-line Vercel environment variable, or add FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, and FIREBASE_PRIVATE_KEY separately.
+6. Deploy Firestore and Storage rules from firestore.rules and storage.rules.
+```
+
+Validated:
+
+```text
+npm install
+npm run lint
+npx tsc --noEmit --incremental false
+npm run build
+```
+
+Local route verification:
+
+```text
+/ -> 200
+/admin -> 307 redirect to /control-center
+/control-center/login -> 200
+/control-center without session -> 307 redirect to /control-center/login
+/login -> 200
+/register -> 200
+/forgot-password -> 200
+/reset-password -> 200
+/account without session -> 307 redirect to /login
+/orders without session -> 307 redirect to /login
+/sitemap.xml -> 200
+```

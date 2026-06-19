@@ -7,8 +7,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, CheckCircle2, Eye, EyeOff, KeyRound, Loader2, Mail, ShieldAlert } from "lucide-react";
+import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { loginAdmin, requestAdminPasswordReset, type AdminActionState } from "@/lib/admin/actions";
 import { getAdminPath } from "@/lib/admin/path";
+import { getFirebaseClientAuth } from "@/lib/firebase/client";
+import { isFirebasePublicConfigured } from "@/lib/firebase/config";
 
 const initialState: AdminActionState = { ok: false, message: "" };
 
@@ -52,8 +55,20 @@ export function AdminLoginForm({ configured, csrfToken }: { configured: boolean;
           else if (errors.password) setFocus("password");
           return;
         }
-        const formData = new FormData(event.currentTarget);
-        startTransition(() => action(formData));
+        const values = new FormData(event.currentTarget);
+        startTransition(async () => {
+          if (!isFirebasePublicConfigured()) {
+            action(createAdminTokenFormData("", csrfToken, Boolean(values.get("remember"))));
+            return;
+          }
+          try {
+            const credential = await signInWithEmailAndPassword(getFirebaseClientAuth(), String(values.get("email")), String(values.get("password")));
+            const idToken = await credential.user.getIdToken();
+            action(createAdminTokenFormData(idToken, csrfToken, Boolean(values.get("remember"))));
+          } catch (error) {
+            action(createAdminTokenFormData("", csrfToken, Boolean(values.get("remember"))));
+          }
+        });
       }}
       className="relative z-10 mt-8 space-y-5"
     >
@@ -124,6 +139,14 @@ export function AdminLoginForm({ configured, csrfToken }: { configured: boolean;
   );
 }
 
+function createAdminTokenFormData(idToken: string, csrfToken: string, remember: boolean) {
+  const formData = new FormData();
+  formData.set("idToken", idToken);
+  formData.set("csrf", csrfToken);
+  if (remember) formData.set("remember", "true");
+  return formData;
+}
+
 export function AdminForgotPasswordForm({ configured }: { configured: boolean }) {
   const formRef = useRef<HTMLFormElement>(null);
   const [state, action] = useFormState(requestAdminPasswordReset, initialState);
@@ -148,7 +171,15 @@ export function AdminForgotPasswordForm({ configured }: { configured: boolean })
           return;
         }
         const formData = new FormData(event.currentTarget);
-        startTransition(() => action(formData));
+        startTransition(async () => {
+          try {
+            if (isFirebasePublicConfigured()) {
+              await sendPasswordResetEmail(getFirebaseClientAuth(), String(formData.get("email")));
+            }
+          } finally {
+            action(formData);
+          }
+        });
       }}
       className="mt-8 space-y-4"
     >

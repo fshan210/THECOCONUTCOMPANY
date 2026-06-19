@@ -31,7 +31,7 @@ export default async function AdminLoginPage() {
           </p>
           {!configured ? (
             <div className="co-neu-inset mt-8 border-amber-800/25 bg-sun/25 p-4 text-sm leading-7 text-coconut">
-              Set `ADMIN_EMAIL`, `ADMIN_PASSWORD_HASH`, and `ADMIN_SESSION_SECRET` in Vercel to activate secure login.
+              Configure Firebase Web credentials, Firebase Admin credentials, and `ADMIN_EMAIL` in Vercel to activate secure login.
             </div>
           ) : null}
           <AdminLoginForm configured={configured} csrfToken={csrfToken} />

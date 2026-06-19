@@ -1,0 +1,105 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return signedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return signedIn() &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.status == "active";
+    }
+
+    function hasPermission(permission) {
+      return isAdmin() &&
+        (
+          get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.permissions.hasAny(["*"]) ||
+          get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.permissions.hasAny([permission])
+        );
+    }
+
+    match /users/{userId} {
+      allow create: if isOwner(userId);
+      allow read, update: if isOwner(userId) || hasPermission("customers");
+      allow delete: if hasPermission("users");
+    }
+
+    match /admins/{adminId} {
+      allow read: if isOwner(adminId) || hasPermission("users");
+      allow write: if hasPermission("users");
+    }
+
+    match /wishlist/{wishlistId} {
+      allow read, write: if signedIn() && resource.data.userId == request.auth.uid;
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow read: if hasPermission("customers");
+    }
+
+    match /orders/{orderId} {
+      allow read: if signedIn() && resource.data.userId == request.auth.uid;
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if hasPermission("orders");
+      allow read: if hasPermission("orders");
+    }
+
+    match /newsletter/{docId} {
+      allow create: if true;
+      allow read, update, delete: if hasPermission("newsletter");
+    }
+
+    match /contactForms/{docId} {
+      allow create: if true;
+      allow read, update, delete: if hasPermission("forms");
+    }
+
+    match /products/{docId} {
+      allow read: if true;
+      allow write: if hasPermission("commerce");
+    }
+
+    match /recipes/{docId} {
+      allow read: if true;
+      allow write: if hasPermission("content");
+    }
+
+    match /journal/{docId} {
+      allow read: if true;
+      allow write: if hasPermission("content");
+    }
+
+    match /brandAssets/{docId} {
+      allow read: if true;
+      allow write: if hasPermission("media");
+    }
+
+    match /mediaLibrary/{docId} {
+      allow read: if true;
+      allow write: if hasPermission("media");
+    }
+
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if hasPermission("settings");
+    }
+
+    match /roles/{docId} {
+      allow read, write: if hasPermission("users");
+    }
+
+    match /permissions/{docId} {
+      allow read, write: if hasPermission("users");
+    }
+
+    match /activityLogs/{docId} {
+      allow create: if isAdmin();
+      allow read: if hasPermission("users");
+      allow update, delete: if false;
+    }
+  }
+}

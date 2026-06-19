@@ -4,19 +4,18 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import {
-  createAdminSession,
-  getConfiguredAdminRole,
+  createFirebaseAdminSessionCookie,
   isAdminAuthConfigured,
-  verifyAdminCsrfToken,
-  verifyAdminPassword
+  verifyAdminCsrfToken
 } from "@/lib/admin/auth";
 import { adminCsrfCookie, adminIdleTimeoutMs, adminSessionCookie } from "@/lib/admin/auth-config";
 import { getAdminPath } from "@/lib/admin/path";
+import { getFirebaseAdminAuth, getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
+import { firestoreCollections } from "@/lib/firebase/collections";
 
 const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-  remember: z.string().optional(),
+  idToken: z.string().min(20),
+  remember: z.boolean().optional(),
   csrf: z.string().min(16)
 });
 
@@ -68,9 +67,8 @@ function auditAdminAuth(event: string, detail: Record<string, string>) {
 
 export async function loginAdmin(_: AdminActionState, formData: FormData): Promise<AdminActionState> {
   const parsed = loginSchema.safeParse({
-    email: formData.get("email"),
-    password: formData.get("password"),
-    remember: formData.get("remember"),
+    idToken: formData.get("idToken"),
+    remember: formData.get("remember") === "true",
     csrf: formData.get("csrf")
   });
 
@@ -79,32 +77,56 @@ export async function loginAdmin(_: AdminActionState, formData: FormData): Promi
   }
 
   if (!verifyAdminCsrfToken(parsed.data.csrf)) {
-    auditAdminAuth("csrf_rejected", { email: parsed.data.email.toLowerCase() });
+    auditAdminAuth("csrf_rejected", { email: "unknown" });
     return { ok: false, status: "error", message: "Security check expired. Refresh and try again." };
   }
 
-  if (!isAdminAuthConfigured()) {
-    return { ok: false, status: "error", message: "Admin credentials are not configured. Set ADMIN_EMAIL and ADMIN_PASSWORD_HASH." };
+  if (!isAdminAuthConfigured() || !isFirebaseAdminConfigured()) {
+    return { ok: false, status: "error", message: "Firebase Admin and Web configuration are required for admin login." };
   }
 
-  const expectedEmail = process.env.ADMIN_EMAIL;
-  if (isRateLimited(parsed.data.email)) {
-    auditAdminAuth("rate_limited", { email: parsed.data.email.toLowerCase() });
+  const decoded = await (await getFirebaseAdminAuth()).verifyIdToken(parsed.data.idToken, true);
+  const email = decoded.email || "";
+  if (isRateLimited(email)) {
+    auditAdminAuth("rate_limited", { email: email.toLowerCase() });
     return { ok: false, status: "error", message: "Too many failed attempts. Wait a few minutes and try again." };
   }
 
-  const authorized = parsed.data.email.toLowerCase() === expectedEmail?.toLowerCase() && verifyAdminPassword(parsed.data.password);
+  const db = await getFirebaseAdminDb();
+  const adminRef = db.collection(firestoreCollections.admins).doc(decoded.uid);
+  const adminSnapshot = await adminRef.get();
+  const bootstrapEmail = process.env.ADMIN_EMAIL;
+  const bootstrapAllowed = bootstrapEmail && email.toLowerCase() === bootstrapEmail.toLowerCase();
+  const adminData = adminSnapshot.exists ? adminSnapshot.data() : null;
+  const authorized = Boolean(adminData?.status === "active" || bootstrapAllowed);
 
   if (!authorized) {
-    recordFailedLogin(parsed.data.email);
-    auditAdminAuth("login_failed", { email: parsed.data.email.toLowerCase() });
-    return { ok: false, status: "error", message: "Invalid admin credentials. Check your email and password." };
+    recordFailedLogin(email);
+    auditAdminAuth("login_failed", { email: email.toLowerCase() });
+    return { ok: false, status: "error", message: "This Firebase user is not authorized for Admin OS access." };
   }
 
-  clearFailedLogins(parsed.data.email);
-  auditAdminAuth("login_success", { email: parsed.data.email.toLowerCase(), role: getConfiguredAdminRole() });
+  if (!adminSnapshot.exists && bootstrapAllowed) {
+    const now = new Date().toISOString();
+    await adminRef.set({
+      uid: decoded.uid,
+      email,
+      displayName: process.env.ADMIN_NAME || decoded.name || email.split("@")[0] || "Admin",
+      role: process.env.ADMIN_ROLE || "Super Admin",
+      permissions: ["*"],
+      status: "active",
+      createdAt: now,
+      updatedAt: now,
+      lastLoginAt: now
+    });
+  } else {
+    await adminRef.set({ lastLoginAt: new Date().toISOString(), updatedAt: new Date().toISOString() }, { merge: true });
+  }
+
+  clearFailedLogins(email);
+  auditAdminAuth("login_success", { email: email.toLowerCase(), role: String(adminData?.role || process.env.ADMIN_ROLE || "Super Admin") });
   const cookieStore = await cookies();
-  cookieStore.set(adminSessionCookie, createAdminSession(parsed.data.email, getConfiguredAdminRole()), {
+  cookieStore.set(adminSessionCookie, await createFirebaseAdminSessionCookie(parsed.data.idToken, parsed.data.remember), {
     httpOnly: true,
     sameSite: "strict",
     secure: process.env.NODE_ENV === "production",

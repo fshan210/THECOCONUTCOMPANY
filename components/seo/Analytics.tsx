@@ -4,6 +4,8 @@ import Script from "next/script";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef } from "react";
 import { trackEvent } from "@/lib/analytics/events";
+import { getFirebaseAnalyticsClient } from "@/lib/firebase/client";
+import { isFirebasePublicConfigured } from "@/lib/firebase/config";
 
 const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 const clarityProjectId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID;
@@ -14,12 +16,22 @@ export function Analytics() {
     <>
       <GoogleAnalytics />
       <MicrosoftClarity />
+      <FirebaseAnalytics />
       <AnalyticsEventListeners />
       <Suspense fallback={null}>
         <PageViewTracker />
       </Suspense>
     </>
   );
+}
+
+function FirebaseAnalytics() {
+  useEffect(() => {
+    if (!isProduction || !isFirebasePublicConfigured()) return;
+    void getFirebaseAnalyticsClient();
+  }, []);
+
+  return null;
 }
 
 function GoogleAnalytics() {

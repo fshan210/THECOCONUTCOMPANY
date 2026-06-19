@@ -1,4 +1,4 @@
-export const defaultAdminPath = "/dashboard-os";
+export const defaultAdminPath = "/control-center";
 
 function normalizePath(path?: string) {
   if (!path) return defaultAdminPath;
@@ -9,7 +9,7 @@ function normalizePath(path?: string) {
 }
 
 export function getAdminPath(path = "") {
-  const base = normalizePath(process.env.NEXT_PUBLIC_ADMIN_PATH);
+  const base = normalizePath(process.env.ADMIN_BASE_PATH || process.env.NEXT_PUBLIC_ADMIN_PATH);
   const suffix = path ? `/${path.replace(/^\/+/, "")}` : "";
   return `${base}${suffix}`;
 }
