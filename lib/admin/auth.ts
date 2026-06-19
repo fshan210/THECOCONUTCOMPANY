@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { adminCsrfCookie, adminIdleTimeoutMs, adminSessionCookie } from "@/lib/admin/auth-config";
 import { getAdminPath } from "@/lib/admin/path";
-import { adminRoles, canAccess, type AdminRole } from "@/lib/admin/rbac";
+import { adminRoles, canAccess, normalizeAdminRole, type AdminRole } from "@/lib/admin/rbac";
 import { getFirebaseAdminAuth, getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
 import { isFirebasePublicConfigured } from "@/lib/firebase/config";
 import { firestoreCollections } from "@/lib/firebase/collections";
@@ -67,8 +67,10 @@ async function getAdminProfile(uid: string, email?: string) {
       email,
       displayName: process.env.ADMIN_NAME || email.split("@")[0] || "Admin",
       role: getConfiguredAdminRole(),
+      roleKey: "super_admin",
       permissions: ["*"],
       status: "active",
+      isActive: true,
       createdAt: now,
       updatedAt: now,
       lastLoginAt: now
@@ -85,9 +87,9 @@ export async function verifyAdminSession(token?: string): Promise<AdminSession |
   try {
     const decoded = await (await getFirebaseAdminAuth()).verifySessionCookie(token, true);
     const profile = await getAdminProfile(decoded.uid, decoded.email);
-    if (!profile || profile.status !== "active") return null;
+    if (!profile || (profile.status !== "active" && profile.isActive !== true)) return null;
 
-    const role = adminRoles.includes(profile.role as AdminRole) ? (profile.role as AdminRole) : "Read-only Analytics";
+    const role = adminRoles.includes(profile.role as AdminRole) ? (profile.role as AdminRole) : normalizeAdminRole(String(profile.roleKey || profile.role || ""));
     return {
       uid: decoded.uid,
       email: decoded.email || String(profile.email || ""),

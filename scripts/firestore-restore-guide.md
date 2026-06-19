@@ -34,7 +34,7 @@ npm run firestore:backup -- --execute
 Use the Google Cloud CLI from a trusted machine:
 
 ```bash
-gcloud firestore import gs://<bucket-name>/daily/<timestamp> --project=<project-id>
+npm run firestore:restore -- gs://<bucket-name>/daily/<timestamp> -- --execute
 ```
 
 Before restoring production, import into a staging Firebase project and verify customer, admin, product, media, and audit records.

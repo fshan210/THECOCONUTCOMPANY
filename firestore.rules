@@ -28,11 +28,15 @@ service cloud.firestore {
     function isAdmin() {
       return signedIn() &&
         exists(/databases/$(database)/documents/admins/$(request.auth.uid)) &&
-        adminDoc().data.status == "active";
+        (adminDoc().data.status == "active" || adminDoc().data.isActive == true);
     }
 
     function isSuperAdmin() {
-      return isAdmin() && adminDoc().data.role == "Super Admin";
+      return isAdmin() && (
+        adminDoc().data.role == "Super Admin" ||
+        adminDoc().data.role == "super_admin" ||
+        adminDoc().data.roleKey == "super_admin"
+      );
     }
 
     function hasPermission(permission) {

@@ -129,7 +129,7 @@ export async function loginAdmin(_: AdminActionState, formData: FormData): Promi
   const bootstrapEmail = process.env.ADMIN_EMAIL;
   const bootstrapAllowed = bootstrapEmail && email.toLowerCase() === bootstrapEmail.toLowerCase();
   const adminData = adminSnapshot.exists ? adminSnapshot.data() : null;
-  const authorized = Boolean(adminData?.status === "active" || bootstrapAllowed);
+  const authorized = Boolean(adminData?.status === "active" || adminData?.isActive === true || bootstrapAllowed);
 
   if (!authorized) {
     recordFailedLogin(email);
@@ -145,8 +145,10 @@ export async function loginAdmin(_: AdminActionState, formData: FormData): Promi
       email,
       displayName: process.env.ADMIN_NAME || decoded.name || email.split("@")[0] || "Admin",
       role: process.env.ADMIN_ROLE || "Super Admin",
+      roleKey: "super_admin",
       permissions: ["*"],
       status: "active",
+      isActive: true,
       createdAt: now,
       updatedAt: now,
       lastLoginAt: now
