@@ -6,10 +6,11 @@ import { redirect } from "next/navigation";
 import { adminCsrfCookie, adminIdleTimeoutMs, adminSessionCookie } from "@/lib/admin/auth-config";
 import { getAdminPath } from "@/lib/admin/path";
 import { adminRoles, canAccess, normalizeAdminRole, type AdminRole } from "@/lib/admin/rbac";
-import { getFirebaseAdminAuth, getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
+import { getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
 import { isFirebasePublicConfigured } from "@/lib/firebase/config";
 import { firestoreCollections } from "@/lib/firebase/collections";
 import { writeAdminAuditLog } from "@/lib/admin/audit";
+import { decodeFirebaseTokenTimes, lookupFirebaseAccount } from "@/lib/firebase/auth-rest";
 
 export type AdminSession = {
   uid: string;
@@ -20,8 +21,6 @@ export type AdminSession = {
   issuedAt: number;
   expiresAt: number;
 };
-
-const adminAbsoluteSessionMs = 1000 * 60 * 60 * 8;
 
 function getSecret() {
   return process.env.ADMIN_SESSION_SECRET || process.env.NEXTAUTH_SECRET || "local-admin-session-secret-change-me";
@@ -49,9 +48,7 @@ export function getConfiguredAdminRole(): AdminRole {
 }
 
 export async function createFirebaseAdminSessionCookie(idToken: string, remember = false) {
-  return (await getFirebaseAdminAuth()).createSessionCookie(idToken, {
-    expiresIn: remember ? adminAbsoluteSessionMs : adminIdleTimeoutMs
-  });
+  return idToken;
 }
 
 async function getAdminProfile(uid: string, email?: string) {
@@ -85,21 +82,23 @@ async function getAdminProfile(uid: string, email?: string) {
 export async function verifyAdminSession(token?: string): Promise<AdminSession | null> {
   if (!token || !isFirebaseAdminConfigured()) return null;
   try {
-    const decoded = await (await getFirebaseAdminAuth()).verifySessionCookie(token, true);
-    const profile = await getAdminProfile(decoded.uid, decoded.email);
+    const account = await lookupFirebaseAccount(token);
+    const profile = await getAdminProfile(account.localId, account.email);
     if (!profile || (profile.status !== "active" && profile.isActive !== true)) return null;
 
     const role = adminRoles.includes(profile.role as AdminRole) ? (profile.role as AdminRole) : normalizeAdminRole(String(profile.roleKey || profile.role || ""));
+    const times = decodeFirebaseTokenTimes(token);
     return {
-      uid: decoded.uid,
-      email: decoded.email || String(profile.email || ""),
-      name: String(profile.displayName || decoded.name || decoded.email?.split("@")[0] || "Admin"),
+      uid: account.localId,
+      email: account.email || String(profile.email || ""),
+      name: String(profile.displayName || account.displayName || account.email?.split("@")[0] || "Admin"),
       role,
       permissions: Array.isArray(profile.permissions) ? (profile.permissions as string[]) : [],
-      issuedAt: decoded.iat ? decoded.iat * 1000 : Date.now(),
-      expiresAt: decoded.exp ? decoded.exp * 1000 : Date.now() + adminIdleTimeoutMs
+      issuedAt: times.issuedAt,
+      expiresAt: times.expiresAt
     };
-  } catch {
+  } catch (error) {
+    console.warn("[admin-session-verify-failed]", error instanceof Error ? error.message : "unknown");
     return null;
   }
 }

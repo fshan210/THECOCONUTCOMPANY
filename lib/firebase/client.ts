@@ -10,7 +10,6 @@ import {
   type Auth
 } from "firebase/auth";
 import { getFirestore, type Firestore } from "firebase/firestore";
-import { getStorage, type FirebaseStorage } from "firebase/storage";
 import { firebasePublicConfig, isFirebasePublicConfigured } from "@/lib/firebase/config";
 
 let analyticsPromise: Promise<Analytics | null> | null = null;
@@ -31,10 +30,6 @@ export function getFirebaseClientAuth(): Auth {
 
 export function getFirebaseClientDb(): Firestore {
   return getFirestore(getFirebaseClientApp());
-}
-
-export function getFirebaseClientStorage(): FirebaseStorage {
-  return getStorage(getFirebaseClientApp());
 }
 
 export function getGoogleAuthProvider() {

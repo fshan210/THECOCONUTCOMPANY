@@ -10,6 +10,8 @@
     "assets:optimize": "node scripts/optimize-assets.mjs",
     "assets:transparent": "node scripts/create-transparent-assets.mjs",
     "favicons:generate": "node scripts/generate-favicons.mjs",
+    "media:generate": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/generate-media-library.ts",
+    "media:sync": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/sync-local-media-library.ts",
     "firestore:backup": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/firestore-backup.ts",
     "firestore:restore": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/firestore-restore.ts",
     "firebase:bootstrap-admin": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/bootstrap-admin.ts",

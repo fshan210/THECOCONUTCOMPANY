@@ -5,21 +5,21 @@ import Link from "next/link";
 import type React from "react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, CheckCircle2, CircleDot, ExternalLink, Plus, Upload, WandSparkles } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, CircleDot, DatabaseZap, ExternalLink, Plus, WandSparkles } from "lucide-react";
 import {
   activityLog,
   adminStats,
   cmsPages,
   countrySignals,
   deviceBreakdown,
-  mediaAssets,
   mostViewedPages,
   seoTasks,
   topProducts,
   trafficSources
 } from "@/lib/admin/data";
 import { useAdminHref } from "@/components/admin/AdminPathContext";
-import { uploadMediaAsset } from "@/lib/admin/media-actions";
+import { syncLocalMediaLibrary } from "@/lib/admin/media-actions";
+import mediaManifest from "@/public/assets/media-library.generated.json";
 
 const spring = { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const };
 
@@ -277,26 +277,44 @@ function ProductOps({ expanded = false }: { expanded?: boolean }) {
 }
 
 function MediaLibrary() {
+  const assets = mediaManifest.assets;
+  const categories = Array.from(new Set(assets.map((asset) => asset.category)));
   return (
     <section className="co-glass p-5 md:p-6">
-      <PanelHeader eyebrow="Asset manager" title="Media library" action="Bulk upload" icon={<Upload size={15} />} />
-      <form action={uploadMediaAsset} className="co-neu mt-5 grid gap-3 p-4 md:grid-cols-[1fr_160px_1fr_auto] dark:bg-paper">
-        <input name="asset" type="file" accept="image/*,.svg,.webp,video/*,.glb,.gltf" className="co-input bg-porcelain" />
-        <input name="folder" defaultValue="uploads" className="co-input bg-porcelain" aria-label="Folder" />
-        <input name="tags" placeholder="tags, comma separated" className="co-input bg-porcelain" aria-label="Tags" />
+      <PanelHeader eyebrow="Local asset manager" title="Media library" action="Sync Firestore metadata" icon={<DatabaseZap size={15} />} />
+      <form action={syncLocalMediaLibrary} className="co-neu mt-5 flex flex-col gap-4 p-4 dark:bg-paper md:flex-row md:items-center md:justify-between">
+        <div>
+          <p className="text-sm font-medium text-ink">{assets.length} local assets indexed from /public/assets</p>
+          <p className="mt-1 text-xs leading-5 text-muted">Firestore stores metadata only. Runtime media is served from local folders and remains future-compatible with Cloudinary, S3, or Firebase Storage.</p>
+        </div>
         <button type="submit" className="co-admin-primary-button">
-          Upload
+          Sync metadata
         </button>
       </form>
+      <div className="mt-5 flex flex-wrap gap-2">
+        {categories.map((category) => (
+          <span key={category} className="rounded-full bg-grove/10 px-3 py-1 text-xs uppercase tracking-editorial text-grove">{category}</span>
+        ))}
+      </div>
       <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {mediaAssets.map((asset) => (
+        {assets.map((asset) => (
           <article key={asset.path} className="co-neu p-4 dark:bg-paper">
             <div className="relative mb-4 aspect-[4/3] overflow-hidden rounded-lg bg-paper">
-              <Image src={asset.path} alt={asset.name} fill sizes="(min-width: 1024px) 22vw, 90vw" className="object-contain p-3" />
+              {asset.thumbnail ? (
+                <Image src={asset.thumbnail} alt={asset.altText} fill sizes="(min-width: 1024px) 22vw, 90vw" className="object-contain p-3" />
+              ) : (
+                <div className="grid h-full place-items-center px-4 text-center text-xs uppercase tracking-editorial text-muted">{asset.type}</div>
+              )}
             </div>
-            <p className="font-medium text-ink">{asset.name}</p>
-            <p className="mt-1 text-xs text-muted">{asset.folder} / {asset.type}</p>
-            <p className="mt-3 text-xs leading-5 text-muted">Usage: {asset.usage}</p>
+            <p className="font-medium text-ink">{asset.title}</p>
+            <p className="mt-1 text-xs text-muted">{asset.filename}</p>
+            <p className="mt-2 text-xs text-grove">{asset.category} / {asset.type}</p>
+            <p className="mt-3 text-xs leading-5 text-muted">{asset.altText}</p>
+            <div className="mt-3 flex flex-wrap gap-1">
+              {asset.tags.slice(0, 5).map((tag) => (
+                <span key={tag} className="rounded-full bg-coconut/8 px-2 py-1 text-[0.65rem] text-coconut">{tag}</span>
+              ))}
+            </div>
           </article>
         ))}
       </div>

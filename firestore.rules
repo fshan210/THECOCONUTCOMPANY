@@ -47,10 +47,6 @@ service cloud.firestore {
         );
     }
 
-    function ownsRequestedUserData(userId) {
-      return request.resource.data.userId == userId || request.resource.data.uid == userId;
-    }
-
     match /users/{userId} {
       allow create: if isOwner(userId);
       allow read: if isOwner(userId) || hasPermission("customers");

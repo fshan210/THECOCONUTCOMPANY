@@ -3,9 +3,9 @@ import "server-only";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { customerSessionCookie, type CustomerSession } from "@/lib/customer/auth-config";
-import { getFirebaseAdminAuth } from "@/lib/firebase/admin";
 import { firestoreCollections } from "@/lib/firebase/collections";
 import { getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
+import { decodeFirebaseTokenTimes, lookupFirebaseAccount } from "@/lib/firebase/auth-rest";
 
 const configuredSessionDays = Number(process.env.SESSION_MAX_AGE_DAYS || 7);
 const customerSessionMs = 1000 * 60 * 60 * 24 * (Number.isFinite(configuredSessionDays) ? configuredSessionDays : 7);
@@ -22,14 +22,15 @@ function initialsFromName(name: string) {
 export const customerSessionMaxAge = customerSessionMs / 1000;
 
 export async function createFirebaseCustomerSessionCookie(idToken: string) {
-  return (await getFirebaseAdminAuth()).createSessionCookie(idToken, { expiresIn: customerSessionMs });
+  return idToken;
 }
 
 async function getUserProfile(uid: string) {
   try {
     const snapshot = await (await getFirebaseAdminDb()).collection(firestoreCollections.users).doc(uid).get();
     return snapshot.exists ? snapshot.data() : null;
-  } catch {
+  } catch (error) {
+    console.warn("[customer-session-verify-failed]", error instanceof Error ? error.message : "unknown");
     return null;
   }
 }
@@ -37,20 +38,21 @@ async function getUserProfile(uid: string) {
 export async function verifyCustomerSession(token?: string): Promise<CustomerSession | null> {
   if (!token || !isFirebaseAdminConfigured()) return null;
   try {
-    const decoded = await (await getFirebaseAdminAuth()).verifySessionCookie(token, true);
-    const profile = await getUserProfile(decoded.uid);
-    const name = (profile?.displayName as string | undefined) || decoded.name || decoded.email?.split("@")[0] || "Customer";
-    const emailVerified = Boolean(decoded.email_verified || profile?.emailVerified);
+    const account = await lookupFirebaseAccount(token);
+    const profile = await getUserProfile(account.localId);
+    const name = (profile?.displayName as string | undefined) || account.displayName || account.email?.split("@")[0] || "Customer";
+    const emailVerified = Boolean(account.emailVerified || profile?.emailVerified);
     const accountStatus = String(profile?.accountStatus || (emailVerified ? "active" : "pending")) as CustomerSession["accountStatus"];
+    const times = decodeFirebaseTokenTimes(token);
     return {
-      uid: decoded.uid,
-      email: decoded.email || "",
+      uid: account.localId,
+      email: account.email || "",
       name,
       initials: initialsFromName(name),
       emailVerified,
       accountStatus,
-      issuedAt: decoded.iat ? decoded.iat * 1000 : Date.now(),
-      expiresAt: decoded.exp ? decoded.exp * 1000 : Date.now() + customerSessionMs
+      issuedAt: times.issuedAt,
+      expiresAt: times.expiresAt
     };
   } catch {
     return null;

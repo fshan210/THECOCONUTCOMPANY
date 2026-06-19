@@ -10,12 +10,13 @@ import {
 } from "@/lib/admin/auth";
 import { adminCsrfCookie, adminIdleTimeoutMs, adminSessionCookie } from "@/lib/admin/auth-config";
 import { getAdminPath } from "@/lib/admin/path";
-import { getFirebaseAdminAuth, getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
+import { getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
 import { firestoreCollections } from "@/lib/firebase/collections";
 import { writeAdminAuditLog } from "@/lib/admin/audit";
 import { checkRateLimit } from "@/lib/security/rate-limit";
 import { verifyRecaptchaToken } from "@/lib/security/recaptcha";
 import { writeSecurityEvent } from "@/lib/security/events";
+import { lookupFirebaseAccount } from "@/lib/firebase/auth-rest";
 
 const loginSchema = z.object({
   idToken: z.string(),
@@ -98,33 +99,33 @@ export async function loginAdmin(_: AdminActionState, formData: FormData): Promi
     return { ok: false, status: "error", message: "Invalid admin email or password." };
   }
 
-  const decoded = await (await getFirebaseAdminAuth()).verifyIdToken(parsed.data.idToken, true);
-  const email = decoded.email || "";
+  const account = await lookupFirebaseAccount(parsed.data.idToken);
+  const email = account.email || "";
   const recaptcha = await verifyRecaptchaToken(parsed.data.recaptchaToken, "admin_login");
   if (!recaptcha.ok) {
-    await writeAdminAuditLog({ action: "failed_admin_login", resourceType: "auth", adminUid: decoded.uid, adminEmail: email, adminRole: "unknown", before: { reason: "recaptcha_rejected" } });
+    await writeAdminAuditLog({ action: "failed_admin_login", resourceType: "auth", adminUid: account.localId, adminEmail: email, adminRole: "unknown", before: { reason: "recaptcha_rejected" } });
     return { ok: false, status: "error", message: recaptcha.message || "Security check failed." };
   }
 
   const distributedLimit = await checkRateLimit({
-    key: email || decoded.uid,
+    key: email || account.localId,
     action: "admin_login",
     limit: maxLoginAttempts,
     windowMs: loginWindowMs,
     area: "admin_auth"
   });
   if (!distributedLimit.allowed) {
-    await writeAdminAuditLog({ action: "failed_admin_login", resourceType: "auth", adminUid: decoded.uid, adminEmail: email, adminRole: "unknown", before: { reason: "rate_limited" } });
+    await writeAdminAuditLog({ action: "failed_admin_login", resourceType: "auth", adminUid: account.localId, adminEmail: email, adminRole: "unknown", before: { reason: "rate_limited" } });
     return { ok: false, status: "error", message: "Too many failed attempts. Wait a few minutes and try again." };
   }
 
   if (isRateLimited(email)) {
-    await writeAdminAuditLog({ action: "failed_admin_login", resourceType: "auth", adminUid: decoded.uid, adminEmail: email, adminRole: "unknown", before: { reason: "local_rate_limited" } });
+    await writeAdminAuditLog({ action: "failed_admin_login", resourceType: "auth", adminUid: account.localId, adminEmail: email, adminRole: "unknown", before: { reason: "local_rate_limited" } });
     return { ok: false, status: "error", message: "Too many failed attempts. Wait a few minutes and try again." };
   }
 
   const db = await getFirebaseAdminDb();
-  const adminRef = db.collection(firestoreCollections.admins).doc(decoded.uid);
+  const adminRef = db.collection(firestoreCollections.admins).doc(account.localId);
   const adminSnapshot = await adminRef.get();
   const bootstrapEmail = process.env.ADMIN_EMAIL;
   const bootstrapAllowed = bootstrapEmail && email.toLowerCase() === bootstrapEmail.toLowerCase();
@@ -133,17 +134,17 @@ export async function loginAdmin(_: AdminActionState, formData: FormData): Promi
 
   if (!authorized) {
     recordFailedLogin(email);
-    await writeAdminAuditLog({ action: "failed_admin_login", resourceType: "auth", adminUid: decoded.uid, adminEmail: email, adminRole: String(adminData?.role || "unknown"), before: { reason: "not_authorized" } });
-    await writeSecurityEvent({ actorId: decoded.uid, actorEmail: email, action: "failed_admin_login", area: "admin_auth", outcome: "blocked", metadata: { reason: "not_authorized" } });
+    await writeAdminAuditLog({ action: "failed_admin_login", resourceType: "auth", adminUid: account.localId, adminEmail: email, adminRole: String(adminData?.role || "unknown"), before: { reason: "not_authorized" } });
+    await writeSecurityEvent({ actorId: account.localId, actorEmail: email, action: "failed_admin_login", area: "admin_auth", outcome: "blocked", metadata: { reason: "not_authorized" } });
     return { ok: false, status: "error", message: "This Firebase user is not authorized for Admin OS access." };
   }
 
   if (!adminSnapshot.exists && bootstrapAllowed) {
     const now = new Date().toISOString();
     await adminRef.set({
-      uid: decoded.uid,
+      uid: account.localId,
       email,
-      displayName: process.env.ADMIN_NAME || decoded.name || email.split("@")[0] || "Admin",
+      displayName: process.env.ADMIN_NAME || account.displayName || email.split("@")[0] || "Admin",
       role: process.env.ADMIN_ROLE || "Super Admin",
       roleKey: "super_admin",
       permissions: ["*"],
@@ -161,7 +162,7 @@ export async function loginAdmin(_: AdminActionState, formData: FormData): Promi
   await writeAdminAuditLog({
     action: "admin_login",
     resourceType: "auth",
-    adminUid: decoded.uid,
+    adminUid: account.localId,
     adminEmail: email,
     adminRole: String(adminData?.role || process.env.ADMIN_ROLE || "Super Admin"),
     after: { remember: parsed.data.remember ?? false }
@@ -200,8 +201,8 @@ export async function logoutAdmin() {
   const token = cookieStore.get(adminSessionCookie)?.value;
   if (token) {
     try {
-      const decoded = await (await getFirebaseAdminAuth()).verifySessionCookie(token, false);
-      await writeAdminAuditLog({ action: "admin_logout", resourceType: "auth", adminUid: decoded.uid, adminEmail: decoded.email || "unknown", adminRole: "unknown" });
+      const account = await lookupFirebaseAccount(token);
+      await writeAdminAuditLog({ action: "admin_logout", resourceType: "auth", adminUid: account.localId, adminEmail: account.email || "unknown", adminRole: "unknown" });
     } catch {
       await writeAdminAuditLog({ action: "admin_logout", resourceType: "auth", adminEmail: "unknown", adminRole: "unknown" });
     }

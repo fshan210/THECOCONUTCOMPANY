@@ -1,0 +1,367 @@
+{
+  "generatedAt": "2026-06-19T13:36:37.986Z",
+  "assets": [
+    {
+      "id": "products-co-water-reserve-jpg",
+      "filename": "co-water-reserve.jpg",
+      "title": "Co Water Reserve",
+      "path": "/assets/products/co-water-reserve.jpg",
+      "category": "products",
+      "type": "image",
+      "altText": "Co Water Reserve for .CO The Coconut Company",
+      "tags": [
+        "products",
+        "image",
+        "co",
+        "water",
+        "reserve"
+      ],
+      "thumbnail": "/assets/products/co-water-reserve.jpg"
+    },
+    {
+      "id": "products-co-water-jpg",
+      "filename": "co-water.jpg",
+      "title": "Co Water",
+      "path": "/assets/products/co-water.jpg",
+      "category": "products",
+      "type": "image",
+      "altText": "Co Water for .CO The Coconut Company",
+      "tags": [
+        "products",
+        "image",
+        "co",
+        "water"
+      ],
+      "thumbnail": "/assets/products/co-water.jpg"
+    },
+    {
+      "id": "products-product-kitchen-oil-webp",
+      "filename": "product-kitchen-oil.webp",
+      "title": "Product Kitchen Oil",
+      "path": "/assets/products/product-kitchen-oil.webp",
+      "category": "products",
+      "type": "image",
+      "altText": "Product Kitchen Oil for .CO The Coconut Company",
+      "tags": [
+        "products",
+        "image",
+        "product",
+        "kitchen",
+        "oil"
+      ],
+      "thumbnail": "/assets/products/product-kitchen-oil.webp"
+    },
+    {
+      "id": "products-product-lifestyle-webp",
+      "filename": "product-lifestyle.webp",
+      "title": "Product Lifestyle",
+      "path": "/assets/products/product-lifestyle.webp",
+      "category": "products",
+      "type": "image",
+      "altText": "Product Lifestyle for .CO The Coconut Company",
+      "tags": [
+        "products",
+        "image",
+        "product",
+        "lifestyle"
+      ],
+      "thumbnail": "/assets/products/product-lifestyle.webp"
+    },
+    {
+      "id": "recipes-mango-coconut-dessert-png",
+      "filename": "mango-coconut-dessert.png",
+      "title": "Mango Coconut Dessert",
+      "path": "/assets/recipes/mango-coconut-dessert.png",
+      "category": "recipes",
+      "type": "image",
+      "altText": "Mango Coconut Dessert for .CO The Coconut Company",
+      "tags": [
+        "recipes",
+        "image",
+        "mango",
+        "coconut",
+        "dessert"
+      ],
+      "thumbnail": "/assets/recipes/mango-coconut-dessert.png"
+    },
+    {
+      "id": "recipes-recipe-coffee-chill-webp",
+      "filename": "recipe-coffee-chill.webp",
+      "title": "Recipe Coffee Chill",
+      "path": "/assets/recipes/recipe-coffee-chill.webp",
+      "category": "recipes",
+      "type": "image",
+      "altText": "Recipe Coffee Chill for .CO The Coconut Company",
+      "tags": [
+        "recipes",
+        "image",
+        "recipe",
+        "coffee",
+        "chill"
+      ],
+      "thumbnail": "/assets/recipes/recipe-coffee-chill.webp"
+    },
+    {
+      "id": "recipes-recipe-smoothie-bowl-webp",
+      "filename": "recipe-smoothie-bowl.webp",
+      "title": "Recipe Smoothie Bowl",
+      "path": "/assets/recipes/recipe-smoothie-bowl.webp",
+      "category": "recipes",
+      "type": "image",
+      "altText": "Recipe Smoothie Bowl for .CO The Coconut Company",
+      "tags": [
+        "recipes",
+        "image",
+        "recipe",
+        "smoothie",
+        "bowl"
+      ],
+      "thumbnail": "/assets/recipes/recipe-smoothie-bowl.webp"
+    },
+    {
+      "id": "journal-composition-flatlay-webp",
+      "filename": "composition-flatlay.webp",
+      "title": "Composition Flatlay",
+      "path": "/assets/journal/composition-flatlay.webp",
+      "category": "journal",
+      "type": "image",
+      "altText": "Composition Flatlay for .CO The Coconut Company",
+      "tags": [
+        "journal",
+        "image",
+        "composition",
+        "flatlay"
+      ],
+      "thumbnail": "/assets/journal/composition-flatlay.webp"
+    },
+    {
+      "id": "journal-composition-morning-webp",
+      "filename": "composition-morning.webp",
+      "title": "Composition Morning",
+      "path": "/assets/journal/composition-morning.webp",
+      "category": "journal",
+      "type": "image",
+      "altText": "Composition Morning for .CO The Coconut Company",
+      "tags": [
+        "journal",
+        "image",
+        "composition",
+        "morning"
+      ],
+      "thumbnail": "/assets/journal/composition-morning.webp"
+    },
+    {
+      "id": "branding-made-for-living-banner-jpg",
+      "filename": "made-for-living-banner.jpg",
+      "title": "Made For Living Banner",
+      "path": "/assets/branding/made-for-living-banner.jpg",
+      "category": "branding",
+      "type": "image",
+      "altText": "Made For Living Banner for .CO The Coconut Company",
+      "tags": [
+        "branding",
+        "image",
+        "made",
+        "for",
+        "living",
+        "banner"
+      ],
+      "thumbnail": "/assets/branding/made-for-living-banner.jpg"
+    },
+    {
+      "id": "branding-made-for-living-reference-png",
+      "filename": "made-for-living-reference.png",
+      "title": "Made For Living Reference",
+      "path": "/assets/branding/made-for-living-reference.png",
+      "category": "branding",
+      "type": "image",
+      "altText": "Made For Living Reference for .CO The Coconut Company",
+      "tags": [
+        "branding",
+        "image",
+        "made",
+        "for",
+        "living",
+        "reference"
+      ],
+      "thumbnail": "/assets/branding/made-for-living-reference.png"
+    },
+    {
+      "id": "hero-co-tender-coconut-webp",
+      "filename": "co-tender-coconut.webp",
+      "title": "Co Tender Coconut",
+      "path": "/assets/hero/co-tender-coconut.webp",
+      "category": "hero",
+      "type": "image",
+      "altText": "Co Tender Coconut for .CO The Coconut Company",
+      "tags": [
+        "hero",
+        "image",
+        "co",
+        "tender",
+        "coconut"
+      ],
+      "thumbnail": "/assets/hero/co-tender-coconut.webp"
+    },
+    {
+      "id": "hero-co-water-bottle-webp",
+      "filename": "co-water-bottle.webp",
+      "title": "Co Water Bottle",
+      "path": "/assets/hero/co-water-bottle.webp",
+      "category": "hero",
+      "type": "image",
+      "altText": "Co Water Bottle for .CO The Coconut Company",
+      "tags": [
+        "hero",
+        "image",
+        "co",
+        "water",
+        "bottle"
+      ],
+      "thumbnail": "/assets/hero/co-water-bottle.webp"
+    },
+    {
+      "id": "hero-hero-coconut-render-webp",
+      "filename": "hero-coconut-render.webp",
+      "title": "Hero Coconut Render",
+      "path": "/assets/hero/hero-coconut-render.webp",
+      "category": "hero",
+      "type": "image",
+      "altText": "Hero Coconut Render for .CO The Coconut Company",
+      "tags": [
+        "hero",
+        "image",
+        "coconut",
+        "render"
+      ],
+      "thumbnail": "/assets/hero/hero-coconut-render.webp"
+    },
+    {
+      "id": "3d-readme-md",
+      "filename": "README.md",
+      "title": "README",
+      "path": "/assets/3d/README.md",
+      "category": "3d",
+      "type": "document",
+      "altText": "README for .CO The Coconut Company",
+      "tags": [
+        "3d",
+        "document",
+        "README"
+      ],
+      "thumbnail": null
+    },
+    {
+      "id": "svg-1-svg",
+      "filename": "1.svg",
+      "title": "1",
+      "path": "/assets/svg/1.svg",
+      "category": "svg",
+      "type": "svg",
+      "altText": "1 for .CO The Coconut Company",
+      "tags": [
+        "svg",
+        "1"
+      ],
+      "thumbnail": "/assets/svg/1.svg"
+    },
+    {
+      "id": "svg-2-svg",
+      "filename": "2.svg",
+      "title": "2",
+      "path": "/assets/svg/2.svg",
+      "category": "svg",
+      "type": "svg",
+      "altText": "2 for .CO The Coconut Company",
+      "tags": [
+        "svg",
+        "2"
+      ],
+      "thumbnail": "/assets/svg/2.svg"
+    },
+    {
+      "id": "svg-3-svg",
+      "filename": "3.svg",
+      "title": "3",
+      "path": "/assets/svg/3.svg",
+      "category": "svg",
+      "type": "svg",
+      "altText": "3 for .CO The Coconut Company",
+      "tags": [
+        "svg",
+        "3"
+      ],
+      "thumbnail": "/assets/svg/3.svg"
+    },
+    {
+      "id": "svg-4-svg",
+      "filename": "4.svg",
+      "title": "4",
+      "path": "/assets/svg/4.svg",
+      "category": "svg",
+      "type": "svg",
+      "altText": "4 for .CO The Coconut Company",
+      "tags": [
+        "svg",
+        "4"
+      ],
+      "thumbnail": "/assets/svg/4.svg"
+    },
+    {
+      "id": "svg-5-svg",
+      "filename": "5.svg",
+      "title": "5",
+      "path": "/assets/svg/5.svg",
+      "category": "svg",
+      "type": "svg",
+      "altText": "5 for .CO The Coconut Company",
+      "tags": [
+        "svg",
+        "5"
+      ],
+      "thumbnail": "/assets/svg/5.svg"
+    },
+    {
+      "id": "svg-6-svg",
+      "filename": "6.svg",
+      "title": "6",
+      "path": "/assets/svg/6.svg",
+      "category": "svg",
+      "type": "svg",
+      "altText": "6 for .CO The Coconut Company",
+      "tags": [
+        "svg",
+        "6"
+      ],
+      "thumbnail": "/assets/svg/6.svg"
+    },
+    {
+      "id": "svg-7-svg",
+      "filename": "7.svg",
+      "title": "7",
+      "path": "/assets/svg/7.svg",
+      "category": "svg",
+      "type": "svg",
+      "altText": "7 for .CO The Coconut Company",
+      "tags": [
+        "svg",
+        "7"
+      ],
+      "thumbnail": "/assets/svg/7.svg"
+    },
+    {
+      "id": "svg-8-svg",
+      "filename": "8.svg",
+      "title": "8",
+      "path": "/assets/svg/8.svg",
+      "category": "svg",
+      "type": "svg",
+      "altText": "8 for .CO The Coconut Company",
+      "tags": [
+        "svg",
+        "8"
+      ],
+      "thumbnail": "/assets/svg/8.svg"
+    }
+  ]
+}

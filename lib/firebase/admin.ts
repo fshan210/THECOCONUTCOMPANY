@@ -49,25 +49,14 @@ export async function getFirebaseAdminApp(): Promise<App> {
         projectId: serviceAccount.project_id,
         clientEmail: serviceAccount.client_email,
         privateKey: serviceAccount.private_key
-      }),
-      storageBucket: process.env.FIREBASE_STORAGE_BUCKET || process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+      })
     });
   })();
 
   return adminAppPromise;
 }
 
-export async function getFirebaseAdminAuth() {
-  const [{ getAuth }, app] = await Promise.all([import("firebase-admin/auth"), getFirebaseAdminApp()]);
-  return getAuth(app);
-}
-
 export async function getFirebaseAdminDb() {
   const [{ getFirestore }, app] = await Promise.all([import("firebase-admin/firestore"), getFirebaseAdminApp()]);
   return getFirestore(app);
-}
-
-export async function getFirebaseAdminStorage() {
-  const [{ getStorage }, app] = await Promise.all([import("firebase-admin/storage"), getFirebaseAdminApp()]);
-  return getStorage(app);
 }
