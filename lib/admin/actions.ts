@@ -12,11 +12,17 @@ import { adminCsrfCookie, adminIdleTimeoutMs, adminSessionCookie } from "@/lib/a
 import { getAdminPath } from "@/lib/admin/path";
 import { getFirebaseAdminAuth, getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
 import { firestoreCollections } from "@/lib/firebase/collections";
+import { writeAdminAuditLog } from "@/lib/admin/audit";
+import { checkRateLimit } from "@/lib/security/rate-limit";
+import { verifyRecaptchaToken } from "@/lib/security/recaptcha";
+import { writeSecurityEvent } from "@/lib/security/events";
 
 const loginSchema = z.object({
-  idToken: z.string().min(20),
+  idToken: z.string(),
   remember: z.boolean().optional(),
-  csrf: z.string().min(16)
+  csrf: z.string().min(16),
+  recaptchaToken: z.string().optional(),
+  securityError: z.string().optional()
 });
 
 const forgotPasswordSchema = z.object({
@@ -61,23 +67,25 @@ function clearFailedLogins(email: string) {
   failedLogins.delete(getRateLimitKey(email));
 }
 
-function auditAdminAuth(event: string, detail: Record<string, string>) {
-  console.info("[admin-audit]", JSON.stringify({ event, at: new Date().toISOString(), ...detail }));
-}
-
 export async function loginAdmin(_: AdminActionState, formData: FormData): Promise<AdminActionState> {
   const parsed = loginSchema.safeParse({
     idToken: formData.get("idToken"),
     remember: formData.get("remember") === "true",
-    csrf: formData.get("csrf")
+    csrf: formData.get("csrf"),
+    recaptchaToken: formData.get("recaptchaToken") || undefined,
+    securityError: formData.get("securityError") || undefined
   });
 
   if (!parsed.success) {
+    await writeSecurityEvent({ action: "admin_login_invalid_payload", area: "admin_auth", outcome: "failed" });
     return { ok: false, status: "error", message: "Enter a valid admin email and password." };
   }
 
+  if (parsed.data.securityError) return { ok: false, status: "error", message: parsed.data.securityError };
+
   if (!verifyAdminCsrfToken(parsed.data.csrf)) {
-    auditAdminAuth("csrf_rejected", { email: "unknown" });
+    await writeAdminAuditLog({ action: "failed_admin_login", resourceType: "auth", adminEmail: "unknown", adminRole: "unknown", before: { reason: "csrf_rejected" } });
+    await writeSecurityEvent({ action: "admin_csrf_rejected", area: "admin_auth", outcome: "blocked" });
     return { ok: false, status: "error", message: "Security check expired. Refresh and try again." };
   }
 
@@ -85,10 +93,33 @@ export async function loginAdmin(_: AdminActionState, formData: FormData): Promi
     return { ok: false, status: "error", message: "Firebase Admin and Web configuration are required for admin login." };
   }
 
+  if (parsed.data.idToken.length < 20) {
+    await writeAdminAuditLog({ action: "failed_admin_login", resourceType: "auth", adminEmail: "unknown", adminRole: "unknown", before: { reason: "firebase_sign_in_failed" } });
+    return { ok: false, status: "error", message: "Invalid admin email or password." };
+  }
+
   const decoded = await (await getFirebaseAdminAuth()).verifyIdToken(parsed.data.idToken, true);
   const email = decoded.email || "";
+  const recaptcha = await verifyRecaptchaToken(parsed.data.recaptchaToken, "admin_login");
+  if (!recaptcha.ok) {
+    await writeAdminAuditLog({ action: "failed_admin_login", resourceType: "auth", adminUid: decoded.uid, adminEmail: email, adminRole: "unknown", before: { reason: "recaptcha_rejected" } });
+    return { ok: false, status: "error", message: recaptcha.message || "Security check failed." };
+  }
+
+  const distributedLimit = await checkRateLimit({
+    key: email || decoded.uid,
+    action: "admin_login",
+    limit: maxLoginAttempts,
+    windowMs: loginWindowMs,
+    area: "admin_auth"
+  });
+  if (!distributedLimit.allowed) {
+    await writeAdminAuditLog({ action: "failed_admin_login", resourceType: "auth", adminUid: decoded.uid, adminEmail: email, adminRole: "unknown", before: { reason: "rate_limited" } });
+    return { ok: false, status: "error", message: "Too many failed attempts. Wait a few minutes and try again." };
+  }
+
   if (isRateLimited(email)) {
-    auditAdminAuth("rate_limited", { email: email.toLowerCase() });
+    await writeAdminAuditLog({ action: "failed_admin_login", resourceType: "auth", adminUid: decoded.uid, adminEmail: email, adminRole: "unknown", before: { reason: "local_rate_limited" } });
     return { ok: false, status: "error", message: "Too many failed attempts. Wait a few minutes and try again." };
   }
 
@@ -102,7 +133,8 @@ export async function loginAdmin(_: AdminActionState, formData: FormData): Promi
 
   if (!authorized) {
     recordFailedLogin(email);
-    auditAdminAuth("login_failed", { email: email.toLowerCase() });
+    await writeAdminAuditLog({ action: "failed_admin_login", resourceType: "auth", adminUid: decoded.uid, adminEmail: email, adminRole: String(adminData?.role || "unknown"), before: { reason: "not_authorized" } });
+    await writeSecurityEvent({ actorId: decoded.uid, actorEmail: email, action: "failed_admin_login", area: "admin_auth", outcome: "blocked", metadata: { reason: "not_authorized" } });
     return { ok: false, status: "error", message: "This Firebase user is not authorized for Admin OS access." };
   }
 
@@ -124,7 +156,14 @@ export async function loginAdmin(_: AdminActionState, formData: FormData): Promi
   }
 
   clearFailedLogins(email);
-  auditAdminAuth("login_success", { email: email.toLowerCase(), role: String(adminData?.role || process.env.ADMIN_ROLE || "Super Admin") });
+  await writeAdminAuditLog({
+    action: "admin_login",
+    resourceType: "auth",
+    adminUid: decoded.uid,
+    adminEmail: email,
+    adminRole: String(adminData?.role || process.env.ADMIN_ROLE || "Super Admin"),
+    after: { remember: parsed.data.remember ?? false }
+  });
   const cookieStore = await cookies();
   cookieStore.set(adminSessionCookie, await createFirebaseAdminSessionCookie(parsed.data.idToken, parsed.data.remember), {
     httpOnly: true,
@@ -145,7 +184,7 @@ export async function requestAdminPasswordReset(_: AdminActionState, formData: F
     return { ok: false, status: "error", message: "Admin email recovery is not configured until ADMIN_EMAIL is set." };
   }
 
-  auditAdminAuth("password_reset_requested", { email: parsed.data.email.toLowerCase() });
+  await writeAdminAuditLog({ action: "admin_password_reset_requested", resourceType: "auth", adminEmail: parsed.data.email.toLowerCase(), adminRole: "unknown" });
 
   return {
     ok: true,
@@ -156,6 +195,15 @@ export async function requestAdminPasswordReset(_: AdminActionState, formData: F
 
 export async function logoutAdmin() {
   const cookieStore = await cookies();
+  const token = cookieStore.get(adminSessionCookie)?.value;
+  if (token) {
+    try {
+      const decoded = await (await getFirebaseAdminAuth()).verifySessionCookie(token, false);
+      await writeAdminAuditLog({ action: "admin_logout", resourceType: "auth", adminUid: decoded.uid, adminEmail: decoded.email || "unknown", adminRole: "unknown" });
+    } catch {
+      await writeAdminAuditLog({ action: "admin_logout", resourceType: "auth", adminEmail: "unknown", adminRole: "unknown" });
+    }
+  }
   cookieStore.delete(adminSessionCookie);
   cookieStore.delete(adminCsrfCookie);
   redirect(getAdminPath("login"));

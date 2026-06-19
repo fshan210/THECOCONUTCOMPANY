@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
+import { headers } from "next/headers";
 import { Footer } from "@/components/Footer";
 import { Navigation } from "@/components/Navigation";
 import { Analytics } from "@/components/seo/Analytics";
@@ -73,6 +74,8 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const customerSession = await getCustomerSession();
+  const headerStore = await headers();
+  const isAdminShell = headerStore.get("x-co-admin-rewrite") === "1";
 
   return (
     <html lang="en">
@@ -84,10 +87,10 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <CustomerAuthProvider session={customerSession}>
           <CartProvider>
             <StructuredData />
-            <Navigation />
+            {isAdminShell ? null : <Navigation />}
             <main>{children}</main>
-            <Footer />
-            <CartDrawer />
+            {isAdminShell ? null : <Footer />}
+            {isAdminShell ? null : <CartDrawer />}
             <Analytics />
           </CartProvider>
         </CustomerAuthProvider>

@@ -14,9 +14,12 @@ export type UserDocument = BaseDocument & {
   displayName: string;
   photoURL?: string | null;
   emailVerified: boolean;
-  status: "active" | "suspended" | "deleted";
+  accountStatus: "pending" | "active" | "suspended" | "deleted";
+  status?: "active" | "suspended" | "deleted";
   newsletterOptIn: boolean;
   preferredCategory?: string;
+  verifiedAt?: TimestampLike | null;
+  lastLogin?: TimestampLike;
   lastLoginAt?: TimestampLike;
 };
 
@@ -96,6 +99,34 @@ export type ActivityLogDocument = BaseDocument & {
   action: string;
   area: string;
   metadata?: Record<string, string | number | boolean>;
+};
+
+export type AuditLogDocument = {
+  id?: string;
+  adminUid: string;
+  adminEmail: string;
+  adminRole: AdminRole | string;
+  action: string;
+  resourceType: string;
+  resourceId?: string | null;
+  before?: unknown;
+  after?: unknown;
+  ipAddress?: string;
+  userAgent?: string;
+  createdAt: TimestampLike;
+};
+
+export type SecurityEventDocument = {
+  id?: string;
+  actorId?: string | null;
+  actorEmail?: string | null;
+  action: string;
+  area: "customer_auth" | "admin_auth" | "forms" | "rate_limit" | "system";
+  outcome: "allowed" | "blocked" | "failed" | "skipped";
+  ipAddress?: string;
+  userAgent?: string;
+  metadata?: Record<string, string | number | boolean | null>;
+  createdAt: TimestampLike;
 };
 
 export type RoleDocument = BaseDocument & {

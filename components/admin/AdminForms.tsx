@@ -12,6 +12,8 @@ import { loginAdmin, requestAdminPasswordReset, type AdminActionState } from "@/
 import { getAdminPath } from "@/lib/admin/path";
 import { getFirebaseClientAuth } from "@/lib/firebase/client";
 import { isFirebasePublicConfigured } from "@/lib/firebase/config";
+import { validateAuthProtection } from "@/lib/security/actions";
+import { getRecaptchaToken } from "@/components/security/recaptcha";
 
 const initialState: AdminActionState = { ok: false, message: "" };
 
@@ -62,9 +64,18 @@ export function AdminLoginForm({ configured, csrfToken }: { configured: boolean;
             return;
           }
           try {
-            const credential = await signInWithEmailAndPassword(getFirebaseClientAuth(), String(values.get("email")), String(values.get("password")));
+            const email = String(values.get("email"));
+            const recaptchaToken = await getRecaptchaToken("admin_login");
+            const protection = await validateAuthProtection({ action: "admin_login", email, recaptchaToken });
+            if (!protection.ok) {
+              const blocked = createAdminTokenFormData("", csrfToken, Boolean(values.get("remember")), recaptchaToken);
+              blocked.set("securityError", protection.message || "Security check failed.");
+              action(blocked);
+              return;
+            }
+            const credential = await signInWithEmailAndPassword(getFirebaseClientAuth(), email, String(values.get("password")));
             const idToken = await credential.user.getIdToken();
-            action(createAdminTokenFormData(idToken, csrfToken, Boolean(values.get("remember"))));
+            action(createAdminTokenFormData(idToken, csrfToken, Boolean(values.get("remember")), recaptchaToken));
           } catch (error) {
             action(createAdminTokenFormData("", csrfToken, Boolean(values.get("remember"))));
           }
@@ -139,10 +150,11 @@ export function AdminLoginForm({ configured, csrfToken }: { configured: boolean;
   );
 }
 
-function createAdminTokenFormData(idToken: string, csrfToken: string, remember: boolean) {
+function createAdminTokenFormData(idToken: string, csrfToken: string, remember: boolean, recaptchaToken?: string) {
   const formData = new FormData();
   formData.set("idToken", idToken);
   formData.set("csrf", csrfToken);
+  if (recaptchaToken) formData.set("recaptchaToken", recaptchaToken);
   if (remember) formData.set("remember", "true");
   return formData;
 }
@@ -173,8 +185,18 @@ export function AdminForgotPasswordForm({ configured }: { configured: boolean })
         const formData = new FormData(event.currentTarget);
         startTransition(async () => {
           try {
+            const email = String(formData.get("email"));
+            const protection = await validateAuthProtection({
+              action: "admin_login",
+              email,
+              recaptchaToken: await getRecaptchaToken("admin_login")
+            });
+            if (!protection.ok) {
+              action(formData);
+              return;
+            }
             if (isFirebasePublicConfigured()) {
-              await sendPasswordResetEmail(getFirebaseClientAuth(), String(formData.get("email")));
+              await sendPasswordResetEmail(getFirebaseClientAuth(), email);
             }
           } finally {
             action(formData);

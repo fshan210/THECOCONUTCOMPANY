@@ -10,6 +10,7 @@
     "assets:optimize": "node scripts/optimize-assets.mjs",
     "assets:transparent": "node scripts/create-transparent-assets.mjs",
     "favicons:generate": "node scripts/generate-favicons.mjs",
+    "firestore:backup": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/firestore-backup.ts",
     "godaddy:dns:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/godaddy-dns-sync.ts",
     "godaddy:dns:apply": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/godaddy-dns-sync.ts --apply"
   },

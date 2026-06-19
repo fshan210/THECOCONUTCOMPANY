@@ -21,6 +21,8 @@ import { establishCustomerSession, type CustomerAuthState } from "@/lib/customer
 import { productCategories } from "@/lib/catalog";
 import { getFirebaseClientAuth, getGoogleAuthProvider } from "@/lib/firebase/client";
 import { isFirebasePublicConfigured } from "@/lib/firebase/config";
+import { validateAuthProtection } from "@/lib/security/actions";
+import { getRecaptchaToken } from "@/components/security/recaptcha";
 
 const initialState: CustomerAuthState = { ok: false, message: "" };
 
@@ -66,7 +68,17 @@ export function CustomerLoginForm() {
               setState({ ok: false, status: "error", message: "Firebase web configuration is missing." });
               return;
             }
-            const credential = await signInWithEmailAndPassword(getFirebaseClientAuth(), String(data.get("email")), String(data.get("password")));
+            const email = String(data.get("email"));
+            const protection = await validateAuthProtection({
+              action: "customer_login",
+              email,
+              recaptchaToken: await getRecaptchaToken("customer_login")
+            });
+            if (!protection.ok) {
+              setState({ ok: false, status: "error", message: protection.message || "Security check failed." });
+              return;
+            }
+            const credential = await signInWithEmailAndPassword(getFirebaseClientAuth(), email, String(data.get("password")));
             const idToken = await credential.user.getIdToken();
             await establishCustomerSession({ idToken });
           } catch (error) {
@@ -118,6 +130,15 @@ export function CustomerForgotPasswordForm() {
       onSubmit={handleSubmit(({ email }) => {
         startTransition(async () => {
           try {
+            const protection = await validateAuthProtection({
+              action: "customer_password_reset",
+              email,
+              recaptchaToken: await getRecaptchaToken("customer_password_reset")
+            });
+            if (!protection.ok) {
+              setState({ ok: false, status: "error", message: protection.message || "Security check failed." });
+              return;
+            }
             await sendPasswordResetEmail(getFirebaseClientAuth(), email);
             setState({ ok: true, status: "success", message: "Password reset email sent. Check your inbox." });
           } catch (error) {
@@ -211,8 +232,18 @@ export function CustomerRegisterForm() {
               setState({ ok: false, status: "error", message: "Firebase web configuration is missing." });
               return;
             }
+            const email = String(data.get("email"));
+            const protection = await validateAuthProtection({
+              action: "customer_register",
+              email,
+              recaptchaToken: await getRecaptchaToken("customer_register")
+            });
+            if (!protection.ok) {
+              setState({ ok: false, status: "error", message: protection.message || "Security check failed." });
+              return;
+            }
             const auth = getFirebaseClientAuth();
-            const credential = await createUserWithEmailAndPassword(auth, String(data.get("email")), String(data.get("password")));
+            const credential = await createUserWithEmailAndPassword(auth, email, String(data.get("password")));
             await updateProfile(credential.user, { displayName: String(data.get("name")) });
             await sendEmailVerification(credential.user);
             const idToken = await credential.user.getIdToken(true);
@@ -260,6 +291,14 @@ async function loginWithGoogle(setState: (state: CustomerAuthState) => void) {
       setState({ ok: false, status: "error", message: "Firebase web configuration is missing." });
       return;
     }
+    const protection = await validateAuthProtection({
+      action: "customer_login",
+      recaptchaToken: await getRecaptchaToken("customer_login")
+    });
+    if (!protection.ok) {
+      setState({ ok: false, status: "error", message: protection.message || "Security check failed." });
+      return;
+    }
     const credential = await signInWithPopup(getFirebaseClientAuth(), getGoogleAuthProvider());
     const idToken = await credential.user.getIdToken();
     await establishCustomerSession({ idToken, name: credential.user.displayName || undefined });
@@ -275,6 +314,15 @@ async function sendResetFromForm(form: HTMLFormElement | null, setState: (state:
     return;
   }
   try {
+    const protection = await validateAuthProtection({
+      action: "customer_password_reset",
+      email,
+      recaptchaToken: await getRecaptchaToken("customer_password_reset")
+    });
+    if (!protection.ok) {
+      setState({ ok: false, status: "error", message: protection.message || "Security check failed." });
+      return;
+    }
     await sendPasswordResetEmail(getFirebaseClientAuth(), email);
     setState({ ok: true, status: "success", message: "Password reset email sent. Check your inbox." });
   } catch (error) {

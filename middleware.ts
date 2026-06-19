@@ -36,7 +36,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(rewriteUrl, { request: { headers: requestHeaders } });
   }
 
-  const customerProtectedRoutes = ["/account", "/orders", "/wishlist", "/profile"];
+  const customerProtectedRoutes = ["/account", "/orders", "/wishlist", "/profile", "/saved-recipes"];
   const isCustomerProtectedRoute = customerProtectedRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
 
   if (isCustomerProtectedRoute) {

@@ -12,13 +12,54 @@ service firebase.storage {
         firestore.get(/databases/(default)/documents/admins/$(request.auth.uid)).data.status == "active";
     }
 
+    function isVerifiedCustomer() {
+      return signedIn() &&
+        firestore.exists(/databases/(default)/documents/users/$(request.auth.uid)) &&
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.emailVerified == true &&
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.accountStatus == "active";
+    }
+
+    function isAllowedAssetType() {
+      return request.resource.contentType.matches("image/(jpeg|png|webp|avif|svg\\+xml)") ||
+        request.resource.contentType.matches("video/(mp4|webm)") ||
+        request.resource.contentType.matches("model/(gltf\\+json|gltf-binary)") ||
+        request.resource.contentType == "application/octet-stream";
+    }
+
+    function isCustomerImageType() {
+      return request.resource.contentType.matches("image/(jpeg|png|webp|avif)");
+    }
+
+    match /public/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin() && request.resource.size < 25 * 1024 * 1024 && isAllowedAssetType();
+    }
+
     match /media/{allPaths=**} {
       allow read: if true;
-      allow write: if isAdmin();
+      allow write: if isAdmin() && request.resource.size < 25 * 1024 * 1024 && isAllowedAssetType();
+    }
+
+    match /brandAssets/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin() && request.resource.size < 25 * 1024 * 1024 && isAllowedAssetType();
+    }
+
+    match /products/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin() && request.resource.size < 25 * 1024 * 1024 && isAllowedAssetType();
     }
 
     match /users/{userId}/{allPaths=**} {
-      allow read, write: if signedIn() && request.auth.uid == userId;
+      allow read: if isVerifiedCustomer() && request.auth.uid == userId;
+      allow write: if isVerifiedCustomer() &&
+        request.auth.uid == userId &&
+        request.resource.size < 10 * 1024 * 1024 &&
+        isCustomerImageType();
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
     }
   }
 }

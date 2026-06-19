@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { CustomerSimplePage } from "@/components/auth/CustomerAccountDashboard";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { updateCustomerProfile } from "@/lib/customer/actions";
-import { requireCustomerSession } from "@/lib/customer/auth";
+import { requireVerifiedCustomerSession } from "@/lib/customer/auth";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { productCategories } from "@/lib/catalog";
 
@@ -13,7 +13,7 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default async function ProfilePage() {
-  const session = await requireCustomerSession();
+  const session = await requireVerifiedCustomerSession();
 
   return (
     <>

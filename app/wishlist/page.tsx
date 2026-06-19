@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { CustomerSimplePage } from "@/components/auth/CustomerAccountDashboard";
 import { StructuredData } from "@/components/seo/StructuredData";
-import { requireCustomerSession } from "@/lib/customer/auth";
+import { requireVerifiedCustomerSession } from "@/lib/customer/auth";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createPageMetadata({
@@ -11,7 +11,7 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default async function WishlistPage() {
-  const session = await requireCustomerSession();
+  const session = await requireVerifiedCustomerSession();
 
   return (
     <>

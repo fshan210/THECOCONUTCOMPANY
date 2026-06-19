@@ -5,6 +5,7 @@ import {
   Brush,
   ClipboardList,
   FileText,
+  FileClock,
   FolderKanban,
   GalleryVertical,
   Globe2,
@@ -56,6 +57,7 @@ export const adminNavItems: AdminNavItem[] = [
   { title: "Sustainability", href: "/admin/sustainability", permission: "content", icon: Sprout },
   { title: "Settings", href: "/admin/settings", permission: "settings", icon: Settings },
   { title: "Users", href: "/admin/users", permission: "users", icon: ShieldCheck },
+  { title: "Audit Logs", href: "/admin/audit-logs", permission: "users", icon: FileClock },
   { title: "Activity Logs", href: "/admin/activity-logs", permission: "users", icon: ListTree },
   { title: "Revenue Ops", href: "/admin/revenue", permission: "commerce", icon: ReceiptText },
   { title: "CMS Planner", href: "/admin/cms-planner", permission: "content", icon: FolderKanban }

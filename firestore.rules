@@ -6,44 +6,82 @@ service cloud.firestore {
       return request.auth != null;
     }
 
+    function userDoc(userId) {
+      return get(/databases/$(database)/documents/users/$(userId));
+    }
+
     function isOwner(userId) {
       return signedIn() && request.auth.uid == userId;
+    }
+
+    function isVerifiedCustomer() {
+      return signedIn() &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        userDoc(request.auth.uid).data.emailVerified == true &&
+        userDoc(request.auth.uid).data.accountStatus == "active";
+    }
+
+    function adminDoc() {
+      return get(/databases/$(database)/documents/admins/$(request.auth.uid));
     }
 
     function isAdmin() {
       return signedIn() &&
         exists(/databases/$(database)/documents/admins/$(request.auth.uid)) &&
-        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.status == "active";
+        adminDoc().data.status == "active";
+    }
+
+    function isSuperAdmin() {
+      return isAdmin() && adminDoc().data.role == "Super Admin";
     }
 
     function hasPermission(permission) {
       return isAdmin() &&
         (
-          get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.permissions.hasAny(["*"]) ||
-          get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.permissions.hasAny([permission])
+          adminDoc().data.permissions.hasAny(["*"]) ||
+          adminDoc().data.permissions.hasAny([permission])
         );
+    }
+
+    function ownsRequestedUserData(userId) {
+      return request.resource.data.userId == userId || request.resource.data.uid == userId;
     }
 
     match /users/{userId} {
       allow create: if isOwner(userId);
-      allow read, update: if isOwner(userId) || hasPermission("customers");
+      allow read: if isOwner(userId) || hasPermission("customers");
+      allow update: if isOwner(userId) &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          "displayName",
+          "photoURL",
+          "newsletterOptIn",
+          "preferredCategory",
+          "updatedAt"
+        ]);
+      allow update: if hasPermission("customers");
       allow delete: if hasPermission("users");
     }
 
     match /admins/{adminId} {
       allow read: if isOwner(adminId) || hasPermission("users");
-      allow write: if hasPermission("users");
+      allow create, update, delete: if isSuperAdmin();
     }
 
     match /wishlist/{wishlistId} {
-      allow read, write: if signedIn() && resource.data.userId == request.auth.uid;
-      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if isVerifiedCustomer() && resource.data.userId == request.auth.uid;
+      allow create: if isVerifiedCustomer() && request.resource.data.userId == request.auth.uid;
+      allow read: if hasPermission("customers");
+    }
+
+    match /savedRecipes/{docId} {
+      allow read, update, delete: if isVerifiedCustomer() && resource.data.userId == request.auth.uid;
+      allow create: if isVerifiedCustomer() && request.resource.data.userId == request.auth.uid;
       allow read: if hasPermission("customers");
     }
 
     match /orders/{orderId} {
-      allow read: if signedIn() && resource.data.userId == request.auth.uid;
-      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow read: if isVerifiedCustomer() && resource.data.userId == request.auth.uid;
+      allow create: if isVerifiedCustomer() && request.resource.data.userId == request.auth.uid;
       allow update, delete: if hasPermission("orders");
       allow read: if hasPermission("orders");
     }
@@ -89,17 +127,33 @@ service cloud.firestore {
     }
 
     match /roles/{docId} {
-      allow read, write: if hasPermission("users");
+      allow read: if hasPermission("users");
+      allow write: if isSuperAdmin();
     }
 
     match /permissions/{docId} {
-      allow read, write: if hasPermission("users");
+      allow read: if hasPermission("users");
+      allow write: if isSuperAdmin();
+    }
+
+    match /auditLogs/{docId} {
+      allow read: if hasPermission("users");
+      allow create, update, delete: if false;
     }
 
     match /activityLogs/{docId} {
       allow create: if isAdmin();
       allow read: if hasPermission("users");
       allow update, delete: if false;
+    }
+
+    match /securityEvents/{docId} {
+      allow read: if hasPermission("users");
+      allow create, update, delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }

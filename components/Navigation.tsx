@@ -9,6 +9,7 @@ import { useState } from "react";
 import { CartButton } from "@/components/cart/CartDrawer";
 import { useCustomerSession } from "@/components/auth/CustomerAuthProvider";
 import { logoutCustomer } from "@/lib/customer/actions";
+import { getAdminPath } from "@/lib/admin/path";
 
 const links = [
   { href: "/about", label: "About" },
@@ -28,7 +29,8 @@ export function Navigation() {
   const navPadding = useTransform(scrollY, [0, 120], [18, 11]);
   const logoScale = useTransform(scrollY, [0, 120], [1, 0.9]);
 
-  if (pathname.startsWith("/admin")) return null;
+  const configuredAdminPath = getAdminPath();
+  if (pathname.startsWith("/admin") || pathname === configuredAdminPath || pathname.startsWith(`${configuredAdminPath}/`)) return null;
 
   return (
     <motion.header

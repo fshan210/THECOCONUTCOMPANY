@@ -4,6 +4,7 @@ import sharp from "sharp";
 import { redirect } from "next/navigation";
 import { requireAdminSession } from "@/lib/admin/auth";
 import { getAdminPath } from "@/lib/admin/path";
+import { writeAdminAuditLog } from "@/lib/admin/audit";
 import { getFirebaseAdminDb, getFirebaseAdminStorage, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
 import { firestoreCollections } from "@/lib/firebase/collections";
 
@@ -61,7 +62,7 @@ export async function uploadMediaAsset(formData: FormData) {
   }
 
   const now = new Date().toISOString();
-  await (await getFirebaseAdminDb()).collection(firestoreCollections.mediaLibrary).add({
+  const docRef = await (await getFirebaseAdminDb()).collection(firestoreCollections.mediaLibrary).add({
     name: file.name,
     url: `gs://${bucket.name}/${objectPath}`,
     thumbnailUrl: thumbnailPath ? `gs://${bucket.name}/${thumbnailPath}` : null,
@@ -75,6 +76,14 @@ export async function uploadMediaAsset(formData: FormData) {
     uploadedBy: session.email,
     createdAt: now,
     updatedAt: now
+  });
+
+  await writeAdminAuditLog({
+    session,
+    action: "asset_upload",
+    resourceType: "mediaLibrary",
+    resourceId: docRef.id,
+    after: { name: file.name, folder, mimeType: file.type, size: file.size, tags }
   });
 
   redirect(getAdminPath("media-library"));

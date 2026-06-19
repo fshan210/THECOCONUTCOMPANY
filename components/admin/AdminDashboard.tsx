@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, CheckCircle2, CircleDot, ExternalLink, Plus, Upload, WandSparkles } from "lucide-react";
 import {
@@ -67,6 +68,7 @@ export function AdminModulePage({ module }: { module: string }) {
     pages: <CmsOverview expanded />,
     founders: <EditorialManager title="Founders" />,
     sustainability: <EditorialManager title="Sustainability" />,
+    "audit-logs": <AuditLogManager />,
     "activity-logs": <ActivityPanel expanded />,
     revenue: <CommerceReadiness title="Revenue Ops" />,
     "cms-planner": <ContentEditor />
@@ -316,6 +318,73 @@ function ActivityPanel({ expanded = false }: { expanded?: boolean }) {
             </div>
           </div>
         ))}
+      </div>
+    </section>
+  );
+}
+
+function AuditLogManager() {
+  const rows = [
+    { admin: "system", action: "deploy", resource: "vercel", date: "2026-06-18", detail: "Deployed Firebase auth and CMS foundation" },
+    { admin: "system", action: "asset_upload", resource: "mediaLibrary", date: "2026-06-18", detail: "Optimized transparent product assets" },
+    { admin: "content", action: "cms_update", resource: "about", date: "2026-06-18", detail: "Updated About journey timeline" },
+    { admin: "commerce", action: "product_update", resource: "products", date: "2026-06-18", detail: "Synced product catalogue from shopProducts" },
+    { admin: "seo", action: "seo_update", resource: "metadata", date: "2026-06-18", detail: "Validated public SEO metadata" }
+  ];
+  const [query, setQuery] = useState("");
+  const [actionFilter, setActionFilter] = useState("all");
+  const [dateFilter, setDateFilter] = useState("");
+  const filtered = rows.filter((row) => {
+    const haystack = `${row.admin} ${row.action} ${row.resource} ${row.detail}`.toLowerCase();
+    return haystack.includes(query.toLowerCase()) && (actionFilter === "all" || row.action === actionFilter) && (!dateFilter || row.date === dateFilter);
+  });
+
+  function exportCsv() {
+    const csv = [
+      ["admin", "action", "resource", "date", "detail"],
+      ...filtered.map((row) => [row.admin, row.action, row.resource, row.date, row.detail])
+    ]
+      .map((line) => line.map((cell) => `"${cell.replace(/"/g, '""')}"`).join(","))
+      .join("\n");
+    const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `co-audit-logs-${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+  }
+
+  return (
+    <section className="co-glass overflow-hidden p-5 md:p-6">
+      <PanelHeader eyebrow="Immutable audit trail" title="Admin audit logs" action="Export CSV" />
+      <div className="mt-5 grid gap-3 md:grid-cols-[1fr_180px_180px_auto]">
+        <input value={query} onChange={(event) => setQuery(event.target.value)} className="co-input bg-porcelain" placeholder="Search admin, resource, action..." aria-label="Search audit logs" />
+        <select value={actionFilter} onChange={(event) => setActionFilter(event.target.value)} className="co-input bg-porcelain" aria-label="Filter by action">
+          <option value="all">All actions</option>
+          {Array.from(new Set(rows.map((row) => row.action))).map((action) => (
+            <option key={action} value={action}>{action}</option>
+          ))}
+        </select>
+        <input value={dateFilter} onChange={(event) => setDateFilter(event.target.value)} className="co-input bg-porcelain" type="date" aria-label="Filter by date" />
+        <button type="button" onClick={exportCsv} className="co-admin-primary-button">Export CSV</button>
+      </div>
+      <div className="mt-5 overflow-x-auto">
+        <table className="w-full min-w-[760px] text-left text-sm">
+          <thead className="text-xs uppercase tracking-editorial text-grove">
+            <tr>{["Admin", "Action", "Resource", "Date", "Detail"].map((header) => <th key={header} className="border-b border-coconut/10 px-4 py-3 font-medium">{header}</th>)}</tr>
+          </thead>
+          <tbody>
+            {filtered.map((row) => (
+              <tr key={`${row.admin}-${row.action}-${row.resource}`} className="border-b border-coconut/10 last:border-0">
+                <td className="px-4 py-4 text-ink">{row.admin}</td>
+                <td className="px-4 py-4 text-grove">{row.action}</td>
+                <td className="px-4 py-4 text-muted">{row.resource}</td>
+                <td className="px-4 py-4 text-muted">{row.date}</td>
+                <td className="px-4 py-4 text-muted">{row.detail}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </section>
   );

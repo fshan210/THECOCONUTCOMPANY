@@ -9,6 +9,7 @@ import { adminRoles, canAccess, type AdminRole } from "@/lib/admin/rbac";
 import { getFirebaseAdminAuth, getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
 import { isFirebasePublicConfigured } from "@/lib/firebase/config";
 import { firestoreCollections } from "@/lib/firebase/collections";
+import { writeAdminAuditLog } from "@/lib/admin/audit";
 
 export type AdminSession = {
   uid: string;
@@ -135,6 +136,13 @@ export async function requireAdminSession(requiredPermission?: string) {
   if (!session) redirect(getAdminPath("login"));
 
   if (requiredPermission && !canAccess(session.role, requiredPermission)) {
+    await writeAdminAuditLog({
+      session,
+      action: "permission_denied",
+      resourceType: "admin_route",
+      resourceId: requiredPermission,
+      before: { requiredPermission }
+    });
     redirect(getAdminPath());
   }
 

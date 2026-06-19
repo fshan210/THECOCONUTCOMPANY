@@ -8,7 +8,7 @@ const customerCards = [
   { title: "Orders", href: "/orders", body: "Track product interest, launch reservations, and future purchases.", icon: PackageCheck },
   { title: "Wishlist", href: "/wishlist", body: "Keep your favourite coconut rituals ready for launch.", icon: Heart },
   { title: "Profile", href: "/profile", body: "Manage identity, address, password, newsletter, and privacy.", icon: UserRound },
-  { title: "Saved recipes", href: "/recipes", body: "Return to hydration recipes and kitchen notes.", icon: Soup }
+  { title: "Saved recipes", href: "/saved-recipes", body: "Return to hydration recipes and kitchen notes.", icon: Soup }
 ];
 
 export function CustomerAccountDashboard({ session }: { session: CustomerSession }) {

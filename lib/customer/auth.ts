@@ -7,7 +7,8 @@ import { getFirebaseAdminAuth } from "@/lib/firebase/admin";
 import { firestoreCollections } from "@/lib/firebase/collections";
 import { getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
 
-const customerSessionMs = 1000 * 60 * 60 * 24 * 14;
+const configuredSessionDays = Number(process.env.SESSION_MAX_AGE_DAYS || 7);
+const customerSessionMs = 1000 * 60 * 60 * 24 * (Number.isFinite(configuredSessionDays) ? configuredSessionDays : 7);
 
 function initialsFromName(name: string) {
   return name
@@ -39,12 +40,15 @@ export async function verifyCustomerSession(token?: string): Promise<CustomerSes
     const decoded = await (await getFirebaseAdminAuth()).verifySessionCookie(token, true);
     const profile = await getUserProfile(decoded.uid);
     const name = (profile?.displayName as string | undefined) || decoded.name || decoded.email?.split("@")[0] || "Customer";
+    const emailVerified = Boolean(decoded.email_verified || profile?.emailVerified);
+    const accountStatus = String(profile?.accountStatus || (emailVerified ? "active" : "pending")) as CustomerSession["accountStatus"];
     return {
       uid: decoded.uid,
       email: decoded.email || "",
       name,
       initials: initialsFromName(name),
-      emailVerified: Boolean(decoded.email_verified),
+      emailVerified,
+      accountStatus,
       issuedAt: decoded.iat ? decoded.iat * 1000 : Date.now(),
       expiresAt: decoded.exp ? decoded.exp * 1000 : Date.now() + customerSessionMs
     };
@@ -61,5 +65,11 @@ export async function getCustomerSession() {
 export async function requireCustomerSession() {
   const session = await getCustomerSession();
   if (!session) redirect("/login");
+  return session;
+}
+
+export async function requireVerifiedCustomerSession() {
+  const session = await requireCustomerSession();
+  if (!session.emailVerified || session.accountStatus !== "active") redirect("/account?verify=1");
   return session;
 }
