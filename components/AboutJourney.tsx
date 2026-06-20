@@ -1,103 +1,121 @@
 "use client";
 
 import Image from "next/image";
-import { Droplets, Heart, Leaf, PackageCheck, Sprout, Waves } from "lucide-react";
-import { motion } from "framer-motion";
+import { Leaf, Package, PackageCheck, Sprout, Store, UsersRound } from "lucide-react";
+import { motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
 import { Appear } from "@/components/motion/Appear";
 import { PublicHeader, PublicSection } from "@/components/PublicDesign";
+import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
 import { publicAssets } from "@/lib/public-assets";
 
 const journey = [
   {
-    title: "Kerala roots",
-    detail: "A coconut story shaped by shade, kitchens, tender coconut stalls, family tables, and the comfort of familiar taste.",
-    image: publicAssets.brand.palms,
+    title: "Kerala Grove",
+    detail: "Shade, soil, palms, and the familiar taste of tender coconut set the emotional origin.",
+    image: publicAssets.journey.grove,
     icon: Sprout
   },
   {
-    title: "Coconut-first products",
-    detail: "We begin with uses people already understand: a cold drink, a smooth scoop, a kitchen note, a gentle care ritual.",
-    image: publicAssets.water.hero,
-    icon: Droplets
+    title: "Farmers",
+    detail: "The story stays close to people who understand coconut as daily work and daily food.",
+    image: publicAssets.journey.farmers,
+    icon: UsersRound
   },
   {
-    title: "Thoughtful sourcing",
-    detail: "Our sourcing mindset is simple: stay close to coconut country, respect the ingredient, and choose partners with care.",
-    image: publicAssets.brand.harvest,
+    title: "Village Aggregation Point",
+    detail: "Coconuts come together in a simple local handoff before becoming finished products.",
+    image: publicAssets.journey.aggregation,
     icon: Leaf
   },
   {
-    title: "Clean processing mindset",
-    detail: "We keep product language clear and practical, with taste, texture, and freshness leading the conversation.",
-    image: publicAssets.water.ingredients,
+    title: "Processing",
+    detail: "The goal is clarity: protect taste, keep the product language simple, and respect the ingredient.",
+    image: publicAssets.journey.processing,
     icon: PackageCheck
   },
   {
-    title: "Everyday rituals",
-    detail: "The products are designed for real routines: breakfast, heat, recipes, after-dinner spoons, and small hosting moments.",
-    image: publicAssets.recipes.cooler,
-    icon: Waves
+    title: "Bottling",
+    detail: "The coconut story becomes a sharp, cold, easy-to-hold .CO product.",
+    image: publicAssets.journey.bottling,
+    icon: Package
   },
   {
-    title: "Made for Living",
-    detail: "The brand should feel warm enough for home and polished enough for a premium shelf.",
-    image: publicAssets.brand.madeForLiving,
-    icon: Heart
+    title: "Customer Ritual",
+    detail: "A fridge-door bottle, a recipe glass, a sunny reset, and a product that feels at home.",
+    image: publicAssets.journey.ritual,
+    icon: Store
   }
 ];
 
-const orbitCards = [
-  { label: "Roots", text: "Kerala coconut memory" },
-  { label: "Taste", text: "Clean, useful formats" },
-  { label: "Living", text: "Made for everyday tables" }
-];
+function JourneyInteraction() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { shouldReduce, isMobile } = useCoconutMotionMode();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const smooth = useSpring(scrollYProgress, { stiffness: 90, damping: 28, mass: 0.42 });
+  const pathLength = useTransform(smooth, [0, 1], [0.06, 1]);
+  const markerX = useTransform(smooth, [0, 1], shouldReduce || isMobile ? ["8%", "8%"] : ["8%", "88%"]);
 
-export function AboutOrbit() {
+  useMotionValueEvent(smooth, "change", (value) => {
+    setActiveIndex(Math.min(journey.length - 1, Math.max(0, Math.floor(value * journey.length))));
+  });
+
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[560px] overflow-hidden rounded-3xl border border-coconut/10 bg-[#fff8ea] shadow-[0_22px_68px_rgba(62,46,31,0.08)]">
-      <div className="co-wave-pattern absolute inset-0 opacity-[0.08]" />
-      <div className="absolute inset-8 rounded-full border border-coconut/10" />
-      <div className="absolute inset-20 rounded-full border border-palm/40" />
-      <motion.div
-        aria-hidden="true"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 36, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-12 rounded-full border border-dashed border-coconut/14"
-      />
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-0"
-      >
-        {orbitCards.map((card, index) => {
-          const positions = [
-            "left-1/2 top-8 -translate-x-1/2",
-            "bottom-14 right-6",
-            "bottom-14 left-6"
-          ];
-          return (
-            <motion.div
-              key={card.label}
-              animate={{ rotate: -360 }}
-              transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
-              className={`absolute w-36 rounded-2xl border border-coconut/10 bg-paper/92 p-4 text-left shadow-[0_16px_36px_rgba(62,46,31,0.08)] backdrop-blur ${positions[index]}`}
-            >
-              <p className="text-[0.66rem] font-medium uppercase tracking-editorial text-grove">{card.label}</p>
-              <p className="mt-2 text-xs leading-5 text-coconut/68">{card.text}</p>
-            </motion.div>
-          );
-        })}
-      </motion.div>
-      <div className="absolute inset-0 grid place-items-center p-20">
-        <div className="relative aspect-square w-full max-w-64 rounded-full bg-paper shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_22px_56px_rgba(62,46,31,0.14)]">
-          <Image
-            src={publicAssets.water.hero}
-            alt=".CO coconut water bottle"
-            fill
-            priority
-            sizes="260px"
-            className="object-contain p-8 drop-shadow-[0_28px_40px_rgba(62,46,31,0.18)]"
-          />
+    <div ref={ref} className="relative min-h-[260vh]">
+      <div className="sticky top-24 mx-auto grid min-h-[calc(100svh-6rem)] max-w-7xl gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
+        <div className="relative overflow-hidden rounded-3xl border border-coconut/10 bg-paper p-4 shadow-[0_24px_70px_rgba(62,46,31,0.09)] md:p-5">
+          <div className="co-wave-pattern absolute inset-0 opacity-[0.055]" />
+          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-[#fff8ea]">
+            {journey.map((stage, index) => (
+              <motion.div
+                key={stage.title}
+                initial={false}
+                animate={{ opacity: activeIndex === index ? 1 : 0, scale: activeIndex === index ? 1 : 1.04 }}
+                transition={{ duration: 0.62, ease: [0.215, 0.61, 0.355, 1] }}
+                className="absolute inset-0"
+              >
+                <Image src={stage.image} alt={stage.title} fill sizes="(min-width: 1024px) 42vw, 92vw" className={index === 4 ? "object-contain p-8 drop-shadow-[0_34px_54px_rgba(62,46,31,0.22)]" : "object-cover"} />
+              </motion.div>
+            ))}
+            <div className="absolute inset-0 bg-gradient-to-t from-coconut/28 via-transparent to-transparent" />
+          </div>
+          <motion.div style={{ x: markerX }} className="absolute bottom-9 left-0 h-4 w-4 rounded-full bg-sun shadow-[0_0_0_8px_rgba(216,192,122,0.2)]" />
+        </div>
+
+        <div className="relative">
+          <p className="mb-6 text-[0.72rem] font-medium uppercase tracking-editorial text-grove">Origin to ritual</p>
+          <h2 className="font-display text-5xl font-light leading-[0.92] text-coconut md:text-7xl lg:text-8xl">{journey[activeIndex].title}</h2>
+          <p className="mt-7 max-w-xl text-lg leading-9 text-coconut/70">{journey[activeIndex].detail}</p>
+          <div className="relative mt-12 hidden h-28 md:block">
+            <svg aria-hidden="true" viewBox="0 0 820 120" className="h-full w-full text-coconut/18">
+              <path d="M20 74 C150 10 224 112 356 58 C500 -2 566 96 800 38" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
+              <motion.path style={{ pathLength }} d="M20 74 C150 10 224 112 356 58 C500 -2 566 96 800 38" stroke="#4A6F4A" strokeWidth="4" fill="none" strokeLinecap="round" />
+            </svg>
+            <div className="absolute inset-x-0 top-0 flex justify-between">
+              {journey.map((stage, index) => {
+                const Icon = stage.icon;
+                const active = index <= activeIndex;
+                return (
+                  <span key={stage.title} className={`grid h-11 w-11 place-items-center rounded-2xl border transition ${active ? "border-grove bg-grove text-paper" : "border-coconut/12 bg-paper text-coconut/42"}`}>
+                    <Icon size={17} />
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            {journey.map((stage, index) => (
+              <button
+                key={stage.title}
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                className={`rounded-2xl border px-4 py-3 text-left text-xs font-medium uppercase tracking-editorial transition ${activeIndex === index ? "border-grove bg-grove text-paper" : "border-coconut/10 bg-[#fff8ea] text-coconut/58"}`}
+              >
+                0{index + 1} / {stage.title}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -109,9 +127,10 @@ export function AboutJourney() {
     <PublicSection tone="warm">
       <PublicHeader
         kicker="Our journey"
-        title="A coconut story that stays close to real life."
-        body="No big promises. Just a warmer, cleaner way to bring coconut into everyday products."
+        title="From grove to ritual, with the coconut kept at the centre."
+        body="A simple journey told with product context: origin, farmers, aggregation, processing, bottling, and the daily moment that follows."
       />
+      <JourneyInteraction />
       <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-2">
         {journey.map((item, index) => {
           const Icon = item.icon;

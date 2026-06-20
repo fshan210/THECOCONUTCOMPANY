@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { BrandImage } from "@/components/BrandImage";
 
 type ProductCardProps = {
   name: string;
@@ -22,14 +23,16 @@ export function ProductCard({ name, role, detail, image, hoverImage }: ProductCa
     >
       <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 w-36 opacity-[0.045]" />
       <div className="pointer-events-none absolute inset-x-5 top-0 h-px bg-coconut/12" />
-      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-coconut/10 bg-paper">
-        <div className="absolute inset-x-8 bottom-5 h-8 bg-coconut/10 blur-xl" />
-        <Image
+      <div className="relative">
+        <BrandImage
           src={image}
           alt={name}
-          fill
           sizes="(min-width: 768px) 28vw, 90vw"
-          className="object-contain p-5 drop-shadow-[0_20px_28px_rgba(62,46,31,0.18)] transition duration-700 ease-out group-hover:scale-[1.03]"
+          aspect="portrait"
+          fit="contain"
+          hoverZoom
+          className="rounded-2xl bg-paper"
+          imageClassName="drop-shadow-[0_20px_28px_rgba(62,46,31,0.18)]"
         />
         {hoverImage ? (
           <Image
@@ -38,7 +41,7 @@ export function ProductCard({ name, role, detail, image, hoverImage }: ProductCa
             aria-hidden="true"
             fill
             sizes="(min-width: 768px) 28vw, 90vw"
-            className="object-contain p-5 opacity-0 drop-shadow-[0_20px_28px_rgba(62,46,31,0.18)] transition duration-700 ease-out group-hover:scale-[1.03] group-hover:opacity-100"
+            className="rounded-2xl object-contain p-5 opacity-0 drop-shadow-[0_20px_28px_rgba(62,46,31,0.18)] transition duration-700 ease-out group-hover:scale-[1.03] group-hover:opacity-100"
           />
         ) : null}
       </div>

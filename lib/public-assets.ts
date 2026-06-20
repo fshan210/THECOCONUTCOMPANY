@@ -20,8 +20,17 @@ export const publicAssets = {
     botanicaHero: "/assets/Ecosystem_Assets/Botanica-Hero Composition.png",
     botanicaAlt: "/assets/Ecosystem_Assets/BOtanica-Facewash-Flat Lay.png",
     botanicaGroup: "/assets/Ecosystem_Assets/botanica-group ecosystem.png",
-    wellness: "/assets/Coconut_Water_Assets/ingridient composition.png",
+    wellness: "/assets/generated/product-lifestyle.webp",
+    wellnessAlt: "/assets/Coconut_Water_Assets/Flat lay.png",
     lifestyle: "/assets/Coconut_Water_Assets/lifestyle scene.png"
+  },
+  journey: {
+    grove: "/assets/farming/coconut-grove.jpg",
+    farmers: "/assets/farms/coconut-harvesting.jpg",
+    aggregation: "/assets/generated/journey-aggregation.webp",
+    processing: "/assets/generated/journey-manufacturing.webp",
+    bottling: "/assets/Coconut_Water_Assets/floating pack.png",
+    ritual: "/assets/generated/product-lifestyle.webp"
   },
   recipes: {
     cooler: "/assets/recipes/coconut mango cooler.png",
@@ -37,6 +46,7 @@ export const publicAssets = {
   },
   brand: {
     madeForLiving: "/assets/coconut/made-for-living-banner.jpg",
+    tenderCoconut: "/assets/coconut/tender-coconut-water.jpg",
     grove: "/assets/farming/coconut-grove.jpg",
     palms: "/assets/farming/kerala-coconut-palm.jpg",
     harvest: "/assets/farms/coconut-harvesting.jpg"

@@ -34,7 +34,7 @@ export function Navigation() {
 
   return (
     <motion.header
-      className="sticky top-0 z-50 border-b border-coconut/10 bg-paper/92 shadow-[0_12px_40px_rgba(62,46,31,0.06)] backdrop-blur-xl"
+      className="sticky top-0 isolate z-[100] border-b border-coconut/10 bg-paper/94 shadow-[0_12px_40px_rgba(62,46,31,0.06)] backdrop-blur-xl"
     >
       <motion.nav style={{ paddingTop: navPadding, paddingBottom: navPadding }} className="mx-auto flex max-w-7xl items-center justify-between px-5 md:px-8">
         <Link href="/" className="flex items-center gap-3" aria-label=".CO home">

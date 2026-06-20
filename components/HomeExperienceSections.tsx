@@ -95,8 +95,11 @@ export function ProductHighlight() {
   const water = shopProducts[0];
 
   return (
-    <PublicSection>
+    <PublicSection className="py-20 md:py-28">
       <DoodleImage src={publicAssets.doodles.bottle} className="right-8 top-12 h-36 w-36 md:h-56 md:w-56" />
+      <div className="pointer-events-none absolute left-1/2 top-8 hidden -translate-x-1/2 whitespace-nowrap font-display text-[14vw] font-light leading-none text-coconut/[0.045] lg:block">
+        .CO WATER
+      </div>
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
         <Appear className="relative min-h-[460px] md:min-h-[620px]">
           <ParallaxFrame src={water.image} hoverSrc={water.hoverImage} alt={`${water.name} bottle`} className="absolute inset-0" />
@@ -105,6 +108,13 @@ export function ProductHighlight() {
           <p className="mb-5 text-[0.72rem] font-medium uppercase tracking-editorial text-grove">Coconut water feature</p>
           <h2 className="font-display text-5xl font-light leading-tight text-coconut md:text-7xl">{water.name}</h2>
           <p className="mt-7 max-w-xl text-lg leading-9 text-coconut/70">{water.shortDescription}</p>
+          <div className="mt-8 grid grid-cols-3 overflow-hidden rounded-3xl border border-coconut/10 bg-coconut text-paper shadow-[0_22px_70px_rgba(62,46,31,0.14)]">
+            {["Tender", "Coconut", "Water"].map((word) => (
+              <span key={word} className="border-r border-paper/10 px-4 py-5 text-center font-display text-2xl font-light last:border-r-0 md:text-4xl">
+                {word}
+              </span>
+            ))}
+          </div>
           <div className="mt-9 grid gap-3 sm:grid-cols-3">
             {water.benefits.map((benefit) => (
               <span key={benefit} className="rounded-2xl border border-coconut/10 bg-[#fff8ea] px-4 py-4 text-sm leading-6 text-coconut/72">{benefit}</span>
@@ -156,7 +166,14 @@ export function ProductEcosystem() {
         {ecosystem.map((item, index) => (
           <Appear key={item.title} delay={index * 0.06}>
             <article className="group h-full rounded-3xl border border-coconut/10 bg-[#fff8ea] p-4 shadow-[0_18px_48px_rgba(62,46,31,0.06)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(62,46,31,0.11)]">
-              <HoverImageFrame src={item.image} hoverSrc={item.hoverImage} alt={item.title} sizes="(min-width: 1024px) 23vw, (min-width: 768px) 46vw, 92vw" className="mb-7 aspect-[4/5]" />
+              <HoverImageFrame
+                src={item.image}
+                hoverSrc={item.hoverImage}
+                alt={item.title}
+                sizes="(min-width: 1024px) 23vw, (min-width: 768px) 46vw, 92vw"
+                className="mb-7 aspect-[4/5]"
+                imageClassName={item.label === "Wellness" ? "object-cover" : "object-contain p-6"}
+              />
               <p className="mb-3 inline-flex rounded-full bg-palm/18 px-3 py-2 text-[0.65rem] font-medium uppercase tracking-editorial text-grove">{item.label}</p>
               <h3 className="font-display text-3xl font-light leading-tight text-coconut">{item.title}</h3>
               <p className="mt-4 text-sm leading-7 text-coconut/68">{item.body}</p>
@@ -209,6 +226,12 @@ export function HonestProductSection() {
           </p>
         </Appear>
         <div className="grid gap-4">
+          <Appear>
+            <div className="rounded-3xl border border-paper/12 bg-paper p-6 text-coconut md:p-8">
+              <p className="text-[0.68rem] font-medium uppercase tracking-editorial text-grove">Ingredient grammar</p>
+              <p className="mt-5 font-display text-5xl font-light leading-none md:text-7xl">Coconut. Water. Cream. Care.</p>
+            </div>
+          </Appear>
           {cards.map(([title, body], index) => (
             <Appear key={title} delay={index * 0.06}>
               <article className="grid gap-4 rounded-3xl border border-paper/12 bg-paper/5 px-6 py-7 backdrop-blur-sm md:grid-cols-[0.44fr_1fr] md:px-8">

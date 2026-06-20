@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, type ReactNode } from "react";
 import { Appear } from "@/components/motion/Appear";
+import { BrandImage } from "@/components/BrandImage";
 import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
 
 export function PublicSection({
@@ -68,7 +69,7 @@ export function HoverImageFrame({
 }) {
   return (
     <div className={`group/frame relative overflow-hidden rounded-3xl border border-coconut/10 bg-[#fff8ea] shadow-[0_22px_68px_rgba(62,46,31,0.08)] ${className}`}>
-      <Image src={src} alt={alt} fill sizes={sizes} className={`${imageClassName} drop-shadow-[0_28px_46px_rgba(62,46,31,0.16)] transition duration-700 ease-out group-hover/frame:scale-[1.03]`} />
+      <BrandImage src={src} alt={alt} sizes={sizes} aspect="square" fit={imageClassName.includes("object-cover") ? "cover" : "contain"} className="absolute inset-0 border-0 shadow-none" imageClassName={`${imageClassName} drop-shadow-[0_28px_46px_rgba(62,46,31,0.16)] transition duration-700 ease-out group-hover/frame:scale-[1.03]`} />
       {hoverSrc ? (
         <Image
           src={hoverSrc}

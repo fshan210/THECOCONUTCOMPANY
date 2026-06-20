@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { AboutJourney, AboutOrbit } from "@/components/AboutJourney";
+import { AboutJourney } from "@/components/AboutJourney";
 import { FounderStory } from "@/components/FounderStory";
 import { Appear } from "@/components/motion/Appear";
 import { PublicSection } from "@/components/PublicDesign";
+import { BrandImage } from "@/components/BrandImage";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
+import { publicAssets } from "@/lib/public-assets";
 
 export const metadata: Metadata = createPageMetadata({
   title: "About",
@@ -27,8 +29,18 @@ export default function AboutPage() {
               We are building .CO around the warmth of coconut: clean taste, simple ingredients, useful formats, and a brand that feels at home.
             </p>
           </Appear>
-          <Appear delay={0.1}>
-            <AboutOrbit />
+          <Appear delay={0.1} className="relative">
+            <BrandImage
+              src={publicAssets.brand.tenderCoconut}
+              alt="Tender coconut at origin"
+              sizes="(min-width: 1024px) 48vw, 92vw"
+              aspect="portrait"
+              fit="cover"
+              position="center 48%"
+              priority
+              hoverZoom
+              className="shadow-[0_28px_90px_rgba(62,46,31,0.12)]"
+            />
           </Appear>
         </div>
       </PublicSection>
