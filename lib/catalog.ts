@@ -1,4 +1,6 @@
-export type ProductStatus = "coming-soon" | "future";
+import { publicAssets } from "@/lib/public-assets";
+
+export type ProductStatus = "coming-soon" | "preview";
 
 export type ShopProduct = {
   slug: string;
@@ -7,6 +9,7 @@ export type ShopProduct = {
   format: string;
   status: ProductStatus;
   image: string;
+  hoverImage?: string;
   shortDescription: string;
   benefits: string[];
   ingredients: string[];
@@ -14,80 +17,78 @@ export type ShopProduct = {
   availability: string;
 };
 
-export const productCategories = [
-  "Coconut Water",
-  "Frozen Desserts",
-  "Kitchen",
-  "Botanica",
-  "Wellness",
-  "Lifestyle"
-];
+export const productCategories = ["Coconut Water", "Ice Cream", "Kitchen", "Botanica", "Wellness", "Lifestyle"];
 
 export const shopProducts: ShopProduct[] = [
   {
     slug: "co-water",
     name: ".CO Water",
     category: "Coconut Water",
-    format: "330 ml PET bottle",
+    format: "Chilled bottle",
     status: "coming-soon",
-    image: "/assets/transparent/co-water-bottle.webp",
-    shortDescription: "Tender coconut water designed for everyday hydration, hospitality, and modern retail rituals.",
-    benefits: ["Clean coconut taste", "Chilled daily ritual", "Hospitality-ready format"],
+    image: publicAssets.water.floating,
+    hoverImage: publicAssets.water.flatLay,
+    shortDescription: "Tender coconut water with a clean, easy taste for everyday refreshment.",
+    benefits: ["Clean coconut taste", "Best served chilled", "Easy everyday ritual"],
     ingredients: ["Tender coconut water"],
-    howToUse: ["Serve chilled", "Pair with breakfast, travel, training, or afternoon resets", "Use in mocktails and smoothies"],
-    availability: "Launching soon. Early access and distributor enquiries are open."
+    howToUse: ["Serve cold", "Pour over ice", "Use in coolers, smoothies, and breakfast bowls"],
+    availability: "Join early access for first tasting notes and product updates."
   },
   {
     slug: "melt-co-mango-coconut",
     name: "MELT.CO Mango Coconut",
-    category: "Frozen Desserts",
-    format: "300-350 ml tub",
+    category: "Ice Cream",
+    format: "Frozen dessert",
     status: "coming-soon",
-    image: "/assets/transparent/co-coconut-icecream.webp",
-    shortDescription: "A coconut-based frozen dessert expression built around mango, creaminess, and clean indulgence.",
-    benefits: ["Coconut-led creaminess", "Tropical dessert ritual", "Cafe and home-ready format"],
-    ingredients: ["Coconut base", "Mango", "Natural flavour system"],
-    howToUse: ["Keep frozen", "Temper briefly before serving", "Serve alone or as a dessert cup base"],
-    availability: "Pre-launch product. Final ingredient list and launch markets will be confirmed before release."
+    image: publicAssets.melt.hero,
+    hoverImage: publicAssets.melt.flatLay,
+    shortDescription: "A coconut-led frozen dessert with mango brightness and a smooth, sunny finish.",
+    benefits: ["Coconut creaminess", "Mango-forward taste", "Dessert bowl friendly"],
+    ingredients: ["Coconut base", "Mango", "Natural flavour"],
+    howToUse: ["Keep frozen", "Rest briefly before scooping", "Serve with fruit, crumble, or on its own"],
+    availability: "Join early access for flavor notes and first scoop updates."
   },
   {
     slug: "co-kitchen-coconut-oil",
     name: ".CO Kitchen Coconut Oil",
     category: "Kitchen",
-    format: "Future pantry product",
-    status: "future",
-    image: "/assets/generated/product-kitchen-oil.webp",
-    shortDescription: "A future kitchen expression for everyday cooking, finishing, and pantry rituals.",
-    benefits: ["Culinary coconut expression", "Pantry-first design", "Built for daily cooking rituals"],
+    format: "Kitchen staple",
+    status: "preview",
+    image: publicAssets.ecosystem.kitchenHero,
+    hoverImage: publicAssets.ecosystem.kitchenAlt,
+    shortDescription: "A coconut kitchen staple for simple cooking, finishing, and everyday pantry use.",
+    benefits: ["Kitchen-friendly", "Coconut aroma", "Daily pantry ritual"],
     ingredients: ["Coconut-derived oil"],
-    howToUse: ["Use as directed on final packaging", "Designed for kitchen applications", "Store according to final label guidance"],
-    availability: "Future product direction. Distributor and partnership conversations are open."
+    howToUse: ["Use as directed on pack", "Try in cooking and finishing", "Store in a cool, dry place"],
+    availability: "Product preview. Final pack details will be shared before release."
   },
   {
     slug: "co-botanica-coconut-care",
     name: ".CO Botanica Coconut Care",
     category: "Botanica",
-    format: "Future skincare line",
-    status: "future",
-    image: "/assets/transparent/coconut-care.webp",
-    shortDescription: "A future body, hair, and care line exploring coconut-derived ingredients for modern routines.",
-    benefits: ["Body and hair care direction", "Minimal formulation mindset", "Coconut-origin ritual language"],
-    ingredients: ["Future coconut-derived care ingredients"],
-    howToUse: ["Use only as directed on future packaging", "Patch-test care products before regular use", "Avoid use if irritation occurs"],
-    availability: "Future product direction. No medical or treatment claims are made."
+    format: "Care preview",
+    status: "preview",
+    image: publicAssets.ecosystem.botanicaHero,
+    hoverImage: publicAssets.ecosystem.botanicaAlt,
+    shortDescription: "A gentle coconut-inspired care direction for body, hair, and shelf rituals.",
+    benefits: ["Everyday care feel", "Coconut-inspired", "Simple usage mindset"],
+    ingredients: ["Coconut-inspired care ingredients"],
+    howToUse: ["Use only as directed on pack", "Patch-test care products", "Stop use if irritation occurs"],
+    availability: "Product preview. No treatment or medical claims are made."
   },
   {
     slug: "co-lifestyle",
     name: ".CO Lifestyle",
     category: "Lifestyle",
-    format: "Future lifestyle collection",
-    status: "future",
-    image: "/assets/transparent/co-social-media-pack.webp",
-    shortDescription: "A future line of coconut-origin lifestyle objects, rituals, and brand collaborations.",
-    benefits: ["Lifestyle-led brand world", "Gift and hospitality potential", "Designed for modern coconut living"],
-    ingredients: ["Future product-specific materials"],
-    howToUse: ["Use according to future product guidance", "Designed for gifting, hospitality, and everyday rituals"],
-    availability: "Future brand extension. Partnership conversations are open."
+    format: "Ritual objects",
+    status: "preview",
+    image: publicAssets.water.lifestyle,
+    hoverImage: publicAssets.water.hero,
+    shortDescription: "A warm collection of coconut-world objects, recipe ideas, and seasonal living notes.",
+    benefits: ["Made for Living", "Giftable moments", "Coconut culture"],
+    ingredients: ["Product-specific materials"],
+    howToUse: ["Use according to each item", "Pair with recipes and product rituals", "Keep close to daily life"],
+    availability: "Preview collection for the .CO world."
   }
 ];
 
@@ -99,8 +100,8 @@ export const recipes = [
     time: "5 min",
     difficulty: "Easy",
     product: ".CO Water",
-    image: "/optimized/assets-coconut-tender-coconut-water.webp",
-    description: "A chilled mango and coconut water drink for warm afternoons and simple hosting.",
+    image: publicAssets.recipes.cooler,
+    description: "A bright mango and coconut water cooler for warm afternoons.",
     ingredients: ["Coconut water", "Mango", "Lime", "Ice"]
   },
   {
@@ -110,9 +111,9 @@ export const recipes = [
     time: "10 min",
     difficulty: "Easy",
     product: ".CO Water",
-    image: "/assets/generated/recipe-smoothie-bowl.webp",
-    description: "A light bowl with tender coconut, fruit, and a clean breakfast rhythm.",
-    ingredients: ["Tender coconut", "Banana", "Seasonal fruit", "Coconut water"]
+    image: publicAssets.recipes.bowl,
+    description: "A soft breakfast bowl with coconut water, fruit, and a calm morning rhythm.",
+    ingredients: ["Coconut water", "Banana", "Seasonal fruit", "Coconut flakes"]
   },
   {
     slug: "coconut-coffee-chill",
@@ -121,64 +122,40 @@ export const recipes = [
     time: "6 min",
     difficulty: "Easy",
     product: ".CO Water",
-    image: "/assets/generated/recipe-coffee-chill.webp",
-    description: "Cold coffee softened with coconut freshness for a restrained cafe-style ritual.",
+    image: publicAssets.recipes.coffee,
+    description: "Cold coffee softened with coconut freshness for a simple cafe-style glass.",
     ingredients: ["Cold coffee", "Coconut water", "Ice", "Optional coconut cream"]
-  },
-  {
-    slug: "coconut-cream-dessert-cup",
-    title: "Coconut Cream Dessert Cup",
-    category: "Desserts",
-    time: "12 min",
-    difficulty: "Medium",
-    product: "MELT.CO Mango Coconut",
-    image: "/assets/transparent/mango-coconut-dessert.webp",
-    description: "A layered dessert cup using coconut creaminess, mango, and a minimal finish.",
-    ingredients: ["MELT.CO Mango Coconut", "Coconut flakes", "Mango", "Shortbread crumb"]
-  },
-  {
-    slug: "post-workout-coconut-hydration",
-    title: "Post-Workout Coconut Hydration",
-    category: "Wellness rituals",
-    time: "3 min",
-    difficulty: "Easy",
-    product: ".CO Water",
-    image: "/optimized/assets-coconut-tender-coconut-water.webp",
-    description: "A simple chilled coconut water ritual after movement, travel, or heat.",
-    ingredients: ["Chilled coconut water", "Pinch of salt", "Lime"]
   }
 ];
 
 export const usageDirections = [
-  { title: "Hair care", body: "Future coconut-derived formats for wash-day and finishing rituals." },
-  { title: "Skin care", body: "Future body care expressions with clear usage guidance and minimal claims." },
-  { title: "Body care", body: "Daily care products designed around texture, scent restraint, and simplicity." },
-  { title: "Kitchen use", body: "Pantry formats for cooking, finishing, and everyday coconut-led recipes." },
-  { title: "Wellness rituals", body: "Hydration and routine moments built around coconut as a lifestyle ingredient." }
+  { title: "Drink", body: "Serve cold and keep it close for warm-day resets." },
+  { title: "Scoop", body: "Let coconut-led dessert slow the evening down." },
+  { title: "Cook", body: "Add a familiar coconut note to simple meals." },
+  { title: "Care", body: "Keep routines gentle, clear, and easy to understand." }
 ];
 
 export const communityNotes = [
   {
-    label: "Early feedback",
-    note: "The brand feels calm, elevated, and rooted without looking traditional.",
-    source: "Founder community"
+    label: "Taste note",
+    note: "Clean coconut taste, not too loud, easy to drink cold.",
+    source: "Early tasting table"
   },
   {
-    label: "Retail buyer note",
-    note: "The product system has room to move from beverage into a full coconut house.",
-    source: "Sample content"
+    label: "Home note",
+    note: "It feels like something that belongs in the fridge, not just on a campaign page.",
+    source: "Kitchen conversation"
   },
   {
-    label: "Early taster note",
-    note: "The direction is fresh, clean, and suited to premium hospitality spaces.",
-    source: "Sample content"
+    label: "Design note",
+    note: "Warm, simple, and premium without becoming distant.",
+    source: "Brand circle"
   }
 ];
 
 export const socialStories = [
-  "From Palakkad to the world",
-  "Building in public",
-  "Product development",
-  "Farm to brand journey",
-  "UAE and GCC expansion"
+  "A brand close to coconut country",
+  "Recipes from everyday homes",
+  "Products that feel useful",
+  "A warm shelf for modern living"
 ];

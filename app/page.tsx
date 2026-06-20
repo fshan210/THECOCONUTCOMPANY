@@ -3,10 +3,10 @@ import { HeroStoryCanvas } from "@/components/HeroStoryCanvas";
 import { StructuredData } from "@/components/seo/StructuredData";
 import {
   BrandManifestoBanner,
-  DistributorPartnershipCta,
   FounderJourneyPreview,
   HonestProductSection,
   MeltCoHighlight,
+  NewsletterSignupSection,
   ProductEcosystem,
   ProductHighlight,
   RecipesPreview,
@@ -33,9 +33,9 @@ export default function HomePage() {
       <MeltCoHighlight />
       <HonestProductSection />
       <RecipesPreview />
-      <FounderJourneyPreview />
       <SustainabilityPreview />
-      <DistributorPartnershipCta />
+      <FounderJourneyPreview />
+      <NewsletterSignupSection />
     </>
   );
 }

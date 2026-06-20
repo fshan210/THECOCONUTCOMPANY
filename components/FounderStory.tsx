@@ -1,48 +1,24 @@
 "use client";
 
-import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { Appear } from "@/components/motion/Appear";
+import { HoverImageFrame, PublicSection } from "@/components/PublicDesign";
+import { publicAssets } from "@/lib/public-assets";
 
 export function FounderStory() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const imageY = useTransform(scrollYProgress, [0, 1], [-18, 18]);
-
   return (
-    <section ref={ref} className="mx-auto grid max-w-7xl gap-12 px-5 py-24 md:grid-cols-[0.9fr_1.1fr] md:px-8">
-      <motion.div style={{ y: imageY }} className="relative min-h-[560px] overflow-hidden bg-shell">
-        <Image src="/assets/transparent/co-social-media-pack.webp" alt="Founder story visual" fill sizes="(min-width: 768px) 46vw, 90vw" className="object-cover" />
-      </motion.div>
-      <div className="flex flex-col justify-center">
-        <motion.p
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mb-5 text-[0.72rem] uppercase tracking-editorial text-grove"
-        >
-          Founder story
-        </motion.p>
-        <motion.h2
-          initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-5xl leading-tight text-ink md:text-7xl"
-        >
-          Close to origin, precise about the future.
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-8 max-w-xl text-lg leading-9 text-muted"
-        >
-          Fazil Shersha and Afsala Muthali are building .CO as a lifestyle brand with local memory and international discipline: rooted in Palakkad, designed for homes, hotels, shelves, and daily rituals across markets.
-        </motion.p>
+    <PublicSection>
+      <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-[0.92fr_1.08fr] md:items-center">
+        <Appear className="relative min-h-[420px] md:min-h-[560px]">
+          <HoverImageFrame src={publicAssets.water.lifestyle} hoverSrc={publicAssets.water.flatLay} alt=".CO founder story visual" sizes="(min-width: 768px) 46vw, 92vw" className="absolute inset-0" />
+        </Appear>
+        <Appear delay={0.1}>
+          <p className="mb-5 text-[0.72rem] font-medium uppercase tracking-editorial text-grove">Founder story</p>
+          <h2 className="font-display text-5xl font-light leading-tight text-coconut md:text-7xl">Close to the coconut rituals we know by heart.</h2>
+          <p className="mt-8 max-w-xl text-lg leading-9 text-coconut/70">
+            .CO is shaped by founders who want coconut products to feel warm, useful, and beautifully simple: the kind of thing you reach for without overthinking it.
+          </p>
+        </Appear>
       </div>
-    </section>
+    </PublicSection>
   );
 }

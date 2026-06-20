@@ -13,7 +13,7 @@ export function CartButton() {
     <button
       type="button"
       onClick={() => cart.setOpen(true)}
-      className="co-neu relative grid h-10 w-10 place-items-center text-coconut transition hover:-translate-y-0.5"
+      className="co-neu relative grid h-10 w-10 place-items-center rounded-2xl text-coconut transition hover:-translate-y-0.5"
       aria-label="Open cart"
     >
       <ShoppingBag size={16} />
@@ -51,10 +51,10 @@ export function CartDrawer() {
           >
             <div className="flex items-center justify-between border-b border-shell p-5">
               <div>
-                <p className="text-[0.65rem] uppercase tracking-editorial text-grove">Pre-launch cart</p>
-                <h2 className="font-display text-3xl text-ink">Saved products</h2>
+                <p className="text-[0.65rem] uppercase tracking-editorial text-grove">Saved shelf</p>
+                <h2 className="font-display text-3xl text-coconut">Saved products</h2>
               </div>
-              <button type="button" onClick={() => cart.setOpen(false)} className="grid h-10 w-10 place-items-center border border-shell text-coconut">
+              <button type="button" onClick={() => cart.setOpen(false)} className="grid h-10 w-10 place-items-center rounded-2xl border border-coconut/10 text-coconut">
                 <X size={16} />
               </button>
             </div>
@@ -63,8 +63,8 @@ export function CartDrawer() {
                 <div className="space-y-4">
                   {cart.products.map((product) => (
                     <article key={product.slug} className="co-neu grid grid-cols-[84px_1fr] gap-4 p-3">
-                      <div className="relative aspect-square overflow-hidden bg-shell">
-                        <Image src={product.image} alt={product.name} fill sizes="84px" className="object-cover" />
+                      <div className="relative aspect-square overflow-hidden rounded-2xl bg-paper">
+                        <Image src={product.image} alt={product.name} fill sizes="84px" className="object-contain p-2" />
                       </div>
                       <div>
                         <h3 className="font-display text-2xl text-ink">{product.name}</h3>
@@ -94,13 +94,13 @@ export function CartDrawer() {
                 </div>
               ) : (
                 <div className="border border-shell bg-paper p-6">
-                  <p className="text-sm leading-7 text-muted">Your pre-launch cart is empty. Add products to save interest for launch planning.</p>
+                  <p className="text-sm leading-7 text-muted">Your saved shelf is empty. Add products you want to remember.</p>
                 </div>
               )}
             </div>
             <div className="border-t border-shell p-5">
-              <p className="mb-4 text-xs leading-6 text-muted">Checkout and payments are intentionally disabled until the commerce launch phase.</p>
-              <Link href="/sign-up" onClick={() => cart.setOpen(false)} className="co-button-soft block bg-ink px-6 py-4 text-center text-sm text-paper">
+              <p className="mb-4 text-xs leading-6 text-muted">We will share product notes and availability through early access.</p>
+              <Link href="/sign-up" onClick={() => cart.setOpen(false)} className="co-button-soft block rounded-2xl bg-coconut px-6 py-4 text-center text-sm text-paper">
                 Join early access
               </Link>
             </div>

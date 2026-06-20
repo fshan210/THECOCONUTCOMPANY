@@ -56,7 +56,7 @@ body {
 }
 
 .co-glass {
-  border-radius: 8px;
+  border-radius: 1.5rem;
   border: 1px solid rgba(62, 46, 31, 0.1);
   background: rgba(245, 235, 215, 0.88);
   box-shadow:
@@ -66,7 +66,7 @@ body {
 }
 
 .co-glass-dark {
-  border-radius: 8px;
+  border-radius: 1.5rem;
   border: 1px solid rgba(245, 235, 215, 0.12);
   background: rgba(62, 46, 31, 0.42);
   box-shadow:
@@ -76,7 +76,7 @@ body {
 }
 
 .co-neu {
-  border-radius: 8px;
+  border-radius: 1.5rem;
   border: 1px solid rgba(62, 46, 31, 0.1);
   background: #fff8ea;
   box-shadow:
@@ -85,7 +85,7 @@ body {
 }
 
 .co-neu-inset {
-  border-radius: 8px;
+  border-radius: 1rem;
   border: 1px solid rgba(62, 46, 31, 0.1);
   background: #f5ebd7;
   box-shadow:
@@ -102,7 +102,7 @@ body {
 .co-input {
   min-height: 56px;
   width: 100%;
-  border-radius: 8px;
+  border-radius: 1rem;
   border: 1px solid rgba(62, 46, 31, 0.22);
   background: rgba(255, 253, 248, 0.92);
   padding: 0.95rem 1rem;

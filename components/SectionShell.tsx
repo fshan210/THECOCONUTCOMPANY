@@ -14,7 +14,7 @@ const variants = {
 
 export function SectionShell({ children, className = "", variant = "paper" }: SectionShellProps) {
   return (
-    <section className={`relative overflow-hidden px-5 py-20 md:px-8 md:py-28 ${variants[variant]} ${className}`}>
+    <section className={`relative overflow-hidden px-5 py-16 md:px-8 md:py-24 lg:py-28 ${variants[variant]} ${className}`}>
       {children}
     </section>
   );

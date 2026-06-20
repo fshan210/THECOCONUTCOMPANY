@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { AboutJourney } from "@/components/AboutJourney";
-import { CoconutSliceDoodle, FloatingDoodleLayer } from "@/components/BrandDoodles";
 import { FounderStory } from "@/components/FounderStory";
-import { Reveal } from "@/components/Motion";
+import { Appear } from "@/components/motion/Appear";
+import { DoodleImage, PublicSection } from "@/components/PublicDesign";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
+import { publicAssets } from "@/lib/public-assets";
 
 export const metadata: Metadata = createPageMetadata({
   title: "About",
-  description: "The roots, sourcing journey, and global vision behind .CO | The Coconut Company from Palakkad, Kerala.",
+  description: "The roots, coconut rituals, and Made for Living philosophy behind .CO | The Coconut Company.",
   path: "/about"
 });
 
@@ -16,36 +17,20 @@ export default function AboutPage() {
   return (
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "About", path: "/about" }]} />
-      <section className="relative overflow-hidden bg-[linear-gradient(135deg,#fffdf8_0%,#F5EBD7_52%,rgba(74,111,74,0.16)_100%)] px-5 py-20 md:px-8 md:py-24">
-        <FloatingDoodleLayer density="light" />
-        <div className="mx-auto max-w-7xl">
-        <CoconutSliceDoodle className="co-brand-doodle absolute right-8 top-12 hidden w-40 text-coconut md:block" />
-        <Reveal className="max-w-4xl">
-          <p className="mb-8 text-[0.72rem] uppercase tracking-editorial text-grove">About .CO</p>
-          <h1 className="font-display text-6xl leading-none text-ink md:text-8xl">
-            From Palakkad roots to a global coconut house.
+      <PublicSection className="pt-28 md:pt-32">
+        <DoodleImage src={publicAssets.doodles.rawCoconut} className="right-8 top-20 h-36 w-36 md:h-56 md:w-56" />
+        <Appear className="mx-auto max-w-7xl">
+          <p className="mb-8 text-[0.72rem] font-medium uppercase tracking-editorial text-grove">About .CO</p>
+          <h1 className="max-w-5xl font-display text-6xl font-light leading-none text-coconut md:text-8xl">
+            Coconut products for real everyday rituals.
           </h1>
-        </Reveal>
-        </div>
-      </section>
-
+          <p className="mt-8 max-w-2xl text-lg leading-9 text-coconut/70">
+            We are building .CO around the warmth of coconut: clean taste, simple ingredients, useful formats, and a brand that feels at home.
+          </p>
+        </Appear>
+      </PublicSection>
       <AboutJourney />
       <FounderStory />
-
-      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#fffdf8,#F5EBD7)] px-5 py-20 md:px-8 md:py-24">
-        <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-3">
-        {["Origin", "Design", "Scale"].map((title) => (
-          <Reveal key={title}>
-            <div className="co-glass h-full p-8">
-              <h2 className="mb-5 font-display text-4xl text-ink">{title}</h2>
-              <p className="text-sm leading-7 text-muted">
-                The company balances Kerala sourcing intelligence with a globally legible brand system: precise, warm, and built for long horizons.
-              </p>
-            </div>
-          </Reveal>
-        ))}
-        </div>
-      </section>
     </>
   );
 }
