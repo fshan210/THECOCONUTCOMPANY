@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Droplets, Heart, Leaf, PackageCheck, Sprout, Waves } from "lucide-react";
+import { motion } from "framer-motion";
 import { Appear } from "@/components/motion/Appear";
 import { PublicHeader, PublicSection } from "@/components/PublicDesign";
 import { publicAssets } from "@/lib/public-assets";
@@ -44,6 +45,64 @@ const journey = [
     icon: Heart
   }
 ];
+
+const orbitCards = [
+  { label: "Roots", text: "Kerala coconut memory" },
+  { label: "Taste", text: "Clean, useful formats" },
+  { label: "Living", text: "Made for everyday tables" }
+];
+
+export function AboutOrbit() {
+  return (
+    <div className="relative mx-auto aspect-square w-full max-w-[560px] overflow-hidden rounded-3xl border border-coconut/10 bg-[#fff8ea] shadow-[0_22px_68px_rgba(62,46,31,0.08)]">
+      <div className="co-wave-pattern absolute inset-0 opacity-[0.08]" />
+      <div className="absolute inset-8 rounded-full border border-coconut/10" />
+      <div className="absolute inset-20 rounded-full border border-palm/40" />
+      <motion.div
+        aria-hidden="true"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 36, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-12 rounded-full border border-dashed border-coconut/14"
+      />
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-0"
+      >
+        {orbitCards.map((card, index) => {
+          const positions = [
+            "left-1/2 top-8 -translate-x-1/2",
+            "bottom-14 right-6",
+            "bottom-14 left-6"
+          ];
+          return (
+            <motion.div
+              key={card.label}
+              animate={{ rotate: -360 }}
+              transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
+              className={`absolute w-36 rounded-2xl border border-coconut/10 bg-paper/92 p-4 text-left shadow-[0_16px_36px_rgba(62,46,31,0.08)] backdrop-blur ${positions[index]}`}
+            >
+              <p className="text-[0.66rem] font-medium uppercase tracking-editorial text-grove">{card.label}</p>
+              <p className="mt-2 text-xs leading-5 text-coconut/68">{card.text}</p>
+            </motion.div>
+          );
+        })}
+      </motion.div>
+      <div className="absolute inset-0 grid place-items-center p-20">
+        <div className="relative aspect-square w-full max-w-64 rounded-full bg-paper shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_22px_56px_rgba(62,46,31,0.14)]">
+          <Image
+            src={publicAssets.water.hero}
+            alt=".CO coconut water bottle"
+            fill
+            priority
+            sizes="260px"
+            className="object-contain p-8 drop-shadow-[0_28px_40px_rgba(62,46,31,0.18)]"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function AboutJourney() {
   return (

@@ -66,7 +66,7 @@ export function CustomerLoginForm() {
         startTransition(async () => {
           try {
             if (!isFirebasePublicConfigured()) {
-              setState({ ok: false, status: "error", message: "Firebase web configuration is missing." });
+              setState({ ok: false, status: "error", message: "Account login is temporarily unavailable." });
               return;
             }
             const email = String(data.get("email"));
@@ -232,7 +232,7 @@ export function CustomerRegisterForm() {
         startTransition(async () => {
           try {
             if (!isFirebasePublicConfigured()) {
-              setState({ ok: false, status: "error", message: "Firebase web configuration is missing." });
+              setState({ ok: false, status: "error", message: "Account registration is temporarily unavailable." });
               return;
             }
             const email = String(data.get("email"));
@@ -292,7 +292,7 @@ export function CustomerRegisterForm() {
 async function loginWithGoogle(setState: (state: CustomerAuthState) => void) {
   try {
     if (!isFirebasePublicConfigured()) {
-      setState({ ok: false, status: "error", message: "Firebase web configuration is missing." });
+      setState({ ok: false, status: "error", message: "Account login is temporarily unavailable." });
       return;
     }
     const protection = await validateAuthProtection({

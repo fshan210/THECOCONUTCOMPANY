@@ -6,7 +6,7 @@ import { createPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Orders",
-  description: "Your .CO order history and launch reservations.",
+  description: "Your .CO order history.",
   path: "/orders"
 });
 
@@ -19,11 +19,11 @@ export default async function OrdersPage() {
       <CustomerSimplePage
         session={session}
         title="Order history."
-        body="Commerce is launch-ready. This page tracks pre-launch reservations now and will hold purchases, invoices, delivery updates, and returns as .CO commerce goes live."
+        body="A simple place for your .CO orders, receipts, and delivery notes when you shop with us."
         items={[
-          { title: "No paid orders yet", detail: "Checkout is intentionally disabled until launch." },
-          { title: "Reservations", detail: "Saved interest from the cart and product pages will appear here." },
-          { title: "Delivery", detail: "Address-aware delivery status is ready for future courier integration." }
+          { title: "No orders yet", detail: "Your first .CO order will appear here once it is placed." },
+          { title: "Receipts", detail: "Order summaries and product details stay together for easy reference." },
+          { title: "Delivery notes", detail: "Useful delivery updates will be kept clear and easy to scan." }
         ]}
       />
     </>

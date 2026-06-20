@@ -5,15 +5,15 @@ import type { CustomerSession } from "@/lib/customer/auth-config";
 import { logoutCustomer } from "@/lib/customer/actions";
 
 const customerCards = [
-  { title: "Orders", href: "/orders", body: "Track product interest, launch reservations, and future purchases.", icon: PackageCheck },
-  { title: "Wishlist", href: "/wishlist", body: "Keep your favourite coconut rituals ready for launch.", icon: Heart },
+  { title: "Orders", href: "/orders", body: "Find your .CO order history and useful delivery notes.", icon: PackageCheck },
+  { title: "Wishlist", href: "/wishlist", body: "Keep favourite coconut products and rituals close.", icon: Heart },
   { title: "Profile", href: "/profile", body: "Manage identity, address, password, newsletter, and privacy.", icon: UserRound },
   { title: "Saved recipes", href: "/saved-recipes", body: "Return to hydration recipes and kitchen notes.", icon: Soup }
 ];
 
 export function CustomerAccountDashboard({ session }: { session: CustomerSession }) {
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#fffdf8_0%,#F5EBD7_48%,rgba(74,111,74,0.16)_100%)] px-5 py-16 md:px-8 md:py-24">
+    <section className="relative overflow-hidden bg-paper px-5 py-16 md:px-8 md:py-24">
       <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 w-80 opacity-[0.08]" />
       <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.74fr_1.26fr]">
         <aside className="co-glass h-fit p-6">
@@ -53,7 +53,7 @@ export function CustomerAccountDashboard({ session }: { session: CustomerSession
                 <p className="mb-4 text-[0.72rem] uppercase tracking-editorial text-grove">Welcome back</p>
                 <h2 className="font-display text-5xl leading-tight text-ink md:text-7xl">Your coconut ritual space.</h2>
                 <p className="mt-5 max-w-2xl text-base leading-8 text-muted">
-                  Manage favourites, saved recipes, addresses, newsletter preferences, and future .CO orders from one calm customer workspace.
+                  Manage favourites, saved recipes, addresses, newsletter preferences, and .CO orders from one calm customer space.
                 </p>
               </div>
               <div className="relative aspect-square">
@@ -76,8 +76,8 @@ export function CustomerAccountDashboard({ session }: { session: CustomerSession
           <div className="grid gap-4 md:grid-cols-3">
             {[
               ["Newsletter", "Launch drops and recipes enabled", Leaf],
-              ["Addresses", "Primary delivery region: Kerala / UAE ready", MapPin],
-              ["Privacy", "Customer auth separated from admin users", ShieldCheck]
+              ["Addresses", "Keep delivery details ready for checkout", MapPin],
+              ["Privacy", "Simple tools for your customer account", ShieldCheck]
             ].map(([title, body, Icon]) => {
               const TypedIcon = Icon as typeof Leaf;
               return (

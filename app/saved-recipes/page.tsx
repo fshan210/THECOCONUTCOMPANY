@@ -19,11 +19,11 @@ export default async function SavedRecipesPage() {
       <CustomerSimplePage
         session={session}
         title="Saved recipes."
-        body="Your verified account can collect coconut water rituals, smoothie bowls, and launch notes as the recipe CMS expands."
+        body="Collect coconut water rituals, smoothie bowls, and simple kitchen ideas you want to revisit."
         items={[
-          { title: "Hydration", detail: "Coconut water recipes and recovery drinks will save here." },
-          { title: "Kitchen", detail: "Dessert and breakfast recipes are ready for customer favourites." },
-          { title: "Launch sync", detail: "Saved recipe persistence is separated from admin permissions." }
+          { title: "Hydration", detail: "Coconut water coolers, breakfast blends, and gentle refreshers." },
+          { title: "Kitchen", detail: "Dessert, breakfast, and hosting notes with coconut at the centre." },
+          { title: "Rituals", detail: "A personal shelf for the recipes you return to often." }
         ]}
       />
     </>

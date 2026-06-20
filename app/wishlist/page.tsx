@@ -19,11 +19,11 @@ export default async function WishlistPage() {
       <CustomerSimplePage
         session={session}
         title="Wishlist."
-        body="Keep favourite products, rituals, and recipes in one place. Wishlist persistence is separated from admin systems and ready for customer database storage."
+        body="Keep favourite products, rituals, and recipe ideas in one place for later."
         items={[
           { title: ".CO Water", detail: "Everyday hydration favourite." },
-          { title: "MELT.CO", detail: "Creamery launch watchlist." },
-          { title: "Saved recipes", detail: "Recipe saves will sync here after database persistence is enabled." }
+          { title: "MELT.CO", detail: "A creamy coconut dessert to come back to." },
+          { title: "Saved recipes", detail: "Your favourite coconut rituals stay easy to find." }
         ]}
       />
     </>

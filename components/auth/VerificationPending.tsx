@@ -9,7 +9,7 @@ import { establishCustomerSession } from "@/lib/customer/actions";
 import { getFirebaseClientAuth } from "@/lib/firebase/client";
 
 export function VerificationPending({ session }: { session: CustomerSession }) {
-  const [message, setMessage] = useState("We sent a verification link to your inbox. Verify your email to unlock orders, wishlist, saved recipes, and profile editing.");
+  const [message, setMessage] = useState("We sent a verification link to your inbox. Verify your email to open your orders, wishlist, saved recipes, and profile tools.");
   const [ok, setOk] = useState(false);
   const [pending, startTransition] = useTransition();
 
@@ -52,7 +52,7 @@ export function VerificationPending({ session }: { session: CustomerSession }) {
   }
 
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#fffdf8_0%,#F5EBD7_46%,rgba(74,111,74,0.18)_100%)] px-5 py-16 md:px-8 md:py-24">
+    <section className="relative overflow-hidden bg-paper px-5 py-16 md:px-8 md:py-24">
       <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 w-80 opacity-[0.08]" />
       <div className="co-glass mx-auto max-w-3xl p-6 text-center md:p-10">
         <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-grove/12 text-grove">

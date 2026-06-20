@@ -12,7 +12,7 @@ const stages = [
   "Coconut Water",
   "Food Products",
   "Lifestyle Products",
-  "Global Brand Vision"
+  "Made for Living"
 ];
 
 const emergeItems = [
@@ -70,7 +70,7 @@ export function CoconutEcosystem() {
             A lifestyle house, grown from a single origin.
           </motion.h2>
           <p className="mb-7 text-sm leading-7 text-muted md:text-base">
-            From Palakkad farms to everyday hydration, .CO turns one ingredient into fresh drinks, dessert rituals, pantry staples, care products, and a global coconut culture.
+            From coconut country to everyday hydration, .CO turns one familiar ingredient into fresh drinks, dessert rituals, pantry staples, care products, and warm daily routines.
           </p>
           <div className="mb-8 flex flex-wrap gap-3">
             <Link href="/shop" className="co-button-soft inline-flex min-h-12 items-center gap-3 bg-coconut px-5 py-3 text-sm text-paper transition hover:bg-ink">
@@ -143,7 +143,7 @@ export function CoconutEcosystem() {
               transition={{ delay: 0.45, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="co-glass absolute bottom-4 left-3 max-w-[172px] p-4 text-xs leading-5 text-muted md:left-8"
             >
-              <span className="mb-2 block text-[0.62rem] uppercase tracking-editorial text-grove">Launching soon</span>
+              <span className="mb-2 block text-[0.62rem] uppercase tracking-editorial text-grove">Everyday format</span>
               .CO Water in a 330 ml everyday format.
             </motion.div>
             <motion.div

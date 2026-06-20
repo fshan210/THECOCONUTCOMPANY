@@ -28,7 +28,7 @@ export default async function RegisterPage() {
           <Appear className="rounded-3xl border border-coconut/10 bg-[#fff8ea] p-6 shadow-[0_18px_48px_rgba(62,46,31,0.06)] md:p-10">
             <p className="mb-5 text-[0.72rem] font-medium uppercase tracking-editorial text-grove">Create account</p>
             <h1 className="font-display text-5xl font-light leading-tight text-coconut md:text-7xl">Build your coconut ritual library.</h1>
-            <p className="mt-5 text-base leading-8 text-coconut/70">A warm customer account for favourite products, saved recipes, and launch notes.</p>
+            <p className="mt-5 text-base leading-8 text-coconut/70">A warm customer account for favourite products, saved recipes, and gentle .CO notes.</p>
             <CustomerRegisterForm />
           </Appear>
           <Appear delay={0.1} className="relative hidden min-h-[560px] overflow-hidden rounded-3xl border border-coconut/10 bg-[#fff8ea] shadow-[0_18px_48px_rgba(62,46,31,0.06)] lg:block">

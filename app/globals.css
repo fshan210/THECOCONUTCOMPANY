@@ -161,7 +161,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  border-radius: 8px;
+  border-radius: 1rem;
   border: 1px solid rgba(62, 46, 31, 0.22);
   background: #3e2e1f;
   padding: 0.95rem 1.25rem;
