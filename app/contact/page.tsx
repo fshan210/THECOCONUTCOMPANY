@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Mail, MapPin, Store } from "lucide-react";
 import { BrandImage } from "@/components/BrandImage";
-import { BentoCard, BillboardWord, CTAButton, IngredientBadge, MotionSection } from "@/components/brand/BrandPrimitives";
+import { BentoCard, CTAButton, DoodleIcon, IngredientBadge, MotionSection } from "@/components/brand/BrandPrimitives";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { publicAssets } from "@/lib/public-assets";
@@ -16,37 +15,34 @@ export default function ContactPage() {
   return (
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }]} />
-      <section className="co-section bg-[var(--co-cream)] pt-24 md:pt-32">
+      <section className="bg-[var(--co-cream)] pt-8 md:pt-12">
         <div className="co-container">
-          <BillboardWord word="CONTACT" className="co-display-section text-[var(--co-brown)]/[0.1]" />
-          <div className="co-grid-12 mt-4 items-stretch md:-mt-3">
-            <div className="lg:col-span-7">
-              <BentoCard className="flex h-full min-h-[560px] flex-col justify-between">
-                <div>
-                  <p className="co-label mb-5">Talk coconut</p>
-                  <h1 className="max-w-full text-[clamp(36px,9vw,132px)] font-bold leading-[0.84] text-[var(--co-ink)] [overflow-wrap:anywhere]">
-                    Product interest, retail notes, and everyday coconut questions.
-                  </h1>
-                  <p className="co-body mt-7 max-w-full [overflow-wrap:anywhere] md:max-w-2xl">
-                    Reach out for .CO Water, MELT.CO, product availability, recipe ideas, or distributor conversations.
-                  </p>
-                </div>
-                <div className="mt-9 flex flex-wrap gap-3">
-                  <CTAButton href="mailto:hello@cothecoconutcompany.com">Email .CO</CTAButton>
-                  <CTAButton href="/shop" variant="outline">See product shelf</CTAButton>
-                </div>
-              </BentoCard>
+          <div className="grid min-h-[560px] overflow-hidden rounded-[32px] border border-[var(--co-border)] bg-[var(--co-black)] text-[var(--co-white)] lg:grid-cols-[0.92fr_1.08fr]">
+            <div className="flex flex-col justify-center p-6 md:p-10">
+              <p className="co-label mb-5 text-[var(--co-sun)]">For business</p>
+              <h1 className="text-[clamp(44px,8vw,118px)] font-bold uppercase leading-[0.84]">
+                Retail, cafe, and coconut shelf conversations.
+              </h1>
+              <p className="mt-6 max-w-md text-base leading-7 text-white/72">
+                Talk to .CO about product interest, cold shelf placement, hospitality use, distributor notes, and everyday coconut questions.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <CTAButton href="mailto:hello@cothecoconutcompany.com" variant="light">Email .CO</CTAButton>
+                <CTAButton href="/shop" variant="outline" className="border-white/50 text-white hover:border-[var(--co-sun)] hover:bg-[var(--co-sun)] hover:text-[var(--co-black)]">
+                  See product shelf
+                </CTAButton>
+              </div>
             </div>
-            <MotionSection delay={0.08} className="mt-4 lg:col-span-5 lg:mt-0">
+            <MotionSection delay={0.08} className="min-h-[430px]">
               <BrandImage
-                src={publicAssets.water.flatLay}
-                alt=".CO coconut water contact product flat lay"
-                sizes="(min-width: 1024px) 40vw, 92vw"
-                aspect="portrait"
+                src={publicAssets.campaign.retailBusiness}
+                alt=".CO product and coconut water business shelf visual"
+                sizes="(min-width: 1024px) 54vw, 92vw"
+                aspect="wide"
                 fit="cover"
                 priority
                 hoverZoom
-                className="h-full min-h-[560px] rounded-[48px]"
+                className="h-full min-h-[430px] rounded-none border-0"
               />
             </MotionSection>
           </div>
@@ -56,13 +52,13 @@ export default function ContactPage() {
       <section className="co-section bg-[var(--co-white)]">
         <div className="co-container grid gap-4 md:grid-cols-3">
           {[
-            { title: "Product interest", body: "Questions about .CO Water, MELT.CO, or the coconut product family.", icon: Store, badge: "Shopper" },
-            { title: "Retail / distributor", body: "A clear route for cold shelf, cafe, hospitality, and trade conversations.", icon: MapPin, badge: "Trade" },
-            { title: "Recipes / journal", body: "Share recipe ideas, tasting notes, or coconut rituals worth documenting.", icon: Mail, badge: "Brand world" }
-          ].map(({ title, body, icon: Icon, badge }, index) => (
+            { title: "Product interest", body: "Questions about .CO Water, MELT.CO, or the wider coconut product family.", icon: "bottle" as const, badge: "Shopper" },
+            { title: "Retail / distributor", body: "A clear route for cold shelf, cafe, hospitality, and trade conversations.", icon: "palm" as const, badge: "Trade" },
+            { title: "Recipes / journal", body: "Share recipe ideas, tasting notes, or coconut rituals worth documenting.", icon: "wave" as const, badge: "Brand world" }
+          ].map(({ title, body, icon, badge }, index) => (
             <MotionSection key={title} delay={index * 0.05}>
               <BentoCard className="h-full">
-                <Icon className="mb-8 text-[var(--co-palm)]" size={28} />
+                <DoodleIcon name={icon} className="mb-8 h-10 w-10 text-[var(--co-palm)]" />
                 <IngredientBadge tone={index === 1 ? "sun" : "cream"}>{badge}</IngredientBadge>
                 <h2 className="mt-8 text-4xl font-bold leading-none text-[var(--co-brown)]">{title}</h2>
                 <p className="co-body mt-5">{body}</p>

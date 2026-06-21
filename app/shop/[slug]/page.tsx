@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { BrandImage } from "@/components/BrandImage";
-import { BentoCard, BillboardWord, CTAButton, IngredientBadge, MotionSection } from "@/components/brand/BrandPrimitives";
+import { BentoCard, CTAButton, IngredientBadge, MotionSection, TrustBadge } from "@/components/brand/BrandPrimitives";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { shopProducts } from "@/lib/catalog";
 import { createPageMetadata } from "@/lib/seo/metadata";
@@ -36,11 +36,11 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   if (!product) notFound();
 
   const compositionBySlug: Record<string, string> = {
-    "co-water": publicAssets.water.lifestyle,
+    "co-water": publicAssets.campaign.breakfastRitual,
     "melt-co-mango-coconut": publicAssets.melt.lifestyle,
     "co-kitchen-coconut-oil": publicAssets.ecosystem.kitchenGroup,
     "co-botanica-coconut-care": publicAssets.ecosystem.botanicaGroup,
-    "co-lifestyle": publicAssets.generated.productLifestyle
+    "co-lifestyle": publicAssets.campaign.workoutRitual
   };
 
   return (
@@ -53,27 +53,40 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         ]}
         extra={[productSchema(product)]}
       />
-      <section className="co-section bg-[var(--co-cream)] pt-24 md:pt-32">
+      <section className="bg-[var(--co-cream)] pt-8 md:pt-12">
         <div className="co-container">
           <Link href="/shop" className="co-label mb-8 inline-flex text-[var(--co-muted)] transition hover:text-[var(--co-palm)]">Back to shop</Link>
-          <div className="co-grid-12 items-stretch">
-            <MotionSection className="lg:col-span-6">
-              <BentoCard className="flex h-full min-h-[620px] flex-col justify-between">
-                <BillboardWord word={product.category.split(" ")[0]} className="text-[clamp(74px,12vw,170px)] text-[var(--co-brown)]/[0.08]" />
+          <div className="grid min-h-[620px] overflow-hidden rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] lg:grid-cols-[0.86fr_1.14fr]">
+            <MotionSection>
+              <div className="flex h-full min-h-[480px] flex-col justify-center p-6 md:p-10">
                 <div>
                   <p className="co-label mb-5">{product.category}</p>
-                  <h1 className="text-[clamp(36px,8vw,128px)] font-bold leading-[0.84] text-[var(--co-ink)]">{product.name}</h1>
+                  <h1 className="co-display-section text-[var(--co-ink)]">{product.name}</h1>
                   <p className="mt-6 text-sm font-bold uppercase tracking-[0.12em] text-[var(--co-brown)]">{product.format}</p>
-                  <p className="co-body mt-7 max-w-xl">{product.shortDescription}</p>
+                  <p className="mt-7 max-w-xl text-base leading-7 text-[var(--co-muted)]">{product.shortDescription}</p>
                   <div className="mt-8 flex flex-wrap gap-3">
                     <AddToCartButton slug={product.slug} label="Save product" />
                     <CTAButton href="/register" variant="outline">Early access</CTAButton>
                   </div>
                 </div>
-              </BentoCard>
+                <div className="mt-9 grid gap-4 sm:grid-cols-2">
+                  <TrustBadge icon="drop" title={product.benefits[0] || "Coconut first"} body="Product cue" />
+                  <TrustBadge icon="cold" title={product.status === "coming-soon" ? "Early access" : "Preview"} body="Availability" />
+                </div>
+              </div>
             </MotionSection>
-            <MotionSection delay={0.08} className="mt-4 lg:col-span-6 lg:mt-0">
-              <BrandImage src={product.image} alt={product.name} sizes="(min-width: 1024px) 48vw, 92vw" aspect="product" fit="contain" priority hoverZoom fallbackLabel={product.name} className="h-full min-h-[620px] rounded-[48px] shadow-[0_28px_90px_rgba(58,36,22,0.12)]" />
+            <MotionSection delay={0.08}>
+              <BrandImage
+                src={product.image}
+                alt={product.name}
+                sizes="(min-width: 1024px) 54vw, 92vw"
+                aspect="wide"
+                fit="contain"
+                priority
+                hoverZoom
+                fallbackLabel={product.name}
+                className="h-full min-h-[480px] rounded-none border-0 bg-[var(--co-cream)]"
+              />
             </MotionSection>
           </div>
         </div>

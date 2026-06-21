@@ -6,20 +6,21 @@ import { Minus, Plus, ShoppingBag, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCart } from "@/lib/cart/cart-context";
 
-export function CartButton() {
+export function CartButton({ showZero = false, className = "" }: { showZero?: boolean; className?: string } = {}) {
   const cart = useCart();
+  const count = cart.totalQuantity;
 
   return (
     <button
       type="button"
       onClick={() => cart.setOpen(true)}
-      className="co-press relative grid h-10 w-10 place-items-center rounded-full border border-[var(--co-border)] bg-[var(--co-white)] text-[var(--co-ink)] md:h-11 md:w-11"
+      className={`co-press relative grid h-10 w-10 place-items-center rounded-[16px] border border-[var(--co-border)] bg-[var(--co-white)] text-[var(--co-ink)] lg:h-11 lg:w-11 ${className}`}
       aria-label="Open cart"
     >
-      <ShoppingBag size={16} />
-      {cart.totalQuantity ? (
-        <span className="absolute -right-2 -top-2 grid h-5 min-w-5 place-items-center rounded-full bg-[var(--co-sun)] px-1 text-[0.62rem] font-bold text-[var(--co-black)]">
-          {cart.totalQuantity}
+      <ShoppingBag size={showZero ? 22 : 16} strokeWidth={showZero ? 2.1 : 2} />
+      {count || showZero ? (
+        <span className="absolute -right-2 -top-2 grid h-5 min-w-5 place-items-center rounded-full bg-[var(--co-black)] px-1 text-[0.62rem] font-bold text-[var(--co-white)]">
+          {count}
         </span>
       ) : null}
     </button>

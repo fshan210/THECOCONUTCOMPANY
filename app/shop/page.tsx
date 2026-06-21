@@ -2,7 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { BrandImage } from "@/components/BrandImage";
-import { BentoCard, BillboardWord, CTAButton, IngredientBadge, MotionSection, ProductTile } from "@/components/brand/BrandPrimitives";
+import { BentoCard, CTAButton, DoodleIcon, IngredientBadge, MotionSection } from "@/components/brand/BrandPrimitives";
+import type { DoodleName } from "@/components/brand/BrandPrimitives";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { productCategories, shopProducts } from "@/lib/catalog";
 import { createPageMetadata } from "@/lib/seo/metadata";
@@ -15,65 +16,107 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function ShopPage() {
-  const heroProduct = shopProducts[0];
+  const water = shopProducts[0];
+  const melt = shopProducts[1];
+  const shopCategories: Array<{ label: string; icon: DoodleName }> = [
+    { label: "Coconut Water", icon: "bottle" },
+    { label: "Ice Cream", icon: "bowl" },
+    { label: "Kitchen", icon: "coconut" },
+    { label: "Botanica", icon: "leaf" },
+    { label: "Wellness", icon: "drop" },
+    { label: "Lifestyle", icon: "wave" }
+  ];
+  const trustItems: Array<{ title: string; body: string; icon: DoodleName }> = [
+    { title: "Secure payment", body: "100% secure checkout", icon: "bottle" },
+    { title: "Easy returns", body: "Hassle-free returns", icon: "wave" },
+    { title: "Fast delivery", body: "Cold shelf updates", icon: "palm" },
+    { title: "Sustainable packaging", body: "Eco-friendly mindset", icon: "leaf" }
+  ];
 
   return (
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Shop", path: "/shop" }]} />
-      <section className="co-section bg-[var(--co-cream)] pt-24 md:pt-32">
+      <section className="bg-[var(--co-cream)] pt-8 md:pt-12">
         <div className="co-container">
-          <MotionSection>
-            <BillboardWord word="SHOP" className="co-display-section text-[var(--co-brown)]/[0.08]" />
-          </MotionSection>
-          <div className="co-grid-12 mt-4 items-stretch md:-mt-4">
-            <MotionSection className="lg:col-span-6">
-              <BentoCard className="flex h-full min-h-[560px] flex-col justify-between">
-                <div>
-                  <p className="co-label mb-5">Product shelf</p>
-                  <h1 className="text-[clamp(36px,8vw,118px)] font-bold leading-[0.84] text-[var(--co-ink)]">
-                    Buy into a colder coconut ritual.
-                  </h1>
-                  <p className="co-body mt-7 max-w-xl">Explore the bottle, the scoop, the kitchen note, the care direction, and the larger .CO world.</p>
-                </div>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  {productCategories.map((category) => (
-                    <IngredientBadge key={category}>{category}</IngredientBadge>
-                  ))}
-                </div>
-              </BentoCard>
-            </MotionSection>
-            <MotionSection delay={0.08} className="mt-4 lg:col-span-6 lg:mt-0">
-              <ProductTile
-                title={heroProduct.name}
-                eyebrow="Featured product"
-                body={heroProduct.shortDescription}
-                image={heroProduct.image}
-                hoverImage={heroProduct.hoverImage}
-                href={`/shop/${heroProduct.slug}`}
-                word="WATER"
-                className="h-full"
+          <div className="grid min-h-[560px] overflow-hidden rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] lg:grid-cols-[0.86fr_1.14fr]">
+            <div className="flex flex-col justify-center p-6 md:p-10">
+              <h1 className="co-display-section text-[var(--co-ink)]">SHOP</h1>
+              <h2 className="mt-5 text-[clamp(26px,3vw,42px)] font-bold leading-tight text-[var(--co-palm)]">
+                Goodness delivered
+                <br />
+                to your door.
+              </h2>
+              <p className="mt-6 max-w-[32ch] text-base leading-7 text-[var(--co-muted)] [overflow-wrap:anywhere]">
+                Choose your favourites and enjoy the goodness of real coconut, anytime.
+              </p>
+              <div className="mt-8">
+                <CTAButton href="#all-products">Shop all</CTAButton>
+              </div>
+            </div>
+            <div className="min-h-[430px]">
+              <BrandImage
+                src={publicAssets.campaign.retailBusiness}
+                alt=".CO product carton with coconut water and coconut ice cream"
+                sizes="(min-width: 1024px) 54vw, 92vw"
+                aspect="wide"
+                fit="cover"
+                position="center"
+                priority
+                hoverZoom
+                fallbackLabel={`${water.name} and ${melt.name}`}
+                className="h-full min-h-[430px] rounded-none border-0"
               />
-            </MotionSection>
+            </div>
+          </div>
+
+          <div className="grid gap-4 rounded-b-[24px] border-x border-b border-[var(--co-border)] bg-[var(--co-white)] px-4 py-6 sm:grid-cols-2 lg:grid-cols-4">
+            {trustItems.map(({ title, body, icon }) => (
+              <div key={title} className="flex items-center gap-3 border-[var(--co-border)] lg:border-r lg:pr-5 lg:last:border-0">
+                <DoodleIcon name={icon} className="h-8 w-8 shrink-0 text-[var(--co-palm)]" />
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.08em] text-[var(--co-brown)]">{title}</p>
+                  <p className="mt-1 text-xs leading-5 text-[var(--co-muted)]">{body}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="co-section bg-[var(--co-white)]">
+      <section id="all-products" className="co-section bg-[var(--co-white)]">
         <div className="co-container">
-          <MotionSection className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <MotionSection className="mb-8 flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
               <p className="co-label mb-5">All products</p>
               <h2 className="co-h2 max-w-4xl text-[var(--co-brown)]">A clear shelf for every coconut ritual.</h2>
             </div>
             <CTAButton href="/recipes" variant="outline">Pair with recipes</CTAButton>
           </MotionSection>
+          <div className="mb-10">
+            <p className="co-label mb-5">Shop by category</p>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              {shopProducts.slice(0, 5).map((product) => (
+                <Link key={product.slug} href={`/shop/${product.slug}`} className="group block">
+                  <article className="co-press overflow-hidden rounded-[24px] border border-[var(--co-border)] bg-[var(--co-cream)] p-2">
+                    <BrandImage src={product.image} alt={`${product.category} category`} sizes="(min-width: 1024px) 18vw, 45vw" aspect="square" fit="contain" hoverZoom fallbackLabel={product.category} className="rounded-[18px] border-0 bg-[var(--co-white)]" imageClassName="!p-2 md:!p-3" />
+                    <p className="mt-3 text-xs font-bold uppercase tracking-[0.08em] text-[var(--co-brown)]">{product.category}</p>
+                  </article>
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="mb-8 flex flex-wrap gap-3">
+            {productCategories.map((category, index) => (
+              <IngredientBadge key={category} tone={index === 0 ? "sun" : "cream"}>{category}</IngredientBadge>
+            ))}
+          </div>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {shopProducts.map((product, index) => (
               <MotionSection key={product.slug} delay={index * 0.04}>
                 <Link href={`/shop/${product.slug}`} className="group block h-full">
                   <BentoCard className="co-press flex h-full flex-col">
                     <div className="relative mb-6">
-                      <BrandImage src={product.image} alt={product.name} sizes="(min-width: 1024px) 30vw, 92vw" aspect="product" fit="contain" hoverZoom fallbackLabel={product.name} className="rounded-[36px]" />
+                      <BrandImage src={product.image} alt={product.name} sizes="(min-width: 1024px) 30vw, 92vw" aspect="product" fit="contain" hoverZoom fallbackLabel={product.name} className="rounded-[24px]" />
                       {product.hoverImage ? (
                         <Image
                           src={product.hoverImage}
@@ -81,7 +124,7 @@ export default function ShopPage() {
                           aria-hidden="true"
                           fill
                           sizes="(min-width: 1024px) 30vw, 92vw"
-                          className="rounded-[36px] object-contain p-6 opacity-0 transition duration-500 ease-out group-hover:opacity-100"
+                          className="rounded-[24px] object-contain p-6 opacity-0 transition duration-500 ease-out group-hover:opacity-100"
                         />
                       ) : null}
                     </div>
@@ -117,7 +160,7 @@ export default function ShopPage() {
                 <CTAButton href="/register" variant="light">Create account</CTAButton>
               </div>
             </div>
-            <BrandImage src={publicAssets.water.flatLay} alt=".CO early access product flat lay" sizes="(min-width: 768px) 34vw, 92vw" aspect="landscape" fit="cover" hoverZoom className="rounded-[36px]" />
+            <BrandImage src={publicAssets.campaign.retailBusiness} alt=".CO early access retail shelf and product carton" sizes="(min-width: 768px) 34vw, 92vw" aspect="landscape" fit="cover" hoverZoom className="rounded-[24px]" />
           </BentoCard>
         </div>
       </section>

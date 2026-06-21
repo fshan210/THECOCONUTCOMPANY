@@ -20,7 +20,7 @@ export function MotionSection({ children, className = "", delay = 0 }: MotionSec
 
   return (
     <motion.div
-      initial={{ opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 28 }}
+      initial={{ opacity: 1, y: shouldReduce ? 0 : 22 }}
       animate={{ opacity: 1, y: 0 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: shouldReduce ? 0 : 0.6, ease: easeBrand, delay: shouldReduce ? 0 : delay }}
@@ -52,7 +52,7 @@ export function CTAButton({
   return (
     <Link
       href={href}
-      className={`co-press inline-flex min-h-12 items-center justify-center rounded-full border px-6 py-3 text-sm font-bold ${styles[variant]} ${className}`}
+      className={`co-press inline-flex min-h-11 items-center justify-center rounded-[12px] border px-6 py-3 text-sm font-bold ${styles[variant]} ${className}`}
     >
       {children}
     </Link>
@@ -76,7 +76,7 @@ export function BentoCard({
     sun: "bg-[var(--co-sun)] text-[var(--co-ink)]"
   };
 
-  return <article className={`co-bento co-bento-lg relative overflow-hidden p-5 md:p-7 ${tones[tone]} ${className}`}>{children}</article>;
+  return <article className={`co-bento relative overflow-hidden p-5 md:p-6 ${tones[tone]} ${className}`}>{children}</article>;
 }
 
 export function BillboardWord({ word, className = "" }: { word: string; className?: string }) {
@@ -95,6 +95,164 @@ export function IngredientBadge({ children, tone = "cream" }: { children: ReactN
   };
 
   return <span className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-bold ${tones[tone]}`}>{children}</span>;
+}
+
+export function SectionShell({
+  children,
+  className = "",
+  innerClassName = ""
+}: {
+  children: ReactNode;
+  className?: string;
+  innerClassName?: string;
+}) {
+  return (
+    <section className={`co-section ${className}`}>
+      <div className={`co-container ${innerClassName}`}>{children}</div>
+    </section>
+  );
+}
+
+export function BentoGrid({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <div className={`grid gap-3 md:gap-4 ${className}`}>{children}</div>;
+}
+
+export type DoodleName = "coconut" | "leaf" | "drop" | "wave" | "palm" | "cold" | "bottle" | "bowl";
+
+export function DoodleIcon({ name, className = "" }: { name: DoodleName; className?: string }) {
+  const common = "fill-none stroke-current stroke-[1.8] stroke-linecap-round stroke-linejoin-round";
+
+  return (
+    <svg aria-hidden="true" viewBox="0 0 48 48" className={`h-9 w-9 text-[var(--co-brown)] ${className}`}>
+      {name === "coconut" ? (
+        <>
+          <path className={common} d="M14 30c1-11 7-19 16-20 7 5 9 14 3 22-5 7-15 8-19-2Z" />
+          <path className={common} d="M18 29c4 4 11 3 15-2" opacity=".42" />
+          <path className={common} d="M27 10c1-2 3-4 6-5" />
+        </>
+      ) : null}
+      {name === "leaf" ? (
+        <>
+          <path className={common} d="M8 36c18 0 27-10 32-27-18 1-29 9-32 27Z" />
+          <path className={common} d="M9 36c9-9 19-16 31-27" opacity=".62" />
+        </>
+      ) : null}
+      {name === "drop" ? (
+        <>
+          <path className={common} d="M24 6c8 11 13 18 13 26 0 7-6 12-13 12S11 39 11 32c0-8 5-15 13-26Z" />
+          <path className={common} d="M18 33c2 3 5 5 9 4" opacity=".42" />
+        </>
+      ) : null}
+      {name === "wave" ? (
+        <>
+          <path className={common} d="M5 27c7-8 13-8 20 0s12 8 18 0" />
+          <path className={common} d="M7 35c6-5 11-5 17 0s11 5 17 0" opacity=".42" />
+        </>
+      ) : null}
+      {name === "palm" ? (
+        <>
+          <path className={common} d="M24 43c2-12 2-23 0-34" />
+          <path className={common} d="M24 10C14 9 8 13 5 20c8-3 14-3 19-10Z" />
+          <path className={common} d="M24 10c8-7 15-7 20-3-6 3-11 6-20 3Z" />
+          <path className={common} d="M24 14c8 0 14 4 18 11-8-2-14-5-18-11Z" />
+          <path className={common} d="M24 14c-8 2-13 7-16 14 7-3 12-6 16-14Z" />
+        </>
+      ) : null}
+      {name === "cold" ? (
+        <>
+          <path className={common} d="M24 6v36M9 15l30 18M39 15 9 33" />
+          <path className={common} d="m18 9 6 6 6-6M18 39l6-6 6 6" opacity=".55" />
+        </>
+      ) : null}
+      {name === "bottle" ? (
+        <>
+          <path className={common} d="M18 5h12v8l4 6v21c0 3-2 5-5 5H19c-3 0-5-2-5-5V19l4-6V5Z" />
+          <path className={common} d="M16 28h16M18 11h12" opacity=".45" />
+        </>
+      ) : null}
+      {name === "bowl" ? (
+        <>
+          <path className={common} d="M8 23h32c-1 12-7 18-16 18S9 35 8 23Z" />
+          <path className={common} d="M13 19c5-5 17-5 22 0" />
+          <path className={common} d="M17 27h14" opacity=".45" />
+        </>
+      ) : null}
+    </svg>
+  );
+}
+
+export function TrustBadge({
+  icon,
+  title,
+  body,
+  className = ""
+}: {
+  icon: DoodleName;
+  title: string;
+  body: string;
+  className?: string;
+}) {
+  return (
+    <div className={`flex items-center gap-3 border-[var(--co-border)] text-[var(--co-brown)] ${className}`}>
+      <DoodleIcon name={icon} className="h-8 w-8 shrink-0 text-[var(--co-palm)]" />
+      <div>
+        <p className="text-sm font-bold leading-tight">{title}</p>
+        <p className="mt-1 text-xs leading-5 text-[var(--co-muted)]">{body}</p>
+      </div>
+    </div>
+  );
+}
+
+export function ProductCard({
+  title,
+  body,
+  image,
+  href,
+  badge,
+  accent = false,
+  imageFit = "cover",
+  className = ""
+}: {
+  title: string;
+  body: string;
+  image: string;
+  href: string;
+  badge?: string;
+  accent?: boolean;
+  imageFit?: "cover" | "contain";
+  className?: string;
+}) {
+  return (
+    <Link href={href} className={`group block h-full ${className}`}>
+      <article className={`co-press relative flex h-full min-h-[300px] flex-col justify-between overflow-hidden rounded-[24px] border border-[var(--co-border)] p-5 ${accent ? "bg-[var(--co-sun)]" : "bg-[var(--co-white)]"}`}>
+        {badge ? <span className="w-fit rounded-[8px] bg-[var(--co-sun)] px-3 py-2 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-[var(--co-black)]">{badge}</span> : <span />}
+        <div className="relative my-3 min-h-[190px]">
+          <BrandImage src={image} alt={title} sizes="(min-width: 1024px) 30vw, 92vw" aspect="landscape" fit={imageFit} hoverZoom fallbackLabel={title} className="h-full rounded-[18px] border-0 bg-transparent" />
+        </div>
+        <div>
+          <h3 className="text-[clamp(28px,3vw,44px)] font-bold leading-[0.92] text-[var(--co-brown)]">{title}</h3>
+          <p className="mt-3 max-w-sm text-sm leading-6 text-[var(--co-muted)]">{body}</p>
+          <span className="mt-5 inline-flex border-b border-current pb-1 text-sm font-bold text-[var(--co-black)]">Shop now</span>
+        </div>
+      </article>
+    </Link>
+  );
+}
+
+export function BrandMarquee({ words }: { words: string[] }) {
+  const repeated = [...words, ...words];
+
+  return (
+    <div className="overflow-hidden border-y border-[var(--co-border)] bg-[var(--co-white)] py-5">
+      <div className="co-marquee-track flex w-max items-center gap-10">
+        {repeated.map((word, index) => (
+          <span key={`${word}-${index}`} className="whitespace-nowrap text-[clamp(28px,4vw,60px)] font-bold uppercase leading-none text-[var(--co-brown)]">
+            {word}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export function ProductTile({

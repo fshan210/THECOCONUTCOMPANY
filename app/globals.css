@@ -166,4 +166,9 @@ body {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+
+  .co-marquee-track {
+    animation: none !important;
+    transform: translateX(0) !important;
+  }
 }

@@ -3,7 +3,6 @@ import { HeroStoryCanvas } from "@/components/HeroStoryCanvas";
 import { StructuredData } from "@/components/seo/StructuredData";
 import {
   BrandWorldTeaser,
-  IngredientHonestySection,
   OriginStorySection,
   ProductBentoSection,
   RetailDistributorCTA,
@@ -23,11 +22,10 @@ export default function HomePage() {
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }]} />
       <HeroStoryCanvas />
-      <TrustCueStrip />
       <ProductBentoSection />
       <OriginStorySection />
       <TasteRitualGrid />
-      <IngredientHonestySection />
+      <TrustCueStrip />
       <RetailDistributorCTA />
       <BrandWorldTeaser />
     </>

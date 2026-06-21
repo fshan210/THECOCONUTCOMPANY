@@ -8,13 +8,16 @@ export function FounderStory() {
   return (
     <section className="co-section bg-[var(--co-cream)]">
       <div className="co-container">
-        <div className="co-grid-12 items-stretch">
-          <MotionSection className="lg:col-span-5">
-            <BrandImage src={publicAssets.brand.madeForLiving} alt=".CO Made for Living brand banner" sizes="(min-width: 1024px) 40vw, 92vw" aspect="portrait" fit="cover" hoverZoom className="h-full min-h-[540px] rounded-[48px]" />
+        <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+          <MotionSection>
+            <div className="grid h-full gap-4 sm:grid-cols-2 lg:grid-cols-1">
+              <BrandImage src={publicAssets.social.founderFazil} alt="Fazil Shersha, co-founder of .CO" sizes="(min-width: 1024px) 40vw, 92vw" aspect="landscape" fit="cover" position="62% 36%" hoverZoom className="rounded-[24px]" />
+              <BrandImage src={publicAssets.social.founderAfsala} alt="Afsala Muthali, co-founder of .CO" sizes="(min-width: 1024px) 40vw, 92vw" aspect="landscape" fit="cover" position="62% 36%" hoverZoom className="rounded-[24px]" />
+            </div>
           </MotionSection>
-          <MotionSection delay={0.08} className="mt-4 lg:col-span-7 lg:mt-0">
-            <BentoCard className="flex h-full min-h-[540px] flex-col justify-between">
-              <BillboardWord word="LIVING" className="text-[clamp(72px,11vw,150px)] text-[var(--co-brown)]/[0.08]" />
+          <MotionSection delay={0.08}>
+            <BentoCard className="flex h-full min-h-[430px] flex-col justify-between rounded-[24px]">
+              <BillboardWord word="LIVING" className="text-[clamp(54px,8vw,112px)] text-[var(--co-brown)]/[0.08]" />
               <div>
                 <p className="co-label mb-5">Founder story</p>
                 <h2 className="co-h2 max-w-4xl text-[var(--co-brown)]">Warm enough for home. Sharp enough for a premium shelf.</h2>

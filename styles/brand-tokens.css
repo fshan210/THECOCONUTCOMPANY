@@ -9,9 +9,9 @@
   --co-sun: #f4c95d;
   --co-border: rgba(58, 36, 22, 0.18);
   --co-black: #09090b;
-  --co-radius-sm: 28px;
-  --co-radius-md: 36px;
-  --co-radius-lg: 48px;
+  --co-radius-sm: 24px;
+  --co-radius-md: 32px;
+  --co-radius-lg: 40px;
   --co-max: 1400px;
   --co-fast: 0.25s;
   --co-medium: 0.6s;
@@ -30,7 +30,7 @@
 }
 
 .co-section {
-  padding-block: clamp(72px, 10vw, 152px);
+  padding-block: clamp(56px, 7vw, 112px);
 }
 
 .co-grid-12 {
@@ -40,23 +40,23 @@
 }
 
 .co-display-hero {
-  font-size: clamp(72px, 14vw, 220px);
+  font-size: clamp(58px, 9.6vw, 132px);
   line-height: 0.82;
-  letter-spacing: 0;
+  letter-spacing: -0.025em;
   font-weight: 700;
 }
 
 .co-display-section {
-  font-size: clamp(64px, 11vw, 180px);
-  line-height: 0.82;
-  letter-spacing: 0;
+  font-size: clamp(46px, 6.8vw, 104px);
+  line-height: 0.86;
+  letter-spacing: -0.02em;
   font-weight: 700;
 }
 
 .co-h2 {
-  font-size: clamp(40px, 6vw, 96px);
-  line-height: 0.88;
-  letter-spacing: 0;
+  font-size: clamp(36px, 5vw, 76px);
+  line-height: 0.92;
+  letter-spacing: -0.018em;
   font-weight: 700;
 }
 
@@ -68,9 +68,9 @@
 
 .co-label {
   color: var(--co-palm);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -78,7 +78,7 @@
   border: 1px solid var(--co-border);
   background: var(--co-white);
   border-radius: var(--co-radius-md);
-  box-shadow: 0 18px 48px rgba(58, 36, 22, 0.065);
+  box-shadow: 0 8px 20px rgba(58, 36, 22, 0.055);
 }
 
 .co-bento-lg {
@@ -99,8 +99,8 @@
 }
 
 .co-press:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 28px 70px rgba(58, 36, 22, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(58, 36, 22, 0.095);
 }
 
 .co-press:active {
@@ -136,6 +136,20 @@
 .co-input:focus-visible {
   border-color: var(--co-black);
   box-shadow: 0 0 0 4px rgba(244, 201, 93, 0.28);
+}
+
+.co-marquee-track {
+  animation: co-marquee 34s linear infinite;
+}
+
+@keyframes co-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .co-admin-primary-button {
@@ -189,13 +203,13 @@
   }
 
   .co-display-hero {
-    font-size: clamp(52px, 18vw, 76px);
-    line-height: 0.86;
+    font-size: clamp(48px, 15vw, 68px);
+    line-height: 0.88;
   }
 
   .co-display-section {
-    font-size: clamp(48px, 15vw, 60px);
-    line-height: 0.88;
+    font-size: clamp(40px, 12vw, 52px);
+    line-height: 0.9;
   }
 
   .co-h2 {
@@ -206,6 +220,6 @@
   .co-container h2,
   .co-container h3,
   .co-container p {
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
   }
 }

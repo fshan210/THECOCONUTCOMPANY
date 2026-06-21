@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { CustomerLoginForm } from "@/components/auth/CustomerAuthForms";
 import { BrandImage } from "@/components/BrandImage";
-import { BentoCard, BillboardWord, MotionSection } from "@/components/brand/BrandPrimitives";
+import { BentoCard, MotionSection, TrustBadge } from "@/components/brand/BrandPrimitives";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { getCustomerSession } from "@/lib/customer/auth";
 import { createPageMetadata } from "@/lib/seo/metadata";
@@ -21,20 +21,25 @@ export default async function LoginPage() {
   return (
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Login", path: "/login" }]} />
-      <section className="co-section bg-[var(--co-cream)] pt-24 md:pt-32">
-        <div className="co-container grid gap-4 lg:grid-cols-[0.86fr_1.14fr] lg:items-stretch">
-          <MotionSection>
-            <BentoCard className="h-full min-h-[620px]">
-              <BillboardWord word="LOGIN" className="text-[clamp(72px,11vw,150px)] text-[var(--co-brown)]/[0.08]" />
-              <p className="co-label mb-5">Customer account</p>
-              <h1 className="co-h2 text-[var(--co-brown)]">Welcome back to your coconut shelf.</h1>
-              <p className="co-body mt-6">Save products, revisit recipes, and keep your coconut rituals close.</p>
-              <CustomerLoginForm />
-            </BentoCard>
-          </MotionSection>
-          <MotionSection delay={0.08}>
-            <BrandImage src={publicAssets.water.lifestyle} alt=".CO coconut water lifestyle" sizes="(min-width: 1024px) 54vw, 92vw" aspect="portrait" fit="cover" priority hoverZoom className="h-full min-h-[620px] rounded-[48px]" />
-          </MotionSection>
+      <section className="bg-[var(--co-cream)] pt-8 md:pt-12">
+        <div className="co-container">
+          <div className="grid overflow-hidden rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] lg:grid-cols-[0.9fr_1.1fr]">
+            <MotionSection>
+              <BentoCard className="h-full min-h-[560px] rounded-none border-0 shadow-none">
+                <p className="co-label mb-5">Customer account</p>
+                <h1 className="co-h2 text-[var(--co-brown)]">Welcome back to your coconut shelf.</h1>
+                <p className="mt-6 max-w-xl text-base leading-7 text-[var(--co-muted)]">Save products, revisit recipes, and keep your coconut rituals close.</p>
+                <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                  <TrustBadge icon="bottle" title="Products" body="Keep shelf notes close." />
+                  <TrustBadge icon="bowl" title="Recipes" body="Return to rituals." />
+                </div>
+                <CustomerLoginForm />
+              </BentoCard>
+            </MotionSection>
+            <MotionSection delay={0.08}>
+              <BrandImage src={publicAssets.campaign.breakfastRitual} alt=".CO breakfast coconut water account ritual" sizes="(min-width: 1024px) 54vw, 92vw" aspect="wide" fit="cover" priority hoverZoom className="h-full min-h-[560px] rounded-none border-0" />
+            </MotionSection>
+          </div>
         </div>
       </section>
     </>

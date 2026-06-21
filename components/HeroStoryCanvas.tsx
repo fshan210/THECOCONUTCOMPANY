@@ -1,132 +1,117 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useMotionTemplate, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
-import { BrandImage } from "@/components/BrandImage";
-import { BillboardWord, CTAButton, IngredientBadge } from "@/components/brand/BrandPrimitives";
+import { motion } from "framer-motion";
+import { CTAButton, DoodleIcon, TrustBadge } from "@/components/brand/BrandPrimitives";
 import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
 import { publicAssets } from "@/lib/public-assets";
 
-const stages = [
-  { label: "Origin", copy: "Kerala coconut source", progress: "01" },
-  { label: "Liquid", copy: "Cold coconut water line", progress: "02" },
-  { label: "Pack", copy: ".CO bottle reveal", progress: "03" },
-  { label: "Shelf", copy: "Ready for the fridge", progress: "04" }
-];
+const ease = [0.16, 1, 0.3, 1] as const;
 
 export function HeroStoryCanvas() {
-  const ref = useRef<HTMLElement>(null);
-  const { shouldReduce, isMobile } = useCoconutMotionMode();
-  const [activeStage, setActiveStage] = useState(0);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const smooth = useSpring(scrollYProgress, { stiffness: 82, damping: 26, mass: 0.42 });
-
-  const originOpacity = useTransform(smooth, [0, 0.24, 0.46], isMobile || shouldReduce ? [0.34, 0.28, 0.18] : [1, 0.86, 0]);
-  const liquidOpacity = useTransform(smooth, [0.18, 0.42, 0.74], isMobile || shouldReduce ? [0.28, 0.34, 0.28] : [0, 1, 0.22]);
-  const pathLength = useTransform(smooth, [0.12, 0.62], [0.05, 1]);
-  const packOpacity = useTransform(smooth, [0, 0.48, 0.72], isMobile || shouldReduce ? [1, 1, 1] : [0.78, 0.9, 1]);
-  const packScale = useTransform(smooth, [0.45, 1], isMobile || shouldReduce ? [1, 1] : [0.92, 1.08]);
-  const packY = useTransform(smooth, [0.45, 1], isMobile || shouldReduce ? [0, 0] : [34, -18]);
-  const mask = useTransform(smooth, [0, 0.74], isMobile || shouldReduce ? [90, 90] : [36, 86]);
-  const clipPath = useMotionTemplate`circle(${mask}% at 50% 48%)`;
-  const wordY = useTransform(smooth, [0, 1], shouldReduce || isMobile ? [0, 0] : [0, -52]);
-
-  useMotionValueEvent(smooth, "change", (value) => {
-    setActiveStage(Math.min(stages.length - 1, Math.floor(value * stages.length)));
-  });
+  const { shouldReduce } = useCoconutMotionMode();
+  const transition = { duration: shouldReduce ? 0 : 0.8, ease };
 
   return (
-    <section ref={ref} className="relative bg-[var(--co-cream)] md:min-h-[220vh]">
-      <div className="min-h-dvh overflow-hidden md:sticky md:top-0">
-        <motion.div style={{ y: wordY }} className="absolute inset-x-0 top-[10vh] z-0 text-center">
-          <BillboardWord word="COCONUT" className="co-display-hero text-[var(--co-brown)]/[0.075]" />
-        </motion.div>
+    <section className="relative isolate overflow-hidden border-b border-[var(--co-border)] bg-[var(--co-cream)]">
+      <div className="absolute inset-0 z-0 lg:hidden">
+        <Image
+          src={publicAssets.water.hero}
+          alt=".CO coconut water bottle with coconut and palm leaves"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[68%_center]"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,var(--co-cream)_0%,rgba(247,240,228,0.96)_18%,rgba(247,240,228,0.72)_46%,rgba(247,240,228,0.12)_78%,rgba(247,240,228,0)_100%)]" />
+        <div className="absolute inset-y-0 left-0 w-[52%] bg-[var(--co-cream)]/20 backdrop-blur-[0.2px]" />
+      </div>
+      <div className="absolute inset-y-0 right-0 z-0 hidden w-[62%] lg:block">
+        <Image
+          src={publicAssets.water.hero}
+          alt=".CO coconut water bottle with coconut and palm leaves"
+          fill
+          priority
+          sizes="62vw"
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,var(--co-cream)_0%,rgba(247,240,228,0.88)_18%,rgba(247,240,228,0.18)_46%,rgba(247,240,228,0)_100%)]" />
+      </div>
 
-        <div className="co-container relative z-10 grid min-h-dvh items-center gap-8 pt-24 lg:grid-cols-[0.92fr_1.08fr]">
-          <div className="pb-8 lg:pb-0">
-            <div className="mb-8 flex flex-wrap gap-3">
-              <IngredientBadge tone="sun">Tender coconut water</IngredientBadge>
-              <IngredientBadge>Cold ritual</IngredientBadge>
-              <IngredientBadge>Fridge shelf ready</IngredientBadge>
-            </div>
-            <h1 className="max-w-4xl text-[clamp(44px,13vw,152px)] font-bold leading-[0.84] text-[var(--co-ink)]">
-              Cold coconut water. Made for living.
-            </h1>
-            <p className="co-body mt-7 max-w-xl">
-              .CO turns coconut origin into a desirable cold bottle: crisp, familiar, and made for everyday rituals.
-            </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <CTAButton href="/shop/co-water">Shop .CO Water</CTAButton>
-              <CTAButton href="/products" variant="outline">Explore the range</CTAButton>
-            </div>
-            <div className="mt-10 hidden max-w-xl grid-cols-2 gap-3 md:grid md:grid-cols-4">
-              {stages.map((stage, index) => (
-                <div
-                  key={stage.label}
-                  className={`rounded-[28px] border px-4 py-4 transition duration-500 ${activeStage === index ? "border-[var(--co-black)] bg-[var(--co-black)] text-[var(--co-white)]" : "border-[var(--co-border)] bg-[var(--co-white)] text-[var(--co-muted)]"}`}
-                >
-                  <p className="text-xs font-bold uppercase tracking-[0.12em]">{stage.progress}</p>
-                  <p className="mt-3 text-sm font-bold">{stage.label}</p>
-                  <p className="mt-1 text-xs opacity-70">{stage.copy}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+      <div className="co-container relative z-10 grid min-h-[640px] items-center gap-8 py-8 sm:min-h-[600px] lg:min-h-[calc(100dvh-96px)] lg:grid-cols-[0.92fr_1.08fr] lg:py-16">
+        <div className="relative max-w-[340px] lg:-mt-10 lg:max-w-4xl">
+          <motion.p initial={{ opacity: 1, y: shouldReduce ? 0 : 18 }} animate={{ opacity: 1, y: 0 }} transition={transition} className="mb-5 hidden text-sm font-bold uppercase tracking-[0.08em] text-[var(--co-palm)] lg:block">
+            Tender coconut water from Kerala
+          </motion.p>
+          <motion.h1
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ...transition, delay: 0 }}
+            className="relative z-10 max-w-[7.6ch] text-[clamp(44px,13.4vw,58px)] font-bold uppercase leading-[0.86] tracking-[-0.025em] text-[var(--co-ink)] lg:max-w-[7ch] lg:text-[clamp(62px,9.4vw,138px)] lg:leading-[0.82]"
+          >
+            Cold Coconut Water.
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 1, y: shouldReduce ? 0 : 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ...transition, delay: shouldReduce ? 0 : 0.16 }}
+            className="mt-5 max-w-[24ch] text-sm leading-6 text-[var(--co-brown)]/88 [overflow-wrap:normal] lg:mt-6 lg:max-w-md lg:text-lg lg:leading-8"
+          >
+            Tender coconut water from Kerala. Cold ritual. Fridge shelf ready.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 1, y: shouldReduce ? 0 : 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ...transition, delay: shouldReduce ? 0 : 0.24 }}
+            className="mt-6 flex flex-wrap gap-3 lg:mt-8"
+          >
+            <CTAButton href="/shop" className="px-5 text-xs lg:px-6 lg:text-sm">Shop Now</CTAButton>
+            <CTAButton href="/about" variant="outline" className="px-5 text-xs lg:px-6 lg:text-sm">Explore Story</CTAButton>
+          </motion.div>
 
-          <div className="relative order-first min-h-[360px] sm:min-h-[540px] lg:order-none lg:min-h-[760px]">
-            <div className="absolute inset-0 rounded-[48px] border border-[var(--co-border)] bg-[var(--co-white)] shadow-[0_34px_110px_rgba(58,36,22,0.13)]" />
-            <motion.div style={{ opacity: originOpacity }} className="absolute inset-4 overflow-hidden rounded-[36px]">
-              <BrandImage
-                src={publicAssets.brand.tenderCoconut}
-                alt="Tender coconut origin for .CO coconut water"
-                sizes="(min-width: 1024px) 52vw, 92vw"
-                aspect="portrait"
-                fit="cover"
-                position="center 48%"
-                priority
-                className="h-full rounded-[36px]"
-              />
-            </motion.div>
-            <motion.svg aria-hidden="true" viewBox="0 0 900 680" className="absolute inset-0 h-full w-full" style={{ opacity: liquidOpacity }}>
-              <motion.path
-                d="M110 402 C250 242 344 492 488 336 C624 188 706 302 812 178"
-                pathLength={pathLength}
-                stroke="var(--co-palm)"
-                strokeWidth="34"
-                strokeLinecap="round"
-                fill="none"
-                opacity="0.2"
-              />
-              <motion.path
-                d="M94 438 C262 300 350 520 522 372 C650 262 724 342 832 240"
-                pathLength={pathLength}
-                stroke="var(--co-white)"
-                strokeWidth="15"
-                strokeLinecap="round"
-                fill="none"
-                opacity="0.92"
-              />
-            </motion.svg>
-            <motion.div style={{ opacity: liquidOpacity }} className="absolute left-8 top-8 rounded-full border border-[var(--co-border)] bg-[var(--co-cream)] px-5 py-3 text-sm font-bold text-[var(--co-brown)]">
-              Coconut → water
-            </motion.div>
-            <motion.div style={{ opacity: packOpacity, scale: packScale, y: packY, clipPath }} className="absolute inset-0">
-              <Image
-                src={publicAssets.water.floating}
-                alt=".CO coconut water bottle packshot"
-                fill
-                priority
-                sizes="(min-width: 1024px) 52vw, 92vw"
-                className="object-contain p-10 drop-shadow-[0_48px_80px_rgba(58,36,22,0.28)] md:p-14"
-              />
-            </motion.div>
-            <motion.div style={{ opacity: packOpacity }} className="absolute bottom-8 left-8 right-8 rounded-[36px] border border-[var(--co-border)] bg-[var(--co-cream)] p-5 md:left-auto md:w-72">
-              <p className="co-label">Final packshot</p>
-              <p className="mt-3 text-3xl font-bold leading-none text-[var(--co-brown)]">Cold. Clean. Coconut.</p>
-            </motion.div>
-          </div>
+          <motion.div
+            initial={{ opacity: 1, y: shouldReduce ? 0 : 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ...transition, delay: shouldReduce ? 0 : 0.32 }}
+            className="mt-7 grid max-w-[340px] grid-cols-3 gap-2 border-t border-[var(--co-border)] pt-5 lg:mt-10 lg:max-w-2xl lg:gap-4 lg:pt-7"
+          >
+            <TrustBadge icon="leaf" title="100% Natural" body="Real coconut taste." className="flex-col items-start gap-1 [&_svg]:h-8 [&_svg]:w-8 [&_p:last-child]:hidden lg:flex-row lg:items-center lg:gap-3 lg:[&_p:last-child]:block" />
+            <TrustBadge icon="drop" title="Nothing Added" body="Clean and simple." className="flex-col items-start gap-1 [&_svg]:h-8 [&_svg]:w-8 [&_p:last-child]:hidden lg:flex-row lg:items-center lg:gap-3 lg:[&_p:last-child]:block" />
+            <TrustBadge icon="cold" title="Fridge Shelf Ready" body="Best served cold." className="flex-col items-start gap-1 [&_svg]:h-8 [&_svg]:w-8 [&_p:last-child]:hidden lg:flex-row lg:items-center lg:gap-3 lg:[&_p:last-child]:block" />
+          </motion.div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 1, scale: shouldReduce ? 1 : 0.96, y: shouldReduce ? 0 : 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ ...transition, delay: shouldReduce ? 0 : 0.12 }}
+          className="relative hidden min-h-[620px] lg:block"
+        >
+          <div className="pointer-events-none absolute bottom-6 right-5 hidden rounded-full border border-[var(--co-white)]/70 bg-[var(--co-black)]/82 px-5 py-5 text-center text-xs font-bold uppercase tracking-[0.1em] text-[var(--co-white)] shadow-[0_8px_20px_rgba(58,36,22,0.18)] lg:block">
+            From Kerala
+            <br />
+            with care
+          </div>
+          <motion.svg
+            aria-hidden="true"
+            viewBox="0 0 520 190"
+            className="pointer-events-none absolute left-0 top-6 hidden h-36 w-96 text-[var(--co-palm)] lg:block"
+          >
+            <motion.path
+              d="M12 116 C104 16 184 178 268 78 C344 -10 438 42 508 18"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="4"
+              strokeLinecap="round"
+              initial={{ pathLength: shouldReduce ? 1 : 0, opacity: shouldReduce ? 0.28 : 0 }}
+              animate={{ pathLength: 1, opacity: 0.28 }}
+              transition={{ duration: shouldReduce ? 0 : 1.1, ease, delay: shouldReduce ? 0 : 0.45 }}
+            />
+          </motion.svg>
+          <div className="absolute -left-2 top-8 hidden lg:block">
+            <DoodleIcon name="wave" className="h-16 w-16 text-[var(--co-palm)]/35" />
+          </div>
+        </motion.div>
       </div>
     </section>
   );
