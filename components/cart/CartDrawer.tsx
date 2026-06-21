@@ -13,12 +13,12 @@ export function CartButton() {
     <button
       type="button"
       onClick={() => cart.setOpen(true)}
-      className="co-neu relative grid h-10 w-10 place-items-center rounded-2xl text-coconut transition hover:-translate-y-0.5"
+      className="co-press relative grid h-10 w-10 place-items-center rounded-full border border-[var(--co-border)] bg-[var(--co-white)] text-[var(--co-ink)] md:h-11 md:w-11"
       aria-label="Open cart"
     >
       <ShoppingBag size={16} />
       {cart.totalQuantity ? (
-        <span className="absolute -right-2 -top-2 grid h-5 min-w-5 place-items-center rounded-full bg-coconut px-1 text-[0.62rem] text-paper">
+        <span className="absolute -right-2 -top-2 grid h-5 min-w-5 place-items-center rounded-full bg-[var(--co-sun)] px-1 text-[0.62rem] font-bold text-[var(--co-black)]">
           {cart.totalQuantity}
         </span>
       ) : null}
@@ -47,14 +47,14 @@ export function CartDrawer() {
             animate={{ opacity: 1, scale: 1, x: 0 }}
             exit={{ opacity: 0, scale: 0.98, x: 24 }}
             transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
-            className="co-glass fixed right-3 top-3 z-[90] flex max-h-[calc(100vh-24px)] w-[calc(100vw-24px)] max-w-md flex-col md:right-5 md:top-5 md:max-h-[calc(100vh-40px)]"
+            className="fixed right-3 top-3 z-[90] flex max-h-[calc(100vh-24px)] w-[calc(100vw-24px)] max-w-md flex-col overflow-hidden rounded-[36px] border border-[var(--co-border)] bg-[var(--co-white)] shadow-[0_28px_90px_rgba(58,36,22,0.18)] md:right-5 md:top-5 md:max-h-[calc(100vh-40px)]"
           >
-            <div className="flex items-center justify-between border-b border-shell p-5">
+            <div className="flex items-center justify-between border-b border-[var(--co-border)] p-5">
               <div>
-                <p className="text-[0.65rem] uppercase tracking-editorial text-grove">Saved shelf</p>
-                <h2 className="font-display text-3xl text-coconut">Saved products</h2>
+                <p className="co-label">Saved shelf</p>
+                <h2 className="mt-2 text-4xl font-bold leading-none text-[var(--co-brown)]">Saved products</h2>
               </div>
-              <button type="button" onClick={() => cart.setOpen(false)} className="grid h-10 w-10 place-items-center rounded-2xl border border-coconut/10 text-coconut">
+              <button type="button" onClick={() => cart.setOpen(false)} className="grid h-10 w-10 place-items-center rounded-full border border-[var(--co-border)] text-[var(--co-ink)]">
                 <X size={16} />
               </button>
             </div>
@@ -62,27 +62,27 @@ export function CartDrawer() {
               {cart.products.length ? (
                 <div className="space-y-4">
                   {cart.products.map((product) => (
-                    <article key={product.slug} className="co-neu grid grid-cols-[84px_1fr] gap-4 p-3">
-                      <div className="relative aspect-square overflow-hidden rounded-2xl bg-paper">
+                    <article key={product.slug} className="grid grid-cols-[84px_1fr] gap-4 rounded-[28px] border border-[var(--co-border)] bg-[var(--co-cream)] p-3">
+                      <div className="relative aspect-square overflow-hidden rounded-[28px] bg-[var(--co-white)]">
                         <Image src={product.image} alt={product.name} fill sizes="84px" className="object-contain p-2" />
                       </div>
                       <div>
-                        <h3 className="font-display text-2xl text-ink">{product.name}</h3>
-                        <p className="mt-1 text-xs uppercase tracking-editorial text-muted">{product.category}</p>
+                        <h3 className="text-2xl font-bold leading-none text-[var(--co-ink)]">{product.name}</h3>
+                        <p className="mt-2 text-xs font-bold uppercase tracking-[0.12em] text-[var(--co-muted)]">{product.category}</p>
                         <div className="mt-4 flex items-center gap-2">
                           <button
                             type="button"
                             onClick={() => cart.updateQuantity(product.slug, product.quantity - 1)}
-                            className="co-neu-inset grid h-8 w-8 place-items-center text-coconut"
+                            className="grid h-8 w-8 place-items-center rounded-full border border-[var(--co-border)] bg-[var(--co-white)] text-[var(--co-brown)]"
                             aria-label={`Decrease ${product.name}`}
                           >
                             <Minus size={14} />
                           </button>
-                          <span className="co-neu-inset grid h-8 min-w-8 place-items-center text-sm text-ink">{product.quantity}</span>
+                          <span className="grid h-8 min-w-8 place-items-center rounded-full border border-[var(--co-border)] bg-[var(--co-white)] text-sm font-bold text-[var(--co-ink)]">{product.quantity}</span>
                           <button
                             type="button"
                             onClick={() => cart.updateQuantity(product.slug, product.quantity + 1)}
-                            className="co-neu grid h-8 w-8 place-items-center text-coconut"
+                            className="grid h-8 w-8 place-items-center rounded-full border border-[var(--co-border)] bg-[var(--co-black)] text-[var(--co-white)]"
                             aria-label={`Increase ${product.name}`}
                           >
                             <Plus size={14} />
@@ -93,14 +93,14 @@ export function CartDrawer() {
                   ))}
                 </div>
               ) : (
-                <div className="border border-shell bg-paper p-6">
-                  <p className="text-sm leading-7 text-muted">Your saved shelf is empty. Add products you want to remember.</p>
+                <div className="rounded-[28px] border border-[var(--co-border)] bg-[var(--co-cream)] p-6">
+                  <p className="text-sm leading-7 text-[var(--co-muted)]">Your saved shelf is empty. Add products you want to remember.</p>
                 </div>
               )}
             </div>
-            <div className="border-t border-shell p-5">
-              <p className="mb-4 text-xs leading-6 text-muted">We will share product notes and availability through early access.</p>
-              <Link href="/sign-up" onClick={() => cart.setOpen(false)} className="co-button-soft block rounded-2xl bg-coconut px-6 py-4 text-center text-sm text-paper">
+            <div className="border-t border-[var(--co-border)] p-5">
+              <p className="mb-4 text-xs leading-6 text-[var(--co-muted)]">We will share product notes and availability through early access.</p>
+              <Link href="/sign-up" onClick={() => cart.setOpen(false)} className="block rounded-full bg-[var(--co-black)] px-6 py-4 text-center text-sm font-bold text-[var(--co-white)] transition hover:bg-[var(--co-palm)]">
                 Join early access
               </Link>
             </div>

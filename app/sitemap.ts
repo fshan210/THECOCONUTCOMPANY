@@ -9,6 +9,7 @@ const routes = [
   "/sustainability",
   "/founders",
   "/journal",
+  "/contact",
   "/shop",
   "/shop/co-water",
   "/shop/melt-co-mango-coconut",

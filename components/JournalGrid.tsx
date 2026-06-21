@@ -1,4 +1,5 @@
-import Image from "next/image";
+import { BrandImage } from "@/components/BrandImage";
+import { BentoCard, MotionSection } from "@/components/brand/BrandPrimitives";
 import { journalEntries } from "@/lib/content";
 import { publicAssets } from "@/lib/public-assets";
 
@@ -11,18 +12,16 @@ const journalImages = [
 
 export function JournalGrid() {
   return (
-    <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       {journalEntries.map((entry, index) => (
-        <article key={entry.title} className="h-full overflow-hidden rounded-3xl border border-coconut/10 bg-[#fff8ea] shadow-[0_18px_48px_rgba(62,46,31,0.06)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_24px_64px_rgba(62,46,31,0.1)]">
-          <div className="relative aspect-[4/3] bg-paper">
-            <Image src={journalImages[index % journalImages.length]} alt={`${entry.title} editorial visual`} fill sizes="(min-width: 1024px) 25vw, (min-width: 768px) 48vw, 92vw" className="object-cover" />
-          </div>
-          <div className="p-7">
-            <p className="mb-6 text-[0.7rem] font-medium uppercase tracking-editorial text-grove">{entry.category}</p>
-            <h3 className="mb-5 font-display text-3xl font-light leading-tight text-coconut">{entry.title}</h3>
-            <p className="text-sm leading-7 text-coconut/68">{entry.excerpt}</p>
-          </div>
-        </article>
+        <MotionSection key={entry.title} delay={index * 0.04}>
+          <BentoCard className="co-press h-full">
+            <BrandImage src={journalImages[index % journalImages.length]} alt={`${entry.title} editorial visual`} sizes="(min-width: 1024px) 25vw, (min-width: 768px) 48vw, 92vw" aspect="landscape" fit="cover" hoverZoom className="mb-6 rounded-[28px]" />
+            <p className="co-label mb-5">{entry.category}</p>
+            <h3 className="text-3xl font-bold leading-[0.95] text-[var(--co-brown)]">{entry.title}</h3>
+            <p className="co-body mt-5 text-sm">{entry.excerpt}</p>
+          </BentoCard>
+        </MotionSection>
       ))}
     </div>
   );

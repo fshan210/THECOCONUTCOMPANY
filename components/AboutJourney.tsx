@@ -1,122 +1,105 @@
 "use client";
 
 import Image from "next/image";
-import { Leaf, Package, PackageCheck, Sprout, Store, UsersRound } from "lucide-react";
 import { motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
-import { Appear } from "@/components/motion/Appear";
-import { PublicHeader, PublicSection } from "@/components/PublicDesign";
+import { BentoCard, BillboardWord, CTAButton, MotionSection } from "@/components/brand/BrandPrimitives";
+import { BrandImage } from "@/components/BrandImage";
 import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
 import { publicAssets } from "@/lib/public-assets";
 
 const journey = [
   {
     title: "Kerala Grove",
-    detail: "Shade, soil, palms, and the familiar taste of tender coconut set the emotional origin.",
-    image: publicAssets.journey.grove,
-    icon: Sprout
+    detail: "Coconut memory starts in shade, heat, palms, and daily food culture.",
+    image: publicAssets.journey.grove
   },
   {
     title: "Farmers",
-    detail: "The story stays close to people who understand coconut as daily work and daily food.",
-    image: publicAssets.journey.farmers,
-    icon: UsersRound
+    detail: "The product story stays close to people who understand coconut as work and ritual.",
+    image: publicAssets.journey.farmers
   },
   {
-    title: "Village Aggregation Point",
-    detail: "Coconuts come together in a simple local handoff before becoming finished products.",
-    image: publicAssets.journey.aggregation,
-    icon: Leaf
+    title: "Village Collection",
+    detail: "A simple local handoff gathers coconut before processing and bottling.",
+    image: publicAssets.journey.aggregation
   },
   {
     title: "Processing",
-    detail: "The goal is clarity: protect taste, keep the product language simple, and respect the ingredient.",
-    image: publicAssets.journey.processing,
-    icon: PackageCheck
+    detail: "Clean handling keeps the product language focused on taste, coldness, and clarity.",
+    image: publicAssets.journey.processing
   },
   {
     title: "Bottling",
-    detail: "The coconut story becomes a sharp, cold, easy-to-hold .CO product.",
-    image: publicAssets.journey.bottling,
-    icon: Package
+    detail: "The story becomes a cold, clear product designed for shelves and fridge doors.",
+    image: publicAssets.journey.bottling
   },
   {
     title: "Customer Ritual",
-    detail: "A fridge-door bottle, a recipe glass, a sunny reset, and a product that feels at home.",
-    image: publicAssets.journey.ritual,
-    icon: Store
+    detail: "A cold bottle, a recipe glass, a sunny reset, and a product people remember.",
+    image: publicAssets.journey.ritual
   }
 ];
 
-function JourneyInteraction() {
+function JourneyRail() {
   const ref = useRef<HTMLDivElement>(null);
   const { shouldReduce, isMobile } = useCoconutMotionMode();
   const [activeIndex, setActiveIndex] = useState(0);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const smooth = useSpring(scrollYProgress, { stiffness: 90, damping: 28, mass: 0.42 });
-  const pathLength = useTransform(smooth, [0, 1], [0.06, 1]);
-  const markerX = useTransform(smooth, [0, 1], shouldReduce || isMobile ? ["8%", "8%"] : ["8%", "88%"]);
+  const smooth = useSpring(scrollYProgress, { stiffness: 92, damping: 30, mass: 0.45 });
+  const pathLength = useTransform(smooth, [0, 1], [0.05, 1]);
+  const bottleY = useTransform(smooth, [0, 1], shouldReduce || isMobile ? [0, 0] : [28, -34]);
 
   useMotionValueEvent(smooth, "change", (value) => {
     setActiveIndex(Math.min(journey.length - 1, Math.max(0, Math.floor(value * journey.length))));
   });
 
+  const active = journey[activeIndex];
+
   return (
-    <div ref={ref} className="relative min-h-[260vh]">
-      <div className="sticky top-24 mx-auto grid min-h-[calc(100svh-6rem)] max-w-7xl gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
-        <div className="relative overflow-hidden rounded-3xl border border-coconut/10 bg-paper p-4 shadow-[0_24px_70px_rgba(62,46,31,0.09)] md:p-5">
-          <div className="co-wave-pattern absolute inset-0 opacity-[0.055]" />
-          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-[#fff8ea]">
+    <div ref={ref} className="relative md:min-h-[260vh]">
+      <div className="co-container grid items-center gap-5 py-6 md:sticky md:top-20 md:min-h-[calc(100dvh-5rem)] lg:grid-cols-[0.96fr_1.04fr]">
+        <BentoCard className="min-h-[460px] md:min-h-[560px]">
+          <div className="relative h-full min-h-[420px] overflow-hidden rounded-[36px] md:min-h-[520px]">
             {journey.map((stage, index) => (
               <motion.div
                 key={stage.title}
-                initial={false}
                 animate={{ opacity: activeIndex === index ? 1 : 0, scale: activeIndex === index ? 1 : 1.04 }}
-                transition={{ duration: 0.62, ease: [0.215, 0.61, 0.355, 1] }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 className="absolute inset-0"
               >
-                <Image src={stage.image} alt={stage.title} fill sizes="(min-width: 1024px) 42vw, 92vw" className={index === 4 ? "object-contain p-8 drop-shadow-[0_34px_54px_rgba(62,46,31,0.22)]" : "object-cover"} />
+                <Image src={stage.image} alt={stage.title} fill sizes="(min-width: 1024px) 46vw, 92vw" className={stage.title === "Bottling" ? "object-contain p-10" : "object-cover"} />
               </motion.div>
             ))}
-            <div className="absolute inset-0 bg-gradient-to-t from-coconut/28 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-[var(--co-black)]/10" />
           </div>
-          <motion.div style={{ x: markerX }} className="absolute bottom-9 left-0 h-4 w-4 rounded-full bg-sun shadow-[0_0_0_8px_rgba(216,192,122,0.2)]" />
-        </div>
-
-        <div className="relative">
-          <p className="mb-6 text-[0.72rem] font-medium uppercase tracking-editorial text-grove">Origin to ritual</p>
-          <h2 className="font-display text-5xl font-light leading-[0.92] text-coconut md:text-7xl lg:text-8xl">{journey[activeIndex].title}</h2>
-          <p className="mt-7 max-w-xl text-lg leading-9 text-coconut/70">{journey[activeIndex].detail}</p>
-          <div className="relative mt-12 hidden h-28 md:block">
-            <svg aria-hidden="true" viewBox="0 0 820 120" className="h-full w-full text-coconut/18">
-              <path d="M20 74 C150 10 224 112 356 58 C500 -2 566 96 800 38" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
-              <motion.path style={{ pathLength }} d="M20 74 C150 10 224 112 356 58 C500 -2 566 96 800 38" stroke="#4A6F4A" strokeWidth="4" fill="none" strokeLinecap="round" />
+        </BentoCard>
+        <div>
+          <p className="co-label mb-5">Origin to ritual</p>
+          <h2 className="co-h2 text-[var(--co-brown)]">{active.title}</h2>
+          <p className="co-body mt-7 max-w-xl">{active.detail}</p>
+          <div className="relative mt-10 h-24">
+            <svg aria-hidden="true" viewBox="0 0 840 120" className="h-full w-full">
+              <path d="M20 68 C170 8 230 112 370 58 C520 0 594 98 820 34" stroke="rgba(58,36,22,0.18)" strokeWidth="3" fill="none" strokeLinecap="round" />
+              <motion.path style={{ pathLength }} d="M20 68 C170 8 230 112 370 58 C520 0 594 98 820 34" stroke="var(--co-palm)" strokeWidth="5" fill="none" strokeLinecap="round" />
             </svg>
-            <div className="absolute inset-x-0 top-0 flex justify-between">
-              {journey.map((stage, index) => {
-                const Icon = stage.icon;
-                const active = index <= activeIndex;
-                return (
-                  <span key={stage.title} className={`grid h-11 w-11 place-items-center rounded-2xl border transition ${active ? "border-grove bg-grove text-paper" : "border-coconut/12 bg-paper text-coconut/42"}`}>
-                    <Icon size={17} />
-                  </span>
-                );
-              })}
-            </div>
           </div>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-2 sm:grid-cols-2">
             {journey.map((stage, index) => (
               <button
                 key={stage.title}
                 type="button"
                 onClick={() => setActiveIndex(index)}
-                className={`rounded-2xl border px-4 py-3 text-left text-xs font-medium uppercase tracking-editorial transition ${activeIndex === index ? "border-grove bg-grove text-paper" : "border-coconut/10 bg-[#fff8ea] text-coconut/58"}`}
+                className={`min-h-12 rounded-full border px-4 text-left text-xs font-bold uppercase tracking-[0.12em] transition ${activeIndex === index ? "border-[var(--co-black)] bg-[var(--co-black)] text-[var(--co-white)]" : "border-[var(--co-border)] bg-[var(--co-white)] text-[var(--co-muted)]"}`}
               >
                 0{index + 1} / {stage.title}
               </button>
             ))}
           </div>
         </div>
+        <motion.div style={{ y: bottleY }} className="pointer-events-none absolute bottom-8 right-6 hidden w-40 lg:block">
+          <BrandImage src={publicAssets.water.floating} alt=".CO coconut water bottle" sizes="160px" aspect="product" fit="contain" className="rounded-[28px]" />
+        </motion.div>
       </div>
     </div>
   );
@@ -124,39 +107,36 @@ function JourneyInteraction() {
 
 export function AboutJourney() {
   return (
-    <PublicSection tone="warm">
-      <PublicHeader
-        kicker="Our journey"
-        title="From grove to ritual, with the coconut kept at the centre."
-        body="A simple journey told with product context: origin, farmers, aggregation, processing, bottling, and the daily moment that follows."
-      />
-      <JourneyInteraction />
-      <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-2">
-        {journey.map((item, index) => {
-          const Icon = item.icon;
-          return (
-            <Appear key={item.title} delay={index * 0.04}>
-              <article className="grid h-full overflow-hidden rounded-3xl border border-coconut/10 bg-paper shadow-[0_18px_48px_rgba(62,46,31,0.06)] lg:grid-cols-[0.82fr_1fr]">
-                <div className="relative min-h-72">
-                  <Image src={item.image} alt={item.title} fill sizes="(min-width: 1024px) 28vw, (min-width: 768px) 46vw, 92vw" className="object-cover" />
-                </div>
-                <div className="flex min-h-72 flex-col justify-between p-6 md:p-7">
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="grid h-12 w-12 place-items-center rounded-2xl bg-grove/10 text-grove">
-                      <Icon size={20} />
-                    </span>
-                    <span className="text-[0.68rem] font-medium uppercase tracking-editorial text-coconut/38">0{index + 1}</span>
-                  </div>
-                  <div>
-                    <h3 className="font-display text-4xl font-light leading-tight text-coconut">{item.title}</h3>
-                    <p className="mt-5 text-sm leading-7 text-coconut/68">{item.detail}</p>
-                  </div>
-                </div>
-              </article>
-            </Appear>
-          );
-        })}
+    <section className="co-section bg-[var(--co-white)]">
+      <MotionSection className="co-container mb-10">
+        <BillboardWord word="GROVE" className="co-display-section text-[var(--co-brown)]/[0.085]" />
+        <h2 className="co-h2 -mt-3 max-w-5xl text-[var(--co-ink)]">A premium coconut brand with an origin system behind it.</h2>
+      </MotionSection>
+      <JourneyRail />
+      <div className="co-container grid gap-4 md:grid-cols-3">
+        {[
+          ["Coconut-first", "Products begin with rituals people already understand."],
+          ["Shelf discipline", "Design decisions serve product desire and repeat purchase."],
+          ["Made for living", "A warm brand world for water, dessert, kitchen, care, and recipes."]
+        ].map(([title, body], index) => (
+          <MotionSection key={title} delay={index * 0.05}>
+            <BentoCard className="h-full">
+              <p className="text-7xl font-bold leading-none text-[var(--co-brown)]/15">0{index + 1}</p>
+              <h3 className="mt-8 text-4xl font-bold leading-none text-[var(--co-brown)]">{title}</h3>
+              <p className="co-body mt-5">{body}</p>
+            </BentoCard>
+          </MotionSection>
+        ))}
       </div>
-    </PublicSection>
+      <div className="co-container mt-6">
+        <BentoCard tone="green" className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
+          <div>
+            <p className="co-label mb-4 text-[var(--co-sun)]">Brand position</p>
+            <h3 className="text-[clamp(42px,6vw,92px)] font-bold leading-[0.88]">Consumer coconut products made for the fridge, kitchen, and table.</h3>
+          </div>
+          <CTAButton href="/products" variant="light">See products</CTAButton>
+        </BentoCard>
+      </div>
+    </section>
   );
 }

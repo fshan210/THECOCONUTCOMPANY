@@ -12,7 +12,7 @@ export function AddToCartButton({ slug, label = "Add to Cart" }: { slug: string;
       onClick={() => cart.addItem(slug)}
       data-analytics="product_interest_click"
       data-analytics-label={`add_to_cart_${slug}`}
-      className="co-button-soft inline-flex items-center gap-3 rounded-2xl bg-coconut px-6 py-4 text-sm font-medium text-paper transition hover:-translate-y-0.5 hover:bg-grove"
+      className="co-press inline-flex min-h-12 items-center gap-3 rounded-full border border-[var(--co-black)] bg-[var(--co-black)] px-6 py-3 text-sm font-bold text-[var(--co-white)] hover:border-[var(--co-palm)] hover:bg-[var(--co-palm)]"
     >
       {label} <ShoppingBag size={16} />
     </button>

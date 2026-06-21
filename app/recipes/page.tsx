@@ -1,12 +1,9 @@
-import Image from "next/image";
 import type { Metadata } from "next";
-import { Appear } from "@/components/motion/Appear";
-import { DoodleImage, PublicHeader, PublicSection } from "@/components/PublicDesign";
+import { BentoCard, BillboardWord, CTAButton, IngredientBadge, MotionSection, RitualCard } from "@/components/brand/BrandPrimitives";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { recipes } from "@/lib/catalog";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { recipeSchema } from "@/lib/seo/structured-data";
-import { publicAssets } from "@/lib/public-assets";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Recipes",
@@ -15,49 +12,51 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function RecipesPage() {
-  const categories = ["Coconut water drinks", "Smoothies", "Desserts", "Everyday kitchen"];
-
   return (
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Recipes", path: "/recipes" }]} extra={recipes.map(recipeSchema)} />
-      <PublicSection className="pt-28 md:pt-32">
-        <DoodleImage src={publicAssets.doodles.rawCoconut} className="left-5 top-24 h-32 w-32 md:h-52 md:w-52" />
-        <PublicHeader kicker="Recipes" title="Coconut rituals for modern living." body="Simple, bright ideas for drinks, bowls, and small hosting moments." />
-        <div className="mx-auto mb-10 flex max-w-7xl flex-wrap justify-center gap-3">
-          {categories.map((category) => (
-            <span key={category} className="rounded-2xl border border-coconut/10 bg-[#fff8ea] px-4 py-3 text-xs font-medium uppercase tracking-editorial text-coconut/68">
-              {category}
-            </span>
-          ))}
+      <section className="co-section bg-[var(--co-cream)] pt-24 md:pt-32">
+        <div className="co-container">
+          <MotionSection>
+            <BillboardWord word="RECIPES" className="co-display-section text-[var(--co-brown)]/[0.08]" />
+          </MotionSection>
+          <MotionSection className="mt-4 max-w-5xl md:-mt-3">
+            <h1 className="text-[clamp(36px,9vw,132px)] font-bold leading-[0.84] text-[var(--co-ink)]">
+              Make the product repeatable.
+            </h1>
+            <p className="co-body mt-7 max-w-2xl">Simple coconut rituals for breakfast, heat, cafe-style drinks, and small hosting moments.</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              {["Coconut water", "Smoothies", "Dessert", "Cold coffee"].map((tag, index) => (
+                <IngredientBadge key={tag} tone={index === 0 ? "sun" : "cream"}>{tag}</IngredientBadge>
+              ))}
+            </div>
+          </MotionSection>
         </div>
-        <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-2 lg:grid-cols-3">
+      </section>
+
+      <section className="co-section bg-[var(--co-white)]">
+        <div className="co-container grid gap-4 md:grid-cols-3">
           {recipes.map((recipe, index) => (
-            <Appear key={recipe.slug} delay={index * 0.04}>
-              <article id={recipe.slug} className="h-full overflow-hidden rounded-3xl border border-coconut/10 bg-[#fff8ea] p-4 shadow-[0_18px_48px_rgba(62,46,31,0.06)] transition duration-500 hover:-translate-y-1">
-                <div className="relative mb-6 aspect-[4/5] overflow-hidden rounded-2xl bg-paper">
-                  <Image src={recipe.image} alt={recipe.title} fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 92vw" className="object-cover transition duration-700 hover:scale-[1.03]" />
-                </div>
-                <p className="mb-3 text-[0.65rem] font-medium uppercase tracking-editorial text-grove">
-                  {recipe.category} / {recipe.time} / {recipe.difficulty}
-                </p>
-                <h2 className="font-display text-3xl font-light text-coconut">{recipe.title}</h2>
-                <p className="mt-4 text-sm leading-7 text-coconut/68">{recipe.description}</p>
-                <div className="mt-6 border-t border-coconut/10 pt-5">
-                  <p className="mb-3 text-[0.62rem] font-medium uppercase tracking-editorial text-grove">Ingredients</p>
-                  <div className="flex flex-wrap gap-2">
-                    {recipe.ingredients.map((ingredient) => (
-                      <span key={ingredient} className="rounded-2xl border border-coconut/10 bg-paper px-3 py-2 text-xs text-coconut/72">
-                        {ingredient}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <p className="mt-6 text-xs font-medium uppercase tracking-editorial text-coconut">Product used: {recipe.product}</p>
-              </article>
-            </Appear>
+            <MotionSection key={recipe.slug} delay={index * 0.05}>
+              <div id={recipe.slug}>
+                <RitualCard title={recipe.title} body={recipe.description} image={recipe.image} label={`${recipe.category} / ${recipe.time}`} className="h-full" />
+              </div>
+            </MotionSection>
           ))}
         </div>
-      </PublicSection>
+      </section>
+
+      <section className="co-section bg-[var(--co-cream)]">
+        <div className="co-container">
+          <BentoCard tone="dark" className="grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
+            <div>
+              <p className="co-label mb-5 text-[var(--co-sun)]">Product used</p>
+              <h2 className="co-h2">Every recipe points back to a cold .CO moment.</h2>
+            </div>
+            <CTAButton href="/shop/co-water" variant="light">Shop .CO Water</CTAButton>
+          </BentoCard>
+        </div>
+      </section>
     </>
   );
 }

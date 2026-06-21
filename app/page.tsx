@@ -2,16 +2,13 @@ import type { Metadata } from "next";
 import { HeroStoryCanvas } from "@/components/HeroStoryCanvas";
 import { StructuredData } from "@/components/seo/StructuredData";
 import {
-  BrandManifestoBanner,
-  FounderJourneyPreview,
-  HonestProductSection,
-  MeltCoHighlight,
-  NewsletterSignupSection,
-  ProductEcosystem,
-  ProductHighlight,
-  RecipesPreview,
-  SustainabilityPreview,
-  TrustStrip
+  BrandWorldTeaser,
+  IngredientHonestySection,
+  OriginStorySection,
+  ProductBentoSection,
+  RetailDistributorCTA,
+  TasteRitualGrid,
+  TrustCueStrip
 } from "@/components/HomeExperienceSections";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
@@ -26,16 +23,13 @@ export default function HomePage() {
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }]} />
       <HeroStoryCanvas />
-      <TrustStrip />
-      <ProductHighlight />
-      <BrandManifestoBanner />
-      <ProductEcosystem />
-      <MeltCoHighlight />
-      <HonestProductSection />
-      <RecipesPreview />
-      <SustainabilityPreview />
-      <FounderJourneyPreview />
-      <NewsletterSignupSection />
+      <TrustCueStrip />
+      <ProductBentoSection />
+      <OriginStorySection />
+      <TasteRitualGrid />
+      <IngredientHonestySection />
+      <RetailDistributorCTA />
+      <BrandWorldTeaser />
     </>
   );
 }

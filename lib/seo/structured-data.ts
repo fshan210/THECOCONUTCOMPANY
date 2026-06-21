@@ -55,7 +55,7 @@ export function productSchemaPlaceholder() {
   return {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: "Future .CO product schema placeholder",
+    name: ".CO coconut product range",
     brand: {
       "@type": "Brand",
       name: siteName
@@ -67,7 +67,7 @@ export function articleSchemaPlaceholder() {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: "Future .CO article schema placeholder",
+    headline: ".CO coconut culture and product notes",
     publisher: organizationSchema()
   };
 }

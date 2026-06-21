@@ -80,7 +80,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html lang="en">
       <head>
-        <link rel="preload" as="image" href="/assets/Coconut_Water_Assets/hero composition.png" fetchPriority="high" />
+        <link rel="preload" as="image" href="/assets/coconut/tender-coconut-water.jpg" fetchPriority="high" />
         <link rel="preload" as="image" href="/assets/Coconut_Water_Assets/floating pack.png" fetchPriority="high" />
       </head>
       <body className={`${brandFont.variable} font-sans antialiased`}>

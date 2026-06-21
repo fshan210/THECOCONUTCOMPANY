@@ -52,18 +52,17 @@ export function VerificationPending({ session }: { session: CustomerSession }) {
   }
 
   return (
-    <section className="relative overflow-hidden bg-paper px-5 py-16 md:px-8 md:py-24">
-      <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 w-80 opacity-[0.08]" />
-      <div className="co-glass mx-auto max-w-3xl p-6 text-center md:p-10">
-        <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-grove/12 text-grove">
+    <section className="co-section bg-[var(--co-cream)] pt-24 md:pt-32">
+      <div className="co-container max-w-3xl rounded-[36px] border border-[var(--co-border)] bg-[var(--co-white)] p-6 text-center shadow-[0_18px_48px_rgba(58,36,22,0.065)] md:p-10">
+        <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-[var(--co-palm)]/10 text-[var(--co-palm)]">
           <MailCheck size={28} />
         </div>
-        <p className="mt-7 text-[0.72rem] uppercase tracking-editorial text-grove">Verification pending</p>
-        <h1 className="mt-4 font-display text-5xl leading-tight text-ink md:text-7xl">Confirm your .CO account.</h1>
-        <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-muted">
+        <p className="co-label mt-7">Verification pending</p>
+        <h1 className="mt-4 text-[clamp(48px,7vw,92px)] font-bold leading-[0.86] text-[var(--co-ink)]">Confirm your .CO account.</h1>
+        <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-[var(--co-muted)]">
           {session.email}
         </p>
-        <div className={`mx-auto mt-6 max-w-xl rounded-lg border px-4 py-3 text-sm leading-6 ${ok ? "border-grove/20 bg-grove/10 text-grove" : "border-coconut/12 bg-paper/72 text-coconut"}`}>
+        <div className={`mx-auto mt-6 max-w-xl rounded-[28px] border px-4 py-3 text-sm leading-6 ${ok ? "border-[var(--co-palm)]/20 bg-[var(--co-palm)]/10 text-[var(--co-palm)]" : "border-[var(--co-border)] bg-[var(--co-cream)] text-[var(--co-brown)]"}`}>
           {message}
         </div>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
@@ -71,7 +70,7 @@ export function VerificationPending({ session }: { session: CustomerSession }) {
             {pending ? <Loader2 className="animate-spin" size={18} /> : <RotateCcw size={18} />}
             Resend email
           </button>
-          <button type="button" disabled={pending} onClick={refreshStatus} className="co-neu inline-flex min-h-12 items-center justify-center gap-2 rounded-lg px-5 text-sm font-medium text-coconut">
+          <button type="button" disabled={pending} onClick={refreshStatus} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[var(--co-border)] bg-[var(--co-white)] px-5 text-sm font-bold text-[var(--co-brown)]">
             {pending ? <Loader2 className="animate-spin" size={18} /> : <CheckCircle2 size={18} />}
             I verified
           </button>

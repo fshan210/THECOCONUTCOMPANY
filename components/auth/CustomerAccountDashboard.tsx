@@ -13,16 +13,15 @@ const customerCards = [
 
 export function CustomerAccountDashboard({ session }: { session: CustomerSession }) {
   return (
-    <section className="relative overflow-hidden bg-paper px-5 py-16 md:px-8 md:py-24">
-      <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 w-80 opacity-[0.08]" />
-      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.74fr_1.26fr]">
-        <aside className="co-glass h-fit p-6">
+    <section className="co-section bg-[var(--co-cream)] pt-24 md:pt-32">
+      <div className="co-container grid gap-6 lg:grid-cols-[0.74fr_1.26fr]">
+        <aside className="h-fit rounded-[36px] border border-[var(--co-border)] bg-[var(--co-white)] p-6 shadow-[0_18px_48px_rgba(58,36,22,0.065)]">
           <div className="flex items-center gap-4">
-            <span className="grid h-16 w-16 place-items-center rounded-full bg-coconut text-xl font-medium text-paper">{session.initials}</span>
+            <span className="grid h-16 w-16 place-items-center rounded-full bg-[var(--co-black)] text-xl font-bold text-[var(--co-white)]">{session.initials}</span>
             <div>
-              <p className="text-sm uppercase tracking-editorial text-grove">My Account</p>
-              <h1 className="font-display text-4xl text-ink">{session.name}</h1>
-              <p className="text-sm text-muted">{session.email}</p>
+              <p className="co-label">My Account</p>
+              <h1 className="text-4xl font-bold leading-none text-[var(--co-ink)]">{session.name}</h1>
+              <p className="mt-2 text-sm text-[var(--co-muted)]">{session.email}</p>
             </div>
           </div>
           <div className="mt-8 space-y-2">
@@ -34,25 +33,25 @@ export function CustomerAccountDashboard({ session }: { session: CustomerSession
             ].map(([label, href, Icon]) => {
               const TypedIcon = Icon as typeof Settings;
               return (
-                <Link key={href as string} href={href as string} className="flex min-h-11 items-center gap-3 rounded-lg px-3 text-sm text-coconut transition hover:bg-paper">
+                <Link key={href as string} href={href as string} className="flex min-h-11 items-center gap-3 rounded-full px-4 text-sm font-bold text-[var(--co-brown)] transition hover:bg-[var(--co-cream)]">
                   <TypedIcon size={17} /> {label as string}
                 </Link>
               );
             })}
           </div>
-          <form action={logoutCustomer} className="mt-6 border-t border-coconut/10 pt-5">
-            <button type="submit" className="min-h-11 w-full rounded-lg border border-coconut/15 px-4 text-sm font-medium text-coconut transition hover:bg-coconut hover:text-paper">
+          <form action={logoutCustomer} className="mt-6 border-t border-[var(--co-border)] pt-5">
+            <button type="submit" className="min-h-11 w-full rounded-full border border-[var(--co-border)] px-4 text-sm font-bold text-[var(--co-brown)] transition hover:bg-[var(--co-black)] hover:text-[var(--co-white)]">
               Sign out
             </button>
           </form>
         </aside>
         <div className="space-y-6">
-          <div className="co-glass overflow-hidden p-6 md:p-8">
+          <div className="overflow-hidden rounded-[48px] border border-[var(--co-border)] bg-[var(--co-white)] p-6 shadow-[0_18px_48px_rgba(58,36,22,0.065)] md:p-8">
             <div className="grid gap-8 md:grid-cols-[1fr_280px] md:items-center">
               <div>
-                <p className="mb-4 text-[0.72rem] uppercase tracking-editorial text-grove">Welcome back</p>
-                <h2 className="font-display text-5xl leading-tight text-ink md:text-7xl">Your coconut ritual space.</h2>
-                <p className="mt-5 max-w-2xl text-base leading-8 text-muted">
+                <p className="co-label mb-4">Welcome back</p>
+                <h2 className="text-[clamp(48px,7vw,96px)] font-bold leading-[0.86] text-[var(--co-ink)]">Your coconut ritual space.</h2>
+                <p className="co-body mt-5 max-w-2xl">
                   Manage favourites, saved recipes, addresses, newsletter preferences, and .CO orders from one calm customer space.
                 </p>
               </div>
@@ -65,26 +64,26 @@ export function CustomerAccountDashboard({ session }: { session: CustomerSession
             {customerCards.map((card) => {
               const Icon = card.icon;
               return (
-                <Link key={card.href} href={card.href} className="co-neu co-soft-depth-hover p-6">
-                  <Icon className="mb-6 text-grove" size={24} />
-                  <h3 className="font-display text-4xl text-ink">{card.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-muted">{card.body}</p>
+                <Link key={card.href} href={card.href} className="co-press rounded-[36px] border border-[var(--co-border)] bg-[var(--co-white)] p-6 shadow-[0_18px_48px_rgba(58,36,22,0.065)]">
+                  <Icon className="mb-6 text-[var(--co-palm)]" size={24} />
+                  <h3 className="text-4xl font-bold leading-none text-[var(--co-ink)]">{card.title}</h3>
+                  <p className="mt-4 text-sm leading-7 text-[var(--co-muted)]">{card.body}</p>
                 </Link>
               );
             })}
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             {[
-              ["Newsletter", "Launch drops and recipes enabled", Leaf],
+              ["Newsletter", "Product notes and recipes enabled", Leaf],
               ["Addresses", "Keep delivery details ready for checkout", MapPin],
               ["Privacy", "Simple tools for your customer account", ShieldCheck]
             ].map(([title, body, Icon]) => {
               const TypedIcon = Icon as typeof Leaf;
               return (
-                <article key={title as string} className="co-glass p-5">
-                  <TypedIcon className="mb-5 text-grove" size={20} />
-                  <h3 className="font-display text-3xl text-ink">{title as string}</h3>
-                  <p className="mt-3 text-sm leading-7 text-muted">{body as string}</p>
+                <article key={title as string} className="rounded-[28px] border border-[var(--co-border)] bg-[var(--co-white)] p-5">
+                  <TypedIcon className="mb-5 text-[var(--co-palm)]" size={20} />
+                  <h3 className="text-3xl font-bold leading-none text-[var(--co-ink)]">{title as string}</h3>
+                  <p className="mt-4 text-sm leading-7 text-[var(--co-muted)]">{body as string}</p>
                 </article>
               );
             })}
@@ -97,16 +96,16 @@ export function CustomerAccountDashboard({ session }: { session: CustomerSession
 
 export function CustomerSimplePage({ session, title, body, items }: { session: CustomerSession; title: string; body: string; items: Array<{ title: string; detail: string }> }) {
   return (
-    <section className="relative overflow-hidden px-5 py-16 md:px-8 md:py-24">
-      <div className="mx-auto max-w-7xl">
-        <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-grove">{session.name}</p>
-        <h1 className="font-display text-6xl leading-none text-ink md:text-8xl">{title}</h1>
-        <p className="mt-6 max-w-2xl text-base leading-8 text-muted">{body}</p>
+    <section className="co-section bg-[var(--co-cream)] pt-24 md:pt-32">
+      <div className="co-container">
+        <p className="co-label mb-5">{session.name}</p>
+        <h1 className="text-[clamp(64px,10vw,150px)] font-bold leading-[0.82] text-[var(--co-ink)]">{title}</h1>
+        <p className="co-body mt-6 max-w-2xl">{body}</p>
         <div className="mt-10 grid gap-4 md:grid-cols-3">
           {items.map((item) => (
-            <article key={item.title} className="co-neu p-6">
-              <h2 className="font-display text-4xl text-ink">{item.title}</h2>
-              <p className="mt-4 text-sm leading-7 text-muted">{item.detail}</p>
+            <article key={item.title} className="rounded-[36px] border border-[var(--co-border)] bg-[var(--co-white)] p-6 shadow-[0_18px_48px_rgba(58,36,22,0.065)]">
+              <h2 className="text-4xl font-bold leading-none text-[var(--co-ink)]">{item.title}</h2>
+              <p className="mt-5 text-sm leading-7 text-[var(--co-muted)]">{item.detail}</p>
             </article>
           ))}
         </div>

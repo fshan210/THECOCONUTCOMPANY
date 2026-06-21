@@ -1,9 +1,7 @@
-import Image from "next/image";
 import type { Metadata } from "next";
-import { Heart, Sprout, Waves } from "lucide-react";
+import { BrandImage } from "@/components/BrandImage";
+import { BentoCard, BillboardWord, CTAButton, MotionSection } from "@/components/brand/BrandPrimitives";
 import { JournalGrid } from "@/components/JournalGrid";
-import { Appear } from "@/components/motion/Appear";
-import { DoodleImage, PublicHeader, PublicSection } from "@/components/PublicDesign";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { publicAssets } from "@/lib/public-assets";
@@ -12,21 +10,15 @@ const founders = [
   {
     name: "Fazil Shersha",
     role: "Founder / Brand",
-    image: publicAssets.water.lifestyle,
-    bio: "Shapes the brand world, product storytelling, and the feeling that .CO should be premium without becoming distant."
+    image: publicAssets.social.founderJourney,
+    bio: "Shapes the product story, the visual system, and the idea that coconut can feel premium without feeling cold."
   },
   {
     name: "Afsala Muthali",
     role: "Co-founder / Product warmth",
     image: publicAssets.water.flatLay,
-    bio: "Keeps the product lens close to home, taste, everyday rituals, and the human details that make coconut feel familiar."
+    bio: "Keeps the lens close to home: taste, routines, recipes, and the human side of everyday coconut products."
   }
-];
-
-const journey = [
-  { title: "Close to coconut country", body: "The brand begins with the taste and memory of coconut in daily life.", icon: Sprout },
-  { title: "Useful products", body: "Every product should earn its place in a fridge, freezer, shelf, or recipe.", icon: Heart },
-  { title: "Warm design", body: "Premium, but still human. Clean, but never cold.", icon: Waves }
 ];
 
 export const metadata: Metadata = createPageMetadata({
@@ -39,56 +31,44 @@ export default function FoundersPage() {
   return (
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Founders", path: "/founders" }]} />
-      <PublicSection className="pt-28 md:pt-32">
-        <DoodleImage src={publicAssets.doodles.rawCoconut} className="right-8 top-20 h-36 w-36 md:h-56 md:w-56" />
-        <Appear className="mx-auto max-w-7xl">
-          <p className="mb-8 text-[0.72rem] font-medium uppercase tracking-editorial text-grove">Founders</p>
-          <h1 className="max-w-5xl font-display text-6xl font-light leading-none text-coconut md:text-8xl">Built by founders who care about ordinary rituals.</h1>
-          <p className="mt-8 max-w-2xl text-lg leading-9 text-coconut/70">
-            .CO is shaped by taste, memory, product clarity, and the belief that coconut can feel both premium and deeply familiar.
-          </p>
-        </Appear>
-      </PublicSection>
+      <section className="co-section bg-[var(--co-cream)] pt-24 md:pt-32">
+        <div className="co-container">
+          <MotionSection>
+            <BillboardWord word="FOUNDERS" className="co-display-section text-[var(--co-brown)]/[0.08]" />
+          </MotionSection>
+          <MotionSection className="mt-4 max-w-5xl md:-mt-3">
+            <h1 className="text-[clamp(36px,9vw,132px)] font-bold leading-[0.84] text-[var(--co-ink)]">
+              Founder-led, product-first.
+            </h1>
+            <p className="co-body mt-7 max-w-2xl">The founders matter because they keep the coconut world warm. The products stay close to home, taste, and everyday use.</p>
+          </MotionSection>
+        </div>
+      </section>
 
-      <PublicSection tone="warm">
-        <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-2">
+      <section className="co-section bg-[var(--co-white)]">
+        <div className="co-container grid gap-4 md:grid-cols-2">
           {founders.map((founder, index) => (
-            <Appear key={founder.name} delay={index * 0.1}>
-              <article className="h-full overflow-hidden rounded-3xl border border-coconut/10 bg-paper shadow-[0_18px_48px_rgba(62,46,31,0.06)]">
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#fff8ea]">
-                  <Image src={founder.image} alt={founder.name} fill sizes="(min-width: 768px) 46vw, 92vw" className="object-cover transition duration-700 hover:scale-[1.03]" />
-                </div>
-                <div className="p-8 md:p-10">
-                  <p className="mb-4 text-[0.7rem] font-medium uppercase tracking-editorial text-grove">{founder.role}</p>
-                  <h2 className="font-display text-5xl font-light text-coconut">{founder.name}</h2>
-                  <p className="mt-6 text-base leading-8 text-coconut/68">{founder.bio}</p>
-                </div>
-              </article>
-            </Appear>
+            <MotionSection key={founder.name} delay={index * 0.08}>
+              <BentoCard className="h-full">
+                <BrandImage src={founder.image} alt={`${founder.name} founder story`} sizes="(min-width: 768px) 46vw, 92vw" aspect="landscape" fit="cover" hoverZoom className="mb-7 rounded-[36px]" />
+                <p className="co-label mb-4">{founder.role}</p>
+                <h2 className="text-[clamp(42px,6vw,82px)] font-bold leading-[0.88] text-[var(--co-brown)]">{founder.name}</h2>
+                <p className="co-body mt-6">{founder.bio}</p>
+              </BentoCard>
+            </MotionSection>
           ))}
         </div>
-      </PublicSection>
+      </section>
 
-      <PublicSection>
-        <div className="mx-auto mb-16 grid max-w-7xl gap-5 md:grid-cols-3">
-          {journey.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <Appear key={item.title} delay={index * 0.08}>
-                <article className="h-full rounded-3xl border border-coconut/10 bg-[#fff8ea] p-7 shadow-[0_16px_44px_rgba(62,46,31,0.05)]">
-                  <Icon className="mb-8 text-grove" size={24} />
-                  <h2 className="font-display text-3xl font-light text-coconut">{item.title}</h2>
-                  <p className="mt-4 text-sm leading-7 text-coconut/68">{item.body}</p>
-                </article>
-              </Appear>
-            );
-          })}
-        </div>
-        <PublicHeader kicker="Journal" title="Notes from the founders' desk." />
-        <div className="mx-auto max-w-7xl">
+      <section className="co-section bg-[var(--co-cream)]">
+        <div className="co-container">
+          <BentoCard tone="dark" className="mb-6 grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
+            <h2 className="co-h2">Notes from the people building the coconut world.</h2>
+            <CTAButton href="/journal" variant="light">Read journal</CTAButton>
+          </BentoCard>
           <JournalGrid />
         </div>
-      </PublicSection>
+      </section>
     </>
   );
 }

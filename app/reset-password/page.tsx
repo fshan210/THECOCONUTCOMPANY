@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { CustomerResetPasswordForm } from "@/components/auth/CustomerAuthForms";
-import { Appear } from "@/components/motion/Appear";
-import { PublicSection } from "@/components/PublicDesign";
+import { BentoCard, BillboardWord, MotionSection } from "@/components/brand/BrandPrimitives";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
@@ -16,16 +15,19 @@ export default function ResetPasswordPage() {
   return (
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Reset Password", path: "/reset-password" }]} />
-      <PublicSection className="pt-28 md:pt-32">
-        <Appear className="mx-auto max-w-xl rounded-3xl border border-coconut/10 bg-[#fff8ea] p-6 shadow-[0_18px_48px_rgba(62,46,31,0.06)] md:p-10">
-          <p className="mb-5 text-[0.72rem] uppercase tracking-editorial text-grove">New password</p>
-          <h1 className="font-display text-5xl font-light leading-tight text-coconut md:text-6xl">Create a new password.</h1>
-          <p className="mt-5 text-base leading-8 text-coconut/70">Use the secure reset link from your email to complete this step.</p>
-          <Suspense fallback={null}>
-            <CustomerResetPasswordForm />
-          </Suspense>
-        </Appear>
-      </PublicSection>
+      <section className="co-section bg-[var(--co-cream)] pt-24 md:pt-32">
+        <MotionSection className="co-container max-w-2xl">
+          <BentoCard>
+            <BillboardWord word="NEW" className="text-[clamp(68px,12vw,140px)] text-[var(--co-brown)]/[0.08]" />
+            <p className="co-label mb-5">New password</p>
+            <h1 className="co-h2 text-[var(--co-brown)]">Create a new password.</h1>
+            <p className="co-body mt-5">Use the secure reset link from your email to complete this step.</p>
+            <Suspense fallback={null}>
+              <CustomerResetPasswordForm />
+            </Suspense>
+          </BentoCard>
+        </MotionSection>
+      </section>
     </>
   );
 }

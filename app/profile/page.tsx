@@ -28,11 +28,11 @@ export default async function ProfilePage() {
           { title: "Privacy", detail: "Your account tools stay focused on the customer experience." }
         ]}
       />
-      <section className="px-5 pb-20 md:px-8 md:pb-24">
-        <form action={updateCustomerProfile} className="co-glass mx-auto grid max-w-3xl gap-5 p-6 md:grid-cols-2 md:p-8">
+      <section className="bg-[var(--co-cream)] px-4 pb-20 md:pb-24">
+        <form action={updateCustomerProfile} className="mx-auto grid max-w-3xl gap-5 rounded-[36px] border border-[var(--co-border)] bg-[var(--co-white)] p-6 shadow-[0_18px_48px_rgba(58,36,22,0.065)] md:grid-cols-2 md:p-8">
           <div className="md:col-span-2">
-            <p className="mb-3 text-[0.72rem] uppercase tracking-editorial text-grove">Edit profile</p>
-            <h2 className="font-display text-4xl text-coconut">Customer preferences</h2>
+            <p className="co-label mb-3">Edit profile</p>
+            <h2 className="text-4xl font-bold leading-none text-[var(--co-brown)]">Customer preferences</h2>
           </div>
           <label className="space-y-2">
             <span className="block text-sm font-medium text-coconut">Display name</span>

@@ -32,10 +32,19 @@ export const publicAssets = {
     bottling: "/assets/Coconut_Water_Assets/floating pack.png",
     ritual: "/assets/generated/product-lifestyle.webp"
   },
+  generated: {
+    compositionPoolside: "/assets/generated/composition-poolside.webp",
+    compositionMorning: "/assets/generated/composition-morning.webp",
+    compositionFlatlay: "/assets/generated/composition-flatlay.webp",
+    productLifestyle: "/assets/generated/product-lifestyle.webp"
+  },
   recipes: {
     cooler: "/assets/recipes/coconut mango cooler.png",
     bowl: "/assets/recipes/Coconut smoothie Bowl.png",
     coffee: "/assets/recipes/coconut coffee chill.png"
+  },
+  social: {
+    founderJourney: "/assets/social/founder-journey.png"
   },
   doodles: {
     rawCoconut: "/assets/SVG Transparent Assets/raw coconut.svg",

@@ -10,16 +10,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: "#F5EBD7",
-        porcelain: "#fffdf8",
-        ink: "#2d2d2d",
-        muted: "#76695f",
-        coconut: "#3e2e1f",
-        grove: "#4A6F4A",
-        palm: "#A8B07B",
-        sun: "#D8C07A",
-        clay: "#D8C07A",
-        shell: "#e9dfd1"
+        paper: "#F7F0E4",
+        porcelain: "#FFFFFF",
+        ink: "#15110D",
+        muted: "#7A6A58",
+        coconut: "#3A2416",
+        grove: "#0F4F3A",
+        palm: "#5E8C51",
+        sun: "#F4C95D",
+        clay: "#F4C95D",
+        shell: "rgba(58,36,22,0.18)"
       },
       fontFamily: {
         display: ["var(--font-brand)", "Roboto", "Inter", "Avenir Next", "Helvetica Neue", "Arial", "sans-serif"],
