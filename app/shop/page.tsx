@@ -98,7 +98,7 @@ export default function ShopPage() {
               {shopProducts.slice(0, 5).map((product) => (
                 <Link key={product.slug} href={`/shop/${product.slug}`} className="group block">
                   <article className="co-press overflow-hidden rounded-[24px] border border-[var(--co-border)] bg-[var(--co-cream)] p-2">
-                    <BrandImage src={product.image} alt={`${product.category} category`} sizes="(min-width: 1024px) 18vw, 45vw" aspect="square" fit="contain" hoverZoom fallbackLabel={product.category} className="rounded-[18px] border-0 bg-[var(--co-white)]" imageClassName="!p-2 md:!p-3" />
+                    <BrandImage src={product.image} alt={`${product.category} category`} sizes="(min-width: 1024px) 18vw, 45vw" aspect="square" fit="contain" hoverZoom fallbackLabel={product.category} className="rounded-[24px] border-0 bg-[var(--co-white)]" imageClassName="!p-2 md:!p-3" />
                     <p className="mt-3 text-xs font-bold uppercase tracking-[0.08em] text-[var(--co-brown)]">{product.category}</p>
                   </article>
                 </Link>

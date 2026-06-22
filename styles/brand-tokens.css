@@ -25,12 +25,12 @@
 }
 
 .co-container {
-  width: min(var(--co-max), calc(100vw - 32px));
+  width: min(var(--co-max), calc(100vw - 48px));
   margin-inline: auto;
 }
 
 .co-section {
-  padding-block: clamp(56px, 7vw, 112px);
+  padding-block: clamp(72px, 9vw, 144px);
 }
 
 .co-grid-12 {
@@ -195,7 +195,6 @@
 @media (max-width: 767px) {
   .co-container {
     width: min(100% - 24px, var(--co-max));
-    overflow-x: clip;
   }
 
   .co-nav-row {

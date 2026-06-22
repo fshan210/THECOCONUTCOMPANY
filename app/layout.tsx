@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
 import { headers } from "next/headers";
 import { Footer } from "@/components/Footer";
 import { Navigation } from "@/components/Navigation";
@@ -12,12 +11,8 @@ import { getCustomerSession } from "@/lib/customer/auth";
 import { defaultDescription, siteName, siteUrl } from "@/lib/seo/metadata";
 import "./globals.css";
 
-const brandFont = Roboto({
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "500", "700"],
-  display: "swap",
-  variable: "--font-brand"
-});
+const brandFont = { variable: "font-brand-fallback" };
+
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
