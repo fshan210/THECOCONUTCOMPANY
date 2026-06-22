@@ -222,3 +222,36 @@
     overflow-wrap: anywhere;
   }
 }
+
+.co-testimonial-track {
+  animation: co-testimonial-slide 42s linear infinite;
+}
+
+.co-testimonial-track:hover,
+.co-testimonial-track:focus-within {
+  animation-play-state: paused;
+}
+
+@keyframes co-testimonial-slide {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .co-marquee-track,
+  .co-testimonial-track {
+    animation: none;
+  }
+
+  .co-press,
+  .co-press:hover,
+  .co-press:active {
+    transition: none;
+    transform: none;
+  }
+}

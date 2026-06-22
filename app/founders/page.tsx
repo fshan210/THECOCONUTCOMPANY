@@ -48,28 +48,17 @@ export default function FoundersPage() {
                 <CTAButton href="#founder-cards">Meet the founders</CTAButton>
               </div>
             </div>
-            <div className="grid gap-0 sm:grid-cols-2">
+            <div className="min-h-[430px] p-4 md:p-5">
               <BrandImage
-                src={publicAssets.social.founderFazil}
-                alt="Fazil Shersha, .CO co-founder"
-                sizes="(min-width: 1024px) 28vw, 92vw"
-                aspect="portrait"
+                src={publicAssets.campaign.groveOrigin}
+                alt="Kerala coconut grove that inspires the .CO founder story"
+                sizes="(min-width: 1024px) 54vw, 92vw"
+                aspect="wide"
                 fit="cover"
-                position="84% center"
+                position="center"
                 priority
                 hoverZoom
-                className="h-full min-h-[430px] rounded-none border-0"
-              />
-              <BrandImage
-                src={publicAssets.social.founderAfsala}
-                alt="Afsala Muthali, .CO co-founder"
-                sizes="(min-width: 1024px) 28vw, 92vw"
-                aspect="portrait"
-                fit="cover"
-                position="84% center"
-                priority
-                hoverZoom
-                className="h-full min-h-[430px] rounded-none border-0"
+                className="h-full min-h-[430px] rounded-[32px]"
               />
             </div>
           </div>
