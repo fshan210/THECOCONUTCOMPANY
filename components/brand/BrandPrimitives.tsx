@@ -223,10 +223,10 @@ export function ProductCard({
 }) {
   return (
     <Link href={href} className={`group block h-full ${className}`}>
-      <article className={`co-press relative flex h-full min-h-[420px] flex-col justify-between overflow-hidden rounded-[24px] border border-[var(--co-border)] p-5 ${accent ? "bg-[var(--co-sun)]" : "bg-[var(--co-white)]"}`}>
+      <article className={`co-press relative flex h-full min-h-[440px] flex-col justify-between overflow-hidden rounded-[32px] border border-[var(--co-border)] p-5 md:p-6 ${accent ? "bg-[var(--co-sun)]" : "bg-[var(--co-white)]"}`}>
         {badge ? <span className="w-fit rounded-[8px] bg-[var(--co-sun)] px-3 py-2 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-[var(--co-black)]">{badge}</span> : <span />}
         <div className="relative my-3 min-h-[190px]">
-          <BrandImage src={image} alt={title} sizes="(min-width: 1024px) 30vw, 92vw" aspect="product" fit={imageFit} hoverZoom fallbackLabel={title} className="h-full rounded-[24px] border-0 bg-transparent" />
+          <BrandImage src={image} alt={title} sizes="(min-width: 1024px) 30vw, 92vw" aspect="product" fit={imageFit} hoverZoom fallbackLabel={title} className="h-full rounded-[32px] border-0 bg-[var(--co-cream)]" />
         </div>
         <div>
           <h3 className="text-[clamp(28px,3vw,44px)] font-bold leading-[0.92] text-[var(--co-brown)]">{title}</h3>
@@ -288,8 +288,8 @@ export function ProductTile({
               aspect="product"
               fit="contain"
               fallbackLabel={title}
-              hoverZoom
-              className="rounded-[32px]"
+              hoverZoom={!hoverImage}
+              className={`rounded-[32px] transition duration-700 ease-out ${hoverImage ? "group-hover:opacity-0" : ""}`}
             />
             {hoverImage ? (
               <Image
@@ -298,7 +298,7 @@ export function ProductTile({
                 aria-hidden="true"
                 fill
                 sizes="(min-width: 1024px) 44vw, 92vw"
-                className="rounded-[32px] object-contain p-6 opacity-0 transition duration-700 ease-out group-hover:opacity-100"
+                className="pointer-events-none rounded-[32px] object-contain p-6 opacity-0 transition duration-700 ease-out group-hover:opacity-100"
               />
             ) : null}
           </div>

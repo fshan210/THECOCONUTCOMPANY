@@ -1,12 +1,12 @@
 # .CO The Coconut Company Design System
 
-This document is the permanent design-system reference for the .CO The Coconut Company website. It preserves the approved premium FMCG direction so future implementation work can polish and extend the site without drifting into a generic SaaS or template landing page.
+This document is the permanent design-system reference for the `.CO | The Coconut Company` website. It preserves the approved premium FMCG direction so future implementation work can polish and extend the site without drifting into a generic SaaS or template landing page.
 
 ## Brand Positioning
 
-.CO should feel like a luxury product catalogue blended with a modern editorial magazine. The visual language is premium, confident, rooted in Kerala, and globally credible.
+`.CO` should feel like a luxury product catalogue blended with a modern editorial magazine. The visual language is premium, confident, rooted in Kerala, and globally credible.
 
-Design references may include Apple, Aesop, Hartzler Dairy, Minor Figures, Oatly, Refero, Emil Kowalski, Leon's Taste, and Impeccable Design, but the final result must always feel ownable to .CO.
+Design references may include Apple, Aesop, Hartzler Dairy, Minor Figures, Oatly, Refero, Emil Kowalski, Leon's Taste, and Impeccable Design, but the final result must always feel ownable to `.CO`.
 
 ## Core Principles
 
@@ -19,12 +19,45 @@ Design references may include Apple, Aesop, Hartzler Dairy, Minor Figures, Oatly
 - Motion should add soul without calling attention to itself.
 - Avoid dead space; use editorial typography, product details, doodles, badges, story, or micro-copy to make space intentional.
 
+## Design Taste Inputs
+
+The permanent `.CO` system translates three installed design/taste directions into practical frontend rules:
+
+- Emil Kowalski-level motion: motion must have a job, use precise easing, preserve spatial continuity, support interruption, and respect reduced motion.
+- Impeccable Design-level critique: reject AI-default tropes, maintain contrast, avoid nested cards, control z-index, and preserve real brand identity.
+- Leon's Taste-level editorial direction: use type as architecture, product photography as the commercial anchor, and bento grids that feel mathematically intentional.
+
+## Current Token Contract
+
+The website token layer is authoritative unless a human approves a change.
+
+```css
+--co-cream: #f7f0e4;
+--co-white: #ffffff;
+--co-brown: #3a2416;
+--co-ink: #15110d;
+--co-muted: #7a6a58;
+--co-palm: #0f4f3a;
+--co-leaf: #5e8c51;
+--co-sun: #f4c95d;
+--co-border: rgba(58, 36, 22, 0.18);
+--co-black: #09090b;
+--co-radius-sm: 24px;
+--co-radius-md: 32px;
+--co-radius-lg: 40px;
+--co-max: 1400px;
+--co-fast: 0.25s;
+--co-medium: 0.6s;
+--co-slow: 1.1s;
+--co-ease: cubic-bezier(0.16, 1, 0.3, 1);
+```
+
 ## Color System
 
 Use a warm, premium natural palette:
 
 - Cream backgrounds for the primary canvas.
-- Warm beige surfaces for cards and editorial panels.
+- Warm beige and white surfaces for cards and editorial panels.
 - Dark brown typography for primary brand voice.
 - Muted greens for Kerala, agriculture, freshness, and secondary UI.
 - Coconut tones for product warmth.
@@ -32,7 +65,7 @@ Use a warm, premium natural palette:
 
 Do not use gradients, glassmorphism, neon colors, shiny UI effects, or excessive shadows.
 
-## Typography
+## Typography Philosophy
 
 Typography should feel editorial, bold, and architectural.
 
@@ -58,7 +91,7 @@ Approved headline language examples:
 
 Use local, self-hosted, or existing project-safe fonts only. Do not introduce runtime Google font dependencies that can break builds.
 
-## Grid, Spacing, and Layout
+## Spacing, Grid, and Layout Philosophy
 
 Use a 12-column responsive grid with consistent section rhythm.
 
@@ -72,7 +105,7 @@ Use a 12-column responsive grid with consistent section rhythm.
 
 Cards, bento grids, and media blocks must align to the same spacing system. Avoid accidental overlap, uneven gutters, misaligned edges, and isolated empty areas.
 
-## Radius and Card System
+## Radius and Component Philosophy
 
 Use one consistent premium radius system:
 
@@ -81,6 +114,8 @@ Use one consistent premium radius system:
 - 40px for large hero, CTA, and editorial surfaces.
 
 All media cards must use `overflow: hidden`. Avoid sharp corners in premium sections unless an intentionally full-bleed editorial treatment requires it.
+
+Components should be modular, product-led, and purposeful. A component exists to create product desire, origin trust, recipe entry, shopping intent, brand world, or a clear interaction. Cards are not default decoration.
 
 ## Image System
 
@@ -111,7 +146,7 @@ Rules:
 - No stretched images, accidental crops, clipped product labels, or unplanned overlap.
 - Product hover states should crossfade or lift cleanly; images must not stack visibly or collide.
 
-## Motion System
+## Motion and Interaction Philosophy
 
 Motion should be subtle, premium, and reduced-motion safe.
 
@@ -137,7 +172,7 @@ Allowed motion:
 
 Do not use heavy particles, random bouncing, constant floating, distracting rotating objects, or simultaneous animation of everything on the page.
 
-Always respect `prefers-reduced-motion`.
+Always respect `prefers-reduced-motion`. Reduced motion should remove unnecessary travel and looping, not remove content or leave blank states.
 
 ## Header Rules
 
@@ -148,7 +183,7 @@ Desktop behavior:
 - Header remains accessible on scroll.
 - At top, use the normal premium header.
 - After scroll threshold, compress into a centered dynamic-island style navigation.
-- Preserve logo or .CO mark, nav links, search, cart, and account/menu controls where present.
+- Preserve logo or `.CO` mark, nav links, search, cart, and account/menu controls where present.
 - Avoid jumping, flicker, aggressive resizing, and layout shift.
 - Use high z-index, subtle blur, background, and shadow only as needed for readability.
 
@@ -211,8 +246,8 @@ It should include:
 - Large editorial title.
 - Category chips or tabs if useful.
 - Featured product cards.
-- .CO Water.
-- MELT.CO.
+- `.CO Water`.
+- `MELT.CO`.
 - Future products as coming soon only when needed.
 - CTA to `/shop`.
 
@@ -238,10 +273,10 @@ Use premium sliding cards with a warm cream, brown, and muted green palette. Mot
 
 Approved starter content:
 
-- “It tastes like real tender coconut, not a packaged drink.” — Early Taster
-- “The brand feels premium but still rooted in Kerala.” — Retail Partner
-- “Clean, simple, and perfect straight from the fridge.” — Wellness Customer
-- “The kind of coconut brand I would expect to see internationally.” — Distributor Feedback
+- "It tastes like real tender coconut, not a packaged drink." - Early Taster
+- "The brand feels premium but still rooted in Kerala." - Retail Partner
+- "Clean, simple, and perfect straight from the fridge." - Wellness Customer
+- "The kind of coconut brand I would expect to see internationally." - Distributor Feedback
 
 ## Doodles and Editorial Details
 

@@ -306,3 +306,38 @@ export function RecipePreviewSection() {
     </SectionShell>
   );
 }
+
+const testimonials = [
+  { quote: "It tastes like real tender coconut, not a packaged drink.", name: "Early Taster" },
+  { quote: "The brand feels premium but still rooted in Kerala.", name: "Retail Partner" },
+  { quote: "Clean, simple, and perfect straight from the fridge.", name: "Wellness Customer" },
+  { quote: "The kind of coconut brand I would expect to see internationally.", name: "Distributor Feedback" }
+];
+
+export function TestimonialsSection() {
+  return (
+    <SectionShell className="overflow-hidden bg-[var(--co-white)] pt-0">
+      <MotionSection className="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+        <div>
+          <p className="co-label mb-4">Early notes</p>
+          <h2 className="co-h2 max-w-4xl text-[var(--co-brown)]">Real coconut, remembered by people.</h2>
+        </div>
+        <DoodleIcon name="wave" className="h-16 w-16 text-[var(--co-palm)]/45" />
+      </MotionSection>
+      <div className="relative overflow-hidden rounded-[40px] border border-[var(--co-border)] bg-[var(--co-cream)] py-5">
+        <div className="co-testimonial-track flex w-max gap-4 px-5">
+          {[...testimonials, ...testimonials].map((item, index) => (
+            <article
+              key={`${item.name}-${index}`}
+              tabIndex={0}
+              className="co-press flex min-h-[230px] w-[min(78vw,390px)] flex-col justify-between rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] p-6 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)] md:w-[420px] md:p-7"
+            >
+              <p className="text-[clamp(24px,2.4vw,36px)] font-bold leading-[0.98] tracking-[-0.02em] text-[var(--co-brown)]">“{item.quote}”</p>
+              <p className="mt-8 text-xs font-bold uppercase tracking-[0.12em] text-[var(--co-palm)]">— {item.name}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </SectionShell>
+  );
+}
