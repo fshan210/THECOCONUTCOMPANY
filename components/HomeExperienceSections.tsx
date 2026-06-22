@@ -53,17 +53,17 @@ const rituals = [
 
 export function ProductBentoSection() {
   return (
-    <section className="relative z-10 bg-[var(--co-cream)] pb-4">
+    <section className="relative z-10 bg-[var(--co-cream)] py-4">
       <div className="co-container -mt-8 rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] p-3 shadow-[0_8px_20px_rgba(58,36,22,0.08)] md:-mt-14 md:p-4">
         <BentoGrid className="md:grid-cols-[0.82fr_1.18fr_1.18fr]">
           <MotionSection>
             <BentoCard className="flex h-full min-h-[230px] flex-col justify-between bg-[var(--co-cream)] md:min-h-[290px]">
               <h2 className="text-[clamp(40px,5vw,70px)] font-bold uppercase leading-[0.86] text-[var(--co-ink)]">
-                Real coconut.
+                Shop .CO.
                 <br />
                 Real goodness.
               </h2>
-              <CTAButton href="/products" variant="outline" className="mt-8 w-fit">Explore products</CTAButton>
+              <CTAButton href="/shop" variant="outline" className="mt-8 w-fit">Open shop</CTAButton>
             </BentoCard>
           </MotionSection>
           <MotionSection delay={0.06}>
@@ -73,7 +73,7 @@ export function ProductBentoSection() {
               body="Pure. Hydrating. Everyday."
               image={publicAssets.water.hero}
               href="/shop/co-water"
-              imageFit="cover"
+              imageFit="contain"
               className="h-full"
             />
           </MotionSection>
@@ -83,7 +83,7 @@ export function ProductBentoSection() {
               body="Coconut ice cream. Tropical indulgence."
               image={publicAssets.melt.hero}
               href="/shop/melt-co-mango-coconut"
-              imageFit="cover"
+              imageFit="contain"
               accent
               className="h-full"
             />
@@ -131,7 +131,7 @@ export function OriginStorySection() {
                     fit={step.fit}
                     position={step.position ?? "center"}
                     hoverZoom
-                    className="rounded-[14px]"
+                    className="rounded-[24px]"
                   />
                 </article>
               </MotionSection>
@@ -232,7 +232,7 @@ export function RetailDistributorCTA() {
             fit="cover"
             position="center"
             hoverZoom
-            className="min-h-[180px] rounded-[18px] border-white/10 bg-[var(--co-black)]"
+            className="min-h-[180px] rounded-[24px] border-white/10 bg-[var(--co-black)]"
           />
         </BentoCard>
       </MotionSection>

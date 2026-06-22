@@ -48,7 +48,7 @@ export function CartDrawer() {
             animate={{ opacity: 1, scale: 1, x: 0 }}
             exit={{ opacity: 0, scale: 0.98, x: 24 }}
             transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed right-3 top-3 z-[90] flex max-h-[calc(100vh-24px)] w-[calc(100vw-24px)] max-w-md flex-col overflow-hidden rounded-[36px] border border-[var(--co-border)] bg-[var(--co-white)] shadow-[0_28px_90px_rgba(58,36,22,0.18)] md:right-5 md:top-5 md:max-h-[calc(100vh-40px)]"
+            className="fixed right-3 top-3 z-[90] flex max-h-[calc(100vh-24px)] w-[calc(100vw-24px)] max-w-md flex-col overflow-hidden rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] shadow-[0_28px_90px_rgba(58,36,22,0.18)] md:right-5 md:top-5 md:max-h-[calc(100vh-40px)]"
           >
             <div className="flex items-center justify-between border-b border-[var(--co-border)] p-5">
               <div>
@@ -63,8 +63,8 @@ export function CartDrawer() {
               {cart.products.length ? (
                 <div className="space-y-4">
                   {cart.products.map((product) => (
-                    <article key={product.slug} className="grid grid-cols-[84px_1fr] gap-4 rounded-[28px] border border-[var(--co-border)] bg-[var(--co-cream)] p-3">
-                      <div className="relative aspect-square overflow-hidden rounded-[28px] bg-[var(--co-white)]">
+                    <article key={product.slug} className="grid grid-cols-[84px_1fr] gap-4 rounded-[24px] border border-[var(--co-border)] bg-[var(--co-cream)] p-3">
+                      <div className="relative aspect-square overflow-hidden rounded-[24px] bg-[var(--co-white)]">
                         <Image src={product.image} alt={product.name} fill sizes="84px" className="object-contain p-2" />
                       </div>
                       <div>
@@ -94,7 +94,7 @@ export function CartDrawer() {
                   ))}
                 </div>
               ) : (
-                <div className="rounded-[28px] border border-[var(--co-border)] bg-[var(--co-cream)] p-6">
+                <div className="rounded-[24px] border border-[var(--co-border)] bg-[var(--co-cream)] p-6">
                   <p className="text-sm leading-7 text-[var(--co-muted)]">Your saved shelf is empty. Add products you want to remember.</p>
                 </div>
               )}
