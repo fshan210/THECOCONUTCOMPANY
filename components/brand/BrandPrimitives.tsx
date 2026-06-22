@@ -20,8 +20,7 @@ export function MotionSection({ children, className = "", delay = 0 }: MotionSec
 
   return (
     <motion.div
-      initial={{ opacity: 1, y: shouldReduce ? 0 : 22 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 22 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: shouldReduce ? 0 : 0.6, ease: easeBrand, delay: shouldReduce ? 0 : delay }}
       viewport={{ once: true, margin: "-12%" }}
@@ -52,7 +51,7 @@ export function CTAButton({
   return (
     <Link
       href={href}
-      className={`co-press inline-flex min-h-11 items-center justify-center rounded-[12px] border px-6 py-3 text-sm font-bold ${styles[variant]} ${className}`}
+      className={`co-press inline-flex min-h-12 items-center justify-center rounded-[24px] border px-6 py-3 text-sm font-bold ${styles[variant]} ${className}`}
     >
       {children}
     </Link>
@@ -94,7 +93,7 @@ export function IngredientBadge({ children, tone = "cream" }: { children: ReactN
     green: "border-[var(--co-palm)] bg-[var(--co-palm)] text-[var(--co-white)]"
   };
 
-  return <span className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-bold ${tones[tone]}`}>{children}</span>;
+  return <span className={`inline-flex min-h-12 items-center rounded-full border px-4 text-sm font-bold ${tones[tone]}`}>{children}</span>;
 }
 
 export function SectionShell({
@@ -114,7 +113,7 @@ export function SectionShell({
 }
 
 export function BentoGrid({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`grid gap-3 md:gap-4 ${className}`}>{children}</div>;
+  return <div className={`grid gap-4 md:gap-5 ${className}`}>{children}</div>;
 }
 
 export type DoodleName = "coconut" | "leaf" | "drop" | "wave" | "palm" | "cold" | "bottle" | "bowl";
@@ -224,10 +223,10 @@ export function ProductCard({
 }) {
   return (
     <Link href={href} className={`group block h-full ${className}`}>
-      <article className={`co-press relative flex h-full min-h-[300px] flex-col justify-between overflow-hidden rounded-[24px] border border-[var(--co-border)] p-5 ${accent ? "bg-[var(--co-sun)]" : "bg-[var(--co-white)]"}`}>
+      <article className={`co-press relative flex h-full min-h-[440px] flex-col justify-between overflow-hidden rounded-[32px] border border-[var(--co-border)] p-5 md:p-6 ${accent ? "bg-[var(--co-sun)]" : "bg-[var(--co-white)]"}`}>
         {badge ? <span className="w-fit rounded-[8px] bg-[var(--co-sun)] px-3 py-2 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-[var(--co-black)]">{badge}</span> : <span />}
         <div className="relative my-3 min-h-[190px]">
-          <BrandImage src={image} alt={title} sizes="(min-width: 1024px) 30vw, 92vw" aspect="landscape" fit={imageFit} hoverZoom fallbackLabel={title} className="h-full rounded-[18px] border-0 bg-transparent" />
+          <BrandImage src={image} alt={title} sizes="(min-width: 1024px) 30vw, 92vw" aspect="product" fit={imageFit} hoverZoom fallbackLabel={title} className="h-full rounded-[32px] border-0 bg-[var(--co-cream)]" />
         </div>
         <div>
           <h3 className="text-[clamp(28px,3vw,44px)] font-bold leading-[0.92] text-[var(--co-brown)]">{title}</h3>
@@ -289,8 +288,8 @@ export function ProductTile({
               aspect="product"
               fit="contain"
               fallbackLabel={title}
-              hoverZoom
-              className="rounded-[36px]"
+              hoverZoom={!hoverImage}
+              className={`rounded-[32px] transition duration-700 ease-out ${hoverImage ? "group-hover:opacity-0" : ""}`}
             />
             {hoverImage ? (
               <Image
@@ -299,7 +298,7 @@ export function ProductTile({
                 aria-hidden="true"
                 fill
                 sizes="(min-width: 1024px) 44vw, 92vw"
-                className="rounded-[36px] object-contain p-6 opacity-0 transition duration-700 ease-out group-hover:opacity-100"
+                className="rounded-[32px] object-contain p-6 opacity-0 transition duration-700 ease-out group-hover:opacity-100"
               />
             ) : null}
           </div>
@@ -336,7 +335,7 @@ export function RitualCard({
 }) {
   return (
     <BentoCard className={`co-press min-h-[360px] ${className}`}>
-      <BrandImage src={image} alt={title} sizes="(min-width: 768px) 33vw, 92vw" aspect="wide" fit="cover" hoverZoom className="mb-6 rounded-[28px]" />
+      <BrandImage src={image} alt={title} sizes="(min-width: 768px) 33vw, 92vw" aspect="wide" fit="cover" hoverZoom className="mb-6 rounded-[24px]" />
       <p className="co-label mb-3">{label}</p>
       <h3 className="text-[clamp(34px,4vw,58px)] font-bold leading-[0.9] text-[var(--co-brown)]">{title}</h3>
       <p className="co-body mt-4">{body}</p>
@@ -372,7 +371,7 @@ export function SplitStoryPanel({
         </BentoCard>
       </MotionSection>
       <MotionSection delay={0.08} className={`${reverse ? "lg:col-start-1 lg:row-start-1" : "lg:col-start-7"} mt-4 lg:col-span-6 lg:mt-0`}>
-        <BrandImage src={image} alt={title} sizes="(min-width: 1024px) 48vw, 92vw" aspect="portrait" fit="cover" hoverZoom className="h-full min-h-[520px] rounded-[48px] shadow-[0_24px_70px_rgba(58,36,22,0.1)]" />
+        <BrandImage src={image} alt={title} sizes="(min-width: 1024px) 48vw, 92vw" aspect="portrait" fit="cover" hoverZoom className="h-full min-h-[520px] rounded-[40px] shadow-[0_24px_70px_rgba(58,36,22,0.1)]" />
       </MotionSection>
     </div>
   );

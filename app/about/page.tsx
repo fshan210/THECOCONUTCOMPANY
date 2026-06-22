@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { AboutJourney } from "@/components/AboutJourney";
-import { FounderStory } from "@/components/FounderStory";
 import { BrandImage } from "@/components/BrandImage";
 import { CTAButton, TrustBadge } from "@/components/brand/BrandPrimitives";
 import { StructuredData } from "@/components/seo/StructuredData";
@@ -35,7 +34,7 @@ export default function AboutPage() {
                 We are on a mission to bring the goodness of coconuts from Kerala to everyday life through pure products, honest process, and better choices.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <CTAButton href="/products">Explore products</CTAButton>
+                <CTAButton href="/shop">Explore products</CTAButton>
                 <CTAButton href="/sustainability" variant="outline">Our commitment</CTAButton>
               </div>
             </div>
@@ -59,7 +58,6 @@ export default function AboutPage() {
         </div>
       </section>
       <AboutJourney />
-      <FounderStory />
     </>
   );
 }

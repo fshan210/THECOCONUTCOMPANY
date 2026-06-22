@@ -53,17 +53,17 @@ const rituals = [
 
 export function ProductBentoSection() {
   return (
-    <section className="relative z-10 bg-[var(--co-cream)] pb-4">
+    <section className="relative z-10 bg-[var(--co-cream)] py-4">
       <div className="co-container -mt-8 rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] p-3 shadow-[0_8px_20px_rgba(58,36,22,0.08)] md:-mt-14 md:p-4">
         <BentoGrid className="md:grid-cols-[0.82fr_1.18fr_1.18fr]">
           <MotionSection>
             <BentoCard className="flex h-full min-h-[230px] flex-col justify-between bg-[var(--co-cream)] md:min-h-[290px]">
               <h2 className="text-[clamp(40px,5vw,70px)] font-bold uppercase leading-[0.86] text-[var(--co-ink)]">
-                Real coconut.
+                Shop .CO.
                 <br />
                 Real goodness.
               </h2>
-              <CTAButton href="/products" variant="outline" className="mt-8 w-fit">Explore products</CTAButton>
+              <CTAButton href="/shop" variant="outline" className="mt-8 w-fit">Open shop</CTAButton>
             </BentoCard>
           </MotionSection>
           <MotionSection delay={0.06}>
@@ -73,7 +73,7 @@ export function ProductBentoSection() {
               body="Pure. Hydrating. Everyday."
               image={publicAssets.water.hero}
               href="/shop/co-water"
-              imageFit="cover"
+              imageFit="contain"
               className="h-full"
             />
           </MotionSection>
@@ -83,7 +83,7 @@ export function ProductBentoSection() {
               body="Coconut ice cream. Tropical indulgence."
               image={publicAssets.melt.hero}
               href="/shop/melt-co-mango-coconut"
-              imageFit="cover"
+              imageFit="contain"
               accent
               className="h-full"
             />
@@ -131,7 +131,7 @@ export function OriginStorySection() {
                     fit={step.fit}
                     position={step.position ?? "center"}
                     hoverZoom
-                    className="rounded-[14px]"
+                    className="rounded-[24px]"
                   />
                 </article>
               </MotionSection>
@@ -232,7 +232,7 @@ export function RetailDistributorCTA() {
             fit="cover"
             position="center"
             hoverZoom
-            className="min-h-[180px] rounded-[18px] border-white/10 bg-[var(--co-black)]"
+            className="min-h-[180px] rounded-[24px] border-white/10 bg-[var(--co-black)]"
           />
         </BentoCard>
       </MotionSection>
@@ -303,6 +303,41 @@ export function RecipePreviewSection() {
           </MotionSection>
         ))}
       </BentoGrid>
+    </SectionShell>
+  );
+}
+
+const testimonials = [
+  { quote: "It tastes like real tender coconut, not a packaged drink.", name: "Early Taster" },
+  { quote: "The brand feels premium but still rooted in Kerala.", name: "Retail Partner" },
+  { quote: "Clean, simple, and perfect straight from the fridge.", name: "Wellness Customer" },
+  { quote: "The kind of coconut brand I would expect to see internationally.", name: "Distributor Feedback" }
+];
+
+export function TestimonialsSection() {
+  return (
+    <SectionShell className="overflow-hidden bg-[var(--co-white)] pt-0">
+      <MotionSection className="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+        <div>
+          <p className="co-label mb-4">Early notes</p>
+          <h2 className="co-h2 max-w-4xl text-[var(--co-brown)]">Real coconut, remembered by people.</h2>
+        </div>
+        <DoodleIcon name="wave" className="h-16 w-16 text-[var(--co-palm)]/45" />
+      </MotionSection>
+      <div className="relative overflow-hidden rounded-[40px] border border-[var(--co-border)] bg-[var(--co-cream)] py-5">
+        <div className="co-testimonial-track flex w-max gap-4 px-5">
+          {[...testimonials, ...testimonials].map((item, index) => (
+            <article
+              key={`${item.name}-${index}`}
+              tabIndex={0}
+              className="co-press flex min-h-[230px] w-[min(78vw,390px)] flex-col justify-between rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] p-6 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)] md:w-[420px] md:p-7"
+            >
+              <p className="text-[clamp(24px,2.4vw,36px)] font-bold leading-[0.98] tracking-[-0.02em] text-[var(--co-brown)]">“{item.quote}”</p>
+              <p className="mt-8 text-xs font-bold uppercase tracking-[0.12em] text-[var(--co-palm)]">— {item.name}</p>
+            </article>
+          ))}
+        </div>
+      </div>
     </SectionShell>
   );
 }

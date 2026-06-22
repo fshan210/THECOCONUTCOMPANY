@@ -5,8 +5,10 @@ import {
   BrandWorldTeaser,
   OriginStorySection,
   ProductBentoSection,
+  RecipePreviewSection,
   RetailDistributorCTA,
   TasteRitualGrid,
+  TestimonialsSection,
   TrustCueStrip
 } from "@/components/HomeExperienceSections";
 import { createPageMetadata } from "@/lib/seo/metadata";
@@ -26,6 +28,8 @@ export default function HomePage() {
       <OriginStorySection />
       <TasteRitualGrid />
       <TrustCueStrip />
+      <RecipePreviewSection />
+      <TestimonialsSection />
       <RetailDistributorCTA />
       <BrandWorldTeaser />
     </>

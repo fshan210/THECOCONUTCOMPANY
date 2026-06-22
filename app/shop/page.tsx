@@ -98,7 +98,7 @@ export default function ShopPage() {
               {shopProducts.slice(0, 5).map((product) => (
                 <Link key={product.slug} href={`/shop/${product.slug}`} className="group block">
                   <article className="co-press overflow-hidden rounded-[24px] border border-[var(--co-border)] bg-[var(--co-cream)] p-2">
-                    <BrandImage src={product.image} alt={`${product.category} category`} sizes="(min-width: 1024px) 18vw, 45vw" aspect="square" fit="contain" hoverZoom fallbackLabel={product.category} className="rounded-[18px] border-0 bg-[var(--co-white)]" imageClassName="!p-2 md:!p-3" />
+                    <BrandImage src={product.image} alt={`${product.category} category`} sizes="(min-width: 1024px) 18vw, 45vw" aspect="square" fit="contain" hoverZoom fallbackLabel={product.category} className="rounded-[24px] border-0 bg-[var(--co-white)]" imageClassName="!p-2 md:!p-3" />
                     <p className="mt-3 text-xs font-bold uppercase tracking-[0.08em] text-[var(--co-brown)]">{product.category}</p>
                   </article>
                 </Link>
@@ -114,9 +114,9 @@ export default function ShopPage() {
             {shopProducts.map((product, index) => (
               <MotionSection key={product.slug} delay={index * 0.04}>
                 <Link href={`/shop/${product.slug}`} className="group block h-full">
-                  <BentoCard className="co-press flex h-full flex-col">
+                  <BentoCard className="co-press flex h-full min-h-[520px] flex-col rounded-[32px]">
                     <div className="relative mb-6">
-                      <BrandImage src={product.image} alt={product.name} sizes="(min-width: 1024px) 30vw, 92vw" aspect="product" fit="contain" hoverZoom fallbackLabel={product.name} className="rounded-[24px]" />
+                      <BrandImage src={product.image} alt={product.name} sizes="(min-width: 1024px) 30vw, 92vw" aspect="product" fit="contain" hoverZoom={!product.hoverImage} fallbackLabel={product.name} className={`rounded-[32px] transition duration-700 ease-out ${product.hoverImage ? "group-hover:opacity-0" : ""}`} />
                       {product.hoverImage ? (
                         <Image
                           src={product.hoverImage}
@@ -124,7 +124,7 @@ export default function ShopPage() {
                           aria-hidden="true"
                           fill
                           sizes="(min-width: 1024px) 30vw, 92vw"
-                          className="rounded-[24px] object-contain p-6 opacity-0 transition duration-500 ease-out group-hover:opacity-100"
+                          className="rounded-[32px] object-contain p-6 opacity-0 transition duration-700 ease-out group-hover:opacity-100"
                         />
                       ) : null}
                     </div>
@@ -160,7 +160,7 @@ export default function ShopPage() {
                 <CTAButton href="/register" variant="light">Create account</CTAButton>
               </div>
             </div>
-            <BrandImage src={publicAssets.campaign.retailBusiness} alt=".CO early access retail shelf and product carton" sizes="(min-width: 768px) 34vw, 92vw" aspect="landscape" fit="cover" hoverZoom className="rounded-[24px]" />
+            <BrandImage src={publicAssets.campaign.retailBusiness} alt=".CO early access retail shelf and product carton" sizes="(min-width: 768px) 34vw, 92vw" aspect="landscape" fit="cover" hoverZoom className="rounded-[32px]" />
           </BentoCard>
         </div>
       </section>

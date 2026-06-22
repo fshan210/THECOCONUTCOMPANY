@@ -45,7 +45,7 @@ export function BrandImage({
   const [failed, setFailed] = useState(false);
 
   return (
-    <div className={`group/brand-image relative w-full max-w-full overflow-hidden border border-[var(--co-border)] bg-[var(--co-white)] ${aspectClass[aspect]} ${className}`}>
+    <div className={`group/brand-image relative w-full max-w-full overflow-hidden border border-[var(--co-border)] rounded-[32px] bg-[var(--co-white)] ${aspectClass[aspect]} ${className}`}>
       {failed ? (
         <div className="absolute inset-0 grid place-items-center bg-[var(--co-cream)] p-8 text-center">
           <div>

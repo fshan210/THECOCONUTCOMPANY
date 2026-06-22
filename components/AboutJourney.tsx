@@ -81,7 +81,7 @@ export function AboutJourney() {
                   fit={step.fit}
                   position={step.position ?? "center"}
                   hoverZoom
-                  className="rounded-[18px]"
+                  className="rounded-[24px]"
                 />
                 <p className="mt-4 text-sm leading-6 text-[var(--co-muted)]">{step.body}</p>
               </article>

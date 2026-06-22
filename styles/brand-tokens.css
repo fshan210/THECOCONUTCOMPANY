@@ -25,12 +25,12 @@
 }
 
 .co-container {
-  width: min(var(--co-max), calc(100vw - 32px));
+  width: min(var(--co-max), calc(100vw - 48px));
   margin-inline: auto;
 }
 
 .co-section {
-  padding-block: clamp(56px, 7vw, 112px);
+  padding-block: clamp(72px, 9vw, 144px);
 }
 
 .co-grid-12 {
@@ -195,7 +195,6 @@
 @media (max-width: 767px) {
   .co-container {
     width: min(100% - 24px, var(--co-max));
-    overflow-x: clip;
   }
 
   .co-nav-row {
@@ -221,5 +220,38 @@
   .co-container h3,
   .co-container p {
     overflow-wrap: anywhere;
+  }
+}
+
+.co-testimonial-track {
+  animation: co-testimonial-slide 42s linear infinite;
+}
+
+.co-testimonial-track:hover,
+.co-testimonial-track:focus-within {
+  animation-play-state: paused;
+}
+
+@keyframes co-testimonial-slide {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .co-marquee-track,
+  .co-testimonial-track {
+    animation: none;
+  }
+
+  .co-press,
+  .co-press:hover,
+  .co-press:active {
+    transition: none;
+    transform: none;
   }
 }
