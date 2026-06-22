@@ -26,22 +26,19 @@ export function Navigation() {
   const [open, setOpen] = useState(false);
   const session = useCustomerSession();
   const { scrollY } = useScroll();
-  const navPadding = useTransform(scrollY, [0, 120], [16, 10]);
-  const logoScale = useTransform(scrollY, [0, 120], [1, 0.92]);
+  const headerBackground = useTransform(scrollY, [0, 80], ["rgba(247, 240, 228, 0.94)", "rgba(247, 240, 228, 0.985)"]);
+  const headerShadow = useTransform(scrollY, [0, 80], ["0 0 0 rgba(58, 36, 22, 0)", "0 10px 30px rgba(58, 36, 22, 0.08)"]);
 
   const configuredAdminPath = getAdminPath();
   if (pathname.startsWith("/admin") || pathname === configuredAdminPath || pathname.startsWith(`${configuredAdminPath}/`)) return null;
 
   return (
-    <motion.header className="sticky top-0 isolate z-[100] border-b border-[var(--co-border)] bg-[var(--co-cream)]">
-      <motion.nav
-        style={{ paddingTop: navPadding, paddingBottom: navPadding, width: "calc(100vw - 24px)", maxWidth: "var(--co-max)" }}
-        className="co-container co-nav-row relative grid grid-cols-[auto_auto] items-center justify-between gap-3 lg:flex lg:justify-between"
-      >
+    <motion.header style={{ backgroundColor: headerBackground, boxShadow: headerShadow }} className="sticky top-0 isolate z-[100] border-b border-[var(--co-border)] backdrop-blur-md">
+      <nav className="co-container co-nav-row relative flex min-h-[72px] items-center justify-between gap-3 py-3 lg:min-h-[84px] lg:py-4">
         <Link href="/" className="flex min-w-0 items-center gap-3" aria-label=".CO home">
-          <motion.span style={{ scale: logoScale }} className="block w-[70px] origin-left sm:w-[82px] md:w-[92px]">
+          <span className="block w-[66px] origin-left sm:w-[82px] md:w-[92px]">
             <Image src="/images/logo.svg" alt=".CO The Coconut Company" width={124} height={100} priority className="h-auto w-full" />
-          </motion.span>
+          </span>
         </Link>
         <div className="hidden items-center gap-8 text-[0.72rem] font-bold uppercase tracking-[0.08em] text-[var(--co-ink)] lg:flex">
           {links.map((link) => {
@@ -60,7 +57,7 @@ export function Navigation() {
           })}
         </div>
         <div className="hidden items-center gap-3 lg:flex">
-          <Link href="/shop" aria-label="Search products" className="grid h-11 w-11 place-items-center rounded-[16px] text-[var(--co-ink)] transition hover:bg-[var(--co-white)]">
+          <Link href="/shop" aria-label="Search products" className="grid h-11 w-11 place-items-center rounded-[24px] text-[var(--co-ink)] transition hover:bg-[var(--co-white)]">
             <Search size={20} />
           </Link>
           {session ? (
@@ -68,7 +65,7 @@ export function Navigation() {
               <Link
                 href="/account"
                 aria-label="My Account"
-                className="grid h-11 min-w-11 place-items-center rounded-[16px] border border-[var(--co-border)] bg-[var(--co-white)] px-3 text-sm font-bold text-[var(--co-ink)] transition hover:border-[var(--co-black)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)]"
+                className="grid h-11 min-w-11 place-items-center rounded-[24px] border border-[var(--co-border)] bg-[var(--co-white)] px-3 text-sm font-bold text-[var(--co-ink)] transition hover:border-[var(--co-black)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)]"
               >
                 {session.initials}
               </Link>
@@ -77,29 +74,29 @@ export function Navigation() {
             <Link
               href="/login"
               aria-label="Login"
-              className="grid h-11 w-11 place-items-center rounded-[16px] border border-[var(--co-border)] bg-[var(--co-white)] text-[var(--co-ink)] transition hover:border-[var(--co-black)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)]"
+              className="grid h-11 w-11 place-items-center rounded-[24px] border border-[var(--co-border)] bg-[var(--co-white)] text-[var(--co-ink)] transition hover:border-[var(--co-black)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)]"
             >
               <UserRound size={18} />
             </Link>
           )}
           <CartButton />
         </div>
-        <div className="lg:hidden">
-          <Link href="/shop" aria-label="Search products" className="fixed right-[108px] top-6 z-[110] grid h-10 w-10 place-items-center rounded-full text-[var(--co-ink)]">
+        <div className="flex shrink-0 items-center gap-2 lg:hidden">
+          <Link href="/shop" aria-label="Search products" className="grid h-10 w-10 place-items-center rounded-[24px] text-[var(--co-ink)]">
             <Search size={24} strokeWidth={2.1} />
           </Link>
-          <CartButton showZero className="fixed right-[60px] top-6 z-[110] rounded-[12px]" />
+          <CartButton showZero className="rounded-[24px]" />
           <button
             type="button"
             aria-label="Toggle navigation"
             aria-expanded={open}
             onClick={() => setOpen((value) => !value)}
-            className="fixed right-3 top-6 z-[110] grid h-10 w-10 place-items-center rounded-full text-[var(--co-ink)]"
+            className="grid h-10 w-10 place-items-center rounded-[24px] text-[var(--co-ink)]"
           >
             {open ? <X size={26} strokeWidth={2.1} /> : <Menu size={28} strokeWidth={2.1} />}
           </button>
         </div>
-      </motion.nav>
+      </nav>
       <AnimatePresence>
         {open ? (
           <motion.div
@@ -107,7 +104,7 @@ export function Navigation() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.98, y: -8 }}
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="mx-3 mb-4 rounded-[36px] border border-[var(--co-border)] bg-[var(--co-white)] p-4 shadow-[0_18px_48px_rgba(58,36,22,0.08)] md:hidden"
+            className="mx-3 mb-4 rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] p-4 shadow-[0_18px_48px_rgba(58,36,22,0.08)] md:hidden"
           >
             {links.map((link) => {
               const active = pathname === link.href || pathname.startsWith(`${link.href}/`);

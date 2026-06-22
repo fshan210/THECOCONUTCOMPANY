@@ -95,7 +95,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       <section className="co-section bg-[var(--co-white)]">
         <div className="co-container grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
           <MotionSection>
-            <BrandImage src={compositionBySlug[product.slug] || publicAssets.water.flatLay} alt={`${product.name} lifestyle composition`} sizes="(min-width: 1024px) 44vw, 92vw" aspect="portrait" fit="cover" hoverZoom className="h-full min-h-[560px] rounded-[48px]" />
+            <BrandImage src={compositionBySlug[product.slug] || publicAssets.water.flatLay} alt={`${product.name} lifestyle composition`} sizes="(min-width: 1024px) 44vw, 92vw" aspect="portrait" fit="cover" hoverZoom className="h-full min-h-[560px] rounded-[40px]" />
           </MotionSection>
           <MotionSection delay={0.08}>
             <BentoCard className="h-full min-h-[560px]">
