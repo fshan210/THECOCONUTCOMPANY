@@ -30,9 +30,9 @@ export function HeroStoryCanvas() {
             initial="hidden"
             animate="show"
             variants={{ show: { transition: { staggerChildren: shouldReduce ? 0 : 0.1 } } }}
-            className="relative z-10 max-w-[7.4ch] overflow-hidden text-[clamp(52px,14vw,82px)] font-bold uppercase leading-[0.84] tracking-[-0.035em] text-[var(--co-ink)] lg:text-[clamp(82px,9.4vw,146px)] lg:leading-[0.8]"
+            className="relative z-10 max-w-[10.8ch] text-[clamp(42px,11vw,72px)] font-bold uppercase leading-[0.88] tracking-[-0.035em] text-[var(--co-ink)] lg:max-w-[10.8ch] lg:text-[clamp(76px,7.2vw,112px)] lg:leading-[0.84]"
           >
-            {["Cold", "Coconut", "Water."].map((line) => (
+            {["Real", "Coconut.", "Cold by", "Nature."].map((line) => (
               <motion.span
                 key={line}
                 variants={{ hidden: { opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 52 }, show: { opacity: 1, y: 0 } }}
@@ -67,7 +67,7 @@ export function HeroStoryCanvas() {
             initial="hidden"
             animate="show"
             variants={{ show: { transition: { staggerChildren: shouldReduce ? 0 : 0.07, delayChildren: shouldReduce ? 0 : 0.36 } } }}
-            className="mt-8 grid max-w-xl grid-cols-1 gap-3 border-t border-[var(--co-border)] pt-6 sm:grid-cols-3"
+            className="mt-8 grid max-w-xl grid-cols-1 gap-3 sm:grid-cols-3"
           >
             {[
               <TrustBadge key="leaf" icon="leaf" title="100% Natural" body="Real coconut taste." />,

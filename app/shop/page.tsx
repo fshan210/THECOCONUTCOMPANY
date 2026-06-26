@@ -1,8 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
 import { BrandImage } from "@/components/BrandImage";
-import { BentoCard, CTAButton, DoodleIcon, IngredientBadge, MotionSection } from "@/components/brand/BrandPrimitives";
+import { BentoCard, CTAButton, DoodleIcon, FeatureStrip, IngredientBadge, MotionSection, ProductSwapImage } from "@/components/brand/BrandPrimitives";
 import type { DoodleName } from "@/components/brand/BrandPrimitives";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { productCategories, shopProducts } from "@/lib/catalog";
@@ -53,7 +52,7 @@ export default function ShopPage() {
                 <CTAButton href="#all-products">Shop all</CTAButton>
               </div>
             </div>
-            <div className="min-h-[430px]">
+            <div className="min-h-[430px] p-4 md:p-5">
               <BrandImage
                 src={publicAssets.campaign.retailBusiness}
                 alt=".CO product carton with coconut water and coconut ice cream"
@@ -64,14 +63,14 @@ export default function ShopPage() {
                 priority
                 hoverZoom
                 fallbackLabel={`${water.name} and ${melt.name}`}
-                className="h-full min-h-[430px] rounded-none border-0"
+                className="h-full min-h-[430px] rounded-[32px] border-0"
               />
             </div>
           </div>
 
-          <div className="grid gap-4 rounded-b-[24px] border-x border-b border-[var(--co-border)] bg-[var(--co-white)] px-4 py-6 sm:grid-cols-2 lg:grid-cols-4">
+          <FeatureStrip className="sm:grid-cols-2 lg:grid-cols-4">
             {trustItems.map(({ title, body, icon }) => (
-              <div key={title} className="flex items-center gap-3 border-[var(--co-border)] lg:border-r lg:pr-5 lg:last:border-0">
+              <div key={title} className="flex items-start gap-3 rounded-[28px] border border-[var(--co-border)] bg-[rgba(255,255,255,0.74)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.76)]">
                 <DoodleIcon name={icon} className="h-8 w-8 shrink-0 text-[var(--co-palm)]" />
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.08em] text-[var(--co-brown)]">{title}</p>
@@ -79,7 +78,7 @@ export default function ShopPage() {
                 </div>
               </div>
             ))}
-          </div>
+          </FeatureStrip>
         </div>
       </section>
 
@@ -115,19 +114,7 @@ export default function ShopPage() {
               <MotionSection key={product.slug} delay={index * 0.04}>
                 <Link href={`/shop/${product.slug}`} className="group block h-full">
                   <BentoCard className="co-press flex h-full min-h-[520px] flex-col rounded-[32px]">
-                    <div className="relative mb-6">
-                      <BrandImage src={product.image} alt={product.name} sizes="(min-width: 1024px) 30vw, 92vw" aspect="product" fit="contain" hoverZoom={!product.hoverImage} fallbackLabel={product.name} className={`rounded-[32px] transition duration-700 ease-out ${product.hoverImage ? "group-hover:opacity-0" : ""}`} />
-                      {product.hoverImage ? (
-                        <Image
-                          src={product.hoverImage}
-                          alt=""
-                          aria-hidden="true"
-                          fill
-                          sizes="(min-width: 1024px) 30vw, 92vw"
-                          className="rounded-[32px] object-contain p-6 opacity-0 transition duration-700 ease-out group-hover:opacity-100"
-                        />
-                      ) : null}
-                    </div>
+                    <ProductSwapImage title={product.name} image={product.image} hoverImage={product.hoverImage} sizes="(min-width: 1024px) 30vw, 92vw" className="mb-6" />
                     <p className="co-label mb-4">{product.category}</p>
                     <div className="mb-5 flex flex-wrap gap-2">
                       {product.benefits.slice(0, 2).map((benefit) => (

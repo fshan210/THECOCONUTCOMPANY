@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BrandImage } from "@/components/BrandImage";
-import { BentoCard, CTAButton, MotionSection, TrustBadge } from "@/components/brand/BrandPrimitives";
+import { BentoCard, CTAButton, FeatureStrip, MotionSection, TrustBadge } from "@/components/brand/BrandPrimitives";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { publicAssets } from "@/lib/public-assets";
@@ -19,7 +19,9 @@ export default function SustainabilityPage() {
         <div className="co-container">
           <div className="grid min-h-[560px] overflow-hidden rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] lg:grid-cols-[0.92fr_1.08fr]">
             <div className="flex flex-col justify-center p-6 md:p-10">
-              <h1 className="co-display-section text-[var(--co-ink)]">SUSTAINABILITY</h1>
+              <h1 className="co-display-section text-[var(--co-ink)]">
+                <span className="block sm:inline">SUSTAIN</span><span className="block sm:inline">ABILITY</span>
+              </h1>
               <h2 className="mt-5 text-[clamp(26px,3vw,42px)] font-bold leading-tight text-[var(--co-palm)]">
                 Good for you.
                 <br />
@@ -32,25 +34,27 @@ export default function SustainabilityPage() {
                 <CTAButton href="/about">Our commitment</CTAButton>
               </div>
             </div>
-            <BrandImage
-              src={publicAssets.brand.coconutRespect}
-              alt="Fresh green coconut held with care"
-              sizes="(min-width: 1024px) 54vw, 92vw"
-              aspect="wide"
-              fit="cover"
-              position="center"
-              priority
-              hoverZoom
-              className="h-full min-h-[430px] rounded-none border-0"
-            />
+            <div className="min-h-[430px] p-4 md:p-5">
+              <BrandImage
+                src={publicAssets.brand.coconutRespect}
+                alt="Fresh green coconut held with care"
+                sizes="(min-width: 1024px) 54vw, 92vw"
+                aspect="wide"
+                fit="cover"
+                position="center"
+                priority
+                hoverZoom
+                className="h-full min-h-[430px] rounded-[32px] border-0"
+              />
+            </div>
           </div>
 
-          <div className="grid gap-4 border-b border-[var(--co-border)] bg-[var(--co-white)] px-4 py-6 sm:grid-cols-2 lg:grid-cols-4">
+          <FeatureStrip className="sm:grid-cols-2 lg:grid-cols-4">
             <TrustBadge icon="palm" title="Responsible sourcing" body="Work with local farmers and support communities." />
             <TrustBadge icon="drop" title="Clean processing" body="Minimal processing. Maximum goodness retained." />
             <TrustBadge icon="wave" title="Less waste" body="Reuse, reduce, and recycle at every step." />
             <TrustBadge icon="leaf" title="Planet first" body="Sustainable today for a better tomorrow." />
-          </div>
+          </FeatureStrip>
         </div>
       </section>
 

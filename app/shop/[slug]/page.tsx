@@ -75,7 +75,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 </div>
               </div>
             </MotionSection>
-            <MotionSection delay={0.08}>
+            <MotionSection delay={0.08} className="p-4 md:p-5">
               <BrandImage
                 src={product.image}
                 alt={product.name}
@@ -85,7 +85,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 priority
                 hoverZoom
                 fallbackLabel={product.name}
-                className="h-full min-h-[480px] rounded-none border-0 bg-[var(--co-cream)]"
+                className="h-full min-h-[480px] rounded-[32px] border-0 bg-[var(--co-cream)]"
               />
             </MotionSection>
           </div>

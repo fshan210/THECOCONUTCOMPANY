@@ -68,7 +68,7 @@ export function BrandImage({
             if (resolvedSrc === fallbackSrc) setFailed(true);
             else setResolvedSrc(fallbackSrc);
           }}
-          className={`${fit === "contain" ? "object-contain p-3 md:p-5" : "object-cover"} ${hoverZoom ? "transition duration-700 ease-out group-hover/brand-image:scale-[1.035]" : ""} ${imageClassName}`}
+          className={`${fit === "contain" ? "object-contain p-3 md:p-5" : "object-cover"} transform-gpu ${hoverZoom ? "transition duration-700 ease-out group-hover/brand-image:scale-[1.035] motion-reduce:transition-none" : ""} ${imageClassName}`}
           style={{ objectPosition: position }}
         />
       )}

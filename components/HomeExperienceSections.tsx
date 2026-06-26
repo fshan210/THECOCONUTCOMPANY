@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { BrandImage } from "@/components/BrandImage";
 import {
   BentoCard,
@@ -8,11 +10,13 @@ import {
   BrandMarquee,
   CTAButton,
   DoodleIcon,
+  FeatureStrip,
   MotionSection,
   ProductCard,
   SectionShell,
   TrustBadge
 } from "@/components/brand/BrandPrimitives";
+import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
 import { recipes } from "@/lib/catalog";
 import { publicAssets } from "@/lib/public-assets";
 
@@ -95,6 +99,11 @@ export function ProductBentoSection() {
 }
 
 export function OriginStorySection() {
+  const journeyRef = useRef<HTMLDivElement>(null);
+  const { shouldReduce } = useCoconutMotionMode();
+  const { scrollYProgress } = useScroll({ target: journeyRef, offset: ["start 70%", "end 38%"] });
+  const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
   return (
     <SectionShell className="bg-[var(--co-cream)] pt-8">
       <div className="rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] p-3 md:p-4">
@@ -114,13 +123,18 @@ export function OriginStorySection() {
               </Link>
             </BentoCard>
           </MotionSection>
-          <div className="relative grid gap-3 md:grid-cols-6">
-            <div className="pointer-events-none absolute left-8 right-8 top-[46px] hidden border-t border-dashed border-[var(--co-border)] md:block" />
+          <div ref={journeyRef} className="relative grid gap-3 md:grid-cols-6">
+            <div className="pointer-events-none absolute left-8 right-8 top-[46px] hidden h-px overflow-hidden rounded-full bg-[rgba(58,36,22,0.12)] md:block">
+              <motion.div
+                style={{ scaleX: shouldReduce ? 1 : lineScale }}
+                className="co-journey-line h-full w-full rounded-full bg-[var(--co-palm)]/60"
+              />
+            </div>
             {originSteps.map((step, index) => (
               <MotionSection key={step.title} delay={index * 0.045} className="relative">
-                <article className="relative z-10 h-full rounded-[24px] bg-[var(--co-white)] p-3">
+                <article className="co-press relative z-10 h-full rounded-[24px] bg-[var(--co-white)] p-3">
                   <div className="mb-3 flex items-center gap-2 md:block">
-                    <span className="grid h-7 w-7 place-items-center rounded-full bg-[var(--co-cream)] text-xs font-bold text-[var(--co-brown)] md:mb-2 md:h-6 md:w-6 md:text-[0.62rem] lg:mb-0 lg:h-7 lg:w-7 lg:text-xs">0{index + 1}</span>
+                    <span className="grid h-7 w-7 place-items-center rounded-full border border-[var(--co-border)] bg-[var(--co-cream)] text-xs font-bold text-[var(--co-brown)] shadow-[0_8px_18px_rgba(58,36,22,0.08)] md:mb-2 md:h-6 md:w-6 md:text-[0.62rem] lg:mb-0 lg:h-7 lg:w-7 lg:text-xs">0{index + 1}</span>
                     <h3 className="text-sm font-bold uppercase leading-tight text-[var(--co-ink)] md:text-[0.68rem] lg:text-sm">{step.title}</h3>
                   </div>
                   <BrandImage
@@ -158,7 +172,7 @@ export function TasteRitualGrid() {
                 fit="cover"
                 position={ritual.position}
                 hoverZoom
-                className="h-full min-h-[280px] rounded-none border-0"
+                className="h-full min-h-[280px] rounded-[24px] border-0"
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(21,17,13,0.44)_0%,rgba(21,17,13,0.08)_45%,rgba(21,17,13,0.36)_100%)]" />
               <div className="absolute left-5 top-5 max-w-xs text-[var(--co-white)]">
@@ -198,7 +212,7 @@ export function IngredientHonestySection() {
             aspect="wide"
             fit="cover"
             hoverZoom
-            className="h-full min-h-[360px] rounded-none border-0"
+            className="h-full min-h-[360px] rounded-[32px] border-0"
           />
         </MotionSection>
       </div>
@@ -267,12 +281,12 @@ export function BrandWorldTeaser() {
 export function TrustCueStrip() {
   return (
     <SectionShell className="bg-[var(--co-white)] py-0">
-      <div className="grid gap-4 rounded-[24px] border border-[var(--co-border)] bg-[var(--co-white)] p-5 sm:grid-cols-2 md:grid-cols-4 md:p-7">
-        <TrustBadge icon="leaf" title="Clean & Pure" body="Nothing added, ever." className="md:border-r md:pr-5" />
-        <TrustBadge icon="drop" title="Naturally Hydrating" body="Rich in electrolytes." className="md:border-r md:pr-5" />
-        <TrustBadge icon="palm" title="Sustainably Sourced" body="Good for you, good for the planet." className="md:border-r md:pr-5" />
+      <FeatureStrip className="sm:grid-cols-2 md:grid-cols-4">
+        <TrustBadge icon="leaf" title="Clean & Pure" body="Nothing added, ever." />
+        <TrustBadge icon="drop" title="Naturally Hydrating" body="Rich in electrolytes." />
+        <TrustBadge icon="palm" title="Sustainably Sourced" body="Good for you, good for the planet." />
         <TrustBadge icon="cold" title="Fridge Shelf Ready" body="Chilled. Fresh. Ready anytime." />
-      </div>
+      </FeatureStrip>
     </SectionShell>
   );
 }
@@ -292,7 +306,7 @@ export function RecipePreviewSection() {
           <MotionSection key={recipe.slug} delay={index * 0.05}>
             <Link href={`/recipes#${recipe.slug}`} className="group block h-full">
               <article className="co-press h-full overflow-hidden rounded-[24px] border border-[var(--co-border)] bg-[var(--co-white)]">
-                <BrandImage src={recipe.image} alt={recipe.title} sizes="(min-width: 768px) 31vw, 92vw" aspect="landscape" fit="cover" hoverZoom className="rounded-none border-0" />
+                <BrandImage src={recipe.image} alt={recipe.title} sizes="(min-width: 768px) 31vw, 92vw" aspect="landscape" fit="cover" hoverZoom className="rounded-[24px] border-0" />
                 <div className="p-5">
                   <p className="text-xs font-bold uppercase tracking-[0.08em] text-[var(--co-palm)]">{recipe.category} / {recipe.time}</p>
                   <h3 className="mt-3 text-3xl font-bold leading-[0.95] text-[var(--co-brown)]">{recipe.title}</h3>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BrandImage } from "@/components/BrandImage";
-import { BentoCard, CTAButton, DoodleIcon, MotionSection, TrustBadge } from "@/components/brand/BrandPrimitives";
+import { BentoCard, CTAButton, DoodleIcon, FeatureStrip, MotionSection, TrustBadge } from "@/components/brand/BrandPrimitives";
 import type { DoodleName } from "@/components/brand/BrandPrimitives";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { recipes } from "@/lib/catalog";
@@ -43,27 +43,29 @@ export default function RecipesPage() {
                 <CTAButton href="#featured-recipe">Explore recipes</CTAButton>
               </div>
             </div>
-            <BrandImage
-              src={publicAssets.water.hero}
-              alt=".CO coconut water with fresh coconut for recipes"
-              sizes="(min-width: 1024px) 54vw, 92vw"
-              aspect="wide"
-              fit="cover"
-              position="center"
-              priority
-              hoverZoom
-              className="h-full min-h-[430px] rounded-none border-0"
-            />
+            <div className="min-h-[430px] p-4 md:p-5">
+              <BrandImage
+                src={publicAssets.water.hero}
+                alt=".CO coconut water with fresh coconut for recipes"
+                sizes="(min-width: 1024px) 54vw, 92vw"
+                aspect="wide"
+                fit="cover"
+                position="center"
+                priority
+                hoverZoom
+                className="h-full min-h-[430px] rounded-[32px] border-0"
+              />
+            </div>
           </div>
 
-          <div className="grid gap-4 border-b border-[var(--co-border)] bg-[var(--co-white)] px-4 py-6 sm:grid-cols-3 lg:grid-cols-6">
+          <FeatureStrip className="sm:grid-cols-3 lg:grid-cols-6">
             {browseItems.map(({ label, icon }) => (
-              <div key={label} className="flex flex-col items-center gap-3 text-center">
+              <div key={label} className="flex flex-col items-center gap-3 rounded-[28px] border border-[var(--co-border)] bg-[rgba(255,255,255,0.74)] p-4 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.76)]">
                 <DoodleIcon name={icon} className="h-9 w-9 text-[var(--co-palm)]" />
                 <p className="text-xs font-bold uppercase tracking-[0.08em] text-[var(--co-brown)]">{label}</p>
               </div>
             ))}
-          </div>
+          </FeatureStrip>
         </div>
       </section>
 
@@ -119,7 +121,7 @@ export default function RecipesPage() {
                     aspect="landscape"
                     fit="cover"
                     hoverZoom
-                    className="rounded-none border-0"
+                    className="rounded-[24px] border-0"
                   />
                   <div className="p-5">
                     <p className="co-label mb-4">{recipe.category} / {recipe.time}</p>

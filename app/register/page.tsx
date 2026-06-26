@@ -25,7 +25,7 @@ export default async function RegisterPage() {
         <div className="co-container">
           <div className="grid overflow-hidden rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] lg:grid-cols-[1.05fr_0.95fr]">
             <MotionSection>
-              <BentoCard className="h-full min-h-[590px] rounded-none border-0 shadow-none">
+              <BentoCard className="h-full min-h-[590px] rounded-[32px] border-0 shadow-none">
                 <p className="co-label mb-5">Create account</p>
                 <h1 className="co-h2 text-[var(--co-brown)]">Build your coconut ritual library.</h1>
                 <p className="mt-6 max-w-xl text-base leading-7 text-[var(--co-muted)]">A warm customer account for favourite products, saved recipes, and gentle .CO notes.</p>
@@ -36,8 +36,8 @@ export default async function RegisterPage() {
                 <CustomerRegisterForm />
               </BentoCard>
             </MotionSection>
-            <MotionSection delay={0.08}>
-              <BrandImage src={publicAssets.campaign.retailBusiness} alt=".CO product shelf account registration" sizes="(min-width: 1024px) 46vw, 92vw" aspect="wide" fit="cover" priority hoverZoom className="h-full min-h-[590px] rounded-none border-0" />
+            <MotionSection delay={0.08} className="p-4 md:p-5">
+              <BrandImage src={publicAssets.campaign.retailBusiness} alt=".CO product shelf account registration" sizes="(min-width: 1024px) 46vw, 92vw" aspect="wide" fit="cover" priority hoverZoom className="h-full min-h-[590px] rounded-[32px] border-0" />
             </MotionSection>
           </div>
         </div>

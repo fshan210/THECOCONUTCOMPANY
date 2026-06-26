@@ -51,7 +51,7 @@ export function CTAButton({
   return (
     <Link
       href={href}
-      className={`co-press inline-flex min-h-12 items-center justify-center rounded-[24px] border px-6 py-3 text-sm font-bold ${styles[variant]} ${className}`}
+      className={`co-press co-button-depth inline-flex min-h-12 items-center justify-center rounded-[24px] border px-6 py-3 text-sm font-bold ${styles[variant]} ${className}`}
     >
       {children}
     </Link>
@@ -192,12 +192,68 @@ export function TrustBadge({
   className?: string;
 }) {
   return (
-    <div className={`flex items-center gap-3 border-[var(--co-border)] text-[var(--co-brown)] ${className}`}>
+    <div className={`flex items-start gap-3 rounded-[28px] border border-[var(--co-border)] bg-[rgba(255,255,255,0.74)] p-4 text-[var(--co-brown)] shadow-[inset_0_1px_0_rgba(255,255,255,0.76)] ${className}`}>
       <DoodleIcon name={icon} className="h-8 w-8 shrink-0 text-[var(--co-palm)]" />
       <div>
         <p className="text-sm font-bold leading-tight">{title}</p>
         <p className="mt-1 text-xs leading-5 text-[var(--co-muted)]">{body}</p>
       </div>
+    </div>
+  );
+}
+
+export function FeatureStrip({
+  children,
+  className = ""
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return <div className={`co-feature-grid mt-4 grid gap-3 p-3 md:p-4 ${className}`}>{children}</div>;
+}
+
+export function ProductSwapImage({
+  title,
+  image,
+  hoverImage,
+  sizes,
+  aspect = "product",
+  fit = "contain",
+  className = "",
+  imageClassName = ""
+}: {
+  title: string;
+  image: string;
+  hoverImage?: string;
+  sizes: string;
+  aspect?: "square" | "portrait" | "landscape" | "wide" | "product";
+  fit?: "cover" | "contain";
+  className?: string;
+  imageClassName?: string;
+}) {
+  return (
+    <div className={`co-product-swap relative overflow-hidden rounded-[32px] bg-[var(--co-cream)] ${className}`}>
+      <BrandImage
+        src={image}
+        alt={title}
+        sizes={sizes}
+        aspect={aspect}
+        fit={fit}
+        fallbackLabel={title}
+        hoverZoom={!hoverImage}
+        className={`rounded-[32px] border-0 bg-transparent transition duration-700 ease-out ${hoverImage ? "group-hover:opacity-0" : ""}`}
+        imageClassName={imageClassName}
+      />
+      {hoverImage ? (
+        <Image
+          src={hoverImage}
+          alt=""
+          aria-hidden="true"
+          fill
+          sizes={sizes}
+          className="pointer-events-none rounded-[32px] object-contain p-5 opacity-0 transition duration-700 ease-out group-hover:scale-[1.03] group-hover:opacity-100 md:p-6"
+        />
+      ) : null}
     </div>
   );
 }
@@ -280,28 +336,7 @@ export function ProductTile({
       <BentoCard className="co-press flex h-full flex-col">
         {word ? <BillboardWord word={word} className="absolute -right-3 top-3 text-[clamp(72px,10vw,150px)] text-[var(--co-brown)]/[0.055]" /> : null}
         <div className="relative z-10 mb-6">
-          <div className="relative">
-            <BrandImage
-              src={image}
-              alt={title}
-              sizes="(min-width: 1024px) 44vw, 92vw"
-              aspect="product"
-              fit="contain"
-              fallbackLabel={title}
-              hoverZoom={!hoverImage}
-              className={`rounded-[32px] transition duration-700 ease-out ${hoverImage ? "group-hover:opacity-0" : ""}`}
-            />
-            {hoverImage ? (
-              <Image
-                src={hoverImage}
-                alt=""
-                aria-hidden="true"
-                fill
-                sizes="(min-width: 1024px) 44vw, 92vw"
-                className="pointer-events-none rounded-[32px] object-contain p-6 opacity-0 transition duration-700 ease-out group-hover:opacity-100"
-              />
-            ) : null}
-          </div>
+          <ProductSwapImage title={title} image={image} hoverImage={hoverImage} sizes="(min-width: 1024px) 44vw, 92vw" />
         </div>
         <p className="co-label relative z-10 mb-4">{eyebrow}</p>
         {trust.length ? (

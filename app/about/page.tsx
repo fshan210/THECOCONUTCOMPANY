@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { AboutJourney } from "@/components/AboutJourney";
 import { BrandImage } from "@/components/BrandImage";
-import { CTAButton, TrustBadge } from "@/components/brand/BrandPrimitives";
+import { CTAButton, FeatureStrip, TrustBadge } from "@/components/brand/BrandPrimitives";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { publicAssets } from "@/lib/public-assets";
@@ -38,23 +38,25 @@ export default function AboutPage() {
                 <CTAButton href="/sustainability" variant="outline">Our commitment</CTAButton>
               </div>
             </div>
-            <BrandImage
-              src={publicAssets.water.flatLay}
-              alt=".CO coconut water with fresh coconut pieces"
-              sizes="(min-width: 1024px) 54vw, 92vw"
-              aspect="wide"
-              fit="cover"
-              priority
-              hoverZoom
-              className="h-full min-h-[430px] rounded-none border-0"
-            />
+            <div className="min-h-[430px] p-4 md:p-5">
+              <BrandImage
+                src={publicAssets.water.flatLay}
+                alt=".CO coconut water with fresh coconut pieces"
+                sizes="(min-width: 1024px) 54vw, 92vw"
+                aspect="wide"
+                fit="cover"
+                priority
+                hoverZoom
+                className="h-full min-h-[430px] rounded-[32px] border-0"
+              />
+            </div>
           </div>
-          <div className="grid gap-4 border-b border-[var(--co-border)] bg-[var(--co-white)] px-4 py-6 sm:grid-cols-2 lg:grid-cols-4">
+          <FeatureStrip className="sm:grid-cols-2 lg:grid-cols-4">
             <TrustBadge icon="palm" title="Rooted in Kerala" body="Sourced from farms we know and trust." />
             <TrustBadge icon="drop" title="Clean & Pure" body="Nothing added. Nothing unnecessary." />
             <TrustBadge icon="cold" title="Made with care" body="Thoughtful process for real quality." />
             <TrustBadge icon="leaf" title="Better for all" body="Good for you. Good for the planet." />
-          </div>
+          </FeatureStrip>
         </div>
       </section>
       <AboutJourney />
