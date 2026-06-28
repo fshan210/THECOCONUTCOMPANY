@@ -11,6 +11,7 @@ import {
   CTAButton,
   DoodleIcon,
   FeatureStrip,
+  JourneyStage,
   MotionSection,
   ProductCard,
   SectionShell,
@@ -111,7 +112,7 @@ export function OriginStorySection() {
           <MotionSection>
             <BentoCard className="flex h-full min-h-[310px] flex-col justify-between bg-[var(--co-cream)]">
               <div>
-                <h2 className="text-[clamp(34px,4.5vw,62px)] font-bold uppercase leading-[0.9] text-[var(--co-ink)]">
+                <h2 className="co-h2 text-[var(--co-ink)]">
                   From grove to goodness
                 </h2>
                 <p className="mt-5 max-w-sm text-base leading-7 text-[var(--co-muted)]">
@@ -131,7 +132,7 @@ export function OriginStorySection() {
               />
             </div>
             {originSteps.map((step, index) => (
-              <MotionSection key={step.title} delay={index * 0.045} className="relative">
+              <JourneyStage key={step.title} progress={scrollYProgress} index={index} total={originSteps.length} reduced={shouldReduce}>
                 <article className="co-press relative z-10 h-full rounded-[24px] bg-[var(--co-white)] p-3">
                   <div className="mb-3 flex items-center gap-2 md:block">
                     <span className="grid h-7 w-7 place-items-center rounded-full border border-[var(--co-border)] bg-[var(--co-cream)] text-xs font-bold text-[var(--co-brown)] shadow-[0_8px_18px_rgba(58,36,22,0.08)] md:mb-2 md:h-6 md:w-6 md:text-[0.62rem] lg:mb-0 lg:h-7 lg:w-7 lg:text-xs">0{index + 1}</span>
@@ -148,7 +149,7 @@ export function OriginStorySection() {
                     className="rounded-[24px]"
                   />
                 </article>
-              </MotionSection>
+              </JourneyStage>
             ))}
           </div>
         </div>
@@ -309,7 +310,7 @@ export function RecipePreviewSection() {
                 <BrandImage src={recipe.image} alt={recipe.title} sizes="(min-width: 768px) 31vw, 92vw" aspect="landscape" fit="cover" hoverZoom className="rounded-[24px] border-0" />
                 <div className="p-5">
                   <p className="text-xs font-bold uppercase tracking-[0.08em] text-[var(--co-palm)]">{recipe.category} / {recipe.time}</p>
-                  <h3 className="mt-3 text-3xl font-bold leading-[0.95] text-[var(--co-brown)]">{recipe.title}</h3>
+                  <h3 className="co-editorial mt-3 text-[clamp(30px,3vw,42px)] leading-[1] text-[var(--co-brown)]">{recipe.title}</h3>
                   <p className="mt-3 text-sm leading-6 text-[var(--co-muted)]">{recipe.description}</p>
                 </div>
               </article>
@@ -336,7 +337,7 @@ export function TestimonialsSection() {
           <p className="co-label mb-4">Early notes</p>
           <h2 className="co-h2 max-w-4xl text-[var(--co-brown)]">Real coconut, remembered by people.</h2>
         </div>
-        <DoodleIcon name="wave" className="h-16 w-16 text-[var(--co-palm)]/45" />
+        <DoodleIcon name="wave" animated className="h-16 w-16 text-[var(--co-palm)]/45" />
       </MotionSection>
       <div className="relative overflow-hidden rounded-[40px] border border-[var(--co-border)] bg-[var(--co-cream)] py-5">
         <div className="co-testimonial-track flex w-max gap-4 px-5">
@@ -346,7 +347,7 @@ export function TestimonialsSection() {
               tabIndex={0}
               className="co-press flex min-h-[230px] w-[min(78vw,390px)] flex-col justify-between rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] p-6 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)] md:w-[420px] md:p-7"
             >
-              <p className="text-[clamp(24px,2.4vw,36px)] font-bold leading-[0.98] tracking-[-0.02em] text-[var(--co-brown)]">“{item.quote}”</p>
+              <p className="co-editorial-quote text-[clamp(28px,2.7vw,40px)] leading-[1.02] text-[var(--co-brown)]">“{item.quote}”</p>
               <p className="mt-8 text-xs font-bold uppercase tracking-[0.12em] text-[var(--co-palm)]">— {item.name}</p>
             </article>
           ))}

@@ -18,10 +18,16 @@ html {
 }
 
 body {
+  --co-font-sans: var(--font-co-sans), "Inter", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --co-font-display: var(--font-co-display), Georgia, "Times New Roman", serif;
   margin: 0;
   background: var(--co-cream);
   color: var(--co-ink);
+  font-family: var(--co-font-sans);
+  font-synthesis: none;
   text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 

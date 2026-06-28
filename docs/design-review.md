@@ -42,6 +42,8 @@ This checklist governs review for visual, motion, content, documentation, and de
 - [ ] Premium FMCG/editorial direction is preserved.
 - [ ] The page does not feel like SaaS, a generic ecommerce template, or a disconnected page design.
 - [ ] Typography is bold, architectural, and consistent.
+- [ ] Instrument Serif is limited to editorial display/story roles; Instrument Sans carries body, product, and interface roles.
+- [ ] No runtime font request or synthesized font weight/style was introduced.
 - [ ] Spacing follows the approved desktop, tablet, and mobile rhythm.
 - [ ] Cards use only the approved 24px, 32px, or 40px radius system.
 - [ ] Bento grids have equal gutters, clean alignment, and no accidental gaps.
@@ -132,6 +134,10 @@ This checklist governs review for visual, motion, content, documentation, and de
 - [ ] Hover effects are subtle and do not shift layout.
 - [ ] Marquees, testimonial sliders, ripples, and doodle animations do not distract from content.
 - [ ] Section reveals are staggered and not simultaneous across the entire viewport.
+- [ ] Editorial headline lines reveal through a clean mask where the pattern is used.
+- [ ] Journey stages activate progressively from section scroll progress.
+- [ ] Product media parallax stays within the approved desktop limits and is removed for reduced motion.
+- [ ] Animated SVG doodles are selective and story-relevant, not repeated decoration.
 
 ## Mobile
 
