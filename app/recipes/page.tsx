@@ -125,7 +125,7 @@ export default function RecipesPage() {
                   />
                   <div className="p-5">
                     <p className="co-label mb-4">{recipe.category} / {recipe.time}</p>
-                    <h3 className="text-[clamp(30px,3.5vw,46px)] font-bold leading-[0.92] text-[var(--co-brown)]">{recipe.title}</h3>
+                    <h3 className="co-editorial text-[clamp(32px,3.7vw,50px)] leading-[1] text-[var(--co-brown)]">{recipe.title}</h3>
                     <p className="mt-4 text-sm leading-6 text-[var(--co-muted)]">{recipe.description}</p>
                   </div>
                 </article>

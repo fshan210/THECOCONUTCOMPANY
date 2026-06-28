@@ -12,17 +12,18 @@ export function HeroStoryCanvas() {
   const { shouldReduce } = useCoconutMotionMode();
   const { scrollY } = useScroll();
   const mediaY = useTransform(scrollY, [0, 520], [0, shouldReduce ? 0 : -24]);
+  const mediaScale = useTransform(scrollY, [0, 520], [1, shouldReduce ? 1 : 1.035]);
   const transition = { duration: shouldReduce ? 0 : 0.82, ease };
 
   return (
     <section className="relative isolate overflow-hidden border-b border-[var(--co-border)] bg-[var(--co-cream)]">
-      <div className="co-container relative z-10 grid min-h-[calc(100dvh-88px)] items-center gap-8 py-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10 lg:py-16">
-        <div className="relative max-w-2xl">
+      <div className="co-container relative z-10 grid min-h-[calc(100dvh-88px)] grid-cols-[minmax(0,1fr)] items-center gap-8 py-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10 lg:py-16">
+        <div className="relative min-w-0 max-w-2xl">
           <motion.p
             initial={{ opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={transition}
-            className="mb-5 text-xs font-bold uppercase tracking-[0.14em] text-[var(--co-palm)] md:text-sm"
+            className="co-hero-mobile-reveal mb-5 text-xs font-bold uppercase tracking-[0.14em] text-[var(--co-palm)] md:text-sm"
           >
             Tender coconut water from Kerala
           </motion.p>
@@ -30,24 +31,25 @@ export function HeroStoryCanvas() {
             initial="hidden"
             animate="show"
             variants={{ show: { transition: { staggerChildren: shouldReduce ? 0 : 0.1 } } }}
-            className="relative z-10 max-w-[10.8ch] text-[clamp(42px,11vw,72px)] font-bold uppercase leading-[0.88] tracking-[-0.035em] text-[var(--co-ink)] lg:max-w-[10.8ch] lg:text-[clamp(76px,7.2vw,112px)] lg:leading-[0.84]"
+            className="co-display-hero relative z-10 max-w-[10.5ch] text-[var(--co-ink)]"
           >
-            {["Real", "Coconut.", "Cold by", "Nature."].map((line) => (
-              <motion.span
-                key={line}
-                variants={{ hidden: { opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 52 }, show: { opacity: 1, y: 0 } }}
-                transition={transition}
-                className="block"
-              >
-                {line}
-              </motion.span>
+            {["Nature's", "hydration.", ".CO by", "nature."].map((line) => (
+              <span key={line} className="co-text-mask">
+                <motion.span
+                  variants={{ hidden: { opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : "108%" }, show: { opacity: 1, y: 0 } }}
+                  transition={transition}
+                  className="co-hero-mobile-reveal"
+                >
+                  {line}
+                </motion.span>
+              </span>
             ))}
           </motion.h1>
           <motion.p
             initial={{ opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 22 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...transition, delay: shouldReduce ? 0 : 0.18 }}
-            className="mt-6 max-w-md text-base leading-7 text-[var(--co-brown)]/88 md:text-lg md:leading-8"
+            className="co-hero-mobile-reveal mt-6 max-w-[calc(100vw-24px)] [overflow-wrap:anywhere] text-base leading-7 text-[var(--co-brown)]/88 sm:max-w-md md:text-lg md:leading-8"
           >
             Tender coconut water with a clean Kerala origin story. Cold ritual. Real goodness. Fridge shelf ready.
           </motion.p>
@@ -55,7 +57,7 @@ export function HeroStoryCanvas() {
             initial={{ opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...transition, delay: shouldReduce ? 0 : 0.28 }}
-            className="mt-7 flex flex-wrap gap-3"
+            className="co-hero-mobile-reveal mt-7 flex flex-wrap gap-3"
           >
             <CTAButton href="/shop">Shop Now</CTAButton>
             <CTAButton href="/about" variant="outline">
@@ -78,6 +80,7 @@ export function HeroStoryCanvas() {
                 key={index}
                 variants={{ hidden: { opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 16 }, show: { opacity: 1, y: 0 } }}
                 transition={transition}
+                className="co-hero-mobile-reveal"
               >
                 {badge}
               </motion.div>
@@ -94,16 +97,18 @@ export function HeroStoryCanvas() {
           }}
           animate={{ opacity: 1, clipPath: "inset(0% 0% 0% 0% round 40px)", scale: 1 }}
           transition={{ ...transition, delay: shouldReduce ? 0 : 0.12 }}
-          className="relative min-h-[390px] overflow-hidden rounded-[40px] border border-[var(--co-border)] bg-[var(--co-white)] shadow-[0_20px_60px_rgba(58,36,22,0.10)] md:min-h-[520px] lg:min-h-[650px]"
+          className="co-hero-mobile-media relative min-h-[390px] overflow-hidden rounded-[40px] border border-[var(--co-border)] bg-[var(--co-white)] shadow-[0_20px_60px_rgba(58,36,22,0.10)] md:min-h-[520px] lg:min-h-[650px]"
         >
-          <Image
-            src={publicAssets.water.hero}
-            alt=".CO coconut water bottle with coconut and palm leaves"
-            fill
-            priority
-            sizes="(min-width: 1024px) 54vw, 92vw"
-            className="object-cover object-[58%_center]"
-          />
+          <motion.div style={{ scale: mediaScale }} className="absolute inset-0 origin-center">
+            <Image
+              src={publicAssets.water.hero}
+              alt=".CO coconut water bottle with coconut and palm leaves"
+              fill
+              priority
+              sizes="(min-width: 1024px) 54vw, 92vw"
+              className="object-cover object-[58%_center]"
+            />
+          </motion.div>
           <motion.div
             initial={{ opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -125,9 +130,19 @@ export function HeroStoryCanvas() {
               animate={{ pathLength: 1, opacity: 0.28 }}
               transition={{ duration: shouldReduce ? 0 : 1.1, ease, delay: shouldReduce ? 0 : 0.45 }}
             />
+            <motion.path
+              d="M18 146 C112 64 198 198 286 108 C366 28 442 76 506 54"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              initial={{ pathLength: shouldReduce ? 1 : 0, opacity: shouldReduce ? 0.16 : 0 }}
+              animate={{ pathLength: 1, opacity: 0.16 }}
+              transition={{ duration: shouldReduce ? 0 : 1.25, ease, delay: shouldReduce ? 0 : 0.58 }}
+            />
           </motion.svg>
           <div className="absolute left-5 top-5 rounded-full bg-[var(--co-white)]/78 p-3 backdrop-blur-sm">
-            <DoodleIcon name="wave" className="h-12 w-12 text-[var(--co-palm)]/45" />
+            <DoodleIcon name="wave" animated className="h-12 w-12 text-[var(--co-palm)]/45" />
           </div>
         </motion.div>
       </div>

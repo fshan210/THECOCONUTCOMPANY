@@ -18,7 +18,7 @@ export function JournalGrid() {
           <BentoCard className="co-press h-full">
             <BrandImage src={journalImages[index % journalImages.length]} alt={`${entry.title} editorial visual`} sizes="(min-width: 1024px) 25vw, (min-width: 768px) 48vw, 92vw" aspect="landscape" fit="cover" hoverZoom className="mb-6 rounded-[24px]" />
             <p className="co-label mb-5">{entry.category}</p>
-            <h3 className="text-3xl font-bold leading-[0.95] text-[var(--co-brown)]">{entry.title}</h3>
+            <h3 className="co-editorial text-[clamp(30px,3vw,42px)] leading-[1.02] text-[var(--co-brown)]">{entry.title}</h3>
             <p className="co-body mt-5 text-sm">{entry.excerpt}</p>
           </BentoCard>
         </MotionSection>

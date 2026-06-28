@@ -171,7 +171,11 @@ The header is a protected component.
 
 ## Typography Rules
 
-- Use the existing premium sans stack and brand token classes.
+- Use self-hosted Instrument Serif for approved editorial display roles and Instrument Sans for body, commerce, navigation, and interface roles.
+- Font files and OFL license copies must remain in `app/fonts/`; do not replace them with runtime Google Font requests.
+- Use `.co-display-hero`, `.co-display-section`, `.co-h2`, `.co-editorial`, and `.co-editorial-quote` for serif roles.
+- Use `.co-impact`, `.font-sans`, and the normal body inheritance for bold product language and interface roles.
+- Do not synthesize bold or italic font styles that are not shipped.
 - Display text must remain bold, editorial, and consumer-commercial.
 - Body text must stay readable at 16-18px with generous line height.
 - Display letter spacing must not go tighter than `-0.04em`; current defaults are preferred.
@@ -194,6 +198,9 @@ Motion must follow the system in [`docs/design-system.md`](./design-system.md):
 - Default easing should stay close to `cubic-bezier(0.16, 1, 0.3, 1)`.
 - Use motion tokens: fast `0.25s`, medium `0.6s`, slow/story `1.1s`.
 - Use subtle section reveals, staggered text, image masks, card lift, button press, doodle draw, timeline progress, gentle marquee, and testimonial sliding cards.
+- Hero headline lines must reveal through masks; selected journey stages should activate from shared scroll progress rather than unrelated timers.
+- Keep product media parallax under `3.5%` scale and `24px` travel on desktop, and remove it on mobile/reduced motion.
+- Use animated doodle path drawing only for selected story accents. Compact trust and utility icons remain static.
 - Use consistent durations and easing across the site.
 - Frequent UI interactions must be fast. Do not add long animations to header, cart, forms, or navigation.
 - Animate transform, opacity, clip-path, masks, and SVG path progress before layout properties.

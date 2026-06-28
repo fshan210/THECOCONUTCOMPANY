@@ -69,6 +69,16 @@ Do not use gradients, glassmorphism, neon colors, shiny UI effects, or excessive
 
 Typography should feel editorial, bold, and architectural.
 
+### Approved Font System
+
+- Editorial display: **Instrument Serif Regular/Italic** for hero headlines, page titles, section narratives, founder names, journal titles, recipes, and testimonial quotes.
+- Body and interface: **Instrument Sans Variable** for navigation, labels, body copy, buttons, product names, prices, badges, forms, and utility UI.
+- Both families are self-hosted from `app/fonts/` and must never be replaced by runtime Google Font requests.
+- Both families are licensed under the SIL Open Font License 1.1. License copies live beside the font files in `app/fonts/OFL-Instrument-Serif.txt` and `app/fonts/OFL-Instrument-Sans.txt`.
+- Source repositories: `Instrument/instrument-serif` and `Instrument/instrument-sans` on GitHub.
+
+Instrument Serif supplies warmth, appetite, and magazine-level character without weakening product clarity. Instrument Sans keeps commerce, navigation, and reading precise. Keep this contrast deliberate: editorial language uses serif; transactional language uses sans.
+
 Recommended hierarchy:
 
 - Display headlines: oversized, tight line-height, confident letter spacing.
@@ -76,6 +86,14 @@ Recommended hierarchy:
 - Supporting copy: medium weight, short, and readable.
 - Body copy: concise; avoid large text blocks.
 - Captions and badges: uppercase or small editorial labels where appropriate.
+
+Implementation roles:
+
+- `.co-display-hero`, `.co-display-section`, `.co-h2`, and `.co-editorial` use Instrument Serif at regular weight.
+- `.co-impact`, body text, labels, buttons, product titles, and navigation use Instrument Sans.
+- `.co-editorial-quote` uses Instrument Serif Italic.
+- Do not fake serif bold weights. Scale, spacing, color, and composition create hierarchy.
+- Display line height should sit between `0.88` and `1.02`; body copy should remain near `1.62`.
 
 Approved headline language examples:
 
@@ -173,6 +191,16 @@ Allowed motion:
 Do not use heavy particles, random bouncing, constant floating, distracting rotating objects, or simultaneous animation of everything on the page.
 
 Always respect `prefers-reduced-motion`. Reduced motion should remove unnecessary travel and looping, not remove content or leave blank states.
+
+### Phase 2 Motion Language
+
+- Standard section reveal: opacity, `28px` vertical travel, and a subtle `0.992` to `1` scale using the brand ease.
+- Editorial headline reveal: each line enters through an overflow mask; never reveal the entire block as one object.
+- Product media: mask reveal first, then no more than `3.5%` scroll-linked scale and `24px` vertical travel on desktop.
+- Journey stages: progressive opacity, lift, scale, and route-line completion tied to section scroll progress.
+- SVG doodles: path-length drawing only on selected story accents; trust-strip icons remain still.
+- CTA interaction: short depth lift, tiny label translation, and restrained press scale. No elastic, springy, or cursor-chasing behavior.
+- Instrument Serif motion should feel slower and more composed than utility UI; controls remain fast.
 
 ## Header Rules
 

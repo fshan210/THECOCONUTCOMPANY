@@ -29,3 +29,14 @@ Future Codex work must read all four references before coding:
 6. Grove-to-goodness animated story flow
 7. Advanced SEO and indexing readiness
 8. Dashboard-to-website real-time content integration
+
+## Phase 2 Typography And Motion Implementation
+
+The approved editorial identity uses self-hosted Instrument Serif and Instrument Sans from the official Instrument repositories. Both are SIL OFL 1.1 fonts; binaries and license copies are stored in `app/fonts/`.
+
+- Instrument Serif: hero, page, narrative, recipe, journal, founder, and quotation display roles.
+- Instrument Sans: body, navigation, buttons, labels, product language, forms, and commerce UI.
+- No font package or runtime Google Font dependency is used.
+- Standard motion continues to use Framer Motion already present in the project.
+- Phase 2 adds masked headline lines, scroll-activated journey stages, selected SVG path drawing, restrained media parallax, and improved press/depth feedback.
+- No external photography or product assets were added because the existing campaign library covers the approved sections.

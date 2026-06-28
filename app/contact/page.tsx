@@ -60,7 +60,7 @@ export default function ContactPage() {
               <BentoCard className="h-full">
                 <DoodleIcon name={icon} className="mb-8 h-10 w-10 text-[var(--co-palm)]" />
                 <IngredientBadge tone={index === 1 ? "sun" : "cream"}>{badge}</IngredientBadge>
-                <h2 className="mt-8 text-4xl font-bold leading-none text-[var(--co-brown)]">{title}</h2>
+                <h2 className="co-editorial mt-8 text-4xl leading-[1.02] text-[var(--co-brown)]">{title}</h2>
                 <p className="co-body mt-5">{body}</p>
               </BentoCard>
             </MotionSection>

@@ -79,7 +79,7 @@ export default function FoundersPage() {
               <BentoCard className="h-full">
                 <BrandImage src={founder.image} alt={`${founder.name} founder portrait`} sizes="(min-width: 768px) 46vw, 92vw" aspect="landscape" fit="cover" position="62% 36%" hoverZoom className="mb-7 rounded-[24px]" />
                 <p className="co-label mb-4">{founder.role}</p>
-                <h2 className="text-[clamp(42px,6vw,82px)] font-bold leading-[0.88] text-[var(--co-brown)]">{founder.name}</h2>
+                <h2 className="co-editorial text-[clamp(42px,6vw,82px)] leading-[0.94] text-[var(--co-brown)]">{founder.name}</h2>
                 <p className="co-body mt-6">{founder.bio}</p>
               </BentoCard>
             </MotionSection>

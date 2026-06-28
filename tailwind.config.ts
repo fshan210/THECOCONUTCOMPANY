@@ -22,8 +22,8 @@ const config: Config = {
         shell: "rgba(58,36,22,0.18)"
       },
       fontFamily: {
-        display: ["var(--font-brand)", "Roboto", "Inter", "Avenir Next", "Helvetica Neue", "Arial", "sans-serif"],
-        sans: ["var(--font-brand)", "Roboto", "Inter", "Avenir Next", "Helvetica Neue", "Arial", "sans-serif"]
+        display: ["var(--font-co-display)", "Georgia", "serif"],
+        sans: ["var(--font-co-sans)", "Inter", "Avenir Next", "Helvetica Neue", "Arial", "sans-serif"]
       },
       letterSpacing: {
         editorial: "0.08em"

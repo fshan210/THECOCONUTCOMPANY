@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import { headers } from "next/headers";
 import { Footer } from "@/components/Footer";
 import { Navigation } from "@/components/Navigation";
@@ -11,7 +12,24 @@ import { getCustomerSession } from "@/lib/customer/auth";
 import { defaultDescription, siteName, siteUrl } from "@/lib/seo/metadata";
 import "./globals.css";
 
-const brandFont = { variable: "font-brand-fallback" };
+const instrumentSans = localFont({
+  src: "./fonts/InstrumentSans-Variable.woff2",
+  variable: "--font-co-sans",
+  display: "swap",
+  preload: true,
+  fallback: ["Arial", "sans-serif"]
+});
+
+const instrumentSerif = localFont({
+  src: [
+    { path: "./fonts/InstrumentSerif-Regular.woff2", style: "normal", weight: "400" },
+    { path: "./fonts/InstrumentSerif-Italic.woff2", style: "italic", weight: "400" }
+  ],
+  variable: "--font-co-display",
+  display: "swap",
+  preload: true,
+  fallback: ["Georgia", "serif"]
+});
 
 
 export const metadata: Metadata = {
@@ -78,7 +96,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <link rel="preload" as="image" href="/assets/Coconut_Water_Assets/hero composition.png" fetchPriority="high" />
         <link rel="preload" as="image" href="/assets/Coconut_Water_Assets/floating pack.png" fetchPriority="high" />
       </head>
-      <body className={`${brandFont.variable} font-sans antialiased`}>
+      <body className={`${instrumentSans.variable} ${instrumentSerif.variable} font-sans antialiased`}>
         <CustomerAuthProvider session={customerSession}>
           <CartProvider>
             <StructuredData />

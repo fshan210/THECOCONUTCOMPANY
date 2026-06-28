@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useTransform } from "framer-motion";
+import type { MotionValue } from "framer-motion";
 import type { ReactNode } from "react";
 import { BrandImage } from "@/components/BrandImage";
 import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
@@ -20,9 +21,9 @@ export function MotionSection({ children, className = "", delay = 0 }: MotionSec
 
   return (
     <motion.div
-      initial={{ opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 22 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: shouldReduce ? 0 : 0.6, ease: easeBrand, delay: shouldReduce ? 0 : delay }}
+      initial={{ opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 28, scale: shouldReduce ? 1 : 0.992 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: shouldReduce ? 0 : 0.72, ease: easeBrand, delay: shouldReduce ? 0 : delay }}
       viewport={{ once: true, margin: "-10%" }}
       className={className}
     >
@@ -51,9 +52,9 @@ export function CTAButton({
   return (
     <Link
       href={href}
-      className={`co-press co-button-depth inline-flex min-h-12 items-center justify-center rounded-[24px] border px-6 py-3 text-sm font-bold ${styles[variant]} ${className}`}
+      className={`co-press co-button-depth group/cta inline-flex min-h-12 items-center justify-center rounded-[24px] border px-6 py-3 text-sm font-bold ${styles[variant]} ${className}`}
     >
-      {children}
+      <span className="transition-transform duration-300 ease-[var(--co-ease)] group-hover/cta:translate-x-0.5">{children}</span>
     </Link>
   );
 }
@@ -118,65 +119,124 @@ export function BentoGrid({ children, className = "" }: { children: ReactNode; c
 
 export type DoodleName = "coconut" | "leaf" | "drop" | "wave" | "palm" | "cold" | "bottle" | "bowl";
 
-export function DoodleIcon({ name, className = "" }: { name: DoodleName; className?: string }) {
+export function DoodleIcon({ name, className = "", animated = false }: { name: DoodleName; className?: string; animated?: boolean }) {
+  if (animated) return <AnimatedDoodleIcon name={name} className={className} />;
+
+  return <DoodleIconGraphic name={name} className={className} animated={false} shouldReduce />;
+}
+
+function AnimatedDoodleIcon({ name, className }: { name: DoodleName; className: string }) {
+  const { shouldReduce } = useCoconutMotionMode();
+
+  return <DoodleIconGraphic name={name} className={className} animated shouldReduce={shouldReduce} />;
+}
+
+function DoodleIconGraphic({
+  name,
+  className,
+  animated,
+  shouldReduce
+}: {
+  name: DoodleName;
+  className: string;
+  animated: boolean;
+  shouldReduce: boolean;
+}) {
   const common = "fill-none stroke-current stroke-[1.8] stroke-linecap-round stroke-linejoin-round";
+  const draw = (opacity = 1, delay = 0) => ({
+    initial: animated && !shouldReduce ? { pathLength: 0, opacity: 0 } : false,
+    whileInView: animated && !shouldReduce ? { pathLength: 1, opacity } : undefined,
+    viewport: { once: true, margin: "-12%" },
+    transition: { duration: 0.9, ease: easeBrand, delay }
+  });
 
   return (
-    <svg aria-hidden="true" viewBox="0 0 48 48" className={`h-9 w-9 text-[var(--co-brown)] ${className}`}>
+    <svg aria-hidden="true" viewBox="0 0 48 48" className={`co-doodle-draw h-9 w-9 text-[var(--co-brown)] ${className}`}>
       {name === "coconut" ? (
         <>
-          <path className={common} d="M14 30c1-11 7-19 16-20 7 5 9 14 3 22-5 7-15 8-19-2Z" />
-          <path className={common} d="M18 29c4 4 11 3 15-2" opacity=".42" />
-          <path className={common} d="M27 10c1-2 3-4 6-5" />
+          <motion.path {...draw()} className={common} d="M14 30c1-11 7-19 16-20 7 5 9 14 3 22-5 7-15 8-19-2Z" />
+          <motion.path {...draw(0.42, 0.08)} className={common} d="M18 29c4 4 11 3 15-2" opacity=".42" />
+          <motion.path {...draw(1, 0.14)} className={common} d="M27 10c1-2 3-4 6-5" />
         </>
       ) : null}
       {name === "leaf" ? (
         <>
-          <path className={common} d="M8 36c18 0 27-10 32-27-18 1-29 9-32 27Z" />
-          <path className={common} d="M9 36c9-9 19-16 31-27" opacity=".62" />
+          <motion.path {...draw()} className={common} d="M8 36c18 0 27-10 32-27-18 1-29 9-32 27Z" />
+          <motion.path {...draw(0.62, 0.1)} className={common} d="M9 36c9-9 19-16 31-27" opacity=".62" />
         </>
       ) : null}
       {name === "drop" ? (
         <>
-          <path className={common} d="M24 6c8 11 13 18 13 26 0 7-6 12-13 12S11 39 11 32c0-8 5-15 13-26Z" />
-          <path className={common} d="M18 33c2 3 5 5 9 4" opacity=".42" />
+          <motion.path {...draw()} className={common} d="M24 6c8 11 13 18 13 26 0 7-6 12-13 12S11 39 11 32c0-8 5-15 13-26Z" />
+          <motion.path {...draw(0.42, 0.1)} className={common} d="M18 33c2 3 5 5 9 4" opacity=".42" />
         </>
       ) : null}
       {name === "wave" ? (
         <>
-          <path className={common} d="M5 27c7-8 13-8 20 0s12 8 18 0" />
-          <path className={common} d="M7 35c6-5 11-5 17 0s11 5 17 0" opacity=".42" />
+          <motion.path {...draw()} className={common} d="M5 27c7-8 13-8 20 0s12 8 18 0" />
+          <motion.path {...draw(0.42, 0.1)} className={common} d="M7 35c6-5 11-5 17 0s11 5 17 0" opacity=".42" />
         </>
       ) : null}
       {name === "palm" ? (
         <>
-          <path className={common} d="M24 43c2-12 2-23 0-34" />
-          <path className={common} d="M24 10C14 9 8 13 5 20c8-3 14-3 19-10Z" />
-          <path className={common} d="M24 10c8-7 15-7 20-3-6 3-11 6-20 3Z" />
-          <path className={common} d="M24 14c8 0 14 4 18 11-8-2-14-5-18-11Z" />
-          <path className={common} d="M24 14c-8 2-13 7-16 14 7-3 12-6 16-14Z" />
+          <motion.path {...draw()} className={common} d="M24 43c2-12 2-23 0-34" />
+          <motion.path {...draw(1, 0.06)} className={common} d="M24 10C14 9 8 13 5 20c8-3 14-3 19-10Z" />
+          <motion.path {...draw(1, 0.1)} className={common} d="M24 10c8-7 15-7 20-3-6 3-11 6-20 3Z" />
+          <motion.path {...draw(1, 0.14)} className={common} d="M24 14c8 0 14 4 18 11-8-2-14-5-18-11Z" />
+          <motion.path {...draw(1, 0.18)} className={common} d="M24 14c-8 2-13 7-16 14 7-3 12-6 16-14Z" />
         </>
       ) : null}
       {name === "cold" ? (
         <>
-          <path className={common} d="M24 6v36M9 15l30 18M39 15 9 33" />
-          <path className={common} d="m18 9 6 6 6-6M18 39l6-6 6 6" opacity=".55" />
+          <motion.path {...draw()} className={common} d="M24 6v36M9 15l30 18M39 15 9 33" />
+          <motion.path {...draw(0.55, 0.1)} className={common} d="m18 9 6 6 6-6M18 39l6-6 6 6" opacity=".55" />
         </>
       ) : null}
       {name === "bottle" ? (
         <>
-          <path className={common} d="M18 5h12v8l4 6v21c0 3-2 5-5 5H19c-3 0-5-2-5-5V19l4-6V5Z" />
-          <path className={common} d="M16 28h16M18 11h12" opacity=".45" />
+          <motion.path {...draw()} className={common} d="M18 5h12v8l4 6v21c0 3-2 5-5 5H19c-3 0-5-2-5-5V19l4-6V5Z" />
+          <motion.path {...draw(0.45, 0.1)} className={common} d="M16 28h16M18 11h12" opacity=".45" />
         </>
       ) : null}
       {name === "bowl" ? (
         <>
-          <path className={common} d="M8 23h32c-1 12-7 18-16 18S9 35 8 23Z" />
-          <path className={common} d="M13 19c5-5 17-5 22 0" />
-          <path className={common} d="M17 27h14" opacity=".45" />
+          <motion.path {...draw()} className={common} d="M8 23h32c-1 12-7 18-16 18S9 35 8 23Z" />
+          <motion.path {...draw(1, 0.08)} className={common} d="M13 19c5-5 17-5 22 0" />
+          <motion.path {...draw(0.45, 0.14)} className={common} d="M17 27h14" opacity=".45" />
         </>
       ) : null}
     </svg>
+  );
+}
+
+export function JourneyStage({
+  progress,
+  index,
+  total,
+  children,
+  className = "",
+  reduced = false
+}: {
+  progress: MotionValue<number>;
+  index: number;
+  total: number;
+  children: ReactNode;
+  className?: string;
+  reduced?: boolean;
+}) {
+  const start = Math.max(0, index / total - 0.04);
+  const active = Math.min(1, (index + 0.72) / total);
+  const opacity = useTransform(progress, [start, active], [index === 0 ? 0.72 : 0.42, 1]);
+  const y = useTransform(progress, [start, active], [index === 0 ? 8 : 24, 0]);
+  const scale = useTransform(progress, [start, active], [0.985, 1]);
+
+  return (
+    <motion.div
+      style={reduced ? undefined : { opacity, y, scale }}
+      className={`co-journey-stage relative ${className}`}
+    >
+      {children}
+    </motion.div>
   );
 }
 

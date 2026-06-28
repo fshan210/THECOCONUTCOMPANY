@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { BrandImage } from "@/components/BrandImage";
-import { BentoCard, CTAButton, DoodleIcon, MotionSection } from "@/components/brand/BrandPrimitives";
+import { BentoCard, CTAButton, DoodleIcon, JourneyStage, MotionSection } from "@/components/brand/BrandPrimitives";
 import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
 import { publicAssets } from "@/lib/public-assets";
 
@@ -80,7 +80,7 @@ export function AboutJourney() {
             />
           </div>
           {steps.map((step, index) => (
-            <MotionSection key={step.title} delay={index * 0.04} className="relative">
+            <JourneyStage key={step.title} progress={scrollYProgress} index={index} total={steps.length} reduced={shouldReduce}>
               <article className="co-press relative z-10 h-full rounded-[28px] border border-[var(--co-border)] bg-[var(--co-white)] p-4">
                 <div className="mb-4 flex items-center gap-3">
                   <span className="grid h-9 w-9 place-items-center rounded-full border border-[var(--co-border)] bg-[var(--co-cream)] text-sm font-bold text-[var(--co-brown)] shadow-[0_8px_18px_rgba(58,36,22,0.08)]">0{index + 1}</span>
@@ -98,7 +98,7 @@ export function AboutJourney() {
                 />
                 <p className="mt-4 text-sm leading-6 text-[var(--co-muted)]">{step.body}</p>
               </article>
-            </MotionSection>
+            </JourneyStage>
           ))}
         </div>
 
@@ -110,7 +110,7 @@ export function AboutJourney() {
             </p>
           </BentoCard>
           <BentoCard className="flex items-center justify-between rounded-[24px] bg-[var(--co-cream)]">
-            <DoodleIcon name="palm" className="h-16 w-16 text-[var(--co-palm)]" />
+            <DoodleIcon name="palm" animated className="h-16 w-16 text-[var(--co-palm)]" />
             <CTAButton href="/products" variant="outline">See products</CTAButton>
           </BentoCard>
         </div>
