@@ -111,7 +111,7 @@ export function AboutJourney() {
           </BentoCard>
           <BentoCard className="flex items-center justify-between rounded-[24px] bg-[var(--co-cream)]">
             <DoodleIcon name="palm" animated className="h-16 w-16 text-[var(--co-palm)]" />
-            <CTAButton href="/products" variant="outline">See products</CTAButton>
+            <CTAButton href="/shop" variant="outline">See products</CTAButton>
           </BentoCard>
         </div>
       </div>

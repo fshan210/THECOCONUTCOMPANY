@@ -69,7 +69,7 @@ export default function SustainabilityPage() {
                   Coconut should feel useful across drink, dessert, kitchen, care, and everyday living. No exaggerated claims, just clearer choices.
                 </p>
               </div>
-              <CTAButton href="/products" variant="outline" className="mt-8 w-fit">See products</CTAButton>
+              <CTAButton href="/shop" variant="outline" className="mt-8 w-fit">See products</CTAButton>
             </BentoCard>
           </MotionSection>
           <MotionSection delay={0.08}>
@@ -87,25 +87,56 @@ export default function SustainabilityPage() {
       </section>
 
       <section className="co-section bg-[var(--co-white)]">
-        <div className="co-container grid gap-4 md:grid-cols-3">
-          {[
-            ["Thoughtful sourcing", "Stay close to coconut country and choose ingredient partners with care."],
-            ["Clear ingredients", "Make product stories easy to understand at shelf speed."],
-            ["Useful formats", "Reduce noise by making products people can actually use."],
-          ].map(([title, body], index) => (
-            <MotionSection key={title} delay={index * 0.05}>
-              <BentoCard className="h-full">
-                <p className="text-7xl font-bold leading-none text-[var(--co-brown)]/15">0{index + 1}</p>
-                <h2 className="mt-8 text-4xl font-bold leading-none text-[var(--co-brown)]">{title}</h2>
-                <p className="co-body mt-5">{body}</p>
-              </BentoCard>
-            </MotionSection>
-          ))}
+        <div className="co-container">
+          <div className="mb-8 max-w-3xl">
+            <p className="co-label mb-4">Making an impact</p>
+            <h2 className="co-h2 text-[var(--co-brown)]">Care should be visible.</h2>
+            <p className="co-body mt-5 max-w-2xl">The work is practical and ongoing: listen to growers, handle coconuts thoughtfully, make processing easier to understand, and keep learning.</p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                title: "Close to growers",
+                body: "Relationships begin in coconut country, with the people who understand the fruit best.",
+                image: publicAssets.campaign.farmerPortrait,
+                alt: "Kerala coconut grower holding a freshly harvested coconut"
+              },
+              {
+                title: "Community handling",
+                body: "Village aggregation can make collection calmer, clearer, and closer to the source.",
+                image: publicAssets.campaign.vapOrigin,
+                alt: "Village coconut aggregation point in Kerala"
+              },
+              {
+                title: "Thoughtful processing",
+                body: "Clean equipment and disciplined handling help protect the simple experience people expect.",
+                image: publicAssets.campaign.processingBottling,
+                alt: "Clean coconut beverage processing and bottling facility"
+              },
+              {
+                title: "Regeneration mindset",
+                body: "The long view is to support coconut landscapes, use resources carefully, and waste less.",
+                image: publicAssets.campaign.sustainabilityHands,
+                alt: "Hands holding a coconut seedling as a symbol of regeneration"
+              }
+            ].map((story, index) => (
+              <MotionSection key={story.title} delay={index * 0.055}>
+                <article className="co-press h-full overflow-hidden rounded-[32px] border border-[var(--co-border)] bg-white">
+                  <BrandImage src={story.image} alt={story.alt} sizes="(min-width: 1024px) 24vw, (min-width: 640px) 46vw, 92vw" aspect="portrait" fit="cover" hoverZoom className="rounded-[32px] border-0" />
+                  <div className="p-5 md:p-6">
+                    <p className="co-label">0{index + 1}</p>
+                    <h3 className="mt-4 text-[clamp(28px,3vw,40px)] font-bold leading-[0.95] text-[var(--co-brown)]">{story.title}</h3>
+                    <p className="mt-4 text-sm leading-6 text-[var(--co-muted)]">{story.body}</p>
+                  </div>
+                </article>
+              </MotionSection>
+            ))}
+          </div>
         </div>
         <div className="co-container mt-6">
           <BentoCard tone="green" className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
             <h2 className="co-h2">Better coconut products start with simpler choices.</h2>
-            <CTAButton href="/products" variant="light">See products</CTAButton>
+            <CTAButton href="/shop" variant="light">See products</CTAButton>
           </BentoCard>
         </div>
       </section>

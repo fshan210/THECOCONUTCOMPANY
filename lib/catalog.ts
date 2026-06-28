@@ -92,13 +92,43 @@ export const shopProducts: ShopProduct[] = [
   }
 ];
 
-export const recipes = [
+export const recipeCategories = [
+  "All recipes",
+  "Breakfast",
+  "Lunch",
+  "Dinner",
+  "Snacks",
+  "Desserts",
+  "Drinks",
+  "Smoothies",
+  "Quick Meals",
+  "Healthy",
+  "Seasonal"
+] as const;
+
+export type RecipeCategory = Exclude<(typeof recipeCategories)[number], "All recipes">;
+
+export type Recipe = {
+  slug: string;
+  title: string;
+  category: RecipeCategory;
+  time: string;
+  difficulty: "Easy" | "Medium";
+  nutrition: string;
+  product: string;
+  image: string;
+  description: string;
+  ingredients: string[];
+};
+
+export const recipes: Recipe[] = [
   {
     slug: "coconut-mango-cooler",
     title: "Coconut Mango Cooler",
-    category: "Coconut water drinks",
+    category: "Drinks",
     time: "5 min",
     difficulty: "Easy",
+    nutrition: "Hydrating",
     product: ".CO Water",
     image: publicAssets.recipes.cooler,
     description: "A bright mango and coconut water cooler for warm afternoons.",
@@ -107,9 +137,10 @@ export const recipes = [
   {
     slug: "tender-coconut-smoothie-bowl",
     title: "Tender Coconut Smoothie Bowl",
-    category: "Smoothies",
+    category: "Breakfast",
     time: "10 min",
     difficulty: "Easy",
+    nutrition: "Fruit forward",
     product: ".CO Water",
     image: publicAssets.recipes.bowl,
     description: "A soft breakfast bowl with coconut water, fruit, and a calm morning rhythm.",
@@ -118,13 +149,110 @@ export const recipes = [
   {
     slug: "coconut-coffee-chill",
     title: "Coconut Coffee Chill",
-    category: "Coconut water drinks",
+    category: "Drinks",
     time: "6 min",
     difficulty: "Easy",
+    nutrition: "Light refreshment",
     product: ".CO Water",
     image: publicAssets.recipes.coffee,
     description: "Cold coffee softened with coconut freshness for a simple cafe-style glass.",
     ingredients: ["Cold coffee", "Coconut water", "Ice", "Optional coconut cream"]
+  },
+  {
+    slug: "coconut-lime-rice-bowl",
+    title: "Coconut Lime Rice Bowl",
+    category: "Lunch",
+    time: "25 min",
+    difficulty: "Easy",
+    nutrition: "Plant based",
+    product: ".CO Kitchen",
+    image: publicAssets.recipes.riceBowl,
+    description: "Fragrant coconut rice lifted with lime, herbs, and crisp toasted coconut.",
+    ingredients: ["Rice", "Coconut milk", "Lime", "Coriander", "Toasted coconut"]
+  },
+  {
+    slug: "kerala-coconut-vegetable-stew",
+    title: "Kerala Coconut Vegetable Stew",
+    category: "Dinner",
+    time: "35 min",
+    difficulty: "Medium",
+    nutrition: "Vegetable rich",
+    product: ".CO Kitchen",
+    image: publicAssets.recipes.vegetableStew,
+    description: "A gentle Kerala-style stew with vegetables, curry leaves, and a silky coconut broth.",
+    ingredients: ["Coconut milk", "Mixed vegetables", "Curry leaves", "Ginger", "Black pepper"]
+  },
+  {
+    slug: "toasted-coconut-energy-bites",
+    title: "Toasted Coconut Energy Bites",
+    category: "Snacks",
+    time: "15 min",
+    difficulty: "Easy",
+    nutrition: "Fibre rich",
+    product: ".CO Kitchen",
+    image: publicAssets.recipes.energyBites,
+    description: "Soft date-and-oat bites rolled in coconut for an easy desk or travel snack.",
+    ingredients: ["Dates", "Rolled oats", "Coconut flakes", "Nut butter", "Sea salt"]
+  },
+  {
+    slug: "mango-coconut-scoop",
+    title: "Mango Coconut Scoop",
+    category: "Desserts",
+    time: "5 min",
+    difficulty: "Easy",
+    nutrition: "Dessert ritual",
+    product: "MELT.CO",
+    image: publicAssets.melt.lifestyle,
+    description: "Mango, toasted coconut, and a generous scoop of coconut-led frozen dessert.",
+    ingredients: ["MELT.CO", "Fresh mango", "Toasted coconut", "Mint"]
+  },
+  {
+    slug: "green-coconut-smoothie",
+    title: "Green Coconut Smoothie",
+    category: "Smoothies",
+    time: "8 min",
+    difficulty: "Easy",
+    nutrition: "Greens and fruit",
+    product: ".CO Water",
+    image: publicAssets.recipes.cooler,
+    description: "Leafy greens, fruit, and cold coconut water blended into a bright everyday glass.",
+    ingredients: ["Coconut water", "Spinach", "Pineapple", "Banana", "Lime"]
+  },
+  {
+    slug: "coconut-milk-veggie-curry",
+    title: "Coconut Milk Veggie Curry",
+    category: "Quick Meals",
+    time: "25 min",
+    difficulty: "Easy",
+    nutrition: "Plant based",
+    product: ".CO Kitchen",
+    image: publicAssets.recipes.veggieCurry,
+    description: "A weeknight vegetable curry with a warm coconut finish and one-pan ease.",
+    ingredients: ["Coconut milk", "Mixed vegetables", "Curry paste", "Lime", "Rice"]
+  },
+  {
+    slug: "coconut-chia-cup",
+    title: "Coconut Chia Cup",
+    category: "Healthy",
+    time: "10 min + chill",
+    difficulty: "Easy",
+    nutrition: "Fibre rich",
+    product: ".CO Kitchen",
+    image: publicAssets.recipes.chiaCup,
+    description: "Creamy overnight chia with mango and toasted coconut for a fridge-ready ritual.",
+    ingredients: ["Coconut milk", "Chia seeds", "Mango", "Toasted coconut"]
+  },
+  {
+    slug: "seasonal-coconut-berry-bowl",
+    title: "Seasonal Coconut Berry Bowl",
+    category: "Seasonal",
+    time: "12 min",
+    difficulty: "Easy",
+    nutrition: "Fresh fruit",
+    product: ".CO Kitchen",
+    image: publicAssets.recipes.seasonalBowl,
+    description: "Seasonal fruit, tender coconut, mint, and toasted flakes in one bright bowl.",
+    ingredients: ["Seasonal berries", "Tender coconut", "Orange", "Mint", "Coconut flakes"]
   }
 ];
 

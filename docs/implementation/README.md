@@ -30,13 +30,14 @@ Future Codex work must read all four references before coding:
 7. Advanced SEO and indexing readiness
 8. Dashboard-to-website real-time content integration
 
-## Phase 2 Typography And Motion Implementation
+## Current Typography, Motion, And Campaign Implementation
 
-The approved editorial identity uses self-hosted Instrument Serif and Instrument Sans from the official Instrument repositories. Both are SIL OFL 1.1 fonts; binaries and license copies are stored in `app/fonts/`.
+The official `.CO` branding PDF is the authority for identity. The primary type system is self-hosted Roboto Light, Regular, Medium, and Bold. Instrument Serif remains only for selected quotation and signature accents. Both use SIL OFL 1.1 licenses stored beside the font files in `app/fonts/`; there is no runtime font dependency.
 
-- Instrument Serif: hero, page, narrative, recipe, journal, founder, and quotation display roles.
-- Instrument Sans: body, navigation, buttons, labels, product language, forms, and commerce UI.
-- No font package or runtime Google Font dependency is used.
-- Standard motion continues to use Framer Motion already present in the project.
-- Phase 2 adds masked headline lines, scroll-activated journey stages, selected SVG path drawing, restrained media parallax, and improved press/depth feedback.
-- No external photography or product assets were added because the existing campaign library covers the approved sections.
+- Standard motion uses the existing Framer Motion dependency. No new runtime animation package was added.
+- The homepage uses the supplied coconut-to-bottle transition film, cropped to remove unwanted overlays and exported locally as optimized MP4/WebM with a poster fallback under `public/assets/video/`.
+- Reduced-motion visitors receive the final still frame rather than autoplay video or scroll travel.
+- Recipes use existing campaign assets plus six generated editorial food photographs stored under `public/assets/recipes/generated/`. These cover lunch, dinner, snacks, quick meals, healthy, and seasonal recipe gaps.
+- Generated recipe imagery is local, contains no text or logos, and follows the approved cream, earth-brown, and muted-green campaign grade.
+- Products browse through `/shop`; `/products` remains only as a compatibility redirect and is excluded from the sitemap.
+- Founder profiles show one approved portrait at a time; sustainability and journal use the existing local Kerala, aggregation, processing, and regeneration campaign library.

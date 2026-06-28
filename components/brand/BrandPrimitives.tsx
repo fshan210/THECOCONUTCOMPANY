@@ -342,7 +342,7 @@ export function ProductCard({
       <article className={`co-press relative flex h-full min-h-[440px] flex-col justify-between overflow-hidden rounded-[32px] border border-[var(--co-border)] p-5 md:p-6 ${accent ? "bg-[var(--co-sun)]" : "bg-[var(--co-white)]"}`}>
         {badge ? <span className="w-fit rounded-[8px] bg-[var(--co-sun)] px-3 py-2 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-[var(--co-black)]">{badge}</span> : <span />}
         <div className="relative my-3 min-h-[190px]">
-          <BrandImage src={image} alt={title} sizes="(min-width: 1024px) 30vw, 92vw" aspect="product" fit={imageFit} hoverZoom fallbackLabel={title} className="h-full rounded-[32px] border-0 bg-[var(--co-cream)]" />
+          <BrandImage src={image} alt={title} sizes="(min-width: 1024px) 30vw, (min-width: 768px) 46vw, calc(100vw - 72px)" aspect="product" fit={imageFit} hoverZoom fallbackLabel={title} className="h-full rounded-[32px] border-0 bg-[var(--co-cream)]" />
         </div>
         <div>
           <h3 className="text-[clamp(28px,3vw,44px)] font-bold leading-[0.92] text-[var(--co-brown)]">{title}</h3>

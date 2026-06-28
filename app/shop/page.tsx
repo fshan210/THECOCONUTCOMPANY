@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { BrandImage } from "@/components/BrandImage";
+import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { BentoCard, CTAButton, DoodleIcon, FeatureStrip, IngredientBadge, MotionSection, ProductSwapImage } from "@/components/brand/BrandPrimitives";
 import type { DoodleName } from "@/components/brand/BrandPrimitives";
 import { StructuredData } from "@/components/seo/StructuredData";
@@ -112,8 +113,8 @@ export default function ShopPage() {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {shopProducts.map((product, index) => (
               <MotionSection key={product.slug} delay={index * 0.04}>
-                <Link href={`/shop/${product.slug}`} className="group block h-full">
-                  <BentoCard className="co-press flex h-full min-h-[520px] flex-col rounded-[32px]">
+                <BentoCard className="group co-press flex h-full min-h-[540px] flex-col rounded-[32px]">
+                  <Link href={`/shop/${product.slug}`} className="block">
                     <ProductSwapImage title={product.name} image={product.image} hoverImage={product.hoverImage} sizes="(min-width: 1024px) 30vw, 92vw" className="mb-6" />
                     <p className="co-label mb-4">{product.category}</p>
                     <div className="mb-5 flex flex-wrap gap-2">
@@ -125,11 +126,14 @@ export default function ShopPage() {
                     </div>
                     <h2 className="text-[clamp(34px,4vw,58px)] font-bold leading-[0.9] text-[var(--co-brown)]">{product.name}</h2>
                     <p className="co-body mt-5">{product.shortDescription}</p>
-                    <span className="mt-7 inline-flex w-fit rounded-full border border-[var(--co-border)] px-4 py-3 text-xs font-bold uppercase tracking-[0.12em] text-[var(--co-ink)] transition group-hover:border-[var(--co-black)] group-hover:bg-[var(--co-black)] group-hover:text-[var(--co-white)]">
+                  </Link>
+                  <div className="mt-auto flex flex-col gap-3 pt-7 sm:flex-row sm:items-center sm:justify-between">
+                    <Link href={`/shop/${product.slug}`} className="inline-flex min-h-12 items-center justify-center rounded-full border border-[var(--co-border)] px-4 text-xs font-bold uppercase tracking-[0.12em] text-[var(--co-ink)] transition hover:border-[var(--co-black)]">
                       Product details
-                    </span>
-                  </BentoCard>
-                </Link>
+                    </Link>
+                    <AddToCartButton slug={product.slug} label="Quick add" className="sm:px-5" />
+                  </div>
+                </BentoCard>
               </MotionSection>
             ))}
           </div>

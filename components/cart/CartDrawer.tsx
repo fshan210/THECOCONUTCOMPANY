@@ -15,7 +15,7 @@ export function CartButton({ showZero = false, className = "" }: { showZero?: bo
       type="button"
       onClick={() => cart.setOpen(true)}
       className={`co-press relative grid h-10 w-10 place-items-center rounded-[16px] border border-[var(--co-border)] bg-[var(--co-white)] text-[var(--co-ink)] lg:h-11 lg:w-11 ${className}`}
-      aria-label="Open cart"
+      aria-label={`${count} ${count === 1 ? "item" : "items"} in cart, open cart`}
     >
       <ShoppingBag size={showZero ? 22 : 16} strokeWidth={showZero ? 2.1 : 2} />
       {count || showZero ? (

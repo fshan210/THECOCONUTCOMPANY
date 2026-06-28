@@ -57,7 +57,13 @@ export const publicAssets = {
   recipes: {
     cooler: "/assets/recipes/coconut mango cooler.png",
     bowl: "/assets/recipes/Coconut smoothie Bowl.png",
-    coffee: "/assets/recipes/coconut coffee chill.png"
+    coffee: "/assets/recipes/coconut coffee chill.png",
+    riceBowl: "/assets/recipes/generated/coconut-lime-rice-bowl.jpg",
+    vegetableStew: "/assets/recipes/generated/kerala-coconut-vegetable-stew.jpg",
+    energyBites: "/assets/recipes/generated/toasted-coconut-energy-bites.jpg",
+    veggieCurry: "/assets/recipes/generated/coconut-milk-veggie-curry.jpg",
+    chiaCup: "/assets/recipes/generated/coconut-chia-cup.jpg",
+    seasonalBowl: "/assets/recipes/generated/seasonal-coconut-berry-salad.jpg"
   },
   social: {
     founderJourney: "/assets/transparent/founder-journey.webp",

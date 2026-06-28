@@ -42,7 +42,7 @@ This checklist governs review for visual, motion, content, documentation, and de
 - [ ] Premium FMCG/editorial direction is preserved.
 - [ ] The page does not feel like SaaS, a generic ecommerce template, or a disconnected page design.
 - [ ] Typography is bold, architectural, and consistent.
-- [ ] Instrument Serif is limited to editorial display/story roles; Instrument Sans carries body, product, and interface roles.
+- [ ] Roboto carries primary display, body, product, navigation, and interface roles; Instrument Serif is limited to selected quotation/signature accents.
 - [ ] No runtime font request or synthesized font weight/style was introduced.
 - [ ] Spacing follows the approved desktop, tablet, and mobile rhythm.
 - [ ] Cards use only the approved 24px, 32px, or 40px radius system.
@@ -66,6 +66,7 @@ This checklist governs review for visual, motion, content, documentation, and de
 
 - [ ] Hero is product-first and clear above the fold.
 - [ ] Hero uses approved local assets, not external or placeholder imagery.
+- [ ] If the coconut-to-bottle film is used, the local MP4/WebM sources, poster fallback, clean crop, and reduced-motion still state all work.
 - [ ] Hero headline is readable and does not wrap into an awkward wall of text.
 - [ ] Hero copy and CTAs are not buried under imagery.
 - [ ] Hero trust badges are compact and legible.
@@ -116,6 +117,7 @@ This checklist governs review for visual, motion, content, documentation, and de
 - [ ] About pages use farm, coconut, aggregation, processing, values, and origin imagery instead of founder portraits.
 - [ ] Founder images use the approved Fazil and Afsala assets unless a replacement was provided.
 - [ ] Founder photos appear only on the Founders page, only in profile cards, and only once per founder.
+- [ ] Only one founder portrait is visible at a time in the profile interaction.
 - [ ] Founder crops preserve faces and do not distort identity.
 - [ ] Founder copy stays warm, human, and product-adjacent.
 - [ ] About/founder sections do not use investor or global-expansion language.
@@ -138,6 +140,7 @@ This checklist governs review for visual, motion, content, documentation, and de
 - [ ] Journey stages activate progressively from section scroll progress.
 - [ ] Product media parallax stays within the approved desktop limits and is removed for reduced motion.
 - [ ] Animated SVG doodles are selective and story-relevant, not repeated decoration.
+- [ ] Page transitions reveal content without delaying navigation or hiding content in reduced-motion mode.
 
 ## Mobile
 

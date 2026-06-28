@@ -5,7 +5,6 @@ const siteUrl = "https://cothecoconutcompany.com";
 const routes = [
   "",
   "/about",
-  "/products",
   "/sustainability",
   "/founders",
   "/journal",

@@ -32,16 +32,16 @@ The permanent `.CO` system translates three installed design/taste directions in
 The website token layer is authoritative unless a human approves a change.
 
 ```css
---co-cream: #f7f0e4;
+--co-cream: #f5ebd7;
 --co-white: #ffffff;
---co-brown: #3a2416;
---co-ink: #15110d;
---co-muted: #7a6a58;
---co-palm: #0f4f3a;
---co-leaf: #5e8c51;
---co-sun: #f4c95d;
---co-border: rgba(58, 36, 22, 0.18);
---co-black: #09090b;
+--co-brown: #3e2e1f;
+--co-ink: #2d2d2d;
+--co-muted: #716454;
+--co-palm: #4a6f4a;
+--co-leaf: #a8b07b;
+--co-sun: #d8c07a;
+--co-border: rgba(62, 46, 31, 0.18);
+--co-black: #2d2d2d;
 --co-radius-sm: 24px;
 --co-radius-md: 32px;
 --co-radius-lg: 40px;
@@ -63,7 +63,7 @@ Use a warm, premium natural palette:
 - Coconut tones for product warmth.
 - Tiny yellow accents only where emphasis is needed.
 
-Do not use gradients, glassmorphism, neon colors, shiny UI effects, or excessive shadows.
+Do not use decorative gradients, neon colors, shiny UI effects, or excessive shadows. A restrained tonal image overlay or soft surface blend is permitted only when it protects text readability or joins image and typography into one composition.
 
 ## Typography Philosophy
 
@@ -71,13 +71,13 @@ Typography should feel editorial, bold, and architectural.
 
 ### Approved Font System
 
-- Editorial display: **Instrument Serif Regular/Italic** for hero headlines, page titles, section narratives, founder names, journal titles, recipes, and testimonial quotes.
-- Body and interface: **Instrument Sans Variable** for navigation, labels, body copy, buttons, product names, prices, badges, forms, and utility UI.
-- Both families are self-hosted from `app/fonts/` and must never be replaced by runtime Google Font requests.
-- Both families are licensed under the SIL Open Font License 1.1. License copies live beside the font files in `app/fonts/OFL-Instrument-Serif.txt` and `app/fonts/OFL-Instrument-Sans.txt`.
-- Source repositories: `Instrument/instrument-serif` and `Instrument/instrument-sans` on GitHub.
+- Primary brand family: **Roboto Light, Regular, Medium, and Bold** for hero headlines, page titles, body copy, navigation, labels, buttons, product names, prices, badges, forms, and utility UI. This follows the official `.CO` brand guideline.
+- Editorial accent: **Instrument Serif Regular/Italic** only for selected quotations, founder signatures, and rare magazine-style accents. It must not replace Roboto as the main brand voice.
+- Both families are self-hosted from `app/fonts/`; runtime Google Font requests are prohibited.
+- Roboto and Instrument Serif are licensed under the SIL Open Font License 1.1. License copies live in `app/fonts/OFL-Roboto.txt` and `app/fonts/OFL-Instrument-Serif.txt`.
+- Roboto source files are the official Google Fonts static releases. Instrument Serif comes from the official `Instrument/instrument-serif` repository.
 
-Instrument Serif supplies warmth, appetite, and magazine-level character without weakening product clarity. Instrument Sans keeps commerce, navigation, and reading precise. Keep this contrast deliberate: editorial language uses serif; transactional language uses sans.
+Roboto preserves the identity documented in the brand book while supporting the strong condensed-feeling compositions in the approved references through weight, scale, line breaks, and tight rhythm. Instrument Serif adds warmth sparingly; it is an accent, not the architecture.
 
 Recommended hierarchy:
 
@@ -89,10 +89,10 @@ Recommended hierarchy:
 
 Implementation roles:
 
-- `.co-display-hero`, `.co-display-section`, `.co-h2`, and `.co-editorial` use Instrument Serif at regular weight.
-- `.co-impact`, body text, labels, buttons, product titles, and navigation use Instrument Sans.
+- `.co-display-hero`, `.co-display-section`, `.co-h2`, `.co-impact`, body text, labels, buttons, product titles, and navigation use Roboto.
+- `.co-editorial` is reserved for selective editorial accents and uses Instrument Serif.
 - `.co-editorial-quote` uses Instrument Serif Italic.
-- Do not fake serif bold weights. Scale, spacing, color, and composition create hierarchy.
+- Do not synthesize missing font weights. Scale, spacing, color, and composition create hierarchy.
 - Display line height should sit between `0.88` and `1.02`; body copy should remain near `1.62`.
 
 Approved headline language examples:
@@ -200,7 +200,7 @@ Always respect `prefers-reduced-motion`. Reduced motion should remove unnecessar
 - Journey stages: progressive opacity, lift, scale, and route-line completion tied to section scroll progress.
 - SVG doodles: path-length drawing only on selected story accents; trust-strip icons remain still.
 - CTA interaction: short depth lift, tiny label translation, and restrained press scale. No elastic, springy, or cursor-chasing behavior.
-- Instrument Serif motion should feel slower and more composed than utility UI; controls remain fast.
+- Large Roboto display lines should reveal with deliberate stagger; utility controls remain fast. Instrument Serif accents move only with their parent section.
 
 ## Header Rules
 

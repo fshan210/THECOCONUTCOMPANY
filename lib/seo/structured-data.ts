@@ -100,9 +100,13 @@ export function recipeSchema(recipe: {
   image: string;
   time: string;
   difficulty: string;
+  category?: string;
   product: string;
   slug: string;
+  ingredients?: string[];
 }) {
+  const minutes = Number.parseInt(recipe.time, 10);
+
   return {
     "@context": "https://schema.org",
     "@type": "Recipe",
@@ -110,9 +114,9 @@ export function recipeSchema(recipe: {
     description: recipe.description,
     image: `${siteUrl}${recipe.image}`,
     url: `${siteUrl}/recipes#${recipe.slug}`,
-    recipeCategory: recipe.difficulty,
-    recipeIngredient: [recipe.product],
-    totalTime: recipe.time,
+    recipeCategory: recipe.category ?? recipe.difficulty,
+    recipeIngredient: recipe.ingredients ?? [recipe.product],
+    totalTime: Number.isFinite(minutes) ? `PT${minutes}M` : undefined,
     publisher: organizationSchema()
   };
 }

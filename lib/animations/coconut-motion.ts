@@ -1,26 +1,31 @@
 "use client";
 
-import { useReducedMotion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+function subscribeToMediaQuery(query: string, callback: () => void) {
+  const media = window.matchMedia(query);
+  media.addEventListener("change", callback);
+  return () => media.removeEventListener("change", callback);
+}
+
+function useMediaQuery(query: string) {
+  return useSyncExternalStore(
+    (callback) => subscribeToMediaQuery(query, callback),
+    () => window.matchMedia(query).matches,
+    () => false
+  );
+}
 
 export function useCoconutMotionMode() {
-  const prefersReducedMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia("(max-width: 767px)");
-    const update = () => setIsMobile(media.matches);
-
-    update();
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
+  const shouldReduce = isMobile || prefersReducedMotion;
 
   return {
     isMobile,
-    prefersReducedMotion: Boolean(prefersReducedMotion),
-    quality: isMobile || prefersReducedMotion ? "mobile" : "desktop",
-    shouldReduce: isMobile || Boolean(prefersReducedMotion)
+    prefersReducedMotion,
+    quality: shouldReduce ? "mobile" : "desktop",
+    shouldReduce
   } as const;
 }
 
