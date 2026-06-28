@@ -42,22 +42,56 @@ export const journalEntries = [
   {
     title: "Why Coconut Feels Like Home",
     category: "Origins",
-    excerpt: "A short note on taste, memory, shade, kitchens, and the quiet comfort of coconut in everyday life."
+    excerpt: "A short note on taste, memory, shade, kitchens, and the quiet comfort of coconut in everyday life.",
+    image: publicAssets.campaign.groveOrigin,
+    date: "May 10",
+    readTime: "4 min read",
+    featured: true
   },
   {
     title: "Made for Living",
     category: "Brand",
-    excerpt: "How .CO thinks about useful products, warm design, clean labels, and rituals that fit real days."
+    excerpt: "How .CO thinks about useful products, warm design, clean labels, and rituals that fit real days.",
+    image: publicAssets.brand.madeForLiving,
+    date: "May 02",
+    readTime: "3 min read",
+    featured: false
   },
   {
     title: "A Better Coconut Water Moment",
-    category: "Product",
-    excerpt: "What makes a chilled coconut water feel clean, refreshing, balanced, and easy to come back to."
+    category: "Wellness",
+    excerpt: "What makes a chilled coconut water feel clean, refreshing, balanced, and easy to come back to.",
+    image: publicAssets.water.flatLay,
+    date: "Apr 25",
+    readTime: "3 min read",
+    featured: false
   },
   {
     title: "Cooking With Coconut",
-    category: "Kitchen",
-    excerpt: "Gentle pantry ideas for breakfast bowls, desserts, curries, coolers, and small hosting moments."
+    category: "Recipes",
+    excerpt: "Gentle pantry ideas for breakfast bowls, desserts, curries, coolers, and small hosting moments.",
+    image: publicAssets.recipes.riceBowl,
+    date: "Apr 12",
+    readTime: "5 min read",
+    featured: false
+  },
+  {
+    title: "What Thoughtful Processing Looks Like",
+    category: "Behind .CO",
+    excerpt: "A clear, human look at the care between a harvested coconut and a finished product.",
+    image: publicAssets.campaign.processingBottling,
+    date: "Mar 28",
+    readTime: "4 min read",
+    featured: false
+  },
+  {
+    title: "Sustainability Is How We Grow",
+    category: "Sustainability",
+    excerpt: "Why practical sourcing, careful handling, and less waste matter more than loud promises.",
+    image: publicAssets.campaign.sustainabilityHands,
+    date: "Mar 20",
+    readTime: "4 min read",
+    featured: false
   }
 ];
 

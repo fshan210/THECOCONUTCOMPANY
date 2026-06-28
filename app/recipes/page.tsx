@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { BrandImage } from "@/components/BrandImage";
-import { BentoCard, CTAButton, DoodleIcon, FeatureStrip, MotionSection, TrustBadge } from "@/components/brand/BrandPrimitives";
-import type { DoodleName } from "@/components/brand/BrandPrimitives";
+import { BentoCard, CTAButton, MotionSection, TrustBadge } from "@/components/brand/BrandPrimitives";
+import { RecipeExplorer } from "@/components/RecipeExplorer";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { recipes } from "@/lib/catalog";
 import { publicAssets } from "@/lib/public-assets";
@@ -16,14 +16,6 @@ export const metadata: Metadata = createPageMetadata({
 
 export default function RecipesPage() {
   const featured = recipes[0];
-  const browseItems: Array<{ label: string; icon: DoodleName }> = [
-    { label: "Breakfast", icon: "bowl" },
-    { label: "Lunch", icon: "leaf" },
-    { label: "Dinner", icon: "coconut" },
-    { label: "Drinks", icon: "drop" },
-    { label: "Desserts", icon: "cold" },
-    { label: "Snacks", icon: "wave" }
-  ];
 
   return (
     <>
@@ -39,9 +31,7 @@ export default function RecipesPage() {
               <p className="mt-6 max-w-[34ch] text-base leading-7 text-[var(--co-muted)] [overflow-wrap:anywhere]">
                 Simple, delicious recipes made better with real coconut. For every moment, every mood.
               </p>
-              <div className="mt-8">
-                <CTAButton href="#featured-recipe">Explore recipes</CTAButton>
-              </div>
+              <div className="mt-8"><CTAButton href="#recipe-shelf">Explore recipes</CTAButton></div>
             </div>
             <div className="min-h-[430px] p-4 md:p-5">
               <BrandImage
@@ -58,14 +48,6 @@ export default function RecipesPage() {
             </div>
           </div>
 
-          <FeatureStrip className="sm:grid-cols-3 lg:grid-cols-6">
-            {browseItems.map(({ label, icon }) => (
-              <div key={label} className="flex flex-col items-center gap-3 rounded-[28px] border border-[var(--co-border)] bg-[rgba(255,255,255,0.74)] p-4 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.76)]">
-                <DoodleIcon name={icon} className="h-9 w-9 text-[var(--co-palm)]" />
-                <p className="text-xs font-bold uppercase tracking-[0.08em] text-[var(--co-brown)]">{label}</p>
-              </div>
-            ))}
-          </FeatureStrip>
         </div>
       </section>
 
@@ -101,37 +83,16 @@ export default function RecipesPage() {
         </div>
       </section>
 
-      <section className="co-section bg-[var(--co-white)]">
+      <section id="recipe-shelf" className="co-section bg-[var(--co-white)]">
         <div className="co-container">
           <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div>
               <p className="co-label mb-4">Recipe shelf</p>
-              <h2 className="co-h2 text-[var(--co-brown)]">Cold coconut ideas that sell the ritual.</h2>
+              <h2 className="co-h2 text-[var(--co-brown)]">One coconut. A whole table.</h2>
             </div>
             <CTAButton href="/shop/co-water" variant="outline">Shop .CO Water</CTAButton>
           </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {recipes.map((recipe, index) => (
-              <MotionSection key={recipe.slug} delay={index * 0.05}>
-                <article id={recipe.slug} className="co-press h-full overflow-hidden rounded-[24px] border border-[var(--co-border)] bg-[var(--co-white)]">
-                  <BrandImage
-                    src={recipe.image}
-                    alt={`${recipe.title} recipe`}
-                    sizes="(min-width: 768px) 31vw, 92vw"
-                    aspect="landscape"
-                    fit="cover"
-                    hoverZoom
-                    className="rounded-[24px] border-0"
-                  />
-                  <div className="p-5">
-                    <p className="co-label mb-4">{recipe.category} / {recipe.time}</p>
-                    <h3 className="co-editorial text-[clamp(32px,3.7vw,50px)] leading-[1] text-[var(--co-brown)]">{recipe.title}</h3>
-                    <p className="mt-4 text-sm leading-6 text-[var(--co-muted)]">{recipe.description}</p>
-                  </div>
-                </article>
-              </MotionSection>
-            ))}
-          </div>
+          <RecipeExplorer />
         </div>
       </section>
 

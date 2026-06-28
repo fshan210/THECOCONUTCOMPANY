@@ -9,7 +9,7 @@ import { publicAssets } from "@/lib/public-assets";
 
 const links = [
   { label: "About", href: "/about" },
-  { label: "Products", href: "/products" },
+  { label: "Products", href: "/shop#all-products" },
   { label: "Shop", href: "/shop" },
   { label: "Recipes", href: "/recipes" },
   { label: "Sustainability", href: "/sustainability" },
@@ -30,7 +30,9 @@ export function Footer() {
       </div>
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:px-8 lg:grid-cols-[1.1fr_0.76fr_0.76fr_0.9fr]">
         <div className="relative">
-          <Image src="/images/logo.svg" alt=".CO The Coconut Company" width={116} height={94} className="mb-8 brightness-125" />
+          <span className="relative mb-8 block aspect-[188/150] w-[116px]">
+            <Image src="/images/logo.svg" alt=".CO The Coconut Company" fill sizes="116px" className="object-contain brightness-125" />
+          </span>
           <p className="max-w-md font-display text-4xl font-light leading-tight md:text-5xl">A coconut company from Palakkad, made for everyday living.</p>
           <p className="mt-7 max-w-sm text-sm leading-7 text-paper/68">Coconut water, MELT.CO, kitchen staples, Botanica care, recipes, and warm rituals for the fridge, shelf, and table.</p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -60,7 +62,7 @@ export function Footer() {
             <p className="mb-5 text-[0.7rem] font-medium uppercase tracking-editorial text-paper">Product ecosystem</p>
             <div className="flex flex-wrap gap-2">
               {productCategories.map((category) => (
-                <Link key={category} href="/products" className="rounded-2xl border border-paper/10 px-3 py-2 text-xs text-paper/68 transition hover:border-sun hover:text-sun">
+                <Link key={category} href="/shop#all-products" className="rounded-2xl border border-paper/10 px-3 py-2 text-xs text-paper/68 transition hover:border-sun hover:text-sun">
                   {category}
                 </Link>
               ))}
@@ -69,7 +71,7 @@ export function Footer() {
           <div>
             <p className="mb-4 text-[0.7rem] font-medium uppercase tracking-editorial text-paper">Recipes</p>
             <div className="space-y-2">
-              {recipes.map((recipe) => (
+              {recipes.slice(0, 3).map((recipe) => (
                 <Link key={recipe.slug} href={`/recipes#${recipe.slug}`} className="block text-paper/68 transition hover:text-sun">
                   {recipe.title}
                 </Link>

@@ -19,7 +19,7 @@ These rules are mandatory. Do not treat them as suggestions.
 
 - The public website must remain premium FMCG, product-led, coconut-first, consumer-friendly, and warm.
 - Public pages must use the local `.CO` palette: cream, white, brown, ink, muted, palm, leaf, sun, border, black.
-- Do not introduce new brand colors, gradients, glassmorphism, stock imagery, icon systems, or decorative visual languages without explicit approval.
+- Do not introduce new brand colors, decorative gradients, stock imagery, icon systems, or decorative visual languages without explicit approval. Restrained contrast overlays and approved header blur remain allowed.
 - Do not make "creative" UI changes when the request is deployment, QA, docs, content, or bug-fix only.
 - Preserve approved header and footer behavior unless the task explicitly targets them.
 - Prefer reusable design-system patterns over page-specific styling.
@@ -53,7 +53,7 @@ Do not make these changes unless the user explicitly requests them:
 
 - Redesign approved layouts from scratch.
 - Replace the premium FMCG/editorial direction with a SaaS or template aesthetic.
-- Introduce gradients, glassmorphism, neon colors, heavy shadows, shiny UI effects, or gradient text.
+- Introduce decorative gradients, neon colors, heavy shadows, shiny UI effects, or gradient text. Functional image contrast overlays and the approved restrained header blur are exceptions.
 - Add runtime Google font dependencies or other build-fragile external font loading.
 - Add heavy animation libraries for simple reveal, marquee, or carousel behavior.
 - Add random floating objects, particles, bouncing, decorative parallax, or distracting motion.
@@ -107,7 +107,7 @@ The header is a protected component.
 
 - `components/HeroStoryCanvas.tsx` must remain product-first.
 - Hero must communicate: cold coconut water, Kerala source, fridge shelf ritual, and product desirability.
-- Hero must use local `publicAssets.water.hero` or other approved local product assets.
+- Hero must use approved local product assets or the approved optimized local coconut-to-bottle film under `public/assets/video/`.
 - Hero must not use fake 3D, external imagery, random floating fruit, abstract placeholders, or unapproved stock assets.
 - Hero headline must be readable above the fold on desktop and mobile.
 - Hero copy and CTA must never sit under product imagery or become visually buried.
@@ -171,10 +171,11 @@ The header is a protected component.
 
 ## Typography Rules
 
-- Use self-hosted Instrument Serif for approved editorial display roles and Instrument Sans for body, commerce, navigation, and interface roles.
-- Font files and OFL license copies must remain in `app/fonts/`; do not replace them with runtime Google Font requests.
-- Use `.co-display-hero`, `.co-display-section`, `.co-h2`, `.co-editorial`, and `.co-editorial-quote` for serif roles.
-- Use `.co-impact`, `.font-sans`, and the normal body inheritance for bold product language and interface roles.
+- Use self-hosted Roboto for all primary brand, display, body, commerce, navigation, and interface roles. This is required by the official brand guideline.
+- Use self-hosted Instrument Serif only for selected quotations and restrained editorial accents.
+- Font files and OFL license copies must remain in `app/fonts/`; runtime Google Font requests are prohibited.
+- Use `.co-display-hero`, `.co-display-section`, `.co-h2`, `.co-impact`, `.font-sans`, and normal body inheritance for Roboto roles.
+- Use `.co-editorial` and `.co-editorial-quote` sparingly for Instrument Serif accents.
 - Do not synthesize bold or italic font styles that are not shipped.
 - Display text must remain bold, editorial, and consumer-commercial.
 - Body text must stay readable at 16-18px with generous line height.

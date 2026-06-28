@@ -2,18 +2,39 @@
 
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { CTAButton, DoodleIcon, TrustBadge } from "@/components/brand/BrandPrimitives";
 import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
-import { publicAssets } from "@/lib/public-assets";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 export function HeroStoryCanvas() {
   const { shouldReduce } = useCoconutMotionMode();
   const { scrollY } = useScroll();
-  const mediaY = useTransform(scrollY, [0, 520], [0, shouldReduce ? 0 : -24]);
-  const mediaScale = useTransform(scrollY, [0, 520], [1, shouldReduce ? 1 : 1.035]);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [storyStage, setStoryStage] = useState("01 Coconut");
+  const mediaY = useTransform(scrollY, [0, 620], [0, shouldReduce ? 0 : -68]);
+  const mediaScale = useTransform(scrollY, [0, 620], [1, shouldReduce ? 1 : 0.94]);
+  const mediaOpacity = useTransform(scrollY, [0, 420, 720], [1, 0.98, shouldReduce ? 1 : 0.72]);
   const transition = { duration: shouldReduce ? 0 : 0.82, ease };
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (shouldReduce) {
+      video.pause();
+      return;
+    }
+
+    void video.play().catch(() => undefined);
+  }, [shouldReduce]);
+
+  const updateStoryStage = () => {
+    const currentTime = videoRef.current?.currentTime ?? 0;
+    const nextStage = currentTime < 2.8 ? "01 Coconut" : currentTime < 6.2 ? "02 Coconut water" : "03 .CO bottle";
+    setStoryStage((current) => (current === nextStage ? current : nextStage));
+  };
 
   return (
     <section className="relative isolate overflow-hidden border-b border-[var(--co-border)] bg-[var(--co-cream)]">
@@ -31,7 +52,7 @@ export function HeroStoryCanvas() {
             initial="hidden"
             animate="show"
             variants={{ show: { transition: { staggerChildren: shouldReduce ? 0 : 0.1 } } }}
-            className="co-display-hero relative z-10 max-w-[10.5ch] text-[var(--co-ink)]"
+            className="co-display-hero relative z-10 max-w-[10.5ch] uppercase text-[var(--co-ink)]"
           >
             {["Nature's", "hydration.", ".CO by", "nature."].map((line) => (
               <span key={line} className="co-text-mask">
@@ -56,7 +77,7 @@ export function HeroStoryCanvas() {
           <motion.div
             initial={{ opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ ...transition, delay: shouldReduce ? 0 : 0.28 }}
+            transition={{ ...transition, delay: shouldReduce ? 0 : 0.78 }}
             className="co-hero-mobile-reveal mt-7 flex flex-wrap gap-3"
           >
             <CTAButton href="/shop">Shop Now</CTAButton>
@@ -68,8 +89,8 @@ export function HeroStoryCanvas() {
           <motion.div
             initial="hidden"
             animate="show"
-            variants={{ show: { transition: { staggerChildren: shouldReduce ? 0 : 0.07, delayChildren: shouldReduce ? 0 : 0.36 } } }}
-            className="mt-8 grid max-w-xl grid-cols-1 gap-3 sm:grid-cols-3"
+            variants={{ show: { transition: { staggerChildren: shouldReduce ? 0 : 0.07, delayChildren: shouldReduce ? 0 : 0.96 } } }}
+            className="mt-8 hidden max-w-xl grid-cols-1 gap-3 sm:grid sm:grid-cols-3"
           >
             {[
               <TrustBadge key="leaf" icon="leaf" title="100% Natural" body="Real coconut taste." />,
@@ -89,31 +110,58 @@ export function HeroStoryCanvas() {
         </div>
 
         <motion.div
-          style={{ y: mediaY }}
-          initial={{
-            opacity: shouldReduce ? 1 : 0,
-            clipPath: shouldReduce ? "inset(0% 0% 0% 0% round 40px)" : "inset(0% 0% 18% 0% round 40px)",
-            scale: shouldReduce ? 1 : 0.985
-          }}
-          animate={{ opacity: 1, clipPath: "inset(0% 0% 0% 0% round 40px)", scale: 1 }}
-          transition={{ ...transition, delay: shouldReduce ? 0 : 0.12 }}
+          style={{ y: mediaY, scale: mediaScale, opacity: mediaOpacity }}
+          initial={false}
           className="co-hero-mobile-media relative min-h-[390px] overflow-hidden rounded-[40px] border border-[var(--co-border)] bg-[var(--co-white)] shadow-[0_20px_60px_rgba(58,36,22,0.10)] md:min-h-[520px] lg:min-h-[650px]"
         >
-          <motion.div style={{ scale: mediaScale }} className="absolute inset-0 origin-center">
+          <div className="absolute inset-0 overflow-hidden rounded-[inherit] bg-[#e8e4dd]">
             <Image
-              src={publicAssets.water.hero}
-              alt=".CO coconut water bottle with coconut and palm leaves"
+              src="/assets/video/coconut-to-bottle-poster.webp"
+              alt=".CO coconut water bottle formed from a fresh coconut"
               fill
-              priority
+              loading="eager"
+              fetchPriority="high"
+              unoptimized
               sizes="(min-width: 1024px) 54vw, 92vw"
-              className="object-cover object-[58%_center]"
+              className="object-cover object-center"
             />
+            <video
+              ref={videoRef}
+              autoPlay
+              muted
+              playsInline
+              preload="none"
+              poster="/assets/video/coconut-to-bottle-poster.webp"
+              aria-hidden="true"
+              onTimeUpdate={updateStoryStage}
+              className="co-hero-film absolute inset-0 h-full w-full object-cover object-center"
+            >
+              <source src="/assets/video/coconut-to-bottle.webm" type="video/webm" />
+              <source src="/assets/video/coconut-to-bottle.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <motion.div
+            aria-hidden="true"
+            initial={{ scaleY: shouldReduce ? 0 : 1 }}
+            animate={{ scaleY: 0 }}
+            transition={{ ...transition, delay: shouldReduce ? 0 : 0.08 }}
+            className="pointer-events-none absolute inset-0 z-20 hidden origin-bottom bg-[var(--co-cream)] md:block"
+          />
+          <p className="sr-only">A fresh coconut opens into coconut water before forming the .CO coconut water bottle.</p>
+          <motion.div
+            key={storyStage}
+            initial={{ opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: shouldReduce ? 0 : 0.42, ease }}
+            className="absolute bottom-5 left-5 rounded-full border border-white/55 bg-[rgba(21,17,13,0.76)] px-4 py-3 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-white backdrop-blur-md"
+          >
+            {storyStage}
           </motion.div>
           <motion.div
             initial={{ opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...transition, delay: shouldReduce ? 0 : 0.52 }}
-            className="absolute bottom-5 right-5 rounded-full border border-[var(--co-white)]/70 bg-[var(--co-black)]/82 px-5 py-5 text-center text-xs font-bold uppercase tracking-[0.1em] text-[var(--co-white)] shadow-[0_8px_20px_rgba(58,36,22,0.18)]"
+            className="absolute bottom-5 right-5 rounded-full border border-[var(--co-white)]/70 bg-[var(--co-black)]/82 px-5 py-4 text-center text-[0.68rem] font-bold uppercase tracking-[0.1em] text-[var(--co-white)] shadow-[0_8px_20px_rgba(58,36,22,0.18)] backdrop-blur-md"
           >
             From Kerala
             <br />
@@ -141,10 +189,23 @@ export function HeroStoryCanvas() {
               transition={{ duration: shouldReduce ? 0 : 1.25, ease, delay: shouldReduce ? 0 : 0.58 }}
             />
           </motion.svg>
-          <div className="absolute left-5 top-5 rounded-full bg-[var(--co-white)]/78 p-3 backdrop-blur-sm">
-            <DoodleIcon name="wave" animated className="h-12 w-12 text-[var(--co-palm)]/45" />
+          <div className="absolute left-5 top-5 flex items-center gap-3 rounded-full border border-white/55 bg-white/78 px-4 py-3 backdrop-blur-sm">
+            <DoodleIcon name="wave" animated className="h-8 w-8 text-[var(--co-palm)]/55" />
+            <span className="text-[0.65rem] font-bold uppercase tracking-[0.12em] text-[var(--co-brown)]">Coconut to bottle</span>
           </div>
         </motion.div>
+        <div className="flex gap-2 overflow-x-auto pb-1 sm:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {[
+            ["leaf", "100% Natural"],
+            ["drop", "Nothing Added"],
+            ["cold", "Fridge Shelf Ready"]
+          ].map(([icon, label]) => (
+            <div key={label} className="flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-[var(--co-border)] bg-white px-4 text-xs font-bold text-[var(--co-brown)]">
+              <DoodleIcon name={icon as "leaf" | "drop" | "cold"} className="h-6 w-6 text-[var(--co-palm)]" />
+              {label}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

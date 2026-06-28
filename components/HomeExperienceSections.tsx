@@ -119,7 +119,7 @@ export function OriginStorySection() {
                   A journey rooted in care, tradition, and quality.
                 </p>
               </div>
-              <Link href="/about" className="mt-8 w-fit border-b border-current pb-1 text-sm font-bold text-[var(--co-black)]">
+              <Link href="/about" className="mt-8 inline-flex min-h-11 w-fit items-center border-b border-current text-sm font-bold text-[var(--co-black)]">
                 Our story
               </Link>
             </BentoCard>
@@ -141,7 +141,7 @@ export function OriginStorySection() {
                   <BrandImage
                     src={step.image}
                     alt={`${step.title} stage in the .CO coconut journey`}
-                    sizes="(min-width: 1280px) 14vw, (min-width: 768px) 30vw, 92vw"
+                    sizes="(min-width: 1280px) 14vw, (min-width: 768px) 30vw, calc(100vw - 54px)"
                     aspect="landscape"
                     fit={step.fit}
                     position={step.position ?? "center"}
@@ -235,7 +235,7 @@ export function RetailDistributorCTA() {
               </p>
             </div>
             <div className="mt-8">
-              <CTAButton href="/contact" variant="light">Learn more</CTAButton>
+              <CTAButton href="/contact" variant="light">Explore business partnerships</CTAButton>
             </div>
             <DoodleIcon name="palm" className="absolute bottom-6 right-7 h-28 w-28 text-white/10" />
           </div>
@@ -269,7 +269,7 @@ export function BrandWorldTeaser() {
           <DoodleIcon name="palm" className="mx-auto h-20 w-20 text-[var(--co-palm)]" />
           <div>
             <p className="text-base leading-7 text-[var(--co-muted)]">We are building a coconut brand from the heart of Kerala.</p>
-            <Link href="/about" className="mt-4 inline-flex border-b border-current pb-1 text-sm font-bold text-[var(--co-black)]">
+            <Link href="/about" className="mt-4 inline-flex min-h-11 items-center border-b border-current text-sm font-bold text-[var(--co-black)]">
               About .CO
             </Link>
           </div>
@@ -303,7 +303,7 @@ export function RecipePreviewSection() {
         <CTAButton href="/recipes" variant="outline">Explore recipes</CTAButton>
       </div>
       <BentoGrid className="md:grid-cols-3">
-        {recipes.map((recipe, index) => (
+        {recipes.slice(0, 3).map((recipe, index) => (
           <MotionSection key={recipe.slug} delay={index * 0.05}>
             <Link href={`/recipes#${recipe.slug}`} className="group block h-full">
               <article className="co-press h-full overflow-hidden rounded-[24px] border border-[var(--co-border)] bg-[var(--co-white)]">

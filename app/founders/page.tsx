@@ -1,25 +1,11 @@
 import type { Metadata } from "next";
 import { BrandImage } from "@/components/BrandImage";
-import { BentoCard, CTAButton, FeatureStrip, MotionSection, TrustBadge } from "@/components/brand/BrandPrimitives";
+import { BentoCard, CTAButton, FeatureStrip, TrustBadge } from "@/components/brand/BrandPrimitives";
+import { FounderProfiles } from "@/components/FounderProfiles";
 import { JournalGrid } from "@/components/JournalGrid";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { publicAssets } from "@/lib/public-assets";
-
-const founders = [
-  {
-    name: "Fazil Shersha",
-    role: "Co-founder",
-    image: publicAssets.social.founderFazil,
-    bio: "Driven by purpose. Focused on real impact through better coconut products and everyday rituals."
-  },
-  {
-    name: "Afsala Muthali",
-    role: "Co-founder",
-    image: publicAssets.social.founderAfsala,
-    bio: "Rooted in care. Committed to quality in every detail, from product feeling to consumer experience."
-  }
-];
 
 export const metadata: Metadata = createPageMetadata({
   title: "Founders",
@@ -73,18 +59,7 @@ export default function FoundersPage() {
       </section>
 
       <section id="founder-cards" className="co-section bg-[var(--co-white)]">
-        <div className="co-container grid gap-4 md:grid-cols-2">
-          {founders.map((founder, index) => (
-            <MotionSection key={founder.name} delay={index * 0.08}>
-              <BentoCard className="h-full">
-                <BrandImage src={founder.image} alt={`${founder.name} founder portrait`} sizes="(min-width: 768px) 46vw, 92vw" aspect="landscape" fit="cover" position="62% 36%" hoverZoom className="mb-7 rounded-[24px]" />
-                <p className="co-label mb-4">{founder.role}</p>
-                <h2 className="co-editorial text-[clamp(42px,6vw,82px)] leading-[0.94] text-[var(--co-brown)]">{founder.name}</h2>
-                <p className="co-body mt-6">{founder.bio}</p>
-              </BentoCard>
-            </MotionSection>
-          ))}
-        </div>
+        <div className="co-container"><FounderProfiles /></div>
       </section>
 
       <section className="co-section bg-[var(--co-cream)]">
@@ -93,7 +68,7 @@ export default function FoundersPage() {
             <h2 className="co-h2">Notes from the people building the coconut world.</h2>
             <CTAButton href="/journal" variant="light">Read journal</CTAButton>
           </BentoCard>
-          <JournalGrid />
+          <JournalGrid compact />
         </div>
       </section>
     </>

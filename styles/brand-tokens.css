@@ -1,14 +1,14 @@
 :root {
-  --co-cream: #f7f0e4;
+  --co-cream: #f5ebd7;
   --co-white: #ffffff;
-  --co-brown: #3a2416;
-  --co-ink: #15110d;
-  --co-muted: #7a6a58;
-  --co-palm: #0f4f3a;
-  --co-leaf: #5e8c51;
-  --co-sun: #f4c95d;
-  --co-border: rgba(58, 36, 22, 0.18);
-  --co-black: #09090b;
+  --co-brown: #3e2e1f;
+  --co-ink: #2d2d2d;
+  --co-muted: #716454;
+  --co-palm: #4a6f4a;
+  --co-leaf: #a8b07b;
+  --co-sun: #d8c07a;
+  --co-border: rgba(62, 46, 31, 0.18);
+  --co-black: #2d2d2d;
   --co-radius-sm: 24px;
   --co-radius-md: 32px;
   --co-radius-lg: 40px;
@@ -25,12 +25,19 @@
 }
 
 .co-editorial,
+.co-editorial-quote {
+  font-family: var(--co-font-editorial);
+  font-style: normal;
+  font-weight: 400;
+  text-wrap: balance;
+}
+
 .co-display-hero,
 .co-display-section,
 .co-h2 {
   font-family: var(--co-font-display);
   font-style: normal;
-  font-weight: 400;
+  font-weight: 700;
   text-wrap: balance;
 }
 
@@ -56,21 +63,21 @@
 }
 
 .co-display-hero {
-  font-size: clamp(58px, 9.6vw, 132px);
-  line-height: 0.88;
-  letter-spacing: -0.02em;
+  font-size: clamp(58px, 7.15vw, 106px);
+  line-height: 0.86;
+  letter-spacing: -0.035em;
 }
 
 .co-display-section {
   font-size: clamp(46px, 6.8vw, 104px);
-  line-height: 0.9;
-  letter-spacing: -0.018em;
+  line-height: 0.88;
+  letter-spacing: -0.032em;
 }
 
 .co-h2 {
   font-size: clamp(36px, 5vw, 76px);
-  line-height: 0.98;
-  letter-spacing: -0.016em;
+  line-height: 0.92;
+  letter-spacing: -0.028em;
 }
 
 .co-body {
@@ -89,7 +96,7 @@
 }
 
 .co-editorial-quote {
-  font-family: var(--co-font-display);
+  font-family: var(--co-font-editorial);
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.015em;
@@ -327,9 +334,11 @@
 
 @media (max-width: 1023px) {
   .co-site-header {
+    top: 0 !important;
     left: 0 !important;
     right: 0 !important;
     width: 100vw !important;
+    border-radius: 0 !important;
     transform: none !important;
   }
 }
@@ -337,8 +346,8 @@
 .co-mobile-search,
 .co-mobile-cart,
 .co-mobile-menu {
-  position: fixed;
-  top: 13px;
+  position: fixed !important;
+  top: 13px !important;
   z-index: 111;
 }
 
@@ -352,6 +361,12 @@
 
 .co-mobile-menu {
   right: 12px;
+}
+
+@media (max-width: 767px), (prefers-reduced-motion: reduce) {
+  .co-hero-film {
+    display: none;
+  }
 }
 
 .co-testimonial-track {

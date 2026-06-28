@@ -12,12 +12,17 @@ import { getCustomerSession } from "@/lib/customer/auth";
 import { defaultDescription, siteName, siteUrl } from "@/lib/seo/metadata";
 import "./globals.css";
 
-const instrumentSans = localFont({
-  src: "./fonts/InstrumentSans-Variable.woff2",
+const roboto = localFont({
+  src: [
+    { path: "./fonts/Roboto-Light.ttf", weight: "300", style: "normal" },
+    { path: "./fonts/Roboto-Regular.ttf", weight: "400", style: "normal" },
+    { path: "./fonts/Roboto-Medium.ttf", weight: "500", style: "normal" },
+    { path: "./fonts/Roboto-Bold.ttf", weight: "700", style: "normal" }
+  ],
   variable: "--font-co-sans",
   display: "swap",
-  preload: true,
-  fallback: ["Arial", "sans-serif"]
+  preload: false,
+  fallback: ["Arial", "Helvetica", "sans-serif"]
 });
 
 const instrumentSerif = localFont({
@@ -25,9 +30,9 @@ const instrumentSerif = localFont({
     { path: "./fonts/InstrumentSerif-Regular.woff2", style: "normal", weight: "400" },
     { path: "./fonts/InstrumentSerif-Italic.woff2", style: "italic", weight: "400" }
   ],
-  variable: "--font-co-display",
+  variable: "--font-co-editorial",
   display: "swap",
-  preload: true,
+  preload: false,
   fallback: ["Georgia", "serif"]
 });
 
@@ -93,10 +98,9 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html lang="en">
       <head>
-        <link rel="preload" as="image" href="/assets/Coconut_Water_Assets/hero composition.png" fetchPriority="high" />
-        <link rel="preload" as="image" href="/assets/Coconut_Water_Assets/floating pack.png" fetchPriority="high" />
+        <link rel="preload" as="image" type="image/webp" href="/assets/video/coconut-to-bottle-poster.webp" fetchPriority="high" />
       </head>
-      <body className={`${instrumentSans.variable} ${instrumentSerif.variable} font-sans antialiased`}>
+      <body className={`${roboto.variable} ${instrumentSerif.variable} font-sans antialiased`}>
         <CustomerAuthProvider session={customerSession}>
           <CartProvider>
             <StructuredData />

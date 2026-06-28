@@ -13,7 +13,7 @@ import { getAdminPath } from "@/lib/admin/path";
 
 const links = [
   { href: "/about", label: "About" },
-  { href: "/products", label: "Products" },
+  { href: "/shop#all-products", label: "Products" },
   { href: "/shop", label: "Shop" },
   { href: "/recipes", label: "Recipes" },
   { href: "/sustainability", label: "Sustainability" },
@@ -26,7 +26,7 @@ export function Navigation() {
   const [open, setOpen] = useState(false);
   const session = useCustomerSession();
   const { scrollY } = useScroll();
-  const headerBackground = useTransform(scrollY, [0, 90], ["rgba(247, 240, 228, 0.96)", "rgba(247, 240, 228, 0.84)"]);
+  const headerBackground = useTransform(scrollY, [0, 90], ["rgba(245, 235, 215, 0.96)", "rgba(245, 235, 215, 0.84)"]);
   const headerShadow = useTransform(scrollY, [0, 90], ["0 0 0 rgba(58, 36, 22, 0)", "inset 0 1px 0 rgba(255,255,255,0.74), 0 22px 60px rgba(58, 36, 22, 0.14)"]);
   const headerBorder = useTransform(scrollY, [0, 90], ["rgba(58, 36, 22, 0.14)", "rgba(58, 36, 22, 0.18)"]);
   const headerWidth = useTransform(scrollY, [0, 90], ["100%", "min(1180px, calc(100% - 32px))"]);
@@ -54,8 +54,8 @@ export function Navigation() {
       >
         <nav className="co-container co-nav-row relative flex min-h-[66px] items-center justify-between gap-2 py-2 lg:min-h-[76px] lg:gap-4 lg:py-3">
           <Link href="/" className="flex min-w-0 items-center gap-3" aria-label=".CO home">
-            <span className="block w-[54px] origin-left sm:w-[78px] md:w-[88px]">
-              <Image src="/images/logo.svg" alt=".CO The Coconut Company" width={124} height={100} priority className="h-auto w-full" />
+            <span className="relative block aspect-[188/150] w-[74px] origin-left sm:w-[82px] md:w-[88px]">
+              <Image src="/images/logo.svg" alt=".CO The Coconut Company" fill preload sizes="88px" className="object-contain" />
             </span>
           </Link>
           <div className="hidden items-center gap-6 text-[0.7rem] font-bold uppercase tracking-[0.08em] text-[var(--co-ink)] lg:flex xl:gap-8">
@@ -105,17 +105,17 @@ export function Navigation() {
             <Link
               href="/shop"
               aria-label="Search products"
-              className="co-mobile-search grid h-10 w-10 place-items-center rounded-[22px] text-[var(--co-ink)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)] sm:h-11 sm:w-11 sm:rounded-[24px]"
+              className="co-mobile-search grid h-11 w-11 place-items-center rounded-[24px] text-[var(--co-ink)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)]"
             >
               <Search size={21} strokeWidth={2.1} />
             </Link>
-            <CartButton showZero className="co-mobile-cart h-10 w-10 rounded-[22px] sm:h-11 sm:w-11 sm:rounded-[24px]" />
+            <CartButton showZero className="co-mobile-cart h-11 w-11 rounded-[24px]" />
             <button
               type="button"
               aria-label="Toggle navigation"
               aria-expanded={open}
               onClick={() => setOpen((value) => !value)}
-              className="co-mobile-menu grid h-10 w-10 place-items-center rounded-[22px] text-[var(--co-ink)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)] sm:h-11 sm:w-11 sm:rounded-[24px]"
+              className="co-mobile-menu grid h-11 w-11 place-items-center rounded-[24px] text-[var(--co-ink)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)]"
             >
               {open ? <X size={24} strokeWidth={2.1} /> : <Menu size={26} strokeWidth={2.1} />}
             </button>
