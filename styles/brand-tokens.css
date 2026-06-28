@@ -78,7 +78,9 @@
   border: 1px solid var(--co-border);
   background: var(--co-white);
   border-radius: var(--co-radius-md);
-  box-shadow: 0 8px 20px rgba(58, 36, 22, 0.055);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.74),
+    0 16px 42px rgba(58, 36, 22, 0.065);
 }
 
 .co-bento-lg {
@@ -100,11 +102,49 @@
 
 .co-press:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(58, 36, 22, 0.095);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 18px 42px rgba(58, 36, 22, 0.12);
 }
 
 .co-press:active {
   transform: translateY(-1px) scale(0.985);
+}
+
+.co-button-depth {
+  box-shadow:
+    0 14px 34px rgba(58, 36, 22, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.co-soft-surface {
+  border: 1px solid var(--co-border);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.78),
+    0 18px 46px rgba(58, 36, 22, 0.07);
+}
+
+.co-feature-grid {
+  border-radius: var(--co-radius-lg);
+  border: 1px solid var(--co-border);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(247, 240, 228, 0.72));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.86),
+    0 18px 46px rgba(58, 36, 22, 0.07);
+}
+
+.co-product-swap {
+  isolation: isolate;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.64),
+    0 14px 34px rgba(58, 36, 22, 0.055);
+}
+
+.co-journey-line {
+  transform-origin: left center;
+  will-change: transform;
 }
 
 .co-focus {
@@ -194,7 +234,7 @@
 
 @media (max-width: 767px) {
   .co-container {
-    width: min(100% - 24px, var(--co-max));
+    width: min(var(--co-max), calc(100vw - 24px));
   }
 
   .co-nav-row {
@@ -221,6 +261,35 @@
   .co-container p {
     overflow-wrap: anywhere;
   }
+}
+
+@media (max-width: 1023px) {
+  .co-site-header {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    transform: none !important;
+  }
+}
+
+.co-mobile-search,
+.co-mobile-cart,
+.co-mobile-menu {
+  position: fixed;
+  top: 13px;
+  z-index: 111;
+}
+
+.co-mobile-search {
+  right: 100px;
+}
+
+.co-mobile-cart {
+  right: 56px;
+}
+
+.co-mobile-menu {
+  right: 12px;
 }
 
 .co-testimonial-track {
@@ -250,8 +319,17 @@
 
   .co-press,
   .co-press:hover,
-  .co-press:active {
+  .co-press:active,
+  .co-product-swap img {
     transition: none;
     transform: none;
+  }
+
+  .group\/brand-image:hover img {
+    transform: none !important;
+  }
+
+  .co-journey-line {
+    transform: none !important;
   }
 }

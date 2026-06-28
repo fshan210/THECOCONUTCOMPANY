@@ -33,7 +33,7 @@ export default function ContactPage() {
                 </CTAButton>
               </div>
             </div>
-            <MotionSection delay={0.08} className="min-h-[430px]">
+            <MotionSection delay={0.08} className="min-h-[430px] p-4 md:p-5">
               <BrandImage
                 src={publicAssets.campaign.retailBusiness}
                 alt=".CO product and coconut water business shelf visual"
@@ -42,7 +42,7 @@ export default function ContactPage() {
                 fit="cover"
                 priority
                 hoverZoom
-                className="h-full min-h-[430px] rounded-none border-0"
+                className="h-full min-h-[430px] rounded-[32px] border-white/15 bg-white/10"
               />
             </MotionSection>
           </div>

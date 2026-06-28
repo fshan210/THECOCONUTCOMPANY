@@ -25,7 +25,7 @@ export default async function LoginPage() {
         <div className="co-container">
           <div className="grid overflow-hidden rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] lg:grid-cols-[0.9fr_1.1fr]">
             <MotionSection>
-              <BentoCard className="h-full min-h-[560px] rounded-none border-0 shadow-none">
+              <BentoCard className="h-full min-h-[560px] rounded-[32px] border-0 shadow-none">
                 <p className="co-label mb-5">Customer account</p>
                 <h1 className="co-h2 text-[var(--co-brown)]">Welcome back to your coconut shelf.</h1>
                 <p className="mt-6 max-w-xl text-base leading-7 text-[var(--co-muted)]">Save products, revisit recipes, and keep your coconut rituals close.</p>
@@ -36,8 +36,8 @@ export default async function LoginPage() {
                 <CustomerLoginForm />
               </BentoCard>
             </MotionSection>
-            <MotionSection delay={0.08}>
-              <BrandImage src={publicAssets.campaign.breakfastRitual} alt=".CO breakfast coconut water account ritual" sizes="(min-width: 1024px) 54vw, 92vw" aspect="wide" fit="cover" priority hoverZoom className="h-full min-h-[560px] rounded-none border-0" />
+            <MotionSection delay={0.08} className="p-4 md:p-5">
+              <BrandImage src={publicAssets.campaign.breakfastRitual} alt=".CO breakfast coconut water account ritual" sizes="(min-width: 1024px) 54vw, 92vw" aspect="wide" fit="cover" priority hoverZoom className="h-full min-h-[560px] rounded-[32px] border-0" />
             </MotionSection>
           </div>
         </div>

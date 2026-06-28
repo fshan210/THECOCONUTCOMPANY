@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BrandImage } from "@/components/BrandImage";
-import { BentoCard, CTAButton, MotionSection, TrustBadge } from "@/components/brand/BrandPrimitives";
+import { BentoCard, CTAButton, FeatureStrip, MotionSection, TrustBadge } from "@/components/brand/BrandPrimitives";
 import { JournalGrid } from "@/components/JournalGrid";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
@@ -63,12 +63,12 @@ export default function FoundersPage() {
             </div>
           </div>
 
-          <div className="grid gap-4 border-b border-[var(--co-border)] bg-[var(--co-white)] px-4 py-6 sm:grid-cols-2 lg:grid-cols-4">
+          <FeatureStrip className="sm:grid-cols-2 lg:grid-cols-4">
             <TrustBadge icon="palm" title="Rooted in Kerala" body="A coconut story close to home." />
             <TrustBadge icon="drop" title="Product first" body="Taste before noise." />
             <TrustBadge icon="leaf" title="Made with care" body="Useful products, warmer details." />
             <TrustBadge icon="wave" title="Made for Living" body="Built for everyday rituals." />
-          </div>
+          </FeatureStrip>
         </div>
       </section>
 

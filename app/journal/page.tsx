@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BrandImage } from "@/components/BrandImage";
-import { BentoCard, CTAButton, MotionSection, TrustBadge } from "@/components/brand/BrandPrimitives";
+import { BentoCard, CTAButton, FeatureStrip, MotionSection, TrustBadge } from "@/components/brand/BrandPrimitives";
 import { JournalGrid } from "@/components/JournalGrid";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
@@ -33,24 +33,26 @@ export default function JournalPage() {
                 <CTAButton href="#latest-articles">Explore all articles</CTAButton>
               </div>
             </div>
-            <BrandImage
-              src={publicAssets.generated.compositionMorning}
-              alt=".CO journal coconut water morning ritual"
-              sizes="(min-width: 1024px) 54vw, 92vw"
-              aspect="wide"
-              fit="cover"
-              priority
-              hoverZoom
-              className="h-full min-h-[430px] rounded-none border-0"
-            />
+            <div className="min-h-[430px] p-4 md:p-5">
+              <BrandImage
+                src={publicAssets.generated.compositionMorning}
+                alt=".CO journal coconut water morning ritual"
+                sizes="(min-width: 1024px) 54vw, 92vw"
+                aspect="wide"
+                fit="cover"
+                priority
+                hoverZoom
+                className="h-full min-h-[430px] rounded-[32px] border-0"
+              />
+            </div>
           </div>
 
-          <div className="grid gap-4 border-b border-[var(--co-border)] bg-[var(--co-white)] px-4 py-6 sm:grid-cols-2 lg:grid-cols-4">
+          <FeatureStrip className="sm:grid-cols-2 lg:grid-cols-4">
             <TrustBadge icon="drop" title="Product notes" body="What makes coconut refreshing." />
             <TrustBadge icon="leaf" title="Recipes" body="Simple ways to use .CO." />
             <TrustBadge icon="palm" title="Origins" body="Stories close to coconut country." />
             <TrustBadge icon="wave" title="Living" body="Everyday rituals worth keeping." />
-          </div>
+          </FeatureStrip>
         </div>
       </section>
 

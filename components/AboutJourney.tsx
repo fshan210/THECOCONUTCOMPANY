@@ -1,7 +1,10 @@
 "use client";
 
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { BrandImage } from "@/components/BrandImage";
 import { BentoCard, CTAButton, DoodleIcon, MotionSection } from "@/components/brand/BrandPrimitives";
+import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
 import { publicAssets } from "@/lib/public-assets";
 
 const steps: Array<{
@@ -50,6 +53,11 @@ const steps: Array<{
 ];
 
 export function AboutJourney() {
+  const journeyRef = useRef<HTMLDivElement>(null);
+  const { shouldReduce } = useCoconutMotionMode();
+  const { scrollYProgress } = useScroll({ target: journeyRef, offset: ["start 72%", "end 38%"] });
+  const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
   return (
     <section className="co-section bg-[var(--co-white)]">
       <div className="co-container">
@@ -64,13 +72,18 @@ export function AboutJourney() {
           </MotionSection>
         </div>
 
-        <div className="relative grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <div className="pointer-events-none absolute left-8 right-8 top-14 hidden border-t border-dashed border-[var(--co-border)] lg:block" />
+        <div ref={journeyRef} className="relative grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="pointer-events-none absolute left-8 right-8 top-14 hidden h-px overflow-hidden rounded-full bg-[rgba(58,36,22,0.12)] lg:block">
+            <motion.div
+              style={{ scaleX: shouldReduce ? 1 : lineScale }}
+              className="co-journey-line h-full w-full rounded-full bg-[var(--co-palm)]/60"
+            />
+          </div>
           {steps.map((step, index) => (
             <MotionSection key={step.title} delay={index * 0.04} className="relative">
-              <article className="relative z-10 h-full rounded-[24px] border border-[var(--co-border)] bg-[var(--co-white)] p-4">
+              <article className="co-press relative z-10 h-full rounded-[28px] border border-[var(--co-border)] bg-[var(--co-white)] p-4">
                 <div className="mb-4 flex items-center gap-3">
-                  <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--co-cream)] text-sm font-bold text-[var(--co-brown)]">0{index + 1}</span>
+                  <span className="grid h-9 w-9 place-items-center rounded-full border border-[var(--co-border)] bg-[var(--co-cream)] text-sm font-bold text-[var(--co-brown)] shadow-[0_8px_18px_rgba(58,36,22,0.08)]">0{index + 1}</span>
                   <h3 className="text-xl font-bold leading-tight text-[var(--co-brown)]">{step.title}</h3>
                 </div>
                 <BrandImage
