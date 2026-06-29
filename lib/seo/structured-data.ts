@@ -1,4 +1,5 @@
 import { siteName, siteUrl } from "@/lib/seo/metadata";
+import type { ContentProduct } from "@/lib/content/types";
 
 export function organizationSchema() {
   return {
@@ -78,6 +79,26 @@ export function breadcrumbSchema(items: Array<{ name: string; path: string }>) {
       name: item.name,
       item: `${siteUrl}${item.path}`
     }))
+  };
+}
+
+export function productSchema(product: ContentProduct) {
+  if (typeof product.price !== "number" || !product.currency || !["in-stock", "out-of-stock"].includes(product.availabilityStatus)) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.shortDescription,
+    image: product.images.length ? product.images.map((image) => `${siteUrl}${image}`) : [`${siteUrl}${product.image}`],
+    sku: product.slug,
+    brand: { "@type": "Brand", name: siteName },
+    offers: {
+      "@type": "Offer",
+      url: `${siteUrl}/shop/${product.slug}`,
+      price: product.price,
+      priceCurrency: product.currency,
+      availability: product.availabilityStatus === "in-stock" ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+    }
   };
 }
 

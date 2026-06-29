@@ -35,7 +35,7 @@ function readInitialCart(): CartItem[] {
   }
 }
 
-export function CartProvider({ children }: { children: ReactNode }) {
+export function CartProvider({ children, catalog = shopProducts }: { children: ReactNode; catalog?: ShopProduct[] }) {
   const [items, setItems] = useState<CartItem[]>(readInitialCart);
   const [open, setOpen] = useState(false);
 
@@ -46,7 +46,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const value = useMemo<CartContextValue>(() => {
     const products = items
       .map((item) => {
-        const product = shopProducts.find((candidate) => candidate.slug === item.slug);
+        const product = catalog.find((candidate) => candidate.slug === item.slug);
         return product ? { ...product, quantity: item.quantity } : null;
       })
       .filter(Boolean) as Array<ShopProduct & { quantity: number }>;
@@ -77,7 +77,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       },
       clearCart: () => setItems([])
     };
-  }, [items, open]);
+  }, [catalog, items, open]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

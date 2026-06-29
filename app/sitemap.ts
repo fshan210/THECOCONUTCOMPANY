@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getProducts } from "@/lib/content/server";
 
 const siteUrl = "https://cothecoconutcompany.com";
 
@@ -10,16 +11,12 @@ const routes = [
   "/journal",
   "/contact",
   "/shop",
-  "/shop/co-water",
-  "/shop/melt-co-mango-coconut",
-  "/shop/co-kitchen-coconut-oil",
-  "/shop/co-botanica-coconut-care",
-  "/shop/co-lifestyle",
   "/recipes"
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return routes.map((route) => ({
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const productRoutes = (await getProducts()).map((product) => `/shop/${product.slug}`);
+  return [...routes, ...productRoutes].map((route) => ({
     url: `${siteUrl}${route}`,
     changeFrequency: route === "" ? "weekly" : "monthly",
     priority: route === "" ? 1 : 0.8

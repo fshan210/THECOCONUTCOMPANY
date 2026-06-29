@@ -5,17 +5,15 @@ import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import { BrandImage } from "@/components/BrandImage";
 import { DoodleIcon } from "@/components/brand/BrandPrimitives";
-import { recipeCategories, recipes } from "@/lib/catalog";
-import type { RecipeCategory } from "@/lib/catalog";
+import type { ContentRecipe } from "@/lib/content/types";
 import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
-
-type ActiveCategory = RecipeCategory | "All recipes";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-export function RecipeExplorer() {
+export function RecipeExplorer({ recipes }: { recipes: ContentRecipe[] }) {
+  const recipeCategories = ["All recipes", ...Array.from(new Set(recipes.map((recipe) => recipe.category)))];
   const { shouldReduce } = useCoconutMotionMode();
-  const [activeCategory, setActiveCategory] = useState<ActiveCategory>("All recipes");
+  const [activeCategory, setActiveCategory] = useState("All recipes");
   const [query, setQuery] = useState("");
 
   const filteredRecipes = useMemo(() => {
@@ -28,7 +26,7 @@ export function RecipeExplorer() {
         .toLowerCase();
       return matchesCategory && (!normalizedQuery || searchable.includes(normalizedQuery));
     });
-  }, [activeCategory, query]);
+  }, [activeCategory, query, recipes]);
 
   return (
     <div>

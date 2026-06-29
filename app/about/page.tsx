@@ -5,12 +5,12 @@ import { CTAButton, FeatureStrip, TrustBadge } from "@/components/brand/BrandPri
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { publicAssets } from "@/lib/public-assets";
+import { getSeoMetadata } from "@/lib/content/server";
 
-export const metadata: Metadata = createPageMetadata({
-  title: "About",
-  description: "The coconut source, product discipline, and Made for Living philosophy behind .CO | The Coconut Company.",
-  path: "/about"
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getSeoMetadata("/about");
+  return createPageMetadata({ title: seo?.title || "About", description: seo?.description || "The coconut source, product discipline, and Made for Living philosophy behind .CO | The Coconut Company.", path: seo?.canonicalPath || "/about", index: !seo?.noindex, ogImage: seo?.ogImage });
+}
 
 export default function AboutPage() {
   return (

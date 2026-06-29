@@ -5,17 +5,18 @@ import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { BentoCard, CTAButton, DoodleIcon, FeatureStrip, IngredientBadge, MotionSection, ProductSwapImage } from "@/components/brand/BrandPrimitives";
 import type { DoodleName } from "@/components/brand/BrandPrimitives";
 import { StructuredData } from "@/components/seo/StructuredData";
-import { productCategories, shopProducts } from "@/lib/catalog";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { publicAssets } from "@/lib/public-assets";
+import { getProducts, getSeoMetadata } from "@/lib/content/server";
 
-export const metadata: Metadata = createPageMetadata({
-  title: "Shop",
-  description: "Explore .CO coconut water, ice cream, kitchen, botanica, wellness and lifestyle previews.",
-  path: "/shop"
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getSeoMetadata("/shop");
+  return createPageMetadata({ title: seo?.title || "Shop", description: seo?.description || "Explore .CO coconut water, ice cream, kitchen, botanica, wellness and lifestyle previews.", path: seo?.canonicalPath || "/shop", index: !seo?.noindex, ogImage: seo?.ogImage });
+}
 
-export default function ShopPage() {
+export default async function ShopPage() {
+  const shopProducts = await getProducts();
+  const productCategories = Array.from(new Set(shopProducts.map((product) => product.category)));
   const water = shopProducts[0];
   const melt = shopProducts[1];
   const shopCategories: Array<{ label: string; icon: DoodleName }> = [

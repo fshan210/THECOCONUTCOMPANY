@@ -10,6 +10,7 @@ import { CustomerAuthProvider } from "@/components/auth/CustomerAuthProvider";
 import { CartProvider } from "@/lib/cart/cart-context";
 import { getCustomerSession } from "@/lib/customer/auth";
 import { defaultDescription, siteName, siteUrl } from "@/lib/seo/metadata";
+import { getProducts } from "@/lib/content/server";
 import "./globals.css";
 
 const roboto = localFont({
@@ -91,6 +92,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const customerSession = await getCustomerSession();
   const headerStore = await headers();
   const isAdminShell = headerStore.get("x-co-admin-rewrite") === "1";
+  const products = await getProducts();
 
   return (
     <html lang="en">
@@ -99,7 +101,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       </head>
       <body className={`${roboto.variable} ${instrumentSerif.variable} font-sans antialiased`}>
         <CustomerAuthProvider session={customerSession}>
-          <CartProvider>
+          <CartProvider catalog={products}>
             <StructuredData includeGlobal />
             {isAdminShell ? null : <Navigation />}
             <main>{children}</main>

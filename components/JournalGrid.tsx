@@ -3,18 +3,17 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { BrandImage } from "@/components/BrandImage";
-import { journalEntries } from "@/lib/content";
+import type { ContentJournalPost } from "@/lib/content/types";
 import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
 
 const ease = [0.16, 1, 0.3, 1] as const;
-const categories = ["All", ...Array.from(new Set(journalEntries.map((entry) => entry.category)))];
-
-export function JournalGrid({ compact = false }: { compact?: boolean }) {
+export function JournalGrid({ entries: journalEntries, compact = false }: { entries: ContentJournalPost[]; compact?: boolean }) {
+  const categories = ["All", ...Array.from(new Set(journalEntries.map((entry) => entry.category)))];
   const [activeCategory, setActiveCategory] = useState("All");
   const { shouldReduce } = useCoconutMotionMode();
   const entries = useMemo(
     () => journalEntries.filter((entry) => activeCategory === "All" || entry.category === activeCategory),
-    [activeCategory]
+    [activeCategory, journalEntries]
   );
   const featured = entries.find((entry) => entry.featured) ?? entries[0];
   const remaining = compact ? entries.slice(0, 4) : entries.filter((entry) => entry !== featured);
