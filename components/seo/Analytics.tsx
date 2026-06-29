@@ -35,26 +35,24 @@ function FirebaseAnalytics() {
 }
 
 function GoogleAnalytics() {
+  useEffect(() => {
+    if (!isProduction || !gaMeasurementId) return;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = (...args: unknown[]) => {
+      window.dataLayer?.push(args);
+    };
+    window.gtag("js", new Date());
+    window.gtag("config", gaMeasurementId, {
+      page_path: window.location.pathname + window.location.search,
+      page_location: window.location.href,
+      page_title: document.title
+    });
+  }, []);
+
   if (!isProduction || !gaMeasurementId) return null;
 
-  return (
-    <>
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`} strategy="afterInteractive" />
-      <Script id="ga4-init" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          window.gtag = gtag;
-          gtag('js', new Date());
-          gtag('config', '${gaMeasurementId}', {
-            page_path: window.location.pathname + window.location.search,
-            page_location: window.location.href,
-            page_title: document.title
-          });
-        `}
-      </Script>
-    </>
-  );
+  return <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`} strategy="afterInteractive" />;
 }
 
 function MicrosoftClarity() {
@@ -76,8 +74,14 @@ function MicrosoftClarity() {
 function PageViewTracker() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const isInitialPageView = useRef(true);
 
   useEffect(() => {
+    if (isInitialPageView.current) {
+      isInitialPageView.current = false;
+      return;
+    }
+
     if (!gaMeasurementId || typeof window.gtag === "undefined") return;
 
     const query = searchParams.toString();
