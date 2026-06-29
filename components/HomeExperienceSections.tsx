@@ -18,7 +18,7 @@ import {
   TrustBadge
 } from "@/components/brand/BrandPrimitives";
 import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
-import { recipes } from "@/lib/catalog";
+import type { ContentProduct, ContentRecipe, ContentTestimonial } from "@/lib/content/types";
 import { publicAssets } from "@/lib/public-assets";
 
 const originSteps: Array<{
@@ -56,7 +56,9 @@ const rituals = [
   }
 ];
 
-export function ProductBentoSection() {
+export function ProductBentoSection({ products }: { products: ContentProduct[] }) {
+  const featured = products.filter((product) => product.featured).slice(0, 2);
+  const display = featured.length >= 2 ? featured : products.slice(0, 2);
   return (
     <section className="relative z-10 bg-[var(--co-cream)] py-4">
       <div className="co-container -mt-8 rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] p-3 shadow-[0_8px_20px_rgba(58,36,22,0.08)] md:-mt-14 md:p-4">
@@ -71,28 +73,18 @@ export function ProductBentoSection() {
               <CTAButton href="/shop" variant="outline" className="mt-8 w-fit">Open shop</CTAButton>
             </BentoCard>
           </MotionSection>
-          <MotionSection delay={0.06}>
+          {display.map((product, index) => <MotionSection key={product.slug} delay={0.06 + index * 0.06}>
             <ProductCard
-              title=".CO Water"
-              badge="Bestseller"
-              body="Pure. Hydrating. Everyday."
-              image={publicAssets.water.hero}
-              href="/shop/co-water"
+              title={product.name}
+              badge={index === 0 ? "Featured" : undefined}
+              body={product.shortDescription}
+              image={product.image}
+              href={`/shop/${product.slug}`}
               imageFit="contain"
+              accent={index === 1}
               className="h-full"
             />
-          </MotionSection>
-          <MotionSection delay={0.12}>
-            <ProductCard
-              title="MELT.CO"
-              body="Coconut ice cream. Tropical indulgence."
-              image={publicAssets.melt.hero}
-              href="/shop/melt-co-mango-coconut"
-              imageFit="contain"
-              accent
-              className="h-full"
-            />
-          </MotionSection>
+          </MotionSection>)}
         </BentoGrid>
       </div>
     </section>
@@ -292,7 +284,7 @@ export function TrustCueStrip() {
   );
 }
 
-export function RecipePreviewSection() {
+export function RecipePreviewSection({ recipes }: { recipes: ContentRecipe[] }) {
   return (
     <SectionShell className="bg-[var(--co-cream)] pt-0">
       <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-end">
@@ -322,14 +314,7 @@ export function RecipePreviewSection() {
   );
 }
 
-const testimonials = [
-  { quote: "It tastes like real tender coconut, not a packaged drink.", name: "Early Taster" },
-  { quote: "The brand feels premium but still rooted in Kerala.", name: "Retail Partner" },
-  { quote: "Clean, simple, and perfect straight from the fridge.", name: "Wellness Customer" },
-  { quote: "The kind of coconut brand I would expect to see internationally.", name: "Distributor Feedback" }
-];
-
-export function TestimonialsSection() {
+export function TestimonialsSection({ testimonials }: { testimonials: ContentTestimonial[] }) {
   return (
     <SectionShell className="overflow-hidden bg-[var(--co-white)] pt-0">
       <MotionSection className="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-end">

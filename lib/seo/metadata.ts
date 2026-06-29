@@ -10,9 +10,10 @@ type PageMetadataInput = {
   path: string;
   absoluteTitle?: boolean;
   index?: boolean;
+  ogImage?: string;
 };
 
-export function createPageMetadata({ title, description, path, absoluteTitle = false, index = true }: PageMetadataInput): Metadata {
+export function createPageMetadata({ title, description, path, absoluteTitle = false, index = true, ogImage = "/opengraph-image" }: PageMetadataInput): Metadata {
   const url = `${siteUrl}${path}`;
 
   return {
@@ -28,7 +29,7 @@ export function createPageMetadata({ title, description, path, absoluteTitle = f
       siteName,
       images: [
         {
-          url: "/opengraph-image",
+          url: ogImage,
           width: 1200,
           height: 630,
           alt: siteName
@@ -41,7 +42,7 @@ export function createPageMetadata({ title, description, path, absoluteTitle = f
       card: "summary_large_image",
       title,
       description,
-      images: ["/opengraph-image"]
+      images: [ogImage]
     },
     robots: index ? undefined : { index: false, follow: false, noarchive: true }
   };

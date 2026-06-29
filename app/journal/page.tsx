@@ -5,16 +5,16 @@ import { JournalGrid } from "@/components/JournalGrid";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
-import { journalEntries } from "@/lib/content";
 import { publicAssets } from "@/lib/public-assets";
+import { getJournalPosts, getSeoMetadata } from "@/lib/content/server";
 
-export const metadata: Metadata = createPageMetadata({
-  title: "Journal",
-  description: "Editorial notes on coconut culture, taste, recipes, product thinking, and Made for Living.",
-  path: "/journal"
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getSeoMetadata("/journal");
+  return createPageMetadata({ title: seo?.title || "Journal", description: seo?.description || "Editorial notes on coconut culture, taste, recipes, product thinking, and Made for Living.", path: seo?.canonicalPath || "/journal", index: !seo?.noindex, ogImage: seo?.ogImage });
+}
 
-export default function JournalPage() {
+export default async function JournalPage() {
+  const journalEntries = await getJournalPosts();
   return (
     <>
       <StructuredData
@@ -75,7 +75,7 @@ export default function JournalPage() {
       <section id="latest-articles" className="co-section bg-[var(--co-white)]">
         <div className="co-container">
           <p className="co-label mb-5">Latest articles</p>
-          <JournalGrid />
+          <JournalGrid entries={journalEntries} />
         </div>
       </section>
 

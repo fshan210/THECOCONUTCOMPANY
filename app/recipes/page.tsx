@@ -3,18 +3,18 @@ import { BrandImage } from "@/components/BrandImage";
 import { BentoCard, CTAButton, MotionSection, TrustBadge } from "@/components/brand/BrandPrimitives";
 import { RecipeExplorer } from "@/components/RecipeExplorer";
 import { StructuredData } from "@/components/seo/StructuredData";
-import { recipes } from "@/lib/catalog";
 import { publicAssets } from "@/lib/public-assets";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { recipeSchema } from "@/lib/seo/structured-data";
+import { getRecipes, getSeoMetadata } from "@/lib/content/server";
 
-export const metadata: Metadata = createPageMetadata({
-  title: "Recipes",
-  description: "Coconut water drinks, smoothie bowls, and simple everyday recipes using .CO products.",
-  path: "/recipes"
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getSeoMetadata("/recipes");
+  return createPageMetadata({ title: seo?.title || "Recipes", description: seo?.description || "Coconut water drinks, smoothie bowls, and simple everyday recipes using .CO products.", path: seo?.canonicalPath || "/recipes", index: !seo?.noindex, ogImage: seo?.ogImage });
+}
 
-export default function RecipesPage() {
+export default async function RecipesPage() {
+  const recipes = await getRecipes();
   const featured = recipes[0];
 
   return (
@@ -92,7 +92,7 @@ export default function RecipesPage() {
             </div>
             <CTAButton href="/shop/co-water" variant="outline">Shop .CO Water</CTAButton>
           </div>
-          <RecipeExplorer />
+          <RecipeExplorer recipes={recipes} />
         </div>
       </section>
 
