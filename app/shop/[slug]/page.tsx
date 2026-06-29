@@ -5,34 +5,39 @@ import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { BrandImage } from "@/components/BrandImage";
 import { BentoCard, CTAButton, IngredientBadge, MotionSection, TrustBadge } from "@/components/brand/BrandPrimitives";
 import { StructuredData } from "@/components/seo/StructuredData";
-import { shopProducts } from "@/lib/catalog";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { publicAssets } from "@/lib/public-assets";
+import { fallbackProducts } from "@/lib/content/fallback-data";
+import { getProduct, getProducts } from "@/lib/content/server";
+import { productSchema } from "@/lib/seo/structured-data";
 
 type ProductPageProps = {
   params: Promise<{ slug: string }>;
 };
 
 export function generateStaticParams() {
-  return shopProducts.map((product) => ({ slug: product.slug }));
+  return fallbackProducts.map((product) => ({ slug: product.slug }));
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = shopProducts.find((item) => item.slug === slug);
+  const product = await getProduct(slug);
   if (!product) return {};
 
   return createPageMetadata({
-    title: product.name,
-    description: product.shortDescription,
-    path: `/shop/${product.slug}`
+    title: product.seo.title || product.name,
+    description: product.seo.description || product.shortDescription,
+    path: product.seo.canonicalPath || `/shop/${product.slug}`,
+    index: !product.seo.noindex,
+    ogImage: product.seo.ogImage || product.image
   });
 }
 
 export default async function ProductDetailPage({ params }: ProductPageProps) {
   const { slug } = await params;
-  const product = shopProducts.find((item) => item.slug === slug);
+  const product = await getProduct(slug);
   if (!product) notFound();
+  const shopProducts = await getProducts();
 
   const compositionBySlug: Record<string, string> = {
     "co-water": publicAssets.campaign.breakfastRitual,
@@ -42,6 +47,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     "co-lifestyle": publicAssets.campaign.workoutRitual
   };
   const relatedProducts = shopProducts.filter((item) => item.slug !== product.slug).slice(0, 3);
+  const structuredProduct = productSchema(product);
 
   return (
     <>
@@ -51,6 +57,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           { name: "Shop", path: "/shop" },
           { name: product.name, path: `/shop/${product.slug}` }
         ]}
+        extra={structuredProduct ? [structuredProduct] : undefined}
       />
       <section className="bg-[var(--co-cream)] pt-8 md:pt-12">
         <div className="co-container">
@@ -62,6 +69,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   <p className="co-label mb-5">{product.category}</p>
                   <h1 className="co-display-section text-[var(--co-ink)]">{product.name}</h1>
                   <p className="mt-6 text-sm font-bold uppercase tracking-[0.12em] text-[var(--co-brown)]">{product.format}</p>
+                  {typeof product.price === "number" ? <p className="mt-3 text-lg font-bold text-[var(--co-brown)]">{new Intl.NumberFormat("en-IN", { style: "currency", currency: product.currency }).format(product.price)}</p> : null}
                   <p className="mt-7 max-w-xl text-base leading-7 text-[var(--co-muted)]">{product.shortDescription}</p>
                   <div className="mt-8 flex flex-wrap gap-3">
                     <AddToCartButton slug={product.slug} label="Save product" />

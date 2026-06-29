@@ -5,10 +5,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { CTAButton, DoodleIcon, TrustBadge } from "@/components/brand/BrandPrimitives";
 import { useCoconutMotionMode } from "@/lib/animations/coconut-motion";
+import type { HomepageContent } from "@/lib/content/types";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-export function HeroStoryCanvas() {
+export function HeroStoryCanvas({ content }: { content: HomepageContent }) {
   const { shouldReduce } = useCoconutMotionMode();
   const { scrollY } = useScroll();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -46,7 +47,7 @@ export function HeroStoryCanvas() {
             transition={transition}
             className="co-hero-mobile-reveal mb-5 text-xs font-bold uppercase tracking-[0.14em] text-[var(--co-palm)] md:text-sm"
           >
-            Tender coconut water from Kerala
+            {content.heroEyebrow}
           </motion.p>
           <motion.h1
             initial="hidden"
@@ -54,7 +55,7 @@ export function HeroStoryCanvas() {
             variants={{ show: { transition: { staggerChildren: shouldReduce ? 0 : 0.1 } } }}
             className="co-display-hero relative z-10 max-w-[10.5ch] uppercase text-[var(--co-ink)]"
           >
-            {["Nature's", "hydration.", ".CO by", "nature."].map((line) => (
+            {content.heroHeadline.map((line) => (
               <span key={line} className="co-text-mask">
                 <motion.span
                   variants={{ hidden: { opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : "108%" }, show: { opacity: 1, y: 0 } }}
@@ -72,7 +73,7 @@ export function HeroStoryCanvas() {
             transition={{ ...transition, delay: shouldReduce ? 0 : 0.18 }}
             className="co-hero-mobile-reveal mt-6 max-w-[calc(100vw-24px)] [overflow-wrap:anywhere] text-base leading-7 text-[var(--co-brown)]/88 sm:max-w-md md:text-lg md:leading-8"
           >
-            Tender coconut water with a clean Kerala origin story. Cold ritual. Real goodness. Fridge shelf ready.
+            {content.heroSubheadline}
           </motion.p>
           <motion.div
             initial={{ opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 18 }}
@@ -80,9 +81,9 @@ export function HeroStoryCanvas() {
             transition={{ ...transition, delay: shouldReduce ? 0 : 0.78 }}
             className="co-hero-mobile-reveal mt-7 flex flex-wrap gap-3"
           >
-            <CTAButton href="/shop">Shop Now</CTAButton>
-            <CTAButton href="/about" variant="outline">
-              Explore Story
+            <CTAButton href={content.heroCtaLink}>{content.heroCtaText}</CTAButton>
+            <CTAButton href={content.secondaryCtaLink} variant="outline">
+              {content.secondaryCtaText}
             </CTAButton>
           </motion.div>
 
@@ -92,18 +93,14 @@ export function HeroStoryCanvas() {
             variants={{ show: { transition: { staggerChildren: shouldReduce ? 0 : 0.07, delayChildren: shouldReduce ? 0 : 0.96 } } }}
             className="mt-8 hidden max-w-xl grid-cols-1 gap-3 sm:grid sm:grid-cols-3"
           >
-            {[
-              <TrustBadge key="leaf" icon="leaf" title="100% Natural" body="Real coconut taste." />,
-              <TrustBadge key="drop" icon="drop" title="Nothing Added" body="Clean and simple." />,
-              <TrustBadge key="cold" icon="cold" title="Fridge Shelf Ready" body="Best served cold." />
-            ].map((badge, index) => (
+            {content.trustBadges.map((item, index) => (
               <motion.div
-                key={index}
+                key={`${item.title}-${index}`}
                 variants={{ hidden: { opacity: shouldReduce ? 1 : 0, y: shouldReduce ? 0 : 16 }, show: { opacity: 1, y: 0 } }}
                 transition={transition}
                 className="co-hero-mobile-reveal"
               >
-                {badge}
+                <TrustBadge icon={item.icon} title={item.title} body={item.body} />
               </motion.div>
             ))}
           </motion.div>

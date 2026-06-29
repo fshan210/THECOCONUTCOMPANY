@@ -6,14 +6,15 @@ import { JournalGrid } from "@/components/JournalGrid";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { publicAssets } from "@/lib/public-assets";
+import { getJournalPosts, getSeoMetadata } from "@/lib/content/server";
 
-export const metadata: Metadata = createPageMetadata({
-  title: "Founders",
-  description: "Meet the founders building .CO around coconut rituals, taste, and Made for Living warmth.",
-  path: "/founders"
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getSeoMetadata("/founders");
+  return createPageMetadata({ title: seo?.title || "Founders", description: seo?.description || "Meet the founders building .CO around coconut rituals, taste, and Made for Living warmth.", path: seo?.canonicalPath || "/founders", index: !seo?.noindex, ogImage: seo?.ogImage });
+}
 
-export default function FoundersPage() {
+export default async function FoundersPage() {
+  const journalEntries = await getJournalPosts();
   return (
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Founders", path: "/founders" }]} />
@@ -68,7 +69,7 @@ export default function FoundersPage() {
             <h2 className="co-h2">Notes from the people building the coconut world.</h2>
             <CTAButton href="/journal" variant="light">Read journal</CTAButton>
           </BentoCard>
-          <JournalGrid compact />
+          <JournalGrid entries={journalEntries} compact />
         </div>
       </section>
     </>
