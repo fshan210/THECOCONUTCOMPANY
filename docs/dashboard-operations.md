@@ -65,6 +65,18 @@ Successful saves write to Firestore, create an audit entry, and request cache/pa
 
 If Firebase Admin credentials are unavailable, the CMS shows curated fallback records with a **Read-only fallback** badge and disables save/archive buttons. This is intentional: local files are not treated as a writable production database.
 
+## Production activation status
+
+Phase 4.2 verified the production Firebase project `cothecoconutcompany` with the existing admin account `fshan210@gmail.com`.
+
+- Local Firebase Web config and Admin SDK credentials initialize successfully from `.env.local`.
+- Firestore, Firebase Auth, and the dashboard CMS collections are reachable.
+- The protected dashboard modules return 200 with a valid admin Firebase ID token session and show Firestore-backed write mode.
+- Server-action saves were verified for products, recipes, journal, testimonials, homepage, and SEO.
+- Temporary QA content was created, published where needed, reflected on local public pages, and then removed from Firestore.
+
+Vercel environment-variable names were inspected without reading values. `FIREBASE_SERVICE_ACCOUNT_JSON`, the required `NEXT_PUBLIC_FIREBASE_*` variables, `FIREBASE_PROJECT_ID`, `ADMIN_EMAIL`, and `NEXT_PUBLIC_GA_MEASUREMENT_ID` are present. `ADMIN_SESSION_SECRET` was not present and must be added before considering production dashboard auth complete.
+
 ## Current limitations
 
 - No rich-text editor, revisions UI, scheduled publishing, bulk import, or hard delete.
@@ -72,3 +84,4 @@ If Firebase Admin credentials are unavailable, the CMS shows curated fallback re
 - No standalone recipe/article detail editor preview.
 - No checkout, tax, shipping, inventory reservation, or payment gateway.
 - Firestore security, backup, and environment provisioning must be maintained outside the dashboard.
+- Production admin auth requires a configured `ADMIN_SESSION_SECRET` or legacy `NEXTAUTH_SECRET`; otherwise the dashboard stays in setup-required mode.

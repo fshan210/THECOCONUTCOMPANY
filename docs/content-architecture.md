@@ -18,6 +18,7 @@ Firebase is the existing application stack and remains the preferred content sou
 - Product writes require `commerce`; recipes, journal, testimonials, and homepage require `content`; SEO requires `seo`.
 - Writes create best-effort Firestore audit-log records.
 - No public write API was added.
+- Production admin auth requires `ADMIN_SESSION_SECRET` or legacy `NEXTAUTH_SECRET` in addition to Firebase Web/Admin credentials.
 
 ## Content layer
 
@@ -86,4 +87,19 @@ Public fallback rendering needs no database variable. Admin writes require eithe
 - `FIREBASE_SERVICE_ACCOUNT_JSON`, or
 - `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, and `FIREBASE_PRIVATE_KEY`.
 
-Admin login also needs the existing `NEXT_PUBLIC_FIREBASE_*` web configuration and an active admin record or matching `ADMIN_EMAIL`. Never expose Admin SDK credentials to the browser.
+Admin login also needs the existing `NEXT_PUBLIC_FIREBASE_*` web configuration, an active admin record or matching `ADMIN_EMAIL`, and a strong `ADMIN_SESSION_SECRET` or legacy `NEXTAUTH_SECRET`. Never expose Admin SDK credentials to the browser.
+
+## Phase 4.2 Firebase verification
+
+The local production-activation pass verified:
+
+- Firebase project: `cothecoconutcompany`.
+- Existing web app ID: `1:551997734422:web:d6712a9d4de027dbc67f37`.
+- Firestore: reachable by Firebase Admin SDK.
+- Firebase Auth: reachable, with `fshan210@gmail.com` present and email verified.
+- Admin SDK: initialized from local service-account credentials without committing or printing secret values.
+- Client SDK: initialized from Firebase web config captured from the authenticated Firebase Console.
+- Storage: not required. CMS media continues to use existing `/public` asset paths or external image URLs.
+- CMS collections: `products`, `recipes`, `journal`, `testimonials`, `homepage`, `seo`, `admins`, `auditLogs`, and `securityEvents` are reachable.
+
+The public website remains fallback-first: if Firestore credentials are missing or a read fails, public pages render curated static content instead of crashing.

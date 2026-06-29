@@ -35,6 +35,12 @@ All writes also invalidate the shared `content` tag.
 
 The safe refresh mechanism is a protected dashboard save or archive action. No public revalidation endpoint or shared secret URL was added. If content was changed directly in Firestore and cannot wait five minutes, open the dashboard record and save it again.
 
+## Phase 4.2 cache verification
+
+Dashboard server-action saves returned successful redirects and requested cache refresh for every managed module. Local public pages reflected published CMS records for shop, recipes, journal, and homepage.
+
+Direct Firestore cleanup was intentionally tested as an external edit path. Those direct edits did not immediately clear already-rendered local cached content, matching the documented five-minute fallback behavior. For immediate production cleanup after manual Firestore edits, use a dashboard save/archive on the affected module or wait for timed revalidation.
+
 ## Limitations
 
 - Revalidation is best-effort across server instances; Next.js/Vercel controls exact propagation timing.

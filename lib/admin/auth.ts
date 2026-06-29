@@ -26,6 +26,11 @@ function getSecret() {
   return process.env.ADMIN_SESSION_SECRET || process.env.NEXTAUTH_SECRET || "local-admin-session-secret-change-me";
 }
 
+function hasConfiguredSessionSecret() {
+  const secret = process.env.ADMIN_SESSION_SECRET || process.env.NEXTAUTH_SECRET;
+  return Boolean(secret && secret !== "local-admin-session-secret-change-me");
+}
+
 function base64Url(input: string) {
   return Buffer.from(input).toString("base64url");
 }
@@ -39,7 +44,7 @@ function sign(payload: string) {
 }
 
 export function isAdminAuthConfigured() {
-  return Boolean(isFirebasePublicConfigured() && isFirebaseAdminConfigured());
+  return Boolean(isFirebasePublicConfigured() && isFirebaseAdminConfigured() && hasConfiguredSessionSecret());
 }
 
 export function getConfiguredAdminRole(): AdminRole {
