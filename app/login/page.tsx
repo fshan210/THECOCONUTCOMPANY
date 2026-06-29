@@ -11,7 +11,8 @@ import { publicAssets } from "@/lib/public-assets";
 export const metadata: Metadata = createPageMetadata({
   title: "Login",
   description: "Login to your .CO customer account.",
-  path: "/login"
+  path: "/login",
+  index: false
 });
 
 export default async function LoginPage() {

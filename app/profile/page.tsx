@@ -9,7 +9,8 @@ import { productCategories } from "@/lib/catalog";
 export const metadata: Metadata = createPageMetadata({
   title: "Profile",
   description: "Manage your .CO profile, addresses and preferences.",
-  path: "/profile"
+  path: "/profile",
+  index: false
 });
 
 export default async function ProfilePage() {

@@ -7,7 +7,8 @@ import { createPageMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = createPageMetadata({
   title: "Forgot Password",
   description: "Reset your .CO customer account password.",
-  path: "/forgot-password"
+  path: "/forgot-password",
+  index: false
 });
 
 export default function ForgotPasswordPage() {

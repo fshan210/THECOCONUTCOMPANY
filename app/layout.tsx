@@ -103,7 +103,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       <body className={`${roboto.variable} ${instrumentSerif.variable} font-sans antialiased`}>
         <CustomerAuthProvider session={customerSession}>
           <CartProvider>
-            <StructuredData />
+            <StructuredData includeGlobal />
             {isAdminShell ? null : <Navigation />}
             <main>{children}</main>
             {isAdminShell ? null : <Footer />}

@@ -7,7 +7,8 @@ import { createPageMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = createPageMetadata({
   title: "Saved Recipes",
   description: "Your saved .CO coconut recipes.",
-  path: "/saved-recipes"
+  path: "/saved-recipes",
+  index: false
 });
 
 export default async function SavedRecipesPage() {

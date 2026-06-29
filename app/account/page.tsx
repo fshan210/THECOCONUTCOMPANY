@@ -8,7 +8,8 @@ import { createPageMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = createPageMetadata({
   title: "Account",
   description: "Your .CO customer dashboard.",
-  path: "/account"
+  path: "/account",
+  index: false
 });
 
 export default async function AccountPage() {

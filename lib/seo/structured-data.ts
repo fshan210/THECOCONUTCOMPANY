@@ -10,6 +10,7 @@ export function organizationSchema() {
     slogan: "Made for Living.",
     url: siteUrl,
     logo: `${siteUrl}/images/logo.svg`,
+    description: "A coconut-origin food and beverage brand from Palakkad, Kerala.",
     foundingLocation: {
       "@type": "Place",
       name: "Palakkad, Kerala, India"
@@ -34,7 +35,12 @@ export function websiteSchema() {
     name: siteName,
     url: siteUrl,
     description: "A modern coconut-origin lifestyle brand. Made for Living.",
-    inLanguage: "en"
+    inLanguage: "en-IN",
+    publisher: {
+      "@type": "Organization",
+      name: siteName,
+      url: siteUrl
+    }
   };
 }
 
@@ -73,7 +79,7 @@ export function articleSchemaPlaceholder() {
 }
 
 export function productSchema(product: ShopProduct) {
-  return {
+  const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
@@ -83,15 +89,19 @@ export function productSchema(product: ShopProduct) {
     },
     category: product.category,
     description: product.shortDescription,
+    sku: product.slug,
     image: `${siteUrl}${product.image}`,
     url: `${siteUrl}/shop/${product.slug}`,
-    offers: {
-      "@type": "Offer",
-      availability: "https://schema.org/PreOrder",
-      priceCurrency: "INR",
-      url: `${siteUrl}/shop/${product.slug}`
-    }
+    additionalProperty: [
+      {
+        "@type": "PropertyValue",
+        name: "Availability",
+        value: product.availability
+      }
+    ]
   };
+
+  return schema;
 }
 
 export function recipeSchema(recipe: {
@@ -117,6 +127,42 @@ export function recipeSchema(recipe: {
     recipeCategory: recipe.category ?? recipe.difficulty,
     recipeIngredient: recipe.ingredients ?? [recipe.product],
     totalTime: Number.isFinite(minutes) ? `PT${minutes}M` : undefined,
-    publisher: organizationSchema()
+    publisher: {
+      "@type": "Organization",
+      name: siteName,
+      url: siteUrl
+    },
+    mainEntityOfPage: `${siteUrl}/recipes#${recipe.slug}`
+  };
+}
+
+export function collectionPageSchema(input: {
+  name: string;
+  description: string;
+  path: string;
+  items: Array<{ name: string; description: string; image: string }>;
+}) {
+  const url = `${siteUrl}${input.path}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: input.name,
+    description: input.description,
+    url,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: input.items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "CreativeWork",
+          name: item.name,
+          description: item.description,
+          image: `${siteUrl}${item.image}`,
+          url: `${url}#latest-articles`
+        }
+      }))
+    }
   };
 }
