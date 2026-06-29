@@ -2,91 +2,86 @@
 
 Last checked: June 29, 2026
 
-Production property: `https://cothecoconutcompany.com/`
+Property: `https://cothecoconutcompany.com/`
 
-GA4 measurement ID: `G-CNXDJ3EMHQ`
+GA4: `G-CNXDJ3EMHQ`
 
-## Automated in this phase
+## Automated and confirmed
 
-- Confirmed Google Search Console authentication as Fazil Shan (`fshan210@gmail.com`).
-- Confirmed the URL-prefix property `https://cothecoconutcompany.com/` is verified and the signed-in account is a verified owner.
-- Inspected `https://cothecoconutcompany.com/` in URL Inspection. Google reports **URL is on Google**, **Page is indexed**, HTTPS is valid, and one breadcrumb item is valid.
-- Requested indexing for the homepage. Search Console confirmed that the URL was added to the priority crawl queue.
-- Confirmed the submitted sitemap at `https://cothecoconutcompany.com/sitemap.xml` had a successful status.
-- Resubmitted `sitemap.xml`. Search Console confirmed success on June 29, 2026 and reported 16 discovered pages and 0 discovered videos.
-- Checked Page indexing coverage. The report exists, but Google is still processing its data and asks that it be checked again later.
-- Opened Bing Webmaster Tools. The browser was not authenticated, so no Bing property verification or sitemap submission was performed.
-- Confirmed production `sitemap.xml` and `robots.txt` both return HTTP 200.
+- Google Search Console authentication was available as Fazil Shan (`fshan210@gmail.com`).
+- The URL-prefix property is verified; Search Console states **You are a verified owner**.
+- Inspected `/`, `/shop`, `/about`, `/founders`, `/recipes`, `/journal`, and `/sustainability`.
+- Confirmed `/`, `/shop`, `/about`, `/journal`, and `/sustainability` are indexed.
+- Requested indexing for `/founders`; Google accepted it into the priority crawl queue.
+- Requested indexing for `/recipes`; Google accepted it into the priority crawl queue.
+- Resubmitted `https://cothecoconutcompany.com/sitemap.xml`.
+- Confirmed sitemap **Success**, **13 discovered pages**, and **0 videos** after submission.
+- Confirmed Search Console robots status **Valid**.
+- Confirmed Breadcrumb enhancement **3 valid / 0 invalid**.
+- Checked Page indexing; Google is still processing the report.
+- Opened Bing Webmaster Tools; it was signed out, so no Bing property or sitemap change was made.
+- Confirmed GA4 Realtime received one active user and the events `page_view`, `session_start`, and `user_engagement`.
 
-## Implemented locally
+## Implementation completed locally
 
-- GA4 is loaded once globally with `next/script` using `G-CNXDJ3EMHQ`; App Router page views and existing analytics events remain enabled across routes.
-- The homepage title is absolute, avoiding a duplicated site-name title template.
-- Canonical URLs, Open Graph metadata, and Twitter cards remain centralized through the metadata helper.
-- Private account and authentication routes are marked `noindex, nofollow` and excluded from the sitemap.
-- `robots.txt` keeps public routes crawlable and disallows private/admin routes.
-- `/products` permanently redirects to `/shop` and is excluded from the sitemap.
-- Organization and WebSite data are emitted once globally instead of being duplicated by page-level JSON-LD.
-- BreadcrumbList is emitted on content routes; Product is emitted on product detail routes; Recipe is emitted for recipe entries; the journal emits CollectionPage and ItemList data.
-- LocalBusiness was not added because the site does not publish a customer-facing physical location, opening hours, or local service details. FAQPage was not added because there is no visible FAQ. BlogPosting was not added because journal entries do not yet have individual article URLs and publication metadata.
+- Removed the root canonical inheritance that made 404 responses claim the homepage canonical.
+- Verified every intended canonical target returns 200.
+- Kept the sitemap at the correct 13 public canonical URLs and removed false per-build modification timestamps.
+- Kept `/products` out of the sitemap and as a permanent redirect to `/shop`.
+- Made `/sign-in` and `/sign-up` permanent aliases of their noindex auth destinations.
+- Expanded the robots admin rule to cover the complete `/admin` prefix.
+- Enriched truthful Organization entity data with founders, Brand, and the public contact-page relationship.
+- Removed incomplete Product rich-result markup until truthful Offer or visible review data exists.
+- Kept GA4 loaded once globally through the shared Analytics component.
+
+## Sitemap discrepancy explained
+
+Search Console's earlier 16-page count came from a prior sitemap containing the correct current 13 pages plus `/sign-in`, `/sign-up`, and `/account`. The live sitemap had already removed those non-public URLs, but Search Console retained the historical discovered total. Resubmitting the current sitemap refreshed the console to 13. No public URL was missing.
 
 ## Exact URLs
 
 - Property: `https://cothecoconutcompany.com/`
-- Homepage inspection: `https://cothecoconutcompany.com/`
-- Sitemap submission: `https://cothecoconutcompany.com/sitemap.xml`
-- Robots file: `https://cothecoconutcompany.com/robots.txt`
-- Google Search Console: `https://search.google.com/search-console`
+- Sitemap: `https://cothecoconutcompany.com/sitemap.xml`
+- Robots: `https://cothecoconutcompany.com/robots.txt`
+- Priority inspections: `/`, `/shop`, `/about`, `/founders`, `/recipes`, `/journal`, `/sustainability`
+- Search Console: `https://search.google.com/search-console`
 - Bing Webmaster Tools: `https://www.bing.com/webmasters/`
 - GA4 Realtime: `https://analytics.google.com/analytics/web/`
 
-## Google Search Console manual checks
+## Google waiting tasks
 
-The property, homepage request, and sitemap submission were automated. After deployment:
+1. Allow several days for `/founders` and `/recipes` to move through the priority crawl queue; a request is not an indexing guarantee.
+2. Open **Indexing → Pages** after processing completes and classify every exclusion.
+3. Confirm the sitemap remains **Success** with 13 discovered pages.
+4. After deployment, use URL Inspection → **Test live URL** on `/`, `/founders`, and `/recipes` to verify deployed canonicals and schema.
+5. Do not submit the same URL repeatedly; repeated requests do not increase priority.
 
-1. Open Search Console and select `https://cothecoconutcompany.com/`.
-2. Open **URL inspection**, enter `https://cothecoconutcompany.com/`, and confirm **URL is on Google**. Use **Test live URL** if the deployed metadata needs immediate validation.
-3. Open **Indexing → Pages** and confirm processing has completed. Review indexed and not-indexed reasons.
-4. Open **Indexing → Sitemaps** and confirm `/sitemap.xml` remains **Success** and the discovered-page count matches the deployed public sitemap.
-5. Request indexing again only if the deployed homepage materially changed and the June 29 request is no longer sufficient. Repeated requests do not improve queue priority.
-
-If property verification ever needs to be restored:
-
-1. Add a URL-prefix property for `https://cothecoconutcompany.com/`.
-2. Prefer the existing verified method shown under **Settings → Ownership verification**.
-3. For a meta-tag method, set `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` to Google's verification content value, deploy, then click **Verify**.
-4. For DNS verification, add Google's TXT record at the domain DNS provider and wait for propagation before clicking **Verify**.
-
-## Bing Webmaster manual steps
+## Bing steps still required
 
 1. Sign in at `https://www.bing.com/webmasters/` with the intended Microsoft account.
-2. Add `https://cothecoconutcompany.com/`, or choose **Import from Google Search Console**.
-3. If manual verification is required, use the Bing meta-tag content value as `NEXT_PUBLIC_BING_SITE_VERIFICATION`, deploy it, then complete verification. A DNS verification record is also acceptable.
-4. Select the verified site and open **Sitemaps**.
-5. Submit `https://cothecoconutcompany.com/sitemap.xml`.
-6. Confirm the sitemap status is successful and review **URL Inspection** for the homepage.
+2. Choose **Import from Google Search Console** or add `https://cothecoconutcompany.com/` manually.
+3. If manual verification is used, publish the provided Bing verification value through `NEXT_PUBLIC_BING_SITE_VERIFICATION`, deploy, and click **Verify**. DNS verification is also valid.
+4. Select the verified property, open **Sitemaps**, and submit `https://cothecoconutcompany.com/sitemap.xml`.
+5. Confirm success, inspect the homepage, and review crawl/index status.
 
-## GA4 Realtime verification
+## GA4 post-deployment check
 
-GA4 browser verification requires the feature branch to be deployed first.
+1. Open GA4 Realtime for `G-CNXDJ3EMHQ`.
+2. Visit `/`, `/shop`, `/recipes`, and one product page in a non-blocked browser.
+3. Confirm one `page_view` per navigation plus `session_start` and `user_engagement`.
+4. Inspect page source and confirm one `googletagmanager.com/gtag/js` loader and one measurement ID.
 
-1. Deploy this branch with production analytics enabled.
-2. Open GA4 for measurement ID `G-CNXDJ3EMHQ` and choose **Reports → Realtime**.
-3. In a separate non-blocked browser session, visit the homepage and navigate to `/shop`, `/recipes`, and one product page.
-4. Confirm one active user and `page_view` events for each route.
-5. Confirm the page title, page location, and page path values are correct and that page views are not duplicated.
+## Post-deployment checklist
 
-## Post-deployment verification checklist
-
-- [ ] `https://cothecoconutcompany.com/` returns 200 and has one canonical URL.
-- [ ] `/shop`, `/about`, `/founders`, `/recipes`, `/journal`, and `/sustainability` return 200.
-- [ ] `/products` permanently redirects to `/shop` without a redirect chain.
-- [ ] `/robots.txt` returns 200, allows public routes, disallows private routes, and references the production sitemap.
-- [ ] `/sitemap.xml` returns 200, contains only canonical public routes, and excludes `/products` and account/authentication routes.
-- [ ] Page source contains one GA loader for `G-CNXDJ3EMHQ` and no duplicate Google tag.
-- [ ] GA4 Realtime records one page view per route navigation.
-- [ ] Search Console continues to show verified ownership and sitemap success.
-- [ ] Search Console Page indexing processing completes without unexpected exclusions.
-- [ ] Bing ownership is verified and its sitemap status is successful.
-- [ ] Rich Results Test recognizes BreadcrumbList, Product, and Recipe data on their applicable routes.
-- [ ] Organization and WebSite JSON-LD appear once per document.
+- [ ] Deploy `feature/final-seo-indexing-pass`.
+- [ ] Confirm all 13 sitemap URLs return 200 and self-canonical.
+- [ ] Confirm a random 404 has no canonical.
+- [ ] Confirm `/products` returns one permanent redirect to `/shop`.
+- [ ] Confirm `/sign-in` and `/sign-up` return permanent redirects.
+- [ ] Confirm robots returns 200, has no public-route disallow, and names the production sitemap.
+- [ ] Confirm sitemap returns 200, has 13 URLs, and excludes redirects/private routes.
+- [ ] Validate Organization, WebSite, Breadcrumb, Recipe, and CollectionPage JSON-LD.
+- [ ] Confirm Product, Article, and FAQ markup remain absent until supported by visible facts/content.
+- [ ] Confirm GA4 Realtime events and no duplicate tag.
+- [ ] Recheck Google coverage and the two requested URLs.
+- [ ] Complete Bing sign-in, verification, and sitemap submission.

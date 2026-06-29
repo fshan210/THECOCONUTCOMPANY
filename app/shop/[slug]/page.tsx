@@ -7,7 +7,6 @@ import { BentoCard, CTAButton, IngredientBadge, MotionSection, TrustBadge } from
 import { StructuredData } from "@/components/seo/StructuredData";
 import { shopProducts } from "@/lib/catalog";
 import { createPageMetadata } from "@/lib/seo/metadata";
-import { productSchema } from "@/lib/seo/structured-data";
 import { publicAssets } from "@/lib/public-assets";
 
 type ProductPageProps = {
@@ -52,7 +51,6 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           { name: "Shop", path: "/shop" },
           { name: product.name, path: `/shop/${product.slug}` }
         ]}
-        extra={[productSchema(product)]}
       />
       <section className="bg-[var(--co-cream)] pt-8 md:pt-12">
         <div className="co-container">

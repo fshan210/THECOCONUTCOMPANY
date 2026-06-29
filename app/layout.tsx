@@ -44,9 +44,6 @@ export const metadata: Metadata = {
     template: `%s | ${siteName}`
   },
   description: defaultDescription,
-  alternates: {
-    canonical: "/"
-  },
   manifest: "/site.webmanifest",
   icons: {
     icon: [
