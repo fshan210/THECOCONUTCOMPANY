@@ -9,15 +9,15 @@ This roadmap prioritizes durable organic growth for a Kerala-rooted coconut food
 ### Technical and indexing
 
 - Monitor Search Console until Page indexing finishes processing; classify every exclusion as intended, temporary, or actionable.
-- Confirm the current 13-URL sitemap replaces older discovered URL counts and contains only 200/self-canonical pages.
+- Monitor the resubmitted 13-URL sitemap; the former 16-page historical count is resolved and Search Console now reports 13.
 - Authenticate Bing Webmaster Tools, import or verify the property, submit `/sitemap.xml`, and inspect the homepage.
-- Decide on a 404 metadata approach that removes the inherited homepage canonical without redesigning the page.
+- Recheck after deployment that 404 responses continue to omit a canonical; the inherited homepage canonical is fixed locally.
 - Establish weekly checks for status codes, canonicals, sitemap drift, robots changes, structured-data errors, and accidental noindex directives.
 - Record baseline Core Web Vitals, organic impressions, branded/non-branded queries, indexed pages, referring domains, and conversions.
 
 ### Rich Results
 
-- Keep Product data honest while products are preview-stage. Do not publish fake Offer, rating, or review fields merely to clear validation.
+- Keep Product rich-result markup withheld while products are preview-stage. Do not publish fake Offer, rating, review, or availability fields merely to gain eligibility.
 - Add complete Product offers when public price, currency, availability, and landing/purchase URLs are approved.
 - Turn the highest-value three recipes into complete editorial specifications: instructions, author, cuisine, keywords, nutrition source, and optional video plan.
 

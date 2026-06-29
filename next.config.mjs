@@ -19,6 +19,16 @@ const nextConfig = {
         permanent: true
       },
       {
+        source: "/sign-in",
+        destination: "/login",
+        permanent: true
+      },
+      {
+        source: "/sign-up",
+        destination: "/register",
+        permanent: true
+      },
+      {
         source: "/:path*",
         has: [
           {

@@ -1,5 +1,4 @@
 import { siteName, siteUrl } from "@/lib/seo/metadata";
-import type { ShopProduct } from "@/lib/catalog";
 
 export function organizationSchema() {
   return {
@@ -11,6 +10,31 @@ export function organizationSchema() {
     url: siteUrl,
     logo: `${siteUrl}/images/logo.svg`,
     description: "A coconut-origin food and beverage brand from Palakkad, Kerala.",
+    founder: [
+      {
+        "@type": "Person",
+        name: "Fazil Shersha",
+        jobTitle: "Co-founder"
+      },
+      {
+        "@type": "Person",
+        name: "Afsala Muthali",
+        jobTitle: "Co-founder"
+      }
+    ],
+    brand: {
+      "@type": "Brand",
+      name: siteName,
+      alternateName: ".CO",
+      url: siteUrl,
+      logo: `${siteUrl}/images/logo.svg`
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      url: `${siteUrl}/contact`,
+      availableLanguage: ["English"]
+    },
     foundingLocation: {
       "@type": "Place",
       name: "Palakkad, Kerala, India"
@@ -55,53 +79,6 @@ export function breadcrumbSchema(items: Array<{ name: string; path: string }>) {
       item: `${siteUrl}${item.path}`
     }))
   };
-}
-
-export function productSchemaPlaceholder() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: ".CO coconut product range",
-    brand: {
-      "@type": "Brand",
-      name: siteName
-    }
-  };
-}
-
-export function articleSchemaPlaceholder() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: ".CO coconut culture and product notes",
-    publisher: organizationSchema()
-  };
-}
-
-export function productSchema(product: ShopProduct) {
-  const schema: Record<string, unknown> = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.name,
-    brand: {
-      "@type": "Brand",
-      name: siteName
-    },
-    category: product.category,
-    description: product.shortDescription,
-    sku: product.slug,
-    image: `${siteUrl}${product.image}`,
-    url: `${siteUrl}/shop/${product.slug}`,
-    additionalProperty: [
-      {
-        "@type": "PropertyValue",
-        name: "Availability",
-        value: product.availability
-      }
-    ]
-  };
-
-  return schema;
 }
 
 export function recipeSchema(recipe: {
