@@ -3,10 +3,11 @@ import { breadcrumbSchema, organizationSchema, websiteSchema } from "@/lib/seo/s
 type StructuredDataProps = {
   breadcrumbs?: Array<{ name: string; path: string }>;
   extra?: Record<string, unknown>[];
+  includeGlobal?: boolean;
 };
 
-export function StructuredData({ breadcrumbs, extra = [] }: StructuredDataProps) {
-  const schemas: Record<string, unknown>[] = [organizationSchema(), websiteSchema()];
+export function StructuredData({ breadcrumbs, extra = [], includeGlobal = false }: StructuredDataProps) {
+  const schemas: Record<string, unknown>[] = includeGlobal ? [organizationSchema(), websiteSchema()] : [];
 
   if (breadcrumbs?.length) {
     schemas.push(breadcrumbSchema(breadcrumbs));

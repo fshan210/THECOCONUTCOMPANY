@@ -11,7 +11,8 @@ import { publicAssets } from "@/lib/public-assets";
 export const metadata: Metadata = createPageMetadata({
   title: "Register",
   description: "Create your .CO customer account.",
-  path: "/register"
+  path: "/register",
+  index: false
 });
 
 export default async function RegisterPage() {

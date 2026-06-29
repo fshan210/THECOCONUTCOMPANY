@@ -7,7 +7,8 @@ import { createPageMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = createPageMetadata({
   title: "Orders",
   description: "Your .CO order history.",
-  path: "/orders"
+  path: "/orders",
+  index: false
 });
 
 export default async function OrdersPage() {

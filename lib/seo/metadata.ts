@@ -8,13 +8,15 @@ type PageMetadataInput = {
   title: string;
   description: string;
   path: string;
+  absoluteTitle?: boolean;
+  index?: boolean;
 };
 
-export function createPageMetadata({ title, description, path }: PageMetadataInput): Metadata {
+export function createPageMetadata({ title, description, path, absoluteTitle = false, index = true }: PageMetadataInput): Metadata {
   const url = `${siteUrl}${path}`;
 
   return {
-    title,
+    title: absoluteTitle ? { absolute: title } : title,
     description,
     alternates: {
       canonical: path
@@ -40,6 +42,7 @@ export function createPageMetadata({ title, description, path }: PageMetadataInp
       title,
       description,
       images: ["/opengraph-image"]
-    }
+    },
+    robots: index ? undefined : { index: false, follow: false, noarchive: true }
   };
 }

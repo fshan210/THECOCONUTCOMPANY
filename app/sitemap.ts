@@ -15,10 +15,7 @@ const routes = [
   "/shop/co-kitchen-coconut-oil",
   "/shop/co-botanica-coconut-care",
   "/shop/co-lifestyle",
-  "/recipes",
-  "/sign-in",
-  "/sign-up",
-  "/account"
+  "/recipes"
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -4,6 +4,8 @@ import { BentoCard, CTAButton, FeatureStrip, MotionSection, TrustBadge } from "@
 import { JournalGrid } from "@/components/JournalGrid";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
+import { collectionPageSchema } from "@/lib/seo/structured-data";
+import { journalEntries } from "@/lib/content";
 import { publicAssets } from "@/lib/public-assets";
 
 export const metadata: Metadata = createPageMetadata({
@@ -15,7 +17,21 @@ export const metadata: Metadata = createPageMetadata({
 export default function JournalPage() {
   return (
     <>
-      <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Journal", path: "/journal" }]} />
+      <StructuredData
+        breadcrumbs={[{ name: "Home", path: "/" }, { name: "Journal", path: "/journal" }]}
+        extra={[
+          collectionPageSchema({
+            name: ".CO Journal",
+            description: "Editorial notes on coconut culture, taste, recipes, product thinking, and Made for Living.",
+            path: "/journal",
+            items: journalEntries.map((entry) => ({
+              name: entry.title,
+              description: entry.excerpt,
+              image: entry.image
+            }))
+          })
+        ]}
+      />
       <section className="bg-[var(--co-cream)] pt-8 md:pt-12">
         <div className="co-container">
           <div className="grid min-h-[560px] overflow-hidden rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] lg:grid-cols-[0.9fr_1.1fr]">

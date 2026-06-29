@@ -16,7 +16,8 @@ import { createPageMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = createPageMetadata({
   title: ".CO | The Coconut Company",
   description: "A modern coconut-origin lifestyle brand from Palakkad, Kerala. Made for Living.",
-  path: "/"
+  path: "/",
+  absoluteTitle: true
 });
 
 export default function HomePage() {

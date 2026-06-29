@@ -7,7 +7,7 @@ import { trackEvent } from "@/lib/analytics/events";
 import { getFirebaseAnalyticsClient } from "@/lib/firebase/client";
 import { isFirebasePublicConfigured } from "@/lib/firebase/config";
 
-const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-CNXDJ3EMHQ";
 const clarityProjectId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID;
 const isProduction = process.env.NODE_ENV === "production";
 
