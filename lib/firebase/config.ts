@@ -18,7 +18,8 @@ export function isFirebasePublicConfigured() {
 }
 
 export function getFirebasePublicMissingKeys() {
+  const requiredKeys = new Set(["apiKey", "authDomain", "projectId", "appId"]);
   return Object.entries(firebasePublicConfig)
-    .filter(([key, value]) => key !== "measurementId" && !value)
+    .filter(([key, value]) => requiredKeys.has(key) && !value)
     .map(([key]) => `NEXT_PUBLIC_FIREBASE_${key.replace(/[A-Z]/g, (match) => `_${match}`).toUpperCase()}`);
 }
