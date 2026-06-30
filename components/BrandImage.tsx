@@ -62,7 +62,7 @@ export function BrandImage({
           src={resolvedSrc}
           alt={alt}
           fill
-          preload={priority}
+          priority={priority}
           sizes={sizes}
           onError={() => {
             if (resolvedSrc === fallbackSrc) setFailed(true);

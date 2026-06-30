@@ -13,8 +13,8 @@ const pathsByType: Record<ContentType, string[]> = {
 };
 
 export function revalidateContent(type: ContentType, slug?: string) {
-  revalidateTag("content", "max");
-  revalidateTag(`content:${type}`, "max");
+  revalidateTag("content");
+  revalidateTag(`content:${type}`);
   pathsByType[type].forEach((path) => revalidatePath(path));
   if (type === "products" && slug) revalidatePath(`/shop/${slug}`);
 }

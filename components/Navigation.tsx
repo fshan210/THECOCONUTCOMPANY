@@ -55,7 +55,7 @@ export function Navigation() {
         <nav className="co-container co-nav-row relative flex min-h-[66px] items-center justify-between gap-2 py-2 lg:min-h-[76px] lg:gap-4 lg:py-3">
           <Link href="/" className="flex min-w-0 items-center gap-3" aria-label=".CO home">
             <span className="relative block aspect-[188/150] w-[74px] origin-left sm:w-[82px] md:w-[88px]">
-              <Image src="/images/logo.svg" alt=".CO The Coconut Company" fill preload sizes="88px" className="object-contain" />
+              <Image src="/images/logo.svg" alt=".CO The Coconut Company" fill priority sizes="88px" className="object-contain" />
             </span>
           </Link>
           <div className="hidden items-center gap-6 text-[0.7rem] font-bold uppercase tracking-[0.08em] text-[var(--co-ink)] lg:flex xl:gap-8">

@@ -54,7 +54,7 @@ export function CTAButton({
       href={href}
       className={`co-press co-button-depth group/cta inline-flex min-h-12 items-center justify-center rounded-[24px] border px-6 py-3 text-sm font-bold ${styles[variant]} ${className}`}
     >
-      <span className="transition-transform duration-300 ease-[var(--co-ease)] group-hover/cta:translate-x-0.5">{children}</span>
+      <span className="transition-transform duration-300 ease-out group-hover/cta:translate-x-0.5">{children}</span>
     </Link>
   );
 }
