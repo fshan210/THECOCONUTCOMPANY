@@ -6,24 +6,37 @@ import Link from "next/link";
 import {
   ArrowLeft,
   ArrowRight,
+  ChevronDown,
+  ChevronRight,
   CircleUserRound,
   CookingPot,
+  Facebook,
+  Gift,
   Grid2X2,
+  Headphones,
+  Heart,
   IceCreamBowl,
   Instagram,
   Milk,
   Leaf,
+  LockKeyhole,
   Menu,
+  PackageCheck,
+  PlayCircle,
   Plus,
   Recycle,
+  RotateCcw,
   Search,
   Send,
+  ShieldCheck,
   ShoppingBag,
   Sparkles,
+  Truck,
   Utensils,
+  Youtube,
   X,
 } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CartButton } from "@/components/cart/CartDrawer";
 import { useCustomerSession } from "@/components/auth/CustomerAuthProvider";
@@ -34,6 +47,8 @@ import { publicAssets } from "@/lib/public-assets";
 import { cn } from "@/lib/utils";
 
 const ease = [0.16, 1, 0.3, 1] as const;
+const blurDataURL =
+  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MCcgaGVpZ2h0PSczMCc+PGZpbHRlciBpZD0nYic+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0nNicvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbGw9JyNmN2YyZTgnLz48L3N2Zz4=";
 
 type DisplayProduct = {
   slug: string;
@@ -50,7 +65,8 @@ const categoryItems = [
   { label: "Ice Cream", icon: IceCreamBowl, href: "/shop?product=melt-co-mango-coconut" },
   { label: "Food", icon: CookingPot, href: "/shop?product=co-kitchen-coconut-oil" },
   { label: "Cosmetics", icon: Sparkles, href: "/shop?product=co-botanica-coconut-care" },
-  { label: "Utensils", icon: Utensils, href: "/shop?product=co-lifestyle" }
+  { label: "Utensils", icon: Utensils, href: "/shop?product=co-lifestyle" },
+  { label: "Bundles & Gifts", icon: Gift, href: "/shop?category=bundles" }
 ];
 
 const productPresentation: Record<string, Partial<DisplayProduct>> = {
@@ -161,23 +177,23 @@ function ReferenceHeader() {
         className="fixed left-1/2 top-0 z-[110] flex min-h-[72px] w-full -translate-x-1/2 items-center rounded-b-[28px] border border-[rgba(53,39,30,.07)] bg-[rgba(247,242,232,.96)] px-5 shadow-[0_12px_36px_rgba(53,39,30,.07)] md:min-h-[86px] md:px-8"
       >
         <div className="mx-auto flex w-full max-w-[1500px] items-center justify-between gap-5">
-          <Link href="/" className="relative block h-[48px] w-[72px] md:h-[58px] md:w-[88px]" aria-label=".CO home">
+          <Link href="/" className="absolute left-1/2 block h-[48px] w-[72px] -translate-x-1/2 md:relative md:left-auto md:h-[58px] md:w-[88px] md:translate-x-0" aria-label=".CO home">
             <Image src="/images/logo.svg" alt=".CO The Coconut Company" fill priority sizes="88px" className="object-contain object-left" />
           </Link>
 
           <nav className="hidden items-center gap-[clamp(22px,2.2vw,42px)] text-[11px] font-medium uppercase tracking-[0.04em] text-[#17130f] lg:flex" aria-label="Primary navigation">
             {links.map(([label, href]) => (
-              <Link key={href} href={href} className="transition-colors hover:text-[#305a34]">
+              <Link key={href} href={href} className="relative py-2 transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-[#305a34] after:transition-transform hover:text-[#305a34] hover:after:scale-x-100">
                 {label}
               </Link>
             ))}
           </nav>
 
-          <div className="flex items-center gap-1.5 text-[#17130f]">
+          <div className="ml-auto flex items-center gap-1 text-[#17130f] md:gap-1.5">
             <Link href="/shop" aria-label="Search products" className="grid size-10 place-items-center rounded-full transition hover:bg-white/70">
               <Search size={19} strokeWidth={1.7} />
             </Link>
-            <Link href={session ? "/account" : "/login"} aria-label={session ? "My account" : "Sign in"} className="hidden size-10 place-items-center rounded-full transition hover:bg-white/70 sm:grid">
+            <Link href={session ? "/account" : "/login"} aria-label={session ? "My account" : "Sign in"} className="grid size-10 place-items-center rounded-full transition hover:bg-white/70">
               <CircleUserRound size={19} strokeWidth={1.6} />
             </Link>
             <CartButton showZero className="!size-10 !rounded-full !border-0 !bg-transparent !shadow-none hover:!bg-white/70" />
@@ -186,7 +202,7 @@ function ReferenceHeader() {
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((value) => !value)}
-              className="grid size-10 place-items-center rounded-full lg:hidden"
+              className="absolute left-3 grid size-10 place-items-center rounded-full lg:hidden"
             >
               {menuOpen ? <X size={21} strokeWidth={1.7} /> : <Menu size={22} strokeWidth={1.7} />}
             </button>
@@ -266,6 +282,7 @@ function MoreProductsDialog({ products, className }: { products: DisplayProduct[
   };
 
   return (
+    <LayoutGroup id="more-products-dialog">
     <Dialog.Root
       open={open}
       onOpenChange={(nextOpen) => {
@@ -277,6 +294,8 @@ function MoreProductsDialog({ products, className }: { products: DisplayProduct[
         <motion.button
           ref={triggerRef}
           layoutId="more-products-cloud"
+          animate={{ opacity: open ? 0 : 1, scale: open ? 0.96 : 1 }}
+          transition={{ duration: 0.28, ease }}
           type="button"
           className={cn(
             "inline-flex min-h-12 items-center gap-4 rounded-full bg-[#304f2c] px-6 text-[11px] font-semibold uppercase tracking-[0.04em] text-white shadow-[0_12px_28px_rgba(48,79,44,.22)] transition hover:-translate-y-0.5 hover:bg-[#233e21]",
@@ -337,7 +356,7 @@ function MoreProductsDialog({ products, className }: { products: DisplayProduct[
                       <motion.div key="detail" initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -18 }} transition={{ duration: 0.32, ease }}>
                         <article className="mt-5 overflow-hidden rounded-[28px] bg-[rgba(255,252,246,.88)] p-4">
                           <div className="relative aspect-[4/4.5] overflow-hidden rounded-[24px] bg-[#f7f1e7]">
-                            <Image src={selected.image} alt={selected.name} fill sizes="calc(100vw - 72px)" className="object-contain p-5" />
+                            <Image src={selected.image} alt={selected.name} fill sizes="calc(100vw - 72px)" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain p-5" />
                           </div>
                           <h3 className="mt-5 font-['Cormorant_Garamond'] text-[34px] leading-none">{selected.name}</h3>
                           <p className="mt-3 text-sm font-medium">{selected.subtitle}</p>
@@ -368,7 +387,7 @@ function MoreProductsDialog({ products, className }: { products: DisplayProduct[
                                 className="grid w-full grid-cols-[86px_1fr_38px] items-center gap-3 rounded-[22px] border border-white/60 bg-white/16 p-3 text-left"
                               >
                                 <span className="relative block aspect-square">
-                                  <Image src={product.image} alt="" fill sizes="86px" className="object-contain p-1" />
+                                  <Image src={product.image} alt="" fill sizes="86px" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain p-1" />
                                 </span>
                                 <span>
                                   <span className="block font-['Cormorant_Garamond'] text-xl">{product.name}</span>
@@ -388,7 +407,7 @@ function MoreProductsDialog({ products, className }: { products: DisplayProduct[
                           {products.map((product) => (
                             <article key={product.slug} className="grid min-h-[190px] grid-cols-[110px_1fr] items-center gap-3 rounded-[24px] border border-white/70 bg-white/24 p-3 md:block md:min-h-[290px]">
                               <button type="button" onClick={() => isMobile && setSelected(product)} className="relative block aspect-[3/4] w-full md:aspect-[4/5]" aria-label={`View ${product.name}`}>
-                                <Image src={product.image} alt={product.name} fill sizes="(min-width: 768px) 170px, 110px" className="object-contain p-1 md:p-3" />
+                                <Image src={product.image} alt={product.name} fill sizes="(min-width: 768px) 170px, 110px" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain p-1 md:p-3" />
                               </button>
                               <div className="md:mt-3">
                                 <button type="button" onClick={() => isMobile && setSelected(product)} className="text-left font-['Cormorant_Garamond'] text-[25px] leading-none md:text-[22px]">
@@ -417,6 +436,7 @@ function MoreProductsDialog({ products, className }: { products: DisplayProduct[
         ) : null}
       </AnimatePresence>
     </Dialog.Root>
+    </LayoutGroup>
   );
 }
 
@@ -424,27 +444,31 @@ function HeroSection() {
   return (
     <section className="relative isolate min-h-[610px] overflow-hidden bg-[#f7f2e8] md:min-h-[720px]">
       <Image
-        src="/assets/hero/co-home-hero-background-v2.png"
+        src="/assets/hero/co-home-hero-editorial-4k.avif"
         alt=""
         fill
         priority
         sizes="100vw"
-        className="object-cover object-[62%_center] md:object-center"
+        quality={95}
+        placeholder="blur"
+        blurDataURL={blurDataURL}
+        className="origin-left scale-[1.08] object-cover object-[62%_center] md:object-center"
       />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(247,242,232,.96)_0%,rgba(247,242,232,.8)_38%,rgba(247,242,232,.05)_72%)] md:bg-[linear-gradient(90deg,rgba(247,242,232,.97)_0%,rgba(247,242,232,.82)_38%,rgba(247,242,232,.03)_72%)]" />
 
       <div className="relative mx-auto grid min-h-[610px] max-w-[1500px] grid-cols-1 px-7 pb-20 pt-10 md:min-h-[720px] md:grid-cols-[.95fr_1.05fr] md:px-[clamp(44px,6vw,90px)] md:pb-24 md:pt-16">
         <div className="relative z-20 max-w-[620px]">
           <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }} className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35271e]">
-            Pure by nature. Made for living.
+            <span className="md:hidden">Rooted in nature</span>
+            <span className="hidden md:inline">Pure by nature. Made for living.</span>
           </motion.p>
           <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, delay: 0.08, ease }} className="mt-4 max-w-[12ch] font-['Cormorant_Garamond'] text-[clamp(48px,5.1vw,82px)] font-normal leading-[.88] tracking-[-.04em] text-[#16120e]">
-            From our palms
-            <br />
-            to your <em className="font-normal text-[#305a34]">life.</em>
+            <span className="md:hidden">Good for you.<br />Good for the <em className="font-normal text-[#305a34]">planet.</em></span>
+            <span className="hidden md:inline">From our palms<br />to your <em className="font-normal text-[#305a34]">life.</em></span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, delay: 0.18, ease }} className="mt-6 max-w-[350px] text-[15px] leading-7 text-[#27211c] md:text-[17px]">
-            We craft premium coconut products that nourish you and care for our planet.
+            <span className="md:hidden">Premium coconut products, crafted with care for a healthier you and a better planet.</span>
+            <span className="hidden md:inline">We craft premium coconut products that nourish you and care for our planet.</span>
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.26, ease }}>
             <Link href="/shop" className="mt-7 inline-flex min-h-14 items-center gap-6 rounded-full bg-[#304f2c] px-7 text-[11px] font-semibold uppercase text-white shadow-[0_15px_35px_rgba(48,79,44,.24)]">
@@ -454,6 +478,9 @@ function HeroSection() {
               </span>
             </Link>
           </motion.div>
+          <Link href="/about" className="mt-4 inline-flex items-center gap-2 border-b border-[#35271e] pb-1 text-[10px] font-semibold uppercase md:hidden">
+            <PlayCircle size={17} /> Watch our story
+          </Link>
 
           <div className="mt-9 hidden grid-cols-3 gap-5 md:grid">
             {[
@@ -479,10 +506,10 @@ function HeroSection() {
 
         <div className="pointer-events-none absolute inset-x-0 bottom-8 top-[205px] z-10 md:inset-y-0 md:left-[43%] md:right-0">
           <motion.div initial={{ opacity: 0, y: 30, rotate: -1 }} animate={{ opacity: 1, y: 0, rotate: 0 }} transition={{ duration: 1, delay: 0.16, ease }} className="absolute bottom-0 left-[36%] h-[74%] w-[36%] min-w-[142px] md:left-[21%] md:h-[73%] md:w-[31%]">
-            <Image src="/assets/transparent/co-water-bottle.png" alt=".CO organic coconut water bottle" fill priority sizes="(min-width: 768px) 28vw, 36vw" className="object-contain drop-shadow-[0_30px_34px_rgba(53,39,30,.2)]" />
+            <Image src="/assets/transparent/co-water-bottle.png" alt=".CO organic coconut water bottle" fill priority sizes="(min-width: 768px) 28vw, 36vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain drop-shadow-[0_30px_34px_rgba(53,39,30,.2)]" />
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 36, rotate: 1 }} animate={{ opacity: 1, y: 0, rotate: 0 }} transition={{ duration: 1, delay: 0.26, ease }} className="absolute bottom-[1%] left-[58%] h-[58%] w-[40%] min-w-[148px] md:left-[48%] md:h-[55%] md:w-[36%]">
-            <Image src="/assets/transparent/co-coconut-icecream.png" alt="Melt.CO coconut mango ice cream" fill priority sizes="(min-width: 768px) 32vw, 40vw" className="object-contain drop-shadow-[0_28px_34px_rgba(53,39,30,.18)]" />
+            <Image src="/assets/transparent/co-coconut-icecream.png" alt="Melt.CO coconut mango ice cream" fill priority sizes="(min-width: 768px) 32vw, 40vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain drop-shadow-[0_28px_34px_rgba(53,39,30,.18)]" />
           </motion.div>
         </div>
       </div>
@@ -490,19 +517,87 @@ function HeroSection() {
   );
 }
 
-function CategoryRail({ products }: { products: DisplayProduct[] }) {
+function CategoryRail() {
   return (
-    <section className="relative z-30 -mt-9 px-4 md:-mt-14 md:px-8">
-      <div className="mx-auto flex max-w-[1320px] items-stretch overflow-x-auto rounded-[28px] border border-white/70 bg-[rgba(255,255,255,.63)] px-2 py-3 shadow-[0_22px_60px_rgba(53,39,30,.1),inset_0_1px_0_rgba(255,255,255,.85)] backdrop-blur-[22px] [scrollbar-width:none] md:min-h-[138px] md:overflow-visible md:rounded-[36px] md:px-6 md:py-5 [&::-webkit-scrollbar]:hidden">
+    <section className="relative z-30 px-3 pb-4 md:-mt-14 md:px-8 md:pb-0">
+      <div className="mx-auto grid max-w-[1320px] grid-cols-3 items-stretch rounded-[22px] border border-white/70 bg-[rgba(255,255,255,.63)] px-2 py-3 shadow-[0_22px_60px_rgba(53,39,30,.1),inset_0_1px_0_rgba(255,255,255,.85)] backdrop-blur-[22px] md:flex md:min-h-[118px] md:rounded-[28px] md:px-6 md:py-4">
         {categoryItems.map(({ label, icon: Icon, href }) => (
-          <Link key={label} href={href} className="flex min-w-[68px] flex-1 flex-col items-center justify-center gap-3 border-r border-[#35271e]/10 px-2 text-center last:border-r-0 md:min-w-0 md:px-3">
-            <Icon size={25} strokeWidth={1.35} />
+          <Link key={label} href={href} className="flex min-h-[92px] flex-1 flex-col items-center justify-center gap-3 border-[#35271e]/10 px-2 text-center max-md:border-b max-md:border-r max-md:[&:nth-child(3n)]:border-r-0 max-md:[&:nth-last-child(-n+3)]:border-b-0 md:min-w-0 md:border-r md:px-3 md:last:border-r-0">
+            <Icon size={23} strokeWidth={1.35} />
             <span className="text-[9px] font-semibold uppercase leading-4 md:text-[10px]">{label}</span>
           </Link>
         ))}
-        <div className="hidden min-w-[260px] items-center justify-center md:flex">
-          <MoreProductsDialog products={products} />
+      </div>
+    </section>
+  );
+}
+
+function MobileHeroBenefits() {
+  const items = [
+    [Leaf, "100% Natural", "No additives"],
+    [Recycle, "Sustainably Sourced", "From trusted farms"],
+    [Sparkles, "Made for Living", "Better for you"]
+  ] as const;
+
+  return (
+    <section className="grid grid-cols-3 gap-2 bg-[#faf7f0] px-4 py-7 md:hidden">
+      {items.map(([Icon, title, detail]) => (
+        <div key={title} className="text-center">
+          <span className="mx-auto grid size-10 place-items-center rounded-full bg-[#f0ede5]"><Icon size={19} strokeWidth={1.4} /></span>
+          <p className="mt-3 text-[10px] font-semibold leading-4">{title}</p>
+          <p className="mt-1 text-[9px] leading-4 text-[#6a6158]">{detail}</p>
         </div>
+      ))}
+    </section>
+  );
+}
+
+const marqueeItems = [
+  [Truck, "Free Delivery", "On orders over ₹699"],
+  [Headphones, "24/7 Support", "We're here anytime"],
+  [RotateCcw, "Easy Returns", "14-day easy returns"],
+  [LockKeyhole, "Secure Payments", "100% safe & secure"],
+  [Leaf, "Fresh Bottling", "Straight from Kerala"],
+  [Sparkles, "Made in Kerala", "Rooted in our home"],
+  [Milk, "Naturally Hydrating", "Pure coconut goodness"],
+  [ShieldCheck, "Premium Quality", "Made with care"],
+  [PackageCheck, "Thoughtful Packaging", "Better for Earth"],
+  [Recycle, "Sustainably Sourced", "From trusted farms"]
+] as const;
+
+function DeliveryMarquee() {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!trackRef.current || prefersReducedMotion()) return undefined;
+    const { gsap } = getScrollTrigger();
+    const tween = gsap.to(trackRef.current, { xPercent: -50, duration: 38, repeat: -1, ease: "none" });
+    const pause = () => tween.pause();
+    const resume = () => tween.resume();
+    const wrap = wrapRef.current;
+    wrap?.addEventListener("mouseenter", pause);
+    wrap?.addEventListener("mouseleave", resume);
+    return () => {
+      wrap?.removeEventListener("mouseenter", pause);
+      wrap?.removeEventListener("mouseleave", resume);
+      tween.kill();
+    };
+  }, []);
+
+  return (
+    <section ref={wrapRef} className="mt-3 overflow-hidden bg-[#173412] py-3 text-white md:mt-8 md:py-4" aria-label="Customer benefits">
+      <div ref={trackRef} className="flex w-max will-change-transform">
+        {[0, 1].map((copy) => (
+          <div key={copy} className="flex shrink-0">
+            {marqueeItems.map(([Icon, title, detail]) => (
+              <div key={`${copy}-${title}`} className="flex w-[215px] shrink-0 items-center gap-3 border-r border-white/16 px-5 md:w-[260px] md:px-7">
+                <span className="grid size-9 shrink-0 place-items-center rounded-full border border-white/30"><Icon size={17} strokeWidth={1.5} /></span>
+                <span><span className="block text-[10px] font-semibold uppercase">{title}</span><span className="mt-1 block text-[9px] text-white/68">{detail}</span></span>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -560,16 +655,15 @@ function PlanetBentoSection({ products }: { products: DisplayProduct[] }) {
           {bentoCards.map((card, index) => (
             <motion.article
               key={card.title}
-              whileHover={{ y: -6 }}
+              whileHover={index === 3 ? { scale: 1.015, filter: "brightness(1.035)" } : { y: -5 }}
               transition={{ duration: 0.4, ease }}
               className={cn(
-                "group relative min-h-[255px] overflow-hidden rounded-[24px] border border-[#35271e]/8 md:min-h-[350px] md:rounded-[28px]",
-                card.tone === "dark" ? "bg-[#24421f] text-white" : "bg-[#f2eee5] text-[#35271e]",
-                index % 2 === 1 && "md:translate-y-4"
+                "group relative min-h-[255px] overflow-hidden rounded-[24px] border border-[#35271e]/8 transition-shadow duration-500 md:min-h-[350px] md:rounded-[28px]",
+                card.tone === "dark" ? "bg-[#24421f] text-white hover:shadow-[0_24px_55px_rgba(24,53,21,.24)]" : "bg-[#f2eee5] text-[#35271e]"
               )}
             >
-              <Image src={card.image} alt="" fill sizes="(min-width: 768px) 24vw, 48vw" className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.035]" />
-              <div className={cn("absolute inset-0", card.tone === "dark" ? "bg-[linear-gradient(180deg,rgba(28,50,24,.36),rgba(20,42,18,.12)_48%,rgba(20,42,18,.18))]" : "bg-[linear-gradient(180deg,rgba(247,242,232,.96)_0%,rgba(247,242,232,.82)_38%,rgba(247,242,232,.04)_72%)]")} />
+              <Image src={card.image} alt="" fill sizes="(min-width: 768px) 24vw, 48vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className={cn("object-cover object-center transition-transform duration-700", card.tone === "dark" ? "group-hover:scale-[1.025]" : "group-hover:scale-[1.035]")} />
+              <div className={cn("absolute inset-0", card.tone === "dark" ? "bg-[linear-gradient(180deg,rgba(14,38,13,.82)_0%,rgba(20,42,18,.42)_46%,rgba(20,42,18,.12)_100%)]" : "bg-[linear-gradient(180deg,rgba(247,242,232,.96)_0%,rgba(247,242,232,.82)_38%,rgba(247,242,232,.04)_72%)]")} />
               <div className="relative z-10 flex h-full min-h-[255px] flex-col p-5 md:min-h-[350px] md:p-7">
                 <h3 className="max-w-[170px] font-['Cormorant_Garamond'] text-[26px] leading-[.95] md:text-[31px]">{card.title}</h3>
                 <p className={cn("mt-5 max-w-[150px] text-xs leading-6", card.tone === "dark" ? "text-white/78" : "text-[#5e554d]")}>{card.body}</p>
@@ -612,7 +706,7 @@ function ProductsSection({ products }: { products: DisplayProduct[] }) {
           {products.map((product) => (
             <motion.article key={product.slug} whileHover={{ y: -5 }} transition={{ duration: 0.35, ease }} className="min-w-[47%] rounded-[22px] border border-[#35271e]/8 bg-[rgba(255,255,255,.62)] p-3 md:min-w-0 md:rounded-[26px] md:p-4">
               <Link href={`/shop/${product.slug}`} className="relative block aspect-[4/5] overflow-hidden rounded-[18px] bg-[#f8f4ec]">
-                <Image src={product.image} alt={product.name} fill sizes="(min-width: 768px) 280px, 46vw" className="object-contain p-3 md:p-5" />
+                <Image src={product.image} alt={product.name} fill sizes="(min-width: 768px) 280px, 46vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain p-3 md:p-5" />
               </Link>
               <div className="mt-4 grid grid-cols-[1fr_38px] gap-3">
                 <div>
@@ -631,23 +725,130 @@ function ProductsSection({ products }: { products: DisplayProduct[] }) {
   );
 }
 
-function Counter({ value, label }: { value: string; label: string }) {
-  const ref = useRef<HTMLDivElement>(null);
+const recipeCards = [
+  { title: "Coconut Berry Smoothie Bowl", category: "Breakfast", time: "10 min", image: publicAssets.recipes.seasonalBowl },
+  { title: "Melt.CO Mango Nice Cream", category: "Dessert", time: "15 min", image: "/assets/recipes/generated/co-mango-nice-cream-editorial-4k.avif" },
+  { title: "Coconut Thai Veggie Curry", category: "Lunch", time: "20 min", image: publicAssets.recipes.veggieCurry },
+  { title: "Green Coconut Detox Smoothie", category: "Drinks", time: "5 min", image: "/assets/recipes/generated/co-green-coconut-smoothie-editorial-4k.avif" },
+  { title: "Coconut Energy Balls", category: "Snack", time: "15 min", image: publicAssets.recipes.energyBites }
+];
+
+function RecipesSnapshot() {
+  return (
+    <section className="px-4 pb-9 md:px-8 md:pb-12">
+      <div className="mx-auto max-w-[1320px] rounded-[30px] bg-white/48 p-4 shadow-[0_18px_55px_rgba(53,39,30,.045)] md:grid md:grid-cols-[300px_1fr] md:gap-5 md:p-6">
+        <div className="flex flex-col justify-center px-1 py-3 md:px-2">
+          <p className="text-[10px] font-semibold uppercase tracking-[.14em] text-[#305a34]">Recipes we love</p>
+          <h2 className="mt-3 font-['Cormorant_Garamond'] text-[36px] leading-[.95] tracking-[-.025em] md:text-[42px]"><span className="whitespace-nowrap">Delicious. Easy.</span><br /><span className="whitespace-nowrap">Made with .CO</span></h2>
+          <p className="mt-4 max-w-[250px] text-xs leading-6 text-[#5f564d]">Explore wholesome recipes made with real ingredients.</p>
+          <Link href="/recipes" className="mt-5 inline-flex w-fit items-center gap-3 border-b border-[#305a34] pb-1 text-[10px] font-semibold uppercase text-[#305a34]">Explore recipes <ArrowRight size={14} /></Link>
+        </div>
+        <div className="mt-5 flex snap-x gap-3 overflow-x-auto pb-2 [scrollbar-width:none] md:mt-0 md:grid md:grid-cols-5 md:overflow-visible [&::-webkit-scrollbar]:hidden">
+          {recipeCards.map((recipe) => (
+            <motion.article key={recipe.title} whileHover={{ y: -5 }} transition={{ duration: 0.35, ease }} className="group min-w-[72%] snap-start overflow-hidden rounded-[19px] border border-[#35271e]/8 bg-white/60 sm:min-w-[43%] md:min-w-0">
+              <Link href="/recipes" className="relative block aspect-[4/3] overflow-hidden md:aspect-[4/4.35]">
+                <Image src={recipe.image} alt={recipe.title} fill sizes="(min-width: 768px) 190px, 72vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-cover transition duration-700 group-hover:scale-[1.04] group-hover:brightness-[1.03]" />
+                <span className="absolute right-2 top-2 grid size-8 place-items-center rounded-full bg-white/70 backdrop-blur-md"><Heart size={14} strokeWidth={1.5} /></span>
+              </Link>
+              <div className="p-3">
+                <p className="text-[8px] font-medium uppercase tracking-[.09em] text-[#80766d]">{recipe.category} · {recipe.time}</p>
+                <h3 className="mt-2 text-[11px] font-medium leading-[1.45] md:text-xs">{recipe.title}</h3>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const testimonials = [
+  { quote: "The coconut water is incredibly refreshing and pure. You can really taste the difference!", name: "Priya S.", initials: "PS" },
+  { quote: "Melt.CO ice cream is now our guilt-free indulgence. Creamy, delicious and natural!", name: "Arjun M.", initials: "AM" },
+  { quote: "Love the brand's values and sustainable approach. Happy to support .CO!", name: "Neha R.", initials: "NR" }
+];
+
+function TestimonialsSection() {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (!ref.current || prefersReducedMotion()) return undefined;
+    if (paused || prefersReducedMotion()) return undefined;
+    const timer = window.setInterval(() => setActive((value) => (value + 1) % testimonials.length), 7000);
+    return () => window.clearInterval(timer);
+  }, [paused]);
+
+  return (
+    <section className="px-4 pb-9 md:px-8 md:pb-12" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      <div className="mx-auto max-w-[1320px] rounded-[30px] bg-white/48 p-5 shadow-[0_18px_55px_rgba(53,39,30,.045)] md:grid md:grid-cols-[300px_1fr] md:gap-6 md:p-7">
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-[.14em] text-[#305a34]">What our customers say</p>
+          <h2 className="mt-3 font-['Cormorant_Garamond'] text-[37px] leading-[.98] tracking-[-.025em] md:text-[46px]">Loved by 1000+ happy<br className="hidden md:block" /> coconut lovers.</h2>
+        </div>
+        <div className="mt-6 md:mt-0">
+          <div className="hidden gap-4 md:grid md:grid-cols-3">
+            {testimonials.map((testimonial, index) => <TestimonialCard key={testimonial.name} testimonial={testimonial} highlighted={active === index} />)}
+          </div>
+          <div className="md:hidden">
+            <motion.div key={active} initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4, ease }}>
+              <TestimonialCard testimonial={testimonials[active]} highlighted />
+            </motion.div>
+            <div className="mt-4 flex justify-center gap-2">{testimonials.map((item, index) => <button type="button" aria-label={`Show testimonial from ${item.name}`} key={item.name} onClick={() => setActive(index)} className={cn("size-2 rounded-full", active === index ? "bg-[#305a34]" : "bg-[#35271e]/20")} />)}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TestimonialCard({ testimonial, highlighted }: { testimonial: (typeof testimonials)[number]; highlighted: boolean }) {
+  return (
+    <motion.article animate={{ y: highlighted ? -2 : 0 }} className={cn("rounded-[22px] border border-white/75 bg-white/45 p-5 shadow-[0_14px_38px_rgba(53,39,30,.06)] backdrop-blur-lg transition-shadow", highlighted && "shadow-[0_20px_48px_rgba(53,39,30,.1)]")}>
+      <div className="text-[14px] tracking-[.1em] text-[#e0a51d]" aria-label="Five stars">★★★★★</div>
+      <blockquote className="mt-4 text-sm leading-7">“{testimonial.quote}”</blockquote>
+      <div className="mt-5 flex items-center gap-3">
+        <span className="grid size-10 place-items-center rounded-full bg-[linear-gradient(145deg,#d9c6a7,#f4ecdf)] text-[10px] font-semibold text-[#305a34]" aria-hidden="true">{testimonial.initials}</span>
+        <span><span className="block text-xs font-semibold">{testimonial.name}</span><span className="mt-1 block text-[9px] text-[#72685e]">Verified Buyer</span></span>
+      </div>
+    </motion.article>
+  );
+}
+
+function Counter({ target, suffix, label }: { target: number; suffix: string; label: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const numberRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (!ref.current || !numberRef.current) return undefined;
+    if (prefersReducedMotion()) {
+      numberRef.current.textContent = String(target);
+      return undefined;
+    }
     const { gsap, ScrollTrigger } = getScrollTrigger();
-    const animation = gsap.fromTo(ref.current, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" });
-    const trigger = ScrollTrigger.create({ trigger: ref.current, start: "top 88%", once: true, animation });
+    const state = { value: 0 };
+    const trigger = ScrollTrigger.create({
+      trigger: ref.current,
+      start: "top 60%",
+      once: true,
+      onEnter: () => {
+        gsap.to(state, {
+          value: target,
+          duration: 2.25,
+          ease: "expo.out",
+          onUpdate: () => {
+            if (numberRef.current) numberRef.current.textContent = String(Math.round(state.value));
+          }
+        });
+      }
+    });
     return () => {
       trigger.kill();
-      animation.kill();
     };
-  }, []);
+  }, [target]);
 
   return (
     <div ref={ref}>
-      <p className="font-['Space_Grotesk'] text-[36px] font-medium leading-none md:text-[48px]">{value}</p>
+      <p className="font-['Space_Grotesk'] text-[36px] font-medium leading-none md:text-[48px]"><span ref={numberRef}>0</span>{suffix}</p>
       <p className="mt-2 max-w-[100px] text-[11px] leading-4 text-white/82 md:text-xs md:leading-5">{label}</p>
     </div>
   );
@@ -657,7 +858,7 @@ function SustainabilityBanner() {
   return (
     <section className="px-4 pb-8 md:px-8 md:pb-12">
       <div className="relative mx-auto min-h-[360px] max-w-[1320px] overflow-hidden rounded-[30px] bg-[#1c3518] text-white shadow-[0_22px_55px_rgba(30,50,24,.18)] md:min-h-[230px] md:rounded-[34px]">
-        <Image src={publicAssets.campaign.groveOrigin} alt="Kerala coconut groves" fill sizes="100vw" className="object-cover" />
+        <Image src="/assets/backgrounds/kerala-groves/co-kerala-grove-editorial-4k.avif" alt="Kerala coconut groves" fill sizes="100vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-cover" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(19,37,16,.88),rgba(19,37,16,.3)_52%,rgba(19,37,16,.72))]" />
         <div className="relative z-10 grid min-h-[360px] gap-8 p-7 md:min-h-[230px] md:grid-cols-[1fr_1.05fr] md:items-center md:p-10">
           <div>
@@ -671,13 +872,141 @@ function SustainabilityBanner() {
             </Link>
           </div>
           <div className="grid grid-cols-3 gap-5">
-            <Counter value="50+" label="Partner Farms" />
-            <Counter value="100%" label="Sustainable Packaging" />
-            <Counter value="1M+" label="Coconuts Saved" />
+            <Counter target={50} suffix="+" label="Partner Farms" />
+            <Counter target={100} suffix="%" label="Sustainable Packaging" />
+            <Counter target={1} suffix="M+" label="Coconuts Saved" />
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+const faqItems = [
+  ["Are your products 100% natural?", "Yes! All our products are 100% natural with no artificial colors, flavors or preservatives."],
+  ["Do you ship internationally?", "We currently deliver across India and are preparing selected international delivery routes."],
+  ["What is your return policy?", "Unopened products can be returned within 14 days of delivery. Contact our support team and we'll help."],
+  ["How should I store coconut water?", "Keep unopened bottles in a cool, dry place. Refrigerate after opening and enjoy promptly."],
+  ["How long does delivery take?", "Most orders arrive within 3–7 working days, depending on your location."]
+] as const;
+
+function FAQSection() {
+  const [openIndex, setOpenIndex] = useState(0);
+
+  useEffect(() => {
+    const remembered = window.sessionStorage.getItem("co-home-faq");
+    if (remembered !== null) setOpenIndex(Number(remembered));
+  }, []);
+
+  const toggle = (index: number) => {
+    const next = openIndex === index ? -1 : index;
+    setOpenIndex(next);
+    window.sessionStorage.setItem("co-home-faq", String(next));
+  };
+
+  return (
+    <section className="px-4 py-9 md:px-8 md:py-12">
+      <div className="mx-auto grid max-w-[1320px] gap-8 md:grid-cols-[.72fr_1.28fr] md:items-start">
+        <div className="relative min-h-[230px] overflow-hidden px-2 md:min-h-[310px] md:px-5">
+          <p className="text-[10px] font-semibold uppercase tracking-[.14em] text-[#305a34]">FAQ&apos;s</p>
+          <h2 className="mt-3 font-['Cormorant_Garamond'] text-[38px] leading-[.95] md:text-[48px]">Got questions?<br />We&apos;ve got answers.</h2>
+          <div className="absolute bottom-0 left-[15%] h-[120px] w-[230px] md:h-[165px] md:w-[315px]">
+            <Image src="/assets/transparent/co-tender-coconut.png" alt="Fresh coconut and palm leaves" fill sizes="315px" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain drop-shadow-[0_18px_24px_rgba(53,39,30,.13)]" />
+          </div>
+        </div>
+        <div className="space-y-2">
+          {faqItems.map(([question, answer], index) => {
+            const isOpen = openIndex === index;
+            return (
+              <article key={question} className="overflow-hidden rounded-[16px] border border-[#35271e]/7 bg-white/48 shadow-[0_8px_28px_rgba(53,39,30,.035)]">
+                <button type="button" onClick={() => toggle(index)} aria-expanded={isOpen} className="flex min-h-14 w-full items-center justify-between gap-4 px-5 text-left text-xs font-semibold md:min-h-16 md:px-6">
+                  {question}<motion.span animate={{ rotate: isOpen ? 180 : 0 }}><ChevronDown size={17} /></motion.span>
+                </button>
+                <AnimatePresence initial={false}>
+                  {isOpen ? (
+                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35, ease }}>
+                      <p className="px-5 pb-5 text-[11px] leading-6 text-[#655c53] md:px-6">{answer}</p>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileReferenceExtras({ products }: { products: DisplayProduct[] }) {
+  const serviceItems = [
+    [Truck, "Free Delivery", "On orders over ₹699"],
+    [Headphones, "24/7 Support", "We're here anytime"],
+    [RotateCcw, "Hassle-free Returns", "14-day easy returns"],
+    [LockKeyhole, "Secure Payments", "100% safe & secure"],
+    [Recycle, "Sustainable Packaging", "Good for you, good for Earth"]
+  ] as const;
+
+  return (
+    <div className="space-y-7 px-4 pb-8 md:hidden">
+      <section>
+        <p className="text-[10px] font-semibold text-[#305a34]">More from our kitchen</p>
+        <h2 className="mt-3 font-['Cormorant_Garamond'] text-[34px] leading-none">Quick bites. Big delight.</h2>
+        <div className="mt-5 flex gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {recipeCards.slice(3).map((recipe) => (
+            <article key={recipe.title} className="min-w-[62%] overflow-hidden rounded-[20px] border border-[#35271e]/8 bg-white/55">
+              <div className="relative aspect-[4/3]"><Image src={recipe.image} alt={recipe.title} fill sizes="62vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-cover" /></div>
+              <div className="p-3"><p className="text-[8px] uppercase text-[#7b7168]">{recipe.category} · {recipe.time}</p><h3 className="mt-2 text-xs font-medium leading-5">{recipe.title}</h3></div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="relative min-h-[225px] overflow-hidden rounded-[26px] bg-white/55 p-5 shadow-[0_15px_38px_rgba(53,39,30,.06)]">
+        <div className="relative z-10 max-w-[48%]"><h2 className="font-['Cormorant_Garamond'] text-[30px]">Bundle &amp; Save</h2><p className="mt-2 text-xs leading-5">Up to 15% off on selected bundles.</p><Link href="/shop" className="mt-5 inline-flex items-center gap-2 border-b border-[#35271e] pb-1 text-[10px] font-semibold uppercase">Shop bundles <ArrowRight size={14} /></Link></div>
+        <div className="absolute bottom-0 right-0 h-[205px] w-[58%]"><Image src={publicAssets.ecosystem.kitchenGroup} alt=".CO coconut product bundle" fill sizes="58vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-cover object-left [mask-image:linear-gradient(to_right,transparent_0%,black_28%)]" /></div>
+      </section>
+
+      <section className="rounded-[24px] border border-[#35271e]/7 bg-white/45 px-4">
+        {serviceItems.map(([Icon, title, detail]) => (
+          <div key={title} className="grid grid-cols-[42px_1fr_20px] items-center gap-3 border-b border-[#35271e]/8 py-4 last:border-0"><span className="grid size-10 place-items-center rounded-full bg-[#f1ede4]"><Icon size={19} strokeWidth={1.45} /></span><span><span className="block text-xs font-semibold">{title}</span><span className="mt-1 block text-[10px] text-[#6b6259]">{detail}</span></span><ChevronRight size={16} /></div>
+        ))}
+      </section>
+
+      <section className="relative min-h-[215px] overflow-hidden rounded-[26px] bg-white/55 p-5">
+        <div className="relative z-10 max-w-[60%]"><h2 className="font-['Cormorant_Garamond'] text-[30px]">The .CO Journal</h2><p className="mt-2 text-xs leading-5">Stories, tips &amp; inspiration for a better you.</p><Link href="/journal" className="mt-5 inline-flex items-center gap-2 border-b border-[#35271e] pb-1 text-[10px] font-semibold uppercase">Explore journal <ArrowRight size={14} /></Link></div>
+        <div className="absolute bottom-[-24px] right-[-12px] h-[180px] w-[52%]"><Image src="/assets/transparent/co-tender-coconut.png" alt="Coconut" fill sizes="52vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain" /></div>
+      </section>
+
+      <section>
+        <h2 className="font-['Cormorant_Garamond'] text-[31px]">Join the .CO Community</h2><p className="mt-2 text-xs leading-5">Share your moments with #COCoconut and get featured.</p>
+        <div className="mt-4 grid grid-cols-4 gap-2">{[publicAssets.water.lifestyle, publicAssets.campaign.breakfastRitual, publicAssets.recipes.seasonalBowl, publicAssets.brand.tenderCoconut].map((image, index) => <div key={image} className="relative aspect-square overflow-hidden rounded-[14px]"><Image src={image} alt={`.CO community moment ${index + 1}`} fill sizes="24vw" quality={90} placeholder="blur" blurDataURL={blurDataURL} className="object-cover" /></div>)}</div>
+        <a href="https://www.instagram.com/cothecoconutcompany" target="_blank" rel="noreferrer" className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#304f2c] px-5 text-[9px] font-semibold uppercase text-white">Follow us @cococonutcompany <Instagram size={14} /></a>
+      </section>
+
+      <div className="flex justify-end"><MoreProductsDialog products={products} /></div>
+    </div>
+  );
+}
+
+function NewsletterSection() {
+  return (
+    <section className="border-y border-[#35271e]/7 bg-white/28 px-5 py-7 md:px-10 md:py-8">
+      <div className="mx-auto grid max-w-[1320px] gap-5 md:grid-cols-[330px_1fr_290px] md:items-center">
+        <div><h2 className="font-['Cormorant_Garamond'] text-[32px] leading-none md:text-[36px]">Stay in the loop</h2><p className="mt-2 text-[10px] leading-5 text-[#665d54]">Get updates on new products, recipes &amp; offers.</p></div>
+        <form className="flex min-h-12 items-center overflow-hidden rounded-[13px] bg-white/70 pl-4" onSubmit={(event) => event.preventDefault()}><input type="email" required aria-label="Email address" placeholder="Enter your email address" className="min-w-0 flex-1 bg-transparent text-xs outline-none" /><button type="submit" className="mr-1 min-h-10 rounded-[10px] bg-[#304f2c] px-6 text-[9px] font-semibold uppercase text-white">Subscribe</button></form>
+        <div className="relative hidden h-[90px] md:block"><Image src="/assets/transparent/co-tender-coconut.png" alt="" fill sizes="290px" quality={90} className="object-contain" /></div>
+      </div>
+    </section>
+  );
+}
+
+function MobileBottomNav() {
+  const items = [[Leaf, "Home", "/"], [ShoppingBag, "Shop", "/shop"], [Grid2X2, "Recipes", "/recipes"], [Heart, "Wishlist", "/wishlist"], [CircleUserRound, "Account", "/account"]] as const;
+  return (
+    <nav className="fixed inset-x-0 bottom-0 z-[105] grid grid-cols-5 border-t border-[#35271e]/10 bg-[rgba(250,247,240,.94)] px-2 pb-[max(6px,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl md:hidden" aria-label="Mobile quick navigation">
+      {items.map(([Icon, label, href]) => <Link key={label} href={href} className={cn("flex flex-col items-center gap-1 text-[8px]", label === "Home" && "text-[#305a34]")}><Icon size={17} strokeWidth={1.6} /><span>{label}</span></Link>)}
+    </nav>
   );
 }
 
@@ -698,7 +1027,7 @@ function ReferenceFooter() {
           <p className="mt-2 font-['Cormorant_Garamond'] text-2xl">Made for living.</p>
           <p className="mt-6 text-[11px] leading-5 text-[#685e54]">© 2026 .CO The Coconut Company.<br />All rights reserved.</p>
         </div>
-        <div className="grid gap-6 border-t border-[#35271e]/8 pt-6 sm:grid-cols-3 md:border-t-0 md:pt-0">
+        <div className="grid grid-cols-3 gap-4 border-t border-[#35271e]/8 pt-6 md:gap-6 md:border-t-0 md:pt-0">
           {columns.map((column) => (
             <div key={column.title}>
               <p className="text-[10px] font-semibold uppercase">{column.title}</p>
@@ -728,6 +1057,8 @@ function ReferenceFooter() {
             <a href="https://www.linkedin.com/company/dotcolife" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid size-9 place-items-center rounded-full border border-[#35271e]/12 font-['Space_Grotesk'] text-xs font-semibold">
               in
             </a>
+            <a href="https://www.facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" className="grid size-9 place-items-center rounded-full border border-[#35271e]/12"><Facebook size={14} /></a>
+            <a href="https://www.youtube.com" target="_blank" rel="noreferrer" aria-label="YouTube" className="grid size-9 place-items-center rounded-full border border-[#35271e]/12"><Youtube size={14} /></a>
           </div>
         </div>
       </div>
@@ -743,12 +1074,20 @@ export function ReferenceHomePage({ homepage, products }: { homepage: HomepageCo
       <ReferenceHeader />
       <div>
         <HeroSection />
-        <CategoryRail products={displayProducts} />
+        <MobileHeroBenefits />
+        <CategoryRail />
+        <DeliveryMarquee />
         <PlanetBentoSection products={displayProducts} />
         <ProductsSection products={displayProducts} />
+        <RecipesSnapshot />
+        <TestimonialsSection />
         <SustainabilityBanner />
+        <FAQSection />
+        <MobileReferenceExtras products={displayProducts} />
+        <NewsletterSection />
       </div>
       <ReferenceFooter />
+      <MobileBottomNav />
       <span className="sr-only">{homepage.heroSubheadline}</span>
     </div>
   );

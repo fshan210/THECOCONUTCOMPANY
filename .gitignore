@@ -14,3 +14,4 @@ __pycache__
 lighthouse-*.json
 *coconutcompany-firebase-adminsdk*.json
 *firebase-adminsdk*.json
+.env*
