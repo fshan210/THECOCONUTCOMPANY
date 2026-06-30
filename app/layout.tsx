@@ -7,6 +7,7 @@ import { Analytics } from "@/components/seo/Analytics";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { CustomerAuthProvider } from "@/components/auth/CustomerAuthProvider";
+import { LenisProvider } from "@/components/providers/LenisProvider";
 import { CartProvider } from "@/lib/cart/cart-context";
 import { getCustomerSession } from "@/lib/customer/auth";
 import { defaultDescription, siteName, siteUrl } from "@/lib/seo/metadata";
@@ -102,12 +103,14 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       <body className={`${roboto.variable} ${instrumentSerif.variable} font-sans antialiased`}>
         <CustomerAuthProvider session={customerSession}>
           <CartProvider catalog={products}>
-            <StructuredData includeGlobal />
-            {isAdminShell ? null : <Navigation />}
-            <main>{children}</main>
-            {isAdminShell ? null : <Footer />}
-            {isAdminShell ? null : <CartDrawer />}
-            <Analytics />
+            <LenisProvider>
+              <StructuredData includeGlobal />
+              {isAdminShell ? null : <Navigation />}
+              <main>{children}</main>
+              {isAdminShell ? null : <Footer />}
+              {isAdminShell ? null : <CartDrawer />}
+              <Analytics />
+            </LenisProvider>
           </CartProvider>
         </CustomerAuthProvider>
       </body>
