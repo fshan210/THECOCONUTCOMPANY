@@ -37,7 +37,7 @@ export default async function AdminLoginPage() {
           <AdminLoginForm configured={configured} csrfToken={csrfToken} />
         </div>
         <div className="co-admin-login-panel relative hidden min-h-[680px] overflow-hidden lg:block">
-          <Image src="/assets/generated/composition-morning.webp" alt=".CO admin product preview" fill priority sizes="48vw" className="object-contain p-12" />
+          <Image src="/assets/hero/co-home-hero-background-v2.png" alt=".CO coconut product preview" fill priority sizes="48vw" className="object-cover" />
           <div className="absolute left-8 top-8 max-w-sm rounded-lg border border-paper/18 bg-coconut/82 p-6 text-paper shadow-[0_24px_80px_rgba(62,46,31,0.26)] backdrop-blur-xl">
             <Sparkles className="mb-5 text-sun" size={22} />
             <h2 className="font-display text-4xl leading-tight">Built for global FMCG operations.</h2>

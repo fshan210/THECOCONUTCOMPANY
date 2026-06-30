@@ -124,7 +124,7 @@ function AdminHero() {
           </div>
         </div>
         <div className="co-neu relative aspect-[4/3] overflow-hidden rounded-lg">
-          <Image src="/assets/generated/composition-poolside.webp" alt=".CO product operating preview" fill priority sizes="(min-width: 1024px) 32vw, 92vw" className="object-contain p-4" />
+          <Image src="/assets/Coconut_Water_Assets/lifestyle scene.png" alt=".CO product operating preview" fill priority sizes="(min-width: 1024px) 32vw, 92vw" className="object-cover" />
         </div>
       </div>
     </section>

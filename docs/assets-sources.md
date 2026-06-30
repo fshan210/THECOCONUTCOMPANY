@@ -9,6 +9,8 @@ No new assets were downloaded during Phase 4.5.
 Existing local coverage is strong enough for the next implementation pass:
 
 - Hero animation/video: `public/assets/video/coconut-to-bottle.mp4`, `public/assets/video/coconut-to-bottle.webm`, `public/assets/video/coconut-to-bottle-poster.webp`
+- Homepage hero background: `public/assets/hero/co-home-hero-background-v2.png` — generated with OpenAI image generation for this project. Prompt direction: an opaque cream-beige Kerala coconut studio scene with palm shadows, a travertine pedestal, fresh coconut ingredients and generous clear copy space; no text, labels, logos, or product packaging.
+- The former translucent composition WEBPs were removed on June 30, 2026. Homepage and admin previews now use opaque PNG photography and the project-owned hero scene.
 - Coconut/product SVGs: `public/assets/SVG Transparent Assets/`
 - Transparent product packshots: `public/assets/transparent/`
 - Product images: `public/assets/products/`, `public/assets/Coconut_Water_Assets/`, `public/assets/Melt_Ice_Cream_Assets/`, `public/assets/Ecosystem_Assets/`
@@ -50,4 +52,3 @@ Every downloaded asset must include:
 - Usage notes.
 
 Do not use Firebase Storage for Phase 4.5 motion assets.
-

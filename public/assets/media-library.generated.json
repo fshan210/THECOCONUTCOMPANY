@@ -1,6 +1,41 @@
 {
-  "generatedAt": "2026-06-19T13:36:37.986Z",
+  "generatedAt": "2026-06-30T14:43:06.318Z",
   "assets": [
+    {
+      "id": "products-botanica-face-wash-png",
+      "filename": "Botanica-Face Wash.png",
+      "title": "Botanica Face Wash",
+      "path": "/assets/products/Botanica-Face Wash.png",
+      "category": "products",
+      "type": "image",
+      "altText": "Botanica Face Wash for .CO The Coconut Company",
+      "tags": [
+        "products",
+        "image",
+        "Botanica",
+        "Face",
+        "Wash"
+      ],
+      "thumbnail": "/assets/products/Botanica-Face Wash.png"
+    },
+    {
+      "id": "products-botanica-shampoo-lifestyle-scene-png",
+      "filename": "Botanica-Shampoo-Lifestyle Scene.png",
+      "title": "Botanica Shampoo Lifestyle Scene",
+      "path": "/assets/products/Botanica-Shampoo-Lifestyle Scene.png",
+      "category": "products",
+      "type": "image",
+      "altText": "Botanica Shampoo Lifestyle Scene for .CO The Coconut Company",
+      "tags": [
+        "products",
+        "image",
+        "Botanica",
+        "Shampoo",
+        "Lifestyle",
+        "Scene"
+      ],
+      "thumbnail": "/assets/products/Botanica-Shampoo-Lifestyle Scene.png"
+    },
     {
       "id": "products-co-water-reserve-jpg",
       "filename": "co-water-reserve.jpg",
@@ -35,138 +70,107 @@
       "thumbnail": "/assets/products/co-water.jpg"
     },
     {
-      "id": "products-product-kitchen-oil-webp",
-      "filename": "product-kitchen-oil.webp",
-      "title": "Product Kitchen Oil",
-      "path": "/assets/products/product-kitchen-oil.webp",
+      "id": "products-coconut-oil-individual-product-2-png",
+      "filename": "coconut oil individual product-2.png",
+      "title": "Coconut Oil Individual Product 2",
+      "path": "/assets/products/coconut oil individual product-2.png",
       "category": "products",
       "type": "image",
-      "altText": "Product Kitchen Oil for .CO The Coconut Company",
+      "altText": "Coconut Oil Individual Product 2 for .CO The Coconut Company",
       "tags": [
         "products",
         "image",
-        "product",
-        "kitchen",
-        "oil"
-      ],
-      "thumbnail": "/assets/products/product-kitchen-oil.webp"
-    },
-    {
-      "id": "products-product-lifestyle-webp",
-      "filename": "product-lifestyle.webp",
-      "title": "Product Lifestyle",
-      "path": "/assets/products/product-lifestyle.webp",
-      "category": "products",
-      "type": "image",
-      "altText": "Product Lifestyle for .CO The Coconut Company",
-      "tags": [
-        "products",
-        "image",
-        "product",
-        "lifestyle"
-      ],
-      "thumbnail": "/assets/products/product-lifestyle.webp"
-    },
-    {
-      "id": "recipes-mango-coconut-dessert-png",
-      "filename": "mango-coconut-dessert.png",
-      "title": "Mango Coconut Dessert",
-      "path": "/assets/recipes/mango-coconut-dessert.png",
-      "category": "recipes",
-      "type": "image",
-      "altText": "Mango Coconut Dessert for .CO The Coconut Company",
-      "tags": [
-        "recipes",
-        "image",
-        "mango",
         "coconut",
-        "dessert"
+        "oil",
+        "individual",
+        "product",
+        "2"
       ],
-      "thumbnail": "/assets/recipes/mango-coconut-dessert.png"
+      "thumbnail": "/assets/products/coconut oil individual product-2.png"
     },
     {
-      "id": "recipes-recipe-coffee-chill-webp",
-      "filename": "recipe-coffee-chill.webp",
-      "title": "Recipe Coffee Chill",
-      "path": "/assets/recipes/recipe-coffee-chill.webp",
+      "id": "products-floating-packshot-png",
+      "filename": "floating packshot.png",
+      "title": "Floating Packshot",
+      "path": "/assets/products/floating packshot.png",
+      "category": "products",
+      "type": "image",
+      "altText": "Floating Packshot for .CO The Coconut Company",
+      "tags": [
+        "products",
+        "image",
+        "floating",
+        "packshot"
+      ],
+      "thumbnail": "/assets/products/floating packshot.png"
+    },
+    {
+      "id": "recipes-coconut-smoothie-bowl-png",
+      "filename": "Coconut smoothie Bowl.png",
+      "title": "Coconut Smoothie Bowl",
+      "path": "/assets/recipes/Coconut smoothie Bowl.png",
       "category": "recipes",
       "type": "image",
-      "altText": "Recipe Coffee Chill for .CO The Coconut Company",
+      "altText": "Coconut Smoothie Bowl for .CO The Coconut Company",
       "tags": [
         "recipes",
         "image",
-        "recipe",
+        "Coconut",
+        "smoothie",
+        "Bowl"
+      ],
+      "thumbnail": "/assets/recipes/Coconut smoothie Bowl.png"
+    },
+    {
+      "id": "recipes-coconut-coffee-chill-png",
+      "filename": "coconut coffee chill.png",
+      "title": "Coconut Coffee Chill",
+      "path": "/assets/recipes/coconut coffee chill.png",
+      "category": "recipes",
+      "type": "image",
+      "altText": "Coconut Coffee Chill for .CO The Coconut Company",
+      "tags": [
+        "recipes",
+        "image",
+        "coconut",
         "coffee",
         "chill"
       ],
-      "thumbnail": "/assets/recipes/recipe-coffee-chill.webp"
+      "thumbnail": "/assets/recipes/coconut coffee chill.png"
     },
     {
-      "id": "recipes-recipe-smoothie-bowl-webp",
-      "filename": "recipe-smoothie-bowl.webp",
-      "title": "Recipe Smoothie Bowl",
-      "path": "/assets/recipes/recipe-smoothie-bowl.webp",
+      "id": "recipes-coconut-mango-cooler-png",
+      "filename": "coconut mango cooler.png",
+      "title": "Coconut Mango Cooler",
+      "path": "/assets/recipes/coconut mango cooler.png",
       "category": "recipes",
       "type": "image",
-      "altText": "Recipe Smoothie Bowl for .CO The Coconut Company",
+      "altText": "Coconut Mango Cooler for .CO The Coconut Company",
       "tags": [
         "recipes",
         "image",
-        "recipe",
-        "smoothie",
-        "bowl"
+        "coconut",
+        "mango",
+        "cooler"
       ],
-      "thumbnail": "/assets/recipes/recipe-smoothie-bowl.webp"
+      "thumbnail": "/assets/recipes/coconut mango cooler.png"
     },
     {
-      "id": "journal-composition-flatlay-webp",
-      "filename": "composition-flatlay.webp",
-      "title": "Composition Flatlay",
-      "path": "/assets/journal/composition-flatlay.webp",
-      "category": "journal",
-      "type": "image",
-      "altText": "Composition Flatlay for .CO The Coconut Company",
-      "tags": [
-        "journal",
-        "image",
-        "composition",
-        "flatlay"
-      ],
-      "thumbnail": "/assets/journal/composition-flatlay.webp"
-    },
-    {
-      "id": "journal-composition-morning-webp",
-      "filename": "composition-morning.webp",
-      "title": "Composition Morning",
-      "path": "/assets/journal/composition-morning.webp",
-      "category": "journal",
-      "type": "image",
-      "altText": "Composition Morning for .CO The Coconut Company",
-      "tags": [
-        "journal",
-        "image",
-        "composition",
-        "morning"
-      ],
-      "thumbnail": "/assets/journal/composition-morning.webp"
-    },
-    {
-      "id": "branding-made-for-living-banner-jpg",
-      "filename": "made-for-living-banner.jpg",
-      "title": "Made For Living Banner",
-      "path": "/assets/branding/made-for-living-banner.jpg",
+      "id": "branding-coconut-belt-world-png",
+      "filename": "coconut belt-world.png",
+      "title": "Coconut Belt World",
+      "path": "/assets/branding/coconut belt-world.png",
       "category": "branding",
       "type": "image",
-      "altText": "Made For Living Banner for .CO The Coconut Company",
+      "altText": "Coconut Belt World for .CO The Coconut Company",
       "tags": [
         "branding",
         "image",
-        "made",
-        "for",
-        "living",
-        "banner"
+        "coconut",
+        "belt",
+        "world"
       ],
-      "thumbnail": "/assets/branding/made-for-living-banner.jpg"
+      "thumbnail": "/assets/branding/coconut belt-world.png"
     },
     {
       "id": "branding-made-for-living-reference-png",
@@ -187,54 +191,104 @@
       "thumbnail": "/assets/branding/made-for-living-reference.png"
     },
     {
-      "id": "hero-co-tender-coconut-webp",
-      "filename": "co-tender-coconut.webp",
-      "title": "Co Tender Coconut",
-      "path": "/assets/hero/co-tender-coconut.webp",
+      "id": "hero-botanica-hero-composition-png",
+      "filename": "Botanica-Hero Composition.png",
+      "title": "Botanica Hero Composition",
+      "path": "/assets/hero/Botanica-Hero Composition.png",
       "category": "hero",
       "type": "image",
-      "altText": "Co Tender Coconut for .CO The Coconut Company",
+      "altText": "Botanica Hero Composition for .CO The Coconut Company",
+      "tags": [
+        "hero",
+        "image",
+        "Botanica",
+        "Hero",
+        "Composition"
+      ],
+      "thumbnail": "/assets/hero/Botanica-Hero Composition.png"
+    },
+    {
+      "id": "hero-botanica-shampoo-lifestyle-scene-png",
+      "filename": "Botanica-Shampoo-Lifestyle Scene.png",
+      "title": "Botanica Shampoo Lifestyle Scene",
+      "path": "/assets/hero/Botanica-Shampoo-Lifestyle Scene.png",
+      "category": "hero",
+      "type": "image",
+      "altText": "Botanica Shampoo Lifestyle Scene for .CO The Coconut Company",
+      "tags": [
+        "hero",
+        "image",
+        "Botanica",
+        "Shampoo",
+        "Lifestyle",
+        "Scene"
+      ],
+      "thumbnail": "/assets/hero/Botanica-Shampoo-Lifestyle Scene.png"
+    },
+    {
+      "id": "hero-kitchen-oil-hero-png",
+      "filename": "Kitchen-oil-hero.png",
+      "title": "Kitchen Oil Hero",
+      "path": "/assets/hero/Kitchen-oil-hero.png",
+      "category": "hero",
+      "type": "image",
+      "altText": "Kitchen Oil Hero for .CO The Coconut Company",
+      "tags": [
+        "hero",
+        "image",
+        "Kitchen",
+        "oil"
+      ],
+      "thumbnail": "/assets/hero/Kitchen-oil-hero.png"
+    },
+    {
+      "id": "hero-co-home-hero-background-v2-png",
+      "filename": "co-home-hero-background-v2.png",
+      "title": "Co Home Hero Background V2",
+      "path": "/assets/hero/co-home-hero-background-v2.png",
+      "category": "hero",
+      "type": "image",
+      "altText": "Co Home Hero Background V2 for .CO The Coconut Company",
       "tags": [
         "hero",
         "image",
         "co",
-        "tender",
-        "coconut"
+        "home",
+        "background",
+        "v2"
       ],
-      "thumbnail": "/assets/hero/co-tender-coconut.webp"
+      "thumbnail": "/assets/hero/co-home-hero-background-v2.png"
     },
     {
-      "id": "hero-co-water-bottle-webp",
-      "filename": "co-water-bottle.webp",
-      "title": "Co Water Bottle",
-      "path": "/assets/hero/co-water-bottle.webp",
+      "id": "hero-hero-composition-2-png",
+      "filename": "hero Composition 2.png",
+      "title": "Hero Composition 2",
+      "path": "/assets/hero/hero Composition 2.png",
       "category": "hero",
       "type": "image",
-      "altText": "Co Water Bottle for .CO The Coconut Company",
+      "altText": "Hero Composition 2 for .CO The Coconut Company",
       "tags": [
         "hero",
         "image",
-        "co",
-        "water",
-        "bottle"
+        "Composition",
+        "2"
       ],
-      "thumbnail": "/assets/hero/co-water-bottle.webp"
+      "thumbnail": "/assets/hero/hero Composition 2.png"
     },
     {
-      "id": "hero-hero-coconut-render-webp",
-      "filename": "hero-coconut-render.webp",
-      "title": "Hero Coconut Render",
-      "path": "/assets/hero/hero-coconut-render.webp",
+      "id": "hero-hero-composition-png",
+      "filename": "hero composition.png",
+      "title": "Hero Composition",
+      "path": "/assets/hero/hero composition.png",
       "category": "hero",
       "type": "image",
-      "altText": "Hero Coconut Render for .CO The Coconut Company",
+      "altText": "Hero Composition for .CO The Coconut Company",
       "tags": [
         "hero",
         "image",
-        "coconut",
-        "render"
+        "composition"
       ],
-      "thumbnail": "/assets/hero/hero-coconut-render.webp"
+      "thumbnail": "/assets/hero/hero composition.png"
     },
     {
       "id": "3d-readme-md",

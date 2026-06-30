@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
 export const alt = ".CO | The Coconut Company";
 export const size = {
   width: 1200,
@@ -26,7 +25,7 @@ export default function Image() {
         <div style={{ fontSize: 28, letterSpacing: 4, textTransform: "uppercase", color: "#4A6F4A" }}>
           Palakkad, Kerala
         </div>
-        <div>
+        <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 112, lineHeight: 0.95, fontFamily: "Roboto, Arial, sans-serif", fontWeight: 300 }}>.CO</div>
           <div style={{ marginTop: 24, fontSize: 56, lineHeight: 1.05, fontFamily: "Roboto, Arial, sans-serif", fontWeight: 300 }}>
             The Coconut Company
