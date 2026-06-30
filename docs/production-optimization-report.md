@@ -17,6 +17,8 @@ Elevated the existing .CO identity into a fuller premium consumer FMCG experienc
 
 ### Assets Used
 
+> Historical note: the translucent composition and transparent-product WebP derivatives listed in the original v1.7.0 report were removed on June 30, 2026 after visual QA. Their active references now use opaque PNG source assets or opaque campaign photography. The filenames below are retained only as a record of that earlier release and no longer exist in the production asset library.
+
 ```text
 public/assets/generated/composition-poolside.webp
 public/assets/generated/composition-morning.webp

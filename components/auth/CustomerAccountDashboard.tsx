@@ -56,7 +56,7 @@ export function CustomerAccountDashboard({ session }: { session: CustomerSession
                 </p>
               </div>
               <div className="relative aspect-square">
-                <Image src="/assets/transparent/co-water-bottle.webp" alt=".CO Water bottle" fill sizes="280px" className="object-contain drop-shadow-[0_28px_38px_rgba(62,46,31,0.22)]" />
+                <Image src="/assets/transparent/co-water-bottle.png" alt=".CO Water bottle" fill sizes="280px" className="object-contain drop-shadow-[0_28px_38px_rgba(62,46,31,0.22)]" />
               </div>
             </div>
           </div>

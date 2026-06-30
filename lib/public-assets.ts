@@ -20,7 +20,7 @@ export const publicAssets = {
     botanicaHero: "/assets/Ecosystem_Assets/Botanica-Hero Composition.png",
     botanicaAlt: "/assets/Ecosystem_Assets/BOtanica-Facewash-Flat Lay.png",
     botanicaGroup: "/assets/Ecosystem_Assets/botanica-group ecosystem.png",
-    wellness: "/assets/generated/composition-poolside.webp",
+    wellness: "/assets/Coconut_Water_Assets/lifestyle scene.png",
     wellnessAlt: "/assets/Coconut_Water_Assets/Flat lay.png",
     lifestyle: "/assets/Coconut_Water_Assets/lifestyle scene.png"
   },
@@ -30,15 +30,15 @@ export const publicAssets = {
     aggregation: "/assets/generated/campaign/co-generated-vap-origin-card.webp",
     processing: "/assets/generated/campaign/co-generated-processing-bottling.webp",
     bottling: "/assets/Coconut_Water_Assets/floating pack.png",
-    ritual: "/assets/generated/composition-poolside.webp"
+    ritual: "/assets/generated/campaign/co-generated-breakfast-ritual.webp"
   },
   generated: {
-    compositionPoolside: "/assets/generated/composition-poolside.webp",
-    compositionMorning: "/assets/generated/composition-morning.webp",
-    compositionFlatlay: "/assets/generated/composition-flatlay.webp",
-    compositionIcecream: "/assets/generated/composition-icecream.webp",
-    compositionTetra: "/assets/generated/composition-tetra.webp",
-    productLifestyle: "/assets/generated/composition-poolside.webp",
+    compositionPoolside: "/assets/Coconut_Water_Assets/lifestyle scene.png",
+    compositionMorning: "/assets/hero/co-home-hero-background-v2.png",
+    compositionFlatlay: "/assets/Coconut_Water_Assets/Flat lay.png",
+    compositionIcecream: "/assets/Melt_Ice_Cream_Assets/lifestyle Scene.png",
+    compositionTetra: "/assets/Coconut_Water_Assets/hero composition.png",
+    productLifestyle: "/assets/Coconut_Water_Assets/lifestyle scene.png",
     vap: "/assets/generated/vap.png",
     coconutRespect: "/assets/farming/coconut respect.png",
     coconutBelt: "/assets/farming/coconut belt-world.png",
@@ -66,7 +66,7 @@ export const publicAssets = {
     seasonalBowl: "/assets/recipes/generated/seasonal-coconut-berry-salad.jpg"
   },
   social: {
-    founderJourney: "/assets/transparent/founder-journey.webp",
+    founderJourney: "/assets/transparent/founder-journey.png",
     founderFazil: "/assets/social/fazil-founder-clean.webp",
     founderAfsala: "/assets/social/afsala-founder-clean.webp"
   },
@@ -79,7 +79,7 @@ export const publicAssets = {
   },
   brand: {
     madeForLiving: "/assets/branding/made-for-living-reference.png",
-    tenderCoconut: "/assets/transparent/co-tender-coconut.webp",
+    tenderCoconut: "/assets/transparent/co-tender-coconut.png",
     grove: "/assets/farming/coconut belt-world.png",
     palms: "/assets/farming/whole coconut mindset.png",
     harvest: "/assets/farms/village aggregation point.png",
