@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T14:43:06.318Z",
+  "generatedAt": "2026-06-30T18:54:40.527Z",
   "assets": [
     {
       "id": "products-botanica-face-wash-png",
@@ -258,6 +258,24 @@
         "v2"
       ],
       "thumbnail": "/assets/hero/co-home-hero-background-v2.png"
+    },
+    {
+      "id": "hero-co-home-hero-editorial-4k-avif",
+      "filename": "co-home-hero-editorial-4k.avif",
+      "title": "Co Home Hero Editorial 4k",
+      "path": "/assets/hero/co-home-hero-editorial-4k.avif",
+      "category": "hero",
+      "type": "image",
+      "altText": "Co Home Hero Editorial 4k for .CO The Coconut Company",
+      "tags": [
+        "hero",
+        "image",
+        "co",
+        "home",
+        "editorial",
+        "4k"
+      ],
+      "thumbnail": "/assets/hero/co-home-hero-editorial-4k.avif"
     },
     {
       "id": "hero-hero-composition-2-png",
