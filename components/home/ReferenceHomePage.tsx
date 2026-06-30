@@ -123,7 +123,7 @@ function toDisplayProducts(products: ContentProduct[]): DisplayProduct[] {
   });
 }
 
-function ReferenceHeader() {
+export function ReferenceHeader() {
   const headerRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const session = useCustomerSession();
@@ -989,7 +989,7 @@ function MobileReferenceExtras({ products }: { products: DisplayProduct[] }) {
   );
 }
 
-function NewsletterSection() {
+export function NewsletterSection() {
   return (
     <section className="border-y border-[#35271e]/7 bg-white/28 px-5 py-7 md:px-10 md:py-8">
       <div className="mx-auto grid max-w-[1320px] gap-5 md:grid-cols-[330px_1fr_290px] md:items-center">
@@ -1010,7 +1010,7 @@ function MobileBottomNav() {
   );
 }
 
-function ReferenceFooter() {
+export function ReferenceFooter() {
   const columns = [
     { title: "Shop", links: ["All Products", "Coconut Water", "Ice Cream", "Food", "Cosmetics", "Utensils"] },
     { title: "Company", links: ["About Us", "Sustainability", "Our Farmers", "Careers", "Contact Us"] },
