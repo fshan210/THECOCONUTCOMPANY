@@ -416,8 +416,8 @@ function PromiseAndMovement() {
             <p className="mt-1 text-[8px] uppercase tracking-[.08em] text-[#6a6158]">Founders, .CO</p>
           </div>
           <div className="mt-5 grid grid-cols-2 gap-2 md:mt-0">
-            <div className="relative min-h-[240px] overflow-hidden rounded-[20px]"><Image src="/assets/social/fazil-founder-clean.webp" alt="Fazil, founder of .CO" fill sizes="(min-width:768px) 18vw, 45vw" quality={90} placeholder="blur" blurDataURL={blurDataURL} className="object-cover object-[42%_center] transition duration-700 hover:scale-[1.035]" /></div>
-            <div className="relative min-h-[240px] overflow-hidden rounded-[20px]"><Image src="/assets/social/afsala-founder-clean.webp" alt="Afsala, founder of .CO" fill sizes="(min-width:768px) 18vw, 45vw" quality={90} placeholder="blur" blurDataURL={blurDataURL} className="object-cover object-[43%_center] transition duration-700 hover:scale-[1.035]" /></div>
+            <div className="relative min-h-[240px] overflow-hidden rounded-[20px]"><Image src="/assets/social/fazil-founder-clean.png" alt="Fazil, founder of .CO" fill sizes="(min-width:768px) 18vw, 45vw" quality={90} placeholder="blur" blurDataURL={blurDataURL} className="object-cover object-[42%_center] transition duration-700 hover:scale-[1.035]" /></div>
+            <div className="relative min-h-[240px] overflow-hidden rounded-[20px]"><Image src="/assets/social/afsala-founder-clean.png" alt="Afsala, founder of .CO" fill sizes="(min-width:768px) 18vw, 45vw" quality={90} placeholder="blur" blurDataURL={blurDataURL} className="object-cover object-[43%_center] transition duration-700 hover:scale-[1.035]" /></div>
           </div>
         </Reveal>
 

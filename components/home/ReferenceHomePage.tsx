@@ -52,6 +52,7 @@ const blurDataURL =
 
 type DisplayProduct = {
   slug: string;
+  shopSlug?: string;
   name: string;
   shortName: string;
   subtitle: string;
@@ -123,6 +124,21 @@ function toDisplayProducts(products: ContentProduct[]): DisplayProduct[] {
   });
 }
 
+function toPopupProducts(products: DisplayProduct[]): DisplayProduct[] {
+  const extras: DisplayProduct[] = [
+    { slug: "coconut-milk", shopSlug: "co-kitchen-coconut-oil", name: "Coconut Milk", shortName: "Coconut Milk", subtitle: "Creamy kitchen staple", detail: "A rich coconut base for curries, drinks and desserts.", image: "/assets/Ecosystem_Assets/Kitchen-group ecosystem.png", price: "Coming soon" },
+    { slug: "coconut-oil", shopSlug: "co-kitchen-coconut-oil", name: "Coconut Oil", shortName: "Coconut Oil", subtitle: "Cold-pressed kitchen oil", detail: "A versatile coconut pantry ritual for everyday cooking.", image: "/assets/Ecosystem_Assets/coconut oil individual product-2.png", price: "Coming soon" },
+    { slug: "coconut-sugar", shopSlug: "co-kitchen-coconut-oil", name: "Coconut Sugar", shortName: "Coconut Sugar", subtitle: "Naturally inspired sweetness", detail: "A warm coconut-world pantry preview.", image: "/assets/home/refined/made-with-care-4k.png", price: "Coming soon" },
+    { slug: "coconut-vinegar", shopSlug: "co-kitchen-coconut-oil", name: "Coconut Vinegar", shortName: "Coconut Vinegar", subtitle: "Bright pantry essential", detail: "A crisp coconut vinegar direction for dressings and marinades.", image: "/assets/Ecosystem_Assets/coconut vinegar-lifestyle scene.png", price: "Coming soon" },
+    { slug: "coconut-aminos", shopSlug: "co-kitchen-coconut-oil", name: "Coconut Aminos", shortName: "Coconut Aminos", subtitle: "Savoury coconut seasoning", detail: "A versatile seasoning preview for everyday recipes.", image: "/assets/Ecosystem_Assets/Kitchen-oil-hero.png", price: "Coming soon" },
+    { slug: "face-wash", shopSlug: "co-botanica-coconut-care", name: "Face Wash", shortName: "Face Wash", subtitle: "Gentle coconut care", detail: "A calm daily cleanse inspired by coconut botanicals.", image: "/assets/Ecosystem_Assets/Botanica-Face Wash.png", price: "Coming soon" },
+    { slug: "body-lotion", shopSlug: "co-botanica-coconut-care", name: "Body Lotion", shortName: "Body Lotion", subtitle: "Everyday coconut moisture", detail: "A soft botanical body-care ritual.", image: "/assets/transparent/coconut-care.png", price: "Coming soon" },
+    { slug: "gift-boxes", shopSlug: "co-lifestyle", name: "Gift Boxes", shortName: "Gift Boxes", subtitle: "Curated .CO rituals", detail: "A thoughtful collection of coconut favourites.", image: "/assets/transparent/co-social-media-pack.png", price: "Coming soon" }
+  ];
+
+  return [...products, ...extras];
+}
+
 export function ReferenceHeader() {
   const headerRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -176,12 +192,12 @@ export function ReferenceHeader() {
         ref={headerRef}
         className="fixed left-1/2 top-0 z-[110] flex min-h-[72px] w-full -translate-x-1/2 items-center rounded-b-[28px] border border-[rgba(53,39,30,.07)] bg-[rgba(247,242,232,.96)] px-5 shadow-[0_12px_36px_rgba(53,39,30,.07)] md:min-h-[86px] md:px-8"
       >
-        <div className="mx-auto flex w-full max-w-[1500px] items-center justify-between gap-5">
+        <div className="relative mx-auto flex w-full max-w-[1500px] items-center justify-between gap-5">
           <Link href="/" className="absolute left-1/2 block h-[48px] w-[72px] -translate-x-1/2 md:relative md:left-auto md:h-[58px] md:w-[88px] md:translate-x-0" aria-label=".CO home">
             <Image src="/images/logo.svg" alt=".CO The Coconut Company" fill priority sizes="88px" className="object-contain object-left" />
           </Link>
 
-          <nav className="hidden items-center gap-[clamp(22px,2.2vw,42px)] text-[11px] font-medium uppercase tracking-[0.04em] text-[#17130f] lg:flex" aria-label="Primary navigation">
+          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-[clamp(20px,2vw,38px)] whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.04em] text-[#17130f] lg:flex" aria-label="Primary navigation">
             {links.map(([label, href]) => (
               <Link key={href} href={href} className="relative py-2 transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-[#305a34] after:transition-transform hover:text-[#305a34] hover:after:scale-x-100">
                 {label}
@@ -362,7 +378,7 @@ function MoreProductsDialog({ products, className }: { products: DisplayProduct[
                           <p className="mt-3 text-sm font-medium">{selected.subtitle}</p>
                           <p className="mt-3 text-sm leading-6 text-[#625950]">{selected.detail}</p>
                           <p className="mt-5 font-['Space_Grotesk'] text-lg font-semibold">{selected.price}</p>
-                          <Link href={`/shop/${selected.slug}`} className="mt-5 flex min-h-12 items-center justify-between rounded-full bg-[#304f2c] px-5 text-xs font-semibold uppercase text-white">
+                          <Link href={`/shop?product=${selected.shopSlug ?? selected.slug}#all-products`} className="mt-5 flex min-h-12 items-center justify-between rounded-full bg-[#304f2c] px-5 text-xs font-semibold uppercase text-white">
                             Shop now
                             <span className="grid size-8 place-items-center rounded-full bg-white/14">
                               <ArrowRight size={16} />
@@ -414,7 +430,7 @@ function MoreProductsDialog({ products, className }: { products: DisplayProduct[
                                   {product.name}
                                 </button>
                                 <p className="mt-2 text-xs leading-5 text-[#625950]">{product.subtitle}</p>
-                                <Link href={`/shop/${product.slug}`} className="mt-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase">
+                                <Link href={`/shop?product=${product.shopSlug ?? product.slug}#all-products`} className="mt-4 inline-flex items-center gap-2 text-[11px] font-semibold uppercase">
                                   Shop now <ArrowRight size={14} />
                                 </Link>
                               </div>
@@ -517,7 +533,7 @@ function HeroSection() {
   );
 }
 
-function CategoryRail() {
+function CategoryRail({ products }: { products: DisplayProduct[] }) {
   return (
     <section className="relative z-30 px-3 pb-4 md:-mt-14 md:px-8 md:pb-0">
       <div className="mx-auto grid max-w-[1320px] grid-cols-3 items-stretch rounded-[22px] border border-white/70 bg-[rgba(255,255,255,.63)] px-2 py-3 shadow-[0_22px_60px_rgba(53,39,30,.1),inset_0_1px_0_rgba(255,255,255,.85)] backdrop-blur-[22px] md:flex md:min-h-[118px] md:rounded-[28px] md:px-6 md:py-4">
@@ -527,6 +543,9 @@ function CategoryRail() {
             <span className="text-[9px] font-semibold uppercase leading-4 md:text-[10px]">{label}</span>
           </Link>
         ))}
+        <div className="hidden shrink-0 items-center pl-5 md:flex">
+          <MoreProductsDialog products={products} />
+        </div>
       </div>
     </section>
   );
@@ -607,25 +626,25 @@ const bentoCards = [
   {
     title: "Naturally Hydrating",
     body: "Clean hydration straight from nature.",
-    image: publicAssets.water.ingredients,
+    image: "/assets/home/refined/naturally-hydrating-4k.png",
     tone: "light"
   },
   {
     title: "Made with Care",
     body: "Thoughtful ingredients, honest and pure.",
-    image: publicAssets.water.flatLay,
+    image: "/assets/home/refined/made-with-care-4k.png",
     tone: "light"
   },
   {
     title: "Sustainably Yours",
     body: "Ethical sourcing for a better tomorrow.",
-    image: publicAssets.brand.grove,
+    image: "/assets/home/refined/sustainably-yours-4k.png",
     tone: "light"
   },
   {
     title: "Recipes to Inspire",
     body: "Simple, delicious recipes for every moment.",
-    image: publicAssets.recipes.bowl,
+    image: "/assets/home/refined/recipes-to-inspire-4k.png",
     tone: "dark"
   }
 ];
@@ -645,6 +664,10 @@ function PlanetBentoSection({ products }: { products: DisplayProduct[] }) {
             <Link href="/sustainability" className="mt-6 inline-flex items-center gap-3 border-b border-[#305a34] pb-1 text-[11px] font-semibold uppercase text-[#305a34]">
               Our promise <ArrowRight size={15} />
             </Link>
+          </div>
+          <div className="relative hidden min-h-[280px] overflow-hidden rounded-[28px] border border-white/70 bg-white/35 shadow-[0_22px_60px_rgba(53,39,30,.08)] md:block">
+            <Image src="/assets/home/refined/planet-editorial-4k.png" alt="Fresh coconuts and palm leaves on warm travertine" fill sizes="62vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-cover" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(247,242,232,.62),transparent_42%)]" />
           </div>
           <div className="flex justify-end md:hidden">
             <MoreProductsDialog products={products} />
@@ -1001,7 +1024,7 @@ export function NewsletterSection() {
   );
 }
 
-function MobileBottomNav() {
+export function MobileBottomNav() {
   const items = [[Leaf, "Home", "/"], [ShoppingBag, "Shop", "/shop"], [Grid2X2, "Recipes", "/recipes"], [Heart, "Wishlist", "/wishlist"], [CircleUserRound, "Account", "/account"]] as const;
   return (
     <nav className="fixed inset-x-0 bottom-0 z-[105] grid grid-cols-5 border-t border-[#35271e]/10 bg-[rgba(250,247,240,.94)] px-2 pb-[max(6px,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl md:hidden" aria-label="Mobile quick navigation">
@@ -1068,6 +1091,7 @@ export function ReferenceFooter() {
 
 export function ReferenceHomePage({ homepage, products }: { homepage: HomepageContent; products: ContentProduct[] }) {
   const displayProducts = useMemo(() => toDisplayProducts(products), [products]);
+  const popupProducts = useMemo(() => toPopupProducts(displayProducts), [displayProducts]);
 
   return (
     <div className="co-reference-home min-h-screen overflow-hidden bg-[#f7f2e8] font-['Inter'] text-[#35271e]">
@@ -1075,9 +1099,9 @@ export function ReferenceHomePage({ homepage, products }: { homepage: HomepageCo
       <div>
         <HeroSection />
         <MobileHeroBenefits />
-        <CategoryRail />
+        <CategoryRail products={popupProducts} />
         <DeliveryMarquee />
-        <PlanetBentoSection products={displayProducts} />
+        <PlanetBentoSection products={popupProducts} />
         <ProductsSection products={displayProducts} />
         <RecipesSnapshot />
         <TestimonialsSection />

@@ -8,7 +8,9 @@ No new assets were downloaded during Phase 4.5.
 
 Existing local coverage is strong enough for the next implementation pass:
 
-- Hero animation/video: `public/assets/video/coconut-to-bottle.mp4`, `public/assets/video/coconut-to-bottle.webm`, `public/assets/video/coconut-to-bottle-poster.webp`
+- Hero animation/video: `public/assets/video/coconut-to-bottle.mp4`, `public/assets/video/coconut-to-bottle.webm`, `public/assets/video/coconut-to-bottle-poster.png`
+- Homepage refinement photography: `public/assets/home/refined/*.png` — generated as text-free, premium studio and Kerala editorial scenes to avoid synthetic packaging or label artifacts.
+- Shop product photography: `public/assets/shop/products/IndividualProduct_*.png` — fourteen individually generated 2048px PNG catalog photographs using one warm cream, travertine and morning-light studio system.
 - Homepage hero background: `public/assets/hero/co-home-hero-background-v2.png` — generated with OpenAI image generation for this project. Prompt direction: an opaque cream-beige Kerala coconut studio scene with palm shadows, a travertine pedestal, fresh coconut ingredients and generous clear copy space; no text, labels, logos, or product packaging.
 - Homepage editorial hero: `public/assets/hero/co-home-hero-editorial-4k.avif` — generated with OpenAI image generation on June 30, 2026, then prepared as a visually lossless 3840px AVIF. Prompt direction: a fully opaque cream-beige Kerala studio/grove scene, realistic palm light, right-weighted stone pedestal and coconuts, generous left copy space, no products, labels, people, or text.
 - Sustainability grove banner: `public/assets/backgrounds/kerala-groves/co-kerala-grove-editorial-4k.avif` — generated with OpenAI image generation on June 30, 2026, then prepared as a visually lossless 3840px AVIF. Prompt direction: a fully opaque cinematic Kerala coconut-grove panorama at dawn with authentic palms, river and hills, no text, people, products, or logos.

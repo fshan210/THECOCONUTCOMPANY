@@ -106,7 +106,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html lang="en">
       <head>
-        <link rel="preload" as="image" type="image/webp" href="/assets/video/coconut-to-bottle-poster.webp" fetchPriority="high" />
+        <link rel="preload" as="image" type="image/png" href="/assets/video/coconut-to-bottle-poster.png" fetchPriority="high" />
       </head>
       <body className={`${roboto.variable} ${instrumentSerif.variable} font-sans antialiased`}>
         <CustomerAuthProvider session={customerSession}>

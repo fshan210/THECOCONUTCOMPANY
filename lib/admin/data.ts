@@ -125,7 +125,7 @@ export const mediaAssets = [
   { name: "Bottle packshot", type: "Transparent PNG", folder: "Products", path: "/assets/transparent/co-water-bottle.png", usage: "Shop, Products, Hero" },
   { name: "Tender coconut", type: "Transparent PNG", folder: "Hero", path: "/assets/transparent/co-tender-coconut.png", usage: "Hero, ecosystem" },
   { name: "Mango coconut tub", type: "Transparent PNG", folder: "Products", path: "/assets/transparent/co-coconut-icecream.png", usage: "Shop, product detail" },
-  { name: "Made for Living", type: "Optimized WebP", folder: "Brand", path: "/optimized/assets-coconut-made-for-living-reference.webp", usage: "Home" },
+  { name: "Made for Living", type: "Lossless PNG", folder: "Brand", path: "/assets/branding/made-for-living-reference.png", usage: "Home" },
   { name: "Water lifestyle", type: "Opaque PNG", folder: "Marketing", path: "/assets/Coconut_Water_Assets/lifestyle scene.png", usage: "Home, product detail" },
   { name: "Homepage product scene", type: "Opaque PNG", folder: "Hero", path: "/assets/hero/co-home-hero-background-v2.png", usage: "Home, journal" },
   { name: "Water flat lay", type: "Opaque PNG", folder: "Marketing", path: "/assets/Coconut_Water_Assets/Flat lay.png", usage: "Shop CTA" }

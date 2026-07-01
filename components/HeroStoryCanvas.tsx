@@ -113,7 +113,7 @@ export function HeroStoryCanvas({ content }: { content: HomepageContent }) {
         >
           <div className="absolute inset-0 overflow-hidden rounded-[inherit] bg-[#e8e4dd]">
             <Image
-              src="/assets/video/coconut-to-bottle-poster.webp"
+              src="/assets/video/coconut-to-bottle-poster.png"
               alt=".CO coconut water bottle formed from a fresh coconut"
               fill
               loading="eager"
@@ -128,7 +128,7 @@ export function HeroStoryCanvas({ content }: { content: HomepageContent }) {
               muted
               playsInline
               preload="none"
-              poster="/assets/video/coconut-to-bottle-poster.webp"
+              poster="/assets/video/coconut-to-bottle-poster.png"
               aria-hidden="true"
               onTimeUpdate={updateStoryStage}
               className="co-hero-film absolute inset-0 h-full w-full object-cover object-center"
