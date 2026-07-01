@@ -34,7 +34,7 @@ export function Navigation() {
   const headerTop = useTransform(scrollY, [0, 90], ["0px", "14px"]);
 
   const configuredAdminPath = getAdminPath();
-  if (pathname === "/" || pathname === "/about" || pathname === "/shop" || pathname === "/recipes" || pathname.startsWith("/recipes/") || pathname.startsWith("/admin") || pathname === configuredAdminPath || pathname.startsWith(`${configuredAdminPath}/`)) return null;
+  if (pathname === "/" || pathname === "/about" || pathname === "/shop" || pathname === "/recipes" || pathname.startsWith("/recipes/") || pathname === "/sustainability" || pathname.startsWith("/admin") || pathname === configuredAdminPath || pathname.startsWith(`${configuredAdminPath}/`)) return null;
 
   return (
     <>

@@ -20,7 +20,7 @@ const links = [
 export function Footer() {
   const pathname = usePathname();
 
-  if (pathname === "/" || pathname === "/about" || pathname === "/shop" || pathname === "/recipes" || pathname.startsWith("/recipes/") || pathname.startsWith("/admin")) return null;
+  if (pathname === "/" || pathname === "/about" || pathname === "/shop" || pathname === "/recipes" || pathname.startsWith("/recipes/") || pathname === "/sustainability" || pathname.startsWith("/admin")) return null;
 
   return (
     <footer className="relative z-10 overflow-visible rounded-t-[2rem] border-t border-coconut/10 bg-coconut text-paper">
