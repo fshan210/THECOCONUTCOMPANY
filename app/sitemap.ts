@@ -10,6 +10,7 @@ const routes = [
   "/sustainability",
   "/founders",
   "/journal",
+  "/journal/social-cocreation-hub",
   "/contact",
   "/shop",
   "/recipes"
