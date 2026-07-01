@@ -3,6 +3,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   ArrowLeft,
   ArrowRight,
@@ -1025,10 +1026,11 @@ export function NewsletterSection() {
 }
 
 export function MobileBottomNav() {
+  const pathname = usePathname();
   const items = [[Leaf, "Home", "/"], [ShoppingBag, "Shop", "/shop"], [Grid2X2, "Recipes", "/recipes"], [Heart, "Wishlist", "/wishlist"], [CircleUserRound, "Account", "/account"]] as const;
   return (
     <nav className="fixed inset-x-0 bottom-0 z-[105] grid grid-cols-5 border-t border-[#35271e]/10 bg-[rgba(250,247,240,.94)] px-2 pb-[max(6px,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl md:hidden" aria-label="Mobile quick navigation">
-      {items.map(([Icon, label, href]) => <Link key={label} href={href} className={cn("flex flex-col items-center gap-1 text-[8px]", label === "Home" && "text-[#305a34]")}><Icon size={17} strokeWidth={1.6} /><span>{label}</span></Link>)}
+      {items.map(([Icon, label, href]) => <Link key={label} href={href} className={cn("flex flex-col items-center gap-1 text-[8px]", (pathname === href || (href !== "/" && pathname.startsWith(`${href}/`))) && "text-[#305a34]")}><Icon size={17} strokeWidth={1.6} /><span>{label}</span></Link>)}
     </nav>
   );
 }
