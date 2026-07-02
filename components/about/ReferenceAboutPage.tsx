@@ -44,13 +44,11 @@ const statItems = [
 ];
 
 const zeroWasteParts = [
-  { id: "coir", title: "Coir / Husk", description: "Turns into coir fibers, biodegradable packaging and nutrient-rich mulch.", uses: ["Packaging", "Mulch", "Natural fiber"], icon: Recycle, position: "left-[20%] top-[36%]" },
-  { id: "shell", title: "Shell", description: "Transformed into activated charcoal, eco-friendly bowls and crafts.", uses: ["Activated charcoal", "Bowls", "Crafts"], icon: Shell, position: "right-[20%] top-[42%]" },
-  { id: "meat", title: "Coconut Meat", description: "Made into food, coconut milk, desserts and creamy Melt.CO recipes.", uses: ["Food", "Ice cream", "Milk"], icon: Sparkles, position: "right-[15%] top-[28%]" },
-  { id: "water", title: "Coconut Water", description: "Bottled as clean hydration and organic drinks with nothing unnecessary added.", uses: ["Beverages", "Hydration", "Organic drinks"], icon: Droplets, position: "left-[23%] top-[25%]" },
-  { id: "leaves", title: "Palm Leaves", description: "Woven and repurposed for shade, traditional craft and natural cover.", uses: ["Craft", "Shade", "Natural cover"], icon: Leaf, position: "right-[25%] top-[11%]" },
-  { id: "trunk", title: "Trunk", description: "A durable natural material used thoughtfully for construction and long-life objects.", uses: ["Timber", "Furniture", "Long-life use"], icon: TreePalm, position: "left-[28%] top-[66%]" },
-  { id: "roots", title: "Roots", description: "The origin system that protects soil, holds water and supports a living ecosystem.", uses: ["Soil health", "Water retention", "Ecosystem"], icon: Sprout, position: "right-[29%] bottom-[5%]" },
+  { id: "coir", title: "Coir / Husk", description: "Turns into coir fibres, biodegradable packaging and nutrient-rich mulch.", uses: ["Packaging", "Mulch", "Natural fibre"], icon: Recycle, position: "left-[39%] top-[43%]" },
+  { id: "shell", title: "Shell", description: "Transformed into activated charcoal, durable bowls and useful crafts.", uses: ["Activated charcoal", "Bowls", "Crafts"], icon: Shell, position: "left-[42%] top-[58%]" },
+  { id: "meat", title: "Coconut Meat", description: "Made into food, coconut milk, desserts and creamy Melt.CO recipes.", uses: ["Food", "Ice cream", "Milk"], icon: Sparkles, position: "left-[42%] top-[76%]" },
+  { id: "water", title: "Coconut Water", description: "Bottled as clean hydration with nothing unnecessary added.", uses: ["Beverages", "Hydration", "Electrolytes"], icon: Droplets, position: "right-[20%] top-[39%]" },
+  { id: "fibre", title: "Coconut Fibre", description: "Strong natural strands become durable, lower-waste everyday materials.", uses: ["Coir", "Brushes", "Natural materials"], icon: Leaf, position: "right-[18%] top-[70%]" },
 ];
 
 const timelineItems = [
@@ -198,17 +196,15 @@ function ZeroWasteTree() {
             <Link href="/sustainability" className="flex min-h-12 items-center justify-center gap-3 rounded-full border border-[#305a34]/22 bg-white/48 text-[9px] font-semibold md:hidden">Our Sustainability Approach <ArrowRight size={13} /></Link>
           </div>
 
-          <div className="relative order-1 mx-auto aspect-[4/5] w-full max-w-[520px] overflow-hidden rounded-[24px] md:order-2 md:overflow-visible md:rounded-none">
-            <Image src="/assets/about/co-zero-waste-palm-editorial-4k.avif" alt="A complete coconut palm showing every usable part" fill sizes="(min-width:768px) 42vw, 94vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="rounded-[24px] object-cover" />
+          <div className="relative order-1 mx-auto aspect-[941/1672] w-full max-w-[520px] overflow-hidden rounded-[24px] md:order-2 md:overflow-visible md:rounded-none">
+            <Image src="/assets/about/co-zero-waste-coconut-split.png" alt="A deconstructed coconut showing how every layer becomes useful food, drink and natural materials" fill sizes="(min-width:768px) 42vw, 94vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="rounded-[24px] object-cover" />
             <div className="absolute inset-0 rounded-[24px] ring-1 ring-inset ring-white/60" />
             <svg aria-hidden="true" viewBox="0 0 100 125" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 z-[5] h-full w-full text-[#305a34]/28">
-              <path d="M0 36 H22" stroke="currentColor" strokeWidth=".35" strokeDasharray="1 1" />
-              <path d="M78 42 H100" stroke="currentColor" strokeWidth=".35" strokeDasharray="1 1" />
-              <path d="M84 28 H100" stroke="currentColor" strokeWidth=".35" strokeDasharray="1 1" />
-              <path d="M0 25 H24" stroke="currentColor" strokeWidth=".35" strokeDasharray="1 1" />
-              <path d="M74 11 H100" stroke="currentColor" strokeWidth=".35" strokeDasharray="1 1" />
-              <path d="M0 82 H29" stroke="currentColor" strokeWidth=".35" strokeDasharray="1 1" />
-              <path d="M70 119 H100" stroke="currentColor" strokeWidth=".35" strokeDasharray="1 1" />
+              <path d="M0 54 H39" stroke="currentColor" strokeWidth=".35" strokeDasharray="1 1" />
+              <path d="M0 73 H42" stroke="currentColor" strokeWidth=".35" strokeDasharray="1 1" />
+              <path d="M0 95 H42" stroke="currentColor" strokeWidth=".35" strokeDasharray="1 1" />
+              <path d="M80 49 H100" stroke="currentColor" strokeWidth=".35" strokeDasharray="1 1" />
+              <path d="M82 88 H100" stroke="currentColor" strokeWidth=".35" strokeDasharray="1 1" />
             </svg>
             {zeroWasteParts.map((part) => (
               <motion.button key={part.id} type="button" aria-label={`Explore ${part.title}`} aria-pressed={activeId === part.id} onMouseEnter={() => setActiveId(part.id)} onFocus={() => setActiveId(part.id)} onClick={() => setActiveId(part.id)} animate={{ scale: activeId === part.id ? 1.22 : 1 }} className={cn("absolute z-10 grid size-7 place-items-center rounded-full border-2 border-white bg-[#305a34] text-white shadow-[0_8px_22px_rgba(31,62,29,.28)]", part.position)}>
@@ -303,8 +299,11 @@ function IngredientPeeler() {
               <p className="mt-2 text-[9px] text-[#554f4a] md:text-[10px]">Hidden ingredients. Heavy impact.</p>
               <div className="mt-5 max-w-[220px]"><IngredientList items={conventionalItems} /></div>
             </div>
-            <div className="absolute bottom-[-9%] left-[29%] h-[73%] w-[27%] -translate-x-1/2 grayscale md:left-[44%] md:h-[92%] md:w-[16%]">
-              <Image src="/assets/transparent/co-water-bottle.png" alt="Conventional processed coconut water comparison" fill sizes="(min-width:768px) 20vw, 29vw" quality={90} placeholder="blur" blurDataURL={blurDataURL} className="object-contain opacity-72 drop-shadow-[0_24px_30px_rgba(42,46,47,.22)]" />
+            <div className="absolute bottom-[-3%] left-[31%] h-[68%] w-[25%] -translate-x-1/2 md:left-[44%] md:h-[84%] md:w-[15%]">
+              <div className="absolute inset-x-[20%] top-0 h-[7%] rounded-t-[5px] bg-[#4d5052]" />
+              <div className="absolute inset-x-[10%] bottom-0 top-[5%] overflow-hidden rounded-[18px_18px_26px_26px] border border-black/10 bg-[linear-gradient(90deg,#979b9d,#d8dbdc_48%,#8c9092)] shadow-[0_24px_30px_rgba(42,46,47,.24)]">
+                <div className="absolute inset-x-0 top-[36%] h-[42%] border-y border-black/10 bg-[#e4e5e3]/90 px-1 text-center text-[#4d5052]"><span className="mt-5 block text-[8px] font-semibold uppercase tracking-[.12em] md:text-[10px]">Generic</span><span className="mt-1 block text-[9px] font-bold uppercase md:text-xs">Coconut Water</span><span className="mt-2 block text-[6px] uppercase md:text-[7px]">Sweetened beverage</span></div>
+              </div>
             </div>
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_34%_75%,rgba(75,80,82,.28),transparent_34%),linear-gradient(90deg,rgba(90,94,96,.18),transparent)]" />
           </div>

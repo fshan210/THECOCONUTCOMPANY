@@ -141,39 +141,19 @@ function toPopupProducts(products: DisplayProduct[]): DisplayProduct[] {
 }
 
 export function ReferenceHeader() {
-  const headerRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const session = useCustomerSession();
-
   useEffect(() => {
-    if (!headerRef.current || prefersReducedMotion()) {
-      return undefined;
-    }
-
-    const { gsap, ScrollTrigger } = getScrollTrigger();
-    const context = gsap.context(() => {
-      gsap.to(headerRef.current, {
-        width: "min(1120px, calc(100% - 28px))",
-        minHeight: 66,
-        top: 12,
-        borderRadius: 34,
-        backgroundColor: "rgba(247,242,232,.88)",
-        boxShadow: "0 18px 55px rgba(53,39,30,.13)",
-        backdropFilter: "blur(22px)",
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: document.documentElement,
-          start: "top -80",
-          end: "top -220",
-          scrub: 0.55
-        }
-      });
-    }, headerRef);
-
-    return () => {
-      context.revert();
-      ScrollTrigger.refresh();
+    let frame = 0;
+    const update = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => setScrolled(window.scrollY > 80));
     };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
   }, []);
 
   const links = [
@@ -189,8 +169,11 @@ export function ReferenceHeader() {
   return (
     <>
       <div className="h-[72px] md:h-[86px]" aria-hidden="true" />
-      <header
-        ref={headerRef}
+      <motion.header
+        initial={false}
+        animate={{ width: scrolled ? "min(1280px, calc(100% - 28px))" : "100%", top: scrolled ? 12 : 0, borderRadius: scrolled ? 34 : "0 0 28px 28px", minHeight: scrolled ? 68 : 86, backgroundColor: scrolled ? "rgba(247,242,232,.9)" : "rgba(247,242,232,.96)", boxShadow: scrolled ? "0 18px 55px rgba(53,39,30,.13)" : "0 12px 36px rgba(53,39,30,.07)" }}
+        transition={{ duration: 0.42, ease }}
+        style={{ backdropFilter: "blur(22px)" }}
         className="fixed left-1/2 top-0 z-[110] flex min-h-[72px] w-full -translate-x-1/2 items-center rounded-b-[28px] border border-[rgba(53,39,30,.07)] bg-[rgba(247,242,232,.96)] px-5 shadow-[0_12px_36px_rgba(53,39,30,.07)] md:min-h-[86px] md:px-8"
       >
         <div className="relative mx-auto flex w-full max-w-[1500px] items-center justify-between gap-5">
@@ -251,7 +234,7 @@ export function ReferenceHeader() {
             </motion.nav>
           ) : null}
         </AnimatePresence>
-      </header>
+      </motion.header>
     </>
   );
 }
@@ -461,33 +444,33 @@ function HeroSection() {
   return (
     <section className="relative isolate min-h-[610px] overflow-hidden bg-[#f7f2e8] md:min-h-[720px]">
       <Image
-        src="/assets/hero/co-home-hero-editorial-4k.avif"
-        alt=""
+        src="/assets/hero/co-home-hero-solid-products.png"
+        alt=".CO Coconut Water and Melt.CO mango coconut ice cream on travertine with fresh coconuts"
         fill
         priority
         sizes="100vw"
         quality={95}
         placeholder="blur"
         blurDataURL={blurDataURL}
-        className="origin-left scale-[1.08] object-cover object-[62%_center] md:object-center"
+        className="object-cover object-[62%_center] md:object-center"
       />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(247,242,232,.96)_0%,rgba(247,242,232,.8)_38%,rgba(247,242,232,.05)_72%)] md:bg-[linear-gradient(90deg,rgba(247,242,232,.97)_0%,rgba(247,242,232,.82)_38%,rgba(247,242,232,.03)_72%)]" />
 
       <div className="relative mx-auto grid min-h-[610px] max-w-[1500px] grid-cols-1 px-7 pb-20 pt-10 md:min-h-[720px] md:grid-cols-[.95fr_1.05fr] md:px-[clamp(44px,6vw,90px)] md:pb-24 md:pt-16">
         <div className="relative z-20 max-w-[620px]">
-          <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }} className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35271e]">
-            <span className="md:hidden">Rooted in nature</span>
+          <motion.p initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }} className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35271e]">
+            <span className="md:hidden">Pure by nature. Made for living.</span>
             <span className="hidden md:inline">Pure by nature. Made for living.</span>
           </motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, delay: 0.08, ease }} className="mt-4 max-w-[12ch] font-['Cormorant_Garamond'] text-[clamp(48px,5.1vw,82px)] font-normal leading-[.88] tracking-[-.04em] text-[#16120e]">
-            <span className="md:hidden">Good for you.<br />Good for the <em className="font-normal text-[#305a34]">planet.</em></span>
+          <motion.h1 initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, delay: 0.08, ease }} className="mt-4 max-w-[12ch] font-['Cormorant_Garamond'] text-[clamp(48px,5.1vw,82px)] font-normal leading-[.88] tracking-[-.04em] text-[#16120e]">
+            <span className="md:hidden">From our palms<br />to your <em className="font-normal text-[#305a34]">life.</em></span>
             <span className="hidden md:inline">From our palms<br />to your <em className="font-normal text-[#305a34]">life.</em></span>
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, delay: 0.18, ease }} className="mt-6 max-w-[350px] text-[15px] leading-7 text-[#27211c] md:text-[17px]">
-            <span className="md:hidden">Premium coconut products, crafted with care for a healthier you and a better planet.</span>
+          <motion.p initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, delay: 0.18, ease }} className="mt-6 max-w-[350px] text-[15px] leading-7 text-[#27211c] md:text-[17px]">
+            <span className="md:hidden">We craft premium coconut products that nourish you and care for our planet.</span>
             <span className="hidden md:inline">We craft premium coconut products that nourish you and care for our planet.</span>
           </motion.p>
-          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.26, ease }}>
+          <motion.div initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.26, ease }}>
             <Link href="/shop" className="mt-7 inline-flex min-h-14 items-center gap-6 rounded-full bg-[#304f2c] px-7 text-[11px] font-semibold uppercase text-white shadow-[0_15px_35px_rgba(48,79,44,.24)]">
               Shop now
               <span className="grid size-9 place-items-center rounded-full bg-[#efe8db] text-[#304f2c]">
@@ -521,14 +504,6 @@ function HeroSection() {
           </div>
         </div>
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-8 top-[205px] z-10 md:inset-y-0 md:left-[43%] md:right-0">
-          <motion.div initial={{ opacity: 0, y: 30, rotate: -1 }} animate={{ opacity: 1, y: 0, rotate: 0 }} transition={{ duration: 1, delay: 0.16, ease }} className="absolute bottom-0 left-[36%] h-[74%] w-[36%] min-w-[142px] md:left-[21%] md:h-[73%] md:w-[31%]">
-            <Image src="/assets/transparent/co-water-bottle.png" alt=".CO organic coconut water bottle" fill priority sizes="(min-width: 768px) 28vw, 36vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain drop-shadow-[0_30px_34px_rgba(53,39,30,.2)]" />
-          </motion.div>
-          <motion.div initial={{ opacity: 0, y: 36, rotate: 1 }} animate={{ opacity: 1, y: 0, rotate: 0 }} transition={{ duration: 1, delay: 0.26, ease }} className="absolute bottom-[1%] left-[58%] h-[58%] w-[40%] min-w-[148px] md:left-[48%] md:h-[55%] md:w-[36%]">
-            <Image src="/assets/transparent/co-coconut-icecream.png" alt="Melt.CO coconut mango ice cream" fill priority sizes="(min-width: 768px) 32vw, 40vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain drop-shadow-[0_28px_34px_rgba(53,39,30,.18)]" />
-          </motion.div>
-        </div>
       </div>
     </section>
   );
@@ -1015,11 +990,11 @@ function MobileReferenceExtras({ products }: { products: DisplayProduct[] }) {
 
 export function NewsletterSection() {
   return (
-    <section className="border-y border-[#35271e]/7 bg-white/28 px-5 py-7 md:px-10 md:py-8">
-      <div className="mx-auto grid max-w-[1320px] gap-5 md:grid-cols-[330px_1fr_290px] md:items-center">
-        <div><h2 className="font-['Cormorant_Garamond'] text-[32px] leading-none md:text-[36px]">Stay in the loop</h2><p className="mt-2 text-[10px] leading-5 text-[#665d54]">Get updates on new products, recipes &amp; offers.</p></div>
-        <form className="flex min-h-12 items-center overflow-hidden rounded-[13px] bg-white/70 pl-4" onSubmit={(event) => event.preventDefault()}><input type="email" required aria-label="Email address" placeholder="Enter your email address" className="min-w-0 flex-1 bg-transparent text-xs outline-none" /><button type="submit" className="mr-1 min-h-10 rounded-[10px] bg-[#304f2c] px-6 text-[9px] font-semibold uppercase text-white">Subscribe</button></form>
-        <div className="relative hidden h-[90px] md:block"><Image src="/assets/transparent/co-tender-coconut.png" alt="" fill sizes="290px" quality={90} className="object-contain" /></div>
+    <section className="px-4 pb-4 md:px-8 md:pb-6">
+      <div className="relative mx-auto grid max-w-[1400px] overflow-hidden rounded-[28px] bg-[linear-gradient(115deg,#0f3418,#204b23_58%,#102d16)] px-6 py-8 text-white shadow-[0_20px_55px_rgba(19,55,26,.18)] md:grid-cols-[330px_1fr_290px] md:items-center md:px-10">
+        <div className="relative z-10"><h2 className="font-['Cormorant_Garamond'] text-[32px] leading-none md:text-[36px]">Stay in the loop</h2><p className="mt-2 text-[10px] leading-5 text-white/68">Get updates on new products, recipes &amp; offers.</p></div>
+        <form className="relative z-10 mt-5 flex min-h-12 items-center overflow-hidden rounded-[13px] bg-[#fffaf0] pl-4 text-[#2a1b13] md:mt-0" onSubmit={(event) => event.preventDefault()}><input type="email" required aria-label="Email address" placeholder="Enter your email address" className="min-w-0 flex-1 bg-transparent text-xs outline-none" /><button type="submit" className="mr-1 min-h-10 rounded-[10px] bg-[#304f2c] px-6 text-[9px] font-semibold uppercase text-white">Subscribe</button></form>
+        <div className="absolute bottom-[-36px] right-[-28px] h-[190px] w-[230px] md:relative md:bottom-auto md:right-auto md:h-[120px] md:w-auto"><Image src="/assets/transparent/co-tender-coconut.png" alt="Fresh coconut and palm leaves" fill sizes="290px" quality={95} className="object-contain" /></div>
       </div>
     </section>
   );
