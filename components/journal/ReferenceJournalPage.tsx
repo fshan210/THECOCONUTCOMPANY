@@ -8,6 +8,7 @@ import { ArrowLeft, ArrowRight, Bookmark, Camera, Check, Droplets, Heart, Instag
 import { MobileBottomNav, NewsletterSection, ReferenceFooter, ReferenceHeader } from "@/components/home/ReferenceHomePage";
 import { communityPosts, communityTestimonials as testimonials, journalArticles as articles, routineCards } from "@/data/journal";
 import { cn } from "@/lib/utils";
+import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
 
 const blur="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MCcgaGVpZ2h0PSc0MCc+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsbD0nI2Y4ZjRlYycvPjwvc3ZnPg==";
 const ease=[.16,1,.3,1] as const;
@@ -24,6 +25,7 @@ export function ReferenceJournalPage(){
   const [creator,setCreator]=useState(false);
   const [category,setCategory]=useState("All");
   const [railPaused,setRailPaused]=useState(false);
+  useBodyScrollLock(Boolean(post||creator));
   useEffect(()=>{if(reduce)return;const node=railRef.current;if(!node)return;let frame=0;let previous=performance.now();const tick=(now:number)=>{const delta=Math.min(64,now-previous);previous=now;const loopWidth=node.scrollWidth/2;if(!railPaused&&!node.matches(":hover")&&loopWidth>0){node.scrollLeft+=loopWidth/75*(delta/1000);if(node.scrollLeft>=loopWidth)node.scrollLeft-=loopWidth;}frame=requestAnimationFrame(tick);};frame=requestAnimationFrame(tick);return()=>cancelAnimationFrame(frame);},[reduce,railPaused]);
   useEffect(()=>{const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){setPost(null);setCreator(false);}};window.addEventListener("keydown",close);return()=>window.removeEventListener("keydown",close);},[]);
   const swipe=(action:"like"|"save"|"skip")=>{if(!deck.length)return;const current=deck[0];setDeck((items)=>[...items.slice(1),items[0]]);if(action==="save")setToast("Pinned to your routine");else if(action==="like")setToast(`Loved ${current.handle}`);else setToast("Next story");window.setTimeout(()=>setToast(""),1800);};

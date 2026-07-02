@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { UseFormRegisterReturn } from "react-hook-form";
-import { CheckCircle2, Eye, EyeOff, Loader2, LogIn, Mail, UserPlus } from "lucide-react";
+import { Apple, CheckCircle2, Eye, EyeOff, Loader2, LogIn, Mail, UserPlus } from "lucide-react";
 import {
   confirmPasswordReset,
   createUserWithEmailAndPassword,
@@ -92,13 +92,17 @@ export function CustomerLoginForm() {
       <AuthMessage message={state.message} positive={state.ok} />
       <AuthInput id="customer-email" label="Email" type="email" autoComplete="username" error={errors.email?.message} disabled={pending} register={register("email")} />
       <PasswordInput id="customer-password" label="Password" show={showPassword} onToggle={() => setShowPassword((value) => !value)} disabled={pending} error={errors.password?.message} register={register("password")} />
-      <button type="submit" disabled={pending} className="co-admin-primary-button w-full">
+      <button type="submit" disabled={pending} className="co-admin-primary-button co-primary-cta min-h-12 w-full rounded-full">
         {pending ? <Loader2 className="animate-spin" size={18} /> : <LogIn size={18} />}
         {pending ? "Signing you in..." : "Login"}
       </button>
       <button type="button" disabled={pending} onClick={() => startTransition(() => void loginWithGoogle(setState))} className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-[var(--co-border)] bg-[var(--co-white)] px-5 text-sm font-bold text-[var(--co-ink)] transition hover:border-[var(--co-black)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)]">
         Continue with Google
       </button>
+      <button type="button" disabled aria-describedby="apple-login-note" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-[var(--co-border)] bg-[var(--co-cream)] px-5 text-sm font-bold text-[var(--co-ink)] opacity-65">
+        <Apple size={17} /> Continue with Apple
+      </button>
+      <p id="apple-login-note" className="-mt-2 text-center text-[10px] text-coconut/60">Apple sign-in is coming soon.</p>
       <button type="button" disabled={pending} onClick={() => void sendResetFromForm(formRef.current, setState)} className="inline-flex w-full items-center justify-center gap-2 text-sm text-coconut underline underline-offset-4">
         <Mail size={15} /> Forgot password?
       </button>
@@ -209,10 +213,17 @@ export function CustomerRegisterForm() {
   const [state, setState] = useState<CustomerAuthState>(initialState);
   const [pending, startTransition] = useTransition();
   const [showPassword, setShowPassword] = useState(false);
-  const { register, trigger, setFocus, formState: { errors } } = useForm<RegisterFields>({
+  const { register, trigger, setFocus, setValue, formState: { errors } } = useForm<RegisterFields>({
     resolver: zodResolver(registerSchema),
     defaultValues: { name: "", email: "", password: "", preference: productCategories[0] }
   });
+
+  useEffect(() => {
+    const welcomeEmail = window.localStorage.getItem("co_welcome_email");
+    const welcomeName = window.localStorage.getItem("co_welcome_name");
+    if (welcomeEmail) setValue("email", welcomeEmail);
+    if (welcomeName) setValue("name", welcomeName);
+  }, [setValue]);
 
   return (
     <form
@@ -281,7 +292,7 @@ export function CustomerRegisterForm() {
       <div className="md:col-span-2">
         <PasswordInput id="register-password" label="Password" show={showPassword} onToggle={() => setShowPassword((value) => !value)} disabled={pending} error={errors.password?.message} register={register("password")} />
       </div>
-      <button type="submit" disabled={pending} className="co-admin-primary-button md:col-span-2">
+      <button type="submit" disabled={pending} className="co-admin-primary-button co-primary-cta min-h-12 rounded-full md:col-span-2">
         {pending ? <Loader2 className="animate-spin" size={18} /> : <UserPlus size={18} />}
         {pending ? "Creating your .CO space..." : "Create account"}
       </button>

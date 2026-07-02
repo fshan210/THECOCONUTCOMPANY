@@ -28,7 +28,6 @@ import {
   Recycle,
   RotateCcw,
   Search,
-  Send,
   ShieldCheck,
   ShoppingBag,
   Sparkles,
@@ -41,11 +40,13 @@ import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CartButton } from "@/components/cart/CartDrawer";
 import { useCustomerSession } from "@/components/auth/CustomerAuthProvider";
+import { NewsletterForm } from "@/components/launch/NewsletterForm";
 import { useCart } from "@/lib/cart/cart-context";
 import { getScrollTrigger, prefersReducedMotion } from "@/lib/animation/gsap-scrolltrigger";
 import type { ContentProduct, HomepageContent } from "@/lib/content/types";
 import { publicAssets } from "@/lib/public-assets";
 import { cn } from "@/lib/utils";
+import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const blurDataURL =
@@ -144,6 +145,7 @@ export function ReferenceHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const session = useCustomerSession();
+  useBodyScrollLock(menuOpen);
   useEffect(() => {
     let frame = 0;
     const update = () => {
@@ -154,6 +156,12 @@ export function ReferenceHeader() {
     frame = requestAnimationFrame(update);
     return () => cancelAnimationFrame(frame);
   }, []);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const close = (event: KeyboardEvent) => { if (event.key === "Escape") setMenuOpen(false); };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, [menuOpen]);
 
   const links = [
     ["About", "/about"],
@@ -460,7 +468,7 @@ function HeroSection() {
         priority
         fetchPriority="high"
         sizes="100vw"
-        quality={88}
+        quality={90}
         placeholder="blur"
         blurDataURL={blurDataURL}
         className="object-cover object-[62%_center] md:object-center"
@@ -1004,7 +1012,7 @@ export function NewsletterSection() {
     <section className="px-4 pb-4 md:px-8 md:pb-6">
       <div className="relative mx-auto grid max-w-[1400px] overflow-hidden rounded-[28px] bg-[linear-gradient(115deg,#0f3418,#204b23_58%,#102d16)] px-6 py-8 text-white shadow-[0_20px_55px_rgba(19,55,26,.18)] md:grid-cols-[330px_1fr_290px] md:items-center md:px-10">
         <div className="relative z-10"><h2 className="font-['Cormorant_Garamond'] text-[32px] leading-none md:text-[36px]">Stay in the loop</h2><p className="mt-2 text-[10px] leading-5 text-white/68">Get updates on new products, recipes &amp; offers.</p></div>
-        <form className="relative z-10 mt-5 flex min-h-12 items-center overflow-hidden rounded-[13px] bg-[#fffaf0] pl-4 text-[#2a1b13] md:mt-0" onSubmit={(event) => event.preventDefault()}><input type="email" required aria-label="Email address" placeholder="Enter your email address" className="min-w-0 flex-1 bg-transparent text-xs outline-none" /><button type="submit" className="mr-1 min-h-10 rounded-[10px] bg-[#304f2c] px-6 text-[9px] font-semibold uppercase text-white">Subscribe</button></form>
+        <NewsletterForm className="relative z-10 mt-5 md:mt-0" />
         <div className="absolute bottom-[-36px] right-[-28px] h-[190px] w-[230px] md:relative md:bottom-auto md:right-auto md:h-[120px] md:w-auto"><Image src="/assets/transparent/co-tender-coconut.png" alt="Fresh coconut and palm leaves" fill sizes="290px" quality={95} className="object-contain" /></div>
       </div>
     </section>
@@ -1044,7 +1052,7 @@ export function ReferenceFooter() {
               <p className="text-[10px] font-semibold uppercase">{column.title}</p>
               <div className="mt-4 space-y-2.5">
                 {column.links.map((label) => (
-                  <Link key={label} href={label === "Sustainability" ? "/sustainability" : label === "About Us" ? "/about" : "/shop"} className="block text-[11px] text-[#655b52] transition hover:text-[#305a34]">
+                  <Link key={label} href={footerLink(label)} className="block text-[11px] text-[#655b52] transition hover:text-[#305a34]">
                     {label}
                   </Link>
                 ))}
@@ -1055,12 +1063,7 @@ export function ReferenceFooter() {
         <div className="border-t border-[#35271e]/8 pt-6 md:border-t-0 md:pt-0">
           <p className="text-[10px] font-semibold uppercase">Stay connected</p>
           <p className="mt-4 text-[11px] leading-5 text-[#655b52]">Get updates on new products, recipes & more.</p>
-          <div className="mt-5 flex min-h-12 items-center rounded-full border border-[#35271e]/12 bg-white/55 pl-5">
-            <input type="email" aria-label="Email address" placeholder="Enter your email" className="min-w-0 flex-1 bg-transparent text-xs outline-none placeholder:text-[#766d64]" />
-            <button type="button" aria-label="Subscribe" className="co-primary-cta mr-1 grid size-10 place-items-center rounded-full bg-[#304f2c] text-white">
-              <Send size={15} />
-            </button>
-          </div>
+          <NewsletterForm compact className="mt-5" />
           <div className="mt-5 flex gap-2">
             <a href="https://www.instagram.com/cothecoconutcompany" target="_blank" rel="noreferrer" aria-label="Instagram" className="grid size-9 place-items-center rounded-full border border-[#35271e]/12">
               <Instagram size={15} />
@@ -1075,6 +1078,15 @@ export function ReferenceFooter() {
       </div>
     </footer>
   );
+}
+
+function footerLink(label: string) {
+  const routes: Record<string, string> = {
+    "All Products": "/shop", "Coconut Water": "/shop?category=Coconut%20Water", "Ice Cream": "/shop?category=Ice%20Cream", Food: "/shop?category=Food", Cosmetics: "/shop?category=Cosmetics", Utensils: "/shop?category=Utensils",
+    "About Us": "/about", Sustainability: "/sustainability", "Our Farmers": "/sustainability#journey", Careers: "/careers", "Contact Us": "/contact",
+    FAQs: "/faqs", "Shipping & Delivery": "/shipping-delivery", Returns: "/returns", "Terms & Conditions": "/terms-and-conditions", "Privacy Policy": "/privacy-policy"
+  };
+  return routes[label] || "/";
 }
 
 export function ReferenceHomePage({ homepage, products }: { homepage: HomepageContent; products: ContentProduct[] }) {

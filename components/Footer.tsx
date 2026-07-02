@@ -3,9 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { productCategories, recipes } from "@/lib/catalog";
 import { publicAssets } from "@/lib/public-assets";
+import { NewsletterForm } from "@/components/launch/NewsletterForm";
 
 const links = [
   { label: "About", href: "/about" },
@@ -81,13 +82,7 @@ export function Footer() {
         </div>
         <div className="space-y-4 text-sm text-paper/70">
           <p className="text-[0.7rem] font-medium uppercase tracking-editorial text-paper">Newsletter / trade</p>
-          <form className="grid gap-3" data-analytics-form="newsletter">
-            <label className="sr-only" htmlFor="footer-email">Email</label>
-            <input id="footer-email" type="email" placeholder="you@example.com" className="min-h-12 rounded-2xl border border-paper/12 bg-paper px-4 text-sm text-coconut outline-none placeholder:text-coconut/45 focus:border-sun" />
-            <button type="button" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-paper px-5 text-sm font-medium text-coconut transition hover:bg-sun">
-              Join early access <Mail size={15} />
-            </button>
-          </form>
+          <NewsletterForm compact className="text-paper" />
           <Link href="/shop" className="inline-flex items-center gap-2 pt-3 text-sm font-medium text-paper transition hover:text-sun">
             Distributor / product interest <ArrowUpRight size={15} />
           </Link>
@@ -97,6 +92,9 @@ export function Footer() {
             <Link href="/login" className="hover:text-sun">Account</Link>
             <Link href="/sustainability" className="hover:text-sun">Sustainability</Link>
             <Link href="/journal" className="hover:text-sun">Journal</Link>
+            <Link href="/privacy-policy" className="hover:text-sun">Privacy</Link>
+            <Link href="/cookie-policy" className="hover:text-sun">Cookies</Link>
+            <Link href="/terms-and-conditions" className="hover:text-sun">Terms</Link>
           </div>
         </div>
       </div>

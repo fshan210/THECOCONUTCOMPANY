@@ -8,6 +8,7 @@ import { ArrowLeft, ArrowRight, Coffee, Heart, Lightbulb, Menu, MessageCircleHea
 import { MobileBottomNav, NewsletterSection, ReferenceFooter, ReferenceHeader } from "@/components/home/ReferenceHomePage";
 import { getScrollTrigger, prefersReducedMotion } from "@/lib/animation/gsap-scrolltrigger";
 import { cn } from "@/lib/utils";
+import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
 
 const root="/assets/founders/refined";
 const blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MCcgaGVpZ2h0PSc0MCc+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsbD0nI2Y4ZjRlYycvPjwvc3ZnPg==";
@@ -52,6 +53,7 @@ export function ReferenceFoundersPage(){
   const wheelRef=useRef<HTMLDivElement>(null);
   const timelineRef=useRef<HTMLDivElement>(null);
   const qa=qas[qaIndex];
+  useBodyScrollLock(lightbox!==null);
   useEffect(()=>{
     if(!timelineRef.current||prefersReducedMotion())return;
     const {gsap}=getScrollTrigger();

@@ -16,6 +16,7 @@ import { StructuredData } from "@/components/seo/StructuredData";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { CustomerAuthProvider } from "@/components/auth/CustomerAuthProvider";
 import { LenisProvider } from "@/components/providers/LenisProvider";
+import { LaunchExperience } from "@/components/launch/LaunchExperience";
 import { CartProvider } from "@/lib/cart/cart-context";
 import { getCustomerSession } from "@/lib/customer/auth";
 import { defaultDescription, siteName, siteUrl } from "@/lib/seo/metadata";
@@ -105,9 +106,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
   return (
     <html lang="en">
-      <head>
-        <link rel="preload" as="image" type="image/png" href="/assets/video/coconut-to-bottle-poster.png" fetchPriority="high" />
-      </head>
       <body className={`${roboto.variable} ${instrumentSerif.variable} font-sans antialiased`}>
         <CustomerAuthProvider session={customerSession}>
           <CartProvider catalog={products}>
@@ -117,6 +115,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
               <main>{children}</main>
               {isAdminShell ? null : <Footer />}
               {isAdminShell ? null : <CartDrawer />}
+              {isAdminShell ? null : <LaunchExperience />}
               <Analytics />
             </LenisProvider>
           </CartProvider>

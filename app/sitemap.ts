@@ -13,7 +13,17 @@ const routes = [
   "/journal/social-cocreation-hub",
   "/contact",
   "/shop",
-  "/recipes"
+  "/recipes",
+  "/faqs",
+  "/shipping-delivery",
+  "/returns",
+  "/refund-policy",
+  "/privacy-policy",
+  "/cookie-policy",
+  "/terms-and-conditions",
+  "/careers",
+  "/community",
+  "/support"
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

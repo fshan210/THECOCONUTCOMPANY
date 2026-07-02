@@ -2,16 +2,28 @@
 
 import Script from "next/script";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useRef } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { trackEvent } from "@/lib/analytics/events";
 import { getFirebaseAnalyticsClient } from "@/lib/firebase/client";
 import { isFirebasePublicConfigured } from "@/lib/firebase/config";
+import { CONSENT_EVENT, readCookieConsent } from "@/lib/privacy/consent";
 
 const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-CNXDJ3EMHQ";
 const clarityProjectId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID;
 const isProduction = process.env.NODE_ENV === "production";
 
 export function Analytics() {
+  const [allowed, setAllowed] = useState(false);
+
+  useEffect(() => {
+    const update = () => setAllowed(Boolean(readCookieConsent()?.analytics));
+    update();
+    window.addEventListener(CONSENT_EVENT, update);
+    return () => window.removeEventListener(CONSENT_EVENT, update);
+  }, []);
+
+  if (!allowed) return null;
+
   return (
     <>
       <GoogleAnalytics />
