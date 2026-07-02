@@ -22,11 +22,12 @@ export default async function LoginPage() {
   return (
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Login", path: "/login" }]} />
-      <section className="bg-[var(--co-cream)] pt-8 md:pt-12">
+      <section className="relative overflow-hidden bg-[var(--co-cream)] px-3 pb-8 pt-5 md:px-0 md:pb-14 md:pt-12">
+        <div className="pointer-events-none absolute -right-24 top-8 size-80 rounded-full bg-[#d7dfc9]/50 blur-3xl" />
         <div className="co-container">
-          <div className="grid overflow-hidden rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="co-premium-glass grid overflow-hidden rounded-[32px] lg:grid-cols-[0.9fr_1.1fr]">
             <MotionSection>
-              <BentoCard className="h-full min-h-[560px] rounded-[32px] border-0 shadow-none">
+              <BentoCard className="h-full min-h-[560px] rounded-[32px] border-0 bg-transparent p-6 shadow-none md:p-10">
                 <p className="co-label mb-5">Customer account</p>
                 <h1 className="co-h2 text-[var(--co-brown)]">Welcome back to your coconut shelf.</h1>
                 <p className="mt-6 max-w-xl text-base leading-7 text-[var(--co-muted)]">Save products, revisit recipes, and keep your coconut rituals close.</p>
@@ -37,8 +38,8 @@ export default async function LoginPage() {
                 <CustomerLoginForm />
               </BentoCard>
             </MotionSection>
-            <MotionSection delay={0.08} className="p-4 md:p-5">
-              <BrandImage src={publicAssets.campaign.breakfastRitual} alt=".CO breakfast coconut water account ritual" sizes="(min-width: 1024px) 54vw, 92vw" aspect="wide" fit="cover" priority hoverZoom className="h-full min-h-[560px] rounded-[32px] border-0" />
+            <MotionSection delay={0.08} className="order-first p-3 lg:order-none md:p-5">
+              <BrandImage src={publicAssets.campaign.breakfastRitual} alt=".CO breakfast coconut water account ritual" sizes="(min-width: 1024px) 54vw, 92vw" aspect="wide" fit="cover" priority hoverZoom className="h-[260px] rounded-[26px] border-0 lg:h-full lg:min-h-[560px] lg:rounded-[32px]" />
             </MotionSection>
           </div>
         </div>

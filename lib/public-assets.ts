@@ -25,12 +25,12 @@ export const publicAssets = {
     lifestyle: "/assets/Coconut_Water_Assets/lifestyle scene.png"
   },
   journey: {
-    grove: "/assets/generated/campaign/co-generated-grove-origin.webp",
-    farmers: "/assets/generated/campaign/co-generated-farmer-portrait.webp",
-    aggregation: "/assets/generated/campaign/co-generated-vap-origin-card.webp",
-    processing: "/assets/generated/campaign/co-generated-processing-bottling.webp",
+    grove: "/assets/backgrounds/kerala-groves/co-kerala-grove-editorial-4k.avif",
+    farmers: "/assets/farms/village aggregation point.png",
+    aggregation: "/assets/farms/VIllage collection point.png",
+    processing: "/assets/Ecosystem_Assets/Kitchen-group ecosystem.png",
     bottling: "/assets/Coconut_Water_Assets/floating pack.png",
-    ritual: "/assets/generated/campaign/co-generated-breakfast-ritual.webp"
+    ritual: "/assets/home/refined/recipes-to-inspire-4k.png"
   },
   generated: {
     compositionPoolside: "/assets/Coconut_Water_Assets/lifestyle scene.png",
@@ -45,14 +45,14 @@ export const publicAssets = {
     wholeCoconut: "/assets/farming/whole coconut mindset.png"
   },
   campaign: {
-    groveOrigin: "/assets/generated/campaign/co-generated-grove-origin.webp",
-    farmerPortrait: "/assets/generated/campaign/co-generated-farmer-portrait.webp",
-    vapOrigin: "/assets/generated/campaign/co-generated-vap-origin.webp",
-    processingBottling: "/assets/generated/campaign/co-generated-processing-bottling.webp",
-    breakfastRitual: "/assets/generated/campaign/co-generated-breakfast-ritual.webp",
-    workoutRitual: "/assets/generated/campaign/co-generated-workout-ritual.webp",
-    retailBusiness: "/assets/generated/campaign/co-generated-retail-business.webp",
-    sustainabilityHands: "/assets/generated/campaign/co-generated-sustainability-hands.webp"
+    groveOrigin: "/assets/backgrounds/kerala-groves/co-kerala-grove-editorial-4k.avif",
+    farmerPortrait: "/assets/farms/village aggregation point.png",
+    vapOrigin: "/assets/farms/VIllage collection point.png",
+    processingBottling: "/assets/Ecosystem_Assets/Kitchen-group ecosystem.png",
+    breakfastRitual: "/assets/home/refined/recipes-to-inspire-4k.png",
+    workoutRitual: "/assets/home/refined/naturally-hydrating-4k.png",
+    retailBusiness: "/assets/home/refined/made-with-care-4k.png",
+    sustainabilityHands: "/assets/home/refined/sustainably-yours-4k.png"
   },
   recipes: {
     cooler: "/assets/recipes/coconut mango cooler.png",
@@ -67,8 +67,8 @@ export const publicAssets = {
   },
   social: {
     founderJourney: "/assets/transparent/founder-journey.png",
-    founderFazil: "/assets/social/fazil-founder-clean.webp",
-    founderAfsala: "/assets/social/afsala-founder-clean.webp"
+    founderFazil: "/assets/social/fazil-founder-clean.png",
+    founderAfsala: "/assets/social/afsala-founder-clean.png"
   },
   doodles: {
     rawCoconut: "/assets/SVG Transparent Assets/raw coconut.svg",
@@ -83,7 +83,7 @@ export const publicAssets = {
     grove: "/assets/farming/coconut belt-world.png",
     palms: "/assets/farming/whole coconut mindset.png",
     harvest: "/assets/farms/village aggregation point.png",
-    coconutRespect: "/assets/generated/campaign/co-generated-sustainability-hands.webp",
+    coconutRespect: "/assets/farming/coconut respect.png",
     wholeCoconut: "/assets/farming/whole coconut mindset.png"
   }
 } as const;

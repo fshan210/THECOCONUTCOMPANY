@@ -4,6 +4,7 @@ import { BentoCard, CTAButton, DoodleIcon, IngredientBadge, MotionSection } from
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { publicAssets } from "@/lib/public-assets";
+import { ContactQuickForm } from "@/components/launch/ContactQuickForm";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Contact",
@@ -67,6 +68,7 @@ export default function ContactPage() {
           ))}
         </div>
       </section>
+      <section className="bg-[var(--co-white)] px-4 pb-16 md:px-8 md:pb-24"><div className="mx-auto max-w-[900px]"><ContactQuickForm /></div></section>
     </>
   );
 }

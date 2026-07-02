@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "typecheck": "tsc --noEmit --incremental false",
     "start": "next start",
     "lint": "eslint .",
     "assets:optimize": "node scripts/optimize-assets.mjs",

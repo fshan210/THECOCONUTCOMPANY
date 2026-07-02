@@ -4,7 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, ShoppingBag, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import { useCart } from "@/lib/cart/cart-context";
+import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
 
 export function CartButton({ showZero = false, className = "" }: { showZero?: boolean; className?: string } = {}) {
   const cart = useCart();
@@ -29,6 +31,16 @@ export function CartButton({ showZero = false, className = "" }: { showZero?: bo
 
 export function CartDrawer() {
   const cart = useCart();
+  const drawerRef = useRef<HTMLElement>(null);
+  useBodyScrollLock(cart.open);
+
+  useEffect(() => {
+    if (!cart.open) return;
+    drawerRef.current?.focus();
+    const close = (event: KeyboardEvent) => { if (event.key === "Escape") cart.setOpen(false); };
+    document.addEventListener("keydown", close);
+    return () => document.removeEventListener("keydown", close);
+  }, [cart, cart.open]);
 
   return (
     <AnimatePresence>
@@ -44,6 +56,11 @@ export function CartDrawer() {
             onClick={() => cart.setOpen(false)}
           />
           <motion.aside
+            ref={drawerRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="cart-drawer-title"
+            tabIndex={-1}
             initial={{ opacity: 0, scale: 0.98, x: 24 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             exit={{ opacity: 0, scale: 0.98, x: 24 }}
@@ -53,9 +70,9 @@ export function CartDrawer() {
             <div className="flex items-center justify-between border-b border-[var(--co-border)] p-5">
               <div>
                 <p className="co-label">Saved shelf</p>
-                <h2 className="mt-2 text-4xl font-bold leading-none text-[var(--co-brown)]">Saved products</h2>
+                <h2 id="cart-drawer-title" className="mt-2 text-4xl font-bold leading-none text-[var(--co-brown)]">Saved products</h2>
               </div>
-              <button type="button" onClick={() => cart.setOpen(false)} className="grid h-10 w-10 place-items-center rounded-full border border-[var(--co-border)] text-[var(--co-ink)]">
+              <button type="button" aria-label="Close cart" onClick={() => cart.setOpen(false)} className="grid h-11 w-11 place-items-center rounded-full border border-[var(--co-border)] text-[var(--co-ink)]">
                 <X size={16} />
               </button>
             </div>
