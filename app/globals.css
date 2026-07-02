@@ -203,6 +203,46 @@ body {
   mix-blend-mode: normal;
 }
 
+.co-primary-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transform: translateZ(0);
+  transition:
+    transform 360ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 360ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 360ms ease;
+}
+
+.co-primary-cta::before {
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(110deg, transparent 18%, rgba(255, 255, 255, 0.18) 48%, transparent 72%);
+  content: "";
+  transform: translateX(-125%);
+  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.co-primary-cta:hover {
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 16px 36px rgba(33, 77, 43, 0.24);
+}
+
+.co-primary-cta:hover::before {
+  transform: translateX(125%);
+}
+
+.co-primary-cta:focus-visible {
+  outline: 2px solid #c7a562;
+  outline-offset: 3px;
+}
+
+.co-primary-cta:active {
+  transform: translateY(0) scale(0.985);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

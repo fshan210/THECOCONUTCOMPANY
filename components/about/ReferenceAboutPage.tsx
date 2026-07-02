@@ -7,7 +7,6 @@ import {
   Check,
   CircleX,
   Droplets,
-  Factory,
   HandHeart,
   Headphones,
   Heart,
@@ -25,7 +24,6 @@ import {
   TreePalm,
   Truck,
   Users,
-  Waves,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
@@ -136,7 +134,7 @@ function AboutHero() {
           <h1 data-about-reveal className="mt-4 max-w-[12ch] font-['Cormorant_Garamond'] text-[48px] leading-[.88] tracking-[-.035em] text-[#17120e] md:text-[68px]">Rooted in nature.<br />Made for <em className="font-normal text-[#305a34]">living.</em></h1>
           <p data-about-reveal className="mt-6 max-w-[380px] text-sm leading-7 text-[#37302a] md:text-[15px]">At .CO, we craft premium coconut products that nourish you and care for our planet. Pure, simple, honest—just as nature intended.</p>
           <div data-about-reveal className="mt-7 flex flex-wrap gap-3">
-            <Link href="#our-journey" className="group inline-flex min-h-12 items-center gap-5 rounded-full bg-[#304f2c] px-6 text-[10px] font-semibold text-white shadow-[0_14px_32px_rgba(48,79,44,.22)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(48,79,44,.3)]">Our Journey <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" /></Link>
+            <Link href="#our-journey" className="co-primary-cta group inline-flex min-h-12 items-center gap-5 rounded-full bg-[#304f2c] px-6 text-[10px] font-semibold text-white shadow-[0_14px_32px_rgba(48,79,44,.22)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(48,79,44,.3)]">Our Journey <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" /></Link>
             <Link href="#our-promise" className="group inline-flex min-h-12 items-center gap-3 rounded-full border border-[#35271e]/20 bg-white/34 px-5 text-[10px] font-semibold backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-white/60"><span className="grid size-7 place-items-center rounded-full border border-[#35271e]/20"><Play size={11} fill="currentColor" /></span> Watch our story</Link>
           </div>
         </div>
@@ -291,36 +289,26 @@ function IngredientPeeler() {
         <p className="mt-3 text-[11px] text-[#625950]">See the difference. Choose what&apos;s real.</p>
 
         <div ref={frameRef} role="slider" aria-label="Compare conventional and .CO ingredients" aria-valuemin={15} aria-valuemax={85} aria-valuenow={Math.round(position)} tabIndex={0} onKeyDown={(event) => { if (event.key === "ArrowLeft") setPosition((value) => Math.max(15, value - 3)); if (event.key === "ArrowRight") setPosition((value) => Math.min(85, value + 3)); }} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={() => setDragging(false)} onPointerCancel={() => setDragging(false)} className="relative mt-5 min-h-[610px] touch-none select-none overflow-hidden rounded-[23px] border border-white/70 bg-[#ddd] md:min-h-[430px]">
-          <div className="absolute inset-0 bg-[linear-gradient(135deg,#c9cbcb,#eff0ef_48%,#b8bcbc)]">
-            <div className="absolute inset-0 opacity-25 [background-image:repeating-linear-gradient(90deg,transparent_0,transparent_42px,rgba(52,55,56,.18)_43px)]" />
-            <Factory className="absolute bottom-[12%] left-[28%] size-48 text-[#686d70]/18 md:size-64" strokeWidth={1} />
+          <div className="absolute inset-0 bg-[#dedfdd]">
             <div className="absolute inset-y-0 left-0 z-10 w-[47%] p-4 md:w-[31%] md:p-6">
               <h3 className="font-['Cormorant_Garamond'] text-[23px] leading-none md:text-[28px]">Conventional Brand</h3>
               <p className="mt-2 text-[9px] text-[#554f4a] md:text-[10px]">Hidden ingredients. Heavy impact.</p>
               <div className="mt-5 max-w-[220px]"><IngredientList items={conventionalItems} /></div>
             </div>
-            <div className="absolute bottom-[-3%] left-[31%] h-[68%] w-[25%] -translate-x-1/2 md:left-[44%] md:h-[84%] md:w-[15%]">
-              <div className="absolute inset-x-[20%] top-0 h-[7%] rounded-t-[5px] bg-[#4d5052]" />
-              <div className="absolute inset-x-[10%] bottom-0 top-[5%] overflow-hidden rounded-[18px_18px_26px_26px] border border-black/10 bg-[linear-gradient(90deg,#979b9d,#d8dbdc_48%,#8c9092)] shadow-[0_24px_30px_rgba(42,46,47,.24)]">
-                <div className="absolute inset-x-0 top-[36%] h-[42%] border-y border-black/10 bg-[#e4e5e3]/90 px-1 text-center text-[#4d5052]"><span className="mt-5 block text-[8px] font-semibold uppercase tracking-[.12em] md:text-[10px]">Generic</span><span className="mt-1 block text-[9px] font-bold uppercase md:text-xs">Coconut Water</span><span className="mt-2 block text-[6px] uppercase md:text-[7px]">Sweetened beverage</span></div>
-              </div>
+            <div className="absolute bottom-[-2%] left-[34%] h-[74%] w-[34%] -translate-x-1/2 md:left-[44%] md:h-[90%] md:w-[21%]">
+              <Image src="/assets/about/generic-coconut-water-comparison.png" alt="Generic sweetened coconut water bottle" fill sizes="(min-width:768px) 22vw, 33vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain object-bottom drop-shadow-[0_24px_30px_rgba(42,46,47,.2)]" />
             </div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_34%_75%,rgba(75,80,82,.28),transparent_34%),linear-gradient(90deg,rgba(90,94,96,.18),transparent)]" />
           </div>
 
-          <div className="absolute inset-0 overflow-hidden bg-[linear-gradient(135deg,#f7f2e8,#f9f7ef_55%,#e7efd9)]" style={{ clipPath: `inset(0 0 0 ${position}%)` }}>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_62%_62%,rgba(127,175,107,.18),transparent_30%)]" />
-            <Leaf className="absolute right-[30%] top-[13%] size-16 rotate-12 text-[#6a914f]/28" strokeWidth={1} />
-            <Waves className="absolute bottom-[8%] left-[45%] size-60 text-[#85b8c9]/22" strokeWidth={1} />
+          <div className="absolute inset-0 overflow-hidden bg-[#f5f2e9]" style={{ clipPath: `inset(0 0 0 ${position}%)` }}>
             <div className="absolute inset-y-0 right-0 z-10 w-[47%] p-4 md:w-[31%] md:p-6">
               <h3 className="font-['Cormorant_Garamond'] text-[23px] leading-none md:text-[28px]">.CO Brand</h3>
               <p className="mt-2 text-[9px] text-[#554f4a] md:text-[10px]">Pure ingredients. Real impact.</p>
               <div className="mt-5 max-w-[220px]"><IngredientList items={cleanItems} clean /></div>
             </div>
-            <div className="absolute bottom-[-9%] left-[57%] h-[73%] w-[27%] -translate-x-1/2 md:left-[56%] md:h-[92%] md:w-[16%]">
+            <div className="absolute bottom-[-2%] left-[64%] h-[66%] w-[30%] -translate-x-1/2 md:left-[56%] md:h-[82%] md:w-[19%]">
               <Image src="/assets/transparent/co-water-bottle.png" alt=".CO pure coconut water" fill sizes="(min-width:768px) 20vw, 29vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain drop-shadow-[0_24px_30px_rgba(53,39,30,.18)]" />
             </div>
-            <div className="absolute bottom-[-5%] right-[7%] h-[35%] w-[25%] md:right-[23%] md:h-[42%] md:w-[18%]"><Image src="/assets/transparent/co-tender-coconut.png" alt="Fresh tender coconut" fill sizes="20vw" quality={90} placeholder="blur" blurDataURL={blurDataURL} className="object-contain" /></div>
           </div>
 
           <div className="absolute inset-y-0 z-30 w-px bg-white/90 shadow-[0_0_18px_rgba(53,39,30,.24)]" style={{ left: `${position}%` }}>
