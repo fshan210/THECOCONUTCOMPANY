@@ -7,6 +7,7 @@ import { ArrowUpRight } from "lucide-react";
 import { productCategories, recipes } from "@/lib/catalog";
 import { publicAssets } from "@/lib/public-assets";
 import { NewsletterForm } from "@/components/launch/NewsletterForm";
+import { CookiePreferencesButton } from "@/components/launch/CookiePreferencesButton";
 
 const links = [
   { label: "About", href: "/about" },
@@ -94,6 +95,7 @@ export function Footer() {
             <Link href="/journal" className="hover:text-sun">Journal</Link>
             <Link href="/privacy-policy" className="hover:text-sun">Privacy</Link>
             <Link href="/cookie-policy" className="hover:text-sun">Cookies</Link>
+            <CookiePreferencesButton className="hover:text-sun" />
             <Link href="/terms-and-conditions" className="hover:text-sun">Terms</Link>
           </div>
         </div>

@@ -21,11 +21,7 @@ export default async function WishlistPage() {
         session={session}
         title="Wishlist."
         body="Keep favourite products, rituals, and recipe ideas in one place for later."
-        items={[
-          { title: ".CO Water", detail: "Everyday hydration favourite." },
-          { title: "MELT.CO", detail: "A creamy coconut dessert to come back to." },
-          { title: "Saved recipes", detail: "Your favourite coconut rituals stay easy to find." }
-        ]}
+        items={[]}
       />
     </>
   );

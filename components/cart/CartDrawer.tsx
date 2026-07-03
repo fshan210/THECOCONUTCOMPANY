@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Minus, Plus, ShoppingBag, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { useCart } from "@/lib/cart/cart-context";
 import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
+import { StatePanel } from "@/components/launch/StatePanel";
 
 export function CartButton({ showZero = false, className = "" }: { showZero?: boolean; className?: string } = {}) {
   const cart = useCart();
@@ -31,15 +33,25 @@ export function CartButton({ showZero = false, className = "" }: { showZero?: bo
 
 export function CartDrawer() {
   const cart = useCart();
+  const router = useRouter();
   const drawerRef = useRef<HTMLElement>(null);
   useBodyScrollLock(cart.open);
 
   useEffect(() => {
     if (!cart.open) return;
     drawerRef.current?.focus();
-    const close = (event: KeyboardEvent) => { if (event.key === "Escape") cart.setOpen(false); };
-    document.addEventListener("keydown", close);
-    return () => document.removeEventListener("keydown", close);
+    const handleKeys = (event: KeyboardEvent) => {
+      if (event.key === "Escape") cart.setOpen(false);
+      if (event.key !== "Tab" || !drawerRef.current) return;
+      const focusable = Array.from(drawerRef.current.querySelectorAll<HTMLElement>('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])'));
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    document.addEventListener("keydown", handleKeys);
+    return () => document.removeEventListener("keydown", handleKeys);
   }, [cart, cart.open]);
 
   return (
@@ -76,7 +88,7 @@ export function CartDrawer() {
                 <X size={16} />
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto p-5">
+            <div className="flex-1 overflow-y-auto overscroll-contain p-5 [touch-action:pan-y]">
               {cart.products.length ? (
                 <div className="space-y-4">
                   {cart.products.map((product) => (
@@ -111,9 +123,7 @@ export function CartDrawer() {
                   ))}
                 </div>
               ) : (
-                <div className="rounded-[24px] border border-[var(--co-border)] bg-[var(--co-cream)] p-6">
-                  <p className="text-sm leading-7 text-[var(--co-muted)]">Your saved shelf is empty. Add products you want to remember.</p>
-                </div>
+                <StatePanel compact kind="empty" eyebrow="Your shelf" title="Nothing saved yet." body="Add a coconut favourite and it will wait here for you." onPrimary={{label:"Browse products",action:()=>{cart.setOpen(false);router.push("/shop");}}} />
               )}
             </div>
             <div className="border-t border-[var(--co-border)] p-5">

@@ -33,7 +33,7 @@ export function ReferenceRecipesPage() {
   const toggleSaved = (slug: string) => setSaved((current) => { const next = new Set(current); if (next.has(slug)) next.delete(slug); else next.add(slug); return next; });
 
   return (
-    <div className="min-h-screen overflow-hidden bg-[#f8f4ec] font-['Inter'] text-[#2a1b13]">
+    <div className="co-recipes-page min-h-screen overflow-hidden bg-[#f8f4ec] font-['Inter'] text-[#2a1b13]">
       <ReferenceHeader />
       <main>
         <section className="relative min-h-[590px] overflow-hidden bg-[#f3eee4] md:min-h-[600px]">
@@ -71,4 +71,3 @@ export function ProductsUsed({products}:{products:RecipeItem["products"]}){retur
 export function DietaryVersions({items}:{items:RecipeItem["variations"]}){return <div className="rounded-[24px] border border-black/6 bg-white/55 p-4"><p className="text-[9px] font-semibold uppercase tracking-[.14em] text-[#214d2b]">Dietary versions</p><div className="mt-3 divide-y divide-black/6">{items.map((item,index)=><div key={item.name} className="flex w-full items-center gap-3 py-3 text-left"><span className="grid size-9 shrink-0 place-items-center rounded-full border border-[#214d2b]/18">{index===1?<Dumbbell size={15}/>:<Leaf size={15}/>}</span><span className="min-w-0 flex-1"><b className="block text-[10px]">{item.name}</b><span className="mt-1 block text-[8px] leading-4 text-[#72675e]">{item.detail}</span></span><ArrowRight size={12}/></div>)}</div></div>}
 
 function TrustStrip(){return <section className="border-y border-black/6 bg-white/42 px-4 py-5 md:px-8"><div className="mx-auto grid max-w-[1320px] grid-cols-2 gap-4 md:grid-cols-5">{[[Truck,"Free delivery","On orders over ₹699"],[ChefHat,"24/7 support","We're here anytime"],[ShieldCheck,"Hassle-free returns","14-day easy returns"],[ShoppingBag,"Secure payments","100% safe & secure"],[Leaf,"Sustainable packaging","Good for you, good for Earth"]].map(([Icon,title,body])=>{const I=Icon as typeof Truck;return <div key={String(title)} className="flex items-center gap-3"><span className="grid size-10 shrink-0 place-items-center rounded-full border border-[#214d2b]/18"><I size={17}/></span><span><b className="block text-[8px] uppercase">{String(title)}</b><span className="text-[8px] text-[#70665d]">{String(body)}</span></span></div>})}</div></section>}
-

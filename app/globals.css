@@ -48,6 +48,26 @@ body {
   overflow-x: hidden;
 }
 
+[data-image-error="true"] {
+  position: relative;
+  background: linear-gradient(145deg, #f8f4ec, #e7ecdf);
+}
+
+[data-image-error="true"]::after {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  color: #214d2b;
+  content: ".CO image unavailable";
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 :where(a, button, input, select, textarea):focus-visible {
   outline: 2px solid #c7a562;
   outline-offset: 3px;
@@ -71,6 +91,30 @@ button {
   select,
   textarea {
     font-size: 16px;
+  }
+
+  :where(button, a[aria-label]) {
+    min-height: 44px;
+  }
+
+  :where(button[aria-label], a[aria-label]) {
+    min-width: 44px;
+  }
+}
+
+@media (max-width: 767px) {
+  :where(.co-shop-page, .co-recipes-page, .co-sustainability-page, .co-journal-page) main > section:first-child,
+  :where(.co-shop-page, .co-recipes-page, .co-sustainability-page, .co-journal-page) main > section:first-child [class*="min-h-"] {
+    min-height: 480px !important;
+  }
+
+  .co-founders-page main > section:first-child,
+  .co-founders-page main > section:first-child [class*="min-h-"] {
+    min-height: 660px !important;
+  }
+
+  :where(.co-shop-page, .co-recipes-page, .co-sustainability-page, .co-journal-page, .co-founders-page) main > section {
+    scroll-margin-top: 96px;
   }
 }
 

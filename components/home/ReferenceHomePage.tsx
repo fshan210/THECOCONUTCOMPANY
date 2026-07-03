@@ -41,6 +41,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { CartButton } from "@/components/cart/CartDrawer";
 import { useCustomerSession } from "@/components/auth/CustomerAuthProvider";
 import { NewsletterForm } from "@/components/launch/NewsletterForm";
+import { CookiePreferencesButton } from "@/components/launch/CookiePreferencesButton";
 import { useCart } from "@/lib/cart/cart-context";
 import { getScrollTrigger, prefersReducedMotion } from "@/lib/animation/gsap-scrolltrigger";
 import type { ContentProduct, HomepageContent } from "@/lib/content/types";
@@ -176,6 +177,9 @@ export function ReferenceHeader() {
   return (
     <>
       <div className="h-[72px] md:h-[86px]" aria-hidden="true" />
+      <AnimatePresence>
+        {menuOpen ? <motion.button type="button" aria-label="Close mobile navigation" onClick={() => setMenuOpen(false)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] bg-[#211812]/18 backdrop-blur-[2px] lg:hidden" /> : null}
+      </AnimatePresence>
       <motion.header
         initial={false}
         animate={{ width: scrolled ? "min(1280px, calc(100% - 28px))" : "100%", top: scrolled ? 12 : 0, borderTopLeftRadius: scrolled ? 34 : 0, borderTopRightRadius: scrolled ? 34 : 0, borderBottomLeftRadius: scrolled ? 34 : 28, borderBottomRightRadius: scrolled ? 34 : 28, minHeight: scrolled ? 68 : 86, backgroundColor: scrolled ? "rgba(247,242,232,.76)" : "rgba(247,242,232,.96)", boxShadow: scrolled ? "0 20px 60px rgba(53,39,30,.14)" : "0 12px 36px rgba(53,39,30,.07)" }}
@@ -223,7 +227,7 @@ export function ReferenceHeader() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.98 }}
               transition={{ duration: 0.28, ease }}
-              className="absolute left-3 right-3 top-[calc(100%+8px)] rounded-[26px] border border-white/70 bg-[rgba(247,242,232,.96)] p-3 shadow-[0_24px_65px_rgba(53,39,30,.16)] backdrop-blur-[22px] lg:hidden"
+              className="absolute left-3 right-3 top-[calc(100%+8px)] max-h-[calc(100dvh-96px)] overflow-y-auto overscroll-contain rounded-[26px] border border-white/70 bg-[rgba(247,242,232,.96)] p-3 shadow-[0_24px_65px_rgba(53,39,30,.16)] backdrop-blur-[22px] [touch-action:pan-y] lg:hidden"
             >
               {links.map(([label, href]) => (
                 <Link
@@ -253,6 +257,7 @@ function MoreProductsDialog({ products, className }: { products: DisplayProduct[
   const [desktopPosition, setDesktopPosition] = useState({ top: 190, left: 24 });
   const triggerRef = useRef<HTMLButtonElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  useBodyScrollLock(open);
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 767px)");
@@ -267,7 +272,7 @@ function MoreProductsDialog({ products, className }: { products: DisplayProduct[
     if (!rect) return;
     const width = Math.min(820, window.innerWidth - 48);
     setDesktopPosition({
-      top: Math.min(rect.bottom + 18, window.innerHeight - 590),
+      top: Math.max(24, Math.min(rect.bottom + 18, window.innerHeight - 590)),
       left: Math.min(Math.max(24, rect.right - width + 110), window.innerWidth - width - 24)
     });
   };
@@ -282,17 +287,6 @@ function MoreProductsDialog({ products, className }: { products: DisplayProduct[
   useEffect(() => {
     contentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   }, [selected]);
-
-  useEffect(() => {
-    if (!open) return undefined;
-    const body = document.body;
-    const previousOverflow = body.style.overflow;
-    const previousPadding = body.style.paddingRight;
-    const scrollbar = Math.max(0, window.innerWidth - document.documentElement.clientWidth);
-    body.style.overflow = "hidden";
-    if (scrollbar) body.style.paddingRight = `${scrollbar}px`;
-    return () => { body.style.overflow = previousOverflow; body.style.paddingRight = previousPadding; };
-  }, [open]);
 
   const close = () => {
     setSelected(null);
@@ -1046,7 +1040,17 @@ export function ReferenceFooter() {
           <p className="mt-2 font-['Cormorant_Garamond'] text-2xl">Made for living.</p>
           <p className="mt-6 text-[11px] leading-5 text-[#685e54]">© 2026 .CO The Coconut Company.<br />All rights reserved.</p>
         </div>
-        <div className="grid grid-cols-3 gap-4 border-t border-[#35271e]/8 pt-6 md:gap-6 md:border-t-0 md:pt-0">
+        <div className="space-y-1 border-t border-[#35271e]/8 pt-4 md:hidden">
+          {columns.map((column) => (
+            <details key={column.title} className="group border-b border-[#35271e]/8 py-1">
+              <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between text-[10px] font-semibold uppercase">{column.title}<span className="text-lg font-normal transition group-open:rotate-45">+</span></summary>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-1 pb-4">
+                {column.links.map((label) => <Link key={label} href={footerLink(label)} className="flex min-h-11 items-center text-[11px] text-[#655b52]">{label}</Link>)}
+              </div>
+            </details>
+          ))}
+        </div>
+        <div className="hidden grid-cols-3 gap-4 md:grid md:gap-6">
           {columns.map((column) => (
             <div key={column.title}>
               <p className="text-[10px] font-semibold uppercase">{column.title}</p>
@@ -1064,6 +1068,7 @@ export function ReferenceFooter() {
           <p className="text-[10px] font-semibold uppercase">Stay connected</p>
           <p className="mt-4 text-[11px] leading-5 text-[#655b52]">Get updates on new products, recipes & more.</p>
           <NewsletterForm compact className="mt-5" />
+          <CookiePreferencesButton className="mt-3 min-h-11 text-[10px] font-semibold underline underline-offset-4 text-[#655b52] transition hover:text-[#305a34]" />
           <div className="mt-5 flex gap-2">
             <a href="https://www.instagram.com/cothecoconutcompany" target="_blank" rel="noreferrer" aria-label="Instagram" className="grid size-9 place-items-center rounded-full border border-[#35271e]/12">
               <Instagram size={15} />

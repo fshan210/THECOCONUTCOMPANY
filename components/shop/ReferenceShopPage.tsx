@@ -30,7 +30,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import { useCart } from "@/lib/cart/cart-context";
 import { cn } from "@/lib/utils";
+import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
 import { MobileBottomNav, NewsletterSection, ReferenceFooter, ReferenceHeader } from "@/components/home/ReferenceHomePage";
+import { StatePanel } from "@/components/launch/StatePanel";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const imageRoot = "/assets/shop/products";
@@ -151,7 +153,7 @@ export function ReferenceShopPage() {
   const toggleWishlist = (slug: string) => setWishlist((current) => { const next = new Set(current); if (next.has(slug)) next.delete(slug); else next.add(slug); return next; });
 
   return (
-    <div className="min-h-screen overflow-x-clip bg-[#f8f4ec] font-['Inter'] text-[#2a1b13]">
+    <div className="co-shop-page min-h-screen overflow-x-clip bg-[#f8f4ec] font-['Inter'] text-[#2a1b13]">
       <ReferenceHeader />
       <main>
         <section className="relative min-h-[520px] overflow-hidden bg-[#f3eee4] md:min-h-[540px]">
@@ -166,9 +168,9 @@ export function ReferenceShopPage() {
 
         <section id="all-products" className="px-4 py-8 md:px-8 md:py-12">
           <div className="mx-auto max-w-[1320px]">
-            <div className="relative z-[140] mb-6 flex items-center gap-4 overflow-visible rounded-[22px] border border-black/6 bg-white/48 p-3 shadow-[0_12px_40px_rgba(42,27,19,.04)] backdrop-blur-xl">
+            <div className="sticky top-[90px] z-[70] mb-6 flex items-center gap-4 overflow-visible rounded-[22px] border border-black/6 bg-[rgba(255,255,255,.88)] p-3 shadow-[0_12px_40px_rgba(42,27,19,.08)] backdrop-blur-xl md:top-[98px] md:bg-white/72">
               <div className="relative min-w-0 flex-1"><Search className="absolute left-4 top-1/2 -translate-y-1/2" size={16} /><input value={search} onChange={(event) => { setSearch(event.target.value); setActiveSuggestion(0); }} onFocus={() => setSearchFocused(true)} onBlur={() => window.setTimeout(() => setSearchFocused(false), 150)} onKeyDown={(event) => { if (event.key === "Escape") setSearchFocused(false); if (event.key === "ArrowDown") { event.preventDefault(); setActiveSuggestion((value) => Math.min(value + 1, Math.max(0, suggestions.length - 1))); } if (event.key === "ArrowUp") { event.preventDefault(); setActiveSuggestion((value) => Math.max(value - 1, 0)); } if (event.key === "Enter" && suggestions[activeSuggestion]) { setSearch(suggestions[activeSuggestion].name); setSearchFocused(false); } }} placeholder="Search .CO products" aria-label="Search products" role="combobox" aria-autocomplete="list" aria-expanded={searchFocused} aria-controls="shop-search-results" className="h-11 w-full rounded-full bg-[#f8f4ec] pl-11 pr-4 text-xs outline-none" />
-                <AnimatePresence>{searchFocused && <motion.div id="shop-search-results" role="listbox" initial={{opacity:0,y:-6}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-6}} className="absolute left-0 right-0 top-[calc(100%+8px)] z-[220] rounded-[20px] border border-white/70 bg-[rgba(248,244,236,.98)] p-2 shadow-[0_28px_80px_rgba(42,27,19,.24)] backdrop-blur-2xl"><p className="px-3 py-2 text-[9px] font-semibold uppercase text-[#75695f]">{search ? "Suggestions" : "Popular products"}</p>{(search ? suggestions : products.slice(0,4)).map((item,index)=><button type="button" role="option" aria-selected={activeSuggestion===index} key={item.slug} onMouseDown={(event)=>{event.preventDefault();setSearch(item.name);setSearchFocused(false);}} className={cn("flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-xs",activeSuggestion===index&&"bg-white/75")}><span className="relative size-10 overflow-hidden rounded-lg"><ProductImage product={item} sizes="40px" /></span>{item.name}</button>)}</motion.div>}</AnimatePresence>
+                <AnimatePresence>{searchFocused && <motion.div id="shop-search-results" role="listbox" initial={{opacity:0,y:-6}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-6}} className="absolute left-0 right-0 top-[calc(100%+8px)] z-[80] max-h-[min(60dvh,420px)] overflow-y-auto overscroll-contain rounded-[20px] border border-white/70 bg-[rgba(248,244,236,.98)] p-2 shadow-[0_28px_80px_rgba(42,27,19,.24)] backdrop-blur-2xl [touch-action:pan-y]"><p className="px-3 py-2 text-[9px] font-semibold uppercase text-[#75695f]">{search ? "Suggestions" : "Popular products"}</p>{(search ? suggestions : products.slice(0,4)).map((item,index)=><button type="button" role="option" aria-selected={activeSuggestion===index} key={item.slug} onMouseDown={(event)=>{event.preventDefault();setSearch(item.name);setSearchFocused(false);}} className={cn("flex min-h-12 w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-xs",activeSuggestion===index&&"bg-white/75")}><span className="relative size-10 overflow-hidden rounded-lg"><ProductImage product={item} sizes="40px" /></span>{item.name}</button>)}</motion.div>}</AnimatePresence>
               </div>
               <button type="button" onClick={() => setFiltersOpen(true)} className="inline-flex h-11 items-center gap-2 rounded-full border border-black/8 px-4 text-[10px] font-semibold uppercase md:hidden"><SlidersHorizontal size={15} /> Filters</button>
               <div className="relative hidden md:block"><button type="button" onClick={() => setSortOpen((value)=>!value)} className="inline-flex h-11 min-w-[180px] items-center justify-between rounded-full bg-[#f8f4ec] px-5 text-[10px] font-semibold uppercase">Sort by: <span className="normal-case font-normal">{sort}</span><ChevronDown size={14} /></button><SortMenu open={sortOpen} setOpen={setSortOpen} value={sort} onChange={setSort} /></div>
@@ -180,7 +182,7 @@ export function ReferenceShopPage() {
               <aside className="sticky top-24 hidden rounded-[24px] border border-black/6 bg-white/52 p-4 shadow-[0_18px_50px_rgba(42,27,19,.05)] backdrop-blur-xl md:block"><FilterContent category={category} setCategory={setCategory} maxPrice={maxPrice} setMaxPrice={setMaxPrice} dietary={dietary} toggleDietary={(value)=>toggleSet(setDietary,value)} collections={collections} toggleCollection={(value)=>toggleSet(setCollections,value)} /></aside>
               <div><div className="mb-5 flex items-center justify-between"><p className="text-xs text-[#665b52]">Showing <motion.span key={visible.length} initial={{opacity:0,y:4}} animate={{opacity:1,y:0}} className="inline-block font-semibold text-[#214d2b]">{visible.length}</motion.span> of {products.length} products</p><div className="relative md:hidden"><button type="button" onClick={()=>setSortOpen((value)=>!value)} className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase">Sort by: <span className="normal-case font-normal">{sort}</span><ChevronDown size={13}/></button><SortMenu open={sortOpen} setOpen={setSortOpen} value={sort} onChange={setSort} /></div></div>
                 <motion.div layout className="grid grid-cols-2 gap-3 lg:grid-cols-4">{visible.map((product,index)=><ProductCard key={product.slug} product={product} index={index} quantity={quantities[product.slug]??1} setQuantity={(value)=>setQuantities((current)=>({...current,[product.slug]:value}))} wished={wishlist.has(product.slug)} toggleWishlist={()=>toggleWishlist(product.slug)} onQuickView={()=>setQuickView(product)} onAdd={()=>addProduct(product)} />)}</motion.div>
-                {!visible.length && <div className="rounded-[28px] border border-black/6 bg-white/50 px-6 py-20 text-center"><p className="font-['Cormorant_Garamond'] text-3xl">No products match these filters.</p><button type="button" onClick={()=>{setCategory("All Products");setDietary(new Set());setCollections(new Set());setMaxPrice(1000);setSearch("");}} className="mt-5 rounded-full bg-[#214d2b] px-6 py-3 text-xs font-semibold uppercase text-white">Reset filters</button></div>}
+                {!visible.length && <StatePanel kind="empty" eyebrow="Nothing matched" title="No products found." body="Try a broader category or clear the current search and filter choices." onPrimary={{label:"Reset filters",action:()=>{setCategory("All Products");setDietary(new Set());setCollections(new Set());setMaxPrice(1000);setSearch("");}}} secondary={{label:"Browse recipes",href:"/recipes"}} />}
               </div>
             </div>
           </div>
@@ -196,7 +198,7 @@ export function ReferenceShopPage() {
       <ReferenceFooter />
       <MobileBottomNav />
 
-      <Dialog.Root open={filtersOpen} onOpenChange={setFiltersOpen}><AnimatePresence>{filtersOpen&&<Dialog.Portal forceMount><Dialog.Overlay asChild><motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="fixed inset-0 z-[150] bg-black/30 backdrop-blur-sm"/></Dialog.Overlay><Dialog.Content asChild><motion.div initial={{x:"100%"}} animate={{x:0}} exit={{x:"100%"}} transition={{duration:.4,ease}} className="fixed inset-y-0 right-0 z-[160] w-[min(88vw,390px)] overflow-y-auto bg-[#f8f4ec] p-6 shadow-[-24px_0_70px_rgba(42,27,19,.2)]"><div className="mb-7 flex items-center justify-between"><Dialog.Title className="font-['Cormorant_Garamond'] text-3xl">Filters</Dialog.Title><Dialog.Close aria-label="Close dialog" className="grid size-10 place-items-center rounded-full border border-black/8"><X size={18}/></Dialog.Close></div><FilterContent category={category} setCategory={setCategory} maxPrice={maxPrice} setMaxPrice={setMaxPrice} dietary={dietary} toggleDietary={(value)=>toggleSet(setDietary,value)} collections={collections} toggleCollection={(value)=>toggleSet(setCollections,value)} /><Dialog.Close className="sticky bottom-3 mt-8 min-h-12 w-full rounded-full bg-[#214d2b] text-xs font-semibold uppercase text-white">Show {visible.length} products</Dialog.Close></motion.div></Dialog.Content></Dialog.Portal>}</AnimatePresence></Dialog.Root>
+      <Dialog.Root open={filtersOpen} onOpenChange={setFiltersOpen}><AnimatePresence>{filtersOpen&&<Dialog.Portal forceMount><Dialog.Overlay asChild><motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="fixed inset-0 z-[150] bg-black/30 backdrop-blur-sm"/></Dialog.Overlay><Dialog.Content asChild><motion.div initial={{x:"100%"}} animate={{x:0}} exit={{x:"100%"}} transition={{duration:.4,ease}} className="fixed inset-y-0 right-0 z-[160] max-h-[100dvh] w-[min(88vw,390px)] overflow-y-auto overscroll-contain bg-[#f8f4ec] p-6 shadow-[-24px_0_70px_rgba(42,27,19,.2)] [scrollbar-gutter:stable] [touch-action:pan-y]"><div className="mb-7 flex items-center justify-between"><Dialog.Title className="font-['Cormorant_Garamond'] text-3xl">Filters</Dialog.Title><Dialog.Close aria-label="Close filters" className="grid size-11 place-items-center rounded-full border border-black/8"><X size={18}/></Dialog.Close></div><FilterContent category={category} setCategory={setCategory} maxPrice={maxPrice} setMaxPrice={setMaxPrice} dietary={dietary} toggleDietary={(value)=>toggleSet(setDietary,value)} collections={collections} toggleCollection={(value)=>toggleSet(setCollections,value)} /><Dialog.Close className="sticky bottom-3 mt-8 min-h-12 w-full rounded-full bg-[#214d2b] text-xs font-semibold uppercase text-white">Show {visible.length} products</Dialog.Close></motion.div></Dialog.Content></Dialog.Portal>}</AnimatePresence></Dialog.Root>
       <QuickView product={quickView} open={Boolean(quickView)} onOpenChange={(open)=>!open&&setQuickView(null)} quantity={quickView?quantities[quickView.slug]??1:1} setQuantity={(value)=>quickView&&setQuantities((current)=>({...current,[quickView.slug]:value}))} wished={quickView?wishlist.has(quickView.slug):false} toggleWishlist={()=>quickView&&toggleWishlist(quickView.slug)} onAdd={()=>quickView&&addProduct(quickView)} />
     </div>
   );
@@ -211,16 +213,7 @@ function ProductCard({ product, index, quantity, setQuantity, wished, toggleWish
 }
 
 function useDialogScrollLock(open:boolean){
-  useEffect(()=>{
-    if(!open)return;
-    const body=document.body;
-    const previousOverflow=body.style.overflow;
-    const previousPadding=body.style.paddingRight;
-    const scrollbar=Math.max(0,window.innerWidth-document.documentElement.clientWidth);
-    body.style.overflow="hidden";
-    if(scrollbar)body.style.paddingRight=`${scrollbar}px`;
-    return()=>{body.style.overflow=previousOverflow;body.style.paddingRight=previousPadding;};
-  },[open]);
+  useBodyScrollLock(open);
 }
 
 function QuickView({ product, open, onOpenChange, quantity, setQuantity, wished, toggleWishlist, onAdd }: { product:Product|null; open:boolean; onOpenChange:(open:boolean)=>void; quantity:number; setQuantity:(value:number)=>void; wished:boolean; toggleWishlist:()=>void; onAdd:()=>void }) {
