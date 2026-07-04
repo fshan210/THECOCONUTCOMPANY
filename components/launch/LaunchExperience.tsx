@@ -79,6 +79,11 @@ export function LaunchExperience() {
     setPreferencesOpen(false);
   };
 
+  const setWelcomeState = (open: boolean) => {
+    setWelcomeOpen(open);
+    if (!open && !claimed) window.localStorage.setItem(welcomeKey, "dismissed");
+  };
+
   return (
     <>
       <AnimatePresence>{!online ? <motion.aside initial={{opacity:0,y:-16}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-16}} role="status" className="fixed left-3 right-3 top-3 z-[260] mx-auto flex max-w-[620px] items-center gap-3 rounded-[18px] border border-white/70 bg-[#214d2b] p-3 text-white shadow-2xl"><span className="grid size-10 shrink-0 place-items-center rounded-full bg-white/12"><WifiOff size={17}/></span><p className="min-w-0 flex-1 text-xs leading-5">You’re offline. Saved choices remain on this device.</p><Link href="/offline" className="inline-flex min-h-11 items-center rounded-full bg-white px-4 text-[9px] font-semibold uppercase text-[#214d2b]">Offline help</Link></motion.aside> : null}</AnimatePresence>
@@ -113,7 +118,7 @@ export function LaunchExperience() {
         </Dialog.Portal>
       </Dialog.Root>
 
-      <Dialog.Root open={welcomeOpen} onOpenChange={setWelcomeOpen}>
+      <Dialog.Root open={welcomeOpen} onOpenChange={setWelcomeState}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-[225] bg-[#211812]/42 backdrop-blur-[7px]" />
           <Dialog.Content className="fixed left-1/2 top-1/2 z-[230] max-h-[calc(100dvh-24px)] w-[min(92vw,780px)] -translate-x-1/2 -translate-y-1/2 overflow-y-auto overscroll-contain rounded-[30px] border border-white/70 bg-[#f8f4ec] shadow-[0_38px_120px_rgba(22,15,10,.34)] [touch-action:pan-y] focus:outline-none md:grid md:grid-cols-[.88fr_1.12fr]">

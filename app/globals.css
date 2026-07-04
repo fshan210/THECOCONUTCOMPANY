@@ -103,18 +103,117 @@ button {
 }
 
 @media (max-width: 767px) {
-  :where(.co-shop-page, .co-recipes-page, .co-sustainability-page, .co-journal-page) main > section:first-child,
-  :where(.co-shop-page, .co-recipes-page, .co-sustainability-page, .co-journal-page) main > section:first-child [class*="min-h-"] {
+  :where(.co-shop-page, .co-recipes-page, .co-sustainability-page) main > section:first-child {
     min-height: 480px !important;
   }
 
-  .co-founders-page main > section:first-child,
-  .co-founders-page main > section:first-child [class*="min-h-"] {
-    min-height: 660px !important;
+  .co-founders-page main > section:first-child {
+    min-height: 570px !important;
+  }
+
+  .co-journal-page main > section:first-child {
+    min-height: 500px !important;
   }
 
   :where(.co-shop-page, .co-recipes-page, .co-sustainability-page, .co-journal-page, .co-founders-page) main > section {
     scroll-margin-top: 96px;
+  }
+
+  .co-about-page > section {
+    scroll-margin-top: 96px;
+  }
+
+  .co-about-page > section:nth-of-type(n+3) {
+    padding-top: 36px;
+    padding-bottom: 36px;
+  }
+
+  :where(.co-shop-page, .co-recipes-page, .co-sustainability-page) main > section:first-child > div:first-of-type {
+    background: linear-gradient(90deg, rgba(248, 244, 236, .99) 0%, rgba(248, 244, 236, .91) 46%, rgba(248, 244, 236, .08) 78%, transparent 100%) !important;
+  }
+
+  :where(.co-shop-page, .co-recipes-page, .co-sustainability-page) main > section:first-child h1 {
+    max-width: 8ch;
+    font-size: 39px !important;
+    line-height: .91 !important;
+    letter-spacing: -.035em !important;
+  }
+
+  :where(.co-shop-page, .co-recipes-page, .co-sustainability-page) main > section:first-child h1 + p {
+    max-width: 180px;
+    font-size: 11px;
+    line-height: 1.75;
+  }
+
+  :where(.co-shop-page, .co-recipes-page, .co-sustainability-page) main > section:first-child img {
+    object-position: 68% center !important;
+  }
+
+  .co-sustainability-page main > section:nth-child(2) > div {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
+    overflow: visible;
+  }
+
+  .co-sustainability-page main > section:nth-child(2) button {
+    min-width: 0 !important;
+    padding-inline: 4px;
+  }
+
+  .co-founders-page main > section:first-child h1 {
+    font-size: 38px !important;
+    line-height: .92 !important;
+  }
+
+  .co-founders-page main > section:first-child > div:first-child {
+    height: 260px !important;
+  }
+
+  .co-founders-page main > section:first-child > div:nth-of-type(3) {
+    min-height: 570px !important;
+    padding-top: 32px !important;
+    padding-bottom: 255px !important;
+  }
+
+  .co-founders-page #founders article {
+    grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+    min-height: 330px;
+  }
+
+  .co-founders-page #founders article > div:first-child {
+    min-height: 330px;
+  }
+
+  .co-founders-page #founders article > div:last-child {
+    padding: 18px 14px;
+  }
+
+  .co-founders-page #founders article h3 {
+    font-size: 28px;
+  }
+
+  :where(.co-shop-page, .co-recipes-page, .co-sustainability-page) main > section:nth-child(n+3),
+  :where(.co-founders-page, .co-journal-page) main > section:nth-child(n+2) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .co-journal-page main > section:first-child h1 {
+    max-width: 8ch;
+    font-size: 42px !important;
+    line-height: .91 !important;
+  }
+
+  .co-journal-page main > section:first-child > div:nth-of-type(3) {
+    background: linear-gradient(90deg, rgba(248, 244, 236, .99) 0%, rgba(248, 244, 236, .9) 50%, rgba(248, 244, 236, .08) 82%, transparent 100%) !important;
+  }
+
+  .co-journal-page main > section:first-child > div:nth-of-type(2) {
+    right: -28px !important;
+    top: 145px !important;
+    width: 235px !important;
+    height: 315px !important;
   }
 }
 

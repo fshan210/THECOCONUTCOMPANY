@@ -123,19 +123,19 @@ function AboutHero() {
   }, []);
 
   return (
-    <section ref={heroRef} className="relative isolate min-h-[680px] overflow-hidden bg-[#f7f2e8] md:min-h-[565px]">
+    <section ref={heroRef} className="relative isolate min-h-[520px] overflow-hidden bg-[#f7f2e8] md:min-h-[565px]">
       <div ref={imageRef} className="absolute inset-0">
-        <Image src="/assets/about/co-about-hero-editorial-4k.avif" alt=".CO coconut water and Melt.CO with fresh coconut in morning light" fill priority sizes="100vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-cover object-[53%_center] md:object-center" />
+        <Image src="/assets/about/co-about-hero-editorial-4k.avif" alt=".CO coconut water and Melt.CO with fresh coconut in morning light" fill priority sizes="100vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-cover object-[65%_center] md:object-center" />
       </div>
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(247,242,232,.98)_0%,rgba(247,242,232,.88)_45%,rgba(247,242,232,.05)_76%)] max-md:bg-[linear-gradient(180deg,rgba(247,242,232,.94)_0%,rgba(247,242,232,.72)_48%,rgba(247,242,232,.02)_75%)]" />
-      <div className="relative z-10 mx-auto max-w-[1500px] px-5 pb-10 pt-10 md:px-[clamp(48px,6vw,92px)] md:py-16">
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(247,242,232,.98)_0%,rgba(247,242,232,.9)_47%,rgba(247,242,232,.08)_78%)] md:bg-[linear-gradient(90deg,rgba(247,242,232,.98)_0%,rgba(247,242,232,.88)_45%,rgba(247,242,232,.05)_76%)]" />
+      <div className="relative z-10 mx-auto max-w-[1500px] px-5 pb-8 pt-7 md:px-[clamp(48px,6vw,92px)] md:py-16">
         <div className="max-w-[520px]">
           <p data-about-reveal className="text-[10px] font-semibold uppercase tracking-[.14em] text-[#305a34]">Our Story</p>
-          <h1 data-about-reveal className="mt-4 max-w-[12ch] font-['Cormorant_Garamond'] text-[48px] leading-[.88] tracking-[-.035em] text-[#17120e] md:text-[68px]">Rooted in nature.<br />Made for <em className="font-normal text-[#305a34]">living.</em></h1>
-          <p data-about-reveal className="mt-6 max-w-[380px] text-sm leading-7 text-[#37302a] md:text-[15px]">At .CO, we craft premium coconut products that nourish you and care for our planet. Pure, simple, honest—just as nature intended.</p>
+          <h1 data-about-reveal className="mt-3 max-w-[8ch] font-['Cormorant_Garamond'] text-[38px] leading-[.92] tracking-[-.035em] text-[#17120e] md:mt-4 md:max-w-[12ch] md:text-[68px] md:leading-[.88]">Rooted in nature.<br />Made for <em className="font-normal text-[#305a34]">living.</em></h1>
+          <p data-about-reveal className="mt-5 max-w-[165px] text-[11px] leading-5 text-[#37302a] md:mt-6 md:max-w-[380px] md:text-[15px] md:leading-7">At .CO, we craft premium coconut products that nourish you and care for our planet. Pure, simple, honest—just as nature intended.</p>
           <div data-about-reveal className="mt-7 flex flex-wrap gap-3">
-            <Link href="#our-journey" className="co-primary-cta group inline-flex min-h-12 items-center gap-5 rounded-full bg-[#304f2c] px-6 text-[10px] font-semibold text-white shadow-[0_14px_32px_rgba(48,79,44,.22)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(48,79,44,.3)]">Our Journey <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" /></Link>
-            <Link href="#our-promise" className="group inline-flex min-h-12 items-center gap-3 rounded-full border border-[#35271e]/20 bg-white/34 px-5 text-[10px] font-semibold backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-white/60"><span className="grid size-7 place-items-center rounded-full border border-[#35271e]/20"><Play size={11} fill="currentColor" /></span> Watch our story</Link>
+            <Link href="#our-journey" className="co-primary-cta group inline-flex min-h-11 items-center gap-4 rounded-full bg-[#304f2c] px-5 text-[9px] font-semibold text-white shadow-[0_14px_32px_rgba(48,79,44,.22)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(48,79,44,.3)] md:min-h-12 md:gap-5 md:px-6 md:text-[10px]">Our Journey <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" /></Link>
+            <Link href="#our-promise" className="group inline-flex min-h-11 items-center gap-2 rounded-full border border-[#35271e]/20 bg-white/34 px-4 text-[9px] font-semibold backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-white/60 md:min-h-12 md:gap-3 md:px-5 md:text-[10px]"><span className="grid size-7 place-items-center rounded-full border border-[#35271e]/20"><Play size={11} fill="currentColor" /></span> Watch our story</Link>
           </div>
         </div>
       </div>
@@ -194,8 +194,9 @@ function ZeroWasteTree() {
             <Link href="/sustainability" className="flex min-h-12 items-center justify-center gap-3 rounded-full border border-[#305a34]/22 bg-white/48 text-[9px] font-semibold md:hidden">Our Sustainability Approach <ArrowRight size={13} /></Link>
           </div>
 
-          <div className="relative order-1 mx-auto aspect-[941/1672] w-full max-w-[520px] overflow-hidden rounded-[24px] md:order-2 md:overflow-visible md:rounded-none">
-            <Image src="/assets/about/co-zero-waste-coconut-split.png" alt="A deconstructed coconut showing how every layer becomes useful food, drink and natural materials" fill sizes="(min-width:768px) 42vw, 94vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="rounded-[24px] object-cover" />
+          <div className="relative order-1 mx-auto aspect-square w-full max-w-[520px] overflow-hidden rounded-[24px] md:order-2 md:aspect-[941/1672] md:overflow-visible md:rounded-none">
+            <Image src="/assets/about/co-zero-waste-palm-editorial-4k.avif" alt="A coconut palm showing how every part becomes useful food, drink and natural materials" fill sizes="94vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="rounded-[24px] object-cover md:hidden" />
+            <Image src="/assets/about/co-zero-waste-coconut-split.png" alt="A deconstructed coconut showing how every layer becomes useful food, drink and natural materials" fill sizes="42vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="hidden rounded-[24px] object-cover md:block" />
             <div className="absolute inset-0 rounded-[24px] ring-1 ring-inset ring-white/60" />
             <svg aria-hidden="true" viewBox="0 0 100 125" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 z-[5] h-full w-full text-[#305a34]/28">
               <path d="M0 54 H39" stroke="currentColor" strokeWidth=".35" strokeDasharray="1 1" />
@@ -434,7 +435,7 @@ function MobileServiceList() {
 
 export function ReferenceAboutPage() {
   return (
-    <div className="min-h-screen overflow-hidden bg-[#f7f2e8] font-['Inter'] text-[#35271e]">
+    <div className="co-about-page min-h-screen overflow-hidden bg-[#f7f2e8] font-['Inter'] text-[#35271e]">
       <ReferenceHeader />
       <AboutHero />
       <StatsAndQuote />
