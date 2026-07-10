@@ -8,6 +8,7 @@
     "typecheck": "tsc --noEmit --incremental false",
     "start": "next start",
     "lint": "eslint .",
+    "optimize:images": "node scripts/optimize-images.js",
     "assets:optimize": "node scripts/optimize-assets.mjs",
     "assets:transparent": "node scripts/create-transparent-assets.mjs",
     "favicons:generate": "node scripts/generate-favicons.mjs",
