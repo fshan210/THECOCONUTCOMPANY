@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ResponsiveImage as Image } from "@/components/media/ResponsiveImage";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, ChefHat, Clock3, Heart, Printer, Share2, Timer, UtensilsCrossed } from "lucide-react";

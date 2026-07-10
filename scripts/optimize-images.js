@@ -3,14 +3,31 @@
 const fs = require("node:fs/promises");
 const { existsSync } = require("node:fs");
 const path = require("node:path");
+const crypto = require("node:crypto");
 const sharp = require("sharp");
 
 const projectRoot = process.cwd();
-const sourceRoot = path.join(projectRoot, "public", "assets");
-const outputRoot = path.join(sourceRoot, "_optimized");
-const supportedExtensions = new Set([".jpg", ".jpeg", ".png"]);
-const minimumBytes = 180 * 1024;
-const minimumDimension = 560;
+const publicRoot = path.join(projectRoot, "public");
+const sourceRoots = [path.join(publicRoot, "assets"), path.join(publicRoot, "images")];
+const referenceRoots = [
+  path.join(projectRoot, "app"),
+  path.join(projectRoot, "components"),
+  path.join(projectRoot, "data"),
+  path.join(projectRoot, "lib")
+];
+const outputRoot = path.join(publicRoot, "assets-optimized");
+const generatedRoot = path.join(projectRoot, "lib", "generated");
+const manifestPath = path.join(generatedRoot, "optimized-image-manifest.json");
+const inventoryPath = path.join(generatedRoot, "image-inventory.json");
+const supportedExtensions = new Set([".jpg", ".jpeg", ".png", ".avif", ".webp"]);
+const rasterExtensions = new Set([".jpg", ".jpeg", ".png", ".avif", ".webp"]);
+const referenceExtensions = new Set([".ts", ".tsx", ".js", ".jsx", ".json", ".md", ".mdx"]);
+const minimumBytes = 42 * 1024;
+const variantWidths = [
+  ["mobile", 828],
+  ["tablet", 1280],
+  ["desktop", 1920]
+];
 
 const args = new Set(process.argv.slice(2));
 const force = args.has("--force");
@@ -18,6 +35,10 @@ const dryRun = args.has("--dry-run");
 
 function toUnixPath(value) {
   return value.split(path.sep).join("/");
+}
+
+function webPath(file) {
+  return `/${toUnixPath(path.relative(publicRoot, file))}`;
 }
 
 function formatBytes(bytes) {
@@ -28,153 +49,243 @@ function formatBytes(bytes) {
 
 async function walk(directory) {
   if (!existsSync(directory)) return [];
-
   const entries = await fs.readdir(directory, { withFileTypes: true });
   const files = [];
 
   for (const entry of entries) {
-    if (entry.name.startsWith(".") || entry.name === "_optimized") continue;
-
+    if (entry.name.startsWith(".") || entry.name === "_optimized" || entry.name === "assets-optimized") continue;
     const fullPath = path.join(directory, entry.name);
-    if (entry.isDirectory()) {
-      files.push(...(await walk(fullPath)));
-      continue;
-    }
-
-    if (entry.isFile() && supportedExtensions.has(path.extname(entry.name).toLowerCase())) {
-      files.push(fullPath);
-    }
+    if (entry.isDirectory()) files.push(...(await walk(fullPath)));
+    else if (entry.isFile() && rasterExtensions.has(path.extname(entry.name).toLowerCase())) files.push(fullPath);
   }
 
   return files;
 }
 
-function outputPathsFor(file) {
-  const relative = path.relative(sourceRoot, file);
-  const parsed = path.parse(relative);
-  const safeName = parsed.name.replace(/\s+/g, "-").replace(/[^a-zA-Z0-9._-]/g, "-");
-  const outputDirectory = path.join(outputRoot, parsed.dir);
+async function walkReferences(directory) {
+  if (!existsSync(directory)) return [];
+  const entries = await fs.readdir(directory, { withFileTypes: true });
+  const files = [];
 
+  for (const entry of entries) {
+    if (entry.name.startsWith(".") || entry.name === "node_modules" || entry.name === ".next") continue;
+    const fullPath = path.join(directory, entry.name);
+    const relative = toUnixPath(path.relative(projectRoot, fullPath));
+    if (relative.startsWith("lib/generated/") || relative === "lib/public-assets.ts") continue;
+    if (entry.isDirectory()) files.push(...(await walkReferences(fullPath)));
+    else if (entry.isFile() && referenceExtensions.has(path.extname(entry.name).toLowerCase())) files.push(fullPath);
+  }
+
+  return files;
+}
+
+function slugFor(file) {
+  const relative = path.relative(publicRoot, file);
+  const parsed = path.parse(relative);
+  const safeDir = parsed.dir.replace(/^assets\/?/, "").replace(/^images\/?/, "images/");
+  const safeName = parsed.name.replace(/\s+/g, "-").replace(/[^a-zA-Z0-9._-]/g, "-");
+  return { safeDir, safeName };
+}
+
+function outputPathFor(file, variant, format, hash) {
+  const { safeDir, safeName } = slugFor(file);
+  const version = hash.slice(0, 10);
+  return path.join(outputRoot, safeDir, `${safeName}-${version}-${variant}.${format}`);
+}
+
+function recommendedFormat(metadata, ext) {
+  if (metadata.hasAlpha || ext === ".png" && metadata.channels === 4) return "avif-with-png-original-fallback";
+  if (metadata.width && metadata.width < 700 && ext === ".png") return "png-or-avif";
+  return "avif-with-jpeg-fallback";
+}
+
+function recommendedWidths(metadata) {
+  const width = metadata.width || 0;
   return {
-    outputDirectory,
-    jpg: path.join(outputDirectory, `${safeName}.jpg`),
-    webp: path.join(outputDirectory, `${safeName}.webp`),
-    avif: path.join(outputDirectory, `${safeName}.avif`)
+    mobile: Math.min(width || 828, 828),
+    tablet: Math.min(width || 1280, 1280),
+    desktop: Math.min(width || 1920, 1920)
   };
+}
+
+async function fileHash(file) {
+  const buffer = await fs.readFile(file);
+  return crypto.createHash("sha1").update(buffer).digest("hex");
+}
+
+async function loadReferenceIndex() {
+  const files = (await Promise.all(referenceRoots.map(walkReferences))).flat();
+  const references = [];
+
+  for (const file of files) {
+    references.push({
+      path: toUnixPath(path.relative(projectRoot, file)),
+      text: await fs.readFile(file, "utf8")
+    });
+  }
+
+  return references;
+}
+
+function findUsage(webAssetPath, referenceIndex) {
+  const withoutLeadingSlash = webAssetPath.replace(/^\//, "");
+  const basename = path.basename(webAssetPath);
+  return [
+    ...new Set(
+      referenceIndex
+        .filter((reference) => reference.text.includes(webAssetPath) || reference.text.includes(withoutLeadingSlash) || reference.text.includes(basename))
+        .map((reference) => reference.path)
+    )
+  ].sort();
 }
 
 async function isCurrent(source, targets) {
   if (force) return false;
-
   const sourceStats = await fs.stat(source);
-
   for (const target of targets) {
     if (!existsSync(target)) return false;
     const targetStats = await fs.stat(target);
     if (targetStats.mtimeMs < sourceStats.mtimeMs) return false;
   }
-
   return true;
 }
 
-async function optimize(file) {
-  const inputStats = await fs.stat(file);
-  if (inputStats.size < minimumBytes) return null;
-
-  const image = sharp(file, { animated: false }).rotate();
-  const metadata = await image.metadata();
+async function optimize(file, referenceIndex) {
+  const ext = path.extname(file).toLowerCase();
+  const stats = await fs.stat(file);
+  const metadata = await sharp(file, { animated: false }).metadata();
   const width = metadata.width || 0;
   const height = metadata.height || 0;
-
-  if (Math.max(width, height) < minimumDimension) return null;
-
-  const maxWidth = Math.min(width || 1920, 1920);
-  const outputs = outputPathsFor(file);
-  const targetPaths = [outputs.jpg, outputs.webp, outputs.avif];
-
-  if (await isCurrent(file, targetPaths)) {
-    return {
-      source: toUnixPath(path.relative(projectRoot, file)),
-      skipped: "current",
-      original: inputStats.size,
-      outputs: targetPaths.map((target) => toUnixPath(path.relative(projectRoot, target)))
-    };
-  }
-
-  if (dryRun) {
-    return {
-      source: toUnixPath(path.relative(projectRoot, file)),
-      skipped: "dry-run",
-      original: inputStats.size,
-      width,
-      height,
-      outputs: targetPaths.map((target) => toUnixPath(path.relative(projectRoot, target)))
-    };
-  }
-
-  await fs.mkdir(outputs.outputDirectory, { recursive: true });
-
-  const resized = sharp(file, { animated: false })
-    .rotate()
-    .resize({ width: maxWidth, withoutEnlargement: true });
-
-  await Promise.all([
-    resized.clone().jpeg({ quality: 84, mozjpeg: true, progressive: true }).toFile(outputs.jpg),
-    resized.clone().webp({ quality: 82, effort: 5 }).toFile(outputs.webp),
-    resized.clone().avif({ quality: 62, effort: 5 }).toFile(outputs.avif)
-  ]);
-
-  const generated = await Promise.all(
-    targetPaths.map(async (target) => {
-      const stats = await fs.stat(target);
-      return {
-        path: toUnixPath(path.relative(projectRoot, target)),
-        size: stats.size
-      };
-    })
-  );
-
-  return {
-    source: toUnixPath(path.relative(projectRoot, file)),
-    original: inputStats.size,
+  const hash = await fileHash(file);
+  const assetPath = webPath(file);
+  const inventory = {
+    path: assetPath,
+    size: stats.size,
     width,
     height,
-    generated
+    format: ext.replace(".", ""),
+    hash,
+    duplicateHash: hash,
+    recommendedOutputFormat: recommendedFormat(metadata, ext),
+    recommendedDesktopWidth: recommendedWidths(metadata).desktop,
+    recommendedMobileWidth: recommendedWidths(metadata).mobile,
+    likelyFold: /hero|header|banner|above|intro|founder|journal|recipe-of-the-day/i.test(file) ? "above-or-near-fold" : "below-fold-or-shared",
+    usedBy: [],
+    flags: []
+  };
+
+  if (stats.size > 500 * 1024 && [".png", ".jpg", ".jpeg"].includes(ext)) inventory.flags.push("large-raster-over-500kb");
+  if (stats.size > 800 * 1024 && /hero|home|about|sustainability|founder|journal|recipes/i.test(file)) inventory.flags.push("hero-or-editorial-over-800kb");
+  if (ext === ".png" && !metadata.hasAlpha && stats.size > 250 * 1024) inventory.flags.push("png-photo-no-alpha");
+  if (width > 2200) inventory.flags.push("wider-than-typical-display-need");
+
+  inventory.usedBy = findUsage(assetPath, referenceIndex);
+  if (!inventory.usedBy.length) inventory.flags.push("unused-candidate-static-search");
+
+  const shouldGenerate =
+    inventory.usedBy.length > 0 && supportedExtensions.has(ext) && stats.size >= minimumBytes && Math.max(width, height) >= 420;
+
+  if (!shouldGenerate) return { inventory, manifestEntry: null, skipped: true };
+
+  const variants = {};
+  const outputs = [];
+  for (const [name, targetWidth] of variantWidths) {
+    const outputWidth = Math.min(width || targetWidth, targetWidth);
+    const avifPath = outputPathFor(file, name, "avif", hash);
+    const jpgPath = outputPathFor(file, name, "jpg", hash);
+    outputs.push(avifPath, jpgPath);
+    variants[name] = {
+      width: outputWidth,
+      avif: `/${toUnixPath(path.relative(publicRoot, avifPath))}`,
+      jpg: `/${toUnixPath(path.relative(publicRoot, jpgPath))}`
+    };
+  }
+
+  if (!dryRun && !(await isCurrent(file, outputs))) {
+    for (const output of outputs) await fs.mkdir(path.dirname(output), { recursive: true });
+    await Promise.all(
+      variantWidths.flatMap(([name, targetWidth]) => {
+        const outputWidth = Math.min(width || targetWidth, targetWidth);
+        const base = sharp(file, { animated: false }).rotate().resize({ width: outputWidth, withoutEnlargement: true });
+        return [
+          base.clone().avif({ quality: name === "desktop" ? 64 : 60, effort: 5 }).toFile(outputPathFor(file, name, "avif", hash)),
+          base.clone().jpeg({ quality: name === "desktop" ? 86 : 82, mozjpeg: true, progressive: true }).toFile(outputPathFor(file, name, "jpg", hash))
+        ];
+      })
+    );
+  }
+
+  if (!dryRun) {
+    for (const [name] of variantWidths) {
+      const avifStats = await fs.stat(outputPathFor(file, name, "avif", hash));
+      const jpgStats = await fs.stat(outputPathFor(file, name, "jpg", hash));
+      variants[name].avifBytes = avifStats.size;
+      variants[name].jpgBytes = jpgStats.size;
+    }
+  }
+
+  return {
+    inventory,
+    manifestEntry: {
+      src: inventory.path,
+      width,
+      height,
+      originalBytes: stats.size,
+      variants,
+      fallback: inventory.path
+    },
+    skipped: false
   };
 }
 
 async function main() {
-  const files = await walk(sourceRoot);
-  const results = [];
+  const files = (await Promise.all(sourceRoots.map(walk))).flat();
+  const referenceIndex = await loadReferenceIndex();
+  const manifest = {};
+  const inventory = [];
+  let generatedCount = 0;
+  let originalBytes = 0;
+  let optimizedBytes = 0;
 
   for (const file of files) {
-    const result = await optimize(file);
-    if (result) results.push(result);
-  }
-
-  const optimized = results.filter((result) => result.generated);
-  const skipped = results.filter((result) => result.skipped);
-  const originalBytes = optimized.reduce((total, result) => total + result.original, 0);
-  const generatedBytes = optimized.reduce(
-    (total, result) => total + result.generated.reduce((sum, item) => sum + item.size, 0),
-    0
-  );
-
-  console.log(`Image scan complete: ${files.length} source images checked.`);
-  console.log(`Optimized: ${optimized.length}; skipped/current/dry-run: ${skipped.length}.`);
-
-  if (optimized.length > 0) {
-    console.log(`Original optimized-source size: ${formatBytes(originalBytes)}.`);
-    console.log(`Generated static variants size: ${formatBytes(generatedBytes)}.`);
-  }
-
-  for (const result of results) {
-    if (result.generated) {
-      const smallest = result.generated.reduce((best, item) => (item.size < best.size ? item : best));
-      console.log(`${result.source} ${formatBytes(result.original)} -> best ${formatBytes(smallest.size)} (${smallest.path})`);
-    } else {
-      console.log(`${result.source} skipped (${result.skipped}).`);
+    const result = await optimize(file, referenceIndex);
+    inventory.push(result.inventory);
+    if (result.manifestEntry) {
+      manifest[result.manifestEntry.src] = result.manifestEntry;
+      generatedCount += 1;
+      originalBytes += result.manifestEntry.originalBytes;
+      if (!dryRun) {
+        optimizedBytes += Object.values(result.manifestEntry.variants).reduce((sum, variant) => sum + variant.avifBytes + variant.jpgBytes, 0);
+      }
+      console.log(`${result.manifestEntry.src} ${formatBytes(result.manifestEntry.originalBytes)} -> variants ready`);
     }
+  }
+
+  const hashGroups = inventory.reduce((groups, item) => {
+    groups[item.hash] = groups[item.hash] || [];
+    groups[item.hash].push(item.path);
+    return groups;
+  }, {});
+
+  for (const item of inventory) {
+    const group = hashGroups[item.hash] || [];
+    if (group.length > 1) item.duplicateGroup = group;
+    if (group.length > 1) item.flags.push("duplicate-hash");
+  }
+
+  if (!dryRun) {
+    await fs.mkdir(generatedRoot, { recursive: true });
+    await fs.writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+    await fs.writeFile(inventoryPath, `${JSON.stringify(inventory, null, 2)}\n`);
+  }
+
+  console.log(`Image pipeline complete: ${files.length} images scanned.`);
+  console.log(`Variant candidates: ${generatedCount}.`);
+  if (!dryRun) {
+    console.log(`Original candidate bytes: ${formatBytes(originalBytes)}.`);
+    console.log(`Generated variant bytes: ${formatBytes(optimizedBytes)}.`);
+    console.log(`Manifest: ${toUnixPath(path.relative(projectRoot, manifestPath))}`);
+    console.log(`Inventory: ${toUnixPath(path.relative(projectRoot, inventoryPath))}`);
   }
 }
 

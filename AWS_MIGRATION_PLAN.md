@@ -2,6 +2,23 @@
 
 This plan is for a future migration only. The current fix keeps the site on Vercel while removing Vercel Image Optimization cache-write usage.
 
+## Current measured asset baseline
+
+Before the static responsive image pass, production Lighthouse showed image payloads as high as:
+
+- Homepage mobile: approximately 67.25 MB of image transfer.
+- Homepage desktop: approximately 68.87 MB of image transfer.
+- Shop mobile: approximately 63.39 MB of image transfer.
+- Shop desktop: approximately 64.99 MB of image transfer.
+- Journal desktop: approximately 41.54 MB of image transfer.
+- Recipes mobile: approximately 22.84 MB of image transfer.
+- Founders mobile: approximately 18.02 MB of image transfer.
+- Sustainability mobile: approximately 17.05 MB of image transfer.
+
+The local static variant pipeline scanned about 313.50 MB of source imagery and generated static variants for 73 active image sources: about 20.44 MB of AVIF variants plus 35.11 MB of JPEG fallbacks across mobile, tablet, and desktop sizes.
+
+A CDN cannot compensate for unnecessarily large source files. S3 + CloudFront would reduce delivery cost and improve edge caching, but it would still be wasteful if pages directly served multi-megabyte original PNG/JPG files to mobile devices.
+
 ## Recommended architecture
 
 ### Frontend
@@ -19,6 +36,8 @@ This plan is for a future migration only. The current fix keeps the site on Verc
 - Pre-optimized JPG/WebP/AVIF only.
 - No runtime image transformation initially.
 - No paid image transformation service until traffic and revenue justify it.
+- Continue content-hashed filenames with immutable caching for optimized assets.
+- Keep originals archived, but public pages should reference responsive derivatives.
 
 ### Backend
 
@@ -63,6 +82,7 @@ Initial DynamoDB tables:
 - Remove unused large exports.
 - Generate AVIF/JPG/WebP variants.
 - Confirm no app route depends on Vercel-specific image optimization.
+- Confirm mobile pages never request desktop hero/card images.
 
 ### Phase 2: Static frontend proof
 

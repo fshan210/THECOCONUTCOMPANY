@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ResponsiveImage as Image } from "@/components/media/ResponsiveImage";
 import Link from "next/link";
 import {
   ArrowRight,

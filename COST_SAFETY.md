@@ -54,10 +54,24 @@ npm run optimize:images
 The optimizer scans `public/assets`, skips already-small images, and writes generated static variants into:
 
 ```txt
-public/assets/_optimized
+public/assets-optimized
 ```
 
-It does not rewrite existing page references automatically. That keeps the live visual design stable. Heavy images should be swapped to optimized variants in a deliberate follow-up pass after visual QA.
+It does not overwrite approved source imagery. The public visual components now use `components/media/ResponsiveImage.tsx` to serve the generated AVIF/JPEG variants through a native `<picture>` element, while preserving the approved layouts and imagery.
+
+Generated filenames include a source-content hash, for example:
+
+```txt
+/assets-optimized/home/refined/made-with-care-4k-d703efc392-mobile.avif
+```
+
+Because these files are versioned, `next.config.mjs` applies immutable caching to `/assets-optimized/:path*`:
+
+```txt
+Cache-Control: public, max-age=31536000, immutable
+```
+
+HTML and app routes do not receive immutable caching.
 
 ## Verification checklist
 
@@ -72,10 +86,12 @@ After building or deploying:
 Current verification result:
 
 - Local production build verification passed on July 10, 2026.
-- Checked `/`, `/about`, `/shop`, `/recipes`, `/sustainability`, `/founders`, and `/journal`.
+- Checked `/`, `/about`, `/shop`, `/recipes`, `/sustainability`, `/founders`, `/journal`, and `/journal/social-cocreation-hub`.
 - All checked pages returned HTTP 200 locally.
 - No checked page rendered image URLs containing `/_next/image`.
-- Rendered images resolved directly from static paths such as `/assets/...` and `/images/...`.
+- Rendered public-page images resolve directly from static paths such as `/assets-optimized/...`, `/assets/...`, and `/images/...`.
+- Local header check confirmed `/assets-optimized/...` responses include `Cache-Control: public, max-age=31536000, immutable`.
+- Local Lighthouse mobile verification for the homepage confirmed mobile selected mobile AVIF variants and did not fetch desktop variants.
 
 ## Remaining cost risks
 
@@ -84,6 +100,7 @@ Disabling Vercel Image Optimization stops optimizer cache writes, but it does no
 Remaining risks:
 
 - Static bandwidth can still rise if very large PNG/JPG files are served often.
+- Static bandwidth can still rise if approved original images are referenced directly instead of through the optimized variant manifest.
 - Preview deployments can still consume build minutes.
 - Server-side routes and Firebase-backed admin features can still consume function/runtime usage.
 - External analytics and third-party scripts can still add page weight.
@@ -91,4 +108,4 @@ Remaining risks:
 
 ## Near-term recommendation
 
-Stay on Vercel for now after this fix. The immediate Image Optimization cache-write warning should be addressed by disabling runtime optimization. The next practical savings step is to replace the largest active PNG assets with local AVIF/JPG variants after visual QA.
+Stay on Vercel for now after this fix. Runtime image optimization remains disabled, and the largest active public-page images now have static responsive AVIF/JPEG delivery. The next practical savings step is interaction-level loading for popups, long sliders, and route-specific animation bundles.

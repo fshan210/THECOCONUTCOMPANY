@@ -1,7 +1,7 @@
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import Image from "next/image";
+import { ResponsiveImage as Image } from "@/components/media/ResponsiveImage";
 import Link from "next/link";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";

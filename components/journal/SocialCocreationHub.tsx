@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ResponsiveImage as Image } from "@/components/media/ResponsiveImage";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Droplets, Leaf, Recycle, RotateCcw, Save, ShoppingBag, Sparkles, Trash2 } from "lucide-react";

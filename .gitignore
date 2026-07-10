@@ -12,6 +12,7 @@ __pycache__
 .DS_Store
 .vercel
 lighthouse-*.json
+reports/
 *coconutcompany-firebase-adminsdk*.json
 *firebase-adminsdk*.json
 .env*

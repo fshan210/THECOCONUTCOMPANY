@@ -1,7 +1,7 @@
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import Image from "next/image";
+import { ResponsiveImage as Image } from "@/components/media/ResponsiveImage";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
