@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   validate:
@@ -38,3 +39,9 @@ jobs:
         run: npm run infra:synth
       - name: Dependency audit (informational)
         run: npm audit --audit-level=high || true
+      - name: Configure AWS OIDC credentials for optional DEV checks
+        if: ${{ vars.AWS_DEV_ROLE_ARN != '' }}
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEV_ROLE_ARN }}
+          aws-region: ap-south-1

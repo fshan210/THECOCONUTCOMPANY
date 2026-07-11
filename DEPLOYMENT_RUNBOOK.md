@@ -84,3 +84,6 @@ npx cdk deploy -c envName=production
 - Restore to a new table.
 - Validate records.
 - Swap application env/table references only after review.
+# Phase 2 deployment status
+
+The GitHub validation workflow is active. The DEV CDK stack was updated with an API Gateway JWT authorizer and deployed successfully. Production deployment remains intentionally excluded. GitHub Actions OIDC role creation still requires an AWS IAM trust/policy review before any deployment job is permitted to assume a role.

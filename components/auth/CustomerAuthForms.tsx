@@ -8,13 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { UseFormRegisterReturn } from "react-hook-form";
 import { Apple, CircleAlert, CheckCircle2, Eye, EyeOff, Loader2, LogIn, Mail, UserPlus } from "lucide-react";
 import {
-  confirmPasswordReset,
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  updateProfile
+  signInWithPopup
 } from "firebase/auth";
 import { useSearchParams } from "next/navigation";
 import { establishCustomerSession, type CustomerAuthState } from "@/lib/customer/actions";
@@ -23,6 +17,13 @@ import { getFirebaseClientAuth, getGoogleAuthProvider } from "@/lib/firebase/cli
 import { isFirebasePublicConfigured } from "@/lib/firebase/config";
 import { validateAuthProtection } from "@/lib/security/actions";
 import { getRecaptchaToken } from "@/components/security/recaptcha";
+
+async function cognitoAuth(input: Record<string, string>) {
+  const response = await fetch("/api/auth/cognito", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(input) });
+  const result = await response.json() as { ok?: boolean; message?: string; status?: string };
+  if (!response.ok || !result.ok) throw new Error(result.message || "Authentication failed.");
+  return result;
+}
 
 const initialState: CustomerAuthState = { ok: false, message: "" };
 
@@ -65,10 +66,6 @@ export function CustomerLoginForm() {
         const data = new FormData(form);
         startTransition(async () => {
           try {
-            if (!isFirebasePublicConfigured()) {
-              setState({ ok: false, status: "error", message: "Account login is temporarily unavailable." });
-              return;
-            }
             const email = String(data.get("email"));
             const protection = await validateAuthProtection({
               action: "customer_login",
@@ -79,9 +76,7 @@ export function CustomerLoginForm() {
               setState({ ok: false, status: "error", message: protection.message || "Security check failed." });
               return;
             }
-            const credential = await signInWithEmailAndPassword(getFirebaseClientAuth(), email, String(data.get("password")));
-            const idToken = await credential.user.getIdToken();
-            await establishCustomerSession({ idToken });
+            await cognitoAuth({ action: "login", email, password: String(data.get("password")) });
           } catch (error) {
             if (isNextRedirectError(error)) throw error;
             setState({ ok: false, status: "error", message: formatFirebaseError(error) });
@@ -145,7 +140,7 @@ export function CustomerForgotPasswordForm() {
               setState({ ok: false, status: "error", message: protection.message || "Security check failed." });
               return;
             }
-            await sendPasswordResetEmail(getFirebaseClientAuth(), email);
+            await cognitoAuth({ action: "forgot", email });
             setState({ ok: true, status: "success", message: "Password reset email sent. Check your inbox." });
           } catch (error) {
             setState({ ok: false, status: "error", message: formatFirebaseError(error) });
@@ -187,7 +182,7 @@ export function CustomerResetPasswordForm() {
               setState({ ok: false, status: "error", message: "Reset code is missing. Use the link from your email." });
               return;
             }
-            await confirmPasswordReset(getFirebaseClientAuth(), oobCode, password);
+            await cognitoAuth({ action: "reset", email: searchParams.get("email") || "", code: oobCode, password });
             setState({ ok: true, status: "success", message: "Password updated. You can now log in." });
           } catch (error) {
             setState({ ok: false, status: "error", message: formatFirebaseError(error) });
@@ -242,10 +237,6 @@ export function CustomerRegisterForm() {
         const data = new FormData(form);
         startTransition(async () => {
           try {
-            if (!isFirebasePublicConfigured()) {
-              setState({ ok: false, status: "error", message: "Account registration is temporarily unavailable." });
-              return;
-            }
             const email = String(data.get("email"));
             const protection = await validateAuthProtection({
               action: "customer_register",
@@ -256,17 +247,8 @@ export function CustomerRegisterForm() {
               setState({ ok: false, status: "error", message: protection.message || "Security check failed." });
               return;
             }
-            const auth = getFirebaseClientAuth();
-            const credential = await createUserWithEmailAndPassword(auth, email, String(data.get("password")));
-            await updateProfile(credential.user, { displayName: String(data.get("name")) });
-            await sendEmailVerification(credential.user);
-            const idToken = await credential.user.getIdToken(true);
-            await establishCustomerSession({
-              idToken,
-              name: String(data.get("name")),
-              preference: String(data.get("preference")),
-              newsletterOptIn: true
-            });
+            await cognitoAuth({ action: "signup", email, password: String(data.get("password")), name: String(data.get("name")) });
+            setState({ ok: true, status: "success", message: "Account created. Check your email for the verification code." });
           } catch (error) {
             if (isNextRedirectError(error)) throw error;
             setState({ ok: false, status: "error", message: formatFirebaseError(error) });
@@ -342,7 +324,7 @@ async function sendResetFromForm(form: HTMLFormElement | null, setState: (state:
       setState({ ok: false, status: "error", message: protection.message || "Security check failed." });
       return;
     }
-    await sendPasswordResetEmail(getFirebaseClientAuth(), email);
+    await cognitoAuth({ action: "forgot", email });
     setState({ ok: true, status: "success", message: "Password reset email sent. Check your inbox." });
   } catch (error) {
     setState({ ok: false, status: "error", message: formatFirebaseError(error) });

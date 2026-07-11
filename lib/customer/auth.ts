@@ -6,6 +6,7 @@ import { customerSessionCookie, type CustomerSession } from "@/lib/customer/auth
 import { firestoreCollections } from "@/lib/firebase/collections";
 import { getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
 import { decodeFirebaseTokenTimes, lookupFirebaseAccount } from "@/lib/firebase/auth-rest";
+import { awsSessionCookie, unsealAwsSession } from "@/lib/auth/aws-session";
 
 const configuredSessionDays = Number(process.env.SESSION_MAX_AGE_DAYS || 7);
 const customerSessionMs = 1000 * 60 * 60 * 24 * (Number.isFinite(configuredSessionDays) ? configuredSessionDays : 7);
@@ -61,6 +62,12 @@ export async function verifyCustomerSession(token?: string): Promise<CustomerSes
 
 export async function getCustomerSession() {
   const cookieStore = await cookies();
+  const aws = unsealAwsSession(cookieStore.get(awsSessionCookie)?.value);
+  if (aws) {
+    const email = aws.email || "";
+    const name = email.split("@")[0] || "Customer";
+    return { uid: aws.sub || "cognito-session", email, name, initials: initialsFromName(name), emailVerified: true, accountStatus: "active" as const, issuedAt: aws.expiresAt - 900, expiresAt: aws.expiresAt };
+  }
   return verifyCustomerSession(cookieStore.get(customerSessionCookie)?.value);
 }
 

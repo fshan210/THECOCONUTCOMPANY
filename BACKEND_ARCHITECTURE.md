@@ -77,3 +77,6 @@ Smoke tests passed for:
 - CORS preflight allows `https://cothecoconutcompany.com`
 
 Production API is not deployed.
+# Phase 2 status
+
+The DEV API is deployed in `ap-south-1` with exact public catalog/content routes and a JWT-authorized catch-all for authenticated routes. Profiles, carts, wishlists, newsletter subscriptions, and first-purchase claims have DynamoDB-backed DEV persistence with local test fallbacks.
