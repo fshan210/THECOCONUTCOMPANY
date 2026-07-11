@@ -22,6 +22,7 @@ import type {
   SeoMetadataContent
 } from "@/lib/content/types";
 import { validateContentRecord } from "@/lib/content/validation";
+import { isServerApiConfigured, serverApiGet } from "@/lib/backend/server-api-client";
 
 export interface ContentSource {
   getProducts(includeDrafts?: boolean): Promise<ContentProduct[]>;
@@ -89,7 +90,38 @@ export class FirestoreContentSource implements ContentSource {
   }
 }
 
+/**
+ * DEV-only read adapter. It deliberately maps the small public API contract to
+ * the existing content model and throws on failure so the server layer can use
+ * its curated fallback data. It never exposes credentials to the browser.
+ */
+export class AwsDevContentSource implements ContentSource {
+  async getProducts() {
+    const result = await serverApiGet<{ items: Array<{ id: string; slug: string; title: string; subtitle: string; category: string; price: { amount: number; currency: string }; available: boolean }> }>("/v1/products?limit=50");
+    return result.items.map((item): ContentProduct => ({
+      id: item.id, slug: item.slug, name: item.title, subtitle: item.subtitle, category: item.category,
+      format: item.subtitle, status: item.available ? "coming-soon" : "preview", shortDescription: item.subtitle,
+      longDescription: item.subtitle, price: item.price.amount, currency: item.price.currency, availability: item.available ? "Available in DEV catalog" : "Preview",
+      availabilityStatus: item.available ? "in-stock" : "preview", comingSoon: !item.available, image: "", images: [],
+      ingredients: [], nutritionHighlights: [], benefits: [], howToUse: [], seo: { title: item.title, description: item.subtitle, canonicalPath: `/shop/${item.slug}` },
+      publicationStatus: "published", featured: false
+    }));
+  }
+  async getRecipes() { return (await serverApiGet<{ items: Array<{ slug: string; title: string }> }>("/v1/recipes")).items.map((item) => ({ ...fallbackRecipes.find((fallback) => fallback.slug === item.slug) ?? fallbackRecipes[0], id: item.slug, slug: item.slug, title: item.title })); }
+  async getJournalPosts() { return (await serverApiGet<{ items: Array<{ slug: string; title: string }> }>("/v1/journal")).items.map((item) => ({ ...fallbackJournalPosts.find((fallback) => fallback.slug === item.slug) ?? fallbackJournalPosts[0], id: item.slug, slug: item.slug, title: item.title })); }
+  async getTestimonials() { return []; }
+  async getHomepageContent() { return fallbackHomepage; }
+  async getSeoMetadata(path: string) { return fallbackSeoMetadata.find((item) => item.pagePath === path) ?? null; }
+  async getRecords(type: ContentType) {
+    if (type === "products") return this.getProducts();
+    if (type === "recipes") return this.getRecipes();
+    if (type === "journal") return this.getJournalPosts();
+    return [];
+  }
+}
+
 export function getContentSource(): ContentSource {
+  if (process.env.DOTCO_USE_API_CONTENT === "true" && isServerApiConfigured()) return new AwsDevContentSource();
   return isFirebaseAdminConfigured() ? new FirestoreContentSource() : new FallbackContentSource();
 }
 
