@@ -1,0 +1,40 @@
+name: .CO security and backend CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - "feature/**"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install root dependencies
+        run: npm ci
+      - name: Install workspace dependencies
+        run: |
+          npm install --prefix packages/contracts
+          npm install --prefix backend
+          npm install --prefix infra
+      - name: Lint and typecheck frontend
+        run: |
+          npm run lint
+          npm run typecheck
+      - name: Test contracts, backend, and infrastructure
+        run: npm run test
+      - name: Build frontend
+        run: npm run build
+      - name: Synthesize infrastructure
+        run: npm run infra:synth
+      - name: Dependency audit (informational)
+        run: npm audit --audit-level=high || true
