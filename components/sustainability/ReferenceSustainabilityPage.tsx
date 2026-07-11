@@ -1,7 +1,7 @@
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import Image from "next/image";
+import { ResponsiveImage as Image } from "@/components/media/ResponsiveImage";
 import Link from "next/link";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -57,7 +57,7 @@ export function ReferenceSustainabilityPage(){
   const [activeValue,setActiveValue]=useState(0);
   const estimates=useMemo(()=>({plastic:Math.round(units*8.5),energy:Math.round(units*3.06),carbon:Math.round(units*15.9),water:Math.round(units*212.5)}),[units]);
   const stage=stages[activeStage];
-  return <div className="min-h-screen overflow-hidden bg-[#f8f4ec] font-['Inter'] text-[#2a1b13]">
+  return <div className="co-sustainability-page min-h-screen overflow-hidden bg-[#f8f4ec] font-['Inter'] text-[#2a1b13]">
     <ReferenceHeader/>
     <main>
       <section className="relative min-h-[540px] overflow-hidden bg-[#f3eee4] md:min-h-[570px]">

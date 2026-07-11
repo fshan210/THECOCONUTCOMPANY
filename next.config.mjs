@@ -9,8 +9,22 @@ const nextConfig = {
     "jose"
   ],
   images: {
+    unoptimized: true,
     formats: ["image/avif", "image/webp"],
     qualities: [75, 90, 95]
+  },
+  async headers() {
+    return [
+      {
+        source: "/assets-optimized/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable"
+          }
+        ]
+      }
+    ];
   },
   async redirects() {
     return [

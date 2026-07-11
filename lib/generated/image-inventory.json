@@ -1,0 +1,2810 @@
+[
+  {
+    "path": "/assets/Coconut_Water_Assets/Flat lay.png",
+    "size": 2531404,
+    "width": 1254,
+    "height": 1254,
+    "format": "png",
+    "hash": "7327e09edc0b64c6cf4b7cbd762f3b573ee13ae4",
+    "duplicateHash": "7327e09edc0b64c6cf4b7cbd762f3b573ee13ae4",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1254,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "lib/admin/data.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/Coconut_Water_Assets/floating pack.png",
+    "size": 2264328,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "hash": "e9d86c7518fb4e573a5cf739882955a41599750b",
+    "duplicateHash": "e9d86c7518fb4e573a5cf739882955a41599750b",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1024,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/Coconut_Water_Assets/hero composition.png",
+    "size": 2538724,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "hash": "bddadafb77108bfeed98996d8e811c5458c6f0da",
+    "duplicateHash": "bddadafb77108bfeed98996d8e811c5458c6f0da",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1024,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Coconut_Water_Assets/hero composition.png",
+      "/assets/hero/hero composition.png"
+    ]
+  },
+  {
+    "path": "/assets/Coconut_Water_Assets/ingridient composition.png",
+    "size": 2415545,
+    "width": 1536,
+    "height": 1024,
+    "format": "png",
+    "hash": "f59cc2fa137d4f31c71eeeb77b9d1945af37e142",
+    "duplicateHash": "f59cc2fa137d4f31c71eeeb77b9d1945af37e142",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1536,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/Coconut_Water_Assets/lifestyle scene.png",
+    "size": 2223087,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "50d776f96555bc35277f1dc8506cdfb0d97eca17",
+    "duplicateHash": "50d776f96555bc35277f1dc8506cdfb0d97eca17",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/admin/AdminDashboard.tsx",
+      "components/home/ReferenceHomePage.tsx",
+      "data/journal.ts",
+      "lib/admin/data.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/Ecosystem_Assets/BOtanica-Facewash-Flat Lay.png",
+    "size": 2502949,
+    "width": 1254,
+    "height": 1254,
+    "format": "png",
+    "hash": "15c4baecff4d06210db11017ed1e0a9ed4a385a8",
+    "duplicateHash": "15c4baecff4d06210db11017ed1e0a9ed4a385a8",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1254,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "data/journal.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/BOtanica-Facewash-Flat Lay.png",
+      "/assets/skincare/BOtanica-Facewash-Flat Lay.png"
+    ]
+  },
+  {
+    "path": "/assets/Ecosystem_Assets/Botanica-Face Wash.png",
+    "size": 2049771,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "43fdb9a83881b5faa9182009650199ce5588ca5e",
+    "duplicateHash": "43fdb9a83881b5faa9182009650199ce5588ca5e",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/Botanica-Face Wash.png",
+      "/assets/products/Botanica-Face Wash.png",
+      "/assets/skincare/Botanica-Face Wash.png"
+    ]
+  },
+  {
+    "path": "/assets/Ecosystem_Assets/Botanica-Hero Composition.png",
+    "size": 2305504,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "b1232c969fec9ffc0ebb8f41408e1c5a5960b2b6",
+    "duplicateHash": "b1232c969fec9ffc0ebb8f41408e1c5a5960b2b6",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/Botanica-Hero Composition.png",
+      "/assets/hero/Botanica-Hero Composition.png",
+      "/assets/skincare/Botanica-Hero Composition.png"
+    ]
+  },
+  {
+    "path": "/assets/Ecosystem_Assets/Botanica-Shampoo-Lifestyle Scene.png",
+    "size": 2251785,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "9394ad64d945bbedf12186e08163dfe2ae73c97a",
+    "duplicateHash": "9394ad64d945bbedf12186e08163dfe2ae73c97a",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "data/journal.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/Botanica-Shampoo-Lifestyle Scene.png",
+      "/assets/hero/Botanica-Shampoo-Lifestyle Scene.png",
+      "/assets/products/Botanica-Shampoo-Lifestyle Scene.png",
+      "/assets/skincare/Botanica-Shampoo-Lifestyle Scene.png"
+    ]
+  },
+  {
+    "path": "/assets/Ecosystem_Assets/Botanica-ingredient Composition.png",
+    "size": 2563909,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "522381b8d57c00e1475cac9800a066accd0d7c85",
+    "duplicateHash": "522381b8d57c00e1475cac9800a066accd0d7c85",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/Botanica-ingredient Composition.png",
+      "/assets/skincare/Botanica-ingredient Composition.png"
+    ]
+  },
+  {
+    "path": "/assets/Ecosystem_Assets/Kitchen-group ecosystem.png",
+    "size": 2636913,
+    "width": 1536,
+    "height": 1024,
+    "format": "png",
+    "hash": "f888e6f3db94ceb33216e9f5d33d4f4c4c7b5aaf",
+    "duplicateHash": "f888e6f3db94ceb33216e9f5d33d4f4c4c7b5aaf",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1536,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/home/ReferenceHomePage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/Ecosystem_Assets/Kitchen-oil-hero.png",
+    "size": 2233205,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "0db6fbd67ef0cff67d6c18496734709603133d42",
+    "duplicateHash": "0db6fbd67ef0cff67d6c18496734709603133d42",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/Kitchen-oil-hero.png",
+      "/assets/hero/Kitchen-oil-hero.png"
+    ]
+  },
+  {
+    "path": "/assets/Ecosystem_Assets/botanica-group ecosystem.png",
+    "size": 2467649,
+    "width": 1536,
+    "height": 1024,
+    "format": "png",
+    "hash": "87753f1e371d5ac8d8524d7f7fa2ec2ff055c2e9",
+    "duplicateHash": "87753f1e371d5ac8d8524d7f7fa2ec2ff055c2e9",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1536,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/botanica-group ecosystem.png",
+      "/assets/skincare/botanica-group ecosystem.png"
+    ]
+  },
+  {
+    "path": "/assets/Ecosystem_Assets/coconut oil individual product-2.png",
+    "size": 2055567,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "hash": "81b65d6abe58a4ef53d8ad8152f4ac1aadf38b36",
+    "duplicateHash": "81b65d6abe58a4ef53d8ad8152f4ac1aadf38b36",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1024,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/coconut oil individual product-2.png",
+      "/assets/products/coconut oil individual product-2.png"
+    ]
+  },
+  {
+    "path": "/assets/Ecosystem_Assets/coconut oil-flat lay.png",
+    "size": 2819008,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "52698486796dba56ed8adf44501bad3f174f06fe",
+    "duplicateHash": "52698486796dba56ed8adf44501bad3f174f06fe",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "data/journal.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/Ecosystem_Assets/coconut oil-indivigual product.png",
+    "size": 2106752,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "aa43cc5f9ed6454f78bb1979c0a70488cb7ba2f9",
+    "duplicateHash": "aa43cc5f9ed6454f78bb1979c0a70488cb7ba2f9",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/Ecosystem_Assets/coconut vinegar-lifestyle scene.png",
+    "size": 2036258,
+    "width": 1402,
+    "height": 1122,
+    "format": "png",
+    "hash": "609dbbb85f44b78e27eb94264d9b4b4a84548f75",
+    "duplicateHash": "609dbbb85f44b78e27eb94264d9b4b4a84548f75",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1402,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/home/ReferenceHomePage.tsx",
+      "data/journal.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/Melt_Ice_Cream_Assets/flat lay.png",
+    "size": 2516394,
+    "width": 1254,
+    "height": 1254,
+    "format": "png",
+    "hash": "e573931ebce316f34e6ecff394f57b92c4ef6321",
+    "duplicateHash": "e573931ebce316f34e6ecff394f57b92c4ef6321",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1254,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "data/journal.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/Melt_Ice_Cream_Assets/floating packshot.png",
+    "size": 2147936,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "hash": "1036ee64002f2e9e5a4f9299b86f98b1551d3886",
+    "duplicateHash": "1036ee64002f2e9e5a4f9299b86f98b1551d3886",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1024,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Melt_Ice_Cream_Assets/floating packshot.png",
+      "/assets/products/floating packshot.png"
+    ]
+  },
+  {
+    "path": "/assets/Melt_Ice_Cream_Assets/hero Composition.png",
+    "size": 2528757,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "hash": "def832aae31da5d4636caa0f99d9ebd18bce2538",
+    "duplicateHash": "def832aae31da5d4636caa0f99d9ebd18bce2538",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1024,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Melt_Ice_Cream_Assets/hero Composition.png",
+      "/assets/hero/hero Composition 2.png"
+    ]
+  },
+  {
+    "path": "/assets/Melt_Ice_Cream_Assets/ingredient composition.png",
+    "size": 2196641,
+    "width": 1536,
+    "height": 1024,
+    "format": "png",
+    "hash": "344bd01deb7d48faac82faed04d674170d69ecbf",
+    "duplicateHash": "344bd01deb7d48faac82faed04d674170d69ecbf",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1536,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/Melt_Ice_Cream_Assets/lifestyle Scene.png",
+    "size": 2454017,
+    "width": 1536,
+    "height": 1024,
+    "format": "png",
+    "hash": "108edb168fb8ecf7a0506be26ae4e0469f4b1fd0",
+    "duplicateHash": "108edb168fb8ecf7a0506be26ae4e0469f4b1fd0",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1536,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/about/co-about-hero-editorial-4k.avif",
+    "size": 859110,
+    "width": 3840,
+    "height": 2161,
+    "format": "avif",
+    "hash": "be628ee86970c6e736348c74099414ef31c3596a",
+    "duplicateHash": "be628ee86970c6e736348c74099414ef31c3596a",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [
+      "components/about/ReferenceAboutPage.tsx",
+      "components/home/ReferenceHomePage.tsx",
+      "components/shop/ReferenceShopPage.tsx"
+    ],
+    "flags": [
+      "hero-or-editorial-over-800kb",
+      "wider-than-typical-display-need"
+    ]
+  },
+  {
+    "path": "/assets/about/co-zero-waste-coconut-split.png",
+    "size": 2492013,
+    "width": 941,
+    "height": 1672,
+    "format": "png",
+    "hash": "9b06439b2ca8e8882acad8ef855b0cd38a18c055",
+    "duplicateHash": "9b06439b2ca8e8882acad8ef855b0cd38a18c055",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 941,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/about/ReferenceAboutPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/about/co-zero-waste-palm-editorial-4k.avif",
+    "size": 1244630,
+    "width": 2160,
+    "height": 3377,
+    "format": "avif",
+    "hash": "949b05883f69b35d4fd5609b6c78e478683228ac",
+    "duplicateHash": "949b05883f69b35d4fd5609b6c78e478683228ac",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/about/ReferenceAboutPage.tsx"
+    ],
+    "flags": [
+      "hero-or-editorial-over-800kb"
+    ]
+  },
+  {
+    "path": "/assets/about/generic-coconut-water-comparison.png",
+    "size": 1851330,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "833a0205118349077b072128c322bc12f773faa4",
+    "duplicateHash": "833a0205118349077b072128c322bc12f773faa4",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/about/ReferenceAboutPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/backgrounds/kerala-groves/co-kerala-grove-editorial-4k.avif",
+    "size": 999784,
+    "width": 3840,
+    "height": 1536,
+    "format": "avif",
+    "hash": "80c9eaf376de41b960dd4d55207418312bec984f",
+    "duplicateHash": "80c9eaf376de41b960dd4d55207418312bec984f",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/about/ReferenceAboutPage.tsx",
+      "components/home/ReferenceHomePage.tsx",
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "wider-than-typical-display-need"
+    ]
+  },
+  {
+    "path": "/assets/branding/coconut belt-world.png",
+    "size": 2229004,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "402c14ff0362b4ac276ad5731a863bfd458bf170",
+    "duplicateHash": "402c14ff0362b4ac276ad5731a863bfd458bf170",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/branding/coconut belt-world.png",
+      "/assets/farming/coconut belt-world.png",
+      "/assets/generated/coconut belt-world.png"
+    ]
+  },
+  {
+    "path": "/assets/branding/made-for-living-reference.png",
+    "size": 922950,
+    "width": 1983,
+    "height": 793,
+    "format": "png",
+    "hash": "9e646b386822b5b4e0586b91ac65c60b6984e47c",
+    "duplicateHash": "9e646b386822b5b4e0586b91ac65c60b6984e47c",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "lib/admin/data.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/coconut/whole coconut mindset.png",
+    "size": 2247556,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "4c2e6d75acb05288a26a428829803fffc7ef4a19",
+    "duplicateHash": "4c2e6d75acb05288a26a428829803fffc7ef4a19",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/coconut/whole coconut mindset.png",
+      "/assets/farming/whole coconut mindset.png",
+      "/assets/generated/whole coconut mindset.png"
+    ]
+  },
+  {
+    "path": "/assets/farming/coconut belt-world.png",
+    "size": 2229004,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "402c14ff0362b4ac276ad5731a863bfd458bf170",
+    "duplicateHash": "402c14ff0362b4ac276ad5731a863bfd458bf170",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/branding/coconut belt-world.png",
+      "/assets/farming/coconut belt-world.png",
+      "/assets/generated/coconut belt-world.png"
+    ]
+  },
+  {
+    "path": "/assets/farming/coconut respect.png",
+    "size": 2146436,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "391284525bbb2bcbba5bc692e7930d3e4384d0cf",
+    "duplicateHash": "391284525bbb2bcbba5bc692e7930d3e4384d0cf",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/farming/coconut respect.png",
+      "/assets/generated/coconut respect.png"
+    ]
+  },
+  {
+    "path": "/assets/farming/whole coconut mindset.png",
+    "size": 2247556,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "4c2e6d75acb05288a26a428829803fffc7ef4a19",
+    "duplicateHash": "4c2e6d75acb05288a26a428829803fffc7ef4a19",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/coconut/whole coconut mindset.png",
+      "/assets/farming/whole coconut mindset.png",
+      "/assets/generated/whole coconut mindset.png"
+    ]
+  },
+  {
+    "path": "/assets/farms/VIllage collection point.png",
+    "size": 2428830,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "98ab6e304721d17d6d1c9c038b0d0a48c069f2ca",
+    "duplicateHash": "98ab6e304721d17d6d1c9c038b0d0a48c069f2ca",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/farms/VIllage collection point.png",
+      "/assets/generated/VIllage collection point.png"
+    ]
+  },
+  {
+    "path": "/assets/farms/village aggregation point.png",
+    "size": 2489431,
+    "width": 1086,
+    "height": 1448,
+    "format": "png",
+    "hash": "dbea0cc94ab282de14d9ecaa1e7dbee63179b3ff",
+    "duplicateHash": "dbea0cc94ab282de14d9ecaa1e7dbee63179b3ff",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1086,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/founders/refined/afsala-muthali-portrait.jpg",
+    "size": 3677950,
+    "width": 3024,
+    "height": 4032,
+    "format": "jpg",
+    "hash": "06b9ae8e9848cebffdbb3cd276a6587b8cc7ee43",
+    "duplicateHash": "06b9ae8e9848cebffdbb3cd276a6587b8cc7ee43",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [
+      "components/founders/ReferenceFoundersPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "wider-than-typical-display-need"
+    ]
+  },
+  {
+    "path": "/assets/founders/refined/fazil-afsala-founder-hero.png",
+    "size": 2437557,
+    "width": 1526,
+    "height": 905,
+    "format": "png",
+    "hash": "746217688dc0c64ee5bf72028de15311788a33fd",
+    "duplicateHash": "746217688dc0c64ee5bf72028de15311788a33fd",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1526,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [
+      "components/founders/ReferenceFoundersPage.tsx",
+      "data/journal.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/founders/refined/fazil-shersha-portrait.jpg",
+    "size": 3183357,
+    "width": 3024,
+    "height": 4032,
+    "format": "jpg",
+    "hash": "1860367246e51e93083af143c4782d4f0726e951",
+    "duplicateHash": "1860367246e51e93083af143c4782d4f0726e951",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [
+      "components/founders/ReferenceFoundersPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "wider-than-typical-display-need"
+    ]
+  },
+  {
+    "path": "/assets/generated/VIllage collection point.png",
+    "size": 2428830,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "98ab6e304721d17d6d1c9c038b0d0a48c069f2ca",
+    "duplicateHash": "98ab6e304721d17d6d1c9c038b0d0a48c069f2ca",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/farms/VIllage collection point.png",
+      "/assets/generated/VIllage collection point.png"
+    ]
+  },
+  {
+    "path": "/assets/generated/coconut belt-world.png",
+    "size": 2229004,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "402c14ff0362b4ac276ad5731a863bfd458bf170",
+    "duplicateHash": "402c14ff0362b4ac276ad5731a863bfd458bf170",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/branding/coconut belt-world.png",
+      "/assets/farming/coconut belt-world.png",
+      "/assets/generated/coconut belt-world.png"
+    ]
+  },
+  {
+    "path": "/assets/generated/coconut respect.png",
+    "size": 2146436,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "391284525bbb2bcbba5bc692e7930d3e4384d0cf",
+    "duplicateHash": "391284525bbb2bcbba5bc692e7930d3e4384d0cf",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/farming/coconut respect.png",
+      "/assets/generated/coconut respect.png"
+    ]
+  },
+  {
+    "path": "/assets/generated/vap.png",
+    "size": 2568461,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "ac302e5431ac4135f5f8df1811b4524f7c4abbd9",
+    "duplicateHash": "ac302e5431ac4135f5f8df1811b4524f7c4abbd9",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/generated/whole coconut mindset.png",
+    "size": 2247556,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "4c2e6d75acb05288a26a428829803fffc7ef4a19",
+    "duplicateHash": "4c2e6d75acb05288a26a428829803fffc7ef4a19",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/coconut/whole coconut mindset.png",
+      "/assets/farming/whole coconut mindset.png",
+      "/assets/generated/whole coconut mindset.png"
+    ]
+  },
+  {
+    "path": "/assets/hero/Botanica-Hero Composition.png",
+    "size": 2305504,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "b1232c969fec9ffc0ebb8f41408e1c5a5960b2b6",
+    "duplicateHash": "b1232c969fec9ffc0ebb8f41408e1c5a5960b2b6",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/Botanica-Hero Composition.png",
+      "/assets/hero/Botanica-Hero Composition.png",
+      "/assets/skincare/Botanica-Hero Composition.png"
+    ]
+  },
+  {
+    "path": "/assets/hero/Botanica-Shampoo-Lifestyle Scene.png",
+    "size": 2251785,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "9394ad64d945bbedf12186e08163dfe2ae73c97a",
+    "duplicateHash": "9394ad64d945bbedf12186e08163dfe2ae73c97a",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [
+      "data/journal.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/Botanica-Shampoo-Lifestyle Scene.png",
+      "/assets/hero/Botanica-Shampoo-Lifestyle Scene.png",
+      "/assets/products/Botanica-Shampoo-Lifestyle Scene.png",
+      "/assets/skincare/Botanica-Shampoo-Lifestyle Scene.png"
+    ]
+  },
+  {
+    "path": "/assets/hero/Kitchen-oil-hero.png",
+    "size": 2233205,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "0db6fbd67ef0cff67d6c18496734709603133d42",
+    "duplicateHash": "0db6fbd67ef0cff67d6c18496734709603133d42",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/Kitchen-oil-hero.png",
+      "/assets/hero/Kitchen-oil-hero.png"
+    ]
+  },
+  {
+    "path": "/assets/hero/co-home-hero-background-v2.png",
+    "size": 2030772,
+    "width": 1586,
+    "height": 992,
+    "format": "png",
+    "hash": "52b157f259d90f912c9bdeafb02673c16931c432",
+    "duplicateHash": "52b157f259d90f912c9bdeafb02673c16931c432",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1586,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [
+      "app/admin/login/page.tsx",
+      "lib/admin/data.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/hero/co-home-hero-editorial-4k.avif",
+    "size": 899304,
+    "width": 3840,
+    "height": 2161,
+    "format": "avif",
+    "hash": "19cc115773e558c1766821846687fe614343d072",
+    "duplicateHash": "19cc115773e558c1766821846687fe614343d072",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [],
+    "flags": [
+      "hero-or-editorial-over-800kb",
+      "wider-than-typical-display-need",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/hero/co-home-hero-solid-products.avif",
+    "size": 188901,
+    "width": 1672,
+    "height": 941,
+    "format": "avif",
+    "hash": "d541ac2df10852af566cc3f18d0c54bce1604340",
+    "duplicateHash": "d541ac2df10852af566cc3f18d0c54bce1604340",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1672,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [
+      "components/home/ReferenceHomePage.tsx"
+    ],
+    "flags": []
+  },
+  {
+    "path": "/assets/hero/co-home-hero-solid-products.png",
+    "size": 1990050,
+    "width": 1672,
+    "height": 941,
+    "format": "png",
+    "hash": "402bb42b922810a9528d6224a2d8020731c4096e",
+    "duplicateHash": "402bb42b922810a9528d6224a2d8020731c4096e",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1672,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/hero/hero Composition 2.png",
+    "size": 2528757,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "hash": "def832aae31da5d4636caa0f99d9ebd18bce2538",
+    "duplicateHash": "def832aae31da5d4636caa0f99d9ebd18bce2538",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1024,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Melt_Ice_Cream_Assets/hero Composition.png",
+      "/assets/hero/hero Composition 2.png"
+    ]
+  },
+  {
+    "path": "/assets/hero/hero composition.png",
+    "size": 2538724,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "hash": "bddadafb77108bfeed98996d8e811c5458c6f0da",
+    "duplicateHash": "bddadafb77108bfeed98996d8e811c5458c6f0da",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1024,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Coconut_Water_Assets/hero composition.png",
+      "/assets/hero/hero composition.png"
+    ]
+  },
+  {
+    "path": "/assets/home/refined/made-with-care-4k.png",
+    "size": 10547185,
+    "width": 3073,
+    "height": 3840,
+    "format": "png",
+    "hash": "d703efc392db1c408ac26ecbd470be20bb48e520",
+    "duplicateHash": "d703efc392db1c408ac26ecbd470be20bb48e520",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/founders/ReferenceFoundersPage.tsx",
+      "components/home/ReferenceHomePage.tsx",
+      "data/journal.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "wider-than-typical-display-need"
+    ]
+  },
+  {
+    "path": "/assets/home/refined/naturally-hydrating-4k.png",
+    "size": 9557821,
+    "width": 3073,
+    "height": 3840,
+    "format": "png",
+    "hash": "8f3925169b98393c1a0d7c179dd9b6356c4d91a3",
+    "duplicateHash": "8f3925169b98393c1a0d7c179dd9b6356c4d91a3",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/founders/ReferenceFoundersPage.tsx",
+      "components/home/ReferenceHomePage.tsx",
+      "components/journal/ReferenceJournalPage.tsx",
+      "components/launch/LaunchExperience.tsx",
+      "data/journal.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "wider-than-typical-display-need"
+    ]
+  },
+  {
+    "path": "/assets/home/refined/planet-editorial-4k.png",
+    "size": 7888101,
+    "width": 3840,
+    "height": 2161,
+    "format": "png",
+    "hash": "f31684bb4e7d0025c6c40dacdbeff518781bd312",
+    "duplicateHash": "f31684bb4e7d0025c6c40dacdbeff518781bd312",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/home/ReferenceHomePage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "wider-than-typical-display-need"
+    ]
+  },
+  {
+    "path": "/assets/home/refined/recipes-to-inspire-4k.png",
+    "size": 10225919,
+    "width": 3073,
+    "height": 3840,
+    "format": "png",
+    "hash": "322b096778f1401ded8bce319795a0caf33f8b84",
+    "duplicateHash": "322b096778f1401ded8bce319795a0caf33f8b84",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/home/ReferenceHomePage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "wider-than-typical-display-need"
+    ]
+  },
+  {
+    "path": "/assets/home/refined/sustainably-yours-4k.png",
+    "size": 9682441,
+    "width": 2456,
+    "height": 3840,
+    "format": "png",
+    "hash": "df7122fb436b3142660d2758595cb402925071f7",
+    "duplicateHash": "df7122fb436b3142660d2758595cb402925071f7",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/home/ReferenceHomePage.tsx",
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "wider-than-typical-display-need"
+    ]
+  },
+  {
+    "path": "/assets/journal/refined/community-coconut-table.png",
+    "size": 2695942,
+    "width": 1536,
+    "height": 1024,
+    "format": "png",
+    "hash": "12e535031af96e7e9911cd07d4c48e689d398821",
+    "duplicateHash": "12e535031af96e7e9911cd07d4c48e689d398821",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1536,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [
+      "components/journal/ReferenceJournalPage.tsx",
+      "components/sustainability/ReferenceSustainabilityPage.tsx",
+      "data/journal.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/products/Botanica-Face Wash.png",
+    "size": 2049771,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "43fdb9a83881b5faa9182009650199ce5588ca5e",
+    "duplicateHash": "43fdb9a83881b5faa9182009650199ce5588ca5e",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/Botanica-Face Wash.png",
+      "/assets/products/Botanica-Face Wash.png",
+      "/assets/skincare/Botanica-Face Wash.png"
+    ]
+  },
+  {
+    "path": "/assets/products/Botanica-Shampoo-Lifestyle Scene.png",
+    "size": 2251785,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "9394ad64d945bbedf12186e08163dfe2ae73c97a",
+    "duplicateHash": "9394ad64d945bbedf12186e08163dfe2ae73c97a",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "data/journal.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/Botanica-Shampoo-Lifestyle Scene.png",
+      "/assets/hero/Botanica-Shampoo-Lifestyle Scene.png",
+      "/assets/products/Botanica-Shampoo-Lifestyle Scene.png",
+      "/assets/skincare/Botanica-Shampoo-Lifestyle Scene.png"
+    ]
+  },
+  {
+    "path": "/assets/products/co-water-reserve.jpg",
+    "size": 741841,
+    "width": 2000,
+    "height": 1830,
+    "format": "jpg",
+    "hash": "26c583a89951884ad7fad5572154fed9604808bf",
+    "duplicateHash": "26c583a89951884ad7fad5572154fed9604808bf",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/products/co-water-reserve.jpg",
+      "/images/coconut drink glass bottle 2.jpg"
+    ]
+  },
+  {
+    "path": "/assets/products/co-water.jpg",
+    "size": 760207,
+    "width": 2000,
+    "height": 1830,
+    "format": "jpg",
+    "hash": "3437fbe16f8a17c0eb05792e02526e8052f3f7bc",
+    "duplicateHash": "3437fbe16f8a17c0eb05792e02526e8052f3f7bc",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/products/co-water.jpg",
+      "/images/coconut drink glass bottle.jpg"
+    ]
+  },
+  {
+    "path": "/assets/products/coconut oil individual product-2.png",
+    "size": 2055567,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "hash": "81b65d6abe58a4ef53d8ad8152f4ac1aadf38b36",
+    "duplicateHash": "81b65d6abe58a4ef53d8ad8152f4ac1aadf38b36",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1024,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/coconut oil individual product-2.png",
+      "/assets/products/coconut oil individual product-2.png"
+    ]
+  },
+  {
+    "path": "/assets/products/floating packshot.png",
+    "size": 2147936,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "hash": "1036ee64002f2e9e5a4f9299b86f98b1551d3886",
+    "duplicateHash": "1036ee64002f2e9e5a4f9299b86f98b1551d3886",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1024,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Melt_Ice_Cream_Assets/floating packshot.png",
+      "/assets/products/floating packshot.png"
+    ]
+  },
+  {
+    "path": "/assets/recipes/Coconut smoothie Bowl.png",
+    "size": 2474915,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "hash": "2220372ad8a44de2b1e67d956428bfd4c8a8787c",
+    "duplicateHash": "2220372ad8a44de2b1e67d956428bfd4c8a8787c",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1024,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/recipes/coconut coffee chill.png",
+    "size": 2501229,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "hash": "d3b2ed9430b52f3af4700422ac3891451743fb78",
+    "duplicateHash": "d3b2ed9430b52f3af4700422ac3891451743fb78",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1024,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/recipes/recipe-data.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/recipes/coconut mango cooler.png",
+    "size": 2318360,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "hash": "d517df3341e7f82ee461afe9fe70092cdc0b80f4",
+    "duplicateHash": "d517df3341e7f82ee461afe9fe70092cdc0b80f4",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1024,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/recipes/generated/co-green-coconut-smoothie-editorial-4k.avif",
+    "size": 865632,
+    "width": 3840,
+    "height": 2880,
+    "format": "avif",
+    "hash": "c0f77013dc3ff0fbc5b20a3fc7f71402eb5a38a6",
+    "duplicateHash": "c0f77013dc3ff0fbc5b20a3fc7f71402eb5a38a6",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/home/ReferenceHomePage.tsx",
+      "components/recipes/ReferenceRecipesPage.tsx",
+      "components/recipes/recipe-data.ts"
+    ],
+    "flags": [
+      "hero-or-editorial-over-800kb",
+      "wider-than-typical-display-need"
+    ]
+  },
+  {
+    "path": "/assets/recipes/generated/co-mango-nice-cream-editorial-4k.avif",
+    "size": 1028496,
+    "width": 3840,
+    "height": 2880,
+    "format": "avif",
+    "hash": "2ac3d0e2c357b97686c80a0dd3ea4d5b2a14949e",
+    "duplicateHash": "2ac3d0e2c357b97686c80a0dd3ea4d5b2a14949e",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/founders/ReferenceFoundersPage.tsx",
+      "components/home/ReferenceHomePage.tsx",
+      "components/recipes/recipe-data.ts",
+      "data/journal.ts"
+    ],
+    "flags": [
+      "hero-or-editorial-over-800kb",
+      "wider-than-typical-display-need"
+    ]
+  },
+  {
+    "path": "/assets/recipes/generated/coconut-chia-cup.jpg",
+    "size": 406669,
+    "width": 1448,
+    "height": 1086,
+    "format": "jpg",
+    "hash": "15a00cc52f2822fd6fa612969a024d377a5d49b5",
+    "duplicateHash": "15a00cc52f2822fd6fa612969a024d377a5d49b5",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1448,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/recipes/generated/coconut-lime-rice-bowl.jpg",
+    "size": 483538,
+    "width": 1448,
+    "height": 1086,
+    "format": "jpg",
+    "hash": "d89bc45fb8f983ac488995cf58c1b02d6ce580b0",
+    "duplicateHash": "d89bc45fb8f983ac488995cf58c1b02d6ce580b0",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1448,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/recipes/recipe-data.ts"
+    ],
+    "flags": []
+  },
+  {
+    "path": "/assets/recipes/generated/coconut-milk-veggie-curry.jpg",
+    "size": 391671,
+    "width": 1254,
+    "height": 1254,
+    "format": "jpg",
+    "hash": "618917514c74b119f5087771224321972e3623ce",
+    "duplicateHash": "618917514c74b119f5087771224321972e3623ce",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1254,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/recipes/recipe-data.ts",
+      "data/journal.ts"
+    ],
+    "flags": []
+  },
+  {
+    "path": "/assets/recipes/generated/kerala-coconut-vegetable-stew.jpg",
+    "size": 407416,
+    "width": 1448,
+    "height": 1086,
+    "format": "jpg",
+    "hash": "d3208760e6aa7fdf0fbe0970ffd5c28805788324",
+    "duplicateHash": "d3208760e6aa7fdf0fbe0970ffd5c28805788324",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1448,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/recipes/generated/seasonal-coconut-berry-salad.jpg",
+    "size": 544680,
+    "width": 1254,
+    "height": 1254,
+    "format": "jpg",
+    "hash": "ed135df1f218bd0ad0a9bf36fdd5b77e532a6cc2",
+    "duplicateHash": "ed135df1f218bd0ad0a9bf36fdd5b77e532a6cc2",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1254,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/recipes/recipe-data.ts",
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb"
+    ]
+  },
+  {
+    "path": "/assets/recipes/generated/toasted-coconut-energy-bites.jpg",
+    "size": 443629,
+    "width": 1448,
+    "height": 1086,
+    "format": "jpg",
+    "hash": "3e6b93e0a974f17c01459e9de7897f8f02b722f9",
+    "duplicateHash": "3e6b93e0a974f17c01459e9de7897f8f02b722f9",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1448,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/recipes/recipe-data.ts",
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": []
+  },
+  {
+    "path": "/assets/recipes/refined/recipes-hero-editorial.png",
+    "size": 2044189,
+    "width": 1672,
+    "height": 941,
+    "format": "png",
+    "hash": "87acd4453c2bde637ce442ef9e082b1f6857c889",
+    "duplicateHash": "87acd4453c2bde637ce442ef9e082b1f6857c889",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1672,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [
+      "components/recipes/ReferenceRecipesPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/recipes/refined/tropical-coconut-mango-chia-pudding.png",
+    "size": 2104260,
+    "width": 972,
+    "height": 1619,
+    "format": "png",
+    "hash": "5542f88f363bc64fd368409f3a7d97d2782d0d3b",
+    "duplicateHash": "5542f88f363bc64fd368409f3a7d97d2782d0d3b",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 972,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/recipes/recipe-data.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/shop/products/IndividualProduct_BodyLotion.png",
+    "size": 3998320,
+    "width": 2048,
+    "height": 2048,
+    "format": "png",
+    "hash": "adb8a90d62e2fdbff6eb97a0e5dedf6f17d610d7",
+    "duplicateHash": "adb8a90d62e2fdbff6eb97a0e5dedf6f17d610d7",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/home/ReferenceHomePage.tsx",
+      "components/shop/ReferenceShopPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/shop/products/IndividualProduct_Bowls.png",
+    "size": 5425064,
+    "width": 2048,
+    "height": 2048,
+    "format": "png",
+    "hash": "f9d43b2763bfdae25b5756b111d41f2116782722",
+    "duplicateHash": "f9d43b2763bfdae25b5756b111d41f2116782722",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/shop/ReferenceShopPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/shop/products/IndividualProduct_CO-Water.png",
+    "size": 4230180,
+    "width": 2048,
+    "height": 2048,
+    "format": "png",
+    "hash": "773f04f23673505cae122559323f26fa7b3cf721",
+    "duplicateHash": "773f04f23673505cae122559323f26fa7b3cf721",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/home/ReferenceHomePage.tsx",
+      "components/recipes/recipe-data.ts",
+      "components/shop/ReferenceShopPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/shop/products/IndividualProduct_CoconutAminos.png",
+    "size": 4047886,
+    "width": 2048,
+    "height": 2048,
+    "format": "png",
+    "hash": "c5be9e8f1757765ab5b880ddab9c86d1a7a84317",
+    "duplicateHash": "c5be9e8f1757765ab5b880ddab9c86d1a7a84317",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/home/ReferenceHomePage.tsx",
+      "components/recipes/recipe-data.ts",
+      "components/shop/ReferenceShopPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/shop/products/IndividualProduct_CoconutChips.png",
+    "size": 4963359,
+    "width": 2048,
+    "height": 2048,
+    "format": "png",
+    "hash": "bb4bc98e3ffcd73fd198310dde8f616916fe4d01",
+    "duplicateHash": "bb4bc98e3ffcd73fd198310dde8f616916fe4d01",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/recipes/recipe-data.ts",
+      "components/shop/ReferenceShopPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/shop/products/IndividualProduct_CoconutOil.png",
+    "size": 4569549,
+    "width": 2048,
+    "height": 2048,
+    "format": "png",
+    "hash": "9ca3b1300218408f65a8f46ddb5fb06494a102a4",
+    "duplicateHash": "9ca3b1300218408f65a8f46ddb5fb06494a102a4",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/home/ReferenceHomePage.tsx",
+      "components/recipes/recipe-data.ts",
+      "components/shop/ReferenceShopPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/shop/products/IndividualProduct_CoconutSugar.png",
+    "size": 5263542,
+    "width": 2048,
+    "height": 2048,
+    "format": "png",
+    "hash": "788f478a99bec7973fc8c6e7352ec4a0839cd172",
+    "duplicateHash": "788f478a99bec7973fc8c6e7352ec4a0839cd172",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/home/ReferenceHomePage.tsx",
+      "components/recipes/recipe-data.ts",
+      "components/shop/ReferenceShopPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/shop/products/IndividualProduct_CoconutVinegar.png",
+    "size": 4439374,
+    "width": 2048,
+    "height": 2048,
+    "format": "png",
+    "hash": "bf2bebe5925663319906bd52c6af3dc0de0d6a93",
+    "duplicateHash": "bf2bebe5925663319906bd52c6af3dc0de0d6a93",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/shop/ReferenceShopPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/shop/products/IndividualProduct_FaceWash.png",
+    "size": 4117952,
+    "width": 2048,
+    "height": 2048,
+    "format": "png",
+    "hash": "b453abfcb7fbc7e06b94a90046bee1e91c7b3f95",
+    "duplicateHash": "b453abfcb7fbc7e06b94a90046bee1e91c7b3f95",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/home/ReferenceHomePage.tsx",
+      "components/shop/ReferenceShopPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/shop/products/IndividualProduct_GiftBox.png",
+    "size": 4773821,
+    "width": 2048,
+    "height": 2048,
+    "format": "png",
+    "hash": "efcfebe4f110f349700371706554aab0d161411e",
+    "duplicateHash": "efcfebe4f110f349700371706554aab0d161411e",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/home/ReferenceHomePage.tsx",
+      "components/shop/ReferenceShopPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/shop/products/IndividualProduct_HairOil.png",
+    "size": 4046197,
+    "width": 2048,
+    "height": 2048,
+    "format": "png",
+    "hash": "7a40ebfe30832b2c72fe617cf565415a98e264b1",
+    "duplicateHash": "7a40ebfe30832b2c72fe617cf565415a98e264b1",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/shop/ReferenceShopPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/shop/products/IndividualProduct_MeltCO.png",
+    "size": 4307924,
+    "width": 2048,
+    "height": 2048,
+    "format": "png",
+    "hash": "30dcf668820a179d9930fb86c527eb56edbde4d4",
+    "duplicateHash": "30dcf668820a179d9930fb86c527eb56edbde4d4",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/home/ReferenceHomePage.tsx",
+      "components/recipes/recipe-data.ts",
+      "components/shop/ReferenceShopPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/shop/products/IndividualProduct_Soap.png",
+    "size": 4635678,
+    "width": 2048,
+    "height": 2048,
+    "format": "png",
+    "hash": "ddab9067438049c3234e4282897d100611a94080",
+    "duplicateHash": "ddab9067438049c3234e4282897d100611a94080",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/shop/ReferenceShopPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/shop/products/IndividualProduct_Utensils.png",
+    "size": 6724946,
+    "width": 2048,
+    "height": 2048,
+    "format": "png",
+    "hash": "175f3d14f5a25397471eaa0b41f2ebd64b555c44",
+    "duplicateHash": "175f3d14f5a25397471eaa0b41f2ebd64b555c44",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/shop/ReferenceShopPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/skincare/BOtanica-Facewash-Flat Lay.png",
+    "size": 2502949,
+    "width": 1254,
+    "height": 1254,
+    "format": "png",
+    "hash": "15c4baecff4d06210db11017ed1e0a9ed4a385a8",
+    "duplicateHash": "15c4baecff4d06210db11017ed1e0a9ed4a385a8",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1254,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "data/journal.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/BOtanica-Facewash-Flat Lay.png",
+      "/assets/skincare/BOtanica-Facewash-Flat Lay.png"
+    ]
+  },
+  {
+    "path": "/assets/skincare/Botanica-Face Wash.png",
+    "size": 2049771,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "43fdb9a83881b5faa9182009650199ce5588ca5e",
+    "duplicateHash": "43fdb9a83881b5faa9182009650199ce5588ca5e",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/Botanica-Face Wash.png",
+      "/assets/products/Botanica-Face Wash.png",
+      "/assets/skincare/Botanica-Face Wash.png"
+    ]
+  },
+  {
+    "path": "/assets/skincare/Botanica-Hero Composition.png",
+    "size": 2305504,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "b1232c969fec9ffc0ebb8f41408e1c5a5960b2b6",
+    "duplicateHash": "b1232c969fec9ffc0ebb8f41408e1c5a5960b2b6",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/Botanica-Hero Composition.png",
+      "/assets/hero/Botanica-Hero Composition.png",
+      "/assets/skincare/Botanica-Hero Composition.png"
+    ]
+  },
+  {
+    "path": "/assets/skincare/Botanica-Shampoo-Lifestyle Scene.png",
+    "size": 2251785,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "9394ad64d945bbedf12186e08163dfe2ae73c97a",
+    "duplicateHash": "9394ad64d945bbedf12186e08163dfe2ae73c97a",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "data/journal.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/Botanica-Shampoo-Lifestyle Scene.png",
+      "/assets/hero/Botanica-Shampoo-Lifestyle Scene.png",
+      "/assets/products/Botanica-Shampoo-Lifestyle Scene.png",
+      "/assets/skincare/Botanica-Shampoo-Lifestyle Scene.png"
+    ]
+  },
+  {
+    "path": "/assets/skincare/Botanica-ingredient Composition.png",
+    "size": 2563909,
+    "width": 1122,
+    "height": 1402,
+    "format": "png",
+    "hash": "522381b8d57c00e1475cac9800a066accd0d7c85",
+    "duplicateHash": "522381b8d57c00e1475cac9800a066accd0d7c85",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1122,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/Botanica-ingredient Composition.png",
+      "/assets/skincare/Botanica-ingredient Composition.png"
+    ]
+  },
+  {
+    "path": "/assets/skincare/botanica-group ecosystem.png",
+    "size": 2467649,
+    "width": 1536,
+    "height": 1024,
+    "format": "png",
+    "hash": "87753f1e371d5ac8d8524d7f7fa2ec2ff055c2e9",
+    "duplicateHash": "87753f1e371d5ac8d8524d7f7fa2ec2ff055c2e9",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1536,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/Ecosystem_Assets/botanica-group ecosystem.png",
+      "/assets/skincare/botanica-group ecosystem.png"
+    ]
+  },
+  {
+    "path": "/assets/social/afsala-founder-clean.png",
+    "size": 1560573,
+    "width": 1000,
+    "height": 1544,
+    "format": "png",
+    "hash": "90bc2201d334686402ce6ae3b60ff7b973869f47",
+    "duplicateHash": "90bc2201d334686402ce6ae3b60ff7b973869f47",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1000,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [
+      "components/about/ReferenceAboutPage.tsx",
+      "components/journal/ReferenceJournalPage.tsx",
+      "data/journal.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/social/fazil-founder-clean.png",
+    "size": 1375396,
+    "width": 1000,
+    "height": 1400,
+    "format": "png",
+    "hash": "7aa34ad29fd42c9a262ed054dfdf577d83a65c60",
+    "duplicateHash": "7aa34ad29fd42c9a262ed054dfdf577d83a65c60",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1000,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [
+      "components/about/ReferenceAboutPage.tsx",
+      "data/journal.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/sustainability/rc1/carbon-sink-coconut-plantation.png",
+    "size": 3261964,
+    "width": 1672,
+    "height": 941,
+    "format": "png",
+    "hash": "7e6a5837ac25c785dae0e45b1f333de692f5a42c",
+    "duplicateHash": "7e6a5837ac25c785dae0e45b1f333de692f5a42c",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1672,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/sustainability/rc1/clean-ocean-community.png",
+    "size": 2533153,
+    "width": 1672,
+    "height": 941,
+    "format": "png",
+    "hash": "cd7337ecdde0f3aca130e3d5488069af2fd1ca78",
+    "duplicateHash": "cd7337ecdde0f3aca130e3d5488069af2fd1ca78",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1672,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/sustainability/rc1/community-empowerment-training.png",
+    "size": 2266913,
+    "width": 1672,
+    "height": 941,
+    "format": "png",
+    "hash": "e855e7b042695f833df87adbc44a9bc5a1166116",
+    "duplicateHash": "e855e7b042695f833df87adbc44a9bc5a1166116",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1672,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/sustainability/rc1/plastic-bales-recycling.png",
+    "size": 2583636,
+    "width": 1672,
+    "height": 941,
+    "format": "png",
+    "hash": "30ea88894e982c7c212471f3042c0d06079e8bc8",
+    "duplicateHash": "30ea88894e982c7c212471f3042c0d06079e8bc8",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1672,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/sustainability/rc1/solar-clean-manufacturing.png",
+    "size": 2927192,
+    "width": 1672,
+    "height": 941,
+    "format": "png",
+    "hash": "2ab52c1af1e315f25250fe01a5f0a9372955262c",
+    "duplicateHash": "2ab52c1af1e315f25250fe01a5f0a9372955262c",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1672,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/sustainability/rc1/water-conservation-facility.png",
+    "size": 2488796,
+    "width": 1672,
+    "height": 941,
+    "format": "png",
+    "hash": "565cc48146852204386f84f002705f1e714421c7",
+    "duplicateHash": "565cc48146852204386f84f002705f1e714421c7",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1672,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/sustainability/rc1/zero-waste-coir-materials.png",
+    "size": 2464744,
+    "width": 1672,
+    "height": 941,
+    "format": "png",
+    "hash": "0e986a0f94ba8dbfee094150fc4a2cbdf86125f8",
+    "duplicateHash": "0e986a0f94ba8dbfee094150fc4a2cbdf86125f8",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1672,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/sustainability/refined/carbon-whale-impact.png",
+    "size": 2068547,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "hash": "a8baf7a2deebe05ee33be3664571b5bce7f835f2",
+    "duplicateHash": "a8baf7a2deebe05ee33be3664571b5bce7f835f2",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1448,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/sustainability/refined/clean-manufacturing.png",
+    "size": 2070153,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "hash": "46339bf4b9ca2e307d16a4e8ac07188ef390e7d0",
+    "duplicateHash": "46339bf4b9ca2e307d16a4e8ac07188ef390e7d0",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1448,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/founders/ReferenceFoundersPage.tsx",
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/sustainability/refined/energy-reduction-impact.png",
+    "size": 1598214,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "hash": "7a6ce30764d77640aab35f6c9a2a1ba80e03862d",
+    "duplicateHash": "7a6ce30764d77640aab35f6c9a2a1ba80e03862d",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1448,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/sustainability/refined/plastic-bottles-impact.png",
+    "size": 2292312,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "hash": "605e0423a25e76817d6a24423f311486bd50be6b",
+    "duplicateHash": "605e0423a25e76817d6a24423f311486bd50be6b",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1448,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/sustainability/refined/raw-materials-farmer.png",
+    "size": 2990186,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "hash": "23b6f2f48c4ef504243b2f3f7a84e5233638d8b3",
+    "duplicateHash": "23b6f2f48c4ef504243b2f3f7a84e5233638d8b3",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1448,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/founders/ReferenceFoundersPage.tsx",
+      "components/sustainability/ReferenceSustainabilityPage.tsx",
+      "data/journal.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/sustainability/refined/sustainability-hero-editorial.png",
+    "size": 2183195,
+    "width": 1672,
+    "height": 941,
+    "format": "png",
+    "hash": "7b81decdb31756a7170fc9c22842b8ffe8384e01",
+    "duplicateHash": "7b81decdb31756a7170fc9c22842b8ffe8384e01",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1672,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [
+      "components/sustainability/ReferenceSustainabilityPage.tsx"
+    ],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/assets/textures/honest-truth-reference.jpg",
+    "size": 325407,
+    "width": 2636,
+    "height": 1148,
+    "format": "jpg",
+    "hash": "335014f49d696fb64feb82a00b4a8877f0cdcdc2",
+    "duplicateHash": "335014f49d696fb64feb82a00b4a8877f0cdcdc2",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "wider-than-typical-display-need",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/transparent/co-coconut-icecream.png",
+    "size": 2090668,
+    "width": 990,
+    "height": 1257,
+    "format": "png",
+    "hash": "31158fe8c3901081ee48d4735a443178b75870b7",
+    "duplicateHash": "31158fe8c3901081ee48d4735a443178b75870b7",
+    "recommendedOutputFormat": "avif-with-png-original-fallback",
+    "recommendedDesktopWidth": 990,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "lib/admin/data.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb"
+    ]
+  },
+  {
+    "path": "/assets/transparent/co-social-media-pack.png",
+    "size": 2151365,
+    "width": 1080,
+    "height": 861,
+    "format": "png",
+    "hash": "68185150855e9d5c09660989c96b1573af35762d",
+    "duplicateHash": "68185150855e9d5c09660989c96b1573af35762d",
+    "recommendedOutputFormat": "avif-with-png-original-fallback",
+    "recommendedDesktopWidth": 1080,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/transparent/co-tender-coconut.png",
+    "size": 1698542,
+    "width": 1004,
+    "height": 1216,
+    "format": "png",
+    "hash": "827ccc1a3ae558cec7c8fad05f3a26ed60fb553d",
+    "duplicateHash": "827ccc1a3ae558cec7c8fad05f3a26ed60fb553d",
+    "recommendedOutputFormat": "avif-with-png-original-fallback",
+    "recommendedDesktopWidth": 1004,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/home/ReferenceHomePage.tsx",
+      "lib/admin/data.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb"
+    ]
+  },
+  {
+    "path": "/assets/transparent/co-water-bottle.png",
+    "size": 816157,
+    "width": 554,
+    "height": 1100,
+    "format": "png",
+    "hash": "41231b5ae805631d36a522ba1c90e23e5ffd9dc5",
+    "duplicateHash": "41231b5ae805631d36a522ba1c90e23e5ffd9dc5",
+    "recommendedOutputFormat": "avif-with-png-original-fallback",
+    "recommendedDesktopWidth": 554,
+    "recommendedMobileWidth": 554,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/about/ReferenceAboutPage.tsx",
+      "components/auth/CustomerAccountDashboard.tsx",
+      "lib/admin/data.ts"
+    ],
+    "flags": [
+      "large-raster-over-500kb"
+    ]
+  },
+  {
+    "path": "/assets/transparent/co-water-reserve.png",
+    "size": 1110432,
+    "width": 1200,
+    "height": 1098,
+    "format": "png",
+    "hash": "7a73e8c9f5805592c41cc9cbeb2bc1684f362605",
+    "duplicateHash": "7a73e8c9f5805592c41cc9cbeb2bc1684f362605",
+    "recommendedOutputFormat": "avif-with-png-original-fallback",
+    "recommendedDesktopWidth": 1200,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/transparent/co-water-tetra-pack.png",
+    "size": 649347,
+    "width": 578,
+    "height": 1111,
+    "format": "png",
+    "hash": "8092589f4fc76464bddcc2724dd81551151847dc",
+    "duplicateHash": "8092589f4fc76464bddcc2724dd81551151847dc",
+    "recommendedOutputFormat": "avif-with-png-original-fallback",
+    "recommendedDesktopWidth": 578,
+    "recommendedMobileWidth": 578,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/transparent/co-water.png",
+    "size": 1141856,
+    "width": 1200,
+    "height": 1098,
+    "format": "png",
+    "hash": "495991f2bfd82e309e2087d5f64d294f6689d3d3",
+    "duplicateHash": "495991f2bfd82e309e2087d5f64d294f6689d3d3",
+    "recommendedOutputFormat": "avif-with-png-original-fallback",
+    "recommendedDesktopWidth": 1200,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/transparent/coconut-care.png",
+    "size": 2364356,
+    "width": 1056,
+    "height": 992,
+    "format": "png",
+    "hash": "ba159c9612b0c011722c36fb865c46aefaacda77",
+    "duplicateHash": "ba159c9612b0c011722c36fb865c46aefaacda77",
+    "recommendedOutputFormat": "avif-with-png-original-fallback",
+    "recommendedDesktopWidth": 1056,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/transparent/founder-journey.png",
+    "size": 2163507,
+    "width": 1056,
+    "height": 992,
+    "format": "png",
+    "hash": "76cf6df16560ee1d92a36566d305be4e4b8e31d2",
+    "duplicateHash": "76cf6df16560ee1d92a36566d305be4e4b8e31d2",
+    "recommendedOutputFormat": "avif-with-png-original-fallback",
+    "recommendedDesktopWidth": 1056,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "above-or-near-fold",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "hero-or-editorial-over-800kb",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/transparent/mango-coconut-dessert.png",
+    "size": 2380353,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "hash": "677cd2b022e6de5a51dec86d45000da677b772b1",
+    "duplicateHash": "677cd2b022e6de5a51dec86d45000da677b772b1",
+    "recommendedOutputFormat": "avif-with-png-original-fallback",
+    "recommendedDesktopWidth": 1024,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/assets/video/coconut-to-bottle-poster.png",
+    "size": 329712,
+    "width": 1440,
+    "height": 822,
+    "format": "png",
+    "hash": "10f1e88fb70e679a67cf32b9693f51f5d6e527de",
+    "duplicateHash": "10f1e88fb70e679a67cf32b9693f51f5d6e527de",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1440,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [
+      "components/HeroStoryCanvas.tsx"
+    ],
+    "flags": [
+      "png-photo-no-alpha"
+    ]
+  },
+  {
+    "path": "/images/coconut drink glass bottle 2.jpg",
+    "size": 741841,
+    "width": 2000,
+    "height": 1830,
+    "format": "jpg",
+    "hash": "26c583a89951884ad7fad5572154fed9604808bf",
+    "duplicateHash": "26c583a89951884ad7fad5572154fed9604808bf",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/products/co-water-reserve.jpg",
+      "/images/coconut drink glass bottle 2.jpg"
+    ]
+  },
+  {
+    "path": "/images/coconut drink glass bottle.jpg",
+    "size": 760207,
+    "width": 2000,
+    "height": 1830,
+    "format": "jpg",
+    "hash": "3437fbe16f8a17c0eb05792e02526e8052f3f7bc",
+    "duplicateHash": "3437fbe16f8a17c0eb05792e02526e8052f3f7bc",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1920,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "unused-candidate-static-search",
+      "duplicate-hash"
+    ],
+    "duplicateGroup": [
+      "/assets/products/co-water.jpg",
+      "/images/coconut drink glass bottle.jpg"
+    ]
+  },
+  {
+    "path": "/images/icecream sample.png",
+    "size": 1829564,
+    "width": 1024,
+    "height": 1536,
+    "format": "png",
+    "hash": "e9ca44aef7d9bba83bc11eab76af14d86e891e05",
+    "duplicateHash": "e9ca44aef7d9bba83bc11eab76af14d86e891e05",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1024,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/images/social media mockup 2.png",
+    "size": 1252967,
+    "width": 1056,
+    "height": 992,
+    "format": "png",
+    "hash": "b68149887ce6d02c5a639012eb580d4ee18a9ed7",
+    "duplicateHash": "b68149887ce6d02c5a639012eb580d4ee18a9ed7",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1056,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search"
+    ]
+  },
+  {
+    "path": "/images/social media mockups 1 .png",
+    "size": 1837184,
+    "width": 1056,
+    "height": 992,
+    "format": "png",
+    "hash": "6b78815fe303b6a6d3345471278387c1624e1ca1",
+    "duplicateHash": "6b78815fe303b6a6d3345471278387c1624e1ca1",
+    "recommendedOutputFormat": "avif-with-jpeg-fallback",
+    "recommendedDesktopWidth": 1056,
+    "recommendedMobileWidth": 828,
+    "likelyFold": "below-fold-or-shared",
+    "usedBy": [],
+    "flags": [
+      "large-raster-over-500kb",
+      "png-photo-no-alpha",
+      "unused-candidate-static-search"
+    ]
+  }
+]

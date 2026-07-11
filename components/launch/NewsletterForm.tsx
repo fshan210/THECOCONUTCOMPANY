@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 export function NewsletterForm({ className, compact = false }: { className?: string; compact?: boolean }) {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "saving" | "saved">("idle");
+  const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
 
   return (
     <form
@@ -16,8 +16,12 @@ export function NewsletterForm({ className, compact = false }: { className?: str
         event.preventDefault();
         if (!event.currentTarget.reportValidity()) return;
         setStatus("saving");
-        window.localStorage.setItem("co_newsletter_email", email.trim().toLowerCase());
-        window.setTimeout(() => setStatus("saved"), 350);
+        try {
+          window.localStorage.setItem("co_newsletter_email", email.trim().toLowerCase());
+          window.setTimeout(() => setStatus("saved"), 350);
+        } catch {
+          setStatus("error");
+        }
       }}
     >
       <label htmlFor={compact ? "footer-newsletter-email" : "newsletter-email"} className="sr-only">Email address</label>
@@ -35,11 +39,11 @@ export function NewsletterForm({ className, compact = false }: { className?: str
         />
         <button type="submit" disabled={status === "saving"} className="co-primary-cta mr-1 inline-flex min-h-10 items-center justify-center gap-2 rounded-[10px] bg-[#304f2c] px-4 text-[9px] font-semibold uppercase text-white disabled:opacity-60 md:px-6">
           {status === "saved" ? <Check size={14} /> : <Send size={13} />}
-          {status === "saved" ? "Joined" : status === "saving" ? "Joining…" : "Subscribe"}
+          {status === "saved" ? "Joined" : status === "saving" ? "Joining…" : status === "error" ? "Try again" : "Subscribe"}
         </button>
       </div>
       <p id={`${compact ? "footer-" : ""}newsletter-status`} className="mt-2 min-h-4 text-[9px] text-current/65" role="status" aria-live="polite">
-        {status === "saved" ? "You’re on the list. Welcome to .CO." : ""}
+        {status === "saved" ? "You’re on the list. Welcome to .CO." : status === "error" ? "We could not save that on this device. Please try again." : ""}
       </p>
     </form>
   );

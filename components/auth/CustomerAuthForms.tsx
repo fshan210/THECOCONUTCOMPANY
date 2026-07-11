@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { UseFormRegisterReturn } from "react-hook-form";
-import { Apple, CheckCircle2, Eye, EyeOff, Loader2, LogIn, Mail, UserPlus } from "lucide-react";
+import { Apple, CircleAlert, CheckCircle2, Eye, EyeOff, Loader2, LogIn, Mail, UserPlus } from "lucide-react";
 import {
   confirmPasswordReset,
   createUserWithEmailAndPassword,
@@ -196,7 +196,7 @@ export function CustomerResetPasswordForm() {
       })}
     >
       <AuthMessage message={state.message} positive={state.ok} />
-      <PasswordInput id="reset-password" label="New password" show={showPassword} onToggle={() => setShowPassword((value) => !value)} disabled={pending} error={errors.password?.message} register={register("password")} />
+      <PasswordInput id="reset-password" label="New password" autoComplete="new-password" show={showPassword} onToggle={() => setShowPassword((value) => !value)} disabled={pending} error={errors.password?.message} register={register("password")} />
       <button type="submit" disabled={pending} className="co-admin-primary-button w-full">
         {pending ? <Loader2 className="animate-spin" size={18} /> : <CheckCircle2 size={18} />}
         {pending ? "Updating password..." : "Update password"}
@@ -290,8 +290,11 @@ export function CustomerRegisterForm() {
         </select>
       </div>
       <div className="md:col-span-2">
-        <PasswordInput id="register-password" label="Password" show={showPassword} onToggle={() => setShowPassword((value) => !value)} disabled={pending} error={errors.password?.message} register={register("password")} />
+        <PasswordInput id="register-password" label="Password" autoComplete="new-password" show={showPassword} onToggle={() => setShowPassword((value) => !value)} disabled={pending} error={errors.password?.message} register={register("password")} />
       </div>
+      <button type="button" disabled={pending} onClick={() => startTransition(() => void loginWithGoogle(setState))} className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-[var(--co-border)] bg-[var(--co-white)] px-5 text-sm font-bold text-[var(--co-ink)] transition hover:border-[var(--co-black)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)] md:col-span-2">
+        Continue with Google
+      </button>
       <button type="submit" disabled={pending} className="co-admin-primary-button co-primary-cta min-h-12 rounded-full md:col-span-2">
         {pending ? <Loader2 className="animate-spin" size={18} /> : <UserPlus size={18} />}
         {pending ? "Creating your .CO space..." : "Create account"}
@@ -374,12 +377,12 @@ function AuthInput({ id, label, type, autoComplete, disabled, error, register }:
   );
 }
 
-function PasswordInput({ id, label, show, onToggle, disabled, error, register }: { id: string; label: string; show: boolean; onToggle: () => void; disabled: boolean; error?: string; register: UseFormRegisterReturn }) {
+function PasswordInput({ id, label, show, onToggle, disabled, error, register, autoComplete = "current-password" }: { id: string; label: string; show: boolean; onToggle: () => void; disabled: boolean; error?: string; register: UseFormRegisterReturn; autoComplete?: string }) {
   return (
     <div className="space-y-2">
       <label htmlFor={id} className="block text-sm font-medium text-coconut">{label}</label>
       <div className="relative">
-        <input id={id} type={show ? "text" : "password"} autoComplete="current-password" disabled={disabled} aria-invalid={Boolean(error)} className="co-input pr-14" {...register} />
+        <input id={id} type={show ? "text" : "password"} autoComplete={autoComplete} disabled={disabled} aria-invalid={Boolean(error)} className="co-input pr-14" {...register} />
         <button type="button" onClick={onToggle} aria-label={show ? "Hide password" : "Show password"} className="absolute right-2 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full text-[var(--co-brown)] transition hover:bg-[var(--co-cream)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[rgba(244,201,93,0.72)]">
           {show ? <EyeOff size={18} /> : <Eye size={18} />}
         </button>
@@ -391,9 +394,10 @@ function PasswordInput({ id, label, show, onToggle, disabled, error, register }:
 
 function AuthMessage({ message, positive = false }: { message?: string; positive?: boolean }) {
   if (!message) return null;
+  const Icon = positive ? CheckCircle2 : CircleAlert;
   return (
     <p className={`flex items-start gap-2 rounded-[28px] px-4 py-3 text-sm leading-6 ${positive ? "bg-[var(--co-palm)]/10 text-[var(--co-palm)]" : "bg-red-950/5 text-red-900"}`} role={positive ? "status" : "alert"}>
-      <CheckCircle2 className="mt-1 shrink-0" size={15} />
+      <Icon className="mt-1 shrink-0" size={15} />
       <span>{message}</span>
     </p>
   );

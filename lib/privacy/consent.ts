@@ -1,5 +1,6 @@
 export const CONSENT_STORAGE_KEY = "co_cookie_consent_v1";
 export const CONSENT_EVENT = "co:consent-updated";
+export const OPEN_CONSENT_EVENT = "co:open-cookie-preferences";
 
 export type CookieConsent = {
   essential: true;

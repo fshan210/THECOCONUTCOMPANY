@@ -36,7 +36,7 @@ export const launchPages: Record<string, LaunchPage> = {
   "cookie-policy": { eyebrow: "Cookies", title: "Small files, clear choices.", intro: "Essential storage keeps accounts, baskets and preferences working. Analytics remains optional.", sections: [
     { title: "Essential", body: "Used for authentication, basket state, consent and core site reliability." },
     { title: "Analytics", body: "Used only after consent to understand anonymous performance and page usage." },
-    { title: "Managing consent", body: "Use the cookie control at the lower-left corner of any public page to update preferences." }
+    { title: "Managing consent", body: "Use Cookie Preferences in the footer whenever you want to review or update optional choices." }
   ], action: { label: "Privacy policy", href: "/privacy-policy" } },
   "terms-and-conditions": { eyebrow: "Terms", title: "The terms of using .CO.", intro: "These launch-readiness terms cover site use while the commercial ordering system remains in preparation.", sections: [
     { title: "Site information", body: "Product previews, prices and availability may change before a purchase is confirmed." },

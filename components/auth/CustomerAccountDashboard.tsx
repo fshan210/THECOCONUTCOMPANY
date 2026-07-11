@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Heart, Leaf, MapPin, PackageCheck, Settings, ShieldCheck, Soup, UserRound } from "lucide-react";
 import type { CustomerSession } from "@/lib/customer/auth-config";
 import { logoutCustomer } from "@/lib/customer/actions";
+import { StatePanel } from "@/components/launch/StatePanel";
 
 const customerCards = [
   { title: "Orders", href: "/orders", body: "Find your .CO order history and useful delivery notes.", icon: PackageCheck },
@@ -101,14 +102,14 @@ export function CustomerSimplePage({ session, title, body, items }: { session: C
         <p className="co-label mb-5">{session.name}</p>
         <h1 className="text-[clamp(64px,10vw,150px)] font-bold leading-[0.82] text-[var(--co-ink)]">{title}</h1>
         <p className="co-body mt-6 max-w-2xl">{body}</p>
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
+        {items.length ? <div className="mt-10 grid gap-4 md:grid-cols-3">
           {items.map((item) => (
             <article key={item.title} className="rounded-[36px] border border-[var(--co-border)] bg-[var(--co-white)] p-6 shadow-[0_18px_48px_rgba(58,36,22,0.065)]">
               <h2 className="text-4xl font-bold leading-none text-[var(--co-ink)]">{item.title}</h2>
               <p className="mt-5 text-sm leading-7 text-[var(--co-muted)]">{item.detail}</p>
             </article>
           ))}
-        </div>
+        </div> : <StatePanel className="mt-10 max-w-[720px]" kind="empty" title="Nothing saved yet." body="Use the heart on a product or recipe and it will appear here." primary={{label:"Browse products",href:"/shop"}} secondary={{label:"Explore recipes",href:"/recipes"}} />}
       </div>
     </section>
   );
