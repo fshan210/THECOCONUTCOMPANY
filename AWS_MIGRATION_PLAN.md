@@ -151,3 +151,17 @@ Do not migrate to AWS until the site has stable launch traffic patterns and the 
 - static pre-optimized media pipeline.
 
 For now, keeping Vercel while disabling runtime image optimization is the safest low-cost path.
+
+## Phase 1 backend foundation update
+
+The repository now contains the AWS backend foundation without moving the frontend off Vercel:
+
+- `/backend`: TypeScript Hono Lambda API.
+- `/infra`: CDK v2 stack for Cognito, API Gateway HTTP API, Lambda, DynamoDB, logs, alarms.
+- `/packages/contracts`: shared Zod contracts.
+
+The backend defaults to `ap-south-1` through `DOTCO_AWS_REGION`.
+
+API Gateway HTTP API was selected for Phase 1 instead of a naked Lambda Function URL because authenticated APIs need safer routing, CORS, observability, and future WAF/authorizer controls. CloudFront can still be added later once the API is stable.
+
+Frontend hosting should remain Vercel until a separate static-export proof confirms that every public route can be served safely without losing approved UI behavior or CMS fallback behavior.

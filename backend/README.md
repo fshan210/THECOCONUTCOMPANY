@@ -1,24 +1,43 @@
-# .CO FastAPI Backend
+# .CO Backend API
 
-FastAPI foundation configured for AWS RDS PostgreSQL through `DATABASE_URL`.
+This directory now contains the Phase 1 TypeScript/Hono backend foundation for AWS Lambda.
+
+The older Python/FastAPI/Postgres skeleton under `backend/app` remains present only as discovered legacy code and is not the target architecture for the .CO production backend.
+
+## Stack
+
+- Hono router
+- TypeScript
+- AWS Lambda adapter
+- AWS SDK v3
+- Cognito JWT verification with `aws-jwt-verify`
+- Zod validation through `@dotco/contracts`
 
 ## Local setup
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env
-uvicorn app.main:app --reload
+npm install --prefix ../packages/contracts
+npm install --prefix .
+npm run dev
 ```
 
-Use an RDS connection string shaped like:
+Default local URL:
 
 ```text
-postgresql+psycopg://USER:PASSWORD@RDS_ENDPOINT:5432/DATABASE
+http://localhost:8787/v1/health
 ```
 
-Health endpoints:
+## Validation
 
-- `GET /api/v1/health`
-- `GET /api/v1/db/health`
+```bash
+npm run test
+npm run typecheck
+npm run build
+```
+
+## Important security notes
+
+- Do not expose AWS credentials to the browser.
+- Do not trust browser-submitted user IDs, prices, discounts, totals, roles, or payment status.
+- Do not persist raw tokens in localStorage.
+- Production authenticated routes must use Cognito JWT verification and server-side ownership checks.

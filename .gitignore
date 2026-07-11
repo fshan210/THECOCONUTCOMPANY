@@ -2,6 +2,8 @@
 node_modules
 out
 dist
+cdk.out
+infra/cdk.out
 .env
 .env.local
 .venv

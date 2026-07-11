@@ -109,3 +109,29 @@ Remaining risks:
 ## Near-term recommendation
 
 Stay on Vercel for now after this fix. Runtime image optimization remains disabled, and the largest active public-page images now have static responsive AVIF/JPEG delivery. The next practical savings step is interaction-level loading for popups, long sliders, and route-specific animation bundles.
+
+## Backend cost-safety additions
+
+The Phase 1 backend foundation uses low-idle-cost AWS services only:
+
+- API Gateway HTTP API.
+- Lambda on ARM64. Reserved concurrency is supported through `DOTCO_LAMBDA_RESERVED_CONCURRENCY`, but is off by default because the current AWS account rejected a dev cap when it would reduce unreserved concurrency below AWS's minimum.
+- DynamoDB on-demand tables.
+- Cognito user pool.
+- CloudWatch logs with explicit retention.
+
+The CDK stack intentionally does not create:
+
+- NAT Gateway,
+- EC2,
+- ECS services,
+- RDS,
+- OpenSearch,
+- ElastiCache,
+- always-on containers.
+
+Production DynamoDB tables use retention/deletion protection and PITR. Dev tables are destroyable to avoid orphaned resources, but dev deploys should still be reviewed with `cdk diff`.
+
+If the AWS account receives higher Lambda concurrency quota, set `DOTCO_LAMBDA_RESERVED_CONCURRENCY` before deployment to cap API blast radius.
+
+This architecture is not guaranteed free. API Gateway requests, Lambda duration, CloudWatch logs, DynamoDB traffic/storage, Cognito MAUs, Route 53, and future WAF/CloudFront usage can still generate costs.
