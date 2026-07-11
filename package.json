@@ -20,6 +20,10 @@
     "firestore:backup": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/firestore-backup.ts",
     "firestore:restore": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/firestore-restore.ts",
     "firebase:bootstrap-admin": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/bootstrap-admin.ts",
+    "firebase:audit": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/firebase-audit.ts",
+    "migrate:firebase:dry-run": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/migrate-firebase.ts dry-run",
+    "migrate:firebase:dev": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/migrate-firebase.ts dev",
+    "verify:migration:dev": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/verify-migration.ts",
     "godaddy:dns:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/godaddy-dns-sync.ts",
     "godaddy:dns:apply": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/godaddy-dns-sync.ts --apply"
   },
