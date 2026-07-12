@@ -49,7 +49,7 @@ export class DotCoBackendStack extends Stack {
       userVerification: {
         emailStyle: VerificationEmailStyle.CODE,
         emailSubject: "Verify your .CO account",
-        emailBody: "Your .CO verification code is {####}"
+        emailBody: "Welcome to .CO The Coconut Company.\n\nYour verification code is:\n\n{####}\n\nEnter this code on the verification page to activate your account. This code expires according to Cognito's confirmation-code policy.\n\nIf you did not create this account, you can safely ignore this email."
       },
       passwordPolicy: {
         minLength: 10,
@@ -125,6 +125,9 @@ export class DotCoBackendStack extends Stack {
       },
       logGroup: apiLogGroup,
       tracing: Tracing.ACTIVE,
+      // Reserve only when the AWS account's unreserved concurrency quota permits it.
+      // Some new/free accounts must retain at least 10 unreserved executions and reject
+      // even a small reservation; the deployment runbook documents that guardrail.
       reservedConcurrentExecutions: props.reservedConcurrency
     });
 

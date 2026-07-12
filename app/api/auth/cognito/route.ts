@@ -1,15 +1,35 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { ConfirmForgotPasswordCommand, ConfirmSignUpCommand, ForgotPasswordCommand, GetUserCommand, InitiateAuthCommand, ResendConfirmationCodeCommand, SignUpCommand, CognitoIdentityProviderClient } from "@aws-sdk/client-cognito-identity-provider";
+import { ConfirmForgotPasswordCommand, ConfirmSignUpCommand, ForgotPasswordCommand, GetUserCommand, InitiateAuthCommand, SignUpCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { z } from "zod";
 import { sealAwsSession } from "@/lib/auth/aws-session";
 import { awsSessionCookie as cookieName } from "@/lib/auth/aws-cookie";
+import { cognitoClient, cognitoClientId, cognitoErrorName, hasCognitoError, normalizeCognitoEmail, resendCognitoConfirmation } from "@/lib/auth/cognito-bff";
+import { clearPendingVerification, getPendingVerification, maskEmail, safeReturnTo, setPendingVerification } from "@/lib/auth/verification-state";
+import { checkRateLimit } from "@/lib/security/rate-limit";
 
-const client = new CognitoIdentityProviderClient({ region: process.env.DOTCO_AWS_REGION || "ap-south-1" });
-const input = z.object({ action: z.enum(["login", "signup", "confirm", "resend", "forgot", "reset", "logout"]), email: z.string().email().optional(), password: z.string().min(8).optional(), name: z.string().min(2).max(80).optional(), code: z.string().length(6).optional(), clientId: z.string().optional(), refreshToken: z.string().optional() });
+const input = z.object({
+  action: z.enum(["login", "signup", "confirm", "resend", "forgot", "reset", "logout"]),
+  email: z.string().email().optional(),
+  password: z.string().min(10).max(256).optional(),
+  name: z.string().trim().min(2).max(80).optional(),
+  code: z.string().regex(/^\d{6}$/).optional(),
+  returnTo: z.string().max(512).optional()
+});
 
-function clientId() { return process.env.COGNITO_APP_CLIENT_ID; }
-function bad(message: string, status = 400) { return NextResponse.json({ ok: false, message }, { status }); }
+const maxRequestBytes = 8_192;
+
+function requestId() {
+  return crypto.randomUUID();
+}
+
+function reply(requestIdValue: string, body: Record<string, unknown>, status = 200) {
+  return NextResponse.json({ ...body, requestId: requestIdValue }, { status });
+}
+
+function bad(requestIdValue: string, message: string, status = 400, flow?: string) {
+  return reply(requestIdValue, { ok: false, message, ...(flow ? { flow } : {}) }, status);
+}
 
 function isAllowedOrigin(request: Request) {
   const origin = request.headers.get("origin");
@@ -21,61 +41,130 @@ function isAllowedOrigin(request: Request) {
   }
 }
 
+function sourceKey(request: Request, email: string) {
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
+  return `${ip}:${email}`;
+}
+
+async function applyRateLimit(request: Request, action: string, email: string, id: string) {
+  const rate = await checkRateLimit({ key: sourceKey(request, email), action, limit: 3, windowMs: 60_000, area: "customer_auth" });
+  if (rate.allowed) return null;
+  const retryAfter = Math.max(1, Math.ceil((rate.resetAt - Date.now()) / 1000));
+  return NextResponse.json({ ok: false, message: "Please wait a moment before trying again.", requestId: id, retryAfter }, { status: 429, headers: { "retry-after": String(retryAfter) } });
+}
+
+async function beginVerification(email: string, returnTo?: string) {
+  const state = await setPendingVerification(email, returnTo);
+  return { status: "verification_required", delivery: "email", maskedDestination: maskEmail(state.email), returnTo: state.returnTo };
+}
+
 export async function POST(request: Request) {
-  if (!isAllowedOrigin(request)) return bad("This request was blocked for your protection.", 403);
+  const id = requestId();
+  if (!isAllowedOrigin(request)) return bad(id, "This request was blocked for your protection.", 403);
+  if (Number(request.headers.get("content-length") || 0) > maxRequestBytes) return bad(id, "This request is too large.", 413);
   const parsed = input.safeParse(await request.json().catch(() => null));
-  if (!parsed.success) return bad("Please check the information and try again.");
+  if (!parsed.success) return bad(id, "Please check the information and try again.");
   const body = parsed.data;
-  const id = body.clientId || clientId();
-  if (body.action !== "logout" && !id) return bad("Account authentication is not configured.", 503);
+  const appClientId = cognitoClientId();
+  if (body.action !== "logout" && !appClientId) return bad(id, "Account authentication is not configured.", 503);
+  const email = body.email ? normalizeCognitoEmail(body.email) : undefined;
+
   try {
     if (body.action === "logout") {
-      const store = await cookies(); store.delete(cookieName); return NextResponse.json({ ok: true });
+      const store = await cookies();
+      store.delete(cookieName);
+      return reply(id, { ok: true });
     }
+
     if (body.action === "signup") {
-      if (!body.email || !body.password) return bad("Email and password are required.");
-      await client.send(new SignUpCommand({ ClientId: id, Username: body.email, Password: body.password, UserAttributes: body.name ? [{ Name: "name", Value: body.name }] : undefined }));
-      return NextResponse.json({ ok: true, status: "verification_required", email: body.email });
+      if (!email || !body.password) return bad(id, "Email and password are required.");
+      const rateBlocked = await applyRateLimit(request, "customer_signup", email, id);
+      if (rateBlocked) return rateBlocked;
+      try {
+        const result = await cognitoClient.send(new SignUpCommand({
+          ClientId: appClientId,
+          Username: email,
+          Password: body.password,
+          UserAttributes: body.name ? [{ Name: "name", Value: body.name }] : undefined
+        }));
+        return reply(id, { ok: true, ...await beginVerification(email, body.returnTo), ...(result.CodeDeliveryDetails ? { delivery: "email" } : {}) });
+      } catch (error) {
+        if (!hasCognitoError(error, "UsernameExists")) throw error;
+        try {
+          await resendCognitoConfirmation(email, appClientId);
+          return reply(id, { ok: true, resumed: true, ...await beginVerification(email, body.returnTo) });
+        } catch (resendError) {
+          if (hasCognitoError(resendError, "InvalidParameter") || hasCognitoError(resendError, "NotAuthorized")) {
+            return bad(id, "An account already exists with this email. Sign in or reset your password.", 409, "account_exists");
+          }
+          throw resendError;
+        }
+      }
     }
+
     if (body.action === "confirm") {
-      if (!body.email || !body.code) return bad("Email and verification code are required.");
-      await client.send(new ConfirmSignUpCommand({ ClientId: id, Username: body.email, ConfirmationCode: body.code }));
-      return NextResponse.json({ ok: true });
+      const pending = await getPendingVerification();
+      const confirmationEmail = email || pending?.email;
+      if (!confirmationEmail || !body.code) return bad(id, "Enter the six-digit code we sent to your email.");
+      const rateBlocked = await applyRateLimit(request, "customer_confirm", confirmationEmail, id);
+      if (rateBlocked) return rateBlocked;
+      await cognitoClient.send(new ConfirmSignUpCommand({ ClientId: appClientId, Username: confirmationEmail, ConfirmationCode: body.code }));
+      const returnTo = safeReturnTo(body.returnTo || pending?.returnTo);
+      await clearPendingVerification();
+      return reply(id, { ok: true, returnTo });
     }
+
     if (body.action === "resend") {
-      if (!body.email) return bad("Email is required.");
-      await client.send(new ResendConfirmationCodeCommand({ ClientId: id, Username: body.email }));
-      return NextResponse.json({ ok: true });
+      const pending = await getPendingVerification();
+      const confirmationEmail = email || pending?.email;
+      if (!confirmationEmail) return bad(id, "Enter your email address to receive a new code.");
+      const rateBlocked = await applyRateLimit(request, "customer_resend_confirmation", confirmationEmail, id);
+      if (rateBlocked) return rateBlocked;
+      await resendCognitoConfirmation(confirmationEmail, appClientId);
+      return reply(id, { ok: true, ...await beginVerification(confirmationEmail, body.returnTo || pending?.returnTo) });
     }
+
     if (body.action === "forgot") {
-      if (!body.email) return bad("Email is required.");
-      await client.send(new ForgotPasswordCommand({ ClientId: id, Username: body.email }));
-      return NextResponse.json({ ok: true });
+      if (!email) return bad(id, "Email is required.");
+      const rateBlocked = await applyRateLimit(request, "customer_forgot_password", email, id);
+      if (rateBlocked) return rateBlocked;
+      await cognitoClient.send(new ForgotPasswordCommand({ ClientId: appClientId, Username: email }));
+      return reply(id, { ok: true });
     }
+
     if (body.action === "reset") {
-      if (!body.email || !body.password || !body.code) return bad("Email, code, and password are required.");
-      await client.send(new ConfirmForgotPasswordCommand({ ClientId: id, Username: body.email, ConfirmationCode: body.code, Password: body.password }));
-      return NextResponse.json({ ok: true });
+      if (!email || !body.password || !body.code) return bad(id, "Email, code, and password are required.");
+      const rateBlocked = await applyRateLimit(request, "customer_reset_password", email, id);
+      if (rateBlocked) return rateBlocked;
+      await cognitoClient.send(new ConfirmForgotPasswordCommand({ ClientId: appClientId, Username: email, ConfirmationCode: body.code, Password: body.password }));
+      return reply(id, { ok: true });
     }
-    if (!body.email || !body.password) return bad("Email and password are required.");
-    const result = await client.send(new InitiateAuthCommand({ ClientId: id, AuthFlow: "USER_PASSWORD_AUTH", AuthParameters: { USERNAME: body.email, PASSWORD: body.password } }));
+
+    if (!email || !body.password) return bad(id, "Email and password are required.");
+    const rateBlocked = await applyRateLimit(request, "customer_login", email, id);
+    if (rateBlocked) return rateBlocked;
+    const result = await cognitoClient.send(new InitiateAuthCommand({ ClientId: appClientId, AuthFlow: "USER_PASSWORD_AUTH", AuthParameters: { USERNAME: email, PASSWORD: body.password } }));
     const auth = result.AuthenticationResult;
-    if (!auth?.AccessToken) return bad("Additional verification is required.", 401);
-    const user = await client.send(new GetUserCommand({ AccessToken: auth.AccessToken }));
+    if (!auth?.AccessToken) return bad(id, "Additional verification is required.", 401);
+    const user = await cognitoClient.send(new GetUserCommand({ AccessToken: auth.AccessToken }));
     const attributes = Object.fromEntries((user.UserAttributes || []).flatMap((attribute) => attribute.Name && attribute.Value ? [[attribute.Name, attribute.Value]] : []));
-    const email = attributes.email || body.email;
-    const name = attributes.name || email.split("@")[0] || "Customer";
+    const customerEmail = attributes.email || email;
+    const name = attributes.name || customerEmail.split("@")[0] || "Customer";
     const store = await cookies();
-    store.set(cookieName, sealAwsSession({ accessToken: auth.AccessToken, idToken: auth.IdToken, refreshToken: auth.RefreshToken, sub: attributes.sub, email, name, expiresAt: Math.floor(Date.now() / 1000) + (auth.ExpiresIn || 900) }), { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/", maxAge: auth.ExpiresIn || 900 });
-    return NextResponse.json({ ok: true, email, name });
+    store.set(cookieName, sealAwsSession({ accessToken: auth.AccessToken, idToken: auth.IdToken, refreshToken: auth.RefreshToken, sub: attributes.sub, email: customerEmail, name, expiresAt: Math.floor(Date.now() / 1000) + (auth.ExpiresIn || 900) }), { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/", maxAge: auth.ExpiresIn || 900 });
+    return reply(id, { ok: true, email: customerEmail, name, returnTo: safeReturnTo(body.returnTo) });
   } catch (error) {
-    const name = error instanceof Error ? error.name : "";
-    if (name.includes("NotAuthorized") || name.includes("UserNotFound")) return bad("Invalid email or password.", 401);
-    if (name.includes("UserNotConfirmed")) return bad("Please verify your email before signing in.", 403);
-    if (name.includes("CodeMismatch") || name.includes("ExpiredCode")) return bad("That verification code is invalid or expired.");
-    if (name.includes("LimitExceeded") || name.includes("TooManyRequests")) return bad("Too many attempts. Please try again shortly.", 429);
-    if (name.includes("UsernameExists")) return bad("An account already exists for this email.", 409);
-    console.error("[cognito-auth-error]", name);
-    return bad("Authentication is temporarily unavailable.", 503);
+    const name = cognitoErrorName(error);
+    if (name.includes("UserNotConfirmed") && email) {
+      const verification = await beginVerification(email, body.returnTo);
+      return reply(id, { ok: false, flow: "verification_required", message: "Your email is not verified yet. Enter your code or ask us to send a new one.", ...verification }, 409);
+    }
+    if (name.includes("PasswordResetRequired") || name.includes("ResetRequired")) return bad(id, "Your password needs to be reset before you can sign in.", 409, "password_reset_required");
+    if (name.includes("NotAuthorized") || name.includes("UserNotFound")) return bad(id, "Invalid email or password.", 401);
+    if (name.includes("CodeMismatch") || name.includes("ExpiredCode")) return bad(id, "That verification code is invalid or expired. Request a new code and try again.");
+    if (name.includes("LimitExceeded") || name.includes("TooManyRequests")) return bad(id, "Too many attempts. Please try again shortly.", 429);
+    if (name.includes("UserNotFound") || name.includes("InvalidParameter") || name.includes("CodeDeliveryFailure")) return bad(id, "We couldn't send a code right now. Please try again shortly.", 503);
+    console.error("[cognito-auth-error]", { requestId: id, code: name });
+    return bad(id, "Authentication is temporarily unavailable.", 503);
   }
 }
