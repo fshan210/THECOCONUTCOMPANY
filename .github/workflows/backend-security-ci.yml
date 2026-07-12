@@ -45,3 +45,6 @@ jobs:
         with:
           role-to-assume: ${{ vars.AWS_DEV_ROLE_ARN }}
           aws-region: ap-south-1
+      - name: Verify AWS OIDC identity
+        if: ${{ vars.AWS_DEV_ROLE_ARN != '' }}
+        run: aws sts get-caller-identity

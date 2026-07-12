@@ -86,4 +86,4 @@ npx cdk deploy -c envName=production
 - Swap application env/table references only after review.
 # Phase 2 deployment status
 
-The GitHub validation workflow is active. The DEV CDK stack was updated with an API Gateway JWT authorizer and deployed successfully. Production deployment remains intentionally excluded. GitHub Actions OIDC role creation still requires an AWS IAM trust/policy review before any deployment job is permitted to assume a role.
+The GitHub validation workflow is active. The DEV CDK stack was updated with an API Gateway JWT authorizer and deployed successfully. GitHub Actions OIDC now assumes `arn:aws:iam::574246331930:role/dotco-github-actions-dev`, limited to `sts:GetCallerIdentity` and the Phase 2 branch. Production deployment remains intentionally excluded.
