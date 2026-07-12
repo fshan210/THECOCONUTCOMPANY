@@ -1,7 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { adminSessionCookie } from "@/lib/admin/auth-config";
 import { getAdminPath, isConfiguredAdminPath, mapConfiguredAdminPath } from "@/lib/admin/path";
-import { customerSessionCookie } from "@/lib/customer/auth-config";
 import { awsSessionCookie } from "@/lib/auth/aws-cookie";
 
 export function middleware(request: NextRequest) {
@@ -41,7 +40,7 @@ export function middleware(request: NextRequest) {
   const isCustomerProtectedRoute = customerProtectedRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
 
   if (isCustomerProtectedRoute) {
-    const hasCustomerSession = Boolean(request.cookies.get(customerSessionCookie)?.value || request.cookies.get(awsSessionCookie)?.value);
+    const hasCustomerSession = Boolean(request.cookies.get(awsSessionCookie)?.value);
     if (!hasCustomerSession) {
       const loginUrl = request.nextUrl.clone();
       loginUrl.pathname = "/login";

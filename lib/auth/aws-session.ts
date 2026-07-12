@@ -4,7 +4,7 @@ import crypto from "node:crypto";
 import { awsSessionCookie } from "@/lib/auth/aws-cookie";
 export { awsSessionCookie } from "@/lib/auth/aws-cookie";
 
-type SessionPayload = { accessToken: string; idToken?: string; refreshToken?: string; sub?: string; email?: string; expiresAt: number };
+type SessionPayload = { accessToken: string; idToken?: string; refreshToken?: string; sub?: string; email?: string; name?: string; expiresAt: number };
 
 function key() {
   const secret = process.env.COGNITO_SESSION_SECRET || process.env.ADMIN_SESSION_SECRET;

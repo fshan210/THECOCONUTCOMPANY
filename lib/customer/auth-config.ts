@@ -1,5 +1,3 @@
-export const customerSessionCookie = process.env.SESSION_COOKIE_NAME || "co_session";
-
 export type CustomerAccountStatus = "pending" | "active" | "suspended" | "deleted";
 
 export type CustomerSession = {

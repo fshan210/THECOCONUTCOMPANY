@@ -127,9 +127,9 @@ export function CartDrawer() {
               )}
             </div>
             <div className="border-t border-[var(--co-border)] p-5">
-              <p className="mb-4 text-xs leading-6 text-[var(--co-muted)]">We will share product notes and availability through early access.</p>
-              <Link href="/register" onClick={() => cart.setOpen(false)} className="block rounded-full bg-[var(--co-black)] px-6 py-4 text-center text-sm font-bold text-[var(--co-white)] transition hover:bg-[var(--co-palm)]">
-                Join early access
+              <p className="mb-4 text-xs leading-6 text-[var(--co-muted)]">Estimated subtotal <strong className="float-right text-[var(--co-ink)]">₹{cart.subtotal.toLocaleString("en-IN")}</strong></p>
+              <Link href="/cart" onClick={() => cart.setOpen(false)} className="block rounded-full bg-[var(--co-black)] px-6 py-4 text-center text-sm font-bold text-[var(--co-white)] transition hover:bg-[var(--co-palm)]">
+                View cart
               </Link>
             </div>
           </motion.aside>

@@ -2,10 +2,7 @@ import "server-only";
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { customerSessionCookie, type CustomerSession } from "@/lib/customer/auth-config";
-import { firestoreCollections } from "@/lib/firebase/collections";
-import { getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
-import { decodeFirebaseTokenTimes, lookupFirebaseAccount } from "@/lib/firebase/auth-rest";
+import { type CustomerSession } from "@/lib/customer/auth-config";
 import { awsSessionCookie, unsealAwsSession } from "@/lib/auth/aws-session";
 
 const configuredSessionDays = Number(process.env.SESSION_MAX_AGE_DAYS || 7);
@@ -22,53 +19,15 @@ function initialsFromName(name: string) {
 
 export const customerSessionMaxAge = customerSessionMs / 1000;
 
-export async function createFirebaseCustomerSessionCookie(idToken: string) {
-  return idToken;
-}
-
-async function getUserProfile(uid: string) {
-  try {
-    const snapshot = await (await getFirebaseAdminDb()).collection(firestoreCollections.users).doc(uid).get();
-    return snapshot.exists ? snapshot.data() : null;
-  } catch (error) {
-    console.warn("[customer-session-verify-failed]", error instanceof Error ? error.message : "unknown");
-    return null;
-  }
-}
-
-export async function verifyCustomerSession(token?: string): Promise<CustomerSession | null> {
-  if (!token || !isFirebaseAdminConfigured()) return null;
-  try {
-    const account = await lookupFirebaseAccount(token);
-    const profile = await getUserProfile(account.localId);
-    const name = (profile?.displayName as string | undefined) || account.displayName || account.email?.split("@")[0] || "Customer";
-    const emailVerified = Boolean(account.emailVerified || profile?.emailVerified);
-    const accountStatus = String(profile?.accountStatus || (emailVerified ? "active" : "pending")) as CustomerSession["accountStatus"];
-    const times = decodeFirebaseTokenTimes(token);
-    return {
-      uid: account.localId,
-      email: account.email || "",
-      name,
-      initials: initialsFromName(name),
-      emailVerified,
-      accountStatus,
-      issuedAt: times.issuedAt,
-      expiresAt: times.expiresAt
-    };
-  } catch {
-    return null;
-  }
-}
-
 export async function getCustomerSession() {
   const cookieStore = await cookies();
   const aws = unsealAwsSession(cookieStore.get(awsSessionCookie)?.value);
   if (aws) {
     const email = aws.email || "";
-    const name = email.split("@")[0] || "Customer";
+    const name = aws.name || email.split("@")[0] || "Customer";
     return { uid: aws.sub || "cognito-session", email, name, initials: initialsFromName(name), emailVerified: true, accountStatus: "active" as const, issuedAt: aws.expiresAt - 900, expiresAt: aws.expiresAt };
   }
-  return verifyCustomerSession(cookieStore.get(customerSessionCookie)?.value);
+  return null;
 }
 
 export async function requireCustomerSession() {
