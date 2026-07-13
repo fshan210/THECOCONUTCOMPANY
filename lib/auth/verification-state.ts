@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 
 const verificationCookie = "co_pending_verification";
 const maxAgeSeconds = 60 * 30;
-const allowedReturnPaths = new Set(["/account", "/cart", "/wishlist", "/shop", "/recipes", "/journal", "/sustainability", "/about", "/founders"]);
+const allowedReturnPaths = new Set(["/shop", "/cart", "/wishlist", "/account", "/products"]);
 
 type VerificationState = {
   email: string;
@@ -20,9 +20,9 @@ function key() {
 }
 
 export function safeReturnTo(value?: string | null) {
-  if (!value || !value.startsWith("/") || value.startsWith("//")) return "/account";
-  const path = value.split("?")[0] || "/account";
-  return allowedReturnPaths.has(path) ? value : "/account";
+  if (!value || !value.startsWith("/") || value.startsWith("//")) return "/shop";
+  const path = value.split("?")[0] || "/shop";
+  return allowedReturnPaths.has(path) ? value : "/shop";
 }
 
 function seal(state: VerificationState) {
