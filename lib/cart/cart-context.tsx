@@ -17,12 +17,17 @@ const previewPrices: Record<string, number> = {
   "co-lifestyle": 350
 };
 
+export function getCartPreviewPrice(slug: string) {
+  return previewPrices[slug] || 0;
+}
+
 type CartContextValue = {
   items: CartItem[];
   products: Array<ShopProduct & { quantity: number }>;
   totalQuantity: number;
   subtotal: number;
   open: boolean;
+  recentlyAddedSlug: string | null;
   setOpen: (value: boolean) => void;
   addItem: (slug: string) => void;
   removeItem: (slug: string) => void;
@@ -47,6 +52,7 @@ function readInitialCart(): CartItem[] {
 export function CartProvider({ children, catalog = shopProducts }: { children: ReactNode; catalog?: ShopProduct[] }) {
   const [items, setItems] = useState<CartItem[]>(readInitialCart);
   const [open, setOpen] = useState(false);
+  const [recentlyAddedSlug, setRecentlyAddedSlug] = useState<string | null>(null);
 
   useEffect(() => {
     window.localStorage.setItem(storageKey, JSON.stringify(items));
@@ -64,9 +70,13 @@ export function CartProvider({ children, catalog = shopProducts }: { children: R
       items,
       products,
       totalQuantity: items.reduce((total, item) => total + item.quantity, 0),
-      subtotal: products.reduce((total, product) => total + (previewPrices[product.slug] || 0) * product.quantity, 0),
+      subtotal: products.reduce((total, product) => total + getCartPreviewPrice(product.slug) * product.quantity, 0),
       open,
-      setOpen,
+      setOpen: (value) => {
+        setOpen(value);
+        if (!value) setRecentlyAddedSlug(null);
+      },
+      recentlyAddedSlug,
       addItem: (slug) => {
         setItems((current) => {
           const existing = current.find((item) => item.slug === slug);
@@ -75,6 +85,7 @@ export function CartProvider({ children, catalog = shopProducts }: { children: R
           }
           return [...current, { slug, quantity: 1 }];
         });
+        setRecentlyAddedSlug(slug);
         setOpen(true);
       },
       removeItem: (slug) => setItems((current) => current.filter((item) => item.slug !== slug)),
@@ -87,7 +98,7 @@ export function CartProvider({ children, catalog = shopProducts }: { children: R
       },
       clearCart: () => setItems([])
     };
-  }, [catalog, items, open]);
+  }, [catalog, items, open, recentlyAddedSlug]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
