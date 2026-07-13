@@ -12,7 +12,8 @@ import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { Architecture, Runtime, Tracing } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction, OutputFormat } from "aws-cdk-lib/aws-lambda-nodejs";
 import { LogGroup, RetentionDays } from "aws-cdk-lib/aws-logs";
-import { HttpApi, CorsHttpMethod } from "aws-cdk-lib/aws-apigatewayv2";
+import { HttpApi, CorsHttpMethod, HttpMethod } from "aws-cdk-lib/aws-apigatewayv2";
+import { HttpJwtAuthorizer } from "aws-cdk-lib/aws-apigatewayv2-authorizers";
 import { HttpLambdaIntegration } from "aws-cdk-lib/aws-apigatewayv2-integrations";
 import { Construct } from "constructs";
 import { dirname, join } from "node:path";
@@ -48,7 +49,7 @@ export class DotCoBackendStack extends Stack {
       userVerification: {
         emailStyle: VerificationEmailStyle.CODE,
         emailSubject: "Verify your .CO account",
-        emailBody: "Your .CO verification code is {####}"
+        emailBody: "Welcome to .CO The Coconut Company.\n\nYour verification code is:\n\n{####}\n\nEnter this code on the verification page to activate your account. This code expires according to Cognito's confirmation-code policy.\n\nIf you did not create this account, you can safely ignore this email."
       },
       passwordPolicy: {
         minLength: 10,
@@ -124,6 +125,9 @@ export class DotCoBackendStack extends Stack {
       },
       logGroup: apiLogGroup,
       tracing: Tracing.ACTIVE,
+      // Reserve only when the AWS account's unreserved concurrency quota permits it.
+      // Some new/free accounts must retain at least 10 unreserved executions and reject
+      // even a small reservation; the deployment runbook documents that guardrail.
       reservedConcurrentExecutions: props.reservedConcurrency
     });
 
@@ -164,10 +168,13 @@ export class DotCoBackendStack extends Stack {
         maxAge: Duration.minutes(10)
       }
     });
-    httpApi.addRoutes({
-      path: "/{proxy+}",
-      integration: new HttpLambdaIntegration("ApiIntegration", apiFn)
-    });
+    const apiIntegration = new HttpLambdaIntegration("ApiIntegration", apiFn);
+    const issuer = `https://cognito-idp.${this.region}.amazonaws.com/${userPool.userPoolId}`;
+    const jwtAuthorizer = new HttpJwtAuthorizer("ApiJwtAuthorizer", issuer, { jwtAudience: [userPoolClient.userPoolClientId] });
+    for (const path of ["/v1/health", "/v1/ready", "/v1/products", "/v1/products/{slug}", "/v1/categories", "/v1/recipes", "/v1/recipes/{slug}", "/v1/journal", "/v1/journal/{slug}", "/v1/newsletter/subscriptions"]) {
+      httpApi.addRoutes({ path, methods: [HttpMethod.GET], integration: apiIntegration });
+    }
+    httpApi.addRoutes({ path: "/{proxy+}", integration: apiIntegration, authorizer: jwtAuthorizer });
 
     new Alarm(this, "ApiErrorsAlarm", {
       alarmName: `${prefix}-api-errors`,

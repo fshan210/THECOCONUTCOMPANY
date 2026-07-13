@@ -28,3 +28,7 @@ export async function listProducts(query: ProductListQuery) {
 export async function getProductBySlug(slug: string) {
   return catalog.find((product) => product.slug === slug) ?? null;
 }
+
+export function getProductById(id: string) {
+  return catalog.find((product) => product.id === id) ?? null;
+}

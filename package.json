@@ -9,6 +9,10 @@
     "test": "npm --prefix packages/contracts test && npm --prefix backend test && npm --prefix infra test",
     "backend:typecheck": "npm --prefix packages/contracts run typecheck && npm --prefix backend run typecheck",
     "infra:synth": "npm --prefix infra run synth",
+    "aws:whoami": "AWS_PROFILE=dotco-console AWS_REGION=ap-south-1 node scripts/aws-whoami.mjs",
+    "aws:dev:verify": "AWS_PROFILE=dotco-console AWS_REGION=ap-south-1 node scripts/aws-dev-verify.mjs",
+    "infra:diff:dev": "cd infra && AWS_PROFILE=dotco-console AWS_REGION=ap-south-1 npx cdk diff",
+    "infra:deploy:dev": "cd infra && AWS_PROFILE=dotco-console AWS_REGION=ap-south-1 npx cdk deploy",
     "start": "next start",
     "lint": "eslint .",
     "optimize:images": "node scripts/optimize-images.js",
@@ -28,6 +32,7 @@
     "godaddy:dns:apply": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/godaddy-dns-sync.ts --apply"
   },
   "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.1085.0",
     "@dotco/contracts": "file:packages/contracts",
     "@fontsource/cormorant-garamond": "^5.2.11",
     "@fontsource/inter": "^5.2.8",

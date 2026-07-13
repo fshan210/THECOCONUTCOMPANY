@@ -9,10 +9,19 @@ export type CartItem = {
   quantity: number;
 };
 
+const previewPrices: Record<string, number> = {
+  "co-water": 120,
+  "melt-co-mango-coconut": 220,
+  "co-kitchen-coconut-oil": 250,
+  "co-botanica-coconut-care": 499,
+  "co-lifestyle": 350
+};
+
 type CartContextValue = {
   items: CartItem[];
   products: Array<ShopProduct & { quantity: number }>;
   totalQuantity: number;
+  subtotal: number;
   open: boolean;
   setOpen: (value: boolean) => void;
   addItem: (slug: string) => void;
@@ -55,6 +64,7 @@ export function CartProvider({ children, catalog = shopProducts }: { children: R
       items,
       products,
       totalQuantity: items.reduce((total, item) => total + item.quantity, 0),
+      subtotal: products.reduce((total, product) => total + (previewPrices[product.slug] || 0) * product.quantity, 0),
       open,
       setOpen,
       addItem: (slug) => {

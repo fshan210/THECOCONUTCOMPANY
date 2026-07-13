@@ -38,3 +38,6 @@ Firebase can only be decommissioned when:
 - backups are retained.
 
 Do not delete Firebase resources in Phase 1.
+# Phase 2 migration status
+
+The migration remains DEV-only and gated. `npm run firebase:audit` was run against the rotated local service account and found no user, product, content, newsletter, cart, wishlist, or order records. `npm run migrate:firebase:dry-run` and the approved DEV command perform zero writes because there are no authoritative records to transform. Firebase production data has not been changed. The Preview content adapter uses AWS when `DOTCO_USE_API_CONTENT=true`; fallback content remains available if the API fails.

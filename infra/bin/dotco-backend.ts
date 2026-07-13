@@ -18,5 +18,7 @@ const stack = new DotCoBackendStack(app, `dotco-${envName}-backend`, {
 });
 
 Tags.of(stack).add("Application", "dotco");
+Tags.of(stack).add("Project", "dotco");
 Tags.of(stack).add("Environment", envName);
+Tags.of(stack).add("CostCenter", "dotco-platform");
 Tags.of(stack).add("ManagedBy", "cdk");

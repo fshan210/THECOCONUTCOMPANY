@@ -61,3 +61,8 @@ API Gateway HTTP API is selected for Phase 1 rather than a naked Function URL. F
 ## CDK bootstrap note
 
 The AWS account/region was bootstrapped on 2026-07-11 using CDK's standard bootstrap stack. The application stack itself avoids broad DynamoDB/Cognito permissions, but the bootstrap execution role uses CDK defaults. Before GitHub Actions production deployment, replace long-lived credentials with OIDC-based role assumption and review bootstrap/deploy role permissions.
+# Phase 2 implementation status
+
+- AWS DEV API now has a JWT authorizer at API Gateway and Hono remains defense in depth.
+- `/api/auth/cognito` uses server-side Cognito commands and an encrypted HttpOnly `co_aws_session` cookie; no token is written to browser storage.
+- Existing Firebase admin/CMS flows remain intentionally retained until the audited DEV migration and dashboard cutover are approved.

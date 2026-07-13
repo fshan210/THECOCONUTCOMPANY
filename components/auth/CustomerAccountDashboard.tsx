@@ -1,116 +1,22 @@
-import Image from "next/image";
 import Link from "next/link";
-import { Heart, Leaf, MapPin, PackageCheck, Settings, ShieldCheck, Soup, UserRound } from "lucide-react";
+import { Bell, Heart, Leaf, LockKeyhole, MapPin, PackageCheck, ShieldCheck, Soup, UserRound } from "lucide-react";
 import type { CustomerSession } from "@/lib/customer/auth-config";
 import { logoutCustomer } from "@/lib/customer/actions";
 import { StatePanel } from "@/components/launch/StatePanel";
 
-const customerCards = [
-  { title: "Orders", href: "/orders", body: "Find your .CO order history and useful delivery notes.", icon: PackageCheck },
-  { title: "Wishlist", href: "/wishlist", body: "Keep favourite coconut products and rituals close.", icon: Heart },
-  { title: "Profile", href: "/profile", body: "Manage identity, address, password, newsletter, and privacy.", icon: UserRound },
-  { title: "Saved recipes", href: "/saved-recipes", body: "Return to hydration recipes and kitchen notes.", icon: Soup }
+const overview = [
+  { title: "Recent orders", value: "No orders yet", body: "Your completed .CO orders will appear here.", href: "/orders", icon: PackageCheck },
+  { title: "Saved addresses", value: "Add at checkout", body: "Keep delivery details ready when checkout opens.", href: "/profile", icon: MapPin },
+  { title: "Wishlist", value: "Your favourites", body: "A calm place for products and recipes you love.", href: "/wishlist", icon: Heart },
+  { title: "Member offers", value: "Coming soon", body: "Verified account benefits will be shown here.", href: "/shop", icon: Leaf }
 ];
 
 export function CustomerAccountDashboard({ session }: { session: CustomerSession }) {
-  return (
-    <section className="co-section bg-[var(--co-cream)] pt-24 md:pt-32">
-      <div className="co-container grid gap-6 lg:grid-cols-[0.74fr_1.26fr]">
-        <aside className="h-fit rounded-[36px] border border-[var(--co-border)] bg-[var(--co-white)] p-6 shadow-[0_18px_48px_rgba(58,36,22,0.065)]">
-          <div className="flex items-center gap-4">
-            <span className="grid h-16 w-16 place-items-center rounded-full bg-[var(--co-black)] text-xl font-bold text-[var(--co-white)]">{session.initials}</span>
-            <div>
-              <p className="co-label">My Account</p>
-              <h1 className="text-4xl font-bold leading-none text-[var(--co-ink)]">{session.name}</h1>
-              <p className="mt-2 text-sm text-[var(--co-muted)]">{session.email}</p>
-            </div>
-          </div>
-          <div className="mt-8 space-y-2">
-            {[
-              ["Account dashboard", "/account", Settings],
-              ["Profile", "/profile", UserRound],
-              ["Orders", "/orders", PackageCheck],
-              ["Wishlist", "/wishlist", Heart]
-            ].map(([label, href, Icon]) => {
-              const TypedIcon = Icon as typeof Settings;
-              return (
-                <Link key={href as string} href={href as string} className="flex min-h-11 items-center gap-3 rounded-full px-4 text-sm font-bold text-[var(--co-brown)] transition hover:bg-[var(--co-cream)]">
-                  <TypedIcon size={17} /> {label as string}
-                </Link>
-              );
-            })}
-          </div>
-          <form action={logoutCustomer} className="mt-6 border-t border-[var(--co-border)] pt-5">
-            <button type="submit" className="min-h-11 w-full rounded-full border border-[var(--co-border)] px-4 text-sm font-bold text-[var(--co-brown)] transition hover:bg-[var(--co-black)] hover:text-[var(--co-white)]">
-              Sign out
-            </button>
-          </form>
-        </aside>
-        <div className="space-y-6">
-          <div className="overflow-hidden rounded-[48px] border border-[var(--co-border)] bg-[var(--co-white)] p-6 shadow-[0_18px_48px_rgba(58,36,22,0.065)] md:p-8">
-            <div className="grid gap-8 md:grid-cols-[1fr_280px] md:items-center">
-              <div>
-                <p className="co-label mb-4">Welcome back</p>
-                <h2 className="text-[clamp(48px,7vw,96px)] font-bold leading-[0.86] text-[var(--co-ink)]">Your coconut ritual space.</h2>
-                <p className="co-body mt-5 max-w-2xl">
-                  Manage favourites, saved recipes, addresses, newsletter preferences, and .CO orders from one calm customer space.
-                </p>
-              </div>
-              <div className="relative aspect-square">
-                <Image src="/assets/transparent/co-water-bottle.png" alt=".CO Water bottle" fill sizes="280px" className="object-contain drop-shadow-[0_28px_38px_rgba(62,46,31,0.22)]" />
-              </div>
-            </div>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {customerCards.map((card) => {
-              const Icon = card.icon;
-              return (
-                <Link key={card.href} href={card.href} className="co-press rounded-[36px] border border-[var(--co-border)] bg-[var(--co-white)] p-6 shadow-[0_18px_48px_rgba(58,36,22,0.065)]">
-                  <Icon className="mb-6 text-[var(--co-palm)]" size={24} />
-                  <h3 className="text-4xl font-bold leading-none text-[var(--co-ink)]">{card.title}</h3>
-                  <p className="mt-4 text-sm leading-7 text-[var(--co-muted)]">{card.body}</p>
-                </Link>
-              );
-            })}
-          </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {[
-              ["Newsletter", "Product notes and recipes enabled", Leaf],
-              ["Addresses", "Keep delivery details ready for checkout", MapPin],
-              ["Privacy", "Simple tools for your customer account", ShieldCheck]
-            ].map(([title, body, Icon]) => {
-              const TypedIcon = Icon as typeof Leaf;
-              return (
-                <article key={title as string} className="rounded-[28px] border border-[var(--co-border)] bg-[var(--co-white)] p-5">
-                  <TypedIcon className="mb-5 text-[var(--co-palm)]" size={20} />
-                  <h3 className="text-3xl font-bold leading-none text-[var(--co-ink)]">{title as string}</h3>
-                  <p className="mt-4 text-sm leading-7 text-[var(--co-muted)]">{body as string}</p>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return <section className="min-h-screen bg-[var(--co-cream)] px-4 pb-16 pt-28 md:px-8 md:pb-24 md:pt-36"><div className="mx-auto max-w-[1180px]"><header className="rounded-[32px] border border-black/[.07] bg-white/70 p-6 shadow-[0_20px_54px_rgba(58,36,22,.07)] backdrop-blur md:flex md:items-end md:justify-between md:p-9"><div><p className="co-label text-[#214d2b]">My .CO account</p><h1 className="mt-3 font-['Cormorant_Garamond'] text-[clamp(3.25rem,7vw,5.8rem)] leading-[.84] tracking-[-.045em] text-[#2a1b13]">Welcome, {session.name.split(" ")[0]}.</h1><p className="mt-4 max-w-xl text-sm leading-6 text-[#695e55]">Everything you need for favourites, orders, and the small rituals that make .CO yours.</p></div><form action={logoutCustomer} className="mt-6 md:mt-0"><button className="inline-flex min-h-11 items-center gap-2 rounded-full border border-black/10 bg-[#fffdf8] px-5 text-sm font-semibold text-[#2a1b13] transition hover:border-[#214d2b]/35 hover:bg-[#f5f0e8]"><LockKeyhole size={16}/>Sign out</button></form></header><div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">{overview.map((item) => { const Icon = item.icon; return <Link key={item.title} href={item.href} className="group rounded-[26px] border border-black/[.07] bg-white/65 p-5 shadow-[0_12px_34px_rgba(58,36,22,.045)] transition duration-200 hover:-translate-y-1 hover:bg-white"><Icon className="text-[#214d2b]" size={20}/><p className="mt-7 text-xs font-semibold uppercase tracking-[.12em] text-[#6d6258]">{item.title}</p><h2 className="mt-2 font-['Cormorant_Garamond'] text-3xl leading-none text-[#2a1b13]">{item.value}</h2><p className="mt-3 text-xs leading-5 text-[#695e55]">{item.body}</p></Link>; })}</div><div className="mt-5 grid gap-5 lg:grid-cols-[1.25fr_.75fr]"><section className="rounded-[30px] border border-black/[.07] bg-white/70 p-6 shadow-[0_16px_42px_rgba(58,36,22,.05)] md:p-7"><div className="flex items-start justify-between gap-4"><div><p className="co-label text-[#214d2b]">Profile & security</p><h2 className="mt-3 font-['Cormorant_Garamond'] text-4xl leading-none text-[#2a1b13]">Your account is secure.</h2></div><span className="grid size-11 place-items-center rounded-full bg-[#e5f0df] text-[#214d2b]"><ShieldCheck size={20}/></span></div><dl className="mt-7 divide-y divide-black/[.07] rounded-2xl border border-black/[.07] bg-[#fffdf8]/75 px-4"><Row label="Email" value={session.email}/><Row label="Sign-in method" value="Cognito secure session"/><Row label="Email status" value="Verified"/></dl><Link href="/profile" className="mt-5 inline-flex min-h-11 items-center rounded-full bg-[#214d2b] px-5 text-sm font-semibold text-white transition hover:bg-[#173b20]">Manage profile</Link></section><aside className="rounded-[30px] bg-[#214d2b] p-6 text-white shadow-[0_18px_42px_rgba(33,77,43,.18)]"><Bell size={20} className="text-[#d7e7cb]"/><p className="mt-7 text-xs font-semibold uppercase tracking-[.13em] text-white/65">Newsletter</p><h2 className="mt-3 font-['Cormorant_Garamond'] text-4xl leading-none">Stay in the loop.</h2><p className="mt-4 text-sm leading-6 text-white/75">Get gentle product notes, recipes, and early updates when they’re ready.</p><Link href="/profile" className="mt-6 inline-flex min-h-11 items-center rounded-full border border-white/25 px-5 text-sm font-semibold transition hover:bg-white/10">Update preferences</Link></aside></div><nav aria-label="Account sections" className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{[["Profile", "/profile", UserRound], ["Orders", "/orders", PackageCheck], ["Wishlist", "/wishlist", Heart], ["Saved recipes", "/saved-recipes", Soup]].map(([label, href, Icon]) => { const TypedIcon = Icon as typeof UserRound; return <Link key={href as string} href={href as string} className="flex min-h-14 items-center gap-3 rounded-2xl border border-black/[.07] bg-white/55 px-4 text-sm font-semibold text-[#2a1b13] transition hover:bg-white"><TypedIcon size={18} className="text-[#214d2b]"/>{label as string}</Link>; })}</nav></div></section>;
 }
 
+function Row({ label, value }: { label: string; value: string }) { return <div className="grid gap-1 py-3.5 sm:grid-cols-[9rem_1fr] sm:items-center"><dt className="text-xs font-semibold uppercase tracking-[.1em] text-[#756a60]">{label}</dt><dd className="truncate text-sm text-[#2a1b13]">{value}</dd></div>; }
+
 export function CustomerSimplePage({ session, title, body, items }: { session: CustomerSession; title: string; body: string; items: Array<{ title: string; detail: string }> }) {
-  return (
-    <section className="co-section bg-[var(--co-cream)] pt-24 md:pt-32">
-      <div className="co-container">
-        <p className="co-label mb-5">{session.name}</p>
-        <h1 className="text-[clamp(64px,10vw,150px)] font-bold leading-[0.82] text-[var(--co-ink)]">{title}</h1>
-        <p className="co-body mt-6 max-w-2xl">{body}</p>
-        {items.length ? <div className="mt-10 grid gap-4 md:grid-cols-3">
-          {items.map((item) => (
-            <article key={item.title} className="rounded-[36px] border border-[var(--co-border)] bg-[var(--co-white)] p-6 shadow-[0_18px_48px_rgba(58,36,22,0.065)]">
-              <h2 className="text-4xl font-bold leading-none text-[var(--co-ink)]">{item.title}</h2>
-              <p className="mt-5 text-sm leading-7 text-[var(--co-muted)]">{item.detail}</p>
-            </article>
-          ))}
-        </div> : <StatePanel className="mt-10 max-w-[720px]" kind="empty" title="Nothing saved yet." body="Use the heart on a product or recipe and it will appear here." primary={{label:"Browse products",href:"/shop"}} secondary={{label:"Explore recipes",href:"/recipes"}} />}
-      </div>
-    </section>
-  );
+  return <section className="co-section bg-[var(--co-cream)] pt-28 md:pt-36"><div className="co-container"><p className="co-label mb-5">{session.name}</p><h1 className="font-['Cormorant_Garamond'] text-[clamp(3.6rem,8vw,7.5rem)] leading-[.84] tracking-[-.045em] text-[var(--co-ink)]">{title}</h1><p className="co-body mt-6 max-w-2xl">{body}</p>{items.length ? <div className="mt-10 grid gap-4 md:grid-cols-3">{items.map((item) => <article key={item.title} className="rounded-[28px] border border-[var(--co-border)] bg-[var(--co-white)] p-6 shadow-[0_18px_48px_rgba(58,36,22,.065)]"><h2 className="font-['Cormorant_Garamond'] text-4xl leading-none text-[var(--co-ink)]">{item.title}</h2><p className="mt-5 text-sm leading-7 text-[var(--co-muted)]">{item.detail}</p></article>)}</div> : <StatePanel className="mt-10 max-w-[720px]" kind="empty" title="Nothing saved yet." body="Use the heart on a product or recipe and it will appear here." primary={{label:"Browse products",href:"/shop"}} secondary={{label:"Explore recipes",href:"/recipes"}}/>}</div></section>;
 }
