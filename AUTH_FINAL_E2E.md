@@ -77,3 +77,22 @@ check: `/v1/me` succeeds through the BFF; add a product; log out; sign in again;
 and confirm the cart persists. The session implementation is already covered by
 the existing BFF and backend test suite, but that live customer interaction
 remains a release-gate manual check.
+
+## Production-cutover release gate — 2026-07-14
+
+The final Preview authenticated persistence scenario remains pending interactive
+password entry by the disposable-account owner. It must prove all of the
+following without recording credentials, tokens, cookies, verification codes or
+customer identifiers in this document:
+
+- BFF session cookie is named `co_aws_session`, HttpOnly, Secure in Preview,
+  SameSite=Lax, and not readable from browser storage.
+- `/v1/me` succeeds while signed in and returns 401 after logout.
+- A cart item survives logout and the next sign-in.
+- Wishlist and profile read/update persist for the signed-in user only.
+- Cart-origin login returns to `/cart`; normal login follows its allowlisted
+  `/account` or `/shop` destination.
+- Desktop and mobile layouts remain unchanged and no customer-auth request is
+  sent to Firebase.
+
+This file must not be marked complete until that live test has passed.

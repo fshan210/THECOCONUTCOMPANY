@@ -46,3 +46,17 @@ These are conservative order-of-magnitude ranges for the current serverless desi
 3. Confirm the credit balance, expiry, and post-credit billing behaviour.
 4. Create Cost Anomaly Detection only after confirming its notification destination and billing policy.
 5. Keep CloudWatch logs at 14–30 days in Production and retain the no-NAT/no-always-on-server posture.
+
+## Phase 3 recheck — 2026-07-14
+
+The `dotco-monthly-safety` budget remains configured at USD 10 monthly. Its
+actual thresholds include USD 1, USD 5, 50%, 75%, 90% and 100%; its forecast
+threshold is USD 10. Subscription delivery and Free Tier alert configuration
+cannot be proven through the available read-only budget metadata and remain
+owner-console checks.
+
+No available NAT gateway, EC2 instance, RDS instance, ElastiCache cluster or
+OpenSearch domain was found in `ap-south-1`. There is no Production application
+stack yet. SES in `ap-south-1` is still sandboxed with no verified identity;
+branded production mail is not ready. These are aggregate configuration facts,
+not billing figures.

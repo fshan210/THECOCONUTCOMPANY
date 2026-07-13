@@ -102,3 +102,24 @@ npx cdk deploy -c envName=production
 # Phase 2 deployment status
 
 The GitHub validation workflow is active. The DEV CDK stack was updated with an API Gateway JWT authorizer and deployed successfully. GitHub Actions OIDC now assumes `arn:aws:iam::574246331930:role/dotco-github-actions-dev`, limited to `sts:GetCallerIdentity` and the Phase 2 branch. Production deployment remains intentionally excluded.
+
+# Phase 3 Production cutover — approval required
+
+1. Confirm the rollback tag `phase3-pre-production-cutover` points at the
+   reviewed `main` state.
+2. Run the Production synth and diff commands in
+   `PRODUCTION_CDK_DIFF_REVIEW.md`; stop if the diff contains a modification or
+   deletion not reviewed in that document.
+3. Deploy `dotco-production-backend` only after explicit approval.
+4. Capture only the non-secret stack outputs. Generate a fresh Production
+   session secret locally and enter it directly in Vercel's Production scope.
+5. Set Production-only variables from `PRODUCTION_AUTH_RELEASE_REPORT.md`.
+   Keep `DOTCO_USE_API_CONTENT=false` for the first cutover.
+6. Trigger a Vercel deployment from `main`, verify the custom domain, then run
+   public and authenticated smoke tests with one disposable Production account.
+7. Roll back by removing the Production auth/API bindings and promoting the
+   preceding Vercel deployment; do not destroy protected Production tables.
+
+The DEV OIDC identity-check role permits `main` and pull-request jobs. It has
+no deployment policy. Provision a separate Production deployment role with a
+reviewed trust policy before automating production CDK deployments.
