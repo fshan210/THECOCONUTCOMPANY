@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, useTransition, type ComponentProps, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, useTransition, type ComponentProps, type ReactNode } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Check, CheckCircle2, CircleAlert, Eye, EyeOff, Loader2, ShieldCheck, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
@@ -46,6 +46,12 @@ async function resendConfirmation(email: string, returnTo?: string) {
 }
 
 const emailIsValid = (email: string) => /^\S+@\S+\.\S+$/.test(email);
+const allowedClientReturnPaths = new Set(["/shop", "/cart", "/wishlist", "/account", "/products"]);
+const safeClientReturnTo = (value?: string | null) => {
+  if (!value || !value.startsWith("/") || value.startsWith("//")) return "/shop";
+  const path = value.split("?")[0] || "/shop";
+  return allowedClientReturnPaths.has(path) ? value : "/shop";
+};
 const passwordRules = (password: string) => [
   ["At least 10 characters", password.length >= 10],
   ["One uppercase letter", /[A-Z]/.test(password)],
@@ -91,7 +97,7 @@ export function CustomerLoginForm() {
   const [pending, startTransition] = useTransition();
   const emailError = email && !emailIsValid(email) ? "Enter a valid email address." : "";
   const passwordError = password && password.length < 10 ? "Use at least 10 characters." : "";
-  const returnTo = search.get("redirect") || "/account";
+  const returnTo = safeClientReturnTo(search.get("redirect"));
 
   const submit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -99,10 +105,9 @@ export function CustomerLoginForm() {
     startTransition(async () => {
       try {
         await cognitoAuth({ action: "login", email, password, returnTo });
-        const hasCart = Boolean(window.localStorage.getItem("co-cart") && JSON.parse(window.localStorage.getItem("co-cart") || "[]").length);
         if (!remember) window.sessionStorage.setItem("co-session-preference", "session");
         setNotice({ kind: "success", message: "Welcome back to .CO." });
-        window.setTimeout(() => router.replace(search.get("redirect") || (hasCart ? "/cart" : "/account")), 450);
+        window.setTimeout(() => router.replace(returnTo), 450);
       } catch (error) {
         if (error instanceof AuthApiError && error.flow === "verification_required") {
           router.replace(`/verify-email?notice=unconfirmed&returnTo=${encodeURIComponent(returnTo)}`);
@@ -122,6 +127,7 @@ export function CustomerLoginForm() {
 
 export function CustomerRegisterForm() {
   const router = useRouter();
+  const search = useSearchParams();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -129,6 +135,7 @@ export function CustomerRegisterForm() {
   const [terms, setTerms] = useState(false);
   const [notice, setNotice] = useState<Notice>(null);
   const [pending, startTransition] = useTransition();
+  const returnTo = safeClientReturnTo(search.get("returnTo") || search.get("redirect"));
   const rules = passwordRules(password);
   const passwordReady = rules.every(([, fulfilled]) => fulfilled);
   const submit = (event: React.FormEvent) => {
@@ -136,9 +143,9 @@ export function CustomerRegisterForm() {
     if (name.trim().length < 2 || !emailIsValid(email) || !passwordReady || password !== confirmPassword || !terms) { setNotice({ kind: "error", message: "Complete each field and accept the terms to create your account." }); return; }
     startTransition(async () => {
       try {
-        const result = await cognitoAuth({ action: "signup", name: name.trim(), email, password, returnTo: "/account" });
+        const result = await cognitoAuth({ action: "signup", name: name.trim(), email, password, returnTo });
         setNotice({ kind: "success", message: result.resumed ? "An account was started with this email. We sent a fresh verification code." : "Account created. We sent a six-digit code to your email." });
-        window.setTimeout(() => router.push("/verify-email?notice=created&returnTo=%2Faccount"), 700);
+        window.setTimeout(() => router.push(`/verify-email?notice=created&returnTo=${encodeURIComponent(returnTo)}`), 700);
       } catch (error) {
         if (error instanceof AuthApiError && error.flow === "account_exists") {
           setNotice({ kind: "error", message: "An account already exists with this email. Sign in or reset your password." });
@@ -153,22 +160,24 @@ export function CustomerRegisterForm() {
 
 function PasswordChecklist({ rules }: { rules: ReturnType<typeof passwordRules> }) { return <ul className="grid grid-cols-1 gap-1.5 rounded-2xl bg-[#f7f1e8] p-3 text-xs text-[#695e55] sm:grid-cols-2">{rules.map(([label, fulfilled]) => <li key={label} className={`flex items-center gap-2 transition-colors ${fulfilled ? "text-[#214d2b]" : ""}`}><span className={`grid size-4 place-items-center rounded-full border ${fulfilled ? "border-[#214d2b] bg-[#214d2b] text-white" : "border-[#cfc4b5]"}`}>{fulfilled ? <Check size={10}/> : null}</span>{label}</li>)}</ul>; }
 
-export function CustomerVerifyEmailForm({ initialEmail = "", maskedDestination = "your email address", initialReturnTo = "/account" }: { initialEmail?: string; maskedDestination?: string; initialReturnTo?: string }) {
+export function CustomerVerifyEmailForm({ initialEmail = "", maskedDestination = "your email address", initialReturnTo = "/shop" }: { initialEmail?: string; maskedDestination?: string; initialReturnTo?: string }) {
   const router = useRouter();
   const search = useSearchParams();
   const [email, setEmail] = useState(initialEmail || search.get("email") || "");
   const [digits, setDigits] = useState(["", "", "", "", "", ""]);
   const [notice, setNotice] = useState<Notice>(search.get("notice") === "unconfirmed" ? { kind: "error", message: "Your email is not verified yet. Enter your code or request a new one." } : search.get("notice") === "created" ? { kind: "success", message: "Account created. Check your email for the six-digit code." } : null);
   const [remaining, setRemaining] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
   const [pending, startTransition] = useTransition();
   const refs = useRef<Array<HTMLInputElement | null>>([]);
   useEffect(() => { if (!remaining) return; const timer = window.setTimeout(() => setRemaining((value) => value - 1), 1000); return () => window.clearTimeout(timer); }, [remaining]);
   const setDigit = (index: number, value: string) => { const next = [...digits]; next[index] = value.replace(/\D/g, "").slice(-1); setDigits(next); if (next[index] && index < 5) refs.current[index + 1]?.focus(); };
   const paste = (event: React.ClipboardEvent) => { const code = event.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6); if (!code) return; event.preventDefault(); setDigits(Array.from({ length: 6 }, (_, index) => code[index] || "")); refs.current[Math.min(code.length, 5)]?.focus(); };
-  const returnTo = search.get("returnTo") || initialReturnTo;
-  const verify = () => { const code = digits.join(""); if (!emailIsValid(email) || code.length !== 6) { setNotice({ kind: "error", message: "Enter all six code digits." }); return; } startTransition(async () => { try { await cognitoAuth({ action: "confirm", email, code, returnTo }); setNotice({ kind: "success", message: "Your email has been verified." }); window.setTimeout(() => router.replace(`/email-verified?returnTo=${encodeURIComponent(returnTo)}`), 500); } catch (error) { setNotice({ kind: "error", message: error instanceof Error ? error.message : "We could not verify that code." }); setDigits(["", "", "", "", "", ""]); refs.current[0]?.focus(); } }); };
+  const returnTo = safeClientReturnTo(search.get("returnTo") || initialReturnTo);
+  const verify = useCallback(() => { const code = digits.join(""); if (!emailIsValid(email) || code.length !== 6 || pending || submitted) return; setSubmitted(true); startTransition(async () => { try { await cognitoAuth({ action: "confirm", email, code, returnTo }); setNotice({ kind: "success", message: "Your email has been verified." }); window.setTimeout(() => router.replace(`/email-verified?returnTo=${encodeURIComponent(returnTo)}&email=${encodeURIComponent(email)}`), 500); } catch (error) { setSubmitted(false); setNotice({ kind: "error", message: error instanceof Error ? error.message : "We could not verify that code." }); setDigits(["", "", "", "", "", ""]); refs.current[0]?.focus(); } }); }, [digits, email, pending, returnTo, router, submitted]);
+  useEffect(() => { if (digits.every(Boolean) && !pending && !submitted) verify(); }, [digits, pending, submitted, verify]);
   const resend = () => { if (!emailIsValid(email) || remaining) return; startTransition(async () => { try { const result = await resendConfirmation(email, returnTo); setNotice({ kind: "success", message: `A fresh code is on its way to ${result.data?.maskedDestination || maskedDestination}.` }); setRemaining(60); } catch (error) { setNotice({ kind: "error", message: error instanceof Error ? error.message : "We could not resend the code." }); } }); };
-  return <div className="mt-8 space-y-5"><NoticePanel notice={notice}/><div className="rounded-2xl bg-[#f7f1e8] px-4 py-3 text-sm leading-5 text-[#695e55]">We sent a code to <strong className="text-[#2a1b13]">{maskedDestination}</strong>.</div>{!initialEmail ? <Field label="Email" id="verify-email" type="email" value={email} onChange={setEmail} autoComplete="email" disabled={pending}/> : null}<div><div className="flex items-center justify-between"><label className="text-sm font-semibold text-[#2a1b13]">Verification code</label><span className="text-xs text-[#695e55]">6 digits</span></div><div className="mt-2 grid grid-cols-6 gap-2" onPaste={paste}>{digits.map((digit, index) => <input key={index} ref={(element) => { refs.current[index] = element; }} value={digit} onChange={(event) => setDigit(index, event.target.value)} onKeyDown={(event) => { if (event.key === "Backspace" && !digits[index] && index > 0) refs.current[index - 1]?.focus(); }} inputMode="numeric" autoComplete={index === 0 ? "one-time-code" : "off"} aria-label={`Verification digit ${index + 1}`} maxLength={1} className="co-auth-code" />)}</div></div><PrimaryButton pending={pending} type="button" onClick={verify}>{pending ? "Verifying" : "Verify email"}</PrimaryButton><div className="flex items-center justify-between gap-3 text-sm"><button type="button" disabled={Boolean(remaining) || pending} onClick={resend} className="font-semibold text-[#214d2b] underline underline-offset-4 disabled:cursor-not-allowed disabled:opacity-45">{remaining ? `Resend in ${remaining}s` : "Resend code"}</button><Link href="/register" className="font-semibold text-[#214d2b] underline underline-offset-4">Change email</Link></div><p className="text-center text-xs text-[#695e55]">Need help? <a className="font-semibold text-[#214d2b] underline underline-offset-4" href="mailto:hello@cothecoconutcompany.com">Contact support</a></p></div>;
+  return <div className="mt-8 space-y-5"><NoticePanel notice={notice}/><div className="rounded-2xl bg-[#f7f1e8] px-4 py-3 text-sm leading-5 text-[#695e55]">We sent a code to <strong className="text-[#2a1b13]">{maskedDestination}</strong>.</div>{!initialEmail ? <Field label="Email" id="verify-email" type="email" value={email} onChange={setEmail} autoComplete="email" disabled={pending || submitted}/> : null}<div><div className="flex items-center justify-between"><label className="text-sm font-semibold text-[#2a1b13]">Verification code</label><span className="text-xs text-[#695e55]">6 digits</span></div><div className="mt-2 grid grid-cols-6 gap-2" onPaste={paste}>{digits.map((digit, index) => <input key={index} ref={(element) => { refs.current[index] = element; }} value={digit} onChange={(event) => setDigit(index, event.target.value)} onKeyDown={(event) => { if (event.key === "Backspace" && !digits[index] && index > 0) refs.current[index - 1]?.focus(); }} inputMode="numeric" autoComplete={index === 0 ? "one-time-code" : "off"} autoFocus={index === 0} disabled={pending || submitted} aria-label={`Verification digit ${index + 1}`} maxLength={1} className="co-auth-code" />)}</div></div>{pending || submitted ? <div role="status" aria-live="polite" className="flex items-center justify-center gap-2 py-2 text-sm font-semibold text-[#214d2b]"><Loader2 className="animate-spin" size={17}/>Verifying...</div> : <p className="text-center text-xs text-[#695e55]">We’ll verify automatically after the sixth digit.</p>}<div className="flex items-center justify-between gap-3 text-sm"><button type="button" disabled={Boolean(remaining) || pending || submitted} onClick={resend} className="font-semibold text-[#214d2b] underline underline-offset-4 disabled:cursor-not-allowed disabled:opacity-45">{remaining ? `Resend in ${remaining}s` : "Resend code"}</button><Link href="/register" className="font-semibold text-[#214d2b] underline underline-offset-4">Change email</Link></div><p className="text-center text-xs text-[#695e55]">Need help? <a className="font-semibold text-[#214d2b] underline underline-offset-4" href="mailto:hello@cothecoconutcompany.com">Contact support</a></p></div>;
 }
 
 export function CustomerForgotPasswordForm() {
@@ -183,4 +192,4 @@ export function CustomerResetPasswordForm() {
   return <form onSubmit={submit} className="mt-8 space-y-5" noValidate><NoticePanel notice={notice}/><Field label="Email" id="reset-email" type="email" value={email} onChange={setEmail} autoComplete="email" disabled={pending}/><Field label="Six-digit code" id="reset-code" value={code} onChange={(value) => setCode(value.replace(/\D/g, "").slice(0, 6))} autoComplete="one-time-code" disabled={pending}/><PasswordField label="New password" id="reset-password" value={password} onChange={setPassword} autoComplete="new-password" disabled={pending}/><PasswordChecklist rules={rules}/><PasswordField label="Confirm new password" id="reset-confirm" value={confirm} onChange={setConfirm} autoComplete="new-password" disabled={pending} error={confirm && confirm !== password ? "Passwords do not match." : ""}/><PrimaryButton pending={pending}>{pending ? "Updating password" : "Update password"}</PrimaryButton><Link href="/login" className="block text-center text-sm font-semibold text-[#214d2b] underline underline-offset-4">Back to sign in</Link></form>;
 }
 
-export function EmailVerifiedCard() { const router = useRouter(); const search = useSearchParams(); const returnTo = search.get("returnTo") || "/account"; useEffect(() => { const timer = window.setTimeout(() => router.replace(`/login?verified=1&redirect=${encodeURIComponent(returnTo)}`), 2400); return () => window.clearTimeout(timer); }, [returnTo, router]); return <div className="mt-9 text-center"><motion.div initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="mx-auto grid size-20 place-items-center rounded-full bg-[#e5f0df] text-[#214d2b]"><ShieldCheck size={38}/></motion.div><h2 className="mt-6 font-['Cormorant_Garamond'] text-4xl leading-none text-[#2a1b13]">Your email is verified.</h2><p className="mt-3 text-sm leading-6 text-[#695e55]">Your .CO account is now active. Sign in securely to continue.</p><Link href={`/login?verified=1&redirect=${encodeURIComponent(returnTo)}`} className="co-auth-primary mt-7">Continue to sign in</Link><Link href="/shop" className="mt-4 block text-sm font-semibold text-[#214d2b] underline underline-offset-4">Continue shopping</Link></div>; }
+export function EmailVerifiedCard() { const search = useSearchParams(); const returnTo = safeClientReturnTo(search.get("returnTo")); const email = search.get("email") || ""; const continuation = `/login?verified=1&redirect=${encodeURIComponent(returnTo)}${email ? `&email=${encodeURIComponent(email)}` : ""}`; return <div className="mt-9 text-center"><motion.div initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 220, damping: 16 }} className="mx-auto grid size-20 place-items-center rounded-full bg-[#e5f0df] text-[#214d2b]"><ShieldCheck size={38}/></motion.div><h2 className="mt-6 font-['Cormorant_Garamond'] text-4xl leading-none text-[#2a1b13]">Welcome to .CO</h2><p className="mt-3 text-sm leading-6 text-[#695e55]">Your account has been successfully verified.</p><p className="mt-2 flex items-center justify-center gap-2 text-sm font-medium text-[#214d2b]"><Loader2 className="animate-spin" size={15}/>Preparing your experience...</p><p className="mt-5 text-xs leading-5 text-[#695e55]">For your protection, enter your password once to establish your secure session.</p><Link href={continuation} className="co-auth-primary mt-7">Continue securely</Link><Link href="/shop" className="mt-4 block text-sm font-semibold text-[#214d2b] underline underline-offset-4">Continue shopping</Link></div>; }
