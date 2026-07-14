@@ -89,6 +89,10 @@ export const newsletterSubscriptionSchema = z.object({
   email: z.string().trim().email().max(254),
   source: z.string().trim().min(2).max(80).default("website"),
   consent: z.literal(true),
+  country: z.string().trim().min(2).max(80).optional(),
+  favouriteProduct: z.string().trim().min(2).max(100).optional(),
+  interestedCategory: z.string().trim().min(2).max(100).optional(),
+  launchCity: z.string().trim().min(2).max(100).optional(),
   honeypot: z.string().max(0).optional()
 }).strict();
 

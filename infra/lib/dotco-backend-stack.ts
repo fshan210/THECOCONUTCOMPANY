@@ -175,9 +175,10 @@ export class DotCoBackendStack extends Stack {
     const apiIntegration = new HttpLambdaIntegration("ApiIntegration", apiFn);
     const issuer = `https://cognito-idp.${this.region}.amazonaws.com/${userPool.userPoolId}`;
     const jwtAuthorizer = new HttpJwtAuthorizer("ApiJwtAuthorizer", issuer, { jwtAudience: [userPoolClient.userPoolClientId] });
-    for (const path of ["/v1/health", "/v1/ready", "/v1/products", "/v1/products/{slug}", "/v1/categories", "/v1/recipes", "/v1/recipes/{slug}", "/v1/journal", "/v1/journal/{slug}", "/v1/newsletter/subscriptions"]) {
+    for (const path of ["/v1/health", "/v1/ready", "/v1/products", "/v1/products/{slug}", "/v1/categories", "/v1/recipes", "/v1/recipes/{slug}", "/v1/journal", "/v1/journal/{slug}"]) {
       httpApi.addRoutes({ path, methods: [HttpMethod.GET], integration: apiIntegration });
     }
+    httpApi.addRoutes({ path: "/v1/newsletter/subscriptions", methods: [HttpMethod.POST], integration: apiIntegration });
     httpApi.addRoutes({ path: "/{proxy+}", integration: apiIntegration, authorizer: jwtAuthorizer });
 
     new Alarm(this, "ApiErrorsAlarm", {
