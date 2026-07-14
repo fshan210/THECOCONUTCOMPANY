@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import { ConfirmForgotPasswordCommand, ConfirmSignUpCommand, ForgotPasswordCommand, GetUserCommand, InitiateAuthCommand, SignUpCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { z } from "zod";
-import { sealAwsSession } from "@/lib/auth/aws-session";
-import { awsSessionCookie as cookieName } from "@/lib/auth/aws-cookie";
+import { awsSessionCookieName, maxAwsSessionChunks, sealAwsSession, splitAwsSession } from "@/lib/auth/aws-session";
 import { cognitoClient, cognitoClientId, cognitoErrorName, hasCognitoError, normalizeCognitoEmail, resendCognitoConfirmation } from "@/lib/auth/cognito-bff";
 import { clearPendingVerification, getPendingVerification, maskEmail, safeReturnTo, setPendingVerification } from "@/lib/auth/verification-state";
 import { checkRateLimit } from "@/lib/security/rate-limit";
@@ -25,6 +23,31 @@ function requestId() {
 
 function reply(requestIdValue: string, body: Record<string, unknown>, status = 200) {
   return NextResponse.json({ ...body, requestId: requestIdValue }, { status });
+}
+
+const sessionCookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "lax" as const,
+  path: "/"
+};
+
+function setSessionCookies(response: NextResponse, value: string, maxAge: number) {
+  const chunks = splitAwsSession(value);
+  for (let index = 0; index < maxAwsSessionChunks; index += 1) {
+    const name = awsSessionCookieName(index);
+    if (index < chunks.length) {
+      response.cookies.set(name, chunks[index], { ...sessionCookieOptions, maxAge });
+    } else {
+      response.cookies.set(name, "", { ...sessionCookieOptions, maxAge: 0, expires: new Date(0) });
+    }
+  }
+}
+
+function clearSessionCookies(response: NextResponse) {
+  for (let index = 0; index < maxAwsSessionChunks; index += 1) {
+    response.cookies.set(awsSessionCookieName(index), "", { ...sessionCookieOptions, maxAge: 0, expires: new Date(0) });
+  }
 }
 
 function bad(requestIdValue: string, message: string, status = 400, flow?: string) {
@@ -71,9 +94,9 @@ export async function POST(request: Request) {
 
   try {
     if (body.action === "logout") {
-      const store = await cookies();
-      store.delete(cookieName);
-      return reply(id, { ok: true });
+      const response = reply(id, { ok: true });
+      clearSessionCookies(response);
+      return response;
     }
 
     if (body.action === "signup") {
@@ -150,9 +173,9 @@ export async function POST(request: Request) {
     const attributes = Object.fromEntries((user.UserAttributes || []).flatMap((attribute) => attribute.Name && attribute.Value ? [[attribute.Name, attribute.Value]] : []));
     const customerEmail = attributes.email || email;
     const name = attributes.name || customerEmail.split("@")[0] || "Customer";
-    const store = await cookies();
-    store.set(cookieName, sealAwsSession({ accessToken: auth.AccessToken, idToken: auth.IdToken, refreshToken: auth.RefreshToken, sub: attributes.sub, email: customerEmail, name, expiresAt: Math.floor(Date.now() / 1000) + (auth.ExpiresIn || 900) }), { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/", maxAge: auth.ExpiresIn || 900 });
-    return reply(id, { ok: true, email: customerEmail, name, returnTo: safeReturnTo(body.returnTo) });
+    const response = reply(id, { ok: true, email: customerEmail, name, returnTo: safeReturnTo(body.returnTo) });
+    setSessionCookies(response, sealAwsSession({ accessToken: auth.AccessToken, idToken: auth.IdToken, refreshToken: auth.RefreshToken, sub: attributes.sub, email: customerEmail, name, expiresAt: Math.floor(Date.now() / 1000) + (auth.ExpiresIn || 900) }), auth.ExpiresIn || 900);
+    return response;
   } catch (error) {
     const name = cognitoErrorName(error);
     if (name.includes("UserNotConfirmed") && email) {
