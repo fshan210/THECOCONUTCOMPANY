@@ -3,7 +3,7 @@ import "server-only";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { type CustomerSession } from "@/lib/customer/auth-config";
-import { awsSessionCookie, unsealAwsSession } from "@/lib/auth/aws-session";
+import { readAwsSession } from "@/lib/auth/aws-session";
 
 const configuredSessionDays = Number(process.env.SESSION_MAX_AGE_DAYS || 7);
 const customerSessionMs = 1000 * 60 * 60 * 24 * (Number.isFinite(configuredSessionDays) ? configuredSessionDays : 7);
@@ -21,7 +21,7 @@ export const customerSessionMaxAge = customerSessionMs / 1000;
 
 export async function getCustomerSession() {
   const cookieStore = await cookies();
-  const aws = unsealAwsSession(cookieStore.get(awsSessionCookie)?.value);
+  const aws = readAwsSession(cookieStore);
   if (aws) {
     const email = aws.email || "";
     const name = aws.name || email.split("@")[0] || "Customer";

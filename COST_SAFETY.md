@@ -135,3 +135,16 @@ Production DynamoDB tables use retention/deletion protection and PITR. Dev table
 If the AWS account receives higher Lambda concurrency quota, set `DOTCO_LAMBDA_RESERVED_CONCURRENCY` before deployment to cap API blast radius.
 
 This architecture is not guaranteed free. API Gateway requests, Lambda duration, CloudWatch logs, DynamoDB traffic/storage, Cognito MAUs, Route 53, and future WAF/CloudFront usage can still generate costs.
+
+## Production authentication cost gate — 2026-07-14
+
+The reviewed Production stack adds only on-demand/serverless services: Cognito,
+API Gateway HTTP API, one ARM64 Lambda, three on-demand DynamoDB tables,
+CloudWatch logs and two alarms. It creates no NAT Gateway, EC2, RDS,
+OpenSearch, ElastiCache, container service or always-on server.
+
+The AWS account currently has a total Lambda concurrency quota of 10 and all
+10 executions must stay unreserved, so a reserved concurrency cap cannot be
+configured yet. Do not force a reservation until a quota increase makes it
+valid. Use the existing Lambda error/throttle alarms, request-rate limits and
+the 10-second timeout as the immediate containment controls.

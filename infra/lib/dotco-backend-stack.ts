@@ -56,7 +56,9 @@ export class DotCoBackendStack extends Stack {
         requireDigits: true,
         requireLowercase: true,
         requireUppercase: true,
-        requireSymbols: false,
+        // Keep the user-pool policy aligned with the published signup checklist.
+        // This is intentionally production-safe rather than relying on client validation.
+        requireSymbols: true,
         tempPasswordValidity: Duration.days(3)
       },
       standardAttributes: {
@@ -76,10 +78,10 @@ export class DotCoBackendStack extends Stack {
         flows: { authorizationCodeGrant: true },
         scopes: [OAuthScope.EMAIL, OAuthScope.OPENID, OAuthScope.PROFILE],
         callbackUrls: props.envName === "production"
-          ? ["https://cothecoconutcompany.com/auth/callback"]
+          ? ["https://cothecoconutcompany.com/auth/callback", "https://www.cothecoconutcompany.com/auth/callback"]
           : ["http://localhost:3000/auth/callback"],
         logoutUrls: props.envName === "production"
-          ? ["https://cothecoconutcompany.com/logout"]
+          ? ["https://cothecoconutcompany.com/logout", "https://www.cothecoconutcompany.com/logout"]
           : ["http://localhost:3000/logout"]
       },
       preventUserExistenceErrors: true,
@@ -114,7 +116,7 @@ export class DotCoBackendStack extends Stack {
       environment: {
         APP_ENV: props.envName,
         API_ALLOWED_ORIGINS: props.envName === "production"
-          ? "https://cothecoconutcompany.com"
+          ? "https://cothecoconutcompany.com,https://www.cothecoconutcompany.com"
           : "http://localhost:3000,https://cothecoconutcompany.com",
         COGNITO_USER_POOL_ID: userPool.userPoolId,
         COGNITO_APP_CLIENT_ID: userPoolClient.userPoolClientId,
@@ -164,7 +166,9 @@ export class DotCoBackendStack extends Stack {
         allowCredentials: true,
         allowHeaders: ["authorization", "content-type", "idempotency-key", "x-csrf-token", "x-request-id"],
         allowMethods: [CorsHttpMethod.GET, CorsHttpMethod.POST, CorsHttpMethod.PATCH, CorsHttpMethod.DELETE, CorsHttpMethod.OPTIONS],
-        allowOrigins: props.envName === "production" ? ["https://cothecoconutcompany.com"] : ["http://localhost:3000", "https://cothecoconutcompany.com"],
+        allowOrigins: props.envName === "production"
+          ? ["https://cothecoconutcompany.com", "https://www.cothecoconutcompany.com"]
+          : ["http://localhost:3000", "https://cothecoconutcompany.com"],
         maxAge: Duration.minutes(10)
       }
     });

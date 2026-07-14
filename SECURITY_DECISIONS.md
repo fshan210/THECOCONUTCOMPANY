@@ -66,3 +66,20 @@ The AWS account/region was bootstrapped on 2026-07-11 using CDK's standard boots
 - AWS DEV API now has a JWT authorizer at API Gateway and Hono remains defense in depth.
 - `/api/auth/cognito` uses server-side Cognito commands and an encrypted HttpOnly `co_aws_session` cookie; no token is written to browser storage.
 - Existing Firebase admin/CMS flows remain intentionally retained until the audited DEV migration and dashboard cutover are approved.
+
+# Phase 3 production decisions — 2026-07-14
+
+- Production customer authentication is fail-closed until isolated Cognito and
+  API variables exist. It must not inherit Preview or DEV values.
+- Production browser/API CORS and Cognito callback/logout allowlists contain
+  only the canonical and `www` .CO hosts. Wildcards and cross-environment
+  origins are excluded.
+- Production Cognito is configured as a browser public client with no client
+  secret, verified email recovery, and a password policy aligned to the signup
+  checklist.
+- `COGNITO_SESSION_SECRET` is a Production-only secret generated at cutover;
+  it cannot fall back to or reuse the Preview secret.
+- GitHub OIDC trust now permits only this repository's pull requests, the
+  reviewed feature branch, and `main`; its current DEV role policy remains
+  limited to `sts:GetCallerIdentity`. A distinct least-privilege Production
+  deployment role is still required before CI/CD deploy automation.

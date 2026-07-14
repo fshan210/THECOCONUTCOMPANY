@@ -80,3 +80,19 @@ Production API is not deployed.
 # Phase 2 status
 
 The DEV API is deployed in `ap-south-1` with exact public catalog/content routes and a JWT-authorized catch-all for authenticated routes. Profiles, carts, wishlists, newsletter subscriptions, and first-purchase claims have DynamoDB-backed DEV persistence with local test fallbacks.
+
+# Phase 3 Production architecture plan — pending approval
+
+- A separate `dotco-production-backend` stack will use its own Cognito pool,
+  public client, HTTP API, Lambda and three DynamoDB tables in `ap-south-1`.
+- Production must never reference the DEV pool, app client, API, tables or
+  Preview session secret.
+- The public frontend currently uses static content in Production. API content
+  remains disabled until idempotent Production seeding has been tested.
+- Production protected routes are guarded twice: API Gateway JWT authorizer
+  validates issuer/audience before invocation, and Hono validates the Cognito
+  access token and ownership in the application.
+- The current account concurrency quota is 10 with all 10 unreserved. No
+  reserved-concurrency cap can be applied without a quota increase; error and
+  throttle alarms, application rate limiting and short Lambda timeout remain
+  the available safeguards.

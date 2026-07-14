@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { awsSessionCookie, unsealAwsSession } from "@/lib/auth/aws-session";
+import { awsSessionCookie, readAwsSession } from "@/lib/auth/aws-session";
 import { requireVerifiedCustomerSession } from "@/lib/customer/auth";
 
 export type CustomerAuthState = { ok: boolean; message: string; status?: "idle" | "success" | "error" };
@@ -21,7 +21,7 @@ export async function updateCustomerProfile(formData: FormData) {
   const parsed = profileSchema.safeParse({ displayName: formData.get("displayName"), preferredCategory: formData.get("preferredCategory"), newsletterOptIn: formData.get("newsletterOptIn") });
   if (!parsed.success) redirect("/profile?status=invalid");
   const cookieStore = await cookies();
-  const awsSession = unsealAwsSession(cookieStore.get(awsSessionCookie)?.value);
+  const awsSession = readAwsSession(cookieStore);
   const baseUrl = process.env.SERVER_API_BASE_URL;
   if (!awsSession?.accessToken || !baseUrl) redirect("/profile?status=unavailable");
   try {
