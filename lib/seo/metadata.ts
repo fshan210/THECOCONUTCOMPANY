@@ -20,7 +20,11 @@ export function createPageMetadata({ title, description, path, absoluteTitle = f
     title: absoluteTitle ? { absolute: title } : title,
     description,
     alternates: {
-      canonical: path
+      canonical: path,
+      languages: {
+        "en-IN": path,
+        "x-default": path
+      }
     },
     openGraph: {
       title,
@@ -35,7 +39,7 @@ export function createPageMetadata({ title, description, path, absoluteTitle = f
           alt: siteName
         }
       ],
-      locale: "en_US",
+      locale: "en_IN",
       type: "website"
     },
     twitter: {

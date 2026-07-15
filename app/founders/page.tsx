@@ -3,6 +3,7 @@ import { ReferenceFoundersPage } from "@/components/founders/ReferenceFoundersPa
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { getSeoMetadata } from "@/lib/content/server";
+import { personSchema } from "@/lib/seo/structured-data";
 
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getSeoMetadata("/founders");
@@ -12,7 +13,13 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function FoundersPage() {
   return (
     <>
-      <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Founders", path: "/founders" }]} />
+      <StructuredData
+        breadcrumbs={[{ name: "Home", path: "/" }, { name: "Founders", path: "/founders" }]}
+        extra={[
+          personSchema({ name: "Fazil Shersha", jobTitle: "Co-founder" }),
+          personSchema({ name: "Afsala Muthali", jobTitle: "Co-founder" })
+        ]}
+      />
       <ReferenceFoundersPage />
     </>
   );

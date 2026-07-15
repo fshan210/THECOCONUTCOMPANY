@@ -8,13 +8,25 @@ import { CONSENT_EVENT, readCookieConsent, type CookieConsent } from "@/lib/priv
 
 const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-CNXDJ3EMHQ";
 const clarityProjectId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID;
+const googleTagManagerId = process.env.NEXT_PUBLIC_GTM_ID;
 const isProduction = process.env.NODE_ENV === "production";
 
 export function Analytics() {
   const [consent, setConsent] = useState<CookieConsent | null>(null);
 
   useEffect(() => {
-    const update = () => setConsent(readCookieConsent());
+    const update = () => {
+      const nextConsent = readCookieConsent();
+      setConsent(nextConsent);
+      if (nextConsent && typeof window.gtag === "function") {
+        window.gtag("consent", "update", {
+          analytics_storage: nextConsent.analytics ? "granted" : "denied",
+          ad_storage: nextConsent.marketing ? "granted" : "denied",
+          ad_user_data: nextConsent.marketing ? "granted" : "denied",
+          ad_personalization: nextConsent.marketing ? "granted" : "denied"
+        });
+      }
+    };
     update();
     window.addEventListener(CONSENT_EVENT, update);
     return () => window.removeEventListener(CONSENT_EVENT, update);
@@ -25,6 +37,7 @@ export function Analytics() {
   return (
     <>
       <GoogleAnalytics marketing={consent.marketing} />
+      <GoogleTagManager />
       <MicrosoftClarity />
       <AnalyticsEventListeners />
       <Suspense fallback={null}>
@@ -45,13 +58,6 @@ function GoogleAnalytics({ marketing }: { marketing: boolean }) {
       window.dataLayer?.push(args);
     };
     if (!initialized.current) {
-      window.gtag("consent", "default", {
-        analytics_storage: "denied",
-        ad_storage: "denied",
-        ad_user_data: "denied",
-        ad_personalization: "denied",
-        wait_for_update: 500
-      });
       window.gtag("js", new Date());
     }
     window.gtag("consent", "update", {
@@ -73,6 +79,21 @@ function GoogleAnalytics({ marketing }: { marketing: boolean }) {
   if (!isProduction || !gaMeasurementId) return null;
 
   return <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`} strategy="afterInteractive" />;
+}
+
+function GoogleTagManager() {
+  if (!isProduction || !googleTagManagerId) return null;
+  return (
+    <Script id="google-tag-manager" strategy="afterInteractive">
+      {`
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','${googleTagManagerId}');
+      `}
+    </Script>
+  );
 }
 
 function MicrosoftClarity() {
@@ -135,7 +156,11 @@ function AnalyticsEventListeners() {
       }
 
       if (link) {
-        trackEvent("cta_click", {
+        const url = new URL(link.href, window.location.href);
+        const isOutbound = url.origin !== window.location.origin;
+        const isDownload = /\.(pdf|docx?|xlsx?|csv|zip)$/i.test(url.pathname) || link.hasAttribute("download");
+        const eventName = isDownload ? "download" : isOutbound ? "outbound_click" : "cta_click";
+        trackEvent(eventName, {
           label: link.textContent?.trim().slice(0, 80) || link.getAttribute("aria-label") || "link",
           href: link.href
         });
