@@ -4,6 +4,8 @@ Date: 15 July 2026
 Branch: `codex/phase-4-functional-release`  
 Production: `https://cothecoconutcompany.com`
 
+Verified Preview: `https://my-website-git-codex-phase-4-functiona-c1ea4a-fazil-s-projects1.vercel.app`
+
 ## Release decision
 
 **Status: release candidate — not yet Content & Growth Ready.**
@@ -134,6 +136,8 @@ Current media-authoring limitation:
 | Internal-link crawl | PASS — 40 local destinations checked, no 4xx/5xx; protected account and wishlist redirects behaved as expected |
 | Canonical/JSON-LD browser audit | PASS for the primary public routes listed above |
 | No `/_next/image` on tested routes | PASS |
+| Vercel Preview deployment | PASS — primary pages and all SEO endpoints returned 200 |
+| GitHub security/backend CI | PASS |
 | Playwright E2E | NOT RUN — Playwright is not configured in this repository |
 | Lighthouse / Core Web Vitals | NOT MEASURED in this pass |
 | External Search Console/Bing validation | MANUAL/EXTERNAL |
