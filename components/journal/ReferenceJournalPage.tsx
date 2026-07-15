@@ -6,7 +6,8 @@ import { AnimatePresence, motion, useMotionValue, useReducedMotion } from "frame
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Bookmark, Camera, Check, Droplets, Heart, Instagram, Leaf, Menu, MessageCircle, PackageOpen, Play, Recycle, Search, Sparkles, Star, Trash2, UserRound, X, Youtube } from "lucide-react";
 import { MobileBottomNav, NewsletterSection, ReferenceFooter, ReferenceHeader } from "@/components/home/ReferenceHomePage";
-import { communityPosts, communityTestimonials as testimonials, journalArticles as articles, routineCards } from "@/data/journal";
+import { communityPosts, communityTestimonials as testimonials, journalArticles as fallbackArticles, routineCards } from "@/data/journal";
+import type { ContentJournalPost } from "@/lib/content/types";
 import { cn } from "@/lib/utils";
 import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
 
@@ -16,7 +17,7 @@ const ease=[.16,1,.3,1] as const;
 function PremiumImage({src,alt,sizes,className="",priority=false}:{src:string;alt:string;sizes:string;className?:string;priority?:boolean}){return <Image src={src} alt={alt} fill sizes={sizes} priority={priority} quality={95} placeholder="blur" blurDataURL={blur} className={cn("object-cover transition duration-700 group-hover:scale-[1.035]",className)}/>;}
 function ArrowButton({label,onClick}:{label:string;onClick?:()=>void}){return <button type="button" onClick={onClick} aria-label={label} className="co-primary-cta grid size-11 place-items-center rounded-full border border-[#214d2b]/25 bg-white/70 transition hover:bg-[#214d2b] hover:text-white"><ArrowRight size={16}/></button>;}
 
-export function ReferenceJournalPage(){
+export function ReferenceJournalPage({journalEntries=[]}:{journalEntries?:ContentJournalPost[]}){
   const reduce=useReducedMotion();
   const railRef=useRef<HTMLDivElement>(null);
   const [post,setPost]=useState<(typeof communityPosts)[number]|null>(null);
@@ -29,6 +30,7 @@ export function ReferenceJournalPage(){
   useEffect(()=>{if(reduce)return;const node=railRef.current;if(!node)return;let frame=0;let previous=performance.now();const tick=(now:number)=>{const delta=Math.min(64,now-previous);previous=now;const loopWidth=node.scrollWidth/2;if(!railPaused&&!node.matches(":hover")&&loopWidth>0){node.scrollLeft+=loopWidth/75*(delta/1000);if(node.scrollLeft>=loopWidth)node.scrollLeft-=loopWidth;}frame=requestAnimationFrame(tick);};frame=requestAnimationFrame(tick);return()=>cancelAnimationFrame(frame);},[reduce,railPaused]);
   useEffect(()=>{const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){setPost(null);setCreator(false);}};window.addEventListener("keydown",close);return()=>window.removeEventListener("keydown",close);},[]);
   const swipe=(action:"like"|"save"|"skip")=>{if(!deck.length)return;const current=deck[0];setDeck((items)=>[...items.slice(1),items[0]]);if(action==="save")setToast("Pinned to your routine");else if(action==="like")setToast(`Loved ${current.handle}`);else setToast("Next story");window.setTimeout(()=>setToast(""),1800);};
+  const articles=useMemo(()=>(journalEntries.length?journalEntries.slice(0,10).map((entry)=>[entry.category,entry.title,entry.readTime,entry.image] as (typeof fallbackArticles)[number]):fallbackArticles),[journalEntries]);
   const filtered=category==="All"?articles:articles.filter(([item])=>item===category);
   return <div className="co-journal-page min-h-screen overflow-hidden bg-[#f8f4ec] font-['Inter'] text-[#2a1b13]">
     <ReferenceHeader/>

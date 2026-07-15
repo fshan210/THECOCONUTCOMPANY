@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ReferenceShopPage } from "@/components/shop/ReferenceShopPage";
 import { StructuredData } from "@/components/seo/StructuredData";
-import { getSeoMetadata } from "@/lib/content/server";
+import { getProducts, getSeoMetadata } from "@/lib/content/server";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -15,11 +15,12 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default function ShopPage() {
+export default async function ShopPage() {
+  const products = await getProducts();
   return (
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Shop", path: "/shop" }]} />
-      <ReferenceShopPage />
+      <ReferenceShopPage contentProducts={products} />
     </>
   );
 }

@@ -40,7 +40,7 @@ export const fallbackRecipes: ContentRecipe[] = recipes.map((recipe, index) => (
   seo: {
     title: recipe.title,
     description: recipe.description,
-    canonicalPath: `/recipes#${recipe.slug}`,
+    canonicalPath: `/recipes/${recipe.slug}`,
     ogImage: recipe.image
   },
   publicationStatus: "published",
@@ -71,20 +71,19 @@ export const fallbackJournalPosts: ContentJournalPost[] = journalEntries.map((en
 });
 
 export const fallbackTestimonials: ContentTestimonial[] = [
-  { id: "early-taster", quote: "It tastes like real tender coconut, not a packaged drink.", name: "Early Taster", role: "Taster", source: "Early tasting table", featured: true, publicationStatus: "published" },
-  { id: "retail-partner", quote: "The brand feels premium but still rooted in Kerala.", name: "Retail Partner", role: "Retail", source: "Partner feedback", featured: true, publicationStatus: "published" },
-  { id: "wellness-customer", quote: "Clean, simple, and perfect straight from the fridge.", name: "Wellness Customer", role: "Customer", source: "Customer feedback", featured: true, publicationStatus: "published" },
-  { id: "distributor-feedback", quote: "The kind of coconut brand I would expect to see internationally.", name: "Distributor Feedback", role: "Distributor", source: "Distributor feedback", featured: true, publicationStatus: "published" }
+  { id: "priya-s", quote: "The coconut water is incredibly refreshing and pure. You can really taste the difference!", name: "Priya S.", role: "Verified Buyer", source: "Customer feedback", featured: true, publicationStatus: "published" },
+  { id: "arjun-m", quote: "Melt.CO ice cream is now our guilt-free indulgence. Creamy, delicious and natural!", name: "Arjun M.", role: "Verified Buyer", source: "Customer feedback", featured: true, publicationStatus: "published" },
+  { id: "neha-r", quote: "Love the brand's values and sustainable approach. Happy to support .CO!", name: "Neha R.", role: "Verified Buyer", source: "Customer feedback", featured: true, publicationStatus: "published" }
 ];
 
 export const fallbackHomepage: HomepageContent = {
   id: "homepage",
-  heroEyebrow: "Tender coconut water from Kerala",
-  heroHeadline: ["Nature's", "hydration.", ".CO by", "nature."],
-  heroSubheadline: "Tender coconut water with a clean Kerala origin story. Cold ritual. Real goodness. Fridge shelf ready.",
+  heroEyebrow: "Pure by nature. Made for living.",
+  heroHeadline: ["From our palms", "to your life."],
+  heroSubheadline: "We craft premium coconut products that nourish you and care for our planet.",
   heroCtaText: "Shop Now",
   heroCtaLink: "/shop",
-  secondaryCtaText: "Explore Story",
+  secondaryCtaText: "Watch our story",
   secondaryCtaLink: "/about",
   trustBadges: [
     { icon: "leaf", title: "100% Natural", body: "Real coconut taste." },

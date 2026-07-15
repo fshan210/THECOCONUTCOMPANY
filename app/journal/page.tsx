@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ReferenceJournalPage } from "@/components/journal/ReferenceJournalPage";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
-import { collectionPageSchema } from "@/lib/seo/structured-data";
+import { articleSchema, collectionPageSchema } from "@/lib/seo/structured-data";
 import { getJournalPosts, getSeoMetadata } from "@/lib/content/server";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -26,10 +26,11 @@ export default async function JournalPage() {
               description: entry.excerpt,
               image: entry.image
             }))
-          })
+          }),
+          ...journalEntries.map(articleSchema)
         ]}
       />
-      <ReferenceJournalPage />
+      <ReferenceJournalPage journalEntries={journalEntries} />
     </>
   );
 }
