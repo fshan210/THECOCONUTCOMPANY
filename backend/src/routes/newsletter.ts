@@ -6,7 +6,7 @@ import { subscribeNewsletter } from "../services/marketing.js";
 export const newsletterRoutes = new Hono<AppBindings>()
   .post("/newsletter/subscriptions", async (c) => {
     const body = newsletterSubscriptionSchema.parse(await c.req.json());
-    const result = await subscribeNewsletter(body.email, body.source);
+    const result = await subscribeNewsletter(body);
     return c.json({ data: { ...result, status: result.duplicate ? "already_subscribed" : "active", idempotent: true }, meta: {}, requestId: c.get("requestId") }, result.duplicate ? 200 : 202);
   })
   .delete("/newsletter/subscriptions", async (c) => {

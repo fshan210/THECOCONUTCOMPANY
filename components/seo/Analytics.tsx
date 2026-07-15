@@ -4,31 +4,28 @@ import Script from "next/script";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { trackEvent } from "@/lib/analytics/events";
-import { getFirebaseAnalyticsClient } from "@/lib/firebase/client";
-import { isFirebasePublicConfigured } from "@/lib/firebase/config";
-import { CONSENT_EVENT, readCookieConsent } from "@/lib/privacy/consent";
+import { CONSENT_EVENT, readCookieConsent, type CookieConsent } from "@/lib/privacy/consent";
 
 const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-CNXDJ3EMHQ";
 const clarityProjectId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID;
 const isProduction = process.env.NODE_ENV === "production";
 
 export function Analytics() {
-  const [allowed, setAllowed] = useState(false);
+  const [consent, setConsent] = useState<CookieConsent | null>(null);
 
   useEffect(() => {
-    const update = () => setAllowed(Boolean(readCookieConsent()?.analytics));
+    const update = () => setConsent(readCookieConsent());
     update();
     window.addEventListener(CONSENT_EVENT, update);
     return () => window.removeEventListener(CONSENT_EVENT, update);
   }, []);
 
-  if (!allowed) return null;
+  if (!consent?.analytics) return null;
 
   return (
     <>
-      <GoogleAnalytics />
+      <GoogleAnalytics marketing={consent.marketing} />
       <MicrosoftClarity />
-      <FirebaseAnalytics />
       <AnalyticsEventListeners />
       <Suspense fallback={null}>
         <PageViewTracker />
@@ -37,16 +34,9 @@ export function Analytics() {
   );
 }
 
-function FirebaseAnalytics() {
-  useEffect(() => {
-    if (!isProduction || !isFirebasePublicConfigured()) return;
-    void getFirebaseAnalyticsClient();
-  }, []);
+function GoogleAnalytics({ marketing }: { marketing: boolean }) {
+  const initialized = useRef(false);
 
-  return null;
-}
-
-function GoogleAnalytics() {
   useEffect(() => {
     if (!isProduction || !gaMeasurementId) return;
 
@@ -54,13 +44,31 @@ function GoogleAnalytics() {
     window.gtag = (...args: unknown[]) => {
       window.dataLayer?.push(args);
     };
-    window.gtag("js", new Date());
-    window.gtag("config", gaMeasurementId, {
-      page_path: window.location.pathname + window.location.search,
-      page_location: window.location.href,
-      page_title: document.title
+    if (!initialized.current) {
+      window.gtag("consent", "default", {
+        analytics_storage: "denied",
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        wait_for_update: 500
+      });
+      window.gtag("js", new Date());
+    }
+    window.gtag("consent", "update", {
+      analytics_storage: "granted",
+      ad_storage: marketing ? "granted" : "denied",
+      ad_user_data: marketing ? "granted" : "denied",
+      ad_personalization: marketing ? "granted" : "denied"
     });
-  }, []);
+    if (!initialized.current) {
+      window.gtag("config", gaMeasurementId, {
+        page_path: window.location.pathname + window.location.search,
+        page_location: window.location.href,
+        page_title: document.title
+      });
+      initialized.current = true;
+    }
+  }, [marketing]);
 
   if (!isProduction || !gaMeasurementId) return null;
 

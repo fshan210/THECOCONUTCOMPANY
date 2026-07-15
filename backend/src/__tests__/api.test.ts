@@ -19,6 +19,24 @@ test("protected route rejects unauthenticated access", async () => {
   assert.equal(body.error.code, "UNAUTHORIZED");
 });
 
+test("public content and newsletter routes are not shadowed by protected middleware", async () => {
+  const app = createApp();
+  const content = await app.request("/v1/recipes");
+  assert.equal(content.status, 200);
+
+  const newsletter = await app.request("/v1/newsletter/subscriptions", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      email: "newsletter-test@example.invalid",
+      source: "test",
+      consent: true,
+      honeypot: ""
+    })
+  });
+  assert.equal(newsletter.status, 202);
+});
+
 test("CORS does not approve unknown origins", async () => {
   const app = createApp();
   const response = await app.request("/v1/health", { headers: { origin: "https://evil.example" } });

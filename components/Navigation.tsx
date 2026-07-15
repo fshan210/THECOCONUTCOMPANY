@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { CartButton } from "@/components/cart/CartDrawer";
 import { useCustomerSession } from "@/components/auth/CustomerAuthProvider";
+import { customerGreeting } from "@/lib/customer/display-name";
 import { logoutCustomer } from "@/lib/customer/actions";
 import { getAdminPath } from "@/lib/admin/path";
 
@@ -25,6 +26,8 @@ export function Navigation() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const session = useCustomerSession();
+  const greeting = customerGreeting(session);
+  const accountHref = session ? "/account" : "/login?redirect=%2Faccount";
   const { scrollY } = useScroll();
   const headerBackground = useTransform(scrollY, [0, 90], ["rgba(245, 235, 215, 0.96)", "rgba(245, 235, 215, 0.84)"]);
   const headerShadow = useTransform(scrollY, [0, 90], ["0 0 0 rgba(58, 36, 22, 0)", "inset 0 1px 0 rgba(255,255,255,0.74), 0 22px 60px rgba(58, 36, 22, 0.14)"]);
@@ -84,16 +87,17 @@ export function Navigation() {
             </Link>
             {session ? (
               <Link
-                href="/account"
-                aria-label="My Account"
-                className="grid h-11 min-w-11 place-items-center rounded-[24px] border border-[var(--co-border)] bg-[var(--co-white)] px-3 text-sm font-bold text-[var(--co-ink)] transition hover:border-[var(--co-black)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)]"
+                href={accountHref}
+                aria-label={`Open account for ${greeting}`}
+                className="inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-[24px] border border-[var(--co-border)] bg-[var(--co-white)] px-3 text-sm font-bold text-[var(--co-ink)] transition hover:border-[var(--co-black)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)]"
               >
+                <span className="hidden max-w-[112px] truncate text-xs min-[520px]:inline">Hi, {greeting}</span>
                 {session.initials}
               </Link>
             ) : (
               <Link
-                href="/login"
-                aria-label="Login"
+                href={accountHref}
+                aria-label="Sign in to your account"
                 className="grid h-11 w-11 place-items-center rounded-[24px] border border-[var(--co-border)] bg-[var(--co-white)] text-[var(--co-ink)] transition hover:border-[var(--co-black)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)]"
               >
                 <UserRound size={18} />
@@ -148,8 +152,8 @@ export function Navigation() {
               <Link href="/wishlist" onClick={() => setOpen(false)} className="block border-b border-[var(--co-border)] py-4 text-sm font-bold uppercase tracking-[0.12em] text-[var(--co-muted)]">
                 Wishlist
               </Link>
-              <Link href={session ? "/account" : "/login"} onClick={() => setOpen(false)} className="block py-4 text-sm font-bold uppercase tracking-[0.12em] text-[var(--co-ink)]">
-                {session ? "My Account" : "Login"}
+              <Link href={accountHref} onClick={() => setOpen(false)} className="block py-4 text-sm font-bold uppercase tracking-[0.12em] text-[var(--co-ink)]">
+                {session ? `Hi, ${greeting}` : "Login"}
               </Link>
               {session ? (
                 <>
