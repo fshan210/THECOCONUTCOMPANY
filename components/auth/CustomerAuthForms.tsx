@@ -107,6 +107,8 @@ export function CustomerLoginForm() {
         await cognitoAuth({ action: "login", email, password, returnTo });
         if (!remember) window.sessionStorage.setItem("co-session-preference", "session");
         setNotice({ kind: "success", message: "Welcome back to .CO." });
+        window.dispatchEvent(new Event("co-auth-changed"));
+        router.refresh();
         window.setTimeout(() => router.replace(returnTo), 450);
       } catch (error) {
         if (error instanceof AuthApiError && error.flow === "verification_required") {

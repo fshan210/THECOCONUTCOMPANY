@@ -40,6 +40,7 @@ import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CartButton } from "@/components/cart/CartDrawer";
 import { useCustomerSession } from "@/components/auth/CustomerAuthProvider";
+import { customerGreeting } from "@/lib/customer/display-name";
 import { NewsletterForm } from "@/components/launch/NewsletterForm";
 import { CookiePreferencesButton } from "@/components/launch/CookiePreferencesButton";
 import { useCart } from "@/lib/cart/cart-context";
@@ -146,6 +147,8 @@ export function ReferenceHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const session = useCustomerSession();
+  const greeting = customerGreeting(session);
+  const accountHref = session ? "/account" : "/login?redirect=%2Faccount";
   useBodyScrollLock(menuOpen);
   useEffect(() => {
     let frame = 0;
@@ -204,7 +207,8 @@ export function ReferenceHeader() {
             <Link href="/shop" aria-label="Search products" className="grid size-10 place-items-center rounded-full transition hover:bg-white/70">
               <Search size={19} strokeWidth={1.7} />
             </Link>
-            <Link href={session ? "/account" : "/login"} aria-label={session ? "My account" : "Sign in"} className="grid size-10 place-items-center rounded-full transition hover:bg-white/70">
+            <Link href={accountHref} aria-label={session ? `Open account for ${greeting}` : "Sign in to your account"} className="inline-flex h-10 items-center gap-2 rounded-full px-1.5 transition hover:bg-white/70">
+              {session ? <span className="hidden max-w-[112px] truncate text-[11px] font-semibold text-[#305a34] min-[520px]:inline">Hi, {greeting}</span> : null}
               <CircleUserRound size={19} strokeWidth={1.6} />
             </Link>
             <CartButton showZero className="!size-10 !rounded-full !border-0 !bg-transparent !shadow-none hover:!bg-white/70" />
@@ -239,8 +243,8 @@ export function ReferenceHeader() {
                   {label}
                 </Link>
               ))}
-              <Link href={session ? "/account" : "/login"} onClick={() => setMenuOpen(false)} className="block px-4 py-3 text-xs font-semibold uppercase tracking-[.08em] text-[#305a34]">
-                {session ? "My account" : "Sign in"}
+              <Link href={accountHref} onClick={() => setMenuOpen(false)} className="block px-4 py-3 text-xs font-semibold uppercase tracking-[.08em] text-[#305a34]">
+                {session ? `Hi, ${greeting}` : "Sign in"}
               </Link>
             </motion.nav>
           ) : null}
