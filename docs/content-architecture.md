@@ -63,13 +63,13 @@ Dynamic documents overlay fallback documents by `id`. A dynamic draft suppresses
 
 ## Public integrations
 
-- Homepage: hero copy/CTAs/trust badges, featured products, featured recipes, featured testimonials, and homepage metadata.
-- Shop: product listing, categories, product metadata, and cart catalogue.
+- Homepage: hero copy/CTAs/trust badges, featured products, featured recipes, featured testimonials, and homepage metadata now flow through the content adapter while preserving the locked reference layout.
+- Shop: managed product data overlays the fixed premium catalogue presentation; product metadata and cart catalogue retain curated fallback behavior.
 - Product detail: product copy/assets, optional truthful displayed price, conditional Product/Offer schema, and related products.
 - Recipes: listing/search/categories, featured recipe, metadata, and Recipe JSON-LD.
-- Journal: listing/categories, metadata, and CollectionPage JSON-LD.
+- Journal: published managed entries feed the public collection and its Article/CollectionPage JSON-LD.
 - About, Founders, Sustainability: dashboard SEO metadata with existing copy as fallback.
-- Sitemap: published product routes are generated from the content layer.
+- Sitemap: published product and recipe routes are generated from the content layer.
 
 ## Content still intentionally static
 
@@ -77,7 +77,9 @@ Dynamic documents overlay fallback documents by `id`. A dynamic draft suppresses
 - About journey content, founder profiles/images, sustainability body sections, and most fixed campaign imagery.
 - Homepage origin/lifestyle/business CTA sections except the managed hero and featured collections.
 - Checkout/payment processing; product records are ecommerce-ready but payments are not live.
-- Journal and recipes remain collection pages; standalone detail routes are a later phase.
+- Journal remains a collection page. Recipe detail routes exist, but the listing/detail model is still partly reference/static and needs a unified editor-backed content contract.
+- About body sections, founders, sustainability, FAQ, footer, navigation, cookie copy, community, video, gradients, and animation configuration are not managed by the current content model.
+- Scheduled publishing, version history, rollback, rich text, and a complete preview workflow are not supported by the current backend contract.
 - Structured-data overrides are stored but not automatically rendered. Arbitrary dashboard JSON-LD needs an approval/allowlist layer before it can be safely published.
 
 ## Required configuration

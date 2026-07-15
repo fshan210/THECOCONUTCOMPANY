@@ -80,7 +80,9 @@ Vercel environment-variable names were inspected without reading values. `FIREBA
 ## Current limitations
 
 - No rich-text editor, revisions UI, scheduled publishing, bulk import, or hard delete.
-- Media library synchronizes approved local metadata; direct Firebase Storage uploads remain future work.
+- Media library synchronizes approved local metadata. It does not upload/crop/version assets in S3, serve files through CloudFront, or invalidate CDN paths. The required AWS media API and least-privilege upload policy are not present yet.
+- About body content, Founders, Sustainability, FAQ, Footer, Navigation, Community, video, gradients, and animation controls do not yet have validated content models or dashboard modules.
+- Scheduled publishing, version history, rollback, rich text, and full preview are not implemented.
 - No standalone recipe/article detail editor preview.
 - No checkout, tax, shipping, inventory reservation, or payment gateway.
 - Firestore security, backup, and environment provisioning must be maintained outside the dashboard.
