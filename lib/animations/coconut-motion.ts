@@ -19,13 +19,15 @@ function useMediaQuery(query: string) {
 export function useCoconutMotionMode() {
   const isMobile = useMediaQuery("(max-width: 767px)");
   const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
-  const shouldReduce = isMobile || prefersReducedMotion;
+  const shouldReduce = prefersReducedMotion;
+  const shouldSimplify = isMobile || prefersReducedMotion;
 
   return {
     isMobile,
     prefersReducedMotion,
-    quality: shouldReduce ? "mobile" : "desktop",
-    shouldReduce
+    quality: shouldSimplify ? "mobile" : "desktop",
+    shouldReduce,
+    shouldSimplify
   } as const;
 }
 
