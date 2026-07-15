@@ -33,6 +33,7 @@ import { cn } from "@/lib/utils";
 import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
 import { MobileBottomNav, NewsletterSection, ReferenceFooter, ReferenceHeader } from "@/components/home/ReferenceHomePage";
 import { StatePanel } from "@/components/launch/StatePanel";
+import type { ContentProduct } from "@/lib/content/types";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const imageRoot = "/assets/shop/products";
@@ -56,7 +57,7 @@ type Product = {
   nutrition: string;
 };
 
-const products: Product[] = [
+const fallbackShopProducts: Product[] = [
   { slug: "co-water", cartSlug: "co-water", name: ".CO Coconut Water 330ml", subtitle: "100% Organic", category: "Coconut Water", price: 120, rating: 4.9, reviews: 128, badge: "Bestseller", image: `${imageRoot}/IndividualProduct_CO-Water.png`, dietary: ["Vegan", "Gluten Free", "No Added Sugar", "Dairy Free"], collection: ["Bestsellers"], description: "Clean tender coconut water with a light, naturally refreshing finish.", benefits: ["Naturally hydrating", "Nothing unnecessary", "Best served chilled"], nutrition: "Tender coconut water. Final nutrition panel will be published with the retail pack." },
   { slug: "melt-co", cartSlug: "melt-co-mango-coconut", name: "Melt.CO Mango + Coconut Ice Cream 350ml", subtitle: "Coconut + Mango", category: "Ice Cream", price: 220, rating: 4.8, reviews: 96, badge: "New", image: `${imageRoot}/IndividualProduct_MeltCO.png`, dietary: ["Vegan", "Gluten Free", "Dairy Free"], collection: ["New Arrivals"], description: "A creamy coconut-led frozen dessert lifted with bright mango.", benefits: ["Coconut creaminess", "Mango-forward", "Dairy free"], nutrition: "Coconut base and mango. Final nutrition panel will be published before launch." },
   { slug: "coconut-chips", cartSlug: "co-kitchen-coconut-oil", name: ".CO Toasted Coconut Chips 150g", subtitle: "Golden + crisp", category: "Food", price: 160, rating: 4.8, reviews: 72, badge: "Bestseller", image: `${imageRoot}/IndividualProduct_CoconutChips.png`, dietary: ["Vegan", "Gluten Free", "Dairy Free"], collection: ["Bestsellers"], description: "Crisp toasted coconut chips for snacking, bowls and baking.", benefits: ["Toasted coconut", "Crisp texture", "Pantry ready"], nutrition: "Toasted coconut. Final pack information will confirm seasoning and serving values." },
@@ -110,8 +111,29 @@ function FilterChecks({ title, options, selected, onToggle }: { title: string; o
   return <div className="border-t border-black/6 pt-6"><p className="mb-3 text-[10px] font-semibold uppercase tracking-[.12em]">{title}</p>{options.map((item) => <label key={item} className="flex cursor-pointer items-center gap-2 py-2 text-xs"><input type="checkbox" checked={selected.has(item)} onChange={() => onToggle(item)} className="size-4 accent-[#214d2b]" />{item}</label>)}</div>;
 }
 
-export function ReferenceShopPage() {
+function mergeProductCatalog(contentProducts: ContentProduct[]) {
+  return fallbackShopProducts.map((fallback) => {
+    const source = contentProducts.find((item) => item.slug === fallback.cartSlug || item.slug === fallback.slug);
+    if (!source) return fallback;
+    return {
+      ...fallback,
+      cartSlug: source.slug,
+      name: source.name || fallback.name,
+      subtitle: source.subtitle || source.shortDescription || fallback.subtitle,
+      category: source.category || fallback.category,
+      price: source.price ?? fallback.price,
+      image: source.image || fallback.image,
+      description: source.longDescription || source.shortDescription || fallback.description,
+      benefits: source.benefits.length ? source.benefits : fallback.benefits,
+      nutrition: source.nutritionHighlights.length ? source.nutritionHighlights.join(" · ") : fallback.nutrition,
+      badge: source.featured ? "Bestseller" as const : fallback.badge
+    };
+  });
+}
+
+export function ReferenceShopPage({ contentProducts = [] }: { contentProducts?: ContentProduct[] }) {
   const cart = useCart();
+  const products = useMemo(() => mergeProductCatalog(contentProducts), [contentProducts]);
   const [category, setCategory] = useState("All Products");
   const [maxPrice, setMaxPrice] = useState(1000);
   const [dietary, setDietary] = useState(new Set<string>());
@@ -132,7 +154,7 @@ export function ReferenceShopPage() {
     if (!requested) return;
     const match = products.find((item) => item.slug === requested || item.cartSlug === requested);
     if (match) setSearch(match.name);
-  }, []);
+  }, [products]);
 
   const toggleSet = (setter: React.Dispatch<React.SetStateAction<Set<string>>>, value: string) => setter((current) => { const next = new Set(current); if (next.has(value)) next.delete(value); else next.add(value); return next; });
   const visible = useMemo(() => {
@@ -146,8 +168,8 @@ export function ReferenceShopPage() {
       return true;
     });
     return [...filtered].sort((a, b) => sort === "Price Low to High" ? a.price - b.price : sort === "Price High to Low" ? b.price - a.price : sort === "Rating" ? b.rating - a.rating : sort === "Alphabetical" ? a.name.localeCompare(b.name) : sort === "Best Selling" ? b.reviews - a.reviews : sort === "Newest" ? Number(Boolean(b.badge === "New")) - Number(Boolean(a.badge === "New")) : 0);
-  }, [category, collections, dietary, maxPrice, search, sort]);
-  const suggestions = useMemo(() => products.filter((product) => product.name.toLowerCase().includes(search.toLowerCase())).slice(0, 5), [search]);
+  }, [category, collections, dietary, maxPrice, products, search, sort]);
+  const suggestions = useMemo(() => products.filter((product) => product.name.toLowerCase().includes(search.toLowerCase())).slice(0, 5), [products, search]);
 
   const addProduct = (product: Product) => { const quantity = quantities[product.slug] ?? 1; for (let index = 0; index < quantity; index += 1) cart.addItem(product.cartSlug); };
   const toggleWishlist = (slug: string) => setWishlist((current) => { const next = new Set(current); if (next.has(slug)) next.delete(slug); else next.add(slug); return next; });
@@ -199,7 +221,7 @@ export function ReferenceShopPage() {
       <MobileBottomNav />
 
       <Dialog.Root open={filtersOpen} onOpenChange={setFiltersOpen}><AnimatePresence>{filtersOpen&&<Dialog.Portal forceMount><Dialog.Overlay asChild><motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="fixed inset-0 z-[150] bg-black/30 backdrop-blur-sm"/></Dialog.Overlay><Dialog.Content asChild><motion.div initial={{x:"100%"}} animate={{x:0}} exit={{x:"100%"}} transition={{duration:.4,ease}} className="fixed inset-y-0 right-0 z-[160] max-h-[100dvh] w-[min(88vw,390px)] overflow-y-auto overscroll-contain bg-[#f8f4ec] p-6 shadow-[-24px_0_70px_rgba(42,27,19,.2)] [scrollbar-gutter:stable] [touch-action:pan-y]"><div className="mb-7 flex items-center justify-between"><Dialog.Title className="font-['Cormorant_Garamond'] text-3xl">Filters</Dialog.Title><Dialog.Close aria-label="Close filters" className="grid size-11 place-items-center rounded-full border border-black/8"><X size={18}/></Dialog.Close></div><FilterContent category={category} setCategory={setCategory} maxPrice={maxPrice} setMaxPrice={setMaxPrice} dietary={dietary} toggleDietary={(value)=>toggleSet(setDietary,value)} collections={collections} toggleCollection={(value)=>toggleSet(setCollections,value)} /><Dialog.Close className="sticky bottom-3 mt-8 min-h-12 w-full rounded-full bg-[#214d2b] text-xs font-semibold uppercase text-white">Show {visible.length} products</Dialog.Close></motion.div></Dialog.Content></Dialog.Portal>}</AnimatePresence></Dialog.Root>
-      <QuickView product={quickView} open={Boolean(quickView)} onOpenChange={(open)=>!open&&setQuickView(null)} quantity={quickView?quantities[quickView.slug]??1:1} setQuantity={(value)=>quickView&&setQuantities((current)=>({...current,[quickView.slug]:value}))} wished={quickView?wishlist.has(quickView.slug):false} toggleWishlist={()=>quickView&&toggleWishlist(quickView.slug)} onAdd={()=>quickView&&addProduct(quickView)} />
+      <QuickView catalog={products} product={quickView} open={Boolean(quickView)} onOpenChange={(open)=>!open&&setQuickView(null)} quantity={quickView?quantities[quickView.slug]??1:1} setQuantity={(value)=>quickView&&setQuantities((current)=>({...current,[quickView.slug]:value}))} wished={quickView?wishlist.has(quickView.slug):false} toggleWishlist={()=>quickView&&toggleWishlist(quickView.slug)} onAdd={()=>quickView&&addProduct(quickView)} />
     </div>
   );
 }
@@ -216,7 +238,7 @@ function useDialogScrollLock(open:boolean){
   useBodyScrollLock(open);
 }
 
-function QuickView({ product, open, onOpenChange, quantity, setQuantity, wished, toggleWishlist, onAdd }: { product:Product|null; open:boolean; onOpenChange:(open:boolean)=>void; quantity:number; setQuantity:(value:number)=>void; wished:boolean; toggleWishlist:()=>void; onAdd:()=>void }) {
+function QuickView({ catalog, product, open, onOpenChange, quantity, setQuantity, wished, toggleWishlist, onAdd }: { catalog:Product[]; product:Product|null; open:boolean; onOpenChange:(open:boolean)=>void; quantity:number; setQuantity:(value:number)=>void; wished:boolean; toggleWishlist:()=>void; onAdd:()=>void }) {
   useDialogScrollLock(open);
-  return <Dialog.Root open={open} onOpenChange={onOpenChange}><AnimatePresence>{open&&product&&<Dialog.Portal forceMount><Dialog.Overlay asChild><motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="fixed inset-0 z-[170] bg-[#211812]/40 backdrop-blur-[8px]"/></Dialog.Overlay><Dialog.Content asChild><motion.div initial={{opacity:0,scale:.94,y:18}} animate={{opacity:1,scale:1,y:0}} exit={{opacity:0,scale:.94,y:18}} transition={{duration:.42,ease}} className="fixed inset-3 z-[180] overflow-y-auto overscroll-contain rounded-[30px] [scrollbar-gutter:stable] [touch-action:pan-y] border border-white/70 bg-[rgba(248,244,236,.94)] p-4 shadow-[0_35px_110px_rgba(22,15,10,.3)] backdrop-blur-2xl md:inset-auto md:left-1/2 md:top-1/2 md:max-h-[88vh] md:w-[min(980px,calc(100vw-48px))] md:-translate-x-1/2 md:-translate-y-1/2 md:p-7"><div className="flex items-start justify-between"><div><Dialog.Title className="font-['Cormorant_Garamond'] text-3xl md:text-4xl">{product.name}</Dialog.Title><Dialog.Description className="mt-2 text-xs text-[#6b6057]">Quick view · {product.category}</Dialog.Description></div><Dialog.Close aria-label="Close dialog" className="grid size-10 place-items-center rounded-full border border-black/8"><X size={18}/></Dialog.Close></div><div className="mt-5 grid gap-6 md:grid-cols-[1fr_.9fr]"><div><div className="relative aspect-square overflow-hidden rounded-[26px] bg-[#f3eee4]"><ProductImage product={product} sizes="(min-width:768px) 48vw, 90vw" priority/></div><div className="mt-3 grid grid-cols-3 gap-2">{[product,products[(products.indexOf(product)+1)%products.length],products[(products.indexOf(product)+2)%products.length]].map((item)=><button type="button" key={item.slug} onClick={()=>item===product?undefined:onOpenChange(false)} className="relative aspect-[4/3] overflow-hidden rounded-[14px] bg-white/55"><ProductImage product={item} sizes="150px"/></button>)}</div></div><div className="flex flex-col"><p className="text-sm leading-7 text-[#594d43]">{product.description}</p><div className="mt-5"><p className="text-[10px] font-semibold uppercase tracking-[.12em]">Benefits</p><div className="mt-3 flex flex-wrap gap-2">{product.benefits.map((item)=><span key={item} className="rounded-full border border-black/7 bg-white/55 px-3 py-2 text-[10px]">{item}</span>)}</div></div><div className="mt-5 rounded-[18px] bg-white/48 p-4"><p className="text-[10px] font-semibold uppercase tracking-[.12em]">Product information</p><p className="mt-2 text-[11px] leading-6 text-[#6a6057]">{product.nutrition}</p></div><div className="mt-6 flex items-center justify-between"><p className="text-xl font-semibold">₹{product.price.toFixed(2)}</p><button type="button" aria-label="Toggle wishlist" onClick={toggleWishlist} className="grid size-11 place-items-center rounded-full border border-black/8"><Heart size={18} fill={wished?"currentColor":"none"}/></button></div><div className="mt-4 flex gap-3"><Quantity value={quantity} onChange={setQuantity}/><button type="button" onClick={onAdd} className="co-primary-cta min-h-11 flex-1 rounded-full bg-[#214d2b] text-[10px] font-semibold uppercase text-white">Add to cart</button></div><div className="mt-6"><p className="text-[10px] font-semibold uppercase tracking-[.12em]">Related products</p><div className="mt-3 grid grid-cols-3 gap-2">{products.filter((item)=>item.category===product.category&&item.slug!==product.slug).slice(0,3).map((item)=><div key={item.slug} className="rounded-[14px] bg-white/55 p-2"><div className="relative aspect-square overflow-hidden rounded-[10px]"><ProductImage product={item} sizes="120px"/></div><p className="mt-2 line-clamp-2 text-[8px] font-medium">{item.name}</p></div>)}</div></div></div></div></motion.div></Dialog.Content></Dialog.Portal>}</AnimatePresence></Dialog.Root>;
+  return <Dialog.Root open={open} onOpenChange={onOpenChange}><AnimatePresence>{open&&product&&<Dialog.Portal forceMount><Dialog.Overlay asChild><motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="fixed inset-0 z-[170] bg-[#211812]/40 backdrop-blur-[8px]"/></Dialog.Overlay><Dialog.Content asChild><motion.div initial={{opacity:0,scale:.94,y:18}} animate={{opacity:1,scale:1,y:0}} exit={{opacity:0,scale:.94,y:18}} transition={{duration:.42,ease}} className="fixed inset-3 z-[180] overflow-y-auto overscroll-contain rounded-[30px] [scrollbar-gutter:stable] [touch-action:pan-y] border border-white/70 bg-[rgba(248,244,236,.94)] p-4 shadow-[0_35px_110px_rgba(22,15,10,.3)] backdrop-blur-2xl md:inset-auto md:left-1/2 md:top-1/2 md:max-h-[88vh] md:w-[min(980px,calc(100vw-48px))] md:-translate-x-1/2 md:-translate-y-1/2 md:p-7"><div className="flex items-start justify-between"><div><Dialog.Title className="font-['Cormorant_Garamond'] text-3xl md:text-4xl">{product.name}</Dialog.Title><Dialog.Description className="mt-2 text-xs text-[#6b6057]">Quick view · {product.category}</Dialog.Description></div><Dialog.Close aria-label="Close dialog" className="grid size-10 place-items-center rounded-full border border-black/8"><X size={18}/></Dialog.Close></div><div className="mt-5 grid gap-6 md:grid-cols-[1fr_.9fr]"><div><div className="relative aspect-square overflow-hidden rounded-[26px] bg-[#f3eee4]"><ProductImage product={product} sizes="(min-width:768px) 48vw, 90vw" priority/></div><div className="mt-3 grid grid-cols-3 gap-2">{[product,catalog[(catalog.indexOf(product)+1)%catalog.length],catalog[(catalog.indexOf(product)+2)%catalog.length]].map((item)=><button type="button" key={item.slug} onClick={()=>item===product?undefined:onOpenChange(false)} className="relative aspect-[4/3] overflow-hidden rounded-[14px] bg-white/55"><ProductImage product={item} sizes="150px"/></button>)}</div></div><div className="flex flex-col"><p className="text-sm leading-7 text-[#594d43]">{product.description}</p><div className="mt-5"><p className="text-[10px] font-semibold uppercase tracking-[.12em]">Benefits</p><div className="mt-3 flex flex-wrap gap-2">{product.benefits.map((item)=><span key={item} className="rounded-full border border-black/7 bg-white/55 px-3 py-2 text-[10px]">{item}</span>)}</div></div><div className="mt-5 rounded-[18px] bg-white/48 p-4"><p className="text-[10px] font-semibold uppercase tracking-[.12em]">Product information</p><p className="mt-2 text-[11px] leading-6 text-[#6a6057]">{product.nutrition}</p></div><div className="mt-6 flex items-center justify-between"><p className="text-xl font-semibold">₹{product.price.toFixed(2)}</p><button type="button" aria-label="Toggle wishlist" onClick={toggleWishlist} className="grid size-11 place-items-center rounded-full border border-black/8"><Heart size={18} fill={wished?"currentColor":"none"}/></button></div><div className="mt-4 flex gap-3"><Quantity value={quantity} onChange={setQuantity}/><button type="button" onClick={onAdd} className="co-primary-cta min-h-11 flex-1 rounded-full bg-[#214d2b] text-[10px] font-semibold uppercase text-white">Add to cart</button></div><div className="mt-6"><p className="text-[10px] font-semibold uppercase tracking-[.12em]">Related products</p><div className="mt-3 grid grid-cols-3 gap-2">{catalog.filter((item)=>item.category===product.category&&item.slug!==product.slug).slice(0,3).map((item)=><div key={item.slug} className="rounded-[14px] bg-white/55 p-2"><div className="relative aspect-square overflow-hidden rounded-[10px]"><ProductImage product={item} sizes="120px"/></div><p className="mt-2 line-clamp-2 text-[8px] font-medium">{item.name}</p></div>)}</div></div></div></div></motion.div></Dialog.Content></Dialog.Portal>}</AnimatePresence></Dialog.Root>;
 }

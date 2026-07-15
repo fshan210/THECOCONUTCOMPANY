@@ -45,7 +45,7 @@ import { NewsletterForm } from "@/components/launch/NewsletterForm";
 import { CookiePreferencesButton } from "@/components/launch/CookiePreferencesButton";
 import { useCart } from "@/lib/cart/cart-context";
 import { getScrollTrigger, prefersReducedMotion } from "@/lib/animation/gsap-scrolltrigger";
-import type { ContentProduct, HomepageContent } from "@/lib/content/types";
+import type { ContentProduct, ContentRecipe, ContentTestimonial, HomepageContent } from "@/lib/content/types";
 import { publicAssets } from "@/lib/public-assets";
 import { cn } from "@/lib/utils";
 import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
@@ -407,7 +407,7 @@ function MoreProductsDialog({ products, className }: { products: DisplayProduct[
                                 className="grid w-full grid-cols-[86px_1fr_38px] items-center gap-3 rounded-[22px] border border-white/60 bg-white/16 p-3 text-left"
                               >
                                 <span className="relative block aspect-square">
-                                  <Image src={product.image} alt="" fill sizes="86px" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain p-1" />
+                                  <Image src={product.image} alt={product.name} fill sizes="86px" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain p-1" />
                                 </span>
                                 <span>
                                   <span className="block font-['Cormorant_Garamond'] text-xl">{product.name}</span>
@@ -460,7 +460,13 @@ function MoreProductsDialog({ products, className }: { products: DisplayProduct[
   );
 }
 
-function HeroSection() {
+const trustBadgeIcons = { leaf: Leaf, drop: Milk, cold: Sparkles, palm: Leaf } as const;
+
+function HeroSection({ homepage }: { homepage: HomepageContent }) {
+  const headline = homepage.heroHeadline.length ? homepage.heroHeadline : ["From our palms", "to your life."];
+  const lastLine = headline.at(-1) ?? "to your life.";
+  const lastWord = lastLine.trim().split(/\s+/).at(-1) ?? "life.";
+  const lastPrefix = lastLine.slice(0, Math.max(0, lastLine.length - lastWord.length));
   return (
     <section className="relative isolate min-h-[445px] overflow-hidden bg-[#f7f2e8] md:min-h-[720px]">
       <Image
@@ -493,43 +499,39 @@ function HeroSection() {
         <div className="relative z-20 max-w-[620px]">
           <motion.p initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }} className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35271e]">
             <span className="md:hidden">Rooted in nature</span>
-            <span className="hidden md:inline">Pure by nature. Made for living.</span>
+            <span className="hidden md:inline">{homepage.heroEyebrow}</span>
           </motion.p>
           <motion.h1 initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, delay: 0.08, ease }} className="mt-3 max-w-[10ch] font-['Cormorant_Garamond'] text-[39px] font-normal leading-[.92] tracking-[-.035em] text-[#16120e] md:mt-4 md:max-w-[12ch] md:text-[clamp(48px,5.1vw,82px)] md:leading-[.88] md:tracking-[-.04em]">
             <span className="md:hidden">Good for you.<br />Good for the <em className="font-normal text-[#305a34]">planet.</em></span>
-            <span className="hidden md:inline">From our palms<br />to your <em className="font-normal text-[#305a34]">life.</em></span>
+            <span className="hidden md:inline">{headline.slice(0, -1).map((line) => <span key={line}>{line}<br /></span>)}{lastPrefix}<em className="font-normal text-[#305a34]">{lastWord}</em></span>
           </motion.h1>
           <motion.p initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, delay: 0.18, ease }} className="mt-5 max-w-[185px] text-[12px] leading-5 text-[#27211c] md:mt-6 md:max-w-[350px] md:text-[17px] md:leading-7">
             <span className="md:hidden">Premium coconut products, crafted with care for a healthier you and a better planet.</span>
-            <span className="hidden md:inline">We craft premium coconut products that nourish you and care for our planet.</span>
+            <span className="hidden md:inline">{homepage.heroSubheadline}</span>
           </motion.p>
           <motion.div initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.26, ease }}>
-            <Link href="/shop" className="co-primary-cta mt-5 inline-flex min-h-11 items-center gap-4 rounded-full bg-[#304f2c] px-5 text-[9px] font-semibold uppercase text-white shadow-[0_15px_35px_rgba(48,79,44,.24)] md:mt-7 md:min-h-14 md:gap-6 md:px-7 md:text-[11px]">
-              Shop now
+            <Link href={homepage.heroCtaLink} className="co-primary-cta mt-5 inline-flex min-h-11 items-center gap-4 rounded-full bg-[#304f2c] px-5 text-[9px] font-semibold uppercase text-white shadow-[0_15px_35px_rgba(48,79,44,.24)] md:mt-7 md:min-h-14 md:gap-6 md:px-7 md:text-[11px]">
+              {homepage.heroCtaText}
               <span className="grid size-8 place-items-center rounded-full bg-[#efe8db] text-[#304f2c] md:size-9">
                 <ArrowRight size={18} />
               </span>
             </Link>
           </motion.div>
-          <Link href="/about" className="mt-4 inline-flex items-center gap-2 border-b border-[#35271e] pb-1 text-[10px] font-semibold uppercase md:hidden">
-            <PlayCircle size={17} /> Watch our story
+          <Link href={homepage.secondaryCtaLink} className="mt-4 inline-flex items-center gap-2 border-b border-[#35271e] pb-1 text-[10px] font-semibold uppercase md:hidden">
+            <PlayCircle size={17} /> {homepage.secondaryCtaText}
           </Link>
 
           <div className="mt-9 hidden grid-cols-3 gap-5 md:grid">
-            {[
-              [Leaf, "100% Natural", "No additives"],
-              [Recycle, "Sustainably Sourced", "From trusted farms"],
-              [Sparkles, "Made for Living", "Better for you"]
-            ].map(([Icon, title, subtitle]) => {
-              const FeatureIcon = Icon as typeof Leaf;
+            {homepage.trustBadges.slice(0, 3).map(({ icon, title, body: subtitle }) => {
+              const FeatureIcon = trustBadgeIcons[icon];
               return (
-                <div key={String(title)} className="flex items-center gap-3">
+                <div key={title} className="flex items-center gap-3">
                   <span className="grid size-9 shrink-0 place-items-center rounded-full border border-[#35271e]/12">
                     <FeatureIcon size={17} strokeWidth={1.5} />
                   </span>
                   <span>
-                    <span className="block text-[11px] font-semibold">{String(title)}</span>
-                    <span className="mt-1 block text-[10px] text-[#5f554b]">{String(subtitle)}</span>
+                    <span className="block text-[11px] font-semibold">{title}</span>
+                    <span className="mt-1 block text-[10px] text-[#5f554b]">{subtitle}</span>
                   </span>
                 </div>
               );
@@ -763,7 +765,14 @@ const recipeCards = [
   { title: "Coconut Energy Balls", category: "Snack", time: "15 min", image: publicAssets.recipes.energyBites }
 ];
 
-function RecipesSnapshot() {
+function RecipesSnapshot({ recipes }: { recipes: ContentRecipe[] }) {
+  const cards = recipes.length ? recipes.slice(0, 5).map((recipe) => ({
+    slug: recipe.slug,
+    title: recipe.title,
+    category: recipe.category,
+    time: recipe.time,
+    image: recipe.image
+  })) : recipeCards.map((recipe, index) => ({ ...recipe, slug: `recipe-${index}` }));
   return (
     <section className="px-4 pb-9 md:px-8 md:pb-12">
       <div className="mx-auto max-w-[1320px] rounded-[30px] bg-white/48 p-4 shadow-[0_18px_55px_rgba(53,39,30,.045)] md:grid md:grid-cols-[300px_1fr] md:gap-5 md:p-6">
@@ -774,9 +783,9 @@ function RecipesSnapshot() {
           <Link href="/recipes" className="mt-5 inline-flex w-fit items-center gap-3 border-b border-[#305a34] pb-1 text-[10px] font-semibold uppercase text-[#305a34]">Explore recipes <ArrowRight size={14} /></Link>
         </div>
         <div className="mt-5 flex snap-x gap-3 overflow-x-auto pb-2 [scrollbar-width:none] md:mt-0 md:grid md:grid-cols-5 md:overflow-visible [&::-webkit-scrollbar]:hidden">
-          {recipeCards.map((recipe) => (
+          {cards.map((recipe) => (
             <motion.article key={recipe.title} whileHover={{ y: -5 }} transition={{ duration: 0.35, ease }} className="group min-w-[72%] snap-start overflow-hidden rounded-[19px] border border-[#35271e]/8 bg-white/60 sm:min-w-[43%] md:min-w-0">
-              <Link href="/recipes" className="relative block aspect-[4/3] overflow-hidden md:aspect-[4/4.35]">
+              <Link href={`/recipes/${recipe.slug}`} className="relative block aspect-[4/3] overflow-hidden md:aspect-[4/4.35]">
                 <Image src={recipe.image} alt={recipe.title} fill sizes="(min-width: 768px) 190px, 72vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-cover transition duration-700 group-hover:scale-[1.04] group-hover:brightness-[1.03]" />
                 <span className="absolute right-2 top-2 grid size-8 place-items-center rounded-full bg-white/70 backdrop-blur-md"><Heart size={14} strokeWidth={1.5} /></span>
               </Link>
@@ -792,21 +801,27 @@ function RecipesSnapshot() {
   );
 }
 
-const testimonials = [
+const fallbackDisplayTestimonials = [
   { quote: "The coconut water is incredibly refreshing and pure. You can really taste the difference!", name: "Priya S.", initials: "PS" },
   { quote: "Melt.CO ice cream is now our guilt-free indulgence. Creamy, delicious and natural!", name: "Arjun M.", initials: "AM" },
   { quote: "Love the brand's values and sustainable approach. Happy to support .CO!", name: "Neha R.", initials: "NR" }
 ];
 
-function TestimonialsSection() {
+function TestimonialsSection({ testimonials }: { testimonials: ContentTestimonial[] }) {
+  const displayTestimonials = testimonials.length ? testimonials.slice(0, 3).map((item) => ({
+    quote: item.quote,
+    name: item.name,
+    initials: item.name.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase(),
+    role: item.role
+  })) : fallbackDisplayTestimonials.map((item) => ({ ...item, role: "Verified Buyer" }));
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     if (paused || prefersReducedMotion()) return undefined;
-    const timer = window.setInterval(() => setActive((value) => (value + 1) % testimonials.length), 7000);
+    const timer = window.setInterval(() => setActive((value) => (value + 1) % displayTestimonials.length), 7000);
     return () => window.clearInterval(timer);
-  }, [paused]);
+  }, [paused, displayTestimonials.length]);
 
   return (
     <section className="px-4 pb-9 md:px-8 md:pb-12" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
@@ -817,13 +832,13 @@ function TestimonialsSection() {
         </div>
         <div className="mt-6 md:mt-0">
           <div className="hidden gap-4 md:grid md:grid-cols-3">
-            {testimonials.map((testimonial, index) => <TestimonialCard key={testimonial.name} testimonial={testimonial} highlighted={active === index} />)}
+            {displayTestimonials.map((testimonial, index) => <TestimonialCard key={testimonial.name} testimonial={testimonial} highlighted={active === index} />)}
           </div>
           <div className="md:hidden">
             <motion.div key={active} initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4, ease }}>
-              <TestimonialCard testimonial={testimonials[active]} highlighted />
+              <TestimonialCard testimonial={displayTestimonials[active]} highlighted />
             </motion.div>
-            <div className="mt-2 flex justify-center gap-0">{testimonials.map((item, index) => <button type="button" aria-label={`Show testimonial from ${item.name}`} key={item.name} onClick={() => setActive(index)} className="grid size-8 place-items-center rounded-full"><span className={cn("size-2 rounded-full", active === index ? "bg-[#305a34]" : "bg-[#35271e]/20")} /></button>)}</div>
+            <div className="mt-2 flex justify-center gap-0">{displayTestimonials.map((item, index) => <button type="button" aria-label={`Show testimonial from ${item.name}`} key={item.name} onClick={() => setActive(index)} className="grid size-8 place-items-center rounded-full"><span className={cn("size-2 rounded-full", active === index ? "bg-[#305a34]" : "bg-[#35271e]/20")} /></button>)}</div>
           </div>
         </div>
       </div>
@@ -831,14 +846,14 @@ function TestimonialsSection() {
   );
 }
 
-function TestimonialCard({ testimonial, highlighted }: { testimonial: (typeof testimonials)[number]; highlighted: boolean }) {
+function TestimonialCard({ testimonial, highlighted }: { testimonial: { quote: string; name: string; initials: string; role: string }; highlighted: boolean }) {
   return (
     <motion.article animate={{ y: highlighted ? -2 : 0 }} className={cn("rounded-[22px] border border-white/75 bg-white/45 p-5 shadow-[0_14px_38px_rgba(53,39,30,.06)] backdrop-blur-lg transition-shadow", highlighted && "shadow-[0_20px_48px_rgba(53,39,30,.1)]")}>
       <div className="text-[14px] tracking-[.1em] text-[#e0a51d]" aria-label="Five stars">★★★★★</div>
       <blockquote className="mt-4 text-sm leading-7">“{testimonial.quote}”</blockquote>
       <div className="mt-5 flex items-center gap-3">
         <span className="grid size-10 place-items-center rounded-full bg-[linear-gradient(145deg,#d9c6a7,#f4ecdf)] text-[10px] font-semibold text-[#305a34]" aria-hidden="true">{testimonial.initials}</span>
-        <span><span className="block text-xs font-semibold">{testimonial.name}</span><span className="mt-1 block text-[9px] text-[#72685e]">Verified Buyer</span></span>
+        <span><span className="block text-xs font-semibold">{testimonial.name}</span><span className="mt-1 block text-[9px] text-[#72685e]">{testimonial.role}</span></span>
       </div>
     </motion.article>
   );
@@ -1112,7 +1127,7 @@ function footerLink(label: string) {
   return routes[label] || "/";
 }
 
-export function ReferenceHomePage({ homepage, products }: { homepage: HomepageContent; products: ContentProduct[] }) {
+export function ReferenceHomePage({ homepage, products, recipes, testimonials }: { homepage: HomepageContent; products: ContentProduct[]; recipes: ContentRecipe[]; testimonials: ContentTestimonial[] }) {
   const displayProducts = useMemo(() => toDisplayProducts(products), [products]);
   const popupProducts = useMemo(() => toPopupProducts(displayProducts), [displayProducts]);
 
@@ -1120,14 +1135,14 @@ export function ReferenceHomePage({ homepage, products }: { homepage: HomepageCo
     <div className="co-reference-home min-h-screen overflow-hidden bg-[#f7f2e8] font-['Inter'] text-[#35271e]">
       <ReferenceHeader />
       <div>
-        <HeroSection />
+        <HeroSection homepage={homepage} />
         <MobileHeroBenefits />
         <CategoryRail products={popupProducts} />
         <DeliveryMarquee />
         <PlanetBentoSection products={popupProducts} />
         <ProductsSection products={displayProducts} />
-        <RecipesSnapshot />
-        <TestimonialsSection />
+        <RecipesSnapshot recipes={recipes} />
+        <TestimonialsSection testimonials={testimonials} />
         <SustainabilityBanner />
         <FAQSection />
         <MobileReferenceExtras products={displayProducts} />
@@ -1135,7 +1150,6 @@ export function ReferenceHomePage({ homepage, products }: { homepage: HomepageCo
       </div>
       <ReferenceFooter />
       <MobileBottomNav />
-      <span className="sr-only">{homepage.heroSubheadline}</span>
     </div>
   );
 }

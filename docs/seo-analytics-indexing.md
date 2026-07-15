@@ -97,6 +97,14 @@ Add this Vercel environment variable:
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 
+Optional Google Tag Manager support uses:
+
+```env
+NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
+```
+
+Consent Mode v2 defaults are emitted before vendor scripts. GA4, GTM, and Clarity load only after analytics consent. If GTM is enabled, do not configure an additional GA4 Configuration tag in the container while direct GA4 remains active, because that would duplicate page views and events.
+
 Implemented tracking:
 
 - Page views on App Router navigation
@@ -167,13 +175,16 @@ Implemented:
 - Organization schema
 - WebSite schema
 - BreadcrumbList schema per primary page
+- FAQPage schema on the homepage
+- Recipe schema for published recipe content
+- CollectionPage and Article schema for the Journal collection
+- Person schema for the founders page
 - Official social profile references
 
-Prepared for future support:
+Prepared/conditional support:
 
-- Product schema
-- Article schema
-- Founder article schema
+- Product schema emits truthful price and availability only when present in managed product data.
+- News sitemap entries require truthful ISO publication dates and the supported freshness window.
 
 Files:
 

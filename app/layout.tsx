@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { headers } from "next/headers";
 import "@fontsource/cormorant-garamond/400.css";
@@ -12,6 +12,7 @@ import "@fontsource/space-grotesk/600.css";
 import { Footer } from "@/components/Footer";
 import { Navigation } from "@/components/Navigation";
 import { Analytics } from "@/components/seo/Analytics";
+import { ConsentDefaults } from "@/components/seo/ConsentDefaults";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { CustomerAuthProvider } from "@/components/auth/CustomerAuthProvider";
@@ -55,6 +56,9 @@ export const metadata: Metadata = {
     template: `%s | ${siteName}`
   },
   description: defaultDescription,
+  applicationName: siteName,
+  category: "food and beverage",
+  keywords: ["coconut water", "coconut products", "Kerala coconut", "MELT.CO", "The Coconut Company"],
   manifest: "/site.webmanifest",
   icons: {
     icon: [
@@ -87,7 +91,7 @@ export const metadata: Metadata = {
         alt: siteName
       }
     ],
-    locale: "en_US",
+    locale: "en_IN",
     type: "website"
   },
   twitter: {
@@ -98,6 +102,11 @@ export const metadata: Metadata = {
   }
 };
 
+export const viewport: Viewport = {
+  colorScheme: "light",
+  themeColor: "#f8f4ec"
+};
+
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const customerSession = await getCustomerSession();
   const headerStore = await headers();
@@ -105,7 +114,10 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const products = await getProducts();
 
   return (
-    <html lang="en">
+    <html lang="en-IN">
+      <head>
+        <ConsentDefaults />
+      </head>
       <body className={`${roboto.variable} ${instrumentSerif.variable} font-sans antialiased`}>
         <CustomerAuthProvider session={customerSession}>
           <CartProvider catalog={products}>

@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-import { recipes } from "@/components/recipes/recipe-data";
-import { getProducts } from "@/lib/content/server";
+import { getProducts, getRecipes } from "@/lib/content/server";
 
 const siteUrl = "https://cothecoconutcompany.com";
 
@@ -27,7 +26,8 @@ const routes = [
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const productRoutes = (await getProducts()).map((product) => `/shop/${product.slug}`);
+  const [products, recipes] = await Promise.all([getProducts(), getRecipes()]);
+  const productRoutes = products.map((product) => `/shop/${product.slug}`);
   const recipeRoutes = recipes.map((recipe) => `/recipes/${recipe.slug}`);
   return [...routes, ...productRoutes, ...recipeRoutes].map((route) => ({
     url: `${siteUrl}${route}`,
