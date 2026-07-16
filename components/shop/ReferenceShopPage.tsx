@@ -31,6 +31,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useCart } from "@/lib/cart/cart-context";
 import { cn } from "@/lib/utils";
 import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
+import { useSavedContent } from "@/lib/customer/use-saved-content";
 import { MobileBottomNav, NewsletterSection, ReferenceFooter, ReferenceHeader } from "@/components/home/ReferenceHomePage";
 import { StatePanel } from "@/components/launch/StatePanel";
 import type { ContentProduct } from "@/lib/content/types";
@@ -145,7 +146,8 @@ export function ReferenceShopPage({ contentProducts = [] }: { contentProducts?: 
   const [searchFocused, setSearchFocused] = useState(false);
   const [activeSuggestion, setActiveSuggestion] = useState(0);
   const [quickView, setQuickView] = useState<Product | null>(null);
-  const [wishlist, setWishlist] = useState(new Set<string>());
+  const wishlist = useSavedContent("product");
+  const recentProducts = useSavedContent("recent");
   const [quantities, setQuantities] = useState<Record<string, number>>({});
 
   useEffect(() => {
@@ -172,7 +174,11 @@ export function ReferenceShopPage({ contentProducts = [] }: { contentProducts?: 
   const suggestions = useMemo(() => products.filter((product) => product.name.toLowerCase().includes(search.toLowerCase())).slice(0, 5), [products, search]);
 
   const addProduct = (product: Product) => { const quantity = quantities[product.slug] ?? 1; for (let index = 0; index < quantity; index += 1) cart.addItem(product.cartSlug); };
-  const toggleWishlist = (slug: string) => setWishlist((current) => { const next = new Set(current); if (next.has(slug)) next.delete(slug); else next.add(slug); return next; });
+  const toggleWishlist = (slug: string) => void wishlist.toggle(slug);
+  const openQuickView = (product: Product) => {
+    setQuickView(product);
+    void recentProducts.save(product.slug);
+  };
 
   return (
     <div className="co-shop-page min-h-screen overflow-x-clip bg-[#f8f4ec] font-['Inter'] text-[#2a1b13]">
@@ -203,7 +209,7 @@ export function ReferenceShopPage({ contentProducts = [] }: { contentProducts?: 
             <div className="grid items-start gap-5 md:grid-cols-[190px_1fr]">
               <aside className="sticky top-24 hidden rounded-[24px] border border-black/6 bg-white/52 p-4 shadow-[0_18px_50px_rgba(42,27,19,.05)] backdrop-blur-xl md:block"><FilterContent category={category} setCategory={setCategory} maxPrice={maxPrice} setMaxPrice={setMaxPrice} dietary={dietary} toggleDietary={(value)=>toggleSet(setDietary,value)} collections={collections} toggleCollection={(value)=>toggleSet(setCollections,value)} /></aside>
               <div><div className="mb-5 flex items-center justify-between"><p className="text-xs text-[#665b52]">Showing <motion.span key={visible.length} initial={{opacity:0,y:4}} animate={{opacity:1,y:0}} className="inline-block font-semibold text-[#214d2b]">{visible.length}</motion.span> of {products.length} products</p><div className="relative md:hidden"><button type="button" onClick={()=>setSortOpen((value)=>!value)} className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase">Sort by: <span className="normal-case font-normal">{sort}</span><ChevronDown size={13}/></button><SortMenu open={sortOpen} setOpen={setSortOpen} value={sort} onChange={setSort} /></div></div>
-                <motion.div layout className="grid grid-cols-2 gap-3 lg:grid-cols-4">{visible.map((product,index)=><ProductCard key={product.slug} product={product} index={index} quantity={quantities[product.slug]??1} setQuantity={(value)=>setQuantities((current)=>({...current,[product.slug]:value}))} wished={wishlist.has(product.slug)} toggleWishlist={()=>toggleWishlist(product.slug)} onQuickView={()=>setQuickView(product)} onAdd={()=>addProduct(product)} />)}</motion.div>
+                <motion.div layout className="grid grid-cols-2 gap-3 lg:grid-cols-4">{visible.map((product,index)=><ProductCard key={product.slug} product={product} index={index} quantity={quantities[product.slug]??1} setQuantity={(value)=>setQuantities((current)=>({...current,[product.slug]:value}))} wished={wishlist.saved.has(product.slug)} toggleWishlist={()=>toggleWishlist(product.slug)} onQuickView={()=>openQuickView(product)} onAdd={()=>addProduct(product)} />)}</motion.div>
                 {!visible.length && <StatePanel kind="empty" eyebrow="Nothing matched" title="No products found." body="Try a broader category or clear the current search and filter choices." onPrimary={{label:"Reset filters",action:()=>{setCategory("All Products");setDietary(new Set());setCollections(new Set());setMaxPrice(1000);setSearch("");}}} secondary={{label:"Browse recipes",href:"/recipes"}} />}
               </div>
             </div>
@@ -221,7 +227,7 @@ export function ReferenceShopPage({ contentProducts = [] }: { contentProducts?: 
       <MobileBottomNav />
 
       <Dialog.Root open={filtersOpen} onOpenChange={setFiltersOpen}><AnimatePresence>{filtersOpen&&<Dialog.Portal forceMount><Dialog.Overlay asChild><motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="fixed inset-0 z-[150] bg-black/30 backdrop-blur-sm"/></Dialog.Overlay><Dialog.Content asChild><motion.div initial={{x:"100%"}} animate={{x:0}} exit={{x:"100%"}} transition={{duration:.4,ease}} className="fixed inset-y-0 right-0 z-[160] max-h-[100dvh] w-[min(88vw,390px)] overflow-y-auto overscroll-contain bg-[#f8f4ec] p-6 shadow-[-24px_0_70px_rgba(42,27,19,.2)] [scrollbar-gutter:stable] [touch-action:pan-y]"><div className="mb-7 flex items-center justify-between"><Dialog.Title className="font-['Cormorant_Garamond'] text-3xl">Filters</Dialog.Title><Dialog.Close aria-label="Close filters" className="grid size-11 place-items-center rounded-full border border-black/8"><X size={18}/></Dialog.Close></div><FilterContent category={category} setCategory={setCategory} maxPrice={maxPrice} setMaxPrice={setMaxPrice} dietary={dietary} toggleDietary={(value)=>toggleSet(setDietary,value)} collections={collections} toggleCollection={(value)=>toggleSet(setCollections,value)} /><Dialog.Close className="sticky bottom-3 mt-8 min-h-12 w-full rounded-full bg-[#214d2b] text-xs font-semibold uppercase text-white">Show {visible.length} products</Dialog.Close></motion.div></Dialog.Content></Dialog.Portal>}</AnimatePresence></Dialog.Root>
-      <QuickView catalog={products} product={quickView} open={Boolean(quickView)} onOpenChange={(open)=>!open&&setQuickView(null)} quantity={quickView?quantities[quickView.slug]??1:1} setQuantity={(value)=>quickView&&setQuantities((current)=>({...current,[quickView.slug]:value}))} wished={quickView?wishlist.has(quickView.slug):false} toggleWishlist={()=>quickView&&toggleWishlist(quickView.slug)} onAdd={()=>quickView&&addProduct(quickView)} />
+      <QuickView catalog={products} product={quickView} open={Boolean(quickView)} onOpenChange={(open)=>!open&&setQuickView(null)} quantity={quickView?quantities[quickView.slug]??1:1} setQuantity={(value)=>quickView&&setQuantities((current)=>({...current,[quickView.slug]:value}))} wished={quickView?wishlist.saved.has(quickView.slug):false} toggleWishlist={()=>quickView&&toggleWishlist(quickView.slug)} onAdd={()=>quickView&&addProduct(quickView)} />
     </div>
   );
 }

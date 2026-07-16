@@ -46,9 +46,24 @@ export const slugParamSchema = z.object({
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).min(2).max(120)
 });
 
+const optionalProfileText = (maximum: number) => z.union([z.string().trim().max(maximum), z.literal("")]).optional();
+
 export const mePatchSchema = z.object({
+  firstName: optionalProfileText(60),
+  lastName: optionalProfileText(60),
   displayName: z.string().trim().min(2).max(80).optional(),
-  marketingOptIn: z.boolean().optional()
+  phone: z.union([z.string().trim().regex(/^\+?[0-9 ()-]{7,20}$/), z.literal("")]).optional(),
+  preferredCategory: optionalProfileText(60),
+  newsletterOptIn: z.boolean().optional(),
+  marketingOptIn: z.boolean().optional(),
+  address: z.object({
+    line1: optionalProfileText(160),
+    line2: optionalProfileText(160),
+    city: optionalProfileText(80),
+    region: optionalProfileText(80),
+    postalCode: optionalProfileText(16),
+    country: optionalProfileText(80)
+  }).strict().optional()
 }).strict();
 
 export const addressIdParamSchema = z.object({
@@ -79,6 +94,12 @@ export const cartItemIdParamSchema = z.object({
 
 export const wishlistItemInputSchema = z.object({
   productId: z.string().trim().min(2).max(100)
+}).strict();
+
+export const savedContentKindSchema = z.enum(["product", "recipe", "journal", "community", "recent"]);
+export const savedContentItemSchema = z.object({
+  kind: savedContentKindSchema,
+  itemId: z.string().trim().min(2).max(120)
 }).strict();
 
 export const productIdParamSchema = z.object({
@@ -124,5 +145,9 @@ export const orderCreateSchema = orderPreviewSchema.extend({
 }).strict();
 
 export type ProductListQuery = z.infer<typeof productListQuerySchema>;
+export type AddressInput = z.infer<typeof addressInputSchema>;
+export type CartItemInput = z.infer<typeof cartItemInputSchema>;
+export type MePatchInput = z.infer<typeof mePatchSchema>;
+export type SavedContentKind = z.infer<typeof savedContentKindSchema>;
 export type NewsletterSubscriptionInput = z.infer<typeof newsletterSubscriptionSchema>;
 export type OrderPreviewInput = z.infer<typeof orderPreviewSchema>;

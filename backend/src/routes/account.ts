@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { addressIdParamSchema, addressInputSchema, mePatchSchema } from "@dotco/contracts";
 import type { AppBindings } from "../types/context.js";
 import { requireAuth } from "../middleware/auth.js";
-import { deleteProfile, listAddresses, provisionProfile, updateProfile } from "../services/user-data.js";
+import { deleteAddress, deleteProfile, listAddresses, provisionProfile, saveAddress, updateProfile } from "../services/user-data.js";
 
 export const accountRoutes = new Hono<AppBindings>()
   .get("/me", requireAuth, async (c) => {
@@ -19,14 +19,15 @@ export const accountRoutes = new Hono<AppBindings>()
   .get("/me/addresses", requireAuth, async (c) => c.json({ data: await listAddresses(c.get("user")!.userId), meta: {}, requestId: c.get("requestId") }))
   .post("/me/addresses", requireAuth, async (c) => {
     const body = addressInputSchema.parse(await c.req.json());
-    return c.json({ data: { ...body, addressId: crypto.randomUUID(), saved: false }, meta: {}, requestId: c.get("requestId") }, 202);
+    return c.json({ data: await saveAddress(c.get("user")!.userId, body), meta: { persisted: true }, requestId: c.get("requestId") }, 202);
   })
   .patch("/me/addresses/:addressId", requireAuth, async (c) => {
     const params = addressIdParamSchema.parse(c.req.param());
-    const body = addressInputSchema.partial().parse(await c.req.json());
-    return c.json({ data: { ...params, ...body, saved: false }, meta: {}, requestId: c.get("requestId") });
+    const body = addressInputSchema.parse(await c.req.json());
+    return c.json({ data: await saveAddress(c.get("user")!.userId, body, params.addressId), meta: { persisted: true }, requestId: c.get("requestId") });
   })
-  .delete("/me/addresses/:addressId", requireAuth, (c) => {
+  .delete("/me/addresses/:addressId", requireAuth, async (c) => {
     const params = addressIdParamSchema.parse(c.req.param());
+    await deleteAddress(c.get("user")!.userId, params.addressId);
     return c.json({ data: { ...params, deleted: true }, meta: {}, requestId: c.get("requestId") });
   });
