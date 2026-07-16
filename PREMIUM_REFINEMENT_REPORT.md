@@ -52,14 +52,19 @@ This refinement preserves the approved desktop and mobile composition. It streng
 | Route audit | PASS for homepage, primary pages, policy/help pages, robots, sitemap, and curated recipe detail routes |
 | Auth guards | PASS — `/account` and `/wishlist` redirect to allowlisted login return routes |
 | Broken homepage recipe links | PASS — detail routes return HTTP 200 locally |
-| Vercel runtime image optimization | Remains disabled; no change in this phase |
+| Vercel Preview | PASS — deployment `4vkX8oYFt2cifBdCH7DL3piCx8N5` |
+| GitHub CI | PASS — push and pull-request validation jobs |
+| Vercel runtime image optimization | PASS — 0 `/_next/image` URLs in the rendered homepage |
 
 ## Performance and accessibility
 
 - Shared client JavaScript remains approximately 102 kB in the production build.
 - Public page content uses lazy responsive static media; this change does not re-enable `/_next/image` delivery.
 - Modal scrolling, reduced-motion behavior, accessible button labels, keyboard escape behavior, and focusable dialog content were retained or improved.
-- A numeric Lighthouse score is not recorded in this local report because the Lighthouse browser runner is not installed. Production scores must be measured against the deployed Preview before Production promotion; no score is fabricated here.
+- Deployed mobile Lighthouse: Performance 90, Accessibility 100, Best Practices 96, SEO 69; LCP 1.5 s, CLS 0, TBT 350 ms, FCP 1.3 s, Speed Index 3.8 s.
+- The Preview SEO score is intentionally reduced because Vercel Preview responses are blocked from indexing. Canonical/robots/sitemap correctness was audited separately; Production is the valid crawlability target.
+- The Best Practices deduction is the existing small editorial type scale (45.51% classed as legible by Lighthouse). Typography is design-locked in this phase.
+- Performance is strong but below the requested 95 target on this single throttled mobile run. TBT (350 ms) and Speed Index (3.8 s) remain the measurable blockers; this report does not fabricate a 95+ result.
 
 ## Deployment gate
 
@@ -71,6 +76,6 @@ Preview must pass the following before Production promotion:
 4. Open cart drawer and confirm action alignment and disabled checkout state.
 5. Confirm homepage curated recipe cards resolve.
 6. Confirm no console errors, hydration errors, or `/_next/image` requests.
-7. Run deployed Lighthouse/accessibility measurement.
+7. Re-run Lighthouse after authenticated QA and compare its normal run-to-run variance against the recorded mobile baseline.
 
 Production is not considered complete until the Preview gate passes. Payment, Google federation, profile-photo upload, and full community publishing remain intentionally outside this refinement.
