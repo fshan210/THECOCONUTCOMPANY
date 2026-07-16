@@ -1049,6 +1049,36 @@
     },
     "fallback": "/assets/recipes/generated/co-mango-nice-cream-editorial-4k.avif"
   },
+  "/assets/recipes/generated/coconut-chia-cup.jpg": {
+    "src": "/assets/recipes/generated/coconut-chia-cup.jpg",
+    "width": 1448,
+    "height": 1086,
+    "originalBytes": 406669,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/recipes/generated/coconut-chia-cup-15a00cc52f-mobile.avif",
+        "jpg": "/assets-optimized/recipes/generated/coconut-chia-cup-15a00cc52f-mobile.jpg",
+        "avifBytes": 52138,
+        "jpgBytes": 77470
+      },
+      "tablet": {
+        "width": 1280,
+        "avif": "/assets-optimized/recipes/generated/coconut-chia-cup-15a00cc52f-tablet.avif",
+        "jpg": "/assets-optimized/recipes/generated/coconut-chia-cup-15a00cc52f-tablet.jpg",
+        "avifBytes": 101587,
+        "jpgBytes": 164826
+      },
+      "desktop": {
+        "width": 1448,
+        "avif": "/assets-optimized/recipes/generated/coconut-chia-cup-15a00cc52f-desktop.avif",
+        "jpg": "/assets-optimized/recipes/generated/coconut-chia-cup-15a00cc52f-desktop.jpg",
+        "avifBytes": 138622,
+        "jpgBytes": 240496
+      }
+    },
+    "fallback": "/assets/recipes/generated/coconut-chia-cup.jpg"
+  },
   "/assets/recipes/generated/coconut-lime-rice-bowl.jpg": {
     "src": "/assets/recipes/generated/coconut-lime-rice-bowl.jpg",
     "width": 1448,
@@ -1108,6 +1138,36 @@
       }
     },
     "fallback": "/assets/recipes/generated/coconut-milk-veggie-curry.jpg"
+  },
+  "/assets/recipes/generated/kerala-coconut-vegetable-stew.jpg": {
+    "src": "/assets/recipes/generated/kerala-coconut-vegetable-stew.jpg",
+    "width": 1448,
+    "height": 1086,
+    "originalBytes": 407416,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/recipes/generated/kerala-coconut-vegetable-stew-d3208760e6-mobile.avif",
+        "jpg": "/assets-optimized/recipes/generated/kerala-coconut-vegetable-stew-d3208760e6-mobile.jpg",
+        "avifBytes": 52042,
+        "jpgBytes": 74405
+      },
+      "tablet": {
+        "width": 1280,
+        "avif": "/assets-optimized/recipes/generated/kerala-coconut-vegetable-stew-d3208760e6-tablet.avif",
+        "jpg": "/assets-optimized/recipes/generated/kerala-coconut-vegetable-stew-d3208760e6-tablet.jpg",
+        "avifBytes": 103963,
+        "jpgBytes": 158807
+      },
+      "desktop": {
+        "width": 1448,
+        "avif": "/assets-optimized/recipes/generated/kerala-coconut-vegetable-stew-d3208760e6-desktop.avif",
+        "jpg": "/assets-optimized/recipes/generated/kerala-coconut-vegetable-stew-d3208760e6-desktop.jpg",
+        "avifBytes": 142665,
+        "jpgBytes": 235016
+      }
+    },
+    "fallback": "/assets/recipes/generated/kerala-coconut-vegetable-stew.jpg"
   },
   "/assets/recipes/generated/seasonal-coconut-berry-salad.jpg": {
     "src": "/assets/recipes/generated/seasonal-coconut-berry-salad.jpg",

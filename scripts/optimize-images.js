@@ -28,7 +28,14 @@ const minimumBytes = 42 * 1024;
 // so a future pipeline run cannot silently drop their responsive variants.
 const pinnedAssets = new Set([
   "/assets/recipes/Coconut smoothie Bowl.png",
-  "/assets/recipes/coconut mango cooler.png"
+  "/assets/recipes/coconut mango cooler.png",
+  "/assets/recipes/coconut coffee chill.png",
+  "/assets/recipes/generated/coconut-lime-rice-bowl.jpg",
+  "/assets/recipes/generated/kerala-coconut-vegetable-stew.jpg",
+  "/assets/recipes/generated/toasted-coconut-energy-bites.jpg",
+  "/assets/recipes/generated/coconut-milk-veggie-curry.jpg",
+  "/assets/recipes/generated/coconut-chia-cup.jpg",
+  "/assets/recipes/generated/seasonal-coconut-berry-salad.jpg"
 ]);
 const variantWidths = [
   ["mobile", 828],
