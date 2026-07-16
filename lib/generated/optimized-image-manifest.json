@@ -899,6 +899,36 @@
     },
     "fallback": "/assets/products/Botanica-Shampoo-Lifestyle Scene.png"
   },
+  "/assets/recipes/Coconut smoothie Bowl.png": {
+    "src": "/assets/recipes/Coconut smoothie Bowl.png",
+    "width": 1024,
+    "height": 1536,
+    "originalBytes": 2474915,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/recipes/Coconut-smoothie-Bowl-2220372ad8-mobile.avif",
+        "jpg": "/assets-optimized/recipes/Coconut-smoothie-Bowl-2220372ad8-mobile.jpg",
+        "avifBytes": 95029,
+        "jpgBytes": 146827
+      },
+      "tablet": {
+        "width": 1024,
+        "avif": "/assets-optimized/recipes/Coconut-smoothie-Bowl-2220372ad8-tablet.avif",
+        "jpg": "/assets-optimized/recipes/Coconut-smoothie-Bowl-2220372ad8-tablet.jpg",
+        "avifBytes": 127754,
+        "jpgBytes": 205061
+      },
+      "desktop": {
+        "width": 1024,
+        "avif": "/assets-optimized/recipes/Coconut-smoothie-Bowl-2220372ad8-desktop.avif",
+        "jpg": "/assets-optimized/recipes/Coconut-smoothie-Bowl-2220372ad8-desktop.jpg",
+        "avifBytes": 142524,
+        "jpgBytes": 242341
+      }
+    },
+    "fallback": "/assets/recipes/Coconut smoothie Bowl.png"
+  },
   "/assets/recipes/coconut coffee chill.png": {
     "src": "/assets/recipes/coconut coffee chill.png",
     "width": 1024,
@@ -928,6 +958,36 @@
       }
     },
     "fallback": "/assets/recipes/coconut coffee chill.png"
+  },
+  "/assets/recipes/coconut mango cooler.png": {
+    "src": "/assets/recipes/coconut mango cooler.png",
+    "width": 1024,
+    "height": 1536,
+    "originalBytes": 2318360,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/recipes/coconut-mango-cooler-d517df3341-mobile.avif",
+        "jpg": "/assets-optimized/recipes/coconut-mango-cooler-d517df3341-mobile.jpg",
+        "avifBytes": 85014,
+        "jpgBytes": 132711
+      },
+      "tablet": {
+        "width": 1024,
+        "avif": "/assets-optimized/recipes/coconut-mango-cooler-d517df3341-tablet.avif",
+        "jpg": "/assets-optimized/recipes/coconut-mango-cooler-d517df3341-tablet.jpg",
+        "avifBytes": 110646,
+        "jpgBytes": 183345
+      },
+      "desktop": {
+        "width": 1024,
+        "avif": "/assets-optimized/recipes/coconut-mango-cooler-d517df3341-desktop.avif",
+        "jpg": "/assets-optimized/recipes/coconut-mango-cooler-d517df3341-desktop.jpg",
+        "avifBytes": 122870,
+        "jpgBytes": 216789
+      }
+    },
+    "fallback": "/assets/recipes/coconut mango cooler.png"
   },
   "/assets/recipes/generated/co-green-coconut-smoothie-editorial-4k.avif": {
     "src": "/assets/recipes/generated/co-green-coconut-smoothie-editorial-4k.avif",

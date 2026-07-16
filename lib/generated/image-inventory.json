@@ -1769,6 +1769,7 @@
     "recommendedMobileWidth": 828,
     "likelyFold": "below-fold-or-shared",
     "usedBy": [
+      "app/recipes/[slug]/page.tsx",
       "components/home/ReferenceHomePage.tsx",
       "components/recipes/recipe-data.ts",
       "components/shop/ReferenceShopPage.tsx"
@@ -2569,7 +2570,6 @@
     "likelyFold": "below-fold-or-shared",
     "usedBy": [
       "components/about/ReferenceAboutPage.tsx",
-      "components/auth/CustomerAccountDashboard.tsx",
       "lib/admin/data.ts"
     ],
     "flags": [

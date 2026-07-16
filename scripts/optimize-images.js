@@ -23,6 +23,13 @@ const supportedExtensions = new Set([".jpg", ".jpeg", ".png", ".avif", ".webp"])
 const rasterExtensions = new Set([".jpg", ".jpeg", ".png", ".avif", ".webp"]);
 const referenceExtensions = new Set([".ts", ".tsx", ".js", ".jsx", ".json", ".md", ".mdx"]);
 const minimumBytes = 42 * 1024;
+// Assets referenced through the typed publicAssets registry are not discoverable
+// through a literal-path search. Keep the few high-traffic catalog images pinned
+// so a future pipeline run cannot silently drop their responsive variants.
+const pinnedAssets = new Set([
+  "/assets/recipes/Coconut smoothie Bowl.png",
+  "/assets/recipes/coconut mango cooler.png"
+]);
 const variantWidths = [
   ["mobile", 828],
   ["tablet", 1280],
@@ -183,7 +190,10 @@ async function optimize(file, referenceIndex) {
   if (!inventory.usedBy.length) inventory.flags.push("unused-candidate-static-search");
 
   const shouldGenerate =
-    inventory.usedBy.length > 0 && supportedExtensions.has(ext) && stats.size >= minimumBytes && Math.max(width, height) >= 420;
+    (inventory.usedBy.length > 0 || pinnedAssets.has(assetPath)) &&
+    supportedExtensions.has(ext) &&
+    stats.size >= minimumBytes &&
+    Math.max(width, height) >= 420;
 
   if (!shouldGenerate) return { inventory, manifestEntry: null, skipped: true };
 
