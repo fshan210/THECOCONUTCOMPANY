@@ -23,7 +23,7 @@ function useMediaQuery(query: string) {
 export function useCoReducedMotion() {
   const prefersReducedMotion = useMediaQuery(REDUCED_MOTION_QUERY);
   const isMobile = useMediaQuery(MOBILE_QUERY);
-  const shouldReduceMotion = prefersReducedMotion || isMobile;
+  const shouldReduceMotion = prefersReducedMotion;
 
   return {
     isMobile,
@@ -31,4 +31,3 @@ export function useCoReducedMotion() {
     shouldReduceMotion
   } as const;
 }
-

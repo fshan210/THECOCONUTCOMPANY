@@ -188,7 +188,7 @@ export function ReferenceHeader() {
         animate={{ width: scrolled ? "min(1280px, calc(100% - 28px))" : "100%", top: scrolled ? 12 : 0, borderTopLeftRadius: scrolled ? 34 : 0, borderTopRightRadius: scrolled ? 34 : 0, borderBottomLeftRadius: scrolled ? 34 : 28, borderBottomRightRadius: scrolled ? 34 : 28, minHeight: scrolled ? 68 : 86, backgroundColor: scrolled ? "rgba(247,242,232,.76)" : "rgba(247,242,232,.96)", boxShadow: scrolled ? "0 20px 60px rgba(53,39,30,.14)" : "0 12px 36px rgba(53,39,30,.07)" }}
         transition={{ duration: 0.42, ease }}
         style={{ backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)" }}
-        className="fixed left-1/2 top-0 z-[110] flex min-h-[72px] w-full -translate-x-1/2 items-center rounded-b-[28px] border border-[rgba(53,39,30,.07)] bg-[rgba(247,242,232,.96)] px-5 shadow-[0_12px_36px_rgba(53,39,30,.07)] md:min-h-[86px] md:px-8"
+        className="co-glass-header fixed left-1/2 top-0 z-[110] flex min-h-[72px] w-full -translate-x-1/2 items-center rounded-b-[28px] border border-[rgba(53,39,30,.07)] bg-[rgba(247,242,232,.96)] px-5 shadow-[0_12px_36px_rgba(53,39,30,.07)] md:min-h-[86px] md:px-8"
       >
         <div className="relative mx-auto flex w-full max-w-[1500px] items-center justify-between gap-5">
           <Link href="/" className="relative ml-10 block h-[52px] w-[86px] md:ml-0 md:h-[58px] md:w-[88px]" aria-label=".CO home">
@@ -333,23 +333,23 @@ function MoreProductsDialog({ products, className }: { products: DisplayProduct[
             <Dialog.Overlay asChild>
               <motion.div
                 className="fixed inset-0 z-[140] bg-[rgba(36,31,26,.34)] backdrop-blur-[7px]"
-                onWheel={(event) => event.preventDefault()}
-                onTouchMove={(event) => event.preventDefault()}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.35, ease }}
               />
             </Dialog.Overlay>
-            <Dialog.Content asChild onEscapeKeyDown={close} onPointerDownOutside={close} onOpenAutoFocus={(event) => event.preventDefault()}>
+            <Dialog.Content asChild onEscapeKeyDown={close} onPointerDownOutside={close} onOpenAutoFocus={(event) => { event.preventDefault(); requestAnimationFrame(() => contentRef.current?.focus()); }}>
               <motion.div
                 ref={contentRef}
+                tabIndex={-1}
+                data-lenis-prevent
                 layoutId="more-products-cloud"
                 className="fixed z-[150] overflow-y-auto overscroll-contain border border-white/65 bg-[rgba(247,242,232,.72)] text-[#35271e] shadow-[0_28px_90px_rgba(25,20,16,.24)] backdrop-blur-[26px] [scrollbar-gutter:stable] [touch-action:pan-y]"
                 style={
                   isMobile
-                    ? { inset: "78px 12px 12px", borderRadius: 28 }
-                    : { top: desktopPosition.top, left: desktopPosition.left, width: "min(820px, calc(100vw - 48px))", maxHeight: "calc(100vh - 80px)", borderRadius: 36 }
+                    ? { inset: "78px 12px 12px", borderRadius: 28, WebkitOverflowScrolling: "touch" }
+                    : { top: desktopPosition.top, left: desktopPosition.left, width: "min(820px, calc(100vw - 48px))", maxHeight: "calc(100dvh - 80px)", borderRadius: 36, WebkitOverflowScrolling: "touch" }
                 }
                 initial={{ opacity: 0, scale: 0.9, y: 18, transformOrigin: "85% 0%" }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
