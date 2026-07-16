@@ -70,6 +70,17 @@ export function websiteSchema() {
   };
 }
 
+export function siteNavigationSchema() {
+  const items = [
+    ["Home", "/"], ["Shop", "/shop"], ["Recipes", "/recipes"], ["Journal", "/journal"],
+    ["Sustainability", "/sustainability"], ["Founders", "/founders"], ["About", "/about"], ["Contact", "/contact"], ["FAQ", "/faqs"]
+  ];
+  return {
+    "@context": "https://schema.org", "@type": "ItemList", name: ".CO primary site navigation",
+    itemListElement: items.map(([name,path],index)=>({ "@type":"SiteNavigationElement", position:index+1, name, url:`${siteUrl}${path}` }))
+  };
+}
+
 export function breadcrumbSchema(items: Array<{ name: string; path: string }>) {
   return {
     "@context": "https://schema.org",

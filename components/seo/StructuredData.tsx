@@ -1,4 +1,4 @@
-import { breadcrumbSchema, organizationSchema, websiteSchema } from "@/lib/seo/structured-data";
+import { breadcrumbSchema, organizationSchema, siteNavigationSchema, websiteSchema } from "@/lib/seo/structured-data";
 
 type StructuredDataProps = {
   breadcrumbs?: Array<{ name: string; path: string }>;
@@ -7,7 +7,7 @@ type StructuredDataProps = {
 };
 
 export function StructuredData({ breadcrumbs, extra = [], includeGlobal = false }: StructuredDataProps) {
-  const schemas: Record<string, unknown>[] = includeGlobal ? [organizationSchema(), websiteSchema()] : [];
+  const schemas: Record<string, unknown>[] = includeGlobal ? [organizationSchema(), websiteSchema(), siteNavigationSchema()] : [];
 
   if (breadcrumbs?.length) {
     schemas.push(breadcrumbSchema(breadcrumbs));

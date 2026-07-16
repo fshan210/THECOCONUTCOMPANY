@@ -32,6 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [...routes, ...productRoutes, ...recipeRoutes].map((route) => ({
     url: `${siteUrl}${route}`,
     changeFrequency: route === "" ? "weekly" : "monthly",
-    priority: route === "" ? 1 : 0.8
+    priority: route === "" ? 1 : ["/shop","/recipes","/journal"].includes(route) ? 0.9 : route.startsWith("/shop/") || route.startsWith("/recipes/") ? 0.8 : 0.7,
+    lastModified: new Date()
   }));
 }
