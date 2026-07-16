@@ -36,7 +36,15 @@ export async function provisionProfile(user: AuthenticatedUser) {
   const existing = await read<StoredProfile>(user.userId, "PROFILE");
   if (existing) return existing;
   const now = new Date().toISOString();
-  const profile: StoredProfile = { PK: `USER#${user.userId}`, SK: "PROFILE", userId: user.userId, email: user.email, createdAt: now, updatedAt: now, version: 1 };
+  const profile: StoredProfile = {
+    PK: `USER#${user.userId}`,
+    SK: "PROFILE",
+    userId: user.userId,
+    ...(user.email ? { email: user.email } : {}),
+    createdAt: now,
+    updatedAt: now,
+    version: 1
+  };
   if (isLocal()) { memory.set(key(user.userId, "PROFILE"), profile); return profile; }
   await getDocumentClient().send(new PutCommand({ TableName: getEnv().COMMERCE_TABLE_NAME, Item: profile, ConditionExpression: "attribute_not_exists(PK)" }));
   return (await read<StoredProfile>(user.userId, "PROFILE")) ?? profile;
@@ -124,7 +132,7 @@ export async function listAddresses(userId: string) {
   return { items: (result.Items ?? []).map((item) => item as unknown as StoredAddress) };
 }
 
-export async function saveAddress(userId: string, input: AddressInput, addressId = crypto.randomUUID()) {
+export async function saveAddress(userId: string, input: AddressInput, addressId: string = crypto.randomUUID()) {
   const now = new Date().toISOString();
   const existing = await read<Record<string, unknown>>(userId, `ADDRESS#${addressId}`);
   const address = { PK: `USER#${userId}`, SK: `ADDRESS#${addressId}`, userId, addressId, ...input, createdAt: existing?.createdAt ?? now, updatedAt: now };

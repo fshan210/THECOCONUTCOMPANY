@@ -23,7 +23,7 @@ function getVerifier() {
 }
 
 export async function verifyBearerToken(authorization?: string): Promise<AuthenticatedUser> {
-  const token = authorization?.match(/^Bearer\\s+(.+)$/i)?.[1];
+  const token = parseBearerToken(authorization);
   if (!token) throw unauthorized();
   try {
     const payload = await getVerifier().verify(token);
@@ -37,6 +37,10 @@ export async function verifyBearerToken(authorization?: string): Promise<Authent
   } catch {
     throw unauthorized("Your session is invalid or expired.");
   }
+}
+
+export function parseBearerToken(authorization?: string) {
+  return authorization?.match(/^Bearer\s+(.+)$/i)?.[1];
 }
 
 export function resetJwtVerifierForTests() {
