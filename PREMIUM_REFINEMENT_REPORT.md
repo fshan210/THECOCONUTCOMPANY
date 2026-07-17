@@ -1,6 +1,6 @@
 # .CO Premium Refinement Report
 
-Date: 16 July 2026  
+Date: 17 July 2026  
 Branch: `feature/phase-4-1-premium-refinement`
 
 ## Release summary
@@ -23,6 +23,7 @@ This refinement preserves the approved desktop and mobile composition. It streng
 - Added account deletion confirmation through the existing authenticated API.
 - Added DynamoDB-backed saved-content collections for products, recipes, journal stories, community moments, and recently viewed products.
 - Added ownership-scoped BFF routes for reading, saving, and removing items. Browser code never receives Cognito access or refresh tokens.
+- Fixed the backend Bearer-header parser that previously rejected valid Cognito access tokens after API Gateway authorization. The isolated DEV Lambda now accepts and independently verifies the same token before any owned record is read or written.
 - Added search, remove, share, and move-to-cart actions to the saved-content experience.
 - Preserved backward compatibility with existing product-only wishlist records.
 
@@ -47,12 +48,12 @@ This refinement preserves the approved desktop and mobile composition. It streng
 | --- | --- |
 | `npm run lint` | PASS |
 | `npm run typecheck` | PASS |
-| `npm test` | PASS — contracts 5/5, backend 10/10, infrastructure 2/2 |
+| `npm test` | PASS — contracts 5/5, backend 11/11, infrastructure 2/2 |
 | `npm run build` | PASS — Next.js 15.5.19, 86 static pages generated |
 | Route audit | PASS for homepage, primary pages, policy/help pages, robots, sitemap, and curated recipe detail routes |
 | Auth guards | PASS — `/account` and `/wishlist` redirect to allowlisted login return routes |
 | Broken homepage recipe links | PASS — detail routes return HTTP 200 locally |
-| Vercel Preview | PASS — deployment `4vkX8oYFt2cifBdCH7DL3piCx8N5` |
+| Vercel Preview | PASS — `https://my-website-3lbu5opqa-fazil-s-projects1.vercel.app` (stable branch alias: `https://my-website-git-feature-phase-4-1-premi-be39a6-fazil-s-projects1.vercel.app`) |
 | GitHub CI | PASS — push and pull-request validation jobs |
 | Vercel runtime image optimization | PASS — 0 `/_next/image` URLs in the rendered homepage |
 
@@ -61,10 +62,12 @@ This refinement preserves the approved desktop and mobile composition. It streng
 - Shared client JavaScript remains approximately 102 kB in the production build.
 - Public page content uses lazy responsive static media; this change does not re-enable `/_next/image` delivery.
 - Modal scrolling, reduced-motion behavior, accessible button labels, keyboard escape behavior, and focusable dialog content were retained or improved.
-- Deployed mobile Lighthouse: Performance 90, Accessibility 100, Best Practices 96, SEO 69; LCP 1.5 s, CLS 0, TBT 350 ms, FCP 1.3 s, Speed Index 3.8 s.
+- A cold-cache audit exposed two legacy homepage recipe PNGs contributing about 4.7 MB. They now use pinned, reproducible responsive AVIF/JPEG variants so future optimization runs cannot drop the coverage.
+- The initial homepage transfer fell from 6,425 KiB to 1,571 KiB; image transfer fell to approximately 863 KiB. Mobile LCP improved from 6.9 s to 1.9 s while CLS remained 0.
+- Final deployed mobile Lighthouse: Performance 96 on the confirmation run (94 on the preceding cold run), Accessibility 100, Best Practices 96, SEO 69; LCP 1.9 s, CLS 0, TBT 20 ms, FCP 1.6 s, Speed Index 4.6 s.
 - The Preview SEO score is intentionally reduced because Vercel Preview responses are blocked from indexing. Canonical/robots/sitemap correctness was audited separately; Production is the valid crawlability target.
 - The Best Practices deduction is the existing small editorial type scale (45.51% classed as legible by Lighthouse). Typography is design-locked in this phase.
-- Performance is strong but below the requested 95 target on this single throttled mobile run. TBT (350 ms) and Speed Index (3.8 s) remain the measurable blockers; this report does not fabricate a 95+ result.
+- The requested 95+ Performance target is met on the confirmation run. Run-to-run throttling variance is recorded rather than hidden: the immediately preceding run scored 94 with the same 1.9 s LCP and 0 CLS.
 
 ## Deployment gate
 
@@ -79,3 +82,10 @@ Preview must pass the following before Production promotion:
 7. Re-run Lighthouse after authenticated QA and compare its normal run-to-run variance against the recorded mobile baseline.
 
 Production is not considered complete until the Preview gate passes. Payment, Google federation, profile-photo upload, and full community publishing remain intentionally outside this refinement.
+
+## Preview configuration correction
+
+- Authenticated Preview requests initially stopped inside the BFF because `SERVER_API_BASE_URL` existed in Vercel Preview with an empty value.
+- The Preview-only value now points to the verified isolated DEV API in `ap-south-1`; Production scope was not changed and was not connected to DEV.
+- The Preview was redeployed after the environment correction, and both GitHub validation jobs and the Vercel deployment check are green.
+- The stable feature-branch alias now resolves to the corrected deployment, so the existing secure signed-in browser session remains on the same origin.
