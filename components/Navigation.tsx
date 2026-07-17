@@ -53,7 +53,7 @@ export function Navigation() {
           WebkitBackdropFilter: "blur(22px)",
           backdropFilter: "blur(22px)"
         }}
-        className="co-site-header fixed left-1/2 z-[100] -translate-x-1/2 overflow-visible border"
+        className="co-site-header co-glass-header fixed left-1/2 z-[100] -translate-x-1/2 overflow-visible border"
       >
         <nav className="co-container co-nav-row relative flex min-h-[66px] items-center justify-between gap-2 py-2 lg:min-h-[76px] lg:gap-4 lg:py-3">
           <Link href="/" className="flex min-w-0 items-center gap-3" aria-label=".CO home">

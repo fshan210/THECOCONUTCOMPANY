@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return createPageMetadata({
     title: seo.title,
     description: seo.description,
-    path: seo.canonicalPath,
+    path: "/",
     absoluteTitle: true,
     index: !seo.noindex,
     ogImage: seo.ogImage

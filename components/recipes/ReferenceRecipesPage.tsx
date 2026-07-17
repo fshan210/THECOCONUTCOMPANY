@@ -7,6 +7,7 @@ import { useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, ChevronDown, ChefHat, Clock3, Cookie, CupSoda, Dumbbell, Heart, Leaf, Play, Search, ShieldCheck, ShoppingBag, Sparkles, Timer, Truck, UtensilsCrossed, WheatOff } from "lucide-react";
 import { MobileBottomNav, NewsletterSection, ReferenceFooter, ReferenceHeader } from "@/components/home/ReferenceHomePage";
 import { cn } from "@/lib/utils";
+import { useSavedContent } from "@/lib/customer/use-saved-content";
 import { recipeCategories, recipes, type RecipeItem } from "./recipe-data";
 
 const blurDataURL = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MCcgaGVpZ2h0PSc0MCc+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsbD0nI2YzZWVlNCcvPjwvc3ZnPg==";
@@ -21,7 +22,8 @@ export function ReferenceRecipesPage() {
   const [category, setCategory] = useState("All Recipes");
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
-  const [saved, setSaved] = useState(new Set<string>());
+  const savedRecipes = useSavedContent("recipe");
+  const saved = savedRecipes.saved;
   const [reviewIndex, setReviewIndex] = useState(0);
   const [featuredIndex, setFeaturedIndex] = useState(0);
   const featured = recipes[featuredIndex % recipes.length];
@@ -30,7 +32,7 @@ export function ReferenceRecipesPage() {
     const query = search.trim().toLowerCase();
     return categoryMatch && (!query || `${recipe.title} ${recipe.category} ${recipe.ingredients.join(" ")}`.toLowerCase().includes(query));
   }), [category, search]);
-  const toggleSaved = (slug: string) => setSaved((current) => { const next = new Set(current); if (next.has(slug)) next.delete(slug); else next.add(slug); return next; });
+  const toggleSaved = (slug: string) => void savedRecipes.toggle(slug);
 
   return (
     <div className="co-recipes-page min-h-screen overflow-hidden bg-[#f8f4ec] font-['Inter'] text-[#2a1b13]">

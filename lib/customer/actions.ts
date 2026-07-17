@@ -3,31 +3,43 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { awsSessionCookie, readAwsSession } from "@/lib/auth/aws-session";
+import { awsSessionCookie } from "@/lib/auth/aws-session";
+import { customerAwsApi } from "@/lib/customer/aws-api";
 import { requireVerifiedCustomerSession } from "@/lib/customer/auth";
 
 export type CustomerAuthState = { ok: boolean; message: string; status?: "idle" | "success" | "error" };
 
-const profileSchema = z.object({ displayName: z.string().min(2).max(80), preferredCategory: z.string().max(60).optional(), newsletterOptIn: z.string().optional() });
+const optionalText = (max: number) => z.string().trim().max(max).optional();
+const profileSchema = z.object({
+  firstName: optionalText(60), lastName: optionalText(60), displayName: z.string().trim().min(2).max(80),
+  phone: optionalText(30), preferredCategory: optionalText(60), newsletterOptIn: z.boolean(), marketingOptIn: z.boolean(),
+  address: z.object({ line1: optionalText(120), line2: optionalText(120), city: optionalText(80), region: optionalText(80), postalCode: optionalText(20), country: optionalText(80) })
+});
 
 export async function logoutCustomer() {
-  const cookieStore = await cookies();
-  cookieStore.delete(awsSessionCookie);
+  (await cookies()).delete(awsSessionCookie);
   redirect("/");
 }
 
 export async function updateCustomerProfile(formData: FormData) {
-  const session = await requireVerifiedCustomerSession();
-  const parsed = profileSchema.safeParse({ displayName: formData.get("displayName"), preferredCategory: formData.get("preferredCategory"), newsletterOptIn: formData.get("newsletterOptIn") });
+  await requireVerifiedCustomerSession();
+  const value = (name: string) => String(formData.get(name) || "");
+  const parsed = profileSchema.safeParse({
+    firstName: value("firstName"), lastName: value("lastName"), displayName: value("displayName"), phone: value("phone"),
+    preferredCategory: value("preferredCategory"), newsletterOptIn: formData.get("newsletterOptIn") === "on", marketingOptIn: formData.get("marketingOptIn") === "on",
+    address: { line1: value("line1"), line2: value("line2"), city: value("city"), region: value("region"), postalCode: value("postalCode"), country: value("country") }
+  });
   if (!parsed.success) redirect("/profile?status=invalid");
-  const cookieStore = await cookies();
-  const awsSession = readAwsSession(cookieStore);
-  const baseUrl = process.env.SERVER_API_BASE_URL;
-  if (!awsSession?.accessToken || !baseUrl) redirect("/profile?status=unavailable");
-  try {
-    await fetch(new URL("v1/me", baseUrl), { method: "PATCH", headers: { "content-type": "application/json", authorization: `Bearer ${awsSession.accessToken}` }, body: JSON.stringify({ displayName: parsed.data.displayName, preferredCategory: parsed.data.preferredCategory || null, newsletterOptIn: parsed.data.newsletterOptIn === "on" }), cache: "no-store" });
-  } catch {
-    redirect("/profile?status=unavailable");
-  }
-  redirect(`/profile?status=saved&name=${encodeURIComponent(session.name)}`);
+  const result = await customerAwsApi("v1/me", { method: "PATCH", body: JSON.stringify(parsed.data) });
+  if (!result.ok) redirect("/profile?status=unavailable");
+  redirect("/profile?status=saved");
+}
+
+export async function deleteCustomerAccount(formData: FormData) {
+  await requireVerifiedCustomerSession();
+  if (String(formData.get("confirmation") || "") !== "DELETE") redirect("/profile?status=delete-confirmation");
+  const result = await customerAwsApi("v1/me", { method: "DELETE" });
+  if (!result.ok) redirect("/profile?status=unavailable");
+  (await cookies()).delete(awsSessionCookie);
+  redirect("/login?account=deleted");
 }
