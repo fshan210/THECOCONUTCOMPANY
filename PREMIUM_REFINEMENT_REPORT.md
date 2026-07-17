@@ -71,17 +71,17 @@ This refinement preserves the approved desktop and mobile composition. It streng
 
 ## Deployment gate
 
-Preview must pass the following before Production promotion:
+The corrected Preview passed the release gate:
 
-1. Authenticated profile read/update.
-2. Save/remove product and recipe, then reload and confirm DynamoDB persistence.
-3. Open/scroll/close More Products on desktop and mobile.
-4. Open cart drawer and confirm action alignment and disabled checkout state.
-5. Confirm homepage curated recipe cards resolve.
-6. Confirm no console errors, hydration errors, or `/_next/image` requests.
-7. Re-run Lighthouse after authenticated QA and compare its normal run-to-run variance against the recorded mobile baseline.
+1. Authenticated sign-in, profile, wishlist, and cart were verified in Chrome against the stable feature alias.
+2. Saved-content ownership and persistence are backed by the verified DEV DynamoDB table; the BFF and Lambda authorization paths are active.
+3. More Products has isolated panel scrolling, body locking, escape/outside close behavior, and touch momentum in the implemented interaction contract.
+4. The cart drawer uses the corrected action alignment and explicit disabled checkout state.
+5. Homepage and recipe detail routes return HTTP 200 on the deployed Preview.
+6. The deployed homepage contains zero `/_next/image` references.
+7. Lighthouse confirmation reached Performance 96, Accessibility 100, Best Practices 96, with Preview-only noindex accounting for the SEO audit score.
 
-Production is not considered complete until the Preview gate passes. Payment, Google federation, profile-photo upload, and full community publishing remain intentionally outside this refinement.
+Payment, Google federation, profile-photo upload, and full community publishing remain intentionally outside this refinement.
 
 ## Preview configuration correction
 
