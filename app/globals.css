@@ -682,3 +682,12 @@ button {
     transform: translateX(0) !important;
   }
 }
+
+.co-motion-debug-outline [data-motion-element] {
+  outline: 2px solid #f2cb4d !important;
+  outline-offset: 2px;
+}
+
+html {
+  --co-motion-debug-speed: 1;
+}

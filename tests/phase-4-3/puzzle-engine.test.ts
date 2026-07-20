@@ -1,40 +1,56 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { createSolvedBoard, isSolved, legalMoves, moveTile, shuffleBoard } from "../../components/interactive/BrandSlidingPuzzle/puzzle-engine";
+import {
+  countInversions,
+  createSolvedBoard,
+  getLegalMoves,
+  isSolvable,
+  isSolved,
+  moveTile,
+  shuffleSolvable,
+  tileForArrow,
+} from "../../components/interactive/BrandSlidingPuzzle/puzzle-engine";
+import type { PuzzleGrid } from "../../components/interactive/BrandSlidingPuzzle/puzzle-types";
 
-function inversionCount(board: number[]) {
-  const tiles = board.filter(Boolean);
-  return tiles.reduce((total, tile, index) => total + tiles.slice(index + 1).filter((other) => other < tile).length, 0);
-}
+const mobile: PuzzleGrid = { columns: 3, rows: 4 };
+const desktop: PuzzleGrid = { columns: 4, rows: 4 };
 
-function isSolvable(board: number[], size: 3 | 4) {
-  const inversions = inversionCount(board);
-  if (size % 2 === 1) return inversions % 2 === 0;
-  const emptyRowFromBottom = size - Math.floor(board.indexOf(0) / size);
-  return emptyRowFromBottom % 2 === 0 ? inversions % 2 === 1 : inversions % 2 === 0;
-}
-
-test("generated 3x3 and 4x4 boards are solvable and not initially solved", () => {
-  for (const size of [3, 4] as const) {
-    for (let sample = 0; sample < 40; sample += 1) {
-      const board = shuffleBoard(size);
-      assert.equal(isSolved(board, size), false);
-      assert.equal(isSolvable(board, size), true);
+test("1000 generated 3x4 and 4x4 boards remain solvable and never start solved", () => {
+  for (const grid of [mobile, desktop]) {
+    for (let sample = 0; sample < 500; sample += 1) {
+      const board = shuffleSolvable(grid);
+      assert.equal(isSolved(board, grid), false);
+      assert.equal(isSolvable(board, grid), true);
     }
   }
 });
 
 test("legal moves change the board and illegal moves are rejected", () => {
-  const board = createSolvedBoard(3);
-  const movable = legalMoves(board, 3);
-  assert.deepEqual(movable.sort((a, b) => a - b), [6, 8]);
-  assert.notDeepEqual(moveTile(board, 8, 3), board);
-  assert.strictEqual(moveTile(board, 1, 3), board);
+  const board = createSolvedBoard(mobile);
+  const movable = getLegalMoves(board, mobile);
+  assert.deepEqual(movable.sort((a, b) => a - b), [9, 11]);
+  assert.notDeepEqual(moveTile(board, 11, mobile), board);
+  assert.strictEqual(moveTile(board, 1, mobile), board);
 });
 
 test("solved state is detected after the final legal move", () => {
-  const solved = createSolvedBoard(3);
-  const almostSolved = moveTile(solved, 8, 3);
-  assert.equal(isSolved(almostSolved, 3), false);
-  assert.equal(isSolved(moveTile(almostSolved, 8, 3), 3), true);
+  const solved = createSolvedBoard(desktop);
+  const almostSolved = moveTile(solved, 15, desktop);
+  assert.equal(isSolved(almostSolved, desktop), false);
+  assert.equal(isSolved(moveTile(almostSolved, 15, desktop), desktop), true);
+});
+
+test("inversion validator rejects an impossible board", () => {
+  const impossible = createSolvedBoard(desktop);
+  [impossible[0], impossible[1]] = [impossible[1], impossible[0]];
+  assert.equal(countInversions(impossible), 1);
+  assert.equal(isSolvable(impossible, desktop), false);
+});
+
+test("arrow-key movement resolves the tile adjacent to the empty cell", () => {
+  const board = createSolvedBoard(mobile);
+  assert.equal(tileForArrow(board, mobile, "ArrowDown"), 9);
+  assert.equal(tileForArrow(board, mobile, "ArrowRight"), 11);
+  assert.equal(tileForArrow(board, mobile, "ArrowUp"), null);
+  assert.equal(tileForArrow(board, mobile, "ArrowLeft"), null);
 });

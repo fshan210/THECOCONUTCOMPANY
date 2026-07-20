@@ -1,6 +1,12 @@
 export type MotionDiagnostics = {
   routePhase: string;
   activeScrollTriggers: number;
+  pathname?: string;
+  quality?: string;
+  reducedMotion?: boolean;
+  lenisStatus?: "active" | "disabled" | "idle";
+  fps?: number;
+  lastReveal?: string;
   lastNavigation?: string;
 };
 
@@ -15,6 +21,7 @@ export function updateMotionDiagnostics(patch: Partial<MotionDiagnostics>) {
   window.__CO_MOTION_DIAGNOSTICS__ = {
     routePhase: "idle",
     activeScrollTriggers: 0,
+    lenisStatus: "idle",
     ...window.__CO_MOTION_DIAGNOSTICS__,
     ...patch,
   };

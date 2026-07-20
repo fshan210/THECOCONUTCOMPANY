@@ -56,13 +56,20 @@ function readInitialCart(): CartItem[] {
 }
 
 export function CartProvider({ children, catalog = shopProducts }: { children: ReactNode; catalog?: ShopProduct[] }) {
-  const [items, setItems] = useState<CartItem[]>(readInitialCart);
+  const [items, setItems] = useState<CartItem[]>([]);
+  const [hydrated, setHydrated] = useState(false);
   const [open, setOpen] = useState(false);
   const [recentlyAddedSlug, setRecentlyAddedSlug] = useState<string | null>(null);
 
   useEffect(() => {
+    setItems(readInitialCart());
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
     window.localStorage.setItem(storageKey, JSON.stringify(items));
-  }, [items]);
+  }, [hydrated, items]);
 
   const value = useMemo<CartContextValue>(() => {
     const products = items

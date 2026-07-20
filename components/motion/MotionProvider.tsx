@@ -11,8 +11,11 @@ export type RoutePhase = "idle" | "covering" | "navigating" | "revealing";
 
 type MotionContextValue = {
   quality: MotionQuality;
+  reducedMotion: boolean;
+  routeKey: string;
   routePhase: RoutePhase;
   navigate: (href: string) => void;
+  refreshScrollTriggers: () => void;
 };
 
 const MotionContext = createContext<MotionContextValue | null>(null);
@@ -27,6 +30,9 @@ export function MotionProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const quality = useMotionQuality();
+  const reducedMotion = quality !== "full";
+  const routeKey = `${pathname}?${searchParams.toString()}`;
+  const adminRoute = pathname.startsWith("/admin") || pathname.startsWith("/control-center");
   const [routePhase, setRoutePhase] = useState<RoutePhase>("idle");
   const pendingHref = useRef<string | null>(null);
   const timerRef = useRef<number | null>(null);
@@ -35,6 +41,15 @@ export function MotionProvider({ children }: { children: ReactNode }) {
     if (timerRef.current) window.clearTimeout(timerRef.current);
     timerRef.current = null;
   }, []);
+
+  const refreshScrollTriggers = useCallback(() => {
+    if (adminRoute || typeof window === "undefined") return;
+    void import("@/lib/animation/gsap-scrolltrigger").then(({ getScrollTrigger }) => {
+      const { ScrollTrigger } = getScrollTrigger();
+      ScrollTrigger.refresh();
+      updateMotionDiagnostics({ activeScrollTriggers: ScrollTrigger.getAll().length });
+    });
+  }, [adminRoute]);
 
   const navigate = useCallback((href: string) => {
     if (href === `${window.location.pathname}${window.location.search}${window.location.hash}`) return;
@@ -66,6 +81,19 @@ export function MotionProvider({ children }: { children: ReactNode }) {
   }, [pathname, searchParams, clearTimer, quality]);
 
   useEffect(() => {
+    updateMotionDiagnostics({ pathname, quality, reducedMotion });
+    if (adminRoute) return;
+    const refreshTimer = window.setTimeout(refreshScrollTriggers, 140);
+    const onImageLoad = () => refreshScrollTriggers();
+    document.addEventListener("load", onImageLoad, true);
+    return () => {
+      window.clearTimeout(refreshTimer);
+      document.removeEventListener("load", onImageLoad, true);
+    };
+  }, [adminRoute, pathname, quality, reducedMotion, refreshScrollTriggers]);
+
+  useEffect(() => {
+    if (adminRoute) return;
     const onClick = (event: MouseEvent) => {
       const anchor = (event.target as Element | null)?.closest("a[href]") as HTMLAnchorElement | null;
       if (!anchor || !isPlainInternalClick(event, anchor) || anchor.dataset.motion === "off") return;
@@ -94,9 +122,9 @@ export function MotionProvider({ children }: { children: ReactNode }) {
       document.removeEventListener("pointerdown", onPointerDown, true);
       clearTimer();
     };
-  }, [clearTimer, navigate, quality]);
+  }, [adminRoute, clearTimer, navigate, quality]);
 
-  const value = useMemo(() => ({ quality, routePhase, navigate }), [quality, routePhase, navigate]);
+  const value = useMemo(() => ({ quality, reducedMotion, routeKey, routePhase, navigate, refreshScrollTriggers }), [quality, reducedMotion, routeKey, routePhase, navigate, refreshScrollTriggers]);
   return (
     <MotionContext.Provider value={value}>
       <MotionConfig reducedMotion="user" transition={{ ease: motionEase }}>
