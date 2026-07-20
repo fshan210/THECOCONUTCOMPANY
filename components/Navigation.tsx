@@ -29,7 +29,7 @@ export function Navigation() {
   const greeting = customerGreeting(session);
   const accountHref = session ? "/account" : "/login?redirect=%2Faccount";
   const { scrollY } = useScroll();
-  const headerBackground = useTransform(scrollY, [0, 90], ["rgba(245, 235, 215, 0.96)", "rgba(245, 235, 215, 0.84)"]);
+  const headerBackground = useTransform(scrollY, [0, 90], ["rgba(247, 242, 232, 0.82)", "rgba(247, 242, 232, 0.58)"]);
   const headerShadow = useTransform(scrollY, [0, 90], ["0 0 0 rgba(58, 36, 22, 0)", "inset 0 1px 0 rgba(255,255,255,0.74), 0 22px 60px rgba(58, 36, 22, 0.14)"]);
   const headerBorder = useTransform(scrollY, [0, 90], ["rgba(58, 36, 22, 0.14)", "rgba(58, 36, 22, 0.18)"]);
   const headerWidth = useTransform(scrollY, [0, 90], ["100%", "min(1180px, calc(100% - 32px))"]);
@@ -50,8 +50,8 @@ export function Navigation() {
           backgroundColor: headerBackground,
           boxShadow: headerShadow,
           borderColor: headerBorder,
-          WebkitBackdropFilter: "blur(22px)",
-          backdropFilter: "blur(22px)"
+          WebkitBackdropFilter: "blur(24px) saturate(1.18)",
+          backdropFilter: "blur(24px) saturate(1.18)"
         }}
         className="co-site-header co-glass-header fixed left-1/2 z-[100] -translate-x-1/2 overflow-visible border"
       >

@@ -17,6 +17,7 @@ import { StructuredData } from "@/components/seo/StructuredData";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { CustomerAuthProvider } from "@/components/auth/CustomerAuthProvider";
 import { LenisProvider } from "@/components/providers/LenisProvider";
+import { MotionProvider } from "@/components/motion/MotionProvider";
 import { LaunchExperience } from "@/components/launch/LaunchExperience";
 import { CartProvider } from "@/lib/cart/cart-context";
 import { getCustomerSession } from "@/lib/customer/auth";
@@ -122,13 +123,15 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <CustomerAuthProvider session={customerSession}>
           <CartProvider catalog={products}>
             <LenisProvider>
-              <StructuredData includeGlobal />
-              {isAdminShell ? null : <Navigation />}
-              <main>{children}</main>
-              {isAdminShell ? null : <Footer />}
-              {isAdminShell ? null : <CartDrawer />}
-              {isAdminShell ? null : <LaunchExperience />}
-              <Analytics />
+              <MotionProvider>
+                <StructuredData includeGlobal />
+                {isAdminShell ? null : <Navigation />}
+                <main>{children}</main>
+                {isAdminShell ? null : <Footer />}
+                {isAdminShell ? null : <CartDrawer />}
+                {isAdminShell ? null : <LaunchExperience />}
+                <Analytics />
+              </MotionProvider>
             </LenisProvider>
           </CartProvider>
         </CustomerAuthProvider>
