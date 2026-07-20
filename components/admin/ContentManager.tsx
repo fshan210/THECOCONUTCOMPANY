@@ -110,6 +110,7 @@ function ContentEditor({ type, initial, writable, isNew = false }: { type: Conte
         {"featuredTestimonialIds" in record ? area("Featured testimonial IDs", "featuredTestimonialIds") : null}
         {"groveStages" in record ? area("Grove stages", "groveStages") : null}
         {"trustBadges" in record ? jsonArea("Trust badges JSON", "trustBadges") : null}
+        {"impactCounters" in record ? jsonArea("Impact counters JSON", "impactCounters") : null}
         {"seo" in record ? (
           <>
             <label className="grid gap-2 text-xs font-medium uppercase tracking-[0.08em] text-grove">SEO title<input value={String((record.seo as Record<string, unknown>)?.title ?? "")} onChange={(event) => setSeo("title", event.target.value)} className="min-h-11 rounded-lg border border-coconut/15 bg-white px-3 text-sm font-normal normal-case tracking-normal text-ink" /></label>

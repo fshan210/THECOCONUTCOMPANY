@@ -1,3 +1,5 @@
+import type { ImpactCounterConfig } from "./impact";
+
 export type PublicationStatus = "draft" | "published";
 
 export type ContentSeo = {
@@ -106,6 +108,7 @@ export type HomepageContent = {
   featuredProductSlugs: string[];
   featuredRecipeSlugs: string[];
   featuredTestimonialIds: string[];
+  impactCounters?: ImpactCounterConfig;
   seo: ContentSeo;
   publicationStatus: PublicationStatus;
 };

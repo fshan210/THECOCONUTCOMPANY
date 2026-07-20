@@ -4,8 +4,6 @@ import { ResponsiveImage as Image } from "@/components/media/ResponsiveImage";
 import Link from "next/link";
 import {
   ArrowRight,
-  Check,
-  CircleX,
   Droplets,
   HandHeart,
   Headphones,
@@ -30,15 +28,17 @@ import { useEffect, useRef, useState } from "react";
 import { NewsletterSection, ReferenceFooter, ReferenceHeader } from "@/components/home/ReferenceHomePage";
 import { getScrollTrigger, prefersReducedMotion } from "@/lib/animation/gsap-scrolltrigger";
 import { cn } from "@/lib/utils";
+import { BrandSlidingPuzzle } from "@/components/interactive/BrandSlidingPuzzle";
+import { JourneyScrollStory } from "@/components/about/JourneyScrollStory";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const blurDataURL = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MCcgaGVpZ2h0PSczMCc+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsbD0nI2Y3ZjJlOCcvPjwvc3ZnPg==";
 
 const statItems = [
-  { target: 50, suffix: "+", label: "Partner Farms", icon: Leaf },
-  { target: 100, suffix: "%", label: "Sustainable Packaging", icon: Package },
-  { target: 1, suffix: "M+", label: "Coconuts Saved", icon: Droplets },
-  { target: 100, suffix: "%", label: "Love from our Community", icon: Heart },
+  { target: 450, suffix: "", label: "Contract-farm Trees", icon: TreePalm },
+  { target: 0, suffix: "", label: "Preservatives in UHT Brief", icon: Leaf },
+  { target: 10, suffix: "K", label: "Phase 1 UHT MOQ", icon: Package },
+  { target: 200, suffix: "ml", label: "Launch Pack Format", icon: Droplets },
 ];
 
 const zeroWasteParts = [
@@ -47,15 +47,6 @@ const zeroWasteParts = [
   { id: "meat", title: "Coconut Meat", description: "Made into food, coconut milk, desserts and creamy Melt.CO recipes.", uses: ["Food", "Ice cream", "Milk"], icon: Sparkles, position: "left-[42%] top-[76%]" },
   { id: "water", title: "Coconut Water", description: "Bottled as clean hydration with nothing unnecessary added.", uses: ["Beverages", "Hydration", "Electrolytes"], icon: Droplets, position: "right-[20%] top-[39%]" },
   { id: "fibre", title: "Coconut Fibre", description: "Strong natural strands become durable, lower-waste everyday materials.", uses: ["Coir", "Brushes", "Natural materials"], icon: Leaf, position: "right-[18%] top-[70%]" },
-];
-
-const timelineItems = [
-  { year: "2020", title: "It all started", body: "A simple idea to create better coconut products.", icon: Sprout },
-  { year: "2021", title: "Building the Foundation", body: "Partnered with farmers and developed our first products.", icon: TreePalm },
-  { year: "2021", title: "Sharing the Goodness", body: "Launched .CO to bring pure coconut goodness to more people.", icon: Heart },
-  { year: "2022", title: "Growing Together", body: "Expanded our product range and our community.", icon: Droplets },
-  { year: "2023", title: "Stronger Impact", body: "Deepening our commitment to sustainability.", icon: HandHeart },
-  { year: "2024+", title: "A Future Rooted in Purpose", body: "Continuing to grow, innovate and make a positive impact.", icon: Package },
 ];
 
 const values = [
@@ -232,141 +223,6 @@ function ZeroWasteTree() {
   );
 }
 
-const conventionalItems = [
-  ["Added Sugar", "High Fructose Corn Syrup"],
-  ["Artificial Preservatives", "Sodium Benzoate (E211)"],
-  ["Synthetic Antioxidants", "BHA (E320)"],
-  ["High Emission Shipping", "Long-haul, fossil fuel based"],
-  ["Complex Processing", "Heat treated, refined, diluted"],
-];
-
-const cleanItems = [
-  ["100% Raw Coconut", "Nothing added. Nothing removed."],
-  ["Sustained Energy", "Naturally hydrating & replenishing"],
-  ["Zero Additives", "No sugar, no preservatives"],
-  ["Low Impact", "Ethical sourcing, minimal emissions"],
-  ["Clean Processing", "Careful handling retains goodness"],
-];
-
-function IngredientList({ items, clean }: { items: string[][]; clean?: boolean }) {
-  return (
-    <div className="space-y-3">
-      {items.map(([title, body]) => (
-        <div key={title} className="grid grid-cols-[20px_1fr] gap-2">
-          <span className={cn("mt-0.5 grid size-4 place-items-center rounded-full text-white", clean ? "bg-[#305a34]" : "bg-[#884233]")}>{clean ? <Check size={10} /> : <CircleX size={10} />}</span>
-          <span><span className="block text-[9px] font-semibold md:text-[10px]">{title}</span><span className="mt-0.5 block text-[8px] leading-3.5 text-[#635b53] md:text-[9px]">{body}</span></span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function IngredientPeeler() {
-  const [position, setPosition] = useState(50);
-  const [dragging, setDragging] = useState(false);
-  const frameRef = useRef<HTMLDivElement>(null);
-
-  const updatePosition = (clientX: number) => {
-    const rect = frameRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    setPosition(Math.max(15, Math.min(85, ((clientX - rect.left) / rect.width) * 100)));
-  };
-
-  const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
-    setDragging(true);
-    event.currentTarget.setPointerCapture(event.pointerId);
-    updatePosition(event.clientX);
-  };
-
-  const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (dragging) updatePosition(event.clientX);
-  };
-
-  return (
-    <section className="px-3 pb-7 md:px-8 md:pb-8">
-      <div className="mx-auto max-w-[1320px] rounded-[28px] border border-[#35271e]/7 bg-white/42 p-4 shadow-[0_18px_55px_rgba(53,39,30,.045)] md:p-6">
-        <SectionLabel number="02" />
-        <h2 className="mt-3 font-['Cormorant_Garamond'] text-[32px] leading-[.95] md:text-[39px]">The “Pure vs. Processed” Ingredient Peeler</h2>
-        <p className="mt-3 text-[11px] text-[#625950]">See the difference. Choose what&apos;s real.</p>
-
-        <div ref={frameRef} role="slider" aria-label="Compare conventional and .CO ingredients" aria-valuemin={15} aria-valuemax={85} aria-valuenow={Math.round(position)} tabIndex={0} onKeyDown={(event) => { if (event.key === "ArrowLeft") setPosition((value) => Math.max(15, value - 3)); if (event.key === "ArrowRight") setPosition((value) => Math.min(85, value + 3)); }} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={() => setDragging(false)} onPointerCancel={() => setDragging(false)} className="relative mt-5 min-h-[610px] touch-none select-none overflow-hidden rounded-[23px] border border-white/70 bg-[#ddd] md:min-h-[430px]">
-          <div className="absolute inset-0 bg-[#dedfdd]">
-            <div className="absolute inset-y-0 left-0 z-10 w-[47%] p-4 md:w-[31%] md:p-6">
-              <h3 className="font-['Cormorant_Garamond'] text-[23px] leading-none md:text-[28px]">Conventional Brand</h3>
-              <p className="mt-2 text-[9px] text-[#554f4a] md:text-[10px]">Hidden ingredients. Heavy impact.</p>
-              <div className="mt-5 max-w-[220px]"><IngredientList items={conventionalItems} /></div>
-            </div>
-            <div className="absolute bottom-[-2%] left-[34%] h-[74%] w-[34%] -translate-x-1/2 md:left-[44%] md:h-[90%] md:w-[21%]">
-              <Image src="/assets/about/generic-coconut-water-comparison.png" alt="Generic sweetened coconut water bottle" fill sizes="(min-width:768px) 22vw, 33vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain object-bottom drop-shadow-[0_24px_30px_rgba(42,46,47,.2)]" />
-            </div>
-          </div>
-
-          <div className="absolute inset-0 overflow-hidden bg-[#f5f2e9]" style={{ clipPath: `inset(0 0 0 ${position}%)` }}>
-            <div className="absolute inset-y-0 right-0 z-10 w-[47%] p-4 md:w-[31%] md:p-6">
-              <h3 className="font-['Cormorant_Garamond'] text-[23px] leading-none md:text-[28px]">.CO Brand</h3>
-              <p className="mt-2 text-[9px] text-[#554f4a] md:text-[10px]">Pure ingredients. Real impact.</p>
-              <div className="mt-5 max-w-[220px]"><IngredientList items={cleanItems} clean /></div>
-            </div>
-            <div className="absolute bottom-[-2%] left-[64%] h-[66%] w-[30%] -translate-x-1/2 md:left-[56%] md:h-[82%] md:w-[19%]">
-              <Image src="/assets/transparent/co-water-bottle.png" alt=".CO pure coconut water" fill sizes="(min-width:768px) 20vw, 29vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain drop-shadow-[0_24px_30px_rgba(53,39,30,.18)]" />
-            </div>
-          </div>
-
-          <div className="absolute inset-y-0 z-30 w-px bg-white/90 shadow-[0_0_18px_rgba(53,39,30,.24)]" style={{ left: `${position}%` }}>
-            <motion.div animate={{ scale: dragging ? 1.08 : 1 }} className="absolute left-1/2 top-[58%] grid size-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-[#35271e]/12 bg-[rgba(255,255,255,.92)] shadow-[0_12px_28px_rgba(53,39,30,.16)] backdrop-blur-md md:top-1/2">
-              <span className="font-['Space_Grotesk'] text-[15px] text-[#305a34]">‹ ›</span>
-            </motion.div>
-          </div>
-          <span className="absolute bottom-2 left-1/2 z-40 -translate-x-1/2 rounded-full bg-[rgba(247,242,232,.86)] px-3 py-1.5 text-[8px] font-medium shadow-sm backdrop-blur-md">Drag to compare</span>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function JourneyTimeline() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const lineRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!sectionRef.current || !lineRef.current || prefersReducedMotion()) return undefined;
-    const { gsap } = getScrollTrigger();
-    const context = gsap.context(() => {
-      gsap.fromTo(lineRef.current, { scaleX: 0, scaleY: 0 }, { scaleX: 1, scaleY: 1, ease: "none", transformOrigin: "top left", scrollTrigger: { trigger: sectionRef.current, start: "top 72%", end: "bottom 48%", scrub: 0.8 } });
-      gsap.from("[data-timeline-node]", { opacity: 0, y: 18, stagger: 0.12, duration: 0.65, ease: "power3.out", scrollTrigger: { trigger: sectionRef.current, start: "top 68%", once: true } });
-    }, sectionRef);
-    return () => context.revert();
-  }, []);
-
-  return (
-    <section ref={sectionRef} id="our-journey" className="px-3 pb-7 md:px-8 md:pb-8">
-      <div className="mx-auto max-w-[1320px] rounded-[28px] border border-[#35271e]/7 bg-white/42 p-5 shadow-[0_18px_55px_rgba(53,39,30,.045)] md:p-6">
-        <SectionLabel number="03">Timeline</SectionLabel>
-        <h2 className="mt-3 font-['Cormorant_Garamond'] text-[34px] leading-none md:text-[38px]">Our Journey So Far</h2>
-        <div className="relative mt-7 md:grid md:grid-cols-6 md:gap-5">
-          <div className="absolute bottom-2 left-[20px] top-3 w-px bg-[#305a34]/12 md:left-[4.5%] md:right-[4.5%] md:top-[21px] md:h-px md:w-auto">
-            <div ref={lineRef} className="h-full w-full bg-[#305a34]/55" />
-          </div>
-          {timelineItems.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <article data-timeline-node key={`${item.year}-${item.title}`} className="relative grid grid-cols-[42px_1fr] gap-4 pb-7 last:pb-0 md:block md:pb-0">
-                <span className="relative z-10 grid size-[42px] place-items-center rounded-full border border-[#305a34]/28 bg-[#f9f6ee] text-[#305a34] md:mx-auto"><Icon size={18} strokeWidth={1.45} /></span>
-                <div className="md:mt-4">
-                  <p className="text-[11px] font-semibold">{item.year}</p>
-                  <h3 className="mt-1 text-[10px] font-semibold leading-4 md:min-h-[34px]">{item.title}</h3>
-                  <p className="mt-2 text-[9px] leading-4 text-[#625950]">{item.body}</p>
-                </div>
-                <span className="sr-only">Step {index + 1}</span>
-              </article>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function ValuesSection() {
   return (
     <section className="px-3 pb-7 md:px-8 md:pb-8">
@@ -440,8 +296,8 @@ export function ReferenceAboutPage() {
       <AboutHero />
       <StatsAndQuote />
       <ZeroWasteTree />
-      <IngredientPeeler />
-      <JourneyTimeline />
+      <BrandSlidingPuzzle />
+      <JourneyScrollStory />
       <ValuesSection />
       <PromiseAndMovement />
       <NewsletterSection />
