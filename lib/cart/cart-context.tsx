@@ -7,7 +7,12 @@ import { shopProducts, type ShopProduct } from "@/lib/catalog";
 export type CartItem = {
   slug: string;
   quantity: number;
+  sku?: string;
+  unitPrice?: number;
+  variantLabel?: string;
 };
+
+export type CartConfiguration = Pick<CartItem, "sku" | "unitPrice" | "variantLabel">;
 
 const previewPrices: Record<string, number> = {
   "co-water": 120,
@@ -23,20 +28,21 @@ export function getCartPreviewPrice(slug: string) {
 
 type CartContextValue = {
   items: CartItem[];
-  products: Array<ShopProduct & { quantity: number }>;
+  products: Array<ShopProduct & CartItem & { cartKey: string }>;
   totalQuantity: number;
   subtotal: number;
   open: boolean;
   recentlyAddedSlug: string | null;
   setOpen: (value: boolean) => void;
-  addItem: (slug: string) => void;
-  removeItem: (slug: string) => void;
-  updateQuantity: (slug: string, quantity: number) => void;
+  addItem: (slug: string, configuration?: CartConfiguration) => void;
+  removeItem: (cartKey: string) => void;
+  updateQuantity: (cartKey: string, quantity: number) => void;
   clearCart: () => void;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
 const storageKey = "co-cart";
+const cartItemKey = (item: Pick<CartItem, "slug" | "sku">) => item.sku ?? item.slug;
 
 function readInitialCart(): CartItem[] {
   if (typeof window === "undefined") return [];
@@ -50,49 +56,56 @@ function readInitialCart(): CartItem[] {
 }
 
 export function CartProvider({ children, catalog = shopProducts }: { children: ReactNode; catalog?: ShopProduct[] }) {
-  const [items, setItems] = useState<CartItem[]>(readInitialCart);
+  const [items, setItems] = useState<CartItem[]>([]);
+  const [hydrated, setHydrated] = useState(false);
   const [open, setOpen] = useState(false);
   const [recentlyAddedSlug, setRecentlyAddedSlug] = useState<string | null>(null);
 
   useEffect(() => {
+    setItems(readInitialCart());
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
     window.localStorage.setItem(storageKey, JSON.stringify(items));
-  }, [items]);
+  }, [hydrated, items]);
 
   const value = useMemo<CartContextValue>(() => {
     const products = items
       .map((item) => {
         const product = catalog.find((candidate) => candidate.slug === item.slug);
-        return product ? { ...product, quantity: item.quantity } : null;
+        return product ? { ...product, ...item, cartKey: cartItemKey(item) } : null;
       })
-      .filter(Boolean) as Array<ShopProduct & { quantity: number }>;
+      .filter(Boolean) as Array<ShopProduct & CartItem & { cartKey: string }>;
 
     return {
       items,
       products,
       totalQuantity: items.reduce((total, item) => total + item.quantity, 0),
-      subtotal: products.reduce((total, product) => total + getCartPreviewPrice(product.slug) * product.quantity, 0),
+      subtotal: products.reduce((total, product) => total + (product.unitPrice ?? getCartPreviewPrice(product.slug)) * product.quantity, 0),
       open,
       setOpen: (value) => {
         setOpen(value);
         if (!value) setRecentlyAddedSlug(null);
       },
       recentlyAddedSlug,
-      addItem: (slug) => {
+      addItem: (slug, configuration = {}) => {
         setItems((current) => {
-          const existing = current.find((item) => item.slug === slug);
+          const existing = current.find((item) => item.slug === slug && item.sku === configuration.sku);
           if (existing) {
-            return current.map((item) => (item.slug === slug ? { ...item, quantity: item.quantity + 1 } : item));
+            return current.map((item) => (item === existing ? { ...item, quantity: item.quantity + 1 } : item));
           }
-          return [...current, { slug, quantity: 1 }];
+          return [...current, { slug, quantity: 1, ...configuration }];
         });
-        setRecentlyAddedSlug(slug);
+        setRecentlyAddedSlug(configuration.sku ?? slug);
         setOpen(true);
       },
-      removeItem: (slug) => setItems((current) => current.filter((item) => item.slug !== slug)),
-      updateQuantity: (slug, quantity) => {
+      removeItem: (cartKey) => setItems((current) => current.filter((item) => cartItemKey(item) !== cartKey)),
+      updateQuantity: (cartKey, quantity) => {
         setItems((current) =>
           current
-            .map((item) => (item.slug === slug ? { ...item, quantity: Math.max(0, quantity) } : item))
+            .map((item) => (cartItemKey(item) === cartKey ? { ...item, quantity: Math.max(0, quantity) } : item))
             .filter((item) => item.quantity > 0)
         );
       },

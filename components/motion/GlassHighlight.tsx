@@ -1,0 +1,1 @@
+export function GlassHighlight() { return <span className="pointer-events-none absolute inset-x-[8%] top-px h-px bg-gradient-to-r from-transparent via-white/80 to-transparent" aria-hidden="true" />; }

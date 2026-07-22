@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { coMotionDuration, coTransition } from "@/lib/motion/easings";
-import { useCoReducedMotion } from "@/lib/motion/reduced-motion";
+import { choreography, motionDuration, motionEase, useMotionQuality } from "@/lib/motion";
 
 type TextRevealProps = {
   text: string;
@@ -13,11 +12,11 @@ type TextRevealProps = {
 };
 
 export function TextReveal({ text, as = "span", className = "", lineClassName = "", delay = 0 }: TextRevealProps) {
-  const { shouldReduceMotion } = useCoReducedMotion();
+  const quality = useMotionQuality();
   const Component = motion[as];
   const lines = text.split("\n").filter(Boolean);
 
-  if (shouldReduceMotion) {
+  if (quality !== "full") {
     const StaticComponent = as;
     return <StaticComponent className={className}>{text}</StaticComponent>;
   }
@@ -28,10 +27,10 @@ export function TextReveal({ text, as = "span", className = "", lineClassName = 
         <span key={`${line}-${index}`} className={`block overflow-hidden ${lineClassName}`} aria-hidden="true">
           <motion.span
             className="block"
-            initial={{ y: "105%", opacity: 0.001 }}
-            whileInView={{ y: "0%", opacity: 1 }}
+            initial={{ y: "105%", opacity: 0.001, filter: "blur(7px)" }}
+            whileInView={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-12%" }}
-            transition={coTransition(coMotionDuration.reveal, delay + index * 0.07)}
+            transition={{ duration: motionDuration.reveal, delay: delay + index * choreography.text.lineStagger, ease: motionEase }}
           >
             {line}
           </motion.span>
@@ -40,4 +39,3 @@ export function TextReveal({ text, as = "span", className = "", lineClassName = 
     </Component>
   );
 }
-

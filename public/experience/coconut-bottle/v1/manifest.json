@@ -1,0 +1,93 @@
+{
+  "version": "v1",
+  "generatedAt": "2026-07-22T15:51:02.330Z",
+  "generation": "Local Sharp composition; no external provider or generated branding",
+  "sources": {
+    "opening": {
+      "filename": "ChatGPT Image Jul 1, 2026, 02_42_59 PM.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "f88adb7f590094e00545b4b95e0d1bb864f93d887a91248563d86c917a379a90"
+    },
+    "final": {
+      "filename": "final image.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "a679b485d1dcb97b308be00cac6621fe4a7b5b169d3949cb325ab9807cd3bd5c"
+    }
+  },
+  "outputs": [
+    {
+      "role": "opening",
+      "viewport": "desktop",
+      "path": "/experience/coconut-bottle/v1/desktop/opening.avif",
+      "width": 1440,
+      "height": 900,
+      "bytes": 55647,
+      "sha256": "c8cd066d9221e504ded3a9143a685478853f8cdbf782a664013edb69692d42b9"
+    },
+    {
+      "role": "opening",
+      "viewport": "desktop",
+      "path": "/experience/coconut-bottle/v1/desktop/opening.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 87970,
+      "sha256": "d5b59be399c3bbb2d044c40133abad6b57fba16d37ccf46dddc60d306034f228"
+    },
+    {
+      "role": "final",
+      "viewport": "desktop",
+      "path": "/experience/coconut-bottle/v1/desktop/final.avif",
+      "width": 1440,
+      "height": 900,
+      "bytes": 46977,
+      "sha256": "723a58579ea40f64ad8b1881e46aca6a489736e40736f57bf7cee89c09cfd486"
+    },
+    {
+      "role": "final",
+      "viewport": "desktop",
+      "path": "/experience/coconut-bottle/v1/desktop/final.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 88815,
+      "sha256": "6db3581badf200b0d3fcdbac8fa170462cea4f33dc3b620b66f57aad0e1d3362"
+    },
+    {
+      "role": "opening",
+      "viewport": "mobile",
+      "path": "/experience/coconut-bottle/v1/mobile/opening.avif",
+      "width": 720,
+      "height": 1280,
+      "bytes": 58707,
+      "sha256": "3afcfef9a59f33a66f2a9eb3e343c9ed95b7ee4ecc090be4930f7e6f13d33b39"
+    },
+    {
+      "role": "opening",
+      "viewport": "mobile",
+      "path": "/experience/coconut-bottle/v1/mobile/opening.jpg",
+      "width": 720,
+      "height": 1280,
+      "bytes": 88816,
+      "sha256": "c329b08cc6e9a4a768797acbef78ac1212cdb9e3e556f547f2e3083761189324"
+    },
+    {
+      "role": "final",
+      "viewport": "mobile",
+      "path": "/experience/coconut-bottle/v1/mobile/final.avif",
+      "width": 720,
+      "height": 1280,
+      "bytes": 50971,
+      "sha256": "4fdfdfd96af478649985563ebbf90de4109993011f2e061e0eb23dde8b1e5503"
+    },
+    {
+      "role": "final",
+      "viewport": "mobile",
+      "path": "/experience/coconut-bottle/v1/mobile/final.jpg",
+      "width": 720,
+      "height": 1280,
+      "bytes": 90483,
+      "sha256": "9a646cabb581a2493267cd75acb9262edcfbefc37fbdeda401d888b3b87ddffe"
+    }
+  ]
+}

@@ -8,6 +8,7 @@ import type {
   HomepageContent,
   SeoMetadataContent
 } from "@/lib/content/types";
+import { defaultImpactCounterConfig } from "@/lib/content/impact";
 
 export const fallbackProducts: ContentProduct[] = shopProducts.map((product, index) => ({
   id: product.slug,
@@ -94,6 +95,7 @@ export const fallbackHomepage: HomepageContent = {
   featuredProductSlugs: fallbackProducts.filter((item) => item.featured).map((item) => item.slug),
   featuredRecipeSlugs: fallbackRecipes.slice(0, 3).map((item) => item.slug),
   featuredTestimonialIds: fallbackTestimonials.map((item) => item.id),
+  impactCounters: defaultImpactCounterConfig,
   seo: {
     title: ".CO | The Coconut Company",
     description: "A modern coconut-origin lifestyle brand from Palakkad, Kerala. Made for Living.",

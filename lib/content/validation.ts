@@ -46,7 +46,8 @@ export const contentSchemas = {
     id: z.literal("homepage"), heroEyebrow: z.string().min(1).max(160), heroHeadline: z.array(z.string().min(1).max(80)).min(1).max(6), heroSubheadline: z.string().min(1).max(500),
     heroCtaText: z.string().min(1).max(80), heroCtaLink: z.string().startsWith("/"), secondaryCtaText: z.string().min(1).max(80), secondaryCtaLink: z.string().startsWith("/"),
     trustBadges: z.array(z.object({ title: z.string(), body: z.string(), icon: z.enum(["leaf", "drop", "cold", "palm"]) })).max(6),
-    groveStages: z.array(z.string()), featuredProductSlugs: z.array(z.string()), featuredRecipeSlugs: z.array(z.string()), featuredTestimonialIds: z.array(z.string()), seo: seoSchema
+    groveStages: z.array(z.string()), featuredProductSlugs: z.array(z.string()), featuredRecipeSlugs: z.array(z.string()), featuredTestimonialIds: z.array(z.string()),
+    impactCounters: z.object({ heading: z.string().min(1), metrics: z.array(z.object({ id: z.string().min(1), label: z.string().min(1), startValue: z.number(), endValue: z.number(), prefix: z.string().optional(), suffix: z.string().optional(), sourceNote: z.string().min(1), sourceUrl: z.string().url().optional(), status: z.enum(["verified", "estimate", "target"]), lastReviewed: z.string().min(1), enabled: z.boolean() })).max(6) }).optional(), seo: seoSchema
   }),
   seo: z.object({
     ...base,

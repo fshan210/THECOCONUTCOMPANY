@@ -1,6 +1,7 @@
 "use client";
 
 import Lenis from "lenis";
+import { getScrollTrigger } from "@/lib/animation/gsap-scrolltrigger";
 
 export type CoLenis = InstanceType<typeof Lenis>;
 export type CoLenisOptions = ConstructorParameters<typeof Lenis>[0];
@@ -17,18 +18,16 @@ export function createCoLenis(options: CoLenisOptions = {}) {
 }
 
 export function startCoLenis(lenis: CoLenis) {
-  let frame = 0;
-
-  const raf = (time: number) => {
-    lenis.raf(time);
-    frame = requestAnimationFrame(raf);
-  };
-
-  frame = requestAnimationFrame(raf);
+  const { gsap, ScrollTrigger } = getScrollTrigger();
+  const update = (time: number) => lenis.raf(time * 1000);
+  const syncScrollTrigger = () => ScrollTrigger.update();
+  lenis.on("scroll", syncScrollTrigger);
+  gsap.ticker.add(update);
+  gsap.ticker.lagSmoothing(0);
 
   return () => {
-    cancelAnimationFrame(frame);
+    lenis.off("scroll", syncScrollTrigger);
+    gsap.ticker.remove(update);
     lenis.destroy();
   };
 }
-

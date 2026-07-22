@@ -35,6 +35,7 @@ import { useSavedContent } from "@/lib/customer/use-saved-content";
 import { MobileBottomNav, NewsletterSection, ReferenceFooter, ReferenceHeader } from "@/components/home/ReferenceHomePage";
 import { StatePanel } from "@/components/launch/StatePanel";
 import type { ContentProduct } from "@/lib/content/types";
+import { ProductConfigurator } from "@/components/shop/ProductConfigurator";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const imageRoot = "/assets/shop/products";
@@ -193,6 +194,8 @@ export function ReferenceShopPage({ contentProducts = [] }: { contentProducts?: 
             </div>
           </div>
         </section>
+
+        <ProductConfigurator />
 
         <section id="all-products" className="px-4 py-8 md:px-8 md:py-12">
           <div className="mx-auto max-w-[1320px]">

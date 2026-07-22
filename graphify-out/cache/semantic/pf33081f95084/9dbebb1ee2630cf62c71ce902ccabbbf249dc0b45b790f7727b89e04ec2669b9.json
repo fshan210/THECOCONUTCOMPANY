@@ -1,0 +1,1 @@
+{"nodes": [{"id": "admin_backend_plan", "label": "Admin Backend Plan", "file_type": "document", "source_file": "ADMIN_BACKEND_PLAN.md"}], "edges": [{"source": "admin_backend_plan", "target": "api_contract", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "ADMIN_BACKEND_PLAN.md"}], "hyperedges": []}

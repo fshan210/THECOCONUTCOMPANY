@@ -1,0 +1,1 @@
+{"nodes": [{"id": "abuse_controls", "label": "Abuse Controls", "file_type": "document", "source_file": "ABUSE_CONTROLS.md"}], "edges": [{"source": "abuse_controls", "target": "api_contract", "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "ABUSE_CONTROLS.md"}], "hyperedges": []}

@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "magic-ui": {
+      "source": "magicuidesign/magicui",
+      "sourceType": "github",
+      "skillPath": "skills/magic-ui/SKILL.md",
+      "computedHash": "751895d50c76490c6f92a68cdbe61100bd96b4963d1e91e37b5d82c8df0fc2d7"
+    },
+    "scroll-world": {
+      "source": "oso95/scroll-world",
+      "sourceType": "github",
+      "skillPath": "skills/scroll-world/SKILL.md",
+      "computedHash": "3a6c7f6facad287583323ee2dbffd8a14f5ced7041aa002a5eaa09c1c4c0560c"
+    }
+  }
+}

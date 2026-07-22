@@ -1,0 +1,229 @@
+# Critical Flow Map
+
+Structural trace assembled from graph edges plus targeted source inspection. Re-run after source changes.
+
+## Homepage -> content -> SEO/JSON-LD
+- app/page.tsx
+  - L1: import type { Metadata } from "next";
+  - L2: import { ReferenceHomePage } from "@/components/home/ReferenceHomePage";
+  - L3: import { StructuredData } from "@/components/seo/StructuredData";
+  - L4: import { createPageMetadata } from "@/lib/seo/metadata";
+  - L5: import { faqSchema } from "@/lib/seo/structured-data";
+  - L6: import { getHomepageContent, getProducts, getRecipes, getTestimonials } from "@/lib/content/server";
+  - L8: export async function generateMetadata(): Promise<Metadata> {
+  - L10: return createPageMetadata({
+- lib/content/server.ts
+  - L1: import "server-only";
+  - L3: import { unstable_cache } from "next/cache";
+  - L4: import { getContentSource } from "@/lib/content/content-source";
+  - L5: import {
+  - L13: import type {
+  - L26: function mergeById<T extends { id: string; publicationStatus: string }>(fallback: T[], dynamic: T[]) {
+  - L29: return Array.from(merged.values()).filter((item) => item.publicationStatus === "published");
+  - L32: const cachedProducts = unstable_cache(async () => {
+- components/seo/StructuredData.tsx
+  - L1: import { breadcrumbSchema, organizationSchema, siteNavigationSchema, websiteSchema } from "@/lib/seo/structured-data";
+  - L3: type StructuredDataProps = {
+  - L9: export function StructuredData({ breadcrumbs, extra = [], includeGlobal = false }: StructuredDataProps) {
+  - L18: return (
+- lib/seo/metadata.ts
+  - L1: import type { Metadata } from "next";
+  - L3: export const siteUrl = "https://cothecoconutcompany.com";
+  - L4: export const siteName = ".CO | The Coconut Company";
+  - L5: export const defaultDescription = "A modern coconut-origin lifestyle brand. Made for Living.";
+  - L16: export function createPageMetadata({ title, description, path, absoluteTitle = false, index = true, ogImage = "/opengraph-image" }: PageMetadataInput): Metadata {
+  - L19: return {
+
+## Shop -> product source
+- app/shop/page.tsx
+  - L1: import type { Metadata } from "next";
+  - L2: import { ReferenceShopPage } from "@/components/shop/ReferenceShopPage";
+  - L3: import { StructuredData } from "@/components/seo/StructuredData";
+  - L4: import { getProducts, getSeoMetadata } from "@/lib/content/server";
+  - L5: import { createPageMetadata } from "@/lib/seo/metadata";
+  - L7: export async function generateMetadata(): Promise<Metadata> {
+  - L9: return createPageMetadata({
+  - L18: export default async function ShopPage() {
+- lib/content/server.ts
+  - L1: import "server-only";
+  - L3: import { unstable_cache } from "next/cache";
+  - L4: import { getContentSource } from "@/lib/content/content-source";
+  - L5: import {
+  - L13: import type {
+  - L26: function mergeById<T extends { id: string; publicationStatus: string }>(fallback: T[], dynamic: T[]) {
+  - L29: return Array.from(merged.values()).filter((item) => item.publicationStatus === "published");
+  - L32: const cachedProducts = unstable_cache(async () => {
+- lib/content/content-source.ts
+  - L1: import "server-only";
+  - L3: import { getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
+  - L4: import { firestoreCollections } from "@/lib/firebase/collections";
+  - L5: import {
+  - L13: import type {
+  - L24: import { validateContentRecord } from "@/lib/content/validation";
+  - L25: import { isServerApiConfigured, serverApiGet } from "@/lib/backend/server-api-client";
+  - L27: export interface ContentSource {
+
+## Recipe slug -> content lookup -> notFound
+- app/recipes/[slug]/page.tsx
+  - L1: import type { Metadata } from "next";
+  - L2: import { notFound } from "next/navigation";
+  - L3: import { RecipeDetailPage } from "@/components/recipes/RecipeDetailPage";
+  - L4: import { recipes as referenceRecipes, type RecipeItem } from "@/components/recipes/recipe-data";
+  - L5: import { createPageMetadata } from "@/lib/seo/metadata";
+  - L6: import { StructuredData } from "@/components/seo/StructuredData";
+  - L7: import { recipeSchema } from "@/lib/seo/structured-data";
+  - L8: import { getRecipes } from "@/lib/content/server";
+- lib/content/server.ts
+  - L1: import "server-only";
+  - L3: import { unstable_cache } from "next/cache";
+  - L4: import { getContentSource } from "@/lib/content/content-source";
+  - L5: import {
+  - L13: import type {
+  - L26: function mergeById<T extends { id: string; publicationStatus: string }>(fallback: T[], dynamic: T[]) {
+  - L29: return Array.from(merged.values()).filter((item) => item.publicationStatus === "published");
+  - L32: const cachedProducts = unstable_cache(async () => {
+
+## Customer auth -> HttpOnly session -> protected route
+- app/api/auth/cognito/route.ts
+  - L1: import { NextResponse } from "next/server";
+  - L2: import { ConfirmForgotPasswordCommand, ConfirmSignUpCommand, ForgotPasswordCommand, GetUserCommand, InitiateAuthCommand, SignUpCommand } from "@aws-sdk/client-cognito-identity-provider";
+  - L3: import { z } from "zod";
+  - L4: import { awsSessionCookieName, maxAwsSessionChunks, sealAwsSession, splitAwsSession } from "@/lib/auth/aws-session";
+  - L5: import { cognitoClient, cognitoClientId, cognitoErrorName, hasCognitoError, normalizeCognitoEmail, resendCognitoConfirmation } from "@/lib/auth/cognito-bff";
+  - L6: import { clearPendingVerification, getPendingVerification, maskEmail, safeReturnTo, setPendingVerification } from "@/lib/auth/verification-state";
+  - L7: import { checkRateLimit } from "@/lib/security/rate-limit";
+  - L15: returnTo: z.string().max(512).optional()
+- lib/customer/auth.ts
+  - L1: import "server-only";
+  - L3: import { cookies } from "next/headers";
+  - L4: import { redirect } from "next/navigation";
+  - L5: import { type CustomerSession } from "@/lib/customer/auth-config";
+  - L6: import { readAwsSession } from "@/lib/auth/aws-session";
+  - L11: function initialsFromName(name: string) {
+  - L12: return name
+  - L20: export const customerSessionMaxAge = customerSessionMs / 1000;
+- lib/auth/aws-session.ts
+  - L1: import "server-only";
+  - L3: import crypto from "node:crypto";
+  - L4: import { awsSessionCookie } from "@/lib/auth/aws-cookie";
+  - L5: export { awsSessionCookie } from "@/lib/auth/aws-cookie";
+  - L7: export type AwsSessionPayload = { accessToken: string; idToken?: string; refreshToken?: string; sub?: string; email?: string; name?: string; expiresAt: number };
+  - L10: * Cognito returns three sizeable tokens. Encrypting all three into one cookie can
+  - L15: export const awsSessionChunkSize = 3_600;
+  - L16: export const maxAwsSessionChunks = 4;
+- middleware.ts
+  - L1: import { NextResponse, type NextRequest } from "next/server";
+  - L2: import { adminSessionCookie } from "@/lib/admin/auth-config";
+  - L3: import { getAdminPath, isConfiguredAdminPath, mapConfiguredAdminPath } from "@/lib/admin/path";
+  - L4: import { awsSessionCookie } from "@/lib/auth/aws-cookie";
+  - L6: export function middleware(request: NextRequest) {
+  - L9: const adminPath = getAdminPath();
+  - L17: const redirectUrl = request.nextUrl.clone();
+  - L18: redirectUrl.pathname = pathname === "/admin" ? adminPath : pathname.replace("/admin", adminPath);
+
+## Cart/wishlist -> Hono auth -> persistence
+- backend/src/routes/cart.ts
+  - L1: import { Hono } from "hono";
+  - L2: import { cartItemIdParamSchema, cartItemInputSchema, productIdParamSchema, savedContentItemSchema, savedContentKindSchema } from "@dotco/contracts";
+  - L3: import type { AppBindings } from "../types/context.js";
+  - L4: import { requireAuth } from "../middleware/auth.js";
+  - L5: import { getCart, getWishlist, removeContentItem, saveCart, saveContentItem, saveWishlist } from "../services/user-data.js";
+  - L6: import { getProductById } from "../services/catalog.js";
+  - L8: export const cartRoutes = new Hono<AppBindings>()
+  - L9: .get("/cart", requireAuth, async (c) => { const cart = await getCart(c.get("user")!.userId); return c.json({ data: { ...cart, totals: null }, meta: {}, requestId: c.get("requestId") }); })
+- backend/src/middleware/auth.ts
+  - L1: import type { MiddlewareHandler } from "hono";
+  - L2: import type { DotCoRole } from "@dotco/contracts";
+  - L3: import type { AppBindings } from "../types/context.js";
+  - L4: import { getEnv } from "../config/env.js";
+  - L5: import { forbidden, unauthorized } from "../errors/api-error.js";
+  - L6: import { hasRole } from "../auth/authorization.js";
+  - L7: import { verifyBearerToken } from "../auth/jwt.js";
+  - L9: export const optionalAuth: MiddlewareHandler<AppBindings> = async (c, next) => {
+- backend/src/services/user-data.ts
+  - L1: import { DeleteCommand, GetCommand, PutCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
+  - L2: import { getDocumentClient } from "../repositories/dynamodb.js";
+  - L3: import { getEnv } from "../config/env.js";
+  - L4: import type { AuthenticatedUser } from "../types/context.js";
+  - L5: import type { AddressInput, CartItemInput, MePatchInput, SavedContentKind } from "@dotco/contracts";
+  - L9: export type StoredWishlist = {
+  - L24: async function read<T>(pk: string, sk: string): Promise<T | null> {
+  - L25: if (isLocal()) return (memory.get(key(pk, sk)) as T | undefined) ?? null;
+- backend/src/config/env.ts
+  - L1: import { z } from "zod";
+  - L24: export type ApiEnv = z.infer<typeof envSchema> & {
+  - L30: export function getEnv(): ApiEnv {
+  - L31: if (cachedEnv) return cachedEnv;
+  - L37: return cachedEnv;
+  - L40: export function resetEnvForTests() {
+
+## Order preview -> JWT auth -> pricing
+- backend/src/routes/orders.ts
+  - L1: import { Hono } from "hono";
+  - L2: import { orderCreateSchema, orderPreviewSchema } from "@dotco/contracts";
+  - L3: import type { AppBindings } from "../types/context.js";
+  - L4: import { requireAuth } from "../middleware/auth.js";
+  - L5: import { previewOrder } from "../services/pricing.js";
+  - L7: export const orderRoutes = new Hono<AppBindings>()
+  - L8: .post("/orders/preview", requireAuth, async (c) => {
+  - L10: return c.json({ data: previewOrder(body), meta: { serverPriced: true }, requestId: c.get("requestId") });
+- backend/src/services/pricing.ts
+  - L1: import { orderPreviewSchema, type OrderPreviewInput } from "@dotco/contracts";
+  - L10: export function previewOrder(input: OrderPreviewInput) {
+  - L14: return {
+  - L23: return {
+- backend/src/auth/jwt.ts
+  - L1: import { CognitoJwtVerifier } from "aws-jwt-verify";
+  - L2: import type { CognitoJwtVerifierSingleUserPool } from "aws-jwt-verify/cognito-verifier";
+  - L3: import { getEnv } from "../config/env.js";
+  - L4: import { unauthorized } from "../errors/api-error.js";
+  - L5: import { normalizeRoles } from "./authorization.js";
+  - L6: import type { AuthenticatedUser } from "../types/context.js";
+  - L10: function getVerifier() {
+  - L22: return verifier;
+
+## Admin path -> middleware -> Firebase gate
+- lib/admin/path.ts
+  - L1: export const defaultAdminPath = "/control-center";
+  - L3: function normalizePath(path?: string) {
+  - L4: if (!path) return defaultAdminPath;
+  - L6: if (!trimmed || trimmed === "/") return defaultAdminPath;
+  - L8: return withSlash.replace(/\/+$/, "");
+  - L11: export function getAdminPath(path = "") {
+  - L14: return `${base}${suffix}`;
+  - L17: export function isConfiguredAdminPath(pathname: string) {
+- middleware.ts
+  - L1: import { NextResponse, type NextRequest } from "next/server";
+  - L2: import { adminSessionCookie } from "@/lib/admin/auth-config";
+  - L3: import { getAdminPath, isConfiguredAdminPath, mapConfiguredAdminPath } from "@/lib/admin/path";
+  - L4: import { awsSessionCookie } from "@/lib/auth/aws-cookie";
+  - L6: export function middleware(request: NextRequest) {
+  - L9: const adminPath = getAdminPath();
+  - L17: const redirectUrl = request.nextUrl.clone();
+  - L18: redirectUrl.pathname = pathname === "/admin" ? adminPath : pathname.replace("/admin", adminPath);
+- lib/admin/auth.ts
+  - L1: import "server-only";
+  - L3: import { createHmac, randomBytes, timingSafeEqual } from "crypto";
+  - L4: import { cookies } from "next/headers";
+  - L5: import { redirect } from "next/navigation";
+  - L6: import { adminCsrfCookie, adminIdleTimeoutMs, adminSessionCookie } from "@/lib/admin/auth-config";
+  - L7: import { getAdminPath } from "@/lib/admin/path";
+  - L8: import { adminRoles, canAccess, normalizeAdminRole, type AdminRole } from "@/lib/admin/rbac";
+  - L9: import { getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
+- lib/firebase/admin.ts
+  - L1: import "server-only";
+  - L3: import type { App } from "firebase-admin/app";
+  - L7: function parseServiceAccount() {
+  - L11: return JSON.parse(json) as {
+  - L17: return null;
+  - L22: return {
+  - L29: return null;
+  - L32: export function isFirebaseAdminConfigured() {
+
+## Cross-cutting observations
+
+- Public content access is fallback-first and cached, so dynamic-source failure should not blank public pages.
+- Customer sessions are read from the AWS session cookie on the server; middleware protects account/order/wishlist/profile paths.
+- Cart, wishlist, saved content, and order routes use requireAuth; persistence is keyed by verified Cognito subject.
+- Firebase admin is a separate configuration-gated administrative path.
+- Confidence: Confirmed for cited source lines; Strong evidence for graph relationships; Unknown for untested runtime behavior.

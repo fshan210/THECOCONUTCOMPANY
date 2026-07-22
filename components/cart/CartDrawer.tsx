@@ -34,7 +34,7 @@ export function CartDrawer() {
   const router = useRouter();
   const dragControls = useDragControls();
   const drawerRef = useRef<HTMLElement>(null);
-  const recentlyAdded = useMemo(() => cart.products.find((product) => product.slug === cart.recentlyAddedSlug) || null, [cart.products, cart.recentlyAddedSlug]);
+  const recentlyAdded = useMemo(() => cart.products.find((product) => product.cartKey === cart.recentlyAddedSlug) || null, [cart.products, cart.recentlyAddedSlug]);
   useBodyScrollLock(cart.open);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export function CartDrawer() {
   }, [cart, cart.open]);
 
   const close = () => cart.setOpen(false);
-  const lineSubtotal = recentlyAdded ? getCartPreviewPrice(recentlyAdded.slug) * recentlyAdded.quantity : cart.subtotal;
+  const lineSubtotal = recentlyAdded ? (recentlyAdded.unitPrice ?? getCartPreviewPrice(recentlyAdded.slug)) * recentlyAdded.quantity : cart.subtotal;
 
   return (
     <AnimatePresence>
@@ -107,7 +107,7 @@ export function CartDrawer() {
                 <div className={recentlyAdded ? "mt-5" : ""}>
                   <div className="mb-3 flex items-center justify-between"><p className="text-[10px] font-semibold uppercase tracking-[.13em] text-[#6d6259]">{recentlyAdded ? "Also on your shelf" : "Saved products"}</p><span className="rounded-full bg-white/64 px-2.5 py-1 text-[10px] font-semibold text-[#214d2b]">{cart.totalQuantity} {cart.totalQuantity === 1 ? "item" : "items"}</span></div>
                   <div className="space-y-2.5">
-                    {cart.products.filter((product) => product.slug !== recentlyAdded?.slug).map((product) => <CartLine key={product.slug} product={product} />)}
+                    {cart.products.filter((product) => product.cartKey !== recentlyAdded?.cartKey).map((product) => <CartLine key={product.cartKey} product={product} />)}
                   </div>
                 </div>
               ) : <StatePanel compact kind="empty" eyebrow="Your shelf" title="Nothing saved yet." body="Add a coconut favourite and it will wait here for you." onPrimary={{ label: "Browse products", action: () => { close(); router.push("/shop"); } }} />}
@@ -133,21 +133,21 @@ export function CartDrawer() {
 
 function RecentlyAddedCard({ product }: { product: ReturnType<typeof useCart>["products"][number] }) {
   const cart = useCart();
-  const price = getCartPreviewPrice(product.slug);
-  return <motion.article initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={spring} className="overflow-hidden rounded-[24px] border border-white/80 bg-[linear-gradient(135deg,rgba(255,255,255,.8),rgba(232,241,225,.72))] p-3 shadow-[0_14px_34px_rgba(58,36,22,.07)]"><div className="flex items-start gap-3"><motion.div initial={{ scale: .88, rotate: -3 }} animate={{ scale: [0.88, 1.05, 1], rotate: [-3, 1, 0] }} transition={{ duration: .55, ease: [0.22, 1, 0.36, 1] }} className="relative size-[88px] shrink-0 overflow-hidden rounded-[20px] bg-[#f6f0e7]"><Image src={product.image} alt={product.name} fill sizes="88px" loading="lazy" className="object-contain p-2" /></motion.div><div className="min-w-0 flex-1"><div className="flex items-start justify-between gap-2"><div><span className="inline-flex items-center gap-1 rounded-full bg-[#214d2b] px-2 py-1 text-[8px] font-semibold uppercase tracking-[.1em] text-white"><Check size={11}/>Added</span><h3 className="mt-2 font-['Cormorant_Garamond'] text-[1.55rem] leading-[.94] text-[#2a1b13]">{product.name}</h3></div><p className="shrink-0 text-sm font-semibold text-[#214d2b]">₹{price.toLocaleString("en-IN")}</p></div><p className="mt-2 text-[10px] font-medium uppercase tracking-[.1em] text-[#71655b]">{product.category} · {product.quantity === 1 ? "1 item" : `${product.quantity} items`}</p><QuantityControl product={product} compact /></div></div></motion.article>;
+  const price = product.unitPrice ?? getCartPreviewPrice(product.slug);
+  return <motion.article initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={spring} className="overflow-hidden rounded-[24px] border border-white/80 bg-[linear-gradient(135deg,rgba(255,255,255,.8),rgba(232,241,225,.72))] p-3 shadow-[0_14px_34px_rgba(58,36,22,.07)]"><div className="flex items-start gap-3"><motion.div initial={{ scale: .88, rotate: -3 }} animate={{ scale: [0.88, 1.05, 1], rotate: [-3, 1, 0] }} transition={{ duration: .55, ease: [0.22, 1, 0.36, 1] }} className="relative size-[88px] shrink-0 overflow-hidden rounded-[20px] bg-[#f6f0e7]"><Image src={product.image} alt={product.name} fill sizes="88px" loading="lazy" className="object-contain p-2" /></motion.div><div className="min-w-0 flex-1"><div className="flex items-start justify-between gap-2"><div><span className="inline-flex items-center gap-1 rounded-full bg-[#214d2b] px-2 py-1 text-[8px] font-semibold uppercase tracking-[.1em] text-white"><Check size={11}/>Added</span><h3 className="mt-2 font-['Cormorant_Garamond'] text-[1.55rem] leading-[.94] text-[#2a1b13]">{product.name}</h3></div><p className="shrink-0 text-sm font-semibold text-[#214d2b]">₹{price.toLocaleString("en-IN")}</p></div><p className="mt-2 text-[10px] font-medium uppercase tracking-[.1em] text-[#71655b]">{product.variantLabel ?? product.category} · {product.quantity === 1 ? "1 item" : `${product.quantity} items`}</p><QuantityControl product={product} compact /></div></div></motion.article>;
 }
 
 function CartLine({ product }: { product: ReturnType<typeof useCart>["products"][number] }) {
   const cart = useCart();
-  const price = getCartPreviewPrice(product.slug);
-  return <motion.article layout initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: .96 }} className="grid grid-cols-[58px_1fr_auto] gap-3 rounded-[19px] border border-white/70 bg-white/49 p-2.5"><div className="relative aspect-square overflow-hidden rounded-[15px] bg-[#f6f0e7]"><Image src={product.image} alt={product.name} fill sizes="58px" loading="lazy" className="object-contain p-1.5" /></div><div className="min-w-0"><h3 className="truncate text-xs font-semibold text-[#2a1b13]">{product.name}</h3><p className="mt-1 text-[10px] text-[#6b6057]">{product.category}</p><QuantityControl product={product} /></div><div className="flex flex-col items-end justify-between"><p className="text-xs font-semibold text-[#214d2b]">₹{(price * product.quantity).toLocaleString("en-IN")}</p><button type="button" onClick={() => cart.removeItem(product.slug)} aria-label={`Remove ${product.name}`} className="grid size-7 place-items-center rounded-full text-[#87584d] transition hover:bg-[#f5e5df] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#214d2b]"><Trash2 size={13}/></button></div></motion.article>;
+  const price = product.unitPrice ?? getCartPreviewPrice(product.slug);
+  return <motion.article layout initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: .96 }} className="grid grid-cols-[58px_1fr_auto] gap-3 rounded-[19px] border border-white/70 bg-white/49 p-2.5"><div className="relative aspect-square overflow-hidden rounded-[15px] bg-[#f6f0e7]"><Image src={product.image} alt={product.name} fill sizes="58px" loading="lazy" className="object-contain p-1.5" /></div><div className="min-w-0"><h3 className="truncate text-xs font-semibold text-[#2a1b13]">{product.name}</h3><p className="mt-1 text-[10px] text-[#6b6057]">{product.variantLabel ?? product.category}</p><QuantityControl product={product} /></div><div className="flex flex-col items-end justify-between"><p className="text-xs font-semibold text-[#214d2b]">₹{(price * product.quantity).toLocaleString("en-IN")}</p><button type="button" onClick={() => cart.removeItem(product.cartKey)} aria-label={`Remove ${product.name}`} className="grid size-7 place-items-center rounded-full text-[#87584d] transition hover:bg-[#f5e5df] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#214d2b]"><Trash2 size={13}/></button></div></motion.article>;
 }
 
 function QuantityControl({ product, compact = false }: { product: ReturnType<typeof useCart>["products"][number]; compact?: boolean }) {
   const cart = useCart();
   return <div className={`${compact ? "mt-3" : "mt-2"} flex items-center gap-1.5`}>
-    <button type="button" onClick={() => cart.updateQuantity(product.slug, product.quantity - 1)} aria-label={`Decrease ${product.name}`} className="grid size-7 place-items-center rounded-full border border-[#35271e]/10 bg-white/70 text-[#2a1b13] transition hover:scale-105 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#214d2b]"><Minus size={13}/></button>
+    <button type="button" onClick={() => cart.updateQuantity(product.cartKey, product.quantity - 1)} aria-label={`Decrease ${product.name}`} className="grid size-7 place-items-center rounded-full border border-[#35271e]/10 bg-white/70 text-[#2a1b13] transition hover:scale-105 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#214d2b]"><Minus size={13}/></button>
     <motion.span key={product.quantity} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="grid h-7 min-w-7 place-items-center text-xs font-semibold text-[#2a1b13]">{product.quantity}</motion.span>
-    <button type="button" onClick={() => cart.updateQuantity(product.slug, product.quantity + 1)} aria-label={`Increase ${product.name}`} className="grid size-7 place-items-center rounded-full bg-[#214d2b] text-white shadow-[0_5px_12px_rgba(33,77,43,.2)] transition hover:scale-105 hover:bg-[#183b20] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#214d2b]"><Plus size={13}/></button>
+    <button type="button" onClick={() => cart.updateQuantity(product.cartKey, product.quantity + 1)} aria-label={`Increase ${product.name}`} className="grid size-7 place-items-center rounded-full bg-[#214d2b] text-white shadow-[0_5px_12px_rgba(33,77,43,.2)] transition hover:scale-105 hover:bg-[#183b20] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#214d2b]"><Plus size={13}/></button>
   </div>;
 }
