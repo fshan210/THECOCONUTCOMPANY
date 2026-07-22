@@ -2,6 +2,7 @@
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { ResponsiveImage as Image } from "@/components/media/ResponsiveImage";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -53,6 +54,13 @@ import { ImpactCounters } from "@/components/home/ImpactCounters";
 import { defaultImpactCounterConfig } from "@/lib/content/impact";
 
 const ease = [0.16, 1, 0.3, 1] as const;
+
+const CoconutBottleScroll = dynamic(
+  () => import("@/components/experience/CoconutBottleScroll").then((module) => module.CoconutBottleScroll),
+  {
+    loading: () => <div className="h-[300svh] bg-[#e9dbc2] md:h-[360svh]" aria-hidden="true" />,
+  },
+);
 const blurDataURL =
   "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MCcgaGVpZ2h0PSczMCc+PGZpbHRlciBpZD0nYic+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0nNicvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbGw9JyNmN2YyZTgnLz48L3N2Zz4=";
 
@@ -1122,7 +1130,7 @@ export function ReferenceHomePage({ homepage, products, recipes, testimonials }:
   const popupProducts = useMemo(() => toPopupProducts(displayProducts), [displayProducts]);
 
   return (
-    <div className="co-reference-home min-h-screen overflow-hidden bg-[#f7f2e8] font-['Inter'] text-[#35271e]">
+    <div className="co-reference-home min-h-screen overflow-x-clip bg-[#f7f2e8] font-['Inter'] text-[#35271e]">
       <ReferenceHeader />
       <div>
         <HeroSection homepage={homepage} />
@@ -1130,6 +1138,7 @@ export function ReferenceHomePage({ homepage, products, recipes, testimonials }:
         <CategoryRail products={popupProducts} />
         <DeliveryMarquee />
         <PlanetBentoSection products={popupProducts} />
+        <CoconutBottleScroll />
         <ProductsSection products={displayProducts} />
         <RecipesSnapshot recipes={recipes} />
         <TestimonialsSection testimonials={testimonials} />

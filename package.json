@@ -65,6 +65,7 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.19",
+    "aws-cdk": "^2.1130.0",
     "esbuild": "^0.28.1",
     "eslint": "^9.39.4",
     "eslint-config-next": "^15.5.19",

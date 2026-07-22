@@ -1,0 +1,3847 @@
+{
+  ".eslintrc.json": {
+    "mtime": 1781371856.762242,
+    "ast_hash": "6c636976577d27c2ebdc12da2f6f2b56",
+    "semantic_hash": "6c636976577d27c2ebdc12da2f6f2b56"
+  },
+  "app/[slug]/page.tsx": {
+    "mtime": 1784144158.4263036,
+    "ast_hash": "7138e780a12c3ef519905f34cd6e49cb",
+    "semantic_hash": "7138e780a12c3ef519905f34cd6e49cb"
+  },
+  "app/about/page.tsx": {
+    "mtime": 1784144158.4268017,
+    "ast_hash": "d1cbb67e59a55fd980c118b630c5a30f",
+    "semantic_hash": "d1cbb67e59a55fd980c118b630c5a30f"
+  },
+  "app/account/page.tsx": {
+    "mtime": 1784144158.4275002,
+    "ast_hash": "622ff7085b737ff10234ff288f8695dd",
+    "semantic_hash": "622ff7085b737ff10234ff288f8695dd"
+  },
+  "app/admin/[module]/page.tsx": {
+    "mtime": 1782752541.1032677,
+    "ast_hash": "d17e6bcbde1a2a71347b11d7fa35c5cd",
+    "semantic_hash": "d17e6bcbde1a2a71347b11d7fa35c5cd"
+  },
+  "app/admin/forgot-password/page.tsx": {
+    "mtime": 1781811143.930208,
+    "ast_hash": "ec215ec49469d418b8195c0e59fbd3eb",
+    "semantic_hash": "ec215ec49469d418b8195c0e59fbd3eb"
+  },
+  "app/admin/layout.tsx": {
+    "mtime": 1781850181.8806539,
+    "ast_hash": "68f5adf359ce6d762f612aa41655fa76",
+    "semantic_hash": "68f5adf359ce6d762f612aa41655fa76"
+  },
+  "app/admin/login/page.tsx": {
+    "mtime": 1784144158.4279597,
+    "ast_hash": "0f1d6e6db1ed8778d4f1c2c442b9f677",
+    "semantic_hash": "0f1d6e6db1ed8778d4f1c2c442b9f677"
+  },
+  "app/admin/page.tsx": {
+    "mtime": 1781887695.4906707,
+    "ast_hash": "d508cfb1679b6fecefdf0f8f33d392a5",
+    "semantic_hash": "d508cfb1679b6fecefdf0f8f33d392a5"
+  },
+  "app/api/auth/cognito/resend-confirmation/route.ts": {
+    "mtime": 1784144158.4508727,
+    "ast_hash": "ab57c1cd85f9cccfea3b622ef5317c10",
+    "semantic_hash": "ab57c1cd85f9cccfea3b622ef5317c10"
+  },
+  "app/api/auth/cognito/route.ts": {
+    "mtime": 1784144158.4515438,
+    "ast_hash": "e1759319cde5173f16e16eb4549c6083",
+    "semantic_hash": "e1759319cde5173f16e16eb4549c6083"
+  },
+  "app/api/auth/session/route.ts": {
+    "mtime": 1784144158.4522452,
+    "ast_hash": "885502db8b31951c87d2b45cb416b714",
+    "semantic_hash": "885502db8b31951c87d2b45cb416b714"
+  },
+  "app/api/customer/saved/route.ts": {
+    "mtime": 1784320301.5012703,
+    "ast_hash": "96e1137ef6e8a2d261970963c59815cf",
+    "semantic_hash": "96e1137ef6e8a2d261970963c59815cf"
+  },
+  "app/api/newsletter/route.ts": {
+    "mtime": 1784144158.453012,
+    "ast_hash": "73c212b38ac9797dc8bb5ea166869a99",
+    "semantic_hash": "73c212b38ac9797dc8bb5ea166869a99"
+  },
+  "app/cart/page.tsx": {
+    "mtime": 1784144158.4540303,
+    "ast_hash": "f6edd8b0e5ed86c6dd4ed3b2d5ba501c",
+    "semantic_hash": "f6edd8b0e5ed86c6dd4ed3b2d5ba501c"
+  },
+  "app/contact/page.tsx": {
+    "mtime": 1784144158.4544907,
+    "ast_hash": "08532b6278534546345ef7b0f277c2d9",
+    "semantic_hash": "08532b6278534546345ef7b0f277c2d9"
+  },
+  "app/email-verified/page.tsx": {
+    "mtime": 1784144158.4552662,
+    "ast_hash": "856d7fe6efa074c9f05856476fe62166",
+    "semantic_hash": "856d7fe6efa074c9f05856476fe62166"
+  },
+  "app/error.tsx": {
+    "mtime": 1784144158.4561415,
+    "ast_hash": "a1fd44fd432a827928a36eaf56759acb",
+    "semantic_hash": "a1fd44fd432a827928a36eaf56759acb"
+  },
+  "app/forgot-password/page.tsx": {
+    "mtime": 1784144158.4568222,
+    "ast_hash": "8e9f44583bbe86cb8e5347e3d7bbf86a",
+    "semantic_hash": "8e9f44583bbe86cb8e5347e3d7bbf86a"
+  },
+  "app/founders/page.tsx": {
+    "mtime": 1784144158.4575453,
+    "ast_hash": "54b09308a154889a5537aac8f8ef44d9",
+    "semantic_hash": "54b09308a154889a5537aac8f8ef44d9"
+  },
+  "app/image-sitemap.xml/route.ts": {
+    "mtime": 1784144158.4588442,
+    "ast_hash": "0b1ae9d12f30442056c4b923a3ac20a9",
+    "semantic_hash": "0b1ae9d12f30442056c4b923a3ac20a9"
+  },
+  "app/journal/page.tsx": {
+    "mtime": 1784144158.459296,
+    "ast_hash": "7c51676ff72923b4e309caff1503d550",
+    "semantic_hash": "7c51676ff72923b4e309caff1503d550"
+  },
+  "app/journal/social-cocreation-hub/page.tsx": {
+    "mtime": 1784144158.4596279,
+    "ast_hash": "0c54dcd79c070cd062d386c6139b54f9",
+    "semantic_hash": "0c54dcd79c070cd062d386c6139b54f9"
+  },
+  "app/layout.tsx": {
+    "mtime": 1784490570.39333,
+    "ast_hash": "549154b6fd52c241d0f26b884fd91bfa",
+    "semantic_hash": ""
+  },
+  "app/loading.tsx": {
+    "mtime": 1784144158.4604452,
+    "ast_hash": "71933f1b9a87e228ad6be68d0f785597",
+    "semantic_hash": "71933f1b9a87e228ad6be68d0f785597"
+  },
+  "app/login/page.tsx": {
+    "mtime": 1784144158.4608238,
+    "ast_hash": "cf1bd1644cd3492531ad96d8275424ee",
+    "semantic_hash": "cf1bd1644cd3492531ad96d8275424ee"
+  },
+  "app/news-sitemap.xml/route.ts": {
+    "mtime": 1784144158.461346,
+    "ast_hash": "6a24826a227a05472ac0c474fbe1f1fd",
+    "semantic_hash": "6a24826a227a05472ac0c474fbe1f1fd"
+  },
+  "app/not-found.tsx": {
+    "mtime": 1784144158.4618297,
+    "ast_hash": "b6e6fac7e19d96e349d2d5ffcffa7632",
+    "semantic_hash": "b6e6fac7e19d96e349d2d5ffcffa7632"
+  },
+  "app/offline/page.tsx": {
+    "mtime": 1784144158.4624376,
+    "ast_hash": "451e2c8671f53348436406d43a8613d6",
+    "semantic_hash": "451e2c8671f53348436406d43a8613d6"
+  },
+  "app/opengraph-image.tsx": {
+    "mtime": 1784144158.4628773,
+    "ast_hash": "1eacf24a7d603977bd2c9af108454cdb",
+    "semantic_hash": "1eacf24a7d603977bd2c9af108454cdb"
+  },
+  "app/orders/page.tsx": {
+    "mtime": 1782721178.233907,
+    "ast_hash": "ccefe615555d5b458c5cce6fc2ce2bcd",
+    "semantic_hash": "ccefe615555d5b458c5cce6fc2ce2bcd"
+  },
+  "app/page.tsx": {
+    "mtime": 1784320301.5026066,
+    "ast_hash": "001e170380db89c248ab48681fc245e9",
+    "semantic_hash": "001e170380db89c248ab48681fc245e9"
+  },
+  "app/products/page.tsx": {
+    "mtime": 1782721178.2345634,
+    "ast_hash": "922eccd526c3f37e33a4bea92e6583f4",
+    "semantic_hash": "922eccd526c3f37e33a4bea92e6583f4"
+  },
+  "app/profile/page.tsx": {
+    "mtime": 1784320301.503309,
+    "ast_hash": "e436173b78c5c5a6afd2fd138cbdbf3a",
+    "semantic_hash": "e436173b78c5c5a6afd2fd138cbdbf3a"
+  },
+  "app/recipes/[slug]/page.tsx": {
+    "mtime": 1784320301.5036433,
+    "ast_hash": "819d09bdcd65ebabc2cb0214697a0e05",
+    "semantic_hash": "819d09bdcd65ebabc2cb0214697a0e05"
+  },
+  "app/recipes/page.tsx": {
+    "mtime": 1784144158.4670665,
+    "ast_hash": "ebb281e1cb7c37840d80453bbd2dca88",
+    "semantic_hash": "ebb281e1cb7c37840d80453bbd2dca88"
+  },
+  "app/register/page.tsx": {
+    "mtime": 1784144158.4678645,
+    "ast_hash": "88d1f41e974bceaa7e764bc0c37d8a95",
+    "semantic_hash": "88d1f41e974bceaa7e764bc0c37d8a95"
+  },
+  "app/reset-password/page.tsx": {
+    "mtime": 1784144158.4682653,
+    "ast_hash": "82a84cd158ee9524377b9a1f1767c688",
+    "semantic_hash": "82a84cd158ee9524377b9a1f1767c688"
+  },
+  "app/robots.ts": {
+    "mtime": 1784144158.4687676,
+    "ast_hash": "755da9fef0f2d4b6de041cd9b39fbb9c",
+    "semantic_hash": "755da9fef0f2d4b6de041cd9b39fbb9c"
+  },
+  "app/saved-recipes/page.tsx": {
+    "mtime": 1784320301.504048,
+    "ast_hash": "3bbbecc475979e299c25f8709c8501a4",
+    "semantic_hash": "3bbbecc475979e299c25f8709c8501a4"
+  },
+  "app/shop/[slug]/page.tsx": {
+    "mtime": 1782752541.108324,
+    "ast_hash": "65f272ab9e75421d5bd6cee8a3af7ff1",
+    "semantic_hash": "65f272ab9e75421d5bd6cee8a3af7ff1"
+  },
+  "app/shop/page.tsx": {
+    "mtime": 1784144158.4691815,
+    "ast_hash": "62b371a2f87dfb1ebb1e7c803b9b859b",
+    "semantic_hash": "62b371a2f87dfb1ebb1e7c803b9b859b"
+  },
+  "app/sign-in/page.tsx": {
+    "mtime": 1781811412.5342157,
+    "ast_hash": "0752fb5be50094ed4535ea77af3e3ea2",
+    "semantic_hash": "0752fb5be50094ed4535ea77af3e3ea2"
+  },
+  "app/sign-up/page.tsx": {
+    "mtime": 1781811412.5352242,
+    "ast_hash": "41d002c945e4ff8b88c185f611440f6d",
+    "semantic_hash": "41d002c945e4ff8b88c185f611440f6d"
+  },
+  "app/sitemap.ts": {
+    "mtime": 1784320301.5044007,
+    "ast_hash": "9db04df7adc07d6d46f1150ac8a98e18",
+    "semantic_hash": "9db04df7adc07d6d46f1150ac8a98e18"
+  },
+  "app/status/[state]/page.tsx": {
+    "mtime": 1784144158.4701135,
+    "ast_hash": "26a3d71a1679699cd6e48443041e0b57",
+    "semantic_hash": "26a3d71a1679699cd6e48443041e0b57"
+  },
+  "app/sustainability/page.tsx": {
+    "mtime": 1784144158.4706976,
+    "ast_hash": "16776d200e66f29f93b2e05424da1f60",
+    "semantic_hash": "16776d200e66f29f93b2e05424da1f60"
+  },
+  "app/template.tsx": {
+    "mtime": 1784490570.39274,
+    "ast_hash": "956f8fca76d3c534acf791599bf7caf4",
+    "semantic_hash": ""
+  },
+  "app/verify-email/page.tsx": {
+    "mtime": 1784144158.4715333,
+    "ast_hash": "b2d9b78bf37cc7330727b2d662b5f971",
+    "semantic_hash": "b2d9b78bf37cc7330727b2d662b5f971"
+  },
+  "app/wishlist/page.tsx": {
+    "mtime": 1784320301.505124,
+    "ast_hash": "f24df0f101de0c4f7fc1342ccfbe12f3",
+    "semantic_hash": "f24df0f101de0c4f7fc1342ccfbe12f3"
+  },
+  "backend/app/__init__.py": {
+    "mtime": 1781372023.807538,
+    "ast_hash": "c7640b53c0da510e54d28890dcf32be9",
+    "semantic_hash": "c7640b53c0da510e54d28890dcf32be9"
+  },
+  "backend/app/api/__init__.py": {
+    "mtime": 1781372025.0515857,
+    "ast_hash": "3457493424a67b7fafff2b3841d7fcba",
+    "semantic_hash": "3457493424a67b7fafff2b3841d7fcba"
+  },
+  "backend/app/api/routes.py": {
+    "mtime": 1781372025.1915205,
+    "ast_hash": "860235e9bd3c81092ad0edcabae36634",
+    "semantic_hash": "860235e9bd3c81092ad0edcabae36634"
+  },
+  "backend/app/core/__init__.py": {
+    "mtime": 1781372024.0887938,
+    "ast_hash": "9a123d4863a75dc99c0bbb025ed9137f",
+    "semantic_hash": "9a123d4863a75dc99c0bbb025ed9137f"
+  },
+  "backend/app/core/config.py": {
+    "mtime": 1781372024.2277412,
+    "ast_hash": "42af0c3ec3a491aabc7cd4f06ec92d08",
+    "semantic_hash": "42af0c3ec3a491aabc7cd4f06ec92d08"
+  },
+  "backend/app/db/__init__.py": {
+    "mtime": 1781372024.3651834,
+    "ast_hash": "fadd8d793a6622e48f5375c9182200bb",
+    "semantic_hash": "fadd8d793a6622e48f5375c9182200bb"
+  },
+  "backend/app/db/base.py": {
+    "mtime": 1781372024.5023978,
+    "ast_hash": "16deb2759f7de2cf86f328dce6b2d38b",
+    "semantic_hash": "16deb2759f7de2cf86f328dce6b2d38b"
+  },
+  "backend/app/db/session.py": {
+    "mtime": 1781372024.639974,
+    "ast_hash": "73a0628e416e252e35d9b983796484d9",
+    "semantic_hash": "73a0628e416e252e35d9b983796484d9"
+  },
+  "backend/app/main.py": {
+    "mtime": 1781372023.9487572,
+    "ast_hash": "06ac197b6fa2563272c46ed27c376f15",
+    "semantic_hash": "06ac197b6fa2563272c46ed27c376f15"
+  },
+  "backend/app/models/__init__.py": {
+    "mtime": 1781811468.3463187,
+    "ast_hash": "10f3c4d715ced0e8f61b10af1a8c8e72",
+    "semantic_hash": "10f3c4d715ced0e8f61b10af1a8c8e72"
+  },
+  "backend/app/models/admin_user.py": {
+    "mtime": 1781850298.4706807,
+    "ast_hash": "913781d672a72963c2a4dc6ebf95381d",
+    "semantic_hash": "913781d672a72963c2a4dc6ebf95381d"
+  },
+  "backend/app/models/customer.py": {
+    "mtime": 1781850298.471225,
+    "ast_hash": "c2ab7df1b2f30e7667ad53d2a413ef81",
+    "semantic_hash": "c2ab7df1b2f30e7667ad53d2a413ef81"
+  },
+  "backend/app/models/lead.py": {
+    "mtime": 1781372024.9123917,
+    "ast_hash": "4bb2879cb8f86c7b3218d9c5ef3c9956",
+    "semantic_hash": "4bb2879cb8f86c7b3218d9c5ef3c9956"
+  },
+  "backend/package.json": {
+    "mtime": 1784144158.4736397,
+    "ast_hash": "89a45e319596a77610b96ee645a5afae",
+    "semantic_hash": "89a45e319596a77610b96ee645a5afae"
+  },
+  "backend/src/__tests__/api.test.ts": {
+    "mtime": 1784144158.4748068,
+    "ast_hash": "93b6e2247426b8ea24831980f848acd8",
+    "semantic_hash": "93b6e2247426b8ea24831980f848acd8"
+  },
+  "backend/src/__tests__/auth.test.ts": {
+    "mtime": 1784320301.505889,
+    "ast_hash": "c778974b551d72604af3db1709b1e8e0",
+    "semantic_hash": "c778974b551d72604af3db1709b1e8e0"
+  },
+  "backend/src/__tests__/pricing.test.ts": {
+    "mtime": 1784144158.4755948,
+    "ast_hash": "83c7ccf49b4d05d2bf330a011cf0a249",
+    "semantic_hash": "83c7ccf49b4d05d2bf330a011cf0a249"
+  },
+  "backend/src/__tests__/validation.test.ts": {
+    "mtime": 1784144158.4758327,
+    "ast_hash": "4aaa7cdcc2adca325fb4eaea7c7d9f8c",
+    "semantic_hash": "4aaa7cdcc2adca325fb4eaea7c7d9f8c"
+  },
+  "backend/src/app.ts": {
+    "mtime": 1784144158.4760962,
+    "ast_hash": "77ac45015faa32bc0bece34a365de347",
+    "semantic_hash": "77ac45015faa32bc0bece34a365de347"
+  },
+  "backend/src/auth/authorization.ts": {
+    "mtime": 1784144158.4763634,
+    "ast_hash": "43e26be76216e8c88318445c127f33e2",
+    "semantic_hash": "43e26be76216e8c88318445c127f33e2"
+  },
+  "backend/src/auth/jwt.ts": {
+    "mtime": 1784320301.5064797,
+    "ast_hash": "83d1940bf22a4835bfb564a323f17d3c",
+    "semantic_hash": "83d1940bf22a4835bfb564a323f17d3c"
+  },
+  "backend/src/config/env.ts": {
+    "mtime": 1784144158.4773862,
+    "ast_hash": "df6694c98ecaaf7623149b8fb29a7ba8",
+    "semantic_hash": "df6694c98ecaaf7623149b8fb29a7ba8"
+  },
+  "backend/src/errors/api-error.ts": {
+    "mtime": 1784144158.4777246,
+    "ast_hash": "849ec95834c784c24bba9aaafcbcf73b",
+    "semantic_hash": "849ec95834c784c24bba9aaafcbcf73b"
+  },
+  "backend/src/lambda.ts": {
+    "mtime": 1784144158.4781117,
+    "ast_hash": "ee65810c0fb3ff6bef7d8d3de202e227",
+    "semantic_hash": "ee65810c0fb3ff6bef7d8d3de202e227"
+  },
+  "backend/src/local.ts": {
+    "mtime": 1784144158.4783711,
+    "ast_hash": "541ab22d26d3cf4ec8cc85084491215f",
+    "semantic_hash": "541ab22d26d3cf4ec8cc85084491215f"
+  },
+  "backend/src/middleware/auth.ts": {
+    "mtime": 1784144158.4789429,
+    "ast_hash": "6afe01c6c1e2a5362d90b2d27d8cb8e5",
+    "semantic_hash": "6afe01c6c1e2a5362d90b2d27d8cb8e5"
+  },
+  "backend/src/middleware/body-size-limit.ts": {
+    "mtime": 1784144158.4791749,
+    "ast_hash": "35ee690cd71b7e42847d9807ad17ae7d",
+    "semantic_hash": "35ee690cd71b7e42847d9807ad17ae7d"
+  },
+  "backend/src/middleware/cors.ts": {
+    "mtime": 1784144158.479384,
+    "ast_hash": "4a4b15967fdfa0cb9fd1e99985210c3c",
+    "semantic_hash": "4a4b15967fdfa0cb9fd1e99985210c3c"
+  },
+  "backend/src/middleware/error-handler.ts": {
+    "mtime": 1784144158.4796898,
+    "ast_hash": "1468a5c20b44cd011331eb82bc87633c",
+    "semantic_hash": "1468a5c20b44cd011331eb82bc87633c"
+  },
+  "backend/src/middleware/rate-limit.ts": {
+    "mtime": 1784144158.4800665,
+    "ast_hash": "958f33eece89173b9912731ac8f2eedd",
+    "semantic_hash": "958f33eece89173b9912731ac8f2eedd"
+  },
+  "backend/src/middleware/request-id.ts": {
+    "mtime": 1784144158.4809694,
+    "ast_hash": "7670e360f4b180f0a096d986915e9ec7",
+    "semantic_hash": "7670e360f4b180f0a096d986915e9ec7"
+  },
+  "backend/src/middleware/security.ts": {
+    "mtime": 1784144158.4815123,
+    "ast_hash": "4b76daad03e00d642881a0b0f6c3b409",
+    "semantic_hash": "4b76daad03e00d642881a0b0f6c3b409"
+  },
+  "backend/src/observability/logger.ts": {
+    "mtime": 1784144158.4825008,
+    "ast_hash": "95d28f3fbdb11e4e47eeca08e547f28a",
+    "semantic_hash": "95d28f3fbdb11e4e47eeca08e547f28a"
+  },
+  "backend/src/repositories/dynamodb.ts": {
+    "mtime": 1784144158.4837954,
+    "ast_hash": "d4eb2563894a366d361c67904e5c101f",
+    "semantic_hash": "d4eb2563894a366d361c67904e5c101f"
+  },
+  "backend/src/routes/account.ts": {
+    "mtime": 1784320301.5068834,
+    "ast_hash": "15b0ed5c3e86b96f48b824729c24cf62",
+    "semantic_hash": "15b0ed5c3e86b96f48b824729c24cf62"
+  },
+  "backend/src/routes/cart.ts": {
+    "mtime": 1784320301.5071583,
+    "ast_hash": "94c00c8fa35ee67a09a24ad29c04cde1",
+    "semantic_hash": "94c00c8fa35ee67a09a24ad29c04cde1"
+  },
+  "backend/src/routes/community.ts": {
+    "mtime": 1784144158.4879994,
+    "ast_hash": "ef51a2a02c56ee20354e0b1f404e8aba",
+    "semantic_hash": "ef51a2a02c56ee20354e0b1f404e8aba"
+  },
+  "backend/src/routes/content.ts": {
+    "mtime": 1784144158.4884484,
+    "ast_hash": "34ebd5782f21d667152f26b5abc5545b",
+    "semantic_hash": "34ebd5782f21d667152f26b5abc5545b"
+  },
+  "backend/src/routes/discounts.ts": {
+    "mtime": 1784144158.4911118,
+    "ast_hash": "e8a0ac84cf8474d1d5b4bcc03fda8f75",
+    "semantic_hash": "e8a0ac84cf8474d1d5b4bcc03fda8f75"
+  },
+  "backend/src/routes/health.ts": {
+    "mtime": 1784144158.49291,
+    "ast_hash": "d8ff677f1e6407a68509441c0c340740",
+    "semantic_hash": "d8ff677f1e6407a68509441c0c340740"
+  },
+  "backend/src/routes/newsletter.ts": {
+    "mtime": 1784144158.4937208,
+    "ast_hash": "17b455f0083396a932802d09773d8709",
+    "semantic_hash": "17b455f0083396a932802d09773d8709"
+  },
+  "backend/src/routes/orders.ts": {
+    "mtime": 1784144158.4943736,
+    "ast_hash": "14c5b0fdf7bedb7367387632ed7ca88d",
+    "semantic_hash": "14c5b0fdf7bedb7367387632ed7ca88d"
+  },
+  "backend/src/routes/products.ts": {
+    "mtime": 1784144158.4949722,
+    "ast_hash": "ef4801da46cc2ae7ce91c5682e1cb7ab",
+    "semantic_hash": "ef4801da46cc2ae7ce91c5682e1cb7ab"
+  },
+  "backend/src/services/catalog.ts": {
+    "mtime": 1784144158.4957957,
+    "ast_hash": "8581d55dadcf6129e0c6d18c7b5563dc",
+    "semantic_hash": "8581d55dadcf6129e0c6d18c7b5563dc"
+  },
+  "backend/src/services/marketing.ts": {
+    "mtime": 1784144158.4962294,
+    "ast_hash": "11fbc3649cd9e4566469aeeadba80121",
+    "semantic_hash": "11fbc3649cd9e4566469aeeadba80121"
+  },
+  "backend/src/services/pricing.ts": {
+    "mtime": 1784144158.4967723,
+    "ast_hash": "f06d0a38532bebe80ad1590590d6ab43",
+    "semantic_hash": "f06d0a38532bebe80ad1590590d6ab43"
+  },
+  "backend/src/services/user-data.ts": {
+    "mtime": 1784320301.5076122,
+    "ast_hash": "992aa03557b825d1f86cfc52c31792d2",
+    "semantic_hash": "992aa03557b825d1f86cfc52c31792d2"
+  },
+  "backend/src/types/context.ts": {
+    "mtime": 1784144158.4981554,
+    "ast_hash": "6290e39ae7552e9b69cedc00db165dbc",
+    "semantic_hash": "6290e39ae7552e9b69cedc00db165dbc"
+  },
+  "backend/src/utils/pagination.ts": {
+    "mtime": 1784144158.4984612,
+    "ast_hash": "0b33cdb336260656bdb9d3050a655c39",
+    "semantic_hash": "0b33cdb336260656bdb9d3050a655c39"
+  },
+  "backend/tsconfig.json": {
+    "mtime": 1784144158.49869,
+    "ast_hash": "da1b6ac0d277d9a0b6213d2a445f6d71",
+    "semantic_hash": "da1b6ac0d277d9a0b6213d2a445f6d71"
+  },
+  "components.json": {
+    "mtime": 1784144158.4991767,
+    "ast_hash": "c6969112d6ff82a80e8d23f0840df0e4",
+    "semantic_hash": "c6969112d6ff82a80e8d23f0840df0e4"
+  },
+  "components/AboutJourney.tsx": {
+    "mtime": 1782713295.0611002,
+    "ast_hash": "a44c186742edaced78648a233e85a73b",
+    "semantic_hash": "a44c186742edaced78648a233e85a73b"
+  },
+  "components/BrandImage.tsx": {
+    "mtime": 1784144158.4997609,
+    "ast_hash": "d76031750b16c30c768bc4e52e23a20b",
+    "semantic_hash": "d76031750b16c30c768bc4e52e23a20b"
+  },
+  "components/Footer.tsx": {
+    "mtime": 1784144158.5003726,
+    "ast_hash": "38d126f015ed51a30074b1f242a4be2f",
+    "semantic_hash": "38d126f015ed51a30074b1f242a4be2f"
+  },
+  "components/FounderProfiles.tsx": {
+    "mtime": 1782713295.0618405,
+    "ast_hash": "4a3d8f4043ef1a95b59ab44a408f489c",
+    "semantic_hash": "4a3d8f4043ef1a95b59ab44a408f489c"
+  },
+  "components/FounderStory.tsx": {
+    "mtime": 1782056034.2730384,
+    "ast_hash": "ecc0d45a1ea895f12eadae92f61f4a7b",
+    "semantic_hash": "ecc0d45a1ea895f12eadae92f61f4a7b"
+  },
+  "components/HeroStoryCanvas.tsx": {
+    "mtime": 1784144158.5011802,
+    "ast_hash": "35f1d477c9db749639f4edefaada5f24",
+    "semantic_hash": "35f1d477c9db749639f4edefaada5f24"
+  },
+  "components/HomeExperienceSections.tsx": {
+    "mtime": 1782752541.1113002,
+    "ast_hash": "ccb148277f6008948d26e54bbc3d70c7",
+    "semantic_hash": "ccb148277f6008948d26e54bbc3d70c7"
+  },
+  "components/JournalGrid.tsx": {
+    "mtime": 1782752541.112247,
+    "ast_hash": "89c2f9e61ec6d391e87bec0594fe2f57",
+    "semantic_hash": "89c2f9e61ec6d391e87bec0594fe2f57"
+  },
+  "components/Navigation.tsx": {
+    "mtime": 1784491305.224579,
+    "ast_hash": "7d6e8d0390ef3476b18d2901046eff86",
+    "semantic_hash": ""
+  },
+  "components/RecipeExplorer.tsx": {
+    "mtime": 1782752541.1131024,
+    "ast_hash": "8cf0a796c3bc72f0ceba81b5f2a45aa3",
+    "semantic_hash": "8cf0a796c3bc72f0ceba81b5f2a45aa3"
+  },
+  "components/about/ReferenceAboutPage.tsx": {
+    "mtime": 1784526338.3399055,
+    "ast_hash": "76737abf87f9c2531b0c8aac11077fd9",
+    "semantic_hash": ""
+  },
+  "components/admin/AdminDashboard.tsx": {
+    "mtime": 1784144158.5033557,
+    "ast_hash": "15f9fca189801860ab9948698af3d1f2",
+    "semantic_hash": "15f9fca189801860ab9948698af3d1f2"
+  },
+  "components/admin/AdminForms.tsx": {
+    "mtime": 1781888091.316553,
+    "ast_hash": "8b41f932d3a7e3df1b18e72a2a581419",
+    "semantic_hash": "8b41f932d3a7e3df1b18e72a2a581419"
+  },
+  "components/admin/AdminPathContext.tsx": {
+    "mtime": 1781850173.684344,
+    "ast_hash": "78b2d5d55621d5778648358dc947416e",
+    "semantic_hash": "78b2d5d55621d5778648358dc947416e"
+  },
+  "components/admin/AdminShell.tsx": {
+    "mtime": 1781850173.685142,
+    "ast_hash": "1564ac73ab6b619fa30bb85efd5cd771",
+    "semantic_hash": "1564ac73ab6b619fa30bb85efd5cd771"
+  },
+  "components/admin/ContentManager.tsx": {
+    "mtime": 1784492589.6218102,
+    "ast_hash": "478d8cdfa05f0ae39abb69d849fe578f",
+    "semantic_hash": ""
+  },
+  "components/auth/CustomerAccountDashboard.tsx": {
+    "mtime": 1784320301.5089722,
+    "ast_hash": "2446629d415f2014958f529158bd59c5",
+    "semantic_hash": "2446629d415f2014958f529158bd59c5"
+  },
+  "components/auth/CustomerAuthForms.tsx": {
+    "mtime": 1784144158.5045393,
+    "ast_hash": "c8340cacfa359381bdc4deda8202b7df",
+    "semantic_hash": "c8340cacfa359381bdc4deda8202b7df"
+  },
+  "components/auth/CustomerAuthProvider.tsx": {
+    "mtime": 1784144158.5052516,
+    "ast_hash": "047d018e812acc6171288fe113fc56fb",
+    "semantic_hash": "047d018e812acc6171288fe113fc56fb"
+  },
+  "components/auth/SavedContentGrid.tsx": {
+    "mtime": 1784320301.5095587,
+    "ast_hash": "8d8dc7ade98d639755c102b9bfc0e42c",
+    "semantic_hash": "8d8dc7ade98d639755c102b9bfc0e42c"
+  },
+  "components/brand/BrandPrimitives.tsx": {
+    "mtime": 1784144158.5058153,
+    "ast_hash": "49704de6abc2fcd095861a2f8b1d1d96",
+    "semantic_hash": "49704de6abc2fcd095861a2f8b1d1d96"
+  },
+  "components/cart/AddToCartButton.tsx": {
+    "mtime": 1782713295.064248,
+    "ast_hash": "20deb2c9da82c4cee70971a065603b10",
+    "semantic_hash": "20deb2c9da82c4cee70971a065603b10"
+  },
+  "components/cart/CartDrawer.tsx": {
+    "mtime": 1784494312.5587707,
+    "ast_hash": "b3362c093d4152d5b379b3c0b44ab668",
+    "semantic_hash": ""
+  },
+  "components/cart/CartPage.tsx": {
+    "mtime": 1784494732.201369,
+    "ast_hash": "d536a9f1f5e89c45e87eeccdbbc96dd3",
+    "semantic_hash": ""
+  },
+  "components/foundation/BentoGrid.tsx": {
+    "mtime": 1784144158.5077977,
+    "ast_hash": "c1fb403f32eb4e38bb763d95cafc934e",
+    "semantic_hash": "c1fb403f32eb4e38bb763d95cafc934e"
+  },
+  "components/foundation/Button.tsx": {
+    "mtime": 1784144158.5081675,
+    "ast_hash": "e07e56f19e81c52621b3100231731783",
+    "semantic_hash": "e07e56f19e81c52621b3100231731783"
+  },
+  "components/foundation/CounterStat.tsx": {
+    "mtime": 1784144158.5086644,
+    "ast_hash": "7d11be337e19d8d39ef07f11cf8eb935",
+    "semantic_hash": "7d11be337e19d8d39ef07f11cf8eb935"
+  },
+  "components/foundation/Footer.tsx": {
+    "mtime": 1784144158.5091045,
+    "ast_hash": "f64075b440a97c8c3c0241d0dd6ccc6e",
+    "semantic_hash": "f64075b440a97c8c3c0241d0dd6ccc6e"
+  },
+  "components/foundation/FounderCard.tsx": {
+    "mtime": 1784144158.509471,
+    "ast_hash": "26b2f706078a851a3ff6c2997be8bb02",
+    "semantic_hash": "26b2f706078a851a3ff6c2997be8bb02"
+  },
+  "components/foundation/GlassCard.tsx": {
+    "mtime": 1784144158.5098884,
+    "ast_hash": "65e77ca045a773c82a8db97f673ae377",
+    "semantic_hash": "65e77ca045a773c82a8db97f673ae377"
+  },
+  "components/foundation/Header.tsx": {
+    "mtime": 1784144158.5103745,
+    "ast_hash": "335d022af0ee980ea614814a2920f5cd",
+    "semantic_hash": "335d022af0ee980ea614814a2920f5cd"
+  },
+  "components/foundation/ImageBlendBlock.tsx": {
+    "mtime": 1784144158.5110404,
+    "ast_hash": "bd396054e7b9bcbec6a7ae52cbae6ba6",
+    "semantic_hash": "bd396054e7b9bcbec6a7ae52cbae6ba6"
+  },
+  "components/foundation/JournalCard.tsx": {
+    "mtime": 1784144158.5115452,
+    "ast_hash": "8de62410a849636a88fb8b402aafbe55",
+    "semantic_hash": "8de62410a849636a88fb8b402aafbe55"
+  },
+  "components/foundation/MobileDrawer.tsx": {
+    "mtime": 1784144158.5123353,
+    "ast_hash": "c5e8eca2622be7799fab433f9741f130",
+    "semantic_hash": "c5e8eca2622be7799fab433f9741f130"
+  },
+  "components/foundation/MoreProductsCloud.tsx": {
+    "mtime": 1784144158.5127606,
+    "ast_hash": "d8e157d05fd6ba5d0e74b9b5687a1283",
+    "semantic_hash": "d8e157d05fd6ba5d0e74b9b5687a1283"
+  },
+  "components/foundation/NeumorphicCard.tsx": {
+    "mtime": 1784144158.5132575,
+    "ast_hash": "37681ecc7bd05a0e260b616039170ddb",
+    "semantic_hash": "37681ecc7bd05a0e260b616039170ddb"
+  },
+  "components/foundation/ProductCard.tsx": {
+    "mtime": 1784144158.5136633,
+    "ast_hash": "a410d3d60680ac90c663b43097b9f0d7",
+    "semantic_hash": "a410d3d60680ac90c663b43097b9f0d7"
+  },
+  "components/foundation/RecipeCard.tsx": {
+    "mtime": 1784144158.514126,
+    "ast_hash": "521a9d31c3f81b6baeef0a40554e4389",
+    "semantic_hash": "521a9d31c3f81b6baeef0a40554e4389"
+  },
+  "components/foundation/SectionHeading.tsx": {
+    "mtime": 1784144158.514593,
+    "ast_hash": "c403e6768c437f08ead63487b0e0af24",
+    "semantic_hash": "c403e6768c437f08ead63487b0e0af24"
+  },
+  "components/foundation/index.ts": {
+    "mtime": 1784144158.5150487,
+    "ast_hash": "e16df148b2e26b75ca3edd7b9c30663e",
+    "semantic_hash": "e16df148b2e26b75ca3edd7b9c30663e"
+  },
+  "components/founders/ReferenceFoundersPage.tsx": {
+    "mtime": 1784144158.5169766,
+    "ast_hash": "a4458e455fe5ce81eabbe96232904a0b",
+    "semantic_hash": "a4458e455fe5ce81eabbe96232904a0b"
+  },
+  "components/home/ReferenceHomePage.tsx": {
+    "mtime": 1784492589.622216,
+    "ast_hash": "3bde7a507ac1e911fb23e338b5d54de5",
+    "semantic_hash": ""
+  },
+  "components/journal/ReferenceJournalPage.tsx": {
+    "mtime": 1784144158.5188456,
+    "ast_hash": "633083989dd56c3b956db3783dbc62e6",
+    "semantic_hash": "633083989dd56c3b956db3783dbc62e6"
+  },
+  "components/journal/SocialCocreationHub.tsx": {
+    "mtime": 1784144158.5193238,
+    "ast_hash": "04e7f7ddb4fa7f5a03781a15733e5fc4",
+    "semantic_hash": "04e7f7ddb4fa7f5a03781a15733e5fc4"
+  },
+  "components/launch/ContactQuickForm.tsx": {
+    "mtime": 1784144158.5196989,
+    "ast_hash": "3c8ba0a4bb3841a40feb40b679d9977e",
+    "semantic_hash": "3c8ba0a4bb3841a40feb40b679d9977e"
+  },
+  "components/launch/CookiePreferencesButton.tsx": {
+    "mtime": 1784144158.5200558,
+    "ast_hash": "8d0e11b67938061bf6f5b497daf9ae69",
+    "semantic_hash": "8d0e11b67938061bf6f5b497daf9ae69"
+  },
+  "components/launch/LaunchExperience.tsx": {
+    "mtime": 1784144158.520435,
+    "ast_hash": "ad56a829e496081112dd7ff6fd2b9e53",
+    "semantic_hash": "ad56a829e496081112dd7ff6fd2b9e53"
+  },
+  "components/launch/NewsletterForm.tsx": {
+    "mtime": 1784144158.5207462,
+    "ast_hash": "7b28621b4e60618469c9b06d544cb800",
+    "semantic_hash": "7b28621b4e60618469c9b06d544cb800"
+  },
+  "components/launch/StatePanel.tsx": {
+    "mtime": 1784144158.5217123,
+    "ast_hash": "b68b227f3ab5a48da8dfdb4fe60d6afd",
+    "semantic_hash": "b68b227f3ab5a48da8dfdb4fe60d6afd"
+  },
+  "components/launch/UtilityPage.tsx": {
+    "mtime": 1784144158.5222044,
+    "ast_hash": "ab97f5e41214e498c29bfcdd942b8161",
+    "semantic_hash": "ab97f5e41214e498c29bfcdd942b8161"
+  },
+  "components/media/ResponsiveImage.tsx": {
+    "mtime": 1784144158.523259,
+    "ast_hash": "9099f1bc8c3ad4fe6466f7c42ab4b140",
+    "semantic_hash": "9099f1bc8c3ad4fe6466f7c42ab4b140"
+  },
+  "components/motion/ImageReveal.tsx": {
+    "mtime": 1784490570.3909516,
+    "ast_hash": "18b77e70fa8a751417f30d76e81e78ea",
+    "semantic_hash": ""
+  },
+  "components/motion/MagneticButton.tsx": {
+    "mtime": 1784144158.524101,
+    "ast_hash": "49825778f2fbc488a496d3ccf55ebeb7",
+    "semantic_hash": "49825778f2fbc488a496d3ccf55ebeb7"
+  },
+  "components/motion/MotionMarquee.tsx": {
+    "mtime": 1784144158.5247653,
+    "ast_hash": "319db930ec9fb30b3e2c700847c86a0a",
+    "semantic_hash": "319db930ec9fb30b3e2c700847c86a0a"
+  },
+  "components/motion/ScrollStory.tsx": {
+    "mtime": 1784144158.5250332,
+    "ast_hash": "fe955c3ccd44f719a5190b5ea5aa765d",
+    "semantic_hash": "fe955c3ccd44f719a5190b5ea5aa765d"
+  },
+  "components/motion/TextReveal.tsx": {
+    "mtime": 1784490867.6497788,
+    "ast_hash": "83f5fb44e18ee6a822fa1ec53e25181a",
+    "semantic_hash": ""
+  },
+  "components/motion/index.ts": {
+    "mtime": 1784490570.392405,
+    "ast_hash": "78866497c62e45bb5d86cc36189c56fb",
+    "semantic_hash": ""
+  },
+  "components/providers/LenisProvider.tsx": {
+    "mtime": 1784144158.5261636,
+    "ast_hash": "0371a2036f4de5bddf25c5443ca1d489",
+    "semantic_hash": "0371a2036f4de5bddf25c5443ca1d489"
+  },
+  "components/recipes/RecipeDetailPage.tsx": {
+    "mtime": 1784144158.5265136,
+    "ast_hash": "109f35d6d9c285f7c92b5c484bc45165",
+    "semantic_hash": "109f35d6d9c285f7c92b5c484bc45165"
+  },
+  "components/recipes/ReferenceRecipesPage.tsx": {
+    "mtime": 1784320301.5136259,
+    "ast_hash": "54136c1c678f4e9eef01325ba1126973",
+    "semantic_hash": "54136c1c678f4e9eef01325ba1126973"
+  },
+  "components/recipes/recipe-data.ts": {
+    "mtime": 1784144158.527235,
+    "ast_hash": "14df6e4cbc2ef50703ccc22e314afe57",
+    "semantic_hash": "14df6e4cbc2ef50703ccc22e314afe57"
+  },
+  "components/security/recaptcha.ts": {
+    "mtime": 1781852891.8250406,
+    "ast_hash": "44c375e49f63b67338a32e3850faf310",
+    "semantic_hash": "44c375e49f63b67338a32e3850faf310"
+  },
+  "components/seo/Analytics.tsx": {
+    "mtime": 1784144158.527604,
+    "ast_hash": "29c91b6cc54b6221a4eebe544472e874",
+    "semantic_hash": "29c91b6cc54b6221a4eebe544472e874"
+  },
+  "components/seo/ConsentDefaults.tsx": {
+    "mtime": 1784144158.527967,
+    "ast_hash": "474936a6d4843db6c73b4465d712ef27",
+    "semantic_hash": "474936a6d4843db6c73b4465d712ef27"
+  },
+  "components/seo/StructuredData.tsx": {
+    "mtime": 1784320301.5141864,
+    "ast_hash": "8633daf11ec85842cefd39acacf64da4",
+    "semantic_hash": "8633daf11ec85842cefd39acacf64da4"
+  },
+  "components/shop/ReferenceShopPage.tsx": {
+    "mtime": 1784493120.0000994,
+    "ast_hash": "aa904da3e916dda2f25c130b493587eb",
+    "semantic_hash": ""
+  },
+  "components/sustainability/ReferenceSustainabilityPage.tsx": {
+    "mtime": 1784144158.5289838,
+    "ast_hash": "3bc73ce08cff2c5b73ad48fccf0162cf",
+    "semantic_hash": "3bc73ce08cff2c5b73ad48fccf0162cf"
+  },
+  "components/ui/button.tsx": {
+    "mtime": 1784144158.529353,
+    "ast_hash": "be9e78d5030ed071046d5b92e5187985",
+    "semantic_hash": "be9e78d5030ed071046d5b92e5187985"
+  },
+  "data/journal.ts": {
+    "mtime": 1784144158.5298038,
+    "ast_hash": "f96a9ce891bbf0c801bdee31bb03fecd",
+    "semantic_hash": "f96a9ce891bbf0c801bdee31bb03fecd"
+  },
+  "eslint.config.mjs": {
+    "mtime": 1784144158.5449092,
+    "ast_hash": "97e22d9f114cc1a6d24cfa3c53b17cd2",
+    "semantic_hash": "97e22d9f114cc1a6d24cfa3c53b17cd2"
+  },
+  "firebase.json": {
+    "mtime": 1781850208.0034215,
+    "ast_hash": "2d6eaea96e1ef3f3e375e7f541c9a59f",
+    "semantic_hash": "2d6eaea96e1ef3f3e375e7f541c9a59f"
+  },
+  "infra/bin/dotco-backend.ts": {
+    "mtime": 1784144158.5453062,
+    "ast_hash": "8e183df89d55e30687919c34cda5ce28",
+    "semantic_hash": "8e183df89d55e30687919c34cda5ce28"
+  },
+  "infra/cdk.json": {
+    "mtime": 1784144158.5456166,
+    "ast_hash": "b273fcab39840db328d329621e80ee3e",
+    "semantic_hash": "b273fcab39840db328d329621e80ee3e"
+  },
+  "infra/lib/dotco-backend-stack.ts": {
+    "mtime": 1784144158.5462687,
+    "ast_hash": "880150306d1a836dac43845d790455bb",
+    "semantic_hash": "880150306d1a836dac43845d790455bb"
+  },
+  "infra/package.json": {
+    "mtime": 1784144158.5474458,
+    "ast_hash": "da524558fa745adb6fb803cbddb224a8",
+    "semantic_hash": "da524558fa745adb6fb803cbddb224a8"
+  },
+  "infra/test/stack.test.ts": {
+    "mtime": 1784144158.5480044,
+    "ast_hash": "415bec19f2429a03007748074642095d",
+    "semantic_hash": "415bec19f2429a03007748074642095d"
+  },
+  "infra/tsconfig.json": {
+    "mtime": 1784144158.548604,
+    "ast_hash": "1d281845f2045dc356a9d581a221938a",
+    "semantic_hash": "1d281845f2045dc356a9d581a221938a"
+  },
+  "lib/admin/actions.ts": {
+    "mtime": 1781877704.9753265,
+    "ast_hash": "472321e31ed527df7d6da847e63a80dd",
+    "semantic_hash": "472321e31ed527df7d6da847e63a80dd"
+  },
+  "lib/admin/audit.ts": {
+    "mtime": 1781852905.3460033,
+    "ast_hash": "39fea48fc1033087766e9d60b38a13ed",
+    "semantic_hash": "39fea48fc1033087766e9d60b38a13ed"
+  },
+  "lib/admin/auth-config.ts": {
+    "mtime": 1781811214.1083112,
+    "ast_hash": "8cb7362fb39345d45addc310949d05e2",
+    "semantic_hash": "8cb7362fb39345d45addc310949d05e2"
+  },
+  "lib/admin/auth.ts": {
+    "mtime": 1782765934.4304054,
+    "ast_hash": "b0b08ee32e6950a50b2fad8ee32d1790",
+    "semantic_hash": "b0b08ee32e6950a50b2fad8ee32d1790"
+  },
+  "lib/admin/data.ts": {
+    "mtime": 1784144158.548969,
+    "ast_hash": "7b185c619905509015a999dc47881370",
+    "semantic_hash": "7b185c619905509015a999dc47881370"
+  },
+  "lib/admin/media-actions.ts": {
+    "mtime": 1781876189.776204,
+    "ast_hash": "f4930728f3d769b984ed7ee15c58e8ff",
+    "semantic_hash": "f4930728f3d769b984ed7ee15c58e8ff"
+  },
+  "lib/admin/path.ts": {
+    "mtime": 1781850159.471043,
+    "ast_hash": "e0b40d7f1ce849118eea5dfc033be771",
+    "semantic_hash": "e0b40d7f1ce849118eea5dfc033be771"
+  },
+  "lib/admin/rbac.ts": {
+    "mtime": 1781872663.391331,
+    "ast_hash": "8d029696224e9a6e1f56e804055d572d",
+    "semantic_hash": "8d029696224e9a6e1f56e804055d572d"
+  },
+  "lib/analytics/events.ts": {
+    "mtime": 1784144158.5493133,
+    "ast_hash": "0f9bcf92b1fdcbc6963d02b2edbad73e",
+    "semantic_hash": "0f9bcf92b1fdcbc6963d02b2edbad73e"
+  },
+  "lib/animation/gsap-scrolltrigger.ts": {
+    "mtime": 1784144158.549721,
+    "ast_hash": "99fc4f20b1752827be11265d45042e37",
+    "semantic_hash": "99fc4f20b1752827be11265d45042e37"
+  },
+  "lib/animation/motion-constants.ts": {
+    "mtime": 1784144158.549958,
+    "ast_hash": "a56853b30305c016d2a79019a7b7d31b",
+    "semantic_hash": "a56853b30305c016d2a79019a7b7d31b"
+  },
+  "lib/animations/coconut-motion.ts": {
+    "mtime": 1784144158.5502827,
+    "ast_hash": "16e90ecd0e7d60826f5078576750171e",
+    "semantic_hash": "16e90ecd0e7d60826f5078576750171e"
+  },
+  "lib/auth/aws-cookie.ts": {
+    "mtime": 1784144158.5505276,
+    "ast_hash": "8e7a69020b6f3b6ae58520cc2f0968d3",
+    "semantic_hash": "8e7a69020b6f3b6ae58520cc2f0968d3"
+  },
+  "lib/auth/aws-session.ts": {
+    "mtime": 1784144158.5507815,
+    "ast_hash": "221d9f261be43fe07a6edee8c89ec3b7",
+    "semantic_hash": "221d9f261be43fe07a6edee8c89ec3b7"
+  },
+  "lib/auth/cognito-bff.ts": {
+    "mtime": 1784144158.55102,
+    "ast_hash": "01cd3cd77a9c1b803a488b8ca8cc3555",
+    "semantic_hash": "01cd3cd77a9c1b803a488b8ca8cc3555"
+  },
+  "lib/auth/supabase-auth.ts": {
+    "mtime": 1781433613.9210353,
+    "ast_hash": "f1505f6fc0e92d4e9c52003b77752476",
+    "semantic_hash": "f1505f6fc0e92d4e9c52003b77752476"
+  },
+  "lib/auth/verification-state.ts": {
+    "mtime": 1784144158.5513663,
+    "ast_hash": "6e564eb8515e91a69bd46ecaa246dc8d",
+    "semantic_hash": "6e564eb8515e91a69bd46ecaa246dc8d"
+  },
+  "lib/backend/api-client.ts": {
+    "mtime": 1784144158.5519552,
+    "ast_hash": "fb8b259fb59d51cb97ba78dbf8b26b9d",
+    "semantic_hash": "fb8b259fb59d51cb97ba78dbf8b26b9d"
+  },
+  "lib/backend/server-api-client.ts": {
+    "mtime": 1784144158.5523076,
+    "ast_hash": "ba534c29e48d4298b349b0dc4403d44e",
+    "semantic_hash": "ba534c29e48d4298b349b0dc4403d44e"
+  },
+  "lib/cart/cart-context.tsx": {
+    "mtime": 1784533970.8804471,
+    "ast_hash": "00642ee182cd82cf38bf2bf1e3f8aa8f",
+    "semantic_hash": ""
+  },
+  "lib/catalog.ts": {
+    "mtime": 1782713295.0721107,
+    "ast_hash": "8ee88ef274288ccda5a4e6ffefd6a3a6",
+    "semantic_hash": "8ee88ef274288ccda5a4e6ffefd6a3a6"
+  },
+  "lib/content.ts": {
+    "mtime": 1782713295.0725462,
+    "ast_hash": "aaeb42c336c7bc381427b8648c9800b3",
+    "semantic_hash": "aaeb42c336c7bc381427b8648c9800b3"
+  },
+  "lib/content/actions.ts": {
+    "mtime": 1782752541.1207783,
+    "ast_hash": "23b305fa9790f2bc6e0be8bc948cc7de",
+    "semantic_hash": "23b305fa9790f2bc6e0be8bc948cc7de"
+  },
+  "lib/content/content-source.ts": {
+    "mtime": 1784144158.5531209,
+    "ast_hash": "36d317e594314641db60b2ebf40b87e5",
+    "semantic_hash": "36d317e594314641db60b2ebf40b87e5"
+  },
+  "lib/content/fallback-data.ts": {
+    "mtime": 1784492589.621095,
+    "ast_hash": "5c6437bfd9e6be2aa463b8010681ff88",
+    "semantic_hash": ""
+  },
+  "lib/content/revalidate.ts": {
+    "mtime": 1784144158.5540576,
+    "ast_hash": "1990434362b4117fc20763b29bc26203",
+    "semantic_hash": "1990434362b4117fc20763b29bc26203"
+  },
+  "lib/content/server.ts": {
+    "mtime": 1782752541.1251445,
+    "ast_hash": "cada5b069726ed32bb690b1fcc5472b7",
+    "semantic_hash": "cada5b069726ed32bb690b1fcc5472b7"
+  },
+  "lib/content/types.ts": {
+    "mtime": 1784492589.6204858,
+    "ast_hash": "f619e242fdb501f65de68ec69c1ee00e",
+    "semantic_hash": ""
+  },
+  "lib/content/validation.ts": {
+    "mtime": 1784492589.621524,
+    "ast_hash": "deef212fef9aa7e020ad8a6909891d38",
+    "semantic_hash": ""
+  },
+  "lib/customer/actions.ts": {
+    "mtime": 1784320301.5159755,
+    "ast_hash": "a8dea08942c66319dd475abfdef31abd",
+    "semantic_hash": "a8dea08942c66319dd475abfdef31abd"
+  },
+  "lib/customer/auth-config.ts": {
+    "mtime": 1784144158.5547814,
+    "ast_hash": "90cb66cde23dc3038b5049728723aa4c",
+    "semantic_hash": "90cb66cde23dc3038b5049728723aa4c"
+  },
+  "lib/customer/auth.ts": {
+    "mtime": 1784144158.5550766,
+    "ast_hash": "2efc54c4c9a98dc20b02c4fb353c13fc",
+    "semantic_hash": "2efc54c4c9a98dc20b02c4fb353c13fc"
+  },
+  "lib/customer/aws-api.ts": {
+    "mtime": 1784320301.516884,
+    "ast_hash": "ad80136207ea9d3bdd9c3b5c55602b7a",
+    "semantic_hash": "ad80136207ea9d3bdd9c3b5c55602b7a"
+  },
+  "lib/customer/display-name.ts": {
+    "mtime": 1784144158.555288,
+    "ast_hash": "82b839119d624e72439c38cde64e3c23",
+    "semantic_hash": "82b839119d624e72439c38cde64e3c23"
+  },
+  "lib/customer/use-saved-content.ts": {
+    "mtime": 1784320301.517268,
+    "ast_hash": "8403886b057f308a3fe188c8889b95d1",
+    "semantic_hash": "8403886b057f308a3fe188c8889b95d1"
+  },
+  "lib/firebase/admin.ts": {
+    "mtime": 1781877724.541428,
+    "ast_hash": "557d5b06cccbd393947fa84c5fa3a310",
+    "semantic_hash": "557d5b06cccbd393947fa84c5fa3a310"
+  },
+  "lib/firebase/auth-rest.ts": {
+    "mtime": 1781877580.3415976,
+    "ast_hash": "d757629d20b7504b394b3c877c91a566",
+    "semantic_hash": "d757629d20b7504b394b3c877c91a566"
+  },
+  "lib/firebase/client.ts": {
+    "mtime": 1781876256.4594502,
+    "ast_hash": "c63617c964f0b4050ad58e3094a0b057",
+    "semantic_hash": "c63617c964f0b4050ad58e3094a0b057"
+  },
+  "lib/firebase/collections.ts": {
+    "mtime": 1782752541.1280367,
+    "ast_hash": "07f701beceda4c778e29f0f52e2b9525",
+    "semantic_hash": "07f701beceda4c778e29f0f52e2b9525"
+  },
+  "lib/firebase/config.ts": {
+    "mtime": 1782752541.1283934,
+    "ast_hash": "0a8107c940715052cfd40b5dde850993",
+    "semantic_hash": "0a8107c940715052cfd40b5dde850993"
+  },
+  "lib/firebase/models.ts": {
+    "mtime": 1781852806.3405428,
+    "ast_hash": "bfb5caff4ef3ec2033586dc5e788725a",
+    "semantic_hash": "bfb5caff4ef3ec2033586dc5e788725a"
+  },
+  "lib/generated/image-inventory.json": {
+    "mtime": 1784320301.5178933,
+    "ast_hash": "8be2afc8efa8b31bdc0431f309628639",
+    "semantic_hash": "8be2afc8efa8b31bdc0431f309628639"
+  },
+  "lib/generated/optimized-image-manifest.json": {
+    "mtime": 1784320301.5184848,
+    "ast_hash": "1dfbb8c9b151606ecb951e0ac3f4acff",
+    "semantic_hash": "1dfbb8c9b151606ecb951e0ac3f4acff"
+  },
+  "lib/journal-metrics.ts": {
+    "mtime": 1784144158.5565708,
+    "ast_hash": "0d276e28e7268f12e965b5d7b7f876ba",
+    "semantic_hash": "0d276e28e7268f12e965b5d7b7f876ba"
+  },
+  "lib/launch-pages.ts": {
+    "mtime": 1784144158.5569434,
+    "ast_hash": "ba8a6cd001f35d3bb504c49e5008ebba",
+    "semantic_hash": "ba8a6cd001f35d3bb504c49e5008ebba"
+  },
+  "lib/motion/easings.ts": {
+    "mtime": 1784144158.5572634,
+    "ast_hash": "b0430c777ab1214b5e10554f81540a48",
+    "semantic_hash": "b0430c777ab1214b5e10554f81540a48"
+  },
+  "lib/motion/reduced-motion.ts": {
+    "mtime": 1784320301.5189335,
+    "ast_hash": "afcd43d2e944087de801e3896294d305",
+    "semantic_hash": "afcd43d2e944087de801e3896294d305"
+  },
+  "lib/motion/scroll.ts": {
+    "mtime": 1784490867.6502855,
+    "ast_hash": "52fafc2d7ad129ac19704643515ef1cd",
+    "semantic_hash": ""
+  },
+  "lib/privacy/consent.ts": {
+    "mtime": 1784144158.5583935,
+    "ast_hash": "078a16f80e8aec456cb96bdd5ae9d8db",
+    "semantic_hash": "078a16f80e8aec456cb96bdd5ae9d8db"
+  },
+  "lib/public-assets.ts": {
+    "mtime": 1784144158.5588706,
+    "ast_hash": "e5c2fa3321e32ac924168639d6b1f5a4",
+    "semantic_hash": "e5c2fa3321e32ac924168639d6b1f5a4"
+  },
+  "lib/security/actions.ts": {
+    "mtime": 1781852876.5941978,
+    "ast_hash": "8a45fcd1396f31458c2d468df248bfb0",
+    "semantic_hash": "8a45fcd1396f31458c2d468df248bfb0"
+  },
+  "lib/security/events.ts": {
+    "mtime": 1781852826.493206,
+    "ast_hash": "9a0028980ed2945ddeaf00fe7d82a811",
+    "semantic_hash": "9a0028980ed2945ddeaf00fe7d82a811"
+  },
+  "lib/security/rate-limit.ts": {
+    "mtime": 1781852843.5804324,
+    "ast_hash": "80ec6ffc261f17e35be38cb65c7b51a1",
+    "semantic_hash": "80ec6ffc261f17e35be38cb65c7b51a1"
+  },
+  "lib/security/recaptcha.ts": {
+    "mtime": 1781852861.0561733,
+    "ast_hash": "4b62b16d80a3801b60e11f27b5ee4af0",
+    "semantic_hash": "4b62b16d80a3801b60e11f27b5ee4af0"
+  },
+  "lib/security/request.ts": {
+    "mtime": 1781852816.0647676,
+    "ast_hash": "dce64827383f6bbfae062db7ba193f84",
+    "semantic_hash": "dce64827383f6bbfae062db7ba193f84"
+  },
+  "lib/seo/metadata.ts": {
+    "mtime": 1784144158.5592113,
+    "ast_hash": "bd1a7258f6226f04aee48ba11a5c5fea",
+    "semantic_hash": "bd1a7258f6226f04aee48ba11a5c5fea"
+  },
+  "lib/seo/structured-data.ts": {
+    "mtime": 1784320301.51941,
+    "ast_hash": "d9ab1d2fb07f47f6519d381f5f47caa8",
+    "semantic_hash": "d9ab1d2fb07f47f6519d381f5f47caa8"
+  },
+  "lib/ui/use-body-scroll-lock.ts": {
+    "mtime": 1784144158.560121,
+    "ast_hash": "f620cd528e2e9ae422f8dce8b1066f7e",
+    "semantic_hash": "f620cd528e2e9ae422f8dce8b1066f7e"
+  },
+  "lib/utils.ts": {
+    "mtime": 1784144158.5604196,
+    "ast_hash": "d9837f38cc05303254571985e3164050",
+    "semantic_hash": "d9837f38cc05303254571985e3164050"
+  },
+  "middleware.ts": {
+    "mtime": 1784144158.5607462,
+    "ast_hash": "a5a3f4ce85a626ec34b7d89add745c1a",
+    "semantic_hash": "a5a3f4ce85a626ec34b7d89add745c1a"
+  },
+  "next-env.d.ts": {
+    "mtime": 1784144158.561256,
+    "ast_hash": "ba64ff7d54714a8f64db89b1003207d8",
+    "semantic_hash": "ba64ff7d54714a8f64db89b1003207d8"
+  },
+  "next.config.mjs": {
+    "mtime": 1784144158.5615356,
+    "ast_hash": "836c9d5083a5835123e1d32c5f6661aa",
+    "semantic_hash": "836c9d5083a5835123e1d32c5f6661aa"
+  },
+  "package.json": {
+    "mtime": 1784493268.4712064,
+    "ast_hash": "20356a5c9603d854eeaee0374b11fc56",
+    "semantic_hash": ""
+  },
+  "packages/contracts/package.json": {
+    "mtime": 1784144158.563178,
+    "ast_hash": "be17a5afc1ef803270dd593880d9fbc9",
+    "semantic_hash": "be17a5afc1ef803270dd593880d9fbc9"
+  },
+  "packages/contracts/src/contracts.test.ts": {
+    "mtime": 1784320301.524586,
+    "ast_hash": "645f5553e15114bb54445b7189e4ec00",
+    "semantic_hash": "645f5553e15114bb54445b7189e4ec00"
+  },
+  "packages/contracts/src/index.ts": {
+    "mtime": 1784320301.5250168,
+    "ast_hash": "e4680c1b03a51b31c4058065ed204f32",
+    "semantic_hash": "e4680c1b03a51b31c4058065ed204f32"
+  },
+  "packages/contracts/tsconfig.json": {
+    "mtime": 1784144158.5642512,
+    "ast_hash": "75ed391c51ca15754c3fc781cf330d5f",
+    "semantic_hash": "75ed391c51ca15754c3fc781cf330d5f"
+  },
+  "postcss.config.js": {
+    "mtime": 1781371856.4839742,
+    "ast_hash": "86e9e20e4c60281535291ad9a3b993f6",
+    "semantic_hash": "86e9e20e4c60281535291ad9a3b993f6"
+  },
+  "public/assets/ASSET_MANIFEST.json": {
+    "mtime": 1781374393.5631232,
+    "ast_hash": "46fa6d8a8d7763b993164d3af2a7c6dd",
+    "semantic_hash": "46fa6d8a8d7763b993164d3af2a7c6dd"
+  },
+  "public/assets/media-library.generated.json": {
+    "mtime": 1784144159.1819248,
+    "ast_hash": "aa9a7fda61533868f6205b62ffb0ee76",
+    "semantic_hash": "aa9a7fda61533868f6205b62ffb0ee76"
+  },
+  "scripts/aws-dev-verify.mjs": {
+    "mtime": 1784144159.5706384,
+    "ast_hash": "f1b2afd1d04bb04b4ef83ebfdbe43b0e",
+    "semantic_hash": "f1b2afd1d04bb04b4ef83ebfdbe43b0e"
+  },
+  "scripts/aws-whoami.mjs": {
+    "mtime": 1784144159.5709643,
+    "ast_hash": "27d8cf18678e5a09c39fbd4604cbd92d",
+    "semantic_hash": "27d8cf18678e5a09c39fbd4604cbd92d"
+  },
+  "scripts/bootstrap-admin.ts": {
+    "mtime": 1781872877.767964,
+    "ast_hash": "27045d743d6e728d13d3ded67dcd1da0",
+    "semantic_hash": "27045d743d6e728d13d3ded67dcd1da0"
+  },
+  "scripts/create-transparent-assets.mjs": {
+    "mtime": 1781435377.3802202,
+    "ast_hash": "8d20265a81a9657cab32962aecdbfba9",
+    "semantic_hash": "8d20265a81a9657cab32962aecdbfba9"
+  },
+  "scripts/fetch-assets.mjs": {
+    "mtime": 1781374377.3381588,
+    "ast_hash": "d54382d847912ec7473db3f9596c4f87",
+    "semantic_hash": "d54382d847912ec7473db3f9596c4f87"
+  },
+  "scripts/firebase-audit.ts": {
+    "mtime": 1784144159.5712771,
+    "ast_hash": "fabfa956963d7a254c15af1512026c39",
+    "semantic_hash": "fabfa956963d7a254c15af1512026c39"
+  },
+  "scripts/firestore-backup.ts": {
+    "mtime": 1781872720.4546673,
+    "ast_hash": "06415e1d0d138717fd4808971ab52d50",
+    "semantic_hash": "06415e1d0d138717fd4808971ab52d50"
+  },
+  "scripts/firestore-restore.ts": {
+    "mtime": 1781872732.2522087,
+    "ast_hash": "8288b48266cc00e03101bae47d1826f2",
+    "semantic_hash": "8288b48266cc00e03101bae47d1826f2"
+  },
+  "scripts/generate-consumer-assets.mjs": {
+    "mtime": 1781465135.683034,
+    "ast_hash": "2436997f1fe19c90200462cab0b5c860",
+    "semantic_hash": "2436997f1fe19c90200462cab0b5c860"
+  },
+  "scripts/generate-favicons.mjs": {
+    "mtime": 1781425168.012897,
+    "ast_hash": "a2fcc2290ac0ba8b23e57bbc84498b2e",
+    "semantic_hash": "a2fcc2290ac0ba8b23e57bbc84498b2e"
+  },
+  "scripts/generate-media-library.ts": {
+    "mtime": 1781876137.573797,
+    "ast_hash": "946728fdd766757461a22482cc6832cd",
+    "semantic_hash": "946728fdd766757461a22482cc6832cd"
+  },
+  "scripts/godaddy-dns-sync.ts": {
+    "mtime": 1781385614.7064211,
+    "ast_hash": "649a7a8cc0f7b7790e99f4c159c0a82e",
+    "semantic_hash": "649a7a8cc0f7b7790e99f4c159c0a82e"
+  },
+  "scripts/migrate-firebase.ts": {
+    "mtime": 1784144159.5715284,
+    "ast_hash": "6b46ccc55e73c17e8cf305bc96bfc1ee",
+    "semantic_hash": "6b46ccc55e73c17e8cf305bc96bfc1ee"
+  },
+  "scripts/optimize-assets.mjs": {
+    "mtime": 1781425168.012411,
+    "ast_hash": "63fcfd1d1fa4def92f9efa312fc838b6",
+    "semantic_hash": "63fcfd1d1fa4def92f9efa312fc838b6"
+  },
+  "scripts/optimize-images.js": {
+    "mtime": 1784320301.5621886,
+    "ast_hash": "53ada1d63ab675cbd4c51fa4368ea63a",
+    "semantic_hash": "53ada1d63ab675cbd4c51fa4368ea63a"
+  },
+  "scripts/sync-local-media-library.ts": {
+    "mtime": 1781876309.5980344,
+    "ast_hash": "45986e3d8928fb2e5965af227bee4087",
+    "semantic_hash": "45986e3d8928fb2e5965af227bee4087"
+  },
+  "scripts/verify-migration.ts": {
+    "mtime": 1784144159.5721307,
+    "ast_hash": "879ac3d6dea9367e67209a6d9248a3fb",
+    "semantic_hash": "879ac3d6dea9367e67209a6d9248a3fb"
+  },
+  "tailwind.config.ts": {
+    "mtime": 1784144159.5724597,
+    "ast_hash": "fe99b2b9611cb5faa92b0054a8d91597",
+    "semantic_hash": "fe99b2b9611cb5faa92b0054a8d91597"
+  },
+  "tsconfig.json": {
+    "mtime": 1784144159.572933,
+    "ast_hash": "69ae3e9f70e543e8bb5d4b2cebd80722",
+    "semantic_hash": "69ae3e9f70e543e8bb5d4b2cebd80722"
+  },
+  "vercel.json": {
+    "mtime": 1781381487.6259646,
+    "ast_hash": "b090a602c3980b6a45f82f34e39b8e1c",
+    "semantic_hash": "b090a602c3980b6a45f82f34e39b8e1c"
+  },
+  "public/assets/video/coconut-to-bottle.mp4": {
+    "mtime": 1782713295.1370215,
+    "ast_hash": "9dba9b238b2b39504411680c1737f9f3",
+    "semantic_hash": "9dba9b238b2b39504411680c1737f9f3"
+  },
+  "public/assets/video/coconut-to-bottle.webm": {
+    "mtime": 1782713295.1420074,
+    "ast_hash": "4e38ca3c7776c4abc5de572edd5172c2",
+    "semantic_hash": "4e38ca3c7776c4abc5de572edd5172c2"
+  },
+  "components/about/JourneyScrollStory.tsx": {
+    "mtime": 1784491674.4779825,
+    "ast_hash": "4bf323e34d8292a2d2f551e6707ca629",
+    "semantic_hash": ""
+  },
+  "components/home/ImpactCounters.tsx": {
+    "mtime": 1784492589.6197202,
+    "ast_hash": "142b86249b055d0021bdd20308390e90",
+    "semantic_hash": ""
+  },
+  "components/interactive/BrandSlidingPuzzle/BrandSlidingPuzzle.tsx": {
+    "mtime": 1784535946.7334616,
+    "ast_hash": "21617aec1bb3dbf6480a63e46858ecb7",
+    "semantic_hash": ""
+  },
+  "components/interactive/BrandSlidingPuzzle/index.ts": {
+    "mtime": 1784491488.2448082,
+    "ast_hash": "66f65a14167478938c7320e40839171d",
+    "semantic_hash": ""
+  },
+  "components/interactive/BrandSlidingPuzzle/puzzle-analytics.ts": {
+    "mtime": 1784535847.285326,
+    "ast_hash": "20979ec70fc81e53801ef49169a23111",
+    "semantic_hash": ""
+  },
+  "components/interactive/BrandSlidingPuzzle/puzzle-engine.ts": {
+    "mtime": 1784535608.9929087,
+    "ast_hash": "8b133869a31a3b99040cf3161ac530d3",
+    "semantic_hash": ""
+  },
+  "components/interactive/BrandSlidingPuzzle/puzzle-types.ts": {
+    "mtime": 1784535608.9912195,
+    "ast_hash": "aefe8e4d1457af16b44c2d0945d82331",
+    "semantic_hash": ""
+  },
+  "components/motion/CoconutLoader.tsx": {
+    "mtime": 1784490570.3896961,
+    "ast_hash": "f1c2b60863e45587144fae541cb4469e",
+    "semantic_hash": ""
+  },
+  "components/motion/GlassHighlight.tsx": {
+    "mtime": 1784490570.391891,
+    "ast_hash": "533ecc1e383ea505b0907385fc361661",
+    "semantic_hash": ""
+  },
+  "components/motion/HoverLift.tsx": {
+    "mtime": 1784490570.3917267,
+    "ast_hash": "e0de54494889864e750a2537fb2b0dd8",
+    "semantic_hash": ""
+  },
+  "components/motion/Magnetic.tsx": {
+    "mtime": 1784490570.3915882,
+    "ast_hash": "9dc26c7d63e753309f69e4b09b521c54",
+    "semantic_hash": ""
+  },
+  "components/motion/MotionDebugOverlay.tsx": {
+    "mtime": 1784490570.3894668,
+    "ast_hash": "4177fb3429a0018c3bc3662b57a0eabd",
+    "semantic_hash": ""
+  },
+  "components/motion/MotionProvider.tsx": {
+    "mtime": 1784491305.2230654,
+    "ast_hash": "adbae3636c050ad63fb32e61ad08f6fe",
+    "semantic_hash": ""
+  },
+  "components/motion/PageReveal.tsx": {
+    "mtime": 1784490570.3901424,
+    "ast_hash": "9fba07a09a98764bb2a6de26fb7d3da0",
+    "semantic_hash": ""
+  },
+  "components/motion/ParallaxLayer.tsx": {
+    "mtime": 1784490570.3913205,
+    "ast_hash": "a6cfa3db872365b91e8923a6b356ee88",
+    "semantic_hash": ""
+  },
+  "components/motion/RouteTransition.tsx": {
+    "mtime": 1784490570.3898423,
+    "ast_hash": "4cbb4203aba9c52082c26d03371dcbfd",
+    "semantic_hash": ""
+  },
+  "components/motion/SectionReveal.tsx": {
+    "mtime": 1784490570.390343,
+    "ast_hash": "f10dc72d1f49091a8d07b7a1519804eb",
+    "semantic_hash": ""
+  },
+  "components/motion/StaggeredReveal.tsx": {
+    "mtime": 1784490570.3911524,
+    "ast_hash": "2e003b7c9440ddd5c74277b2f5911acb",
+    "semantic_hash": ""
+  },
+  "components/motion/WaterRipple.tsx": {
+    "mtime": 1784490570.391457,
+    "ast_hash": "a8b26e15dfc9e9129972e44cf17cd299",
+    "semantic_hash": ""
+  },
+  "components/shop/ProductConfigurator/ProductConfigurator.tsx": {
+    "mtime": 1784493119.9990284,
+    "ast_hash": "1d73a2a90d3295c407cbae3b6bc1b186",
+    "semantic_hash": ""
+  },
+  "components/shop/ProductConfigurator/availability.ts": {
+    "mtime": 1784500082.0691175,
+    "ast_hash": "efd510bb398534b1c30b416f5fefafb4",
+    "semantic_hash": ""
+  },
+  "components/shop/ProductConfigurator/configurator-analytics.ts": {
+    "mtime": 1784493411.9530277,
+    "ast_hash": "fd0dc5528207ee64023f5720d6312ae7",
+    "semantic_hash": ""
+  },
+  "components/shop/ProductConfigurator/configurator-data.ts": {
+    "mtime": 1784493119.998305,
+    "ast_hash": "18852e00f6351dda07f46987092c060e",
+    "semantic_hash": ""
+  },
+  "components/shop/ProductConfigurator/configurator-types.ts": {
+    "mtime": 1784493119.998091,
+    "ast_hash": "dfae94cb1485d30c44a52ab6f9c41bc5",
+    "semantic_hash": ""
+  },
+  "components/shop/ProductConfigurator/index.ts": {
+    "mtime": 1784493119.9991984,
+    "ast_hash": "4d2ad5a889c386b11153e98f9dcb874d",
+    "semantic_hash": ""
+  },
+  "lib/content/impact.ts": {
+    "mtime": 1784492589.6194692,
+    "ast_hash": "347b03d44249433e8fdac57ea5c17f1b",
+    "semantic_hash": ""
+  },
+  "lib/motion/choreography.ts": {
+    "mtime": 1784490570.3887,
+    "ast_hash": "5aed9b1d1da8800dcf1c097e76d82fed",
+    "semantic_hash": ""
+  },
+  "lib/motion/diagnostics.ts": {
+    "mtime": 1784490570.388966,
+    "ast_hash": "ae5d9d096009a7e3375ec509d5c2910e",
+    "semantic_hash": ""
+  },
+  "lib/motion/index.ts": {
+    "mtime": 1784490570.3890874,
+    "ast_hash": "38f8f7c0135a16cb8ab5925f11e01265",
+    "semantic_hash": ""
+  },
+  "lib/motion/physics.ts": {
+    "mtime": 1784490570.3882248,
+    "ast_hash": "e4f624715e740f81d2482adf70ae1f6a",
+    "semantic_hash": ""
+  },
+  "lib/motion/presets.ts": {
+    "mtime": 1784490570.38883,
+    "ast_hash": "85fa253a97d543ed04eec808f0b319f3",
+    "semantic_hash": ""
+  },
+  "lib/motion/quality.ts": {
+    "mtime": 1784490570.3885214,
+    "ast_hash": "98964e45755d0e295bfac9dabec114b6",
+    "semantic_hash": ""
+  },
+  "tests/phase-4-3/configurator.test.ts": {
+    "mtime": 1784500301.356469,
+    "ast_hash": "d6444b7c842455837007ea062fcdbf44",
+    "semantic_hash": ""
+  },
+  "tests/phase-4-3/puzzle-engine.test.ts": {
+    "mtime": 1784536686.1382596,
+    "ast_hash": "5dcd7f0c15d51451c9f7671644798ceb",
+    "semantic_hash": ""
+  },
+  ".github/workflows/backend-security-ci.yml": {
+    "mtime": 1784144158.414038,
+    "ast_hash": "484e14097059dd88bf4a5198e5f6d84a",
+    "semantic_hash": ""
+  },
+  "ABUSE_CONTROLS.md": {
+    "mtime": 1784144158.4150796,
+    "ast_hash": "426e7c47bbf2dea6fca737621ea11146",
+    "semantic_hash": ""
+  },
+  "ADMIN_BACKEND_PLAN.md": {
+    "mtime": 1784144158.4154317,
+    "ast_hash": "1497f684ee3da765eb8344125f3e4e95",
+    "semantic_hash": ""
+  },
+  "API_CONTRACT.md": {
+    "mtime": 1784144158.4156837,
+    "ast_hash": "d8fdc004511fdade9c49b3d05c72e0db",
+    "semantic_hash": ""
+  },
+  "AUTHORIZATION_MATRIX.md": {
+    "mtime": 1784144158.4161887,
+    "ast_hash": "9667b4d8ac9d3ee309d67d267ead6858",
+    "semantic_hash": ""
+  },
+  "AUTH_E2E_RESULTS.md": {
+    "mtime": 1784144158.4168704,
+    "ast_hash": "b77fb6e613dfb352f14fb0bd4bc81593",
+    "semantic_hash": ""
+  },
+  "AUTH_FINAL_E2E.md": {
+    "mtime": 1784144158.4174082,
+    "ast_hash": "9dccd9cd23b23a352ba9fc608a742732",
+    "semantic_hash": ""
+  },
+  "AUTH_VERIFICATION_AUDIT.md": {
+    "mtime": 1784144158.4177015,
+    "ast_hash": "963800e4f0aa687a379ba71491554e8c",
+    "semantic_hash": ""
+  },
+  "AWS_CONFIGURATION_AUDIT.md": {
+    "mtime": 1784144158.418005,
+    "ast_hash": "88067f768bdc9dcf43e94b11c02950bc",
+    "semantic_hash": ""
+  },
+  "AWS_CREDIT_AND_COST_REPORT.md": {
+    "mtime": 1784144158.418266,
+    "ast_hash": "dfa835a26b98ba3562a1ff71c0867933",
+    "semantic_hash": ""
+  },
+  "AWS_MIGRATION_PLAN.md": {
+    "mtime": 1784144158.4186063,
+    "ast_hash": "ffde448225b28d33385b3a2ff8cecd93",
+    "semantic_hash": ""
+  },
+  "BACKEND_ARCHITECTURE.md": {
+    "mtime": 1784144158.4188104,
+    "ast_hash": "adab5d8e66cacaa4d625ce6901712f2c",
+    "semantic_hash": ""
+  },
+  "BACKEND_DISCOVERY.md": {
+    "mtime": 1784144158.4191892,
+    "ast_hash": "f95a2bc417d3489e12014f2dcf37528f",
+    "semantic_hash": ""
+  },
+  "COGNITO_UNCONFIRMED_CLEANUP_POLICY.md": {
+    "mtime": 1784144158.419381,
+    "ast_hash": "b6979ad5f409c0f37bee2ef8322d675a",
+    "semantic_hash": ""
+  },
+  "COST_SAFETY.md": {
+    "mtime": 1784144158.4195993,
+    "ast_hash": "658d1f0fc00ddcd969ad475c13bea014",
+    "semantic_hash": ""
+  },
+  "DATA_PRIVACY.md": {
+    "mtime": 1784144158.4197886,
+    "ast_hash": "baa1e7e5aeec285072f4acbdcf263899",
+    "semantic_hash": ""
+  },
+  "DEPLOYMENT_RUNBOOK.md": {
+    "mtime": 1784144158.4201388,
+    "ast_hash": "626bb596330e7a1cbcd57f08cc2feb2b",
+    "semantic_hash": ""
+  },
+  "DESIGN_SYSTEM.md": {
+    "mtime": 1784144158.4204457,
+    "ast_hash": "730414d16f3cc4afabdc48aebd29cf97",
+    "semantic_hash": ""
+  },
+  "DYNAMODB_DESIGN.md": {
+    "mtime": 1784144158.420657,
+    "ast_hash": "2e4fb932e3dead8ff0b993091d9dc5b4",
+    "semantic_hash": ""
+  },
+  "FIREBASE_DATA_AUDIT.md": {
+    "mtime": 1784144158.4210525,
+    "ast_hash": "8c9b52a332014ecbf44db64a15602d34",
+    "semantic_hash": ""
+  },
+  "FIREBASE_TO_AWS_MIGRATION.md": {
+    "mtime": 1784144158.4212883,
+    "ast_hash": "bd8c33376bdec34b7303787b4df35223",
+    "semantic_hash": ""
+  },
+  "FIREBASE_USAGE_INVENTORY.md": {
+    "mtime": 1784144158.421619,
+    "ast_hash": "62fc28b4aab48c887f967e61d20f51ad",
+    "semantic_hash": ""
+  },
+  "IMAGE_AUDIT.md": {
+    "mtime": 1784144158.4218864,
+    "ast_hash": "3c644d701ac0099ab291cb1366d870d1",
+    "semantic_hash": ""
+  },
+  "INCIDENT_RESPONSE.md": {
+    "mtime": 1784144158.4220936,
+    "ast_hash": "070ba40d80118d54653e30c2e1ff6c6e",
+    "semantic_hash": ""
+  },
+  "INTERACTIVE_FEATURES_REPORT.md": {
+    "mtime": 1784500517.8450716,
+    "ast_hash": "c43ec0d17bf1b3c0d472de2b7700a35e",
+    "semantic_hash": ""
+  },
+  "LOCAL_BACKEND_SETUP.md": {
+    "mtime": 1784144158.4223225,
+    "ast_hash": "d9c897bc466c41ccbf2577d6a5b959c8",
+    "semantic_hash": ""
+  },
+  "LOCAL_SETUP.md": {
+    "mtime": 1784144158.4227605,
+    "ast_hash": "323589138b2c2de0dc0c8b99602ea4bf",
+    "semantic_hash": ""
+  },
+  "MOTION_ARCHITECTURE.md": {
+    "mtime": 1784500517.8445723,
+    "ast_hash": "0a5d5e1bfce0ce0a2c077bb7d78eccf3",
+    "semantic_hash": ""
+  },
+  "MOTION_ROOT_CAUSE_AUDIT.md": {
+    "mtime": 1784500517.8435202,
+    "ast_hash": "5e40091d0555c112da16c594b95b0bfc",
+    "semantic_hash": ""
+  },
+  "MOTION_VERIFICATION_MATRIX.md": {
+    "mtime": 1784500517.8448088,
+    "ast_hash": "8214bc6887b874ff5aba851eb0ec29b8",
+    "semantic_hash": ""
+  },
+  "PERFORMANCE_BASELINE.md": {
+    "mtime": 1784144158.4232163,
+    "ast_hash": "d4cf0e00131767e35f999a5ba70a35d6",
+    "semantic_hash": ""
+  },
+  "PERFORMANCE_RESULTS.md": {
+    "mtime": 1784144158.4235084,
+    "ast_hash": "a8cfa577e54332c526cdcf204ff8c245",
+    "semantic_hash": ""
+  },
+  "PHASE1_SECURITY_VERIFICATION.md": {
+    "mtime": 1784144158.4238718,
+    "ast_hash": "22ca2e9928783fcf88c7e75629746ae2",
+    "semantic_hash": ""
+  },
+  "PHASE2_IMPLEMENTATION_PLAN.md": {
+    "mtime": 1784144158.4240894,
+    "ast_hash": "be3dc6b8460a16020910c7248b31b6f1",
+    "semantic_hash": ""
+  },
+  "PREMIUM_REFINEMENT_REPORT.md": {
+    "mtime": 1784320301.5007129,
+    "ast_hash": "0226b272aba7cc5039c6d7131f008ac5",
+    "semantic_hash": ""
+  },
+  "PREVIEW_QA_REPORT.md": {
+    "mtime": 1784525870.6695297,
+    "ast_hash": "eb22866df86400295c285992edd7c2cc",
+    "semantic_hash": ""
+  },
+  "PRODUCTION_AUTH_BACKEND_CUTOVER.md": {
+    "mtime": 1784144158.424275,
+    "ast_hash": "972d8dff06ef60d3ada9d2ef716aba08",
+    "semantic_hash": ""
+  },
+  "PRODUCTION_AUTH_RELEASE_REPORT.md": {
+    "mtime": 1784144158.4245195,
+    "ast_hash": "ae31ea75b325731628580ee49d9f13ee",
+    "semantic_hash": ""
+  },
+  "PRODUCTION_CDK_DIFF_REVIEW.md": {
+    "mtime": 1784144158.4246876,
+    "ast_hash": "45eea97dbf1f7f6d45f16136a85a2160",
+    "semantic_hash": ""
+  },
+  "PRODUCTION_MERGE_IMPACT_AUDIT.md": {
+    "mtime": 1784144158.4252617,
+    "ast_hash": "88661fdff52fca658439f409b0b471da",
+    "semantic_hash": ""
+  },
+  "PRODUCTIZATION_REPORT.md": {
+    "mtime": 1784144158.425553,
+    "ast_hash": "731b4d4de780e4cb2c265cfdb708fadf",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1781371857.0355482,
+    "ast_hash": "7bdffdec6a7e5f0234cd8806ef3720e5",
+    "semantic_hash": ""
+  },
+  "SECURITY_DECISIONS.md": {
+    "mtime": 1784144158.4257674,
+    "ast_hash": "e1b8b37db59293730d37b82b0ea5232b",
+    "semantic_hash": ""
+  },
+  "SOURCE_OF_TRUTH_MATRIX.md": {
+    "mtime": 1784144158.4260035,
+    "ast_hash": "9d9782e15f86cb73b56cf69b34ae0863",
+    "semantic_hash": ""
+  },
+  "app/fonts/OFL-Instrument-Serif.txt": {
+    "mtime": 1782628110.2885706,
+    "ast_hash": "768c3f0d6166414610edb8aab3eebfb3",
+    "semantic_hash": ""
+  },
+  "app/fonts/OFL-Roboto.txt": {
+    "mtime": 1782713295.052645,
+    "ast_hash": "d0d30e4860cc10440e095be065c2b0e3",
+    "semantic_hash": ""
+  },
+  "backend/README.md": {
+    "mtime": 1784144158.472713,
+    "ast_hash": "c66ba091e0bcf43f4af6f3b93c4f64dd",
+    "semantic_hash": ""
+  },
+  "backend/requirements.txt": {
+    "mtime": 1781372023.529261,
+    "ast_hash": "a7744fbc48f7f5822c1060f1a5093ba2",
+    "semantic_hash": ""
+  },
+  "docs/AWS_APPLICATION_CONFIGURATION_AUDIT.md": {
+    "mtime": 1784144158.5301697,
+    "ast_hash": "84066922932fa4787140697b3a40e706",
+    "semantic_hash": ""
+  },
+  "docs/AWS_CORRECTION_EXECUTION_LOG.md": {
+    "mtime": 1784144158.5304866,
+    "ast_hash": "791831dd967de7dcec4a7721ea6676d1",
+    "semantic_hash": ""
+  },
+  "docs/AWS_PROFILE_AUDIT.md": {
+    "mtime": 1784144158.5309527,
+    "ast_hash": "b8e7c1c42a684e791b18526cef8b1b59",
+    "semantic_hash": ""
+  },
+  "docs/CLI_INSTALLATION_REPORT.md": {
+    "mtime": 1784144158.5316482,
+    "ast_hash": "d24b7e7c4ef1131542c15d5a678c36ca",
+    "semantic_hash": ""
+  },
+  "docs/COGNITO_EMAIL_DELIVERY_AUDIT.md": {
+    "mtime": 1784144158.5319257,
+    "ast_hash": "8fcd5ed7b81ab2c7bedd87ef28c3c66b",
+    "semantic_hash": ""
+  },
+  "docs/LOCAL_TOOLCHAIN_AUDIT.md": {
+    "mtime": 1784144158.5322359,
+    "ast_hash": "3abda503e78a25faffaa3c08d13cd483",
+    "semantic_hash": ""
+  },
+  "docs/US_EAST_COGNITO_DECOMMISSION.md": {
+    "mtime": 1784144158.5325668,
+    "ast_hash": "98ce20a60a1d117f84c72741e501fb71",
+    "semantic_hash": ""
+  },
+  "docs/assets-sources.md": {
+    "mtime": 1784144158.532985,
+    "ast_hash": "733ee5905550f0186482d99a1c930e4b",
+    "semantic_hash": ""
+  },
+  "docs/backend-security-ci-workflow.md": {
+    "mtime": 1784144158.5338264,
+    "ast_hash": "9abb93ba91b8b43b1f2607672b9234f1",
+    "semantic_hash": ""
+  },
+  "docs/content-architecture.md": {
+    "mtime": 1784144158.536484,
+    "ast_hash": "aea97bd7d1e7c1d12d19ed7f74fefb59",
+    "semantic_hash": ""
+  },
+  "docs/content-cache-revalidation.md": {
+    "mtime": 1782765934.4293613,
+    "ast_hash": "9aabd74b7a5b318751edccc14f8dd94a",
+    "semantic_hash": ""
+  },
+  "docs/dashboard-operations.md": {
+    "mtime": 1784144158.5369356,
+    "ast_hash": "074da45798b15771dd4f5de309edb50d",
+    "semantic_hash": ""
+  },
+  "docs/design-review.md": {
+    "mtime": 1782713295.0665083,
+    "ast_hash": "aed48d1db4e8995fb699a1225d1b29e8",
+    "semantic_hash": ""
+  },
+  "docs/design-system.md": {
+    "mtime": 1782713295.069155,
+    "ast_hash": "9a09937d4adc72df70365a01a4c571f3",
+    "semantic_hash": ""
+  },
+  "docs/final-seo-verification.md": {
+    "mtime": 1782734459.297792,
+    "ast_hash": "f3ea49fd0ed4c2e0de526b5e500d2f10",
+    "semantic_hash": ""
+  },
+  "docs/firebase-cms-setup.md": {
+    "mtime": 1782752541.117319,
+    "ast_hash": "3a23df86393b92d30abc06c03e036fd9",
+    "semantic_hash": ""
+  },
+  "docs/firebase-production-checklist.md": {
+    "mtime": 1782765934.4299579,
+    "ast_hash": "fddb7383ed5f543e55ab29ed7221cde5",
+    "semantic_hash": ""
+  },
+  "docs/google-ranking-roadmap.md": {
+    "mtime": 1782734459.298109,
+    "ast_hash": "ee34ef0ff06ec954ed2ed075483072eb",
+    "semantic_hash": ""
+  },
+  "docs/implementation/README.md": {
+    "mtime": 1782713295.069545,
+    "ast_hash": "0645b0392f069ba4c0037be3cffd4eef",
+    "semantic_hash": ""
+  },
+  "docs/launch-readiness.md": {
+    "mtime": 1784144158.540468,
+    "ast_hash": "2fafccc912675cfb3ab16675cb60a22f",
+    "semantic_hash": ""
+  },
+  "docs/phase-4-5-premium-motion-plan.md": {
+    "mtime": 1784144158.541737,
+    "ast_hash": "c74515ef45102b1a7d7fd790d4284348",
+    "semantic_hash": ""
+  },
+  "docs/phase-4-cms-report.md": {
+    "mtime": 1782752541.1184213,
+    "ast_hash": "5347541b55aebcecc07b26eeafe8bff2",
+    "semantic_hash": ""
+  },
+  "docs/production-optimization-report.md": {
+    "mtime": 1784144158.5425189,
+    "ast_hash": "cc1eca5f28955f9fa3cd7bc67dfe6abe",
+    "semantic_hash": ""
+  },
+  "docs/references/phase-4-5-motion-tooling.md": {
+    "mtime": 1784144158.5431092,
+    "ast_hash": "4138ad48192988e3c9345a152f51d0dc",
+    "semantic_hash": ""
+  },
+  "docs/references/phase-4-5-refero-animation-notes.md": {
+    "mtime": 1784144158.5436468,
+    "ast_hash": "666739d7c661e56588a9461578dc78a8",
+    "semantic_hash": ""
+  },
+  "docs/references/stage-1/reference-audit.md": {
+    "mtime": 1784144158.544134,
+    "ast_hash": "da48bc1e230066048498e301f27d0d40",
+    "semantic_hash": ""
+  },
+  "docs/seo-analytics-indexing.md": {
+    "mtime": 1784144158.5445154,
+    "ast_hash": "431cee9e9527e2ebbd0b471ed0d54508",
+    "semantic_hash": ""
+  },
+  "docs/seo-audit-report.md": {
+    "mtime": 1782734459.2984471,
+    "ast_hash": "a2fcf0980d7d3f8baf10fa94cbc9d208",
+    "semantic_hash": ""
+  },
+  "docs/seo-indexing-actions.md": {
+    "mtime": 1782734459.298858,
+    "ast_hash": "8557d775c6eb219944425dc7e5c04cb6",
+    "semantic_hash": ""
+  },
+  "docs/website-rules.md": {
+    "mtime": 1782713295.0698957,
+    "ast_hash": "fac28c50457682386609015bd1f53076",
+    "semantic_hash": ""
+  },
+  "public/assets/3d/README.md": {
+    "mtime": 1781876104.011134,
+    "ast_hash": "7b015fc6e3a9861cd8e0934aefda5efb",
+    "semantic_hash": ""
+  },
+  "public/google87b5a5382bb4f7a0.html": {
+    "mtime": 1781426671.921209,
+    "ast_hash": "a7eb93da60ec76f68e939ec5cd30e550",
+    "semantic_hash": ""
+  },
+  "scripts/firestore-restore-guide.md": {
+    "mtime": 1781872746.8093512,
+    "ast_hash": "5a4a37c67e2a0082ed4730d6fe864c87",
+    "semantic_hash": ""
+  },
+  "docs/implementation/premium-reference-board.png": {
+    "mtime": 1782496402.1964116,
+    "ast_hash": "ddb1575b20ad90fcc1e48e0631ca09a7",
+    "semantic_hash": ""
+  },
+  "docs/screenshots/firebase-production-security/admin-login.png": {
+    "mtime": 1781853618.955311,
+    "ast_hash": "4935c0f7b2c68d4b5c6ef73c68ea92a5",
+    "semantic_hash": ""
+  },
+  "docs/screenshots/firebase-production-security/audit-logs-gate.png": {
+    "mtime": 1781853619.783042,
+    "ast_hash": "4df6c6be30d7d6fcf45d060f3cee4a2e",
+    "semantic_hash": ""
+  },
+  "docs/screenshots/firebase-production-security/customer-login.png": {
+    "mtime": 1781853617.0488265,
+    "ast_hash": "c02dd86df39c1f3885551c01aeb060fc",
+    "semantic_hash": ""
+  },
+  "docs/screenshots/firebase-production-security/customer-register.png": {
+    "mtime": 1781853618.1019948,
+    "ast_hash": "efe7c26665ce657036b7454579a9c0fe",
+    "semantic_hash": ""
+  },
+  "docs/screenshots/v1.6-hero-bottle.png": {
+    "mtime": 1781553530.0584686,
+    "ast_hash": "d3d91500d2d1287ed68cf8b0ef82a7ba",
+    "semantic_hash": ""
+  },
+  "docs/screenshots/v1.6-hero-coconut.png": {
+    "mtime": 1781553527.9487033,
+    "ast_hash": "d87afc35a6d18df5eee7c976601631a1",
+    "semantic_hash": ""
+  },
+  "docs/screenshots/v1.6-hero-liquid.png": {
+    "mtime": 1781553528.9920392,
+    "ast_hash": "58ee07a279b0b38eea60629aa89f60aa",
+    "semantic_hash": ""
+  },
+  "docs/screenshots/v1.6-made-for-living.png": {
+    "mtime": 1781553531.0304563,
+    "ast_hash": "918075c02459ffe0b3faa95f6fd8769d",
+    "semantic_hash": ""
+  },
+  "docs/screenshots/v1.6-mobile-hero.png": {
+    "mtime": 1781553532.9603126,
+    "ast_hash": "e5f77ee7f9b4c4bb90582232e8b9e1b9",
+    "semantic_hash": ""
+  },
+  "public/android-chrome-192x192.png": {
+    "mtime": 1781465161.257558,
+    "ast_hash": "6343af40738372beccc1a0a83beade0c",
+    "semantic_hash": ""
+  },
+  "public/android-chrome-512x512.png": {
+    "mtime": 1781465161.2834196,
+    "ast_hash": "e6f26dfedda686825a53ebe1df9dc9ab",
+    "semantic_hash": ""
+  },
+  "public/apple-touch-icon.png": {
+    "mtime": 1781465161.2400959,
+    "ast_hash": "a36b516dedc3c256f58db8ef59ac6d6d",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Coconut_Water_Assets/Flat-lay-7327e09edc-desktop.jpg": {
+    "mtime": 1784144158.5664747,
+    "ast_hash": "a4bc03c154b49cf7d3e3dc4243371203",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Coconut_Water_Assets/Flat-lay-7327e09edc-mobile.jpg": {
+    "mtime": 1784144158.5701175,
+    "ast_hash": "7e5e3b94c8339ff65c56b87ee452a64c",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Coconut_Water_Assets/Flat-lay-7327e09edc-tablet.jpg": {
+    "mtime": 1784144158.5729282,
+    "ast_hash": "d8da8101b23273849296fc4ad138e3b0",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Coconut_Water_Assets/lifestyle-scene-50d776f965-desktop.jpg": {
+    "mtime": 1784144158.5754251,
+    "ast_hash": "de66c58936f780f00880744df1cc1070",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Coconut_Water_Assets/lifestyle-scene-50d776f965-mobile.jpg": {
+    "mtime": 1784144158.5770373,
+    "ast_hash": "c11045d01961894a0b93d451b932f86d",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Coconut_Water_Assets/lifestyle-scene-50d776f965-tablet.jpg": {
+    "mtime": 1784144158.578623,
+    "ast_hash": "dbe0286ae4aa90eb3be602382f58752c",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Ecosystem_Assets/BOtanica-Facewash-Flat-Lay-15c4baecff-desktop.jpg": {
+    "mtime": 1784144158.580792,
+    "ast_hash": "66f700ecdf5f2e46737f092c9276849b",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Ecosystem_Assets/BOtanica-Facewash-Flat-Lay-15c4baecff-mobile.jpg": {
+    "mtime": 1784144158.582683,
+    "ast_hash": "9152d2ebf7b179b21074fab1c654e812",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Ecosystem_Assets/BOtanica-Facewash-Flat-Lay-15c4baecff-tablet.jpg": {
+    "mtime": 1784144158.5848129,
+    "ast_hash": "ba41148d6d66ae34fad224d5b454a9ac",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Ecosystem_Assets/Botanica-Shampoo-Lifestyle-Scene-9394ad64d9-desktop.jpg": {
+    "mtime": 1784144158.5876253,
+    "ast_hash": "369240d76dfe7b14292fc30e63b24d65",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Ecosystem_Assets/Botanica-Shampoo-Lifestyle-Scene-9394ad64d9-mobile.jpg": {
+    "mtime": 1784144158.5887687,
+    "ast_hash": "5777fbfc34812d97a7f9c187bebfa3e2",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Ecosystem_Assets/Botanica-Shampoo-Lifestyle-Scene-9394ad64d9-tablet.jpg": {
+    "mtime": 1784144158.5916245,
+    "ast_hash": "e0d6054450f4a6547a3c19f713fffab0",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Ecosystem_Assets/Kitchen-group-ecosystem-f888e6f3db-desktop.jpg": {
+    "mtime": 1784144158.5944147,
+    "ast_hash": "9b7eab3069d738a3025b2711d569df1f",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Ecosystem_Assets/Kitchen-group-ecosystem-f888e6f3db-mobile.jpg": {
+    "mtime": 1784144158.5959585,
+    "ast_hash": "59df8f0351e592af4b06afbd2307effe",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Ecosystem_Assets/Kitchen-group-ecosystem-f888e6f3db-tablet.jpg": {
+    "mtime": 1784144158.5981822,
+    "ast_hash": "15cff21984bf35c03c729e031be65b77",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Ecosystem_Assets/coconut-oil-flat-lay-5269848679-desktop.jpg": {
+    "mtime": 1784144158.6006331,
+    "ast_hash": "b5813be5a95c87a1da7b5fd7086ac713",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Ecosystem_Assets/coconut-oil-flat-lay-5269848679-mobile.jpg": {
+    "mtime": 1784144158.6020696,
+    "ast_hash": "c173d566963292644e8e9c1487888585",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Ecosystem_Assets/coconut-oil-flat-lay-5269848679-tablet.jpg": {
+    "mtime": 1784144158.60333,
+    "ast_hash": "49425b87202b75eea7c8ce43608ed379",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Ecosystem_Assets/coconut-vinegar-lifestyle-scene-609dbbb85f-desktop.jpg": {
+    "mtime": 1784144158.605364,
+    "ast_hash": "5c7f6c747052344d7a935703c8b99334",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Ecosystem_Assets/coconut-vinegar-lifestyle-scene-609dbbb85f-mobile.jpg": {
+    "mtime": 1784144158.6071608,
+    "ast_hash": "7d2d4de0d776fc5f032e5c975a40d76b",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Ecosystem_Assets/coconut-vinegar-lifestyle-scene-609dbbb85f-tablet.jpg": {
+    "mtime": 1784144158.608062,
+    "ast_hash": "08416be3c2ce7f7fe0c86c8c43a95fb3",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Melt_Ice_Cream_Assets/flat-lay-e573931ebc-desktop.jpg": {
+    "mtime": 1784144158.6097383,
+    "ast_hash": "7bb37c4ce10524110f35d941b095d305",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Melt_Ice_Cream_Assets/flat-lay-e573931ebc-mobile.jpg": {
+    "mtime": 1784144158.610723,
+    "ast_hash": "3ea1a97334736bc844d9e8bb57e3d7cc",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/Melt_Ice_Cream_Assets/flat-lay-e573931ebc-tablet.jpg": {
+    "mtime": 1784144158.6123877,
+    "ast_hash": "68e27d082f1a6ba695876f1d2c23a21e",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/about/co-about-hero-editorial-4k-be628ee869-desktop.jpg": {
+    "mtime": 1784228333.4969318,
+    "ast_hash": "f4e8e2a1a87d766de211c31ffd245781",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/about/co-about-hero-editorial-4k-be628ee869-mobile.jpg": {
+    "mtime": 1784228332.9175518,
+    "ast_hash": "cd750d3d79ec61cae5f783a135c7e2b6",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/about/co-about-hero-editorial-4k-be628ee869-tablet.jpg": {
+    "mtime": 1784228332.9480207,
+    "ast_hash": "8bff7201edeb2b8915e4260c945c055a",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/about/co-zero-waste-coconut-split-9b06439b2c-desktop.jpg": {
+    "mtime": 1784228335.3437135,
+    "ast_hash": "b570127206c5e3edbc1f18fe4c4e9144",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/about/co-zero-waste-coconut-split-9b06439b2c-mobile.jpg": {
+    "mtime": 1784228334.903228,
+    "ast_hash": "801a306f2b89fdd868086da34322cda5",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/about/co-zero-waste-coconut-split-9b06439b2c-tablet.jpg": {
+    "mtime": 1784228334.8796384,
+    "ast_hash": "e9115b818b5c82618fc6a4ee37dc7a01",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/about/co-zero-waste-palm-editorial-4k-949b05883f-desktop.jpg": {
+    "mtime": 1784228338.414825,
+    "ast_hash": "870565cbcaf47c61362859330572623e",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/about/co-zero-waste-palm-editorial-4k-949b05883f-mobile.jpg": {
+    "mtime": 1784228337.1513944,
+    "ast_hash": "206ffd91d2b1233511717ab8799a794a",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/about/co-zero-waste-palm-editorial-4k-949b05883f-tablet.jpg": {
+    "mtime": 1784228337.2278621,
+    "ast_hash": "ef604ed8cd71cbd5235af50fefd4d53e",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/about/generic-coconut-water-comparison-833a020511-desktop.jpg": {
+    "mtime": 1784228340.1425931,
+    "ast_hash": "36c4a1a173f9cec57459071947a841ea",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/about/generic-coconut-water-comparison-833a020511-mobile.jpg": {
+    "mtime": 1784228339.8490605,
+    "ast_hash": "051f46bda714b35f50f0a65c3e610759",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/about/generic-coconut-water-comparison-833a020511-tablet.jpg": {
+    "mtime": 1784228339.9098394,
+    "ast_hash": "90551be68856c749c6f2125dc0a71a7c",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/backgrounds/kerala-groves/co-kerala-grove-editorial-4k-80c9eaf376-desktop.jpg": {
+    "mtime": 1784228341.9825032,
+    "ast_hash": "4849dcd53ded5c7368439f71a80b52b1",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/backgrounds/kerala-groves/co-kerala-grove-editorial-4k-80c9eaf376-mobile.jpg": {
+    "mtime": 1784228341.519343,
+    "ast_hash": "2d1324102db386e8285673e4b79c399b",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/backgrounds/kerala-groves/co-kerala-grove-editorial-4k-80c9eaf376-tablet.jpg": {
+    "mtime": 1784228341.5520854,
+    "ast_hash": "10fd8e9eb9b38ab09bf00439d09504b2",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/branding/made-for-living-reference-9e646b3868-desktop.jpg": {
+    "mtime": 1784144158.6390505,
+    "ast_hash": "dfc5b39124fc0f22386d4da9bc3f3b6b",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/branding/made-for-living-reference-9e646b3868-mobile.jpg": {
+    "mtime": 1784144158.639884,
+    "ast_hash": "deae64604cfb9add0fb9280763febb3a",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/branding/made-for-living-reference-9e646b3868-tablet.jpg": {
+    "mtime": 1784144158.6405337,
+    "ast_hash": "96177461202ba5519fbe09d64955414c",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/coconut/whole-coconut-mindset-4c2e6d75ac-desktop.jpg": {
+    "mtime": 1784144158.6418102,
+    "ast_hash": "11a5bed6e832271eb6094af1f1233050",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/coconut/whole-coconut-mindset-4c2e6d75ac-mobile.jpg": {
+    "mtime": 1784144158.6427903,
+    "ast_hash": "8f317360369ed3d94c9f7a8dc772f87b",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/coconut/whole-coconut-mindset-4c2e6d75ac-tablet.jpg": {
+    "mtime": 1784144158.6446636,
+    "ast_hash": "131eb53d4726b30ca1e325c848b8123a",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/farming/whole-coconut-mindset-4c2e6d75ac-desktop.jpg": {
+    "mtime": 1784144158.6455271,
+    "ast_hash": "11a5bed6e832271eb6094af1f1233050",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/farming/whole-coconut-mindset-4c2e6d75ac-mobile.jpg": {
+    "mtime": 1784144158.6460886,
+    "ast_hash": "8f317360369ed3d94c9f7a8dc772f87b",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/farming/whole-coconut-mindset-4c2e6d75ac-tablet.jpg": {
+    "mtime": 1784144158.6466968,
+    "ast_hash": "131eb53d4726b30ca1e325c848b8123a",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/founders/refined/afsala-muthali-portrait-06b9ae8e98-desktop.jpg": {
+    "mtime": 1784228344.2447863,
+    "ast_hash": "905267378aac034a14655eaced500204",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/founders/refined/afsala-muthali-portrait-06b9ae8e98-mobile.jpg": {
+    "mtime": 1784228342.8518093,
+    "ast_hash": "e60ef24e2dab3ff62b3d3dbbf5f44117",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/founders/refined/afsala-muthali-portrait-06b9ae8e98-tablet.jpg": {
+    "mtime": 1784228343.391419,
+    "ast_hash": "c03846e099967ddb8d87d82c841316c8",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/founders/refined/fazil-afsala-founder-hero-746217688d-desktop.jpg": {
+    "mtime": 1784228346.5241766,
+    "ast_hash": "a5ec10eff2a8f0b7fae4461d9677b93f",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/founders/refined/fazil-afsala-founder-hero-746217688d-mobile.jpg": {
+    "mtime": 1784228345.97548,
+    "ast_hash": "6d2be06afca8fff4cb79506edc323f4d",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/founders/refined/fazil-afsala-founder-hero-746217688d-tablet.jpg": {
+    "mtime": 1784228346.1752114,
+    "ast_hash": "f188ceac1b59f1458664b74be8fe2f85",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/founders/refined/fazil-shersha-portrait-1860367246-desktop.jpg": {
+    "mtime": 1784228348.6326435,
+    "ast_hash": "f3af07b99d710f955dd91f9a36d66025",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/founders/refined/fazil-shersha-portrait-1860367246-mobile.jpg": {
+    "mtime": 1784228347.50268,
+    "ast_hash": "a6d76c1ac0a441abd0ce3306b522c348",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/founders/refined/fazil-shersha-portrait-1860367246-tablet.jpg": {
+    "mtime": 1784228347.852632,
+    "ast_hash": "ccd0a9de3ff2c21dca107c491af6dfe3",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/generated/whole-coconut-mindset-4c2e6d75ac-desktop.jpg": {
+    "mtime": 1784144158.672261,
+    "ast_hash": "11a5bed6e832271eb6094af1f1233050",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/generated/whole-coconut-mindset-4c2e6d75ac-mobile.jpg": {
+    "mtime": 1784144158.6728864,
+    "ast_hash": "8f317360369ed3d94c9f7a8dc772f87b",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/generated/whole-coconut-mindset-4c2e6d75ac-tablet.jpg": {
+    "mtime": 1784144158.6734562,
+    "ast_hash": "131eb53d4726b30ca1e325c848b8123a",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/hero/Botanica-Shampoo-Lifestyle-Scene-9394ad64d9-desktop.jpg": {
+    "mtime": 1784144158.6741004,
+    "ast_hash": "369240d76dfe7b14292fc30e63b24d65",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/hero/Botanica-Shampoo-Lifestyle-Scene-9394ad64d9-mobile.jpg": {
+    "mtime": 1784144158.6745489,
+    "ast_hash": "5777fbfc34812d97a7f9c187bebfa3e2",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/hero/Botanica-Shampoo-Lifestyle-Scene-9394ad64d9-tablet.jpg": {
+    "mtime": 1784144158.6752417,
+    "ast_hash": "e0d6054450f4a6547a3c19f713fffab0",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/hero/co-home-hero-background-v2-52b157f259-desktop.jpg": {
+    "mtime": 1784228350.7963676,
+    "ast_hash": "b5dcf483eac80030dcc600d4c2a6f4b1",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/hero/co-home-hero-background-v2-52b157f259-mobile.jpg": {
+    "mtime": 1784228350.404224,
+    "ast_hash": "99034f71b87968494b5def08f7871b05",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/hero/co-home-hero-background-v2-52b157f259-tablet.jpg": {
+    "mtime": 1784228350.4679737,
+    "ast_hash": "d3ed581cf71b9a418fb3ac6b551d27f2",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/hero/co-home-hero-solid-products-d541ac2df1-desktop.jpg": {
+    "mtime": 1784228351.816866,
+    "ast_hash": "6b1d04d00f65031e321354aaec5c15b2",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/hero/co-home-hero-solid-products-d541ac2df1-mobile.jpg": {
+    "mtime": 1784228351.5240152,
+    "ast_hash": "7541d2196af05e58d6f2900d8865f6c4",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/hero/co-home-hero-solid-products-d541ac2df1-tablet.jpg": {
+    "mtime": 1784228351.6024995,
+    "ast_hash": "20e53a8164c5125d035d4fe03589888e",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/home/refined/made-with-care-4k-d703efc392-desktop.jpg": {
+    "mtime": 1784228354.1846948,
+    "ast_hash": "49696359b4946d341c0490f50993aba5",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/home/refined/made-with-care-4k-d703efc392-mobile.jpg": {
+    "mtime": 1784228353.1898181,
+    "ast_hash": "ad5af6fa76b13e4396e8b698c5924f57",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/home/refined/made-with-care-4k-d703efc392-tablet.jpg": {
+    "mtime": 1784228353.3820913,
+    "ast_hash": "a79f238885acf3fc29dd4bd561977e0a",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/home/refined/naturally-hydrating-4k-8f3925169b-desktop.jpg": {
+    "mtime": 1784228357.4104483,
+    "ast_hash": "f55834438750b56a6fb20b3806204f56",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/home/refined/naturally-hydrating-4k-8f3925169b-mobile.jpg": {
+    "mtime": 1784228356.5318036,
+    "ast_hash": "74dfc172b64aa08f87d1fccc0ffc4520",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/home/refined/naturally-hydrating-4k-8f3925169b-tablet.jpg": {
+    "mtime": 1784228356.6274183,
+    "ast_hash": "d81c15afb30c1edb79aeb6b6c1a46f99",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/home/refined/planet-editorial-4k-f31684bb4e-desktop.jpg": {
+    "mtime": 1784228360.4101853,
+    "ast_hash": "a800ebbca276c29c9d36af25ec5d3f33",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/home/refined/planet-editorial-4k-f31684bb4e-mobile.jpg": {
+    "mtime": 1784228359.9314194,
+    "ast_hash": "da4f83b56b6120b2ad9c2a4a86f9ee92",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/home/refined/planet-editorial-4k-f31684bb4e-tablet.jpg": {
+    "mtime": 1784228359.9659684,
+    "ast_hash": "afca2e992896d858a6a3385e14310ee6",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/home/refined/recipes-to-inspire-4k-322b096778-desktop.jpg": {
+    "mtime": 1784228362.1799634,
+    "ast_hash": "4a9b858464c3f92a29407d73e90780d7",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/home/refined/recipes-to-inspire-4k-322b096778-mobile.jpg": {
+    "mtime": 1784228361.4844294,
+    "ast_hash": "ce8981cff310be7e86e36e41c682bdea",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/home/refined/recipes-to-inspire-4k-322b096778-tablet.jpg": {
+    "mtime": 1784228361.6110473,
+    "ast_hash": "6c45027e061a5b770bb41d7534b5ede0",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/home/refined/sustainably-yours-4k-df7122fb43-desktop.jpg": {
+    "mtime": 1784228365.6583397,
+    "ast_hash": "1e1c375f6a7bf5d8cd7d1c5d76155ea4",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/home/refined/sustainably-yours-4k-df7122fb43-mobile.jpg": {
+    "mtime": 1784228364.4431791,
+    "ast_hash": "f1c8a850d8374d05f76ae73b21e3e829",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/home/refined/sustainably-yours-4k-df7122fb43-tablet.jpg": {
+    "mtime": 1784228364.5785172,
+    "ast_hash": "4b255fa5178295a5a246dabb459d73ce",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/journal/refined/community-coconut-table-12e535031a-desktop.jpg": {
+    "mtime": 1784228369.3624244,
+    "ast_hash": "4168ed1d1d088a8b59a9fb628de99e99",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/journal/refined/community-coconut-table-12e535031a-mobile.jpg": {
+    "mtime": 1784228368.9911623,
+    "ast_hash": "b38497e58d999415f4d5c74f916af1c7",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/journal/refined/community-coconut-table-12e535031a-tablet.jpg": {
+    "mtime": 1784228369.0215943,
+    "ast_hash": "028011de7fe60981d483c58f55b4ce19",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/products/Botanica-Shampoo-Lifestyle-Scene-9394ad64d9-desktop.jpg": {
+    "mtime": 1784144158.715064,
+    "ast_hash": "369240d76dfe7b14292fc30e63b24d65",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/products/Botanica-Shampoo-Lifestyle-Scene-9394ad64d9-mobile.jpg": {
+    "mtime": 1784144158.7155402,
+    "ast_hash": "5777fbfc34812d97a7f9c187bebfa3e2",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/products/Botanica-Shampoo-Lifestyle-Scene-9394ad64d9-tablet.jpg": {
+    "mtime": 1784144158.7162893,
+    "ast_hash": "e0d6054450f4a6547a3c19f713fffab0",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/Coconut-smoothie-Bowl-2220372ad8-desktop.jpg": {
+    "mtime": 1784320301.527237,
+    "ast_hash": "5f168762b6a82ef4fe02df77c90fc8ce",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/Coconut-smoothie-Bowl-2220372ad8-mobile.jpg": {
+    "mtime": 1784320301.5282989,
+    "ast_hash": "f892d908bea61740547631cba3e6745d",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/Coconut-smoothie-Bowl-2220372ad8-tablet.jpg": {
+    "mtime": 1784320301.5300858,
+    "ast_hash": "8f933e975a79041460a6bf6e8197361e",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/coconut-coffee-chill-d3b2ed9430-desktop.jpg": {
+    "mtime": 1784144158.7182302,
+    "ast_hash": "50c841838f6af05de3963af6d3d0b772",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/coconut-coffee-chill-d3b2ed9430-mobile.jpg": {
+    "mtime": 1784144158.7206085,
+    "ast_hash": "b2377a1603b6c9cbd9423a6dde679d7a",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/coconut-coffee-chill-d3b2ed9430-tablet.jpg": {
+    "mtime": 1784144158.7220695,
+    "ast_hash": "9e86266d21affb512c70f5cd916b064d",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/coconut-mango-cooler-d517df3341-desktop.jpg": {
+    "mtime": 1784320301.534906,
+    "ast_hash": "1f7425aeb1f75771c4cea1e408c3ad5c",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/coconut-mango-cooler-d517df3341-mobile.jpg": {
+    "mtime": 1784320301.5387988,
+    "ast_hash": "64db3fd1d0df7884340fb2124c8838d2",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/coconut-mango-cooler-d517df3341-tablet.jpg": {
+    "mtime": 1784320301.5453146,
+    "ast_hash": "345941fc0d369eb9f823a169f3c2d37c",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/co-green-coconut-smoothie-editorial-4k-c0f77013dc-desktop.jpg": {
+    "mtime": 1784228375.306937,
+    "ast_hash": "827bc1fca1c699ff4d9c909d4aecd522",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/co-green-coconut-smoothie-editorial-4k-c0f77013dc-mobile.jpg": {
+    "mtime": 1784228374.587053,
+    "ast_hash": "4cf85fbda83f8e89226c2df4cbdcca0f",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/co-green-coconut-smoothie-editorial-4k-c0f77013dc-tablet.jpg": {
+    "mtime": 1784228374.6931908,
+    "ast_hash": "49e72134697d9c15e018f49d089a6486",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/co-mango-nice-cream-editorial-4k-2ac3d0e2c3-desktop.jpg": {
+    "mtime": 1784228377.3903396,
+    "ast_hash": "5e510a7e172b70dc702dcf9c0f45c350",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/co-mango-nice-cream-editorial-4k-2ac3d0e2c3-mobile.jpg": {
+    "mtime": 1784228376.5104675,
+    "ast_hash": "eeb98e14c6e7c0d5988aba512523bed9",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/co-mango-nice-cream-editorial-4k-2ac3d0e2c3-tablet.jpg": {
+    "mtime": 1784228376.5661855,
+    "ast_hash": "55eb7b03385926acc31a2d070a99ce4a",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/coconut-chia-cup-15a00cc52f-desktop.jpg": {
+    "mtime": 1784320301.5485137,
+    "ast_hash": "04496900b7857f1c6a9cf73e122b48dd",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/coconut-chia-cup-15a00cc52f-mobile.jpg": {
+    "mtime": 1784320301.5502787,
+    "ast_hash": "8915c196b1596f346756a0c3c00b5eab",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/coconut-chia-cup-15a00cc52f-tablet.jpg": {
+    "mtime": 1784320301.5564811,
+    "ast_hash": "e3eff1aa6c097b42aad86b32629dee5c",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/coconut-lime-rice-bowl-d89bc45fb8-desktop.jpg": {
+    "mtime": 1784144158.7325442,
+    "ast_hash": "12cd9401b69971b0ed92de0b1072eb24",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/coconut-lime-rice-bowl-d89bc45fb8-mobile.jpg": {
+    "mtime": 1784144158.7334177,
+    "ast_hash": "1d71932f5e21fdf7f1542d599be2e49d",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/coconut-lime-rice-bowl-d89bc45fb8-tablet.jpg": {
+    "mtime": 1784144158.7348557,
+    "ast_hash": "59b8967e9dc07d4a61dff1e60a2fcd56",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/coconut-milk-veggie-curry-618917514c-desktop.jpg": {
+    "mtime": 1784144158.736764,
+    "ast_hash": "2782e3608dca41ef0eb0f4c8362ce77b",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/coconut-milk-veggie-curry-618917514c-mobile.jpg": {
+    "mtime": 1784144158.7377286,
+    "ast_hash": "cc3ec4ffac5e121bc52c34f80ac92315",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/coconut-milk-veggie-curry-618917514c-tablet.jpg": {
+    "mtime": 1784144158.7395077,
+    "ast_hash": "6d6694127be33bf8f0fa3a12857a3840",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/kerala-coconut-vegetable-stew-d3208760e6-desktop.jpg": {
+    "mtime": 1784320301.5586061,
+    "ast_hash": "9743c6127e84d9758379caf494430b6c",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/kerala-coconut-vegetable-stew-d3208760e6-mobile.jpg": {
+    "mtime": 1784320301.5596051,
+    "ast_hash": "60fbe7e718f182f062b8d3912a23dc2b",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/kerala-coconut-vegetable-stew-d3208760e6-tablet.jpg": {
+    "mtime": 1784320301.5607305,
+    "ast_hash": "0771e7f41f0d3f6fbe3446f67ece800b",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/seasonal-coconut-berry-salad-ed135df1f2-desktop.jpg": {
+    "mtime": 1784144158.741558,
+    "ast_hash": "95c6eeb21183842a0c102c860a874485",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/seasonal-coconut-berry-salad-ed135df1f2-mobile.jpg": {
+    "mtime": 1784144158.742836,
+    "ast_hash": "7c20db4d2f0880038b073effbd071ff5",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/seasonal-coconut-berry-salad-ed135df1f2-tablet.jpg": {
+    "mtime": 1784144158.744069,
+    "ast_hash": "a46ae48510c1ad3ad4f10756bf0584d5",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/toasted-coconut-energy-bites-3e6b93e0a9-desktop.jpg": {
+    "mtime": 1784144158.7461584,
+    "ast_hash": "01c3aa57560dbafda6bf5acebc80e7da",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/toasted-coconut-energy-bites-3e6b93e0a9-mobile.jpg": {
+    "mtime": 1784144158.7471654,
+    "ast_hash": "639ad316ffaf43f7351aaa4180270039",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/generated/toasted-coconut-energy-bites-3e6b93e0a9-tablet.jpg": {
+    "mtime": 1784144158.7493424,
+    "ast_hash": "19e54a61dd20f76e5f59cc7193900c85",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/refined/recipes-hero-editorial-87acd4453c-desktop.jpg": {
+    "mtime": 1784228378.4591517,
+    "ast_hash": "fea6f49fe8db3388d995c645e62117f5",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/refined/recipes-hero-editorial-87acd4453c-mobile.jpg": {
+    "mtime": 1784228378.1914608,
+    "ast_hash": "aabfef51339386e04de2e37bc1e62cef",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/refined/recipes-hero-editorial-87acd4453c-tablet.jpg": {
+    "mtime": 1784228378.2413883,
+    "ast_hash": "18cfd02d201f124ede29bd0a9ac6dda8",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/refined/tropical-coconut-mango-chia-pudding-5542f88f36-desktop.jpg": {
+    "mtime": 1784228379.627339,
+    "ast_hash": "ec864d712780957832e9b64e2c6d62b7",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/refined/tropical-coconut-mango-chia-pudding-5542f88f36-mobile.jpg": {
+    "mtime": 1784228379.2530248,
+    "ast_hash": "edfa4f613c561cfe2097637366fddfc4",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/recipes/refined/tropical-coconut-mango-chia-pudding-5542f88f36-tablet.jpg": {
+    "mtime": 1784228379.3547413,
+    "ast_hash": "d7130d8bac0e5871342e29d54d032f78",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_BodyLotion-adb8a90d62-desktop.jpg": {
+    "mtime": 1784228380.9889407,
+    "ast_hash": "d1b583dd9a17cd092a7dccf68acefaf6",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_BodyLotion-adb8a90d62-mobile.jpg": {
+    "mtime": 1784228380.4619453,
+    "ast_hash": "a13aabb1969fb96d900239896379fd31",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_BodyLotion-adb8a90d62-tablet.jpg": {
+    "mtime": 1784228380.5230422,
+    "ast_hash": "d84663b97e86eea8708ccafef830957b",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_Bowls-f9d43b2763-desktop.jpg": {
+    "mtime": 1784228383.107899,
+    "ast_hash": "3a5cb25adf2718159171f2e06412e602",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_Bowls-f9d43b2763-mobile.jpg": {
+    "mtime": 1784228382.379767,
+    "ast_hash": "15cc46e0300073ebb0f3a9faf254e816",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_Bowls-f9d43b2763-tablet.jpg": {
+    "mtime": 1784228382.5084484,
+    "ast_hash": "fe81347201d02676b4cc4429794f6f26",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CO-Water-773f04f236-desktop.jpg": {
+    "mtime": 1784228384.670672,
+    "ast_hash": "3732252819b09d443397c96893d0cd76",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CO-Water-773f04f236-mobile.jpg": {
+    "mtime": 1784228384.2644713,
+    "ast_hash": "95e2e18cbadfa4ff01e8eb3924203338",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CO-Water-773f04f236-tablet.jpg": {
+    "mtime": 1784228384.3044035,
+    "ast_hash": "7e53db5db064f514dbd3e2ef56d60926",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CoconutAminos-c5be9e8f17-desktop.jpg": {
+    "mtime": 1784228386.8062057,
+    "ast_hash": "5acb58515b78515bc7dc662cbd8e4dc7",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CoconutAminos-c5be9e8f17-mobile.jpg": {
+    "mtime": 1784228386.2351542,
+    "ast_hash": "fa40bc2deba2b837accb1b6620c408e0",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CoconutAminos-c5be9e8f17-tablet.jpg": {
+    "mtime": 1784228386.2723737,
+    "ast_hash": "ef353ce6a061d96452caa59b646d7d36",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CoconutChips-bb4bc98e3f-desktop.jpg": {
+    "mtime": 1784228389.4628282,
+    "ast_hash": "0636f1e5e5b9560edbf85ddb1430bf5a",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CoconutChips-bb4bc98e3f-mobile.jpg": {
+    "mtime": 1784228388.5533676,
+    "ast_hash": "f321256da91b9a8ff0ba249b30068c69",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CoconutChips-bb4bc98e3f-tablet.jpg": {
+    "mtime": 1784228388.6816785,
+    "ast_hash": "d726870db268d0255bda0b0deb4c5351",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CoconutOil-9ca3b13002-desktop.jpg": {
+    "mtime": 1784228391.0764077,
+    "ast_hash": "342146bac065ef5ddcd61382a532e74f",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CoconutOil-9ca3b13002-mobile.jpg": {
+    "mtime": 1784228390.454396,
+    "ast_hash": "3bbd2c54659673617b305bdfb98e46b5",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CoconutOil-9ca3b13002-tablet.jpg": {
+    "mtime": 1784228390.5740738,
+    "ast_hash": "03f8093b9fec5e2bb780d8414d6d105c",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CoconutSugar-788f478a99-desktop.jpg": {
+    "mtime": 1784228393.4429183,
+    "ast_hash": "56ef4d8f2417497a4a6b87276a364a77",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CoconutSugar-788f478a99-mobile.jpg": {
+    "mtime": 1784228392.7886832,
+    "ast_hash": "b598ad6d8ebb4fe3bcf730a70b7dd29c",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CoconutSugar-788f478a99-tablet.jpg": {
+    "mtime": 1784228392.8895018,
+    "ast_hash": "b9a24c895c9e7d56e46a5e866d1525f1",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CoconutVinegar-bf2bebe592-desktop.jpg": {
+    "mtime": 1784228394.8865235,
+    "ast_hash": "7aed48db736811dd08a963c8494e0b0a",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CoconutVinegar-bf2bebe592-mobile.jpg": {
+    "mtime": 1784228394.3557503,
+    "ast_hash": "c86c77f2d6039fc4bdeeb9ed7e6a38fd",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_CoconutVinegar-bf2bebe592-tablet.jpg": {
+    "mtime": 1784228394.4692352,
+    "ast_hash": "09f0a42479591b8ebd9efecedb2c36f6",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_FaceWash-b453abfcb7-desktop.jpg": {
+    "mtime": 1784228396.1863346,
+    "ast_hash": "bd64ba654302790b9057e2e3da11d328",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_FaceWash-b453abfcb7-mobile.jpg": {
+    "mtime": 1784228395.7498534,
+    "ast_hash": "86f02384136a98c98c17e1612d56d7a7",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_FaceWash-b453abfcb7-tablet.jpg": {
+    "mtime": 1784228395.8132915,
+    "ast_hash": "964d05d26d21fc98ccfcaee910abc586",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_GiftBox-efcfebe4f1-desktop.jpg": {
+    "mtime": 1784228398.0365958,
+    "ast_hash": "b66019ae20fb78a7069b956a109e7330",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_GiftBox-efcfebe4f1-mobile.jpg": {
+    "mtime": 1784228397.4938915,
+    "ast_hash": "deb7b151e31ce1de575e35161c787d74",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_GiftBox-efcfebe4f1-tablet.jpg": {
+    "mtime": 1784228397.584141,
+    "ast_hash": "1d6bda465f3a55de58689a9cd7d16fbd",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_HairOil-7a40ebfe30-desktop.jpg": {
+    "mtime": 1784228399.3252726,
+    "ast_hash": "e21b84e5172ef23e7fc496d72b14a022",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_HairOil-7a40ebfe30-mobile.jpg": {
+    "mtime": 1784228398.7436626,
+    "ast_hash": "288fde580672496f695abcb96a3e40a1",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_HairOil-7a40ebfe30-tablet.jpg": {
+    "mtime": 1784228398.8844788,
+    "ast_hash": "442d49bfe5065ccf1c22f9c9f77fc788",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_MeltCO-30dcf66882-desktop.jpg": {
+    "mtime": 1784228401.4991953,
+    "ast_hash": "ddefa18c4456c3d4e38e3f6f9d064f9d",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_MeltCO-30dcf66882-mobile.jpg": {
+    "mtime": 1784228400.8556874,
+    "ast_hash": "38be5b5d66f2f4e173109a2739b1e532",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_MeltCO-30dcf66882-tablet.jpg": {
+    "mtime": 1784228400.9167747,
+    "ast_hash": "9622a0a660206f5a2737160ad3338b2c",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_Soap-ddab906743-desktop.jpg": {
+    "mtime": 1784228403.8910294,
+    "ast_hash": "7f0f9e9ab8179af5361a62281b26fda3",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_Soap-ddab906743-mobile.jpg": {
+    "mtime": 1784228403.319951,
+    "ast_hash": "45a86ec464ce68a40c9dc37bd9cdf3fb",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_Soap-ddab906743-tablet.jpg": {
+    "mtime": 1784228403.4455116,
+    "ast_hash": "4f764f1f5c9842d1f377cf3fb038658d",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_Utensils-175f3d14f5-desktop.jpg": {
+    "mtime": 1784228405.969801,
+    "ast_hash": "d20f39e835657499589c4cc4108a0421",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_Utensils-175f3d14f5-mobile.jpg": {
+    "mtime": 1784228404.9388366,
+    "ast_hash": "a32dce2df416237b959368b8ed6f578c",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/shop/products/IndividualProduct_Utensils-175f3d14f5-tablet.jpg": {
+    "mtime": 1784228405.1709619,
+    "ast_hash": "6e1afa169e83f7fe5f1974c8ae86c743",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/skincare/BOtanica-Facewash-Flat-Lay-15c4baecff-desktop.jpg": {
+    "mtime": 1784144158.8269882,
+    "ast_hash": "66f700ecdf5f2e46737f092c9276849b",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/skincare/BOtanica-Facewash-Flat-Lay-15c4baecff-mobile.jpg": {
+    "mtime": 1784144158.8274708,
+    "ast_hash": "9152d2ebf7b179b21074fab1c654e812",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/skincare/BOtanica-Facewash-Flat-Lay-15c4baecff-tablet.jpg": {
+    "mtime": 1784144158.8281803,
+    "ast_hash": "ba41148d6d66ae34fad224d5b454a9ac",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/skincare/Botanica-Shampoo-Lifestyle-Scene-9394ad64d9-desktop.jpg": {
+    "mtime": 1784144158.828947,
+    "ast_hash": "369240d76dfe7b14292fc30e63b24d65",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/skincare/Botanica-Shampoo-Lifestyle-Scene-9394ad64d9-mobile.jpg": {
+    "mtime": 1784144158.8295324,
+    "ast_hash": "5777fbfc34812d97a7f9c187bebfa3e2",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/skincare/Botanica-Shampoo-Lifestyle-Scene-9394ad64d9-tablet.jpg": {
+    "mtime": 1784144158.8302662,
+    "ast_hash": "e0d6054450f4a6547a3c19f713fffab0",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/social/afsala-founder-clean-90bc2201d3-desktop.jpg": {
+    "mtime": 1784228408.1360679,
+    "ast_hash": "0914a5dc4fc6bcc2df2a31a2b0211307",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/social/afsala-founder-clean-90bc2201d3-mobile.jpg": {
+    "mtime": 1784228407.8062198,
+    "ast_hash": "b32d532aa310b601505ec690d6a12dc8",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/social/afsala-founder-clean-90bc2201d3-tablet.jpg": {
+    "mtime": 1784228407.838443,
+    "ast_hash": "750ae3f3ee9d690ecba7690ea192760c",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/social/fazil-founder-clean-7aa34ad29f-desktop.jpg": {
+    "mtime": 1784228409.6606696,
+    "ast_hash": "eafb7f29b531fee30559e0b46bb39150",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/social/fazil-founder-clean-7aa34ad29f-mobile.jpg": {
+    "mtime": 1784228409.3963878,
+    "ast_hash": "14786239f671da4d1ff3b8ef37bf4a2d",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/social/fazil-founder-clean-7aa34ad29f-tablet.jpg": {
+    "mtime": 1784228409.426872,
+    "ast_hash": "c2d646b891d6f944a6dc43d8c790ad45",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/carbon-sink-coconut-plantation-7e6a5837ac-desktop.jpg": {
+    "mtime": 1784228411.1120582,
+    "ast_hash": "a1e2f1f7ce41c906631134c7e1000163",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/carbon-sink-coconut-plantation-7e6a5837ac-mobile.jpg": {
+    "mtime": 1784228410.4964883,
+    "ast_hash": "2b69f87cc82dad33b215af6e351bcc02",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/carbon-sink-coconut-plantation-7e6a5837ac-tablet.jpg": {
+    "mtime": 1784228410.7090664,
+    "ast_hash": "88d74d6edfcb31dc8fe316527421608e",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/clean-ocean-community-cd7337ecdd-desktop.jpg": {
+    "mtime": 1784228412.8853474,
+    "ast_hash": "83f7af32637b41b4a82456d94c905a0f",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/clean-ocean-community-cd7337ecdd-mobile.jpg": {
+    "mtime": 1784228412.3704991,
+    "ast_hash": "50ff7e2dfba109ff528a5abda63ad989",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/clean-ocean-community-cd7337ecdd-tablet.jpg": {
+    "mtime": 1784228412.5088701,
+    "ast_hash": "51ecaa848bf7a3dceb8ebdc3b47f54e7",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/community-empowerment-training-e855e7b042-desktop.jpg": {
+    "mtime": 1784228414.0814924,
+    "ast_hash": "4932173def324d0287ef12f27fab91d9",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/community-empowerment-training-e855e7b042-mobile.jpg": {
+    "mtime": 1784228413.6634736,
+    "ast_hash": "b9832aa61427262581cfe03583684a9d",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/community-empowerment-training-e855e7b042-tablet.jpg": {
+    "mtime": 1784228413.7346532,
+    "ast_hash": "ce17d0c8f319252c2e46f72030ab15d1",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/plastic-bales-recycling-30ea88894e-desktop.jpg": {
+    "mtime": 1784228415.6490703,
+    "ast_hash": "cac04d2281d6c4a6c956a36d5007cc72",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/plastic-bales-recycling-30ea88894e-mobile.jpg": {
+    "mtime": 1784228415.1271536,
+    "ast_hash": "41a09b34899adc2b3d3a0b44fd53b00c",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/plastic-bales-recycling-30ea88894e-tablet.jpg": {
+    "mtime": 1784228415.2366765,
+    "ast_hash": "5a3d0864f7108a9a92f2f3d00e603421",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/solar-clean-manufacturing-2ab52c1af1-desktop.jpg": {
+    "mtime": 1784228417.0579402,
+    "ast_hash": "9bb4d37b2b871b228a923447f19913d6",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/solar-clean-manufacturing-2ab52c1af1-mobile.jpg": {
+    "mtime": 1784228416.4570103,
+    "ast_hash": "9793a29084e131a5625b2464fbdedc20",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/solar-clean-manufacturing-2ab52c1af1-tablet.jpg": {
+    "mtime": 1784228416.5898502,
+    "ast_hash": "3b977b93bb3e8bb950a82e2807e0ca56",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/water-conservation-facility-565cc48146-desktop.jpg": {
+    "mtime": 1784228418.6198974,
+    "ast_hash": "33d786fb1a9b060751d83f970ee53f88",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/water-conservation-facility-565cc48146-mobile.jpg": {
+    "mtime": 1784228418.1685202,
+    "ast_hash": "f87e46bf305059b11da8ae82f62155a0",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/water-conservation-facility-565cc48146-tablet.jpg": {
+    "mtime": 1784228418.2569604,
+    "ast_hash": "5600aafbed8cf541254b14370d2ce53d",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/zero-waste-coir-materials-0e986a0f94-desktop.jpg": {
+    "mtime": 1784228420.0050578,
+    "ast_hash": "982466b405483f6237c3102ec711d8c6",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/zero-waste-coir-materials-0e986a0f94-mobile.jpg": {
+    "mtime": 1784228419.5772343,
+    "ast_hash": "c032f25cc0d36f03d83ee874049cef61",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/rc1/zero-waste-coir-materials-0e986a0f94-tablet.jpg": {
+    "mtime": 1784228419.6518826,
+    "ast_hash": "a772421c80ee8afc1bb027cf4fe50a41",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/refined/clean-manufacturing-46339bf4b9-desktop.jpg": {
+    "mtime": 1784228421.0467994,
+    "ast_hash": "bf41fd5dbc18ed20a2b4abe76fbb0657",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/refined/clean-manufacturing-46339bf4b9-mobile.jpg": {
+    "mtime": 1784228420.6486957,
+    "ast_hash": "120e77938ee2bd5128b27a3307fa4773",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/refined/clean-manufacturing-46339bf4b9-tablet.jpg": {
+    "mtime": 1784228420.7365618,
+    "ast_hash": "74330edda570740ba5ed8e6f08f49e28",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/refined/energy-reduction-impact-7a6ce30764-desktop.jpg": {
+    "mtime": 1784228422.0323021,
+    "ast_hash": "08b57a19a1a992fffc7c4e3ace198b5c",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/refined/energy-reduction-impact-7a6ce30764-mobile.jpg": {
+    "mtime": 1784228421.8095214,
+    "ast_hash": "207997c40750f0570dd48f88a23a5019",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/refined/energy-reduction-impact-7a6ce30764-tablet.jpg": {
+    "mtime": 1784228421.8553057,
+    "ast_hash": "c9be2c92684ff7a9db27fa9104bb6989",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/refined/plastic-bottles-impact-605e0423a2-desktop.jpg": {
+    "mtime": 1784228423.3817182,
+    "ast_hash": "710e0c016e3694a0998d6f89d3ee581e",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/refined/plastic-bottles-impact-605e0423a2-mobile.jpg": {
+    "mtime": 1784228422.9503474,
+    "ast_hash": "512f6dcd13edba90701d03adb3cbcf46",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/refined/plastic-bottles-impact-605e0423a2-tablet.jpg": {
+    "mtime": 1784228423.0823667,
+    "ast_hash": "35edcc8277aaef91e978b2f4c1beaf9e",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/refined/raw-materials-farmer-23b6f2f48c-desktop.jpg": {
+    "mtime": 1784228424.7081468,
+    "ast_hash": "e3e99ae8795ed9f8c9253f403bba9e19",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/refined/raw-materials-farmer-23b6f2f48c-mobile.jpg": {
+    "mtime": 1784228424.0286093,
+    "ast_hash": "16e88ad0d0e8acdea509310d90b4397d",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/refined/raw-materials-farmer-23b6f2f48c-tablet.jpg": {
+    "mtime": 1784228424.253851,
+    "ast_hash": "a9f12b014f146c21c5713a6d7603d036",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/refined/sustainability-hero-editorial-7b81decdb3-desktop.jpg": {
+    "mtime": 1784228426.291648,
+    "ast_hash": "32a808843911a9ee2959aadebdd33168",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/refined/sustainability-hero-editorial-7b81decdb3-mobile.jpg": {
+    "mtime": 1784228425.8905563,
+    "ast_hash": "48d491c53a0de2aa086eac12bf6b7956",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/sustainability/refined/sustainability-hero-editorial-7b81decdb3-tablet.jpg": {
+    "mtime": 1784228425.9889045,
+    "ast_hash": "9310de0a2e202644d03705913100ab13",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/transparent/co-coconut-icecream-31158fe8c3-desktop.jpg": {
+    "mtime": 1784144158.892725,
+    "ast_hash": "f25df9b6ae8ebc75f8ca8989d1f71c62",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/transparent/co-coconut-icecream-31158fe8c3-mobile.jpg": {
+    "mtime": 1784144158.8936436,
+    "ast_hash": "8e741f9f94c7776ef9f448ee6f32f8db",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/transparent/co-coconut-icecream-31158fe8c3-tablet.jpg": {
+    "mtime": 1784144158.894531,
+    "ast_hash": "f811afe75f20e888ffa98cbdd04c498a",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/transparent/co-tender-coconut-827ccc1a3a-desktop.jpg": {
+    "mtime": 1784144158.8971307,
+    "ast_hash": "5b736fa7b910db2a93f4b7225ed55ddc",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/transparent/co-tender-coconut-827ccc1a3a-mobile.jpg": {
+    "mtime": 1784144158.8980749,
+    "ast_hash": "2c7ec64d41fb8a2addc3a85090dfc903",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/transparent/co-tender-coconut-827ccc1a3a-tablet.jpg": {
+    "mtime": 1784144158.899484,
+    "ast_hash": "19c761113702d4767fb88a847af453a2",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/transparent/co-water-bottle-41231b5ae8-desktop.jpg": {
+    "mtime": 1784144158.9001725,
+    "ast_hash": "4af9c1a0cea42005d3ab04f321ded8a1",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/transparent/co-water-bottle-41231b5ae8-mobile.jpg": {
+    "mtime": 1784144158.9012625,
+    "ast_hash": "d76f5c9a83e3d7daf47a2145b31e0397",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/transparent/co-water-bottle-41231b5ae8-tablet.jpg": {
+    "mtime": 1784144158.9017496,
+    "ast_hash": "d76f5c9a83e3d7daf47a2145b31e0397",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/video/coconut-to-bottle-poster-10f1e88fb7-desktop.jpg": {
+    "mtime": 1784228427.1936924,
+    "ast_hash": "565b9ae590f130e5d651cd6842ce5b17",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/video/coconut-to-bottle-poster-10f1e88fb7-mobile.jpg": {
+    "mtime": 1784228427.0411978,
+    "ast_hash": "665f38dad0f711ac6bf979a1b82cb11c",
+    "semantic_hash": ""
+  },
+  "public/assets-optimized/video/coconut-to-bottle-poster-10f1e88fb7-tablet.jpg": {
+    "mtime": 1784228427.0666823,
+    "ast_hash": "1291fedec0a52343b64f3e9f4f7d0094",
+    "semantic_hash": ""
+  },
+  "public/assets/Coconut_Water_Assets/Flat lay.png": {
+    "mtime": 1781936116.1431997,
+    "ast_hash": "c38992f124aecd6fffaaf37fd0d80e89",
+    "semantic_hash": ""
+  },
+  "public/assets/Coconut_Water_Assets/floating pack.png": {
+    "mtime": 1781936624.3991387,
+    "ast_hash": "ce1a4aeaaa1d874c2fc9d950375919b0",
+    "semantic_hash": ""
+  },
+  "public/assets/Coconut_Water_Assets/hero composition.png": {
+    "mtime": 1781935921.0951545,
+    "ast_hash": "6475d61a28cc4a30b88bd0fad8af646a",
+    "semantic_hash": ""
+  },
+  "public/assets/Coconut_Water_Assets/ingridient composition.png": {
+    "mtime": 1781936498.6053882,
+    "ast_hash": "9f2068b77d90d5e85ab23c6f4e84752a",
+    "semantic_hash": ""
+  },
+  "public/assets/Coconut_Water_Assets/lifestyle scene.png": {
+    "mtime": 1781936313.7694185,
+    "ast_hash": "e87fac4c292b2ffe704b97d093863e0a",
+    "semantic_hash": ""
+  },
+  "public/assets/Ecosystem_Assets/BOtanica-Facewash-Flat Lay.png": {
+    "mtime": 1781934604.2442207,
+    "ast_hash": "e825028a5adde073da9213438352f9de",
+    "semantic_hash": ""
+  },
+  "public/assets/Ecosystem_Assets/Botanica-Face Wash.png": {
+    "mtime": 1781934045.3945193,
+    "ast_hash": "4170bd27b0397b8b5367ee382fead3fb",
+    "semantic_hash": ""
+  },
+  "public/assets/Ecosystem_Assets/Botanica-Hero Composition.png": {
+    "mtime": 1781933173.3175461,
+    "ast_hash": "2ff140ad35f61a347a028521a8573c0f",
+    "semantic_hash": ""
+  },
+  "public/assets/Ecosystem_Assets/Botanica-Shampoo-Lifestyle Scene.png": {
+    "mtime": 1781935060.569295,
+    "ast_hash": "ea215d7e8c86bae551a5562a050de023",
+    "semantic_hash": ""
+  },
+  "public/assets/Ecosystem_Assets/Botanica-ingredient Composition.png": {
+    "mtime": 1781934869.4421172,
+    "ast_hash": "0c954fb0f620342a43c6123f16ac93e7",
+    "semantic_hash": ""
+  },
+  "public/assets/Ecosystem_Assets/Kitchen-group ecosystem.png": {
+    "mtime": 1781935569.8443332,
+    "ast_hash": "5be330d4e413cf332949ed8980331561",
+    "semantic_hash": ""
+  },
+  "public/assets/Ecosystem_Assets/Kitchen-oil-hero.png": {
+    "mtime": 1781932320.447978,
+    "ast_hash": "6a50f6284e1d6f348780d56d0e3fae4d",
+    "semantic_hash": ""
+  },
+  "public/assets/Ecosystem_Assets/botanica-group ecosystem.png": {
+    "mtime": 1781935197.6498702,
+    "ast_hash": "b12a493e93b82089c3c4c527c99e0dfe",
+    "semantic_hash": ""
+  },
+  "public/assets/Ecosystem_Assets/coconut oil individual product-2.png": {
+    "mtime": 1781932760.8187156,
+    "ast_hash": "095eb4e2f9d9ff92c6685c4cebf91feb",
+    "semantic_hash": ""
+  },
+  "public/assets/Ecosystem_Assets/coconut oil-flat lay.png": {
+    "mtime": 1781932550.7974706,
+    "ast_hash": "7fafc6fde96cb03ac49e33c355b3d774",
+    "semantic_hash": ""
+  },
+  "public/assets/Ecosystem_Assets/coconut oil-indivigual product.png": {
+    "mtime": 1781932757.882097,
+    "ast_hash": "47046c7bccec68e1805f6a41bd32dd7d",
+    "semantic_hash": ""
+  },
+  "public/assets/Ecosystem_Assets/coconut vinegar-lifestyle scene.png": {
+    "mtime": 1781932959.1857865,
+    "ast_hash": "96bc934845be71436fcb17866fe0e66b",
+    "semantic_hash": ""
+  },
+  "public/assets/Melt_Ice_Cream_Assets/flat lay.png": {
+    "mtime": 1781937022.2757738,
+    "ast_hash": "4484658e3b8a38b71a8a0a24b33fb080",
+    "semantic_hash": ""
+  },
+  "public/assets/Melt_Ice_Cream_Assets/floating packshot.png": {
+    "mtime": 1781937526.1331394,
+    "ast_hash": "4ac281da83ce2424a013a3a3ea1763bf",
+    "semantic_hash": ""
+  },
+  "public/assets/Melt_Ice_Cream_Assets/hero Composition.png": {
+    "mtime": 1781936922.8814335,
+    "ast_hash": "0f442d65bd9258420ab580066ddc3655",
+    "semantic_hash": ""
+  },
+  "public/assets/Melt_Ice_Cream_Assets/ingredient composition.png": {
+    "mtime": 1781937280.329938,
+    "ast_hash": "2091fcdd17e55f26f33e7c4df2f22e08",
+    "semantic_hash": ""
+  },
+  "public/assets/Melt_Ice_Cream_Assets/lifestyle Scene.png": {
+    "mtime": 1781937427.9420028,
+    "ast_hash": "01ffb7e3a52e507a114d56734ac281ef",
+    "semantic_hash": ""
+  },
+  "public/assets/SVG Transparent Assets/coconut water bottle.svg": {
+    "mtime": 1781763246.0,
+    "ast_hash": "4141174a1237ab4ec5acb61b2c56e6dc",
+    "semantic_hash": ""
+  },
+  "public/assets/SVG Transparent Assets/coconut water social media-2.svg": {
+    "mtime": 1781763246.0,
+    "ast_hash": "53d0ff02cf49ddc326058ca2cf48f5e2",
+    "semantic_hash": ""
+  },
+  "public/assets/SVG Transparent Assets/coconut water social media-3.svg": {
+    "mtime": 1781763246.0,
+    "ast_hash": "de01a3d4f5e781f35e0c3ab6d21f4201",
+    "semantic_hash": ""
+  },
+  "public/assets/SVG Transparent Assets/coconut water tetra pack.svg": {
+    "mtime": 1781763246.0,
+    "ast_hash": "c588707448da81936de64ffe57ed5a72",
+    "semantic_hash": ""
+  },
+  "public/assets/SVG Transparent Assets/coconut water-social media.svg": {
+    "mtime": 1781763246.0,
+    "ast_hash": "5d53dc952dcd9de78a79c84678ae6329",
+    "semantic_hash": ""
+  },
+  "public/assets/SVG Transparent Assets/ice cream.svg": {
+    "mtime": 1781763246.0,
+    "ast_hash": "f7605c5faa070e210388536579f40cd6",
+    "semantic_hash": ""
+  },
+  "public/assets/SVG Transparent Assets/raw coconut.svg": {
+    "mtime": 1781763246.0,
+    "ast_hash": "5dd532de607e82e3799106507885dd5a",
+    "semantic_hash": ""
+  },
+  "public/assets/about/co-zero-waste-coconut-split.png": {
+    "mtime": 1784144158.912496,
+    "ast_hash": "c37214d99575614841fc39ed3e67b5e2",
+    "semantic_hash": ""
+  },
+  "public/assets/about/generic-coconut-water-comparison.png": {
+    "mtime": 1784144158.9226189,
+    "ast_hash": "2423a78e628ff78c8f0c6cf708027a67",
+    "semantic_hash": ""
+  },
+  "public/assets/branding/coconut belt-world.png": {
+    "mtime": 1782023800.5850792,
+    "ast_hash": "368f7ae4ec6b6299d7f1fe6f3648f7c4",
+    "semantic_hash": ""
+  },
+  "public/assets/branding/made-for-living-reference.png": {
+    "mtime": 1781876103.9493904,
+    "ast_hash": "4310dea371ed596eb5dab360aa55f2ae",
+    "semantic_hash": ""
+  },
+  "public/assets/coconut/whole coconut mindset.png": {
+    "mtime": 1782026198.419313,
+    "ast_hash": "fe0aec98d7f5bf54fff37c6328ffb249",
+    "semantic_hash": ""
+  },
+  "public/assets/farming/coconut belt-world.png": {
+    "mtime": 1782023800.5850792,
+    "ast_hash": "368f7ae4ec6b6299d7f1fe6f3648f7c4",
+    "semantic_hash": ""
+  },
+  "public/assets/farming/coconut respect.png": {
+    "mtime": 1782026632.5557845,
+    "ast_hash": "a7a7fd7591760ea91715a818d85c6b5a",
+    "semantic_hash": ""
+  },
+  "public/assets/farming/whole coconut mindset.png": {
+    "mtime": 1782026198.419313,
+    "ast_hash": "fe0aec98d7f5bf54fff37c6328ffb249",
+    "semantic_hash": ""
+  },
+  "public/assets/farms/VIllage collection point.png": {
+    "mtime": 1782027127.5754166,
+    "ast_hash": "30b6678ac55d04571f3cb57aa8b0c937",
+    "semantic_hash": ""
+  },
+  "public/assets/farms/village aggregation point.png": {
+    "mtime": 1782027522.5818968,
+    "ast_hash": "facf01ac6fced7407ed5f67ceae91aeb",
+    "semantic_hash": ""
+  },
+  "public/assets/founders/refined/afsala-muthali-portrait.jpg": {
+    "mtime": 1784144158.9446266,
+    "ast_hash": "91d0d0107cbc24066e802921fd142fc8",
+    "semantic_hash": ""
+  },
+  "public/assets/founders/refined/fazil-afsala-founder-hero.png": {
+    "mtime": 1784144158.952221,
+    "ast_hash": "b10273a8d3b559d3d16132b7fa618f17",
+    "semantic_hash": ""
+  },
+  "public/assets/founders/refined/fazil-shersha-portrait.jpg": {
+    "mtime": 1784144158.9677317,
+    "ast_hash": "e0a2f8468152c4e7ea1823f1e27d7055",
+    "semantic_hash": ""
+  },
+  "public/assets/generated/VIllage collection point.png": {
+    "mtime": 1782027127.5754166,
+    "ast_hash": "30b6678ac55d04571f3cb57aa8b0c937",
+    "semantic_hash": ""
+  },
+  "public/assets/generated/coconut belt-world.png": {
+    "mtime": 1782023800.5850792,
+    "ast_hash": "368f7ae4ec6b6299d7f1fe6f3648f7c4",
+    "semantic_hash": ""
+  },
+  "public/assets/generated/coconut respect.png": {
+    "mtime": 1782026632.5557845,
+    "ast_hash": "a7a7fd7591760ea91715a818d85c6b5a",
+    "semantic_hash": ""
+  },
+  "public/assets/generated/vap.png": {
+    "mtime": 1782027202.5034225,
+    "ast_hash": "65382dc8efdbcd4ef5ead5a83caa9409",
+    "semantic_hash": ""
+  },
+  "public/assets/generated/whole coconut mindset.png": {
+    "mtime": 1782026198.419313,
+    "ast_hash": "fe0aec98d7f5bf54fff37c6328ffb249",
+    "semantic_hash": ""
+  },
+  "public/assets/hero/Botanica-Hero Composition.png": {
+    "mtime": 1781933173.3175461,
+    "ast_hash": "2ff140ad35f61a347a028521a8573c0f",
+    "semantic_hash": ""
+  },
+  "public/assets/hero/Botanica-Shampoo-Lifestyle Scene.png": {
+    "mtime": 1781935060.569295,
+    "ast_hash": "ea215d7e8c86bae551a5562a050de023",
+    "semantic_hash": ""
+  },
+  "public/assets/hero/Kitchen-oil-hero.png": {
+    "mtime": 1781932320.447978,
+    "ast_hash": "6a50f6284e1d6f348780d56d0e3fae4d",
+    "semantic_hash": ""
+  },
+  "public/assets/hero/co-home-hero-background-v2.png": {
+    "mtime": 1784144158.976096,
+    "ast_hash": "d2e884375b271cfc3708fa8c4c9d0f93",
+    "semantic_hash": ""
+  },
+  "public/assets/hero/co-home-hero-solid-products.png": {
+    "mtime": 1784144158.9853487,
+    "ast_hash": "33d53c9f78a59f9e604b21450c22d2fa",
+    "semantic_hash": ""
+  },
+  "public/assets/hero/hero Composition 2.png": {
+    "mtime": 1781936922.8814335,
+    "ast_hash": "0f442d65bd9258420ab580066ddc3655",
+    "semantic_hash": ""
+  },
+  "public/assets/hero/hero composition.png": {
+    "mtime": 1781935921.0951545,
+    "ast_hash": "6475d61a28cc4a30b88bd0fad8af646a",
+    "semantic_hash": ""
+  },
+  "public/assets/home/refined/made-with-care-4k.png": {
+    "mtime": 1784144159.0167065,
+    "ast_hash": "7b2b488483d7d7874c58432ef0a6f8f5",
+    "semantic_hash": ""
+  },
+  "public/assets/home/refined/naturally-hydrating-4k.png": {
+    "mtime": 1784144159.0534766,
+    "ast_hash": "8da0d6364b8cfceacebb1f876cbb3512",
+    "semantic_hash": ""
+  },
+  "public/assets/home/refined/planet-editorial-4k.png": {
+    "mtime": 1784144159.0864418,
+    "ast_hash": "9a633f38fdf4efa45bc65106e37d05f0",
+    "semantic_hash": ""
+  },
+  "public/assets/home/refined/recipes-to-inspire-4k.png": {
+    "mtime": 1784144159.1286523,
+    "ast_hash": "bc64d7b3f886b776062827e1bc4c5bfc",
+    "semantic_hash": ""
+  },
+  "public/assets/home/refined/sustainably-yours-4k.png": {
+    "mtime": 1784144159.1635978,
+    "ast_hash": "03759ac33637a6521cd97acbd3b23061",
+    "semantic_hash": ""
+  },
+  "public/assets/journal/refined/community-coconut-table.png": {
+    "mtime": 1784144159.1809688,
+    "ast_hash": "17363760e1d5e360d11fde941c0d18e9",
+    "semantic_hash": ""
+  },
+  "public/assets/products/Botanica-Face Wash.png": {
+    "mtime": 1781934045.3945193,
+    "ast_hash": "4170bd27b0397b8b5367ee382fead3fb",
+    "semantic_hash": ""
+  },
+  "public/assets/products/Botanica-Shampoo-Lifestyle Scene.png": {
+    "mtime": 1781935060.569295,
+    "ast_hash": "ea215d7e8c86bae551a5562a050de023",
+    "semantic_hash": ""
+  },
+  "public/assets/products/co-water-reserve.jpg": {
+    "mtime": 1781433446.6765726,
+    "ast_hash": "68aef0ef7e4f5295053a00440adc83b1",
+    "semantic_hash": ""
+  },
+  "public/assets/products/co-water.jpg": {
+    "mtime": 1781433446.6714919,
+    "ast_hash": "841c8ef30cf7ed30e54aded76152b1ba",
+    "semantic_hash": ""
+  },
+  "public/assets/products/coconut oil individual product-2.png": {
+    "mtime": 1781932760.8187156,
+    "ast_hash": "095eb4e2f9d9ff92c6685c4cebf91feb",
+    "semantic_hash": ""
+  },
+  "public/assets/products/floating packshot.png": {
+    "mtime": 1781937526.1331394,
+    "ast_hash": "4ac281da83ce2424a013a3a3ea1763bf",
+    "semantic_hash": ""
+  },
+  "public/assets/recipes/Coconut smoothie Bowl.png": {
+    "mtime": 1781979232.9709752,
+    "ast_hash": "a26214875535af3485a1caad6512c2cc",
+    "semantic_hash": ""
+  },
+  "public/assets/recipes/coconut coffee chill.png": {
+    "mtime": 1781979448.295165,
+    "ast_hash": "76434716ae104a4e210b9e16187b7749",
+    "semantic_hash": ""
+  },
+  "public/assets/recipes/coconut mango cooler.png": {
+    "mtime": 1781978651.205076,
+    "ast_hash": "9b86fac42116088ea4ce87216e429a5c",
+    "semantic_hash": ""
+  },
+  "public/assets/recipes/generated/coconut-chia-cup.jpg": {
+    "mtime": 1782713295.0789025,
+    "ast_hash": "76a500c933081b0e47113ca91baaacd6",
+    "semantic_hash": ""
+  },
+  "public/assets/recipes/generated/coconut-lime-rice-bowl.jpg": {
+    "mtime": 1782713295.0888724,
+    "ast_hash": "d41d108930d64773ce0193d7d811a7df",
+    "semantic_hash": ""
+  },
+  "public/assets/recipes/generated/coconut-milk-veggie-curry.jpg": {
+    "mtime": 1782713295.1056936,
+    "ast_hash": "784c087234fbef71e93f37356b4a2e44",
+    "semantic_hash": ""
+  },
+  "public/assets/recipes/generated/kerala-coconut-vegetable-stew.jpg": {
+    "mtime": 1782713295.1232517,
+    "ast_hash": "cfc5f0cb39fc94d035d7f217cecc3663",
+    "semantic_hash": ""
+  },
+  "public/assets/recipes/generated/seasonal-coconut-berry-salad.jpg": {
+    "mtime": 1782713295.125889,
+    "ast_hash": "8036db5f179519d16c528dfcd55901ab",
+    "semantic_hash": ""
+  },
+  "public/assets/recipes/generated/toasted-coconut-energy-bites.jpg": {
+    "mtime": 1782713295.1282258,
+    "ast_hash": "f5df882d2f2abbb2ffb70c7d1e5b5f78",
+    "semantic_hash": ""
+  },
+  "public/assets/recipes/refined/recipes-hero-editorial.png": {
+    "mtime": 1784144159.2001877,
+    "ast_hash": "847f272646ce38417cb380ed2e19d661",
+    "semantic_hash": ""
+  },
+  "public/assets/recipes/refined/tropical-coconut-mango-chia-pudding.png": {
+    "mtime": 1784144159.2122068,
+    "ast_hash": "30520c4bae59ed0e0ab673dac0ee4ab4",
+    "semantic_hash": ""
+  },
+  "public/assets/shop/products/IndividualProduct_BodyLotion.png": {
+    "mtime": 1784144159.2241123,
+    "ast_hash": "fbf9cb938e6e241fa43e330ea002b031",
+    "semantic_hash": ""
+  },
+  "public/assets/shop/products/IndividualProduct_Bowls.png": {
+    "mtime": 1784144159.2428265,
+    "ast_hash": "ebf4c4eec6d916d20d2789de127a1ace",
+    "semantic_hash": ""
+  },
+  "public/assets/shop/products/IndividualProduct_CO-Water.png": {
+    "mtime": 1784144159.2623012,
+    "ast_hash": "ae59e8922a83dcec19227d3559906b75",
+    "semantic_hash": ""
+  },
+  "public/assets/shop/products/IndividualProduct_CoconutAminos.png": {
+    "mtime": 1784144159.2721953,
+    "ast_hash": "824063b9a0deb16c1d6cd7766d8f52f1",
+    "semantic_hash": ""
+  },
+  "public/assets/shop/products/IndividualProduct_CoconutChips.png": {
+    "mtime": 1784144159.2863271,
+    "ast_hash": "550f55f011a3178d36a582bde6abc4dc",
+    "semantic_hash": ""
+  },
+  "public/assets/shop/products/IndividualProduct_CoconutOil.png": {
+    "mtime": 1784144159.3084328,
+    "ast_hash": "cd2052be8a3af5bd2c43fde4a5322dfb",
+    "semantic_hash": ""
+  },
+  "public/assets/shop/products/IndividualProduct_CoconutSugar.png": {
+    "mtime": 1784144159.32562,
+    "ast_hash": "694176edf0cc8d7e605bd780bf37bb5e",
+    "semantic_hash": ""
+  },
+  "public/assets/shop/products/IndividualProduct_CoconutVinegar.png": {
+    "mtime": 1784144159.339903,
+    "ast_hash": "c2327405939cfedbe6032ee6e298c8c7",
+    "semantic_hash": ""
+  },
+  "public/assets/shop/products/IndividualProduct_FaceWash.png": {
+    "mtime": 1784144159.3535101,
+    "ast_hash": "902ca79d77550053f90aaffa2aaa8ff8",
+    "semantic_hash": ""
+  },
+  "public/assets/shop/products/IndividualProduct_GiftBox.png": {
+    "mtime": 1784144159.365854,
+    "ast_hash": "a5e62b37f60f23e6529a4efe8e4c2b7a",
+    "semantic_hash": ""
+  },
+  "public/assets/shop/products/IndividualProduct_HairOil.png": {
+    "mtime": 1784144159.3769407,
+    "ast_hash": "40ef63cc123c84cd463c5da3a2dd0277",
+    "semantic_hash": ""
+  },
+  "public/assets/shop/products/IndividualProduct_MeltCO.png": {
+    "mtime": 1784144159.3894773,
+    "ast_hash": "ddbbfccd41c8b6ddea84c7508fb9ccb9",
+    "semantic_hash": ""
+  },
+  "public/assets/shop/products/IndividualProduct_Soap.png": {
+    "mtime": 1784144159.4042597,
+    "ast_hash": "2ed4ba7b7055af0fce89affada0dbf1a",
+    "semantic_hash": ""
+  },
+  "public/assets/shop/products/IndividualProduct_Utensils.png": {
+    "mtime": 1784144159.4197528,
+    "ast_hash": "30e9cfe5f63014fb627b214c3dac3e26",
+    "semantic_hash": ""
+  },
+  "public/assets/skincare/BOtanica-Facewash-Flat Lay.png": {
+    "mtime": 1781934604.2442207,
+    "ast_hash": "e825028a5adde073da9213438352f9de",
+    "semantic_hash": ""
+  },
+  "public/assets/skincare/Botanica-Face Wash.png": {
+    "mtime": 1781934045.3945193,
+    "ast_hash": "4170bd27b0397b8b5367ee382fead3fb",
+    "semantic_hash": ""
+  },
+  "public/assets/skincare/Botanica-Hero Composition.png": {
+    "mtime": 1781933173.3175461,
+    "ast_hash": "2ff140ad35f61a347a028521a8573c0f",
+    "semantic_hash": ""
+  },
+  "public/assets/skincare/Botanica-Shampoo-Lifestyle Scene.png": {
+    "mtime": 1781935060.569295,
+    "ast_hash": "ea215d7e8c86bae551a5562a050de023",
+    "semantic_hash": ""
+  },
+  "public/assets/skincare/Botanica-ingredient Composition.png": {
+    "mtime": 1781934869.4421172,
+    "ast_hash": "0c954fb0f620342a43c6123f16ac93e7",
+    "semantic_hash": ""
+  },
+  "public/assets/skincare/botanica-group ecosystem.png": {
+    "mtime": 1781935197.6498702,
+    "ast_hash": "b12a493e93b82089c3c4c527c99e0dfe",
+    "semantic_hash": ""
+  },
+  "public/assets/social/afsala-founder-clean.png": {
+    "mtime": 1784144159.4243653,
+    "ast_hash": "5fe0a343747afa6d66e53144de06ee89",
+    "semantic_hash": ""
+  },
+  "public/assets/social/fazil-founder-clean.png": {
+    "mtime": 1784144159.4285955,
+    "ast_hash": "5df1bf4dac456f98bbcecbdabf691a65",
+    "semantic_hash": ""
+  },
+  "public/assets/sustainability/rc1/carbon-sink-coconut-plantation.png": {
+    "mtime": 1784144159.4396489,
+    "ast_hash": "261eab936d6ff5b0bca810a2ce8f3b7b",
+    "semantic_hash": ""
+  },
+  "public/assets/sustainability/rc1/clean-ocean-community.png": {
+    "mtime": 1784144159.448709,
+    "ast_hash": "bcb9f2295030bdcaf0d7b9deda3beefb",
+    "semantic_hash": ""
+  },
+  "public/assets/sustainability/rc1/community-empowerment-training.png": {
+    "mtime": 1784144159.458031,
+    "ast_hash": "11e840b849305818e91b011aaad75217",
+    "semantic_hash": ""
+  },
+  "public/assets/sustainability/rc1/plastic-bales-recycling.png": {
+    "mtime": 1784144159.474296,
+    "ast_hash": "7928f174cb013a6fadae939f9671415a",
+    "semantic_hash": ""
+  },
+  "public/assets/sustainability/rc1/solar-clean-manufacturing.png": {
+    "mtime": 1784144159.4848926,
+    "ast_hash": "6551bcf41bd6187e9afc206f7859faf6",
+    "semantic_hash": ""
+  },
+  "public/assets/sustainability/rc1/water-conservation-facility.png": {
+    "mtime": 1784144159.4946432,
+    "ast_hash": "d92f445d0dd99985e30ab6846e8f2ca3",
+    "semantic_hash": ""
+  },
+  "public/assets/sustainability/rc1/zero-waste-coir-materials.png": {
+    "mtime": 1784144159.5083818,
+    "ast_hash": "491391cb144381f8136263d66fc1e952",
+    "semantic_hash": ""
+  },
+  "public/assets/sustainability/refined/carbon-whale-impact.png": {
+    "mtime": 1784144159.5175009,
+    "ast_hash": "957a0472d23608ef7ceba81a30bd95cf",
+    "semantic_hash": ""
+  },
+  "public/assets/sustainability/refined/clean-manufacturing.png": {
+    "mtime": 1784144159.528565,
+    "ast_hash": "631190105d128f1d81b1c17c47789617",
+    "semantic_hash": ""
+  },
+  "public/assets/sustainability/refined/energy-reduction-impact.png": {
+    "mtime": 1784144159.537844,
+    "ast_hash": "dd63f561e20747f9e56126d7c8c186b7",
+    "semantic_hash": ""
+  },
+  "public/assets/sustainability/refined/plastic-bottles-impact.png": {
+    "mtime": 1784144159.5451891,
+    "ast_hash": "6b3d83d0c344c05cb656cc1189e50985",
+    "semantic_hash": ""
+  },
+  "public/assets/sustainability/refined/raw-materials-farmer.png": {
+    "mtime": 1784144159.5596848,
+    "ast_hash": "c3c2f34846a57518d8669d1800036454",
+    "semantic_hash": ""
+  },
+  "public/assets/sustainability/refined/sustainability-hero-editorial.png": {
+    "mtime": 1784144159.5668635,
+    "ast_hash": "d0360ddb1c8e4e0347f145bfeb3c0bef",
+    "semantic_hash": ""
+  },
+  "public/assets/svg/1.svg": {
+    "mtime": 1781876103.9765635,
+    "ast_hash": "4141174a1237ab4ec5acb61b2c56e6dc",
+    "semantic_hash": ""
+  },
+  "public/assets/svg/2.svg": {
+    "mtime": 1781876103.982811,
+    "ast_hash": "5dd532de607e82e3799106507885dd5a",
+    "semantic_hash": ""
+  },
+  "public/assets/svg/3.svg": {
+    "mtime": 1781876103.9870265,
+    "ast_hash": "f7605c5faa070e210388536579f40cd6",
+    "semantic_hash": ""
+  },
+  "public/assets/svg/4.svg": {
+    "mtime": 1781876103.9921696,
+    "ast_hash": "5d53dc952dcd9de78a79c84678ae6329",
+    "semantic_hash": ""
+  },
+  "public/assets/svg/5.svg": {
+    "mtime": 1781876103.998397,
+    "ast_hash": "c588707448da81936de64ffe57ed5a72",
+    "semantic_hash": ""
+  },
+  "public/assets/svg/6.svg": {
+    "mtime": 1781876104.0013776,
+    "ast_hash": "fb049c4685aa9660250164d7c7a57afe",
+    "semantic_hash": ""
+  },
+  "public/assets/svg/7.svg": {
+    "mtime": 1781876104.0056863,
+    "ast_hash": "53d0ff02cf49ddc326058ca2cf48f5e2",
+    "semantic_hash": ""
+  },
+  "public/assets/svg/8.svg": {
+    "mtime": 1781876104.0104501,
+    "ast_hash": "de01a3d4f5e781f35e0c3ab6d21f4201",
+    "semantic_hash": ""
+  },
+  "public/assets/textures/honest-truth-reference.jpg": {
+    "mtime": 1781434070.7023232,
+    "ast_hash": "4ad0950fc1f22d595c88f34cf139b334",
+    "semantic_hash": ""
+  },
+  "public/assets/transparent/co-coconut-icecream.png": {
+    "mtime": 1781557040.1341543,
+    "ast_hash": "7a9af0380cbd4dea2203803e94693348",
+    "semantic_hash": ""
+  },
+  "public/assets/transparent/co-social-media-pack.png": {
+    "mtime": 1781557041.649728,
+    "ast_hash": "b28919ba0e7193131bf4588bb60a883f",
+    "semantic_hash": ""
+  },
+  "public/assets/transparent/co-tender-coconut.png": {
+    "mtime": 1781557035.501841,
+    "ast_hash": "9cd9ad0c163f83cc678d4608fcea4390",
+    "semantic_hash": ""
+  },
+  "public/assets/transparent/co-water-bottle.png": {
+    "mtime": 1781557036.724628,
+    "ast_hash": "d8428a7b7aad80ddf56dd1a473f42854",
+    "semantic_hash": ""
+  },
+  "public/assets/transparent/co-water-reserve.png": {
+    "mtime": 1781435389.78955,
+    "ast_hash": "f944771283757f493b9854d946103023",
+    "semantic_hash": ""
+  },
+  "public/assets/transparent/co-water-tetra-pack.png": {
+    "mtime": 1781557038.341702,
+    "ast_hash": "86eb6e20636a84dbea72bbf4950880c6",
+    "semantic_hash": ""
+  },
+  "public/assets/transparent/co-water.png": {
+    "mtime": 1781435389.4946647,
+    "ast_hash": "f875306edc48039ebe29bf6e54f4b906",
+    "semantic_hash": ""
+  },
+  "public/assets/transparent/coconut-care.png": {
+    "mtime": 1781435390.8679836,
+    "ast_hash": "eafebcc9242c04e1a3ac86e6a57bcbdb",
+    "semantic_hash": ""
+  },
+  "public/assets/transparent/founder-journey.png": {
+    "mtime": 1781435391.207827,
+    "ast_hash": "ab08d18afbbc69ba19284342e9828184",
+    "semantic_hash": ""
+  },
+  "public/assets/transparent/mango-coconut-dessert.png": {
+    "mtime": 1781435390.180371,
+    "ast_hash": "f36562494704a3f33035d8ebbad4ad56",
+    "semantic_hash": ""
+  },
+  "public/assets/video/coconut-to-bottle-poster.png": {
+    "mtime": 1784144159.568996,
+    "ast_hash": "888beb91c11b49e17697d0c0e26a11ef",
+    "semantic_hash": ""
+  },
+  "public/favicon-16x16.png": {
+    "mtime": 1781465161.2104688,
+    "ast_hash": "151186894e421bf28dd6201052205b80",
+    "semantic_hash": ""
+  },
+  "public/favicon-32x32.png": {
+    "mtime": 1781465161.2232435,
+    "ast_hash": "0bc40e068669ea078378aca13bdef18c",
+    "semantic_hash": ""
+  },
+  "public/images/coconut drink glass bottle 2.jpg": {
+    "mtime": 1763304749.5560215,
+    "ast_hash": "68aef0ef7e4f5295053a00440adc83b1",
+    "semantic_hash": ""
+  },
+  "public/images/coconut drink glass bottle.jpg": {
+    "mtime": 1763304755.0719044,
+    "ast_hash": "841c8ef30cf7ed30e54aded76152b1ba",
+    "semantic_hash": ""
+  },
+  "public/images/icecream sample.png": {
+    "mtime": 1766568351.4486334,
+    "ast_hash": "6b9fcc5cec63f7b01a41873af6898ae6",
+    "semantic_hash": ""
+  },
+  "public/images/logo.svg": {
+    "mtime": 1760527912.5049403,
+    "ast_hash": "9d735841151de00255fab3425855ec4b",
+    "semantic_hash": ""
+  },
+  "public/images/social media mockup 2.png": {
+    "mtime": 1763314281.6401565,
+    "ast_hash": "d01c6d57b4156ea5ec587b2b909f4cfa",
+    "semantic_hash": ""
+  },
+  "public/images/social media mockups 1 .png": {
+    "mtime": 1763314124.9882994,
+    "ast_hash": "25e6af34ea854ea6ad46717ffb850de3",
+    "semantic_hash": ""
+  }
+}

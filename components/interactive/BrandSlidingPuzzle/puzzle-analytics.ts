@@ -10,5 +10,7 @@ export function trackPuzzleEvent(event: PuzzleEvent) {
     puzzle_rows: event.grid.rows,
     puzzle_moves: event.moves,
     puzzle_elapsed_ms: event.elapsedMs,
+    puzzle_image_id: event.imageId,
+    puzzle_previews_remaining: event.previewsRemaining,
   });
 }

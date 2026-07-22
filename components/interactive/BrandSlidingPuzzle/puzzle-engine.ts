@@ -8,24 +8,42 @@ export function getLegalMoves(board: PuzzleBoard, grid: PuzzleGrid) {
   const empty = board.indexOf(0);
   const row = Math.floor(empty / grid.columns);
   const column = empty % grid.columns;
-  return [
-    row > 0 ? empty - grid.columns : -1,
-    row < grid.rows - 1 ? empty + grid.columns : -1,
-    column > 0 ? empty - 1 : -1,
-    column < grid.columns - 1 ? empty + 1 : -1,
-  ].filter((index) => index >= 0).map((index) => board[index]);
+  return board.filter((tile, index) => {
+    if (tile === 0) return false;
+    return Math.floor(index / grid.columns) === row || index % grid.columns === column;
+  });
 }
 
 export const legalMoves = getLegalMoves;
 
-export function moveTile(board: PuzzleBoard, tile: number, grid: PuzzleGrid): PuzzleBoard {
-  if (!getLegalMoves(board, grid).includes(tile)) return board;
+export function getMoveIndices(board: PuzzleBoard, tile: number, grid: PuzzleGrid) {
+  if (!getLegalMoves(board, grid).includes(tile)) return [];
+  const emptyIndex = board.indexOf(0);
+  const tileIndex = board.indexOf(tile);
+  const sameRow = Math.floor(emptyIndex / grid.columns) === Math.floor(tileIndex / grid.columns);
+  const step = sameRow ? Math.sign(tileIndex - emptyIndex) : Math.sign(tileIndex - emptyIndex) * grid.columns;
+  const indices: number[] = [];
+  for (let index = emptyIndex + step; ; index += step) {
+    indices.push(index);
+    if (index === tileIndex) break;
+  }
+  return indices;
+}
+
+export function moveTileChain(board: PuzzleBoard, tile: number, grid: PuzzleGrid): PuzzleBoard {
+  const indices = getMoveIndices(board, tile, grid);
+  if (indices.length === 0) return board;
   const next = [...board];
-  const emptyIndex = next.indexOf(0);
-  const tileIndex = next.indexOf(tile);
-  [next[emptyIndex], next[tileIndex]] = [next[tileIndex], next[emptyIndex]];
+  let emptyIndex = next.indexOf(0);
+  for (const index of indices) {
+    next[emptyIndex] = next[index];
+    emptyIndex = index;
+  }
+  next[emptyIndex] = 0;
   return next;
 }
+
+export const moveTile = moveTileChain;
 
 export function isSolved(board: PuzzleBoard, grid: PuzzleGrid) {
   const solved = createSolvedBoard(grid);
@@ -85,13 +103,13 @@ export function tileForArrow(board: PuzzleBoard, grid: PuzzleGrid, key: string) 
   const row = Math.floor(empty / grid.columns);
   const column = empty % grid.columns;
   const index = key === "ArrowUp" && row < grid.rows - 1
-    ? empty + grid.columns
+    ? (grid.rows - 1) * grid.columns + column
     : key === "ArrowDown" && row > 0
-      ? empty - grid.columns
+      ? column
       : key === "ArrowLeft" && column < grid.columns - 1
-        ? empty + 1
+        ? row * grid.columns + grid.columns - 1
         : key === "ArrowRight" && column > 0
-          ? empty - 1
+          ? row * grid.columns
           : -1;
   return index >= 0 ? board[index] : null;
 }
