@@ -19,7 +19,7 @@ export function JourneyScrollStory() {
   const quality = useMotionQuality();
   const [active, setActive] = useState(0);
   const [desktop, setDesktop] = useState(false);
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"], layoutEffect: false });
   useMotionValueEvent(scrollYProgress, "change", (value) => {
     if (!desktop || quality !== "full") return;
     setActive(Math.min(milestones.length - 1, Math.floor(value * milestones.length)));
@@ -32,7 +32,7 @@ export function JourneyScrollStory() {
 
   if (!desktop || quality !== "full") {
     return (
-      <section id="our-journey" className="px-3 pb-7 md:px-8 md:pb-8" aria-labelledby="journey-title">
+      <section ref={sectionRef} id="our-journey" className="px-3 pb-7 md:px-8 md:pb-8" aria-labelledby="journey-title">
         <div className="mx-auto max-w-[1320px] rounded-[28px] border border-[#35271e]/7 bg-white/42 p-5 shadow-[0_18px_55px_rgba(53,39,30,.045)] md:p-7">
           <p className="text-[10px] font-semibold uppercase tracking-[.14em] text-[#305a34]">03 <span className="ml-3">Timeline</span></p>
           <h2 id="journey-title" className="mt-3 font-['Cormorant_Garamond'] text-[34px] leading-none md:text-[42px]">Our Journey So Far</h2>
@@ -47,8 +47,8 @@ export function JourneyScrollStory() {
   const current = milestones[active];
   const CurrentIcon = current.icon;
   return (
-    <section ref={sectionRef} id="our-journey" className="relative px-8" style={{ height: `${milestones.length * 88}vh` }} aria-labelledby="journey-title">
-      <div className="sticky top-0 mx-auto grid min-h-screen max-w-[1320px] grid-cols-[.72fr_1.28fr] items-center gap-10 py-24">
+    <section ref={sectionRef} id="our-journey" className="relative h-[390svh] px-8" aria-labelledby="journey-title">
+      <div className="sticky top-[88px] mx-auto grid min-h-[calc(100svh-104px)] max-w-[1320px] grid-cols-[.72fr_1.28fr] items-center gap-10 py-5">
         <div>
           <p className="text-[10px] font-semibold uppercase tracking-[.14em] text-[#305a34]">03 <span className="ml-3">Timeline</span></p>
           <h2 id="journey-title" className="mt-3 font-['Cormorant_Garamond'] text-[48px] leading-[.92]">Our Journey<br />So Far</h2>

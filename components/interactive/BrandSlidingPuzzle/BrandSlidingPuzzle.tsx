@@ -181,7 +181,7 @@ export function BrandSlidingPuzzle({
   };
 
   return (
-    <section className={`px-3 pb-7 md:px-8 md:pb-8 ${className}`} aria-labelledby="brand-puzzle-title">
+    <section data-native-cursor className={`px-3 pb-7 md:px-8 md:pb-8 ${className}`} aria-labelledby="brand-puzzle-title">
       <p className="sr-only" aria-live="polite" aria-atomic="true">
         {status === "complete" ? `Puzzle complete in ${moves} moves and ${elapsedSeconds} seconds.` : `Puzzle in progress. ${moves} moves.`}
       </p>

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "typecheck": "tsc --noEmit --incremental false",
-    "test": "npm --prefix packages/contracts test && npm --prefix backend test && npm --prefix infra test",
+    "test": "npm run test:frontend && npm --prefix packages/contracts test && npm --prefix backend test && npm --prefix infra test",
+    "test:frontend": "tsx --test tests/phase-4-3/*.test.ts tests/phase-4-3/*.test.mjs",
     "backend:typecheck": "npm --prefix packages/contracts run typecheck && npm --prefix backend run typecheck",
     "infra:synth": "npm --prefix infra run synth",
     "aws:whoami": "AWS_PROFILE=dotco-console AWS_REGION=ap-south-1 node scripts/aws-whoami.mjs",
@@ -54,6 +55,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.79.0",
+    "smooothy": "^0.0.35",
     "split-type": "^0.3.4",
     "tailwind-merge": "^3.6.0",
     "tailwindcss-animate": "^1.0.7",
@@ -72,6 +74,7 @@
     "postcss": "^8.4.39",
     "sharp": "^0.35.1",
     "tailwindcss": "^3.4.4",
+    "tsx": "^4.23.0",
     "typescript": "^5.5.3"
   }
 }

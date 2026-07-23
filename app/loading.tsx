@@ -1,10 +1,10 @@
+import { CoconutLoader } from "@/components/motion/CoconutLoader";
+
 export default function Loading() {
   return (
-    <div className="co-page-loading" role="status" aria-live="polite" aria-label="Loading .CO experience">
-      <div className="co-coconut-loader" aria-hidden="true">
-        <span />
-      </div>
-      <p>Gathering the good stuff</p>
+    <div className="co-route-transition" aria-label="Loading .CO experience">
+      <div className="co-route-leaf" />
+      <CoconutLoader mode="route" label="Gathering the good stuff" />
     </div>
   );
 }

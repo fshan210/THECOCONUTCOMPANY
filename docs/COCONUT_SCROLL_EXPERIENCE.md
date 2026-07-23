@@ -1,45 +1,32 @@
-# Coconut-to-bottle scroll experience
+# Coconut Scroll Experience
 
-## Placement
+## Placement and ownership
 
-The experience renders immediately after `PlanetBentoSection` on the homepage. It leaves the existing “Good for you, good for the planet.” composition intact.
+The section is rendered immediately after `PlanetBentoSection` on the homepage. Framer Motion maps section progress to stage copy and frame selection. A canvas draws decoded frames. Scroll World owns the local media pipeline and seam policy. Lenis remains the only page-scroll transport.
 
-## Skill-led implementation decision
+## Locked endpoints and generation
 
-- UI UX Pro Max: preserves the existing cream, earth and leaf palette; keeps one cinematic focal action; provides a short glass narrative card; uses explicit dimensions, accessible copy and 44px controls.
-- Magic UI: contributes only the supporting glass/blur treatment. No particles, marquees, animated grids or decorative effects were added.
-- Scroll World: owns the viewport-specific media pipeline, frame-locked endpoints, long pinned scroll range, reversible progress mapping, posters and reduced-motion fallback.
+- First endpoint: supplied whole green coconut reference.
+- Final endpoint: supplied approved .CO bottle reference.
+- Intermediate plates: two controlled, locally supplied image-generation results for opening and split/water states.
+- Encoding: local Sharp pipeline only; no paid service and no external brand-asset upload.
 
-The full Scroll World video workflow would require uploading the references to an external paid generation provider. That conflicts with the task’s safety constraints. The implementation therefore uses Scroll World’s supported still/poster fallback architecture: the two locked source frames are locally composed into versioned desktop and native 9:16 mobile outputs, and Framer Motion maps reversible scroll progress between them. The final bottle image is never transformed internally or regenerated, so its logo, label, cap and kraft tag remain pixel-stable.
+The final bottle is never regenerated. Frames 15–17 are identical encodes of the approved final artwork. Coconut and bottle silhouettes are never directly crossfaded: a high-opacity water veil and an object-free bridge separate the handoff.
 
-## Asset pipeline
+## Output
 
-Generate assets locally:
+- Version: v3
+- Desktop: 18 AVIF frames at 1440×900 plus JPEG fallback.
+- Mobile: 18 AVIF frames at 720×1280 plus JPEG fallback.
+- Production manifest: `public/experience/coconut-bottle/v3/manifest.json`
+- Rebuild script: `scripts/coconut-scroll/prepare-assets-v3.mjs`
 
-```bash
-node scripts/coconut-scroll/prepare-assets.mjs \
-  "/absolute/path/to/opening.png" \
-  "/absolute/path/to/final.png"
-```
+Mobile is a native 9:16 cover, not a desktop crop. The browser loads only the matching source set. The poster and current ±2 frames are decoded initially; further frames accumulate as the visitor scrolls.
 
-Validate dimensions and codecs through FFmpeg:
+## Layout and fallback
 
-```bash
-bash scripts/coconut-scroll/verify-assets.sh
-```
+The story uses 195svh on mobile and 220svh on desktop with a header-aware sticky editorial card. The dynamic-module fallback reserves those exact heights, removing the previous 105–140svh mismatch. Reduced motion renders the existing static fallback rather than a scrub sequence.
 
-Outputs live under `public/experience/coconut-bottle/v1/`. `manifest.json` records source hashes, dimensions, output sizes and output hashes. Changing the look requires a new version directory rather than overwriting the locked endpoints.
+## Reverse behavior
 
-## Runtime behavior
-
-- Mobile downloads only the 720×1280 AVIF/JPEG source selected by `<picture>`.
-- Desktop downloads only the 1440×900 source.
-- Media is lazy decoded because the section is below the fold.
-- The pinned section has a deterministic responsive height, including while its code chunk loads.
-- Framer Motion supplies `useScroll`, `useTransform`, `useSpring`, `useMotionValueEvent` and `useReducedMotion`.
-- Existing Lenis remains the site-wide scroll transport. No competing listener or second scroll engine was added.
-- Reduced-motion users receive the final static responsive frame.
-
-## Known limitation
-
-With only the two approved endpoint frames and no external/paid generation, the coconut opening and water transfer are deliberately abstracted as a restrained crown lift, water stream and cross-dissolve. A photoreal frame-by-frame opening would require approved intermediate photography or locally supplied video frames.
+Progress maps directly to `round(progress * 17)`. No autoplay state exists, so reverse scroll requests the same frames in reverse. The nearest decoded frame is retained while an adjacent frame loads, preventing blank flashes.

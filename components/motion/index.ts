@@ -3,6 +3,7 @@ export * from "./GlassHighlight";
 export * from "./HoverLift";
 export * from "./ImageReveal";
 export * from "./Magnetic";
+export * from "./CoconutCursor";
 export * from "./MotionProvider";
 export * from "./PageReveal";
 export * from "./ParallaxLayer";

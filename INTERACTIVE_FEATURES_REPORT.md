@@ -1,57 +1,24 @@
-# Phase 4.3 Interactive Features Report
+# Interactive Features Report
 
-## Sliding puzzle
+## Implemented
 
-The previous Pure vs Processed peeler rendering is replaced by `BrandSlidingPuzzle`. The board is 4×4 on desktop and 3×3 on mobile. It uses the approved existing coconut split asset; no new generative image was created.
+- Coconut v3 reversible scroll narrative below PlanetBentoSection.
+- Journal community rail on Smooothy 0.0.35 with one logical slide set.
+- Reusable horizontal and vertical slider wrappers.
+- Speed-responsive nested media parallax using `parallaxValues`, `damp` and `deltaTime`.
+- Desktop coconut cursor with target, press/crack and water-echo states.
+- Bounded magnetic slider controls.
+- About Journey sticky containment and range correction.
+- More Products retains its existing internal scroll container, Lenis prevention, overscroll containment and touch momentum.
 
-### Solvability
+## Accessibility
 
-Each shuffle starts from the solved board and executes 96 (desktop) or 54 (mobile) legal empty-cell moves, avoiding an immediate reversal when possible. This construction guarantees a reachable board. A defensive final move prevents a solved initial state. Automated parity checks passed across 80 generated boards.
+Slider controls expose labels and 44px targets; slide position is announced politely. Keyboard axis, Home and End are supported. Modified clicks are preserved. Reduced/minimal motion uses native overflow, native cursor and static coconut media. The puzzle is explicitly excluded from the custom cursor.
 
-### Accessibility
+## Performance
 
-- Tiles are native buttons with legal/disabled states.
-- Keyboard activation is native Space/Enter behavior.
-- The board exposes its size and move count.
-- A polite live region announces legal move availability and completion.
-- Reduced/minimal motion preserves the complete interaction without decorative confetti.
+Smooothy shares the existing GSAP ticker and destroys cleanly. Coconut frames are lazy, viewport-specific and capped at 1.5 DPR on canvas. The cursor uses refs and one scheduled animation-frame loop. No second page-scroll runtime or continuous React pointer state was added.
 
-### Analytics
+## Known limits
 
-Events: `puzzle_start`, `puzzle_move`, `puzzle_complete`, and `puzzle_replay`, with board size, moves, and elapsed time. No personal data is included.
-
-## Impact counters
-
-Counters read from the typed homepage CMS schema and use a safe curated fallback. Current truthful defaults are:
-
-- approximately 450 trees in the contract-farm anchor
-- 0 preservatives in the Phase 1 UHT brief
-- 10,000-unit Phase 1 UHT MOQ
-
-The prior unsupported partner-farm and coconuts-saved claims are no longer used in the counter banner. Counters start once on intersection and render immediately in reduced/minimal quality.
-
-## Product configurator
-
-### Schema and valid matrix
-
-Dimensions are size (100/200/500ml), processing (UHT/RAW), and pulp (with/without). The data source declares 12 deterministic SKU records. Both 100ml RAW variants are intentionally unavailable; the other ten combinations resolve.
-
-### Transaction design
-
-1. Validate the requested dimension against available variants.
-2. Resolve the target variant and increment a request token.
-3. Preload the target image.
-4. Ignore completion from stale requests.
-5. Commit selection, image, price, SKU and copy together.
-6. Crossfade for 460ms without a blank frame.
-7. Add the exact SKU, unit price and human-readable variant label to cart state.
-
-Cart identity uses SKU when present and slug otherwise, so configured variants remain independently adjustable.
-
-### Analytics
-
-Events: `configurator_change` and `configurator_add_to_cart`, carrying only variant dimensions and SKU metadata.
-
-## Assets
-
-No assets were generated. The interaction reuses approved static/optimized imagery and keeps Vercel runtime image optimization disabled.
+Smooothy is intentionally used on one production rail until post-deployment telemetry validates it. The reusable vertical wrapper is complete but not mounted because no existing vertical surface benefits enough to justify page-gesture risk.

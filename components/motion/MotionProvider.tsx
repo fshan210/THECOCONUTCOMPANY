@@ -6,6 +6,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import type { MouseEvent as ReactMouseEvent, ReactNode } from "react";
 import { choreography, motionEase, updateMotionDiagnostics, useMotionQuality, type MotionQuality } from "@/lib/motion";
 import { MotionDebugOverlay } from "./MotionDebugOverlay";
+import { CoconutCursor } from "./CoconutCursor";
 
 export type RoutePhase = "idle" | "covering" | "navigating" | "revealing";
 
@@ -129,6 +130,7 @@ export function MotionProvider({ children }: { children: ReactNode }) {
     <MotionContext.Provider value={value}>
       <MotionConfig reducedMotion="user" transition={{ ease: motionEase }}>
         {children}
+        {adminRoute ? null : <CoconutCursor />}
         <MotionDebugOverlay />
       </MotionConfig>
     </MotionContext.Provider>
