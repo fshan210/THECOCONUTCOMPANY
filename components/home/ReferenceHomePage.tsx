@@ -559,6 +559,9 @@ function CategoryRail({ products }: { products: DisplayProduct[] }) {
         <div className="hidden shrink-0 items-center pl-5 md:flex">
           <MoreProductsDialog products={products} />
         </div>
+        <div className="col-span-3 flex items-center justify-center border-t border-[#35271e]/10 pt-3 md:hidden">
+          <MoreProductsDialog products={products} className="min-h-11 px-5" />
+        </div>
       </div>
     </section>
   );
@@ -1027,7 +1030,6 @@ function MobileReferenceExtras({ products }: { products: DisplayProduct[] }) {
         <a href="https://www.instagram.com/cothecoconutcompany" target="_blank" rel="noreferrer" className="co-primary-cta mt-4 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#304f2c] px-5 text-[9px] font-semibold uppercase text-white">Follow us @cococonutcompany <Instagram size={14} /></a>
       </section>
 
-      <div className="flex justify-end"><MoreProductsDialog products={products} /></div>
     </div>
   );
 }

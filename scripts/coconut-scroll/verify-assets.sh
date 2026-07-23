@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${1:-public/experience/coconut-bottle/v1}"
+ROOT="${1:-public/experience/coconut-bottle/v2}"
 
 if ! command -v ffprobe >/dev/null 2>&1; then
   echo "ffprobe is required to validate the Scroll World media outputs." >&2

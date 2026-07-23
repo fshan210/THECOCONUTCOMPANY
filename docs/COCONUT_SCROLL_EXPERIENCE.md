@@ -1,20 +1,25 @@
 # Coconut-to-bottle scroll experience
 
-## Placement
+## Placement and composition
 
-The experience renders immediately after `PlanetBentoSection` on the homepage. It leaves the existing “Good for you, good for the planet.” composition intact.
+The experience renders immediately after `PlanetBentoSection`. It does not move or replace “Good for you, good for the planet.” Version 2 uses an editorial card rather than a full-screen takeover:
 
-## Skill-led implementation decision
+- 195svh mobile and 220svh desktop scroll range.
+- Sticky content card with a maximum width of 1200px.
+- Native 9:16 mobile media and 16:10 desktop media.
+- Narrative copy on the left and the scroll-scrub canvas on the right at desktop widths.
 
-- UI UX Pro Max: preserves the existing cream, earth and leaf palette; keeps one cinematic focal action; provides a short glass narrative card; uses explicit dimensions, accessible copy and 44px controls.
-- Magic UI: contributes only the supporting glass/blur treatment. No particles, marquees, animated grids or decorative effects were added.
-- Scroll World: owns the viewport-specific media pipeline, frame-locked endpoints, long pinned scroll range, reversible progress mapping, posters and reduced-motion fallback.
+## Skill-led implementation
 
-The full Scroll World video workflow would require uploading the references to an external paid generation provider. That conflicts with the task’s safety constraints. The implementation therefore uses Scroll World’s supported still/poster fallback architecture: the two locked source frames are locally composed into versioned desktop and native 9:16 mobile outputs, and Framer Motion maps reversible scroll progress between them. The final bottle image is never transformed internally or regenerated, so its logo, label, cap and kraft tag remain pixel-stable.
+- **UI UX Pro Max** is the design authority: existing cream, earth and leaf tokens remain unchanged; the story is subordinate to the surrounding homepage; typography, whitespace, 44px controls, explicit media dimensions and reduced-motion behavior are preserved.
+- **Magic UI** contributes one restrained reusable `BlurFade` treatment for the section introduction. No particles, marquees, grids, sparkles or decorative motion were added.
+- **Scroll World** owns the frame-locked media sequence, poster-first loading, device isolation, reversible scrub, native mobile exports and static fallback.
+
+No reference image is uploaded externally and no paid generation is used. The local Sharp pipeline creates twelve controlled frames per viewport. A dense coconut-water veil fully conceals the endpoint handoff; the client never overlaps the coconut and bottle images, which removes the former ghost bottle. Finished bottle pixels always come directly from the approved final artwork.
 
 ## Asset pipeline
 
-Generate assets locally:
+Generate locally:
 
 ```bash
 node scripts/coconut-scroll/prepare-assets.mjs \
@@ -22,24 +27,25 @@ node scripts/coconut-scroll/prepare-assets.mjs \
   "/absolute/path/to/final.png"
 ```
 
-Validate dimensions and codecs through FFmpeg:
+Validate dimensions and codecs:
 
 ```bash
 bash scripts/coconut-scroll/verify-assets.sh
 ```
 
-Outputs live under `public/experience/coconut-bottle/v1/`. `manifest.json` records source hashes, dimensions, output sizes and output hashes. Changing the look requires a new version directory rather than overwriting the locked endpoints.
+Outputs live under `public/experience/coconut-bottle/v2/`. `manifest.json` records source hashes, dimensions, output sizes and hashes. New art direction must use a new version directory rather than silently replacing a locked sequence.
 
 ## Runtime behavior
 
-- Mobile downloads only the 720×1280 AVIF/JPEG source selected by `<picture>`.
-- Desktop downloads only the 1440×900 source.
-- Media is lazy decoded because the section is below the fold.
-- The pinned section has a deterministic responsive height, including while its code chunk loads.
-- Framer Motion supplies `useScroll`, `useTransform`, `useSpring`, `useMotionValueEvent` and `useReducedMotion`.
-- Existing Lenis remains the site-wide scroll transport. No competing listener or second scroll engine was added.
-- Reduced-motion users receive the final static responsive frame.
+- The responsive poster is visible before JavaScript is ready.
+- An IntersectionObserver starts loading only within 600px of the section.
+- The browser loads only the chosen desktop or mobile sequence; both sets are never requested together.
+- The canvas is capped at 1.5 DPR to control memory, resized without layout shift and updated through one animation-frame queue.
+- Framer Motion supplies `useScroll`, `useSpring`, `useTransform`, `useMotionValueEvent` and `useReducedMotion`.
+- Existing Lenis remains the single smooth-scroll transport. No parallel scroll engine was added.
+- Reverse scrolling selects the same frame index in reverse.
+- Reduced-motion users receive the final responsive still in the same editorial layout.
 
 ## Known limitation
 
-With only the two approved endpoint frames and no external/paid generation, the coconut opening and water transfer are deliberately abstracted as a restrained crown lift, water stream and cross-dissolve. A photoreal frame-by-frame opening would require approved intermediate photography or locally supplied video frames.
+Two endpoint photographs cannot produce a genuinely photoreal coconut crown separation or liquid fill without either intermediate photography or external generation. The no-credit implementation therefore uses a controlled seam, water flow and fully concealing water veil. It is artifact-free and brand-safe, but approved intermediate source frames would materially improve the physical opening choreography.

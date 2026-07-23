@@ -1,47 +1,42 @@
+const version = "v2";
+
+function frames(viewport: "desktop" | "mobile", extension: "avif" | "jpg") {
+  return Array.from(
+    { length: 12 },
+    (_, index) => `/experience/coconut-bottle/${version}/${viewport}/frame-${String(index).padStart(2, "0")}.${extension}`,
+  );
+}
+
 export const coconutScrollAssets = {
-  version: "v1",
-  opening: {
-    alt: "Fresh green coconut resting on warm travertine in morning light",
-    desktop: {
-      avif: "/experience/coconut-bottle/v1/desktop/opening.avif",
-      jpeg: "/experience/coconut-bottle/v1/desktop/opening.jpg",
-      width: 1440,
-      height: 900,
-    },
-    mobile: {
-      avif: "/experience/coconut-bottle/v1/mobile/opening.avif",
-      jpeg: "/experience/coconut-bottle/v1/mobile/opening.jpg",
-      width: 720,
-      height: 1280,
-    },
+  version,
+  frameCount: 12,
+  alt: "A fresh green coconut resolving into a .CO organic coconut water bottle",
+  desktop: {
+    width: 1440,
+    height: 900,
+    avif: frames("desktop", "avif"),
+    jpeg: frames("desktop", "jpg"),
   },
-  final: {
-    alt: ".CO organic coconut water bottle on warm travertine in morning light",
-    desktop: {
-      avif: "/experience/coconut-bottle/v1/desktop/final.avif",
-      jpeg: "/experience/coconut-bottle/v1/desktop/final.jpg",
-      width: 1440,
-      height: 900,
-    },
-    mobile: {
-      avif: "/experience/coconut-bottle/v1/mobile/final.avif",
-      jpeg: "/experience/coconut-bottle/v1/mobile/final.jpg",
-      width: 720,
-      height: 1280,
-    },
+  mobile: {
+    width: 720,
+    height: 1280,
+    avif: frames("mobile", "avif"),
+    jpeg: frames("mobile", "jpg"),
   },
 } as const;
 
 export const coconutScrollStages = [
-  { label: "Whole by nature", detail: "A tender coconut, kept close to its origin." },
-  { label: "A quiet opening", detail: "The story begins with one precise, natural gesture." },
-  { label: "Nothing added", detail: "Clean coconut water moves in one continuous flow." },
-  { label: "Made for living", detail: "The finished .CO bottle resolves exactly as designed." },
+  { label: "Whole by nature", detail: "A tender coconut, held in warm Kerala light." },
+  { label: "A quiet anticipation", detail: "The seam appears before one careful opening." },
+  { label: "One continuous flow", detail: "A clean water veil carries the story forward." },
+  { label: "Nothing added", detail: "The approved bottle enters without altering its identity." },
+  { label: "Made for living", detail: "The final .CO composition resolves exactly as designed." },
 ] as const;
 
 export function coconutStageIndex(progress: number) {
-  if (progress < 0.24) return 0;
-  if (progress < 0.48) return 1;
-  if (progress < 0.76) return 2;
-  return 3;
+  if (progress < 0.18) return 0;
+  if (progress < 0.37) return 1;
+  if (progress < 0.61) return 2;
+  if (progress < 0.82) return 3;
+  return 4;
 }

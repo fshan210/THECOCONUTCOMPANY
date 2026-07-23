@@ -1,0 +1,454 @@
+{
+  "version": "v2",
+  "frameCount": 12,
+  "generatedAt": "2026-07-22T21:08:09.123Z",
+  "generation": "Local Sharp frame sequence; no external provider; finished bottle pixels are sourced only from the approved final artwork",
+  "sources": {
+    "opening": {
+      "filename": "ChatGPT Image Jul 1, 2026, 02_42_59 PM.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "f88adb7f590094e00545b4b95e0d1bb864f93d887a91248563d86c917a379a90"
+    },
+    "final": {
+      "filename": "final image.png",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "a679b485d1dcb97b308be00cac6621fe4a7b5b169d3949cb325ab9807cd3bd5c"
+    }
+  },
+  "outputs": [
+    {
+      "viewport": "desktop",
+      "frame": 0,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-00.avif",
+      "width": 1440,
+      "height": 900,
+      "bytes": 55947,
+      "sha256": "8505c5d5332b9e7c335333962e60a55edb7a6da6ad4fde87d8d03ba0f9fbf481"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 0,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-00.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 110948,
+      "sha256": "6a6f226de49f3c4840f59a2f7b7921e17095e71c13812cb9cc8b5f284adb8ff4"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 1,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-01.avif",
+      "width": 1440,
+      "height": 900,
+      "bytes": 55947,
+      "sha256": "8505c5d5332b9e7c335333962e60a55edb7a6da6ad4fde87d8d03ba0f9fbf481"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 1,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-01.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 110948,
+      "sha256": "6a6f226de49f3c4840f59a2f7b7921e17095e71c13812cb9cc8b5f284adb8ff4"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 2,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-02.avif",
+      "width": 1440,
+      "height": 900,
+      "bytes": 55717,
+      "sha256": "fbef6e6daae49e8c26a5be1509bee206371b219954bd04614257c21a8ac63f1a"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 2,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-02.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 110967,
+      "sha256": "3eba68b190b76c196bf087f892bbb419443c194db299ad8a2d422ec3254db485"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 3,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-03.avif",
+      "width": 1440,
+      "height": 900,
+      "bytes": 55814,
+      "sha256": "74d486e76c19126cf195760a2fe111f3b969c80d0629f81268702717c920b388"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 3,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-03.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 111122,
+      "sha256": "9f7da5fbbacfda5b3d7d3d9caca9f97e88d4c9e655ab5b370548a6a6dbb2695d"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 4,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-04.avif",
+      "width": 1440,
+      "height": 900,
+      "bytes": 26382,
+      "sha256": "1660f37e88dde127e55bc4375fd091dcbaa44b459b1ad0020db31bf846bb8994"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 4,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-04.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 66129,
+      "sha256": "c96fa36c922acfaec70c1d5c0d2660c1b4a6e3228f931d3701da570daa143317"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 5,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-05.avif",
+      "width": 1440,
+      "height": 900,
+      "bytes": 16817,
+      "sha256": "019ccd5fa76696ad8471e0c676fedef7366d6cda4c6859b7b491180c4e3a309b"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 5,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-05.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 49084,
+      "sha256": "42c545e9c18d683c6d220a441c210b12e3b72d00602c6bb70086c699aa4752cc"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 6,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-06.avif",
+      "width": 1440,
+      "height": 900,
+      "bytes": 17917,
+      "sha256": "37ff64d0f87e606c17d79e53e5e7d9b8ccaa038a3940c186d8de02f787fcd1ff"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 6,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-06.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 52104,
+      "sha256": "d096d481d2e1b065a427caf7e5d322f1e5d3e264b2b88084b7f1cea754e52334"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 7,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-07.avif",
+      "width": 1440,
+      "height": 900,
+      "bytes": 29664,
+      "sha256": "1df65d3e0fcd58673a069b14330b2b30b037c23e15204a797801efb598a28fb4"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 7,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-07.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 72606,
+      "sha256": "03b1f81ba153610d932bbb6e99dc030555fbcdc70541fe3a30eec87d559aeec3"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 8,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-08.avif",
+      "width": 1440,
+      "height": 900,
+      "bytes": 40215,
+      "sha256": "c0fc86f91d0099560eb1da1a7df86ca9ec17703f5f984dca6be1538aaca7c12f"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 8,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-08.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 94800,
+      "sha256": "1d6765caf66dd7101a60e3db512c08ba0c36203c5e9810f942c048c3f185ee52"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 9,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-09.avif",
+      "width": 1440,
+      "height": 900,
+      "bytes": 48037,
+      "sha256": "7b04e97e98cc31dc0548c61a29b7c48a209ed2791712bfd6e36b7083b61f45c3"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 9,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-09.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 110864,
+      "sha256": "59d8f15283166ad3c749e2586a9b40005f02a74459fa7f2d8b1d0b8a7bab5f72"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 10,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-10.avif",
+      "width": 1440,
+      "height": 900,
+      "bytes": 48652,
+      "sha256": "6217fbe060f339cb8378b868005dcf066253d7d35474cbd7c770bff1572a4a82"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 10,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-10.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 112594,
+      "sha256": "d384512e33d7cc4d3fdc1f97adcffafa10badb1cae1b6d47dc694ec0ed254378"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 11,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-11.avif",
+      "width": 1440,
+      "height": 900,
+      "bytes": 48722,
+      "sha256": "e8873a7810c5ea981d6f24884f1a41f20256178bc56c3b7f102bb32232ab5365"
+    },
+    {
+      "viewport": "desktop",
+      "frame": 11,
+      "path": "/experience/coconut-bottle/v2/desktop/frame-11.jpg",
+      "width": 1440,
+      "height": 900,
+      "bytes": 112848,
+      "sha256": "4510c098921ae14dd1adeed2ea1e897141d5ba1784a1036727fb131eb0cb0f1b"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 0,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-00.avif",
+      "width": 720,
+      "height": 1280,
+      "bytes": 56973,
+      "sha256": "6cc72fccc8208ae5ed8b5f4aef5f07002890a47151f65e6c80a8d4aeebec63cb"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 0,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-00.jpg",
+      "width": 720,
+      "height": 1280,
+      "bytes": 109053,
+      "sha256": "ceeab7a9a1849f32cd68b1a68c72f3aa82f4af9a81b0f5b3824f70b86356034f"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 1,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-01.avif",
+      "width": 720,
+      "height": 1280,
+      "bytes": 56973,
+      "sha256": "6cc72fccc8208ae5ed8b5f4aef5f07002890a47151f65e6c80a8d4aeebec63cb"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 1,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-01.jpg",
+      "width": 720,
+      "height": 1280,
+      "bytes": 109053,
+      "sha256": "ceeab7a9a1849f32cd68b1a68c72f3aa82f4af9a81b0f5b3824f70b86356034f"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 2,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-02.avif",
+      "width": 720,
+      "height": 1280,
+      "bytes": 56811,
+      "sha256": "3916ba056bd3eb487ef8df67f90c26d11e81bf0f7ba154d323114ec84f722cc3"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 2,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-02.jpg",
+      "width": 720,
+      "height": 1280,
+      "bytes": 108725,
+      "sha256": "5330cde9949b94c425592a042487d6d283dfb8285aa543ebb9d908b7ef079860"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 3,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-03.avif",
+      "width": 720,
+      "height": 1280,
+      "bytes": 56860,
+      "sha256": "7e7a6f2b7fe16c0d2b5cda01249c3ecdb45c461995fe2e92934427ea7c0faa28"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 3,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-03.jpg",
+      "width": 720,
+      "height": 1280,
+      "bytes": 108857,
+      "sha256": "ee3e5432b6c5d02a1e540774c9565145bde110c456006ca30321e699945e57f1"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 4,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-04.avif",
+      "width": 720,
+      "height": 1280,
+      "bytes": 27406,
+      "sha256": "aaa5c340b23c601cace8f938ff5b5bf1a4d6073980e524f5ab4126a44b7bfe0c"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 4,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-04.jpg",
+      "width": 720,
+      "height": 1280,
+      "bytes": 65967,
+      "sha256": "c0297e6a6298e5f34e4a4df8945c0dcbad5e15f4c4d40248efbfef338e9c6144"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 5,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-05.avif",
+      "width": 720,
+      "height": 1280,
+      "bytes": 18425,
+      "sha256": "e63bd377a578c38d442506dc4f9755675742d80ba288b99fddcb5960caa0e733"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 5,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-05.jpg",
+      "width": 720,
+      "height": 1280,
+      "bytes": 49352,
+      "sha256": "9f054e2fdb0e53c49414a0f3f2ff5c81d8986560e713ae9e60f8bb1177bcdb25"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 6,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-06.avif",
+      "width": 720,
+      "height": 1280,
+      "bytes": 19290,
+      "sha256": "d65814675c8aeff493f8d820f1ce8d9fc75d427613894c68e66b859ec73a65b4"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 6,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-06.jpg",
+      "width": 720,
+      "height": 1280,
+      "bytes": 51837,
+      "sha256": "4f637cdfec145672000babc33886274a5254621006d0953cb550a7c30f5afc61"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 7,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-07.avif",
+      "width": 720,
+      "height": 1280,
+      "bytes": 30900,
+      "sha256": "c154c4e23c1feae2437833e746bcade4471a0dd30092a41d11a652f46185a9ba"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 7,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-07.jpg",
+      "width": 720,
+      "height": 1280,
+      "bytes": 72493,
+      "sha256": "9106daf6bf5750f0e4933c31fbda98d1d12e99a9944ee0757428c49edd14afaa"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 8,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-08.avif",
+      "width": 720,
+      "height": 1280,
+      "bytes": 41525,
+      "sha256": "090eed96fe597935e3ce18781ab6b6618fa9e2642345dd4c615fa8d9e8e2a0c1"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 8,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-08.jpg",
+      "width": 720,
+      "height": 1280,
+      "bytes": 93418,
+      "sha256": "243ce8e83824afe728811e0a9ef37055b389fdd87512b172e15b47a11f1e48c9"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 9,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-09.avif",
+      "width": 720,
+      "height": 1280,
+      "bytes": 49153,
+      "sha256": "77705abb16f9e2c414865e9a11a78d1d2f6874f207165dce7e760ae030c9192d"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 9,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-09.jpg",
+      "width": 720,
+      "height": 1280,
+      "bytes": 108800,
+      "sha256": "4601304bfd9c88601cb1d6113ef27b411a4f85f0b174b415b1c0d3389f8a2242"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 10,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-10.avif",
+      "width": 720,
+      "height": 1280,
+      "bytes": 50395,
+      "sha256": "8e2e8a641b2c290dc57cb2d955ec29fdce39532ed5df215cbb933b1f77e19ec3"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 10,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-10.jpg",
+      "width": 720,
+      "height": 1280,
+      "bytes": 111130,
+      "sha256": "c2809578696c207eb4ffac46043e9c078ff689eaac64bc2b0257c6ddc0331d66"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 11,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-11.avif",
+      "width": 720,
+      "height": 1280,
+      "bytes": 50316,
+      "sha256": "cc79d6737f5213c39a85cb99bea0ec8486db991dc463af3f36dfd05b83047459"
+    },
+    {
+      "viewport": "mobile",
+      "frame": 11,
+      "path": "/experience/coconut-bottle/v2/mobile/frame-11.jpg",
+      "width": 720,
+      "height": 1280,
+      "bytes": 111391,
+      "sha256": "70ee19abf99b75450250aaf46d2ed44ebe9455e50ebb1149b7b46d3b86aa01a4"
+    }
+  ]
+}
