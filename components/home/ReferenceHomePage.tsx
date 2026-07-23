@@ -58,7 +58,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const CoconutBottleScroll = dynamic(
   () => import("@/components/experience/CoconutBottleScroll").then((module) => module.CoconutBottleScroll),
   {
-    loading: () => <div className="h-[300svh] bg-[#e9dbc2] md:h-[360svh]" aria-hidden="true" />,
+    loading: () => <div className="h-[195svh] bg-[#e9dbc2] md:h-[220svh]" aria-hidden="true" />,
   },
 );
 const blurDataURL =

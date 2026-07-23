@@ -115,7 +115,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const products = await getProducts();
 
   return (
-    <html lang="en-IN">
+    <html lang="en-IN" data-scroll-behavior="smooth">
       <head>
         <ConsentDefaults />
       </head>

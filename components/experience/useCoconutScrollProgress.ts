@@ -9,6 +9,7 @@ export function useCoconutScrollProgress() {
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
+    layoutEffect: false,
   });
   const progress = useSpring(scrollYProgress, {
     stiffness: 115,

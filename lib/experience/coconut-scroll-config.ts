@@ -1,15 +1,16 @@
-const version = "v2";
+const version = "v3";
+const frameCount = 18;
 
 function frames(viewport: "desktop" | "mobile", extension: "avif" | "jpg") {
   return Array.from(
-    { length: 12 },
+    { length: frameCount },
     (_, index) => `/experience/coconut-bottle/${version}/${viewport}/frame-${String(index).padStart(2, "0")}.${extension}`,
   );
 }
 
 export const coconutScrollAssets = {
   version,
-  frameCount: 12,
+  frameCount,
   alt: "A fresh green coconut resolving into a .CO organic coconut water bottle",
   desktop: {
     width: 1440,
@@ -34,9 +35,9 @@ export const coconutScrollStages = [
 ] as const;
 
 export function coconutStageIndex(progress: number) {
-  if (progress < 0.18) return 0;
-  if (progress < 0.37) return 1;
-  if (progress < 0.61) return 2;
-  if (progress < 0.82) return 3;
+  if (progress < 0.2) return 0;
+  if (progress < 0.4) return 1;
+  if (progress < 0.65) return 2;
+  if (progress < 0.84) return 3;
   return 4;
 }

@@ -291,7 +291,7 @@ function MobileServiceList() {
 
 export function ReferenceAboutPage() {
   return (
-    <div className="co-about-page min-h-screen overflow-hidden bg-[#f7f2e8] font-['Inter'] text-[#35271e]">
+    <div className="co-about-page min-h-screen overflow-x-clip bg-[#f7f2e8] font-['Inter'] text-[#35271e]">
       <ReferenceHeader />
       <AboutHero />
       <StatsAndQuote />

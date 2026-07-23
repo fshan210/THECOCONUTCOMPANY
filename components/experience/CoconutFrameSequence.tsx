@@ -31,6 +31,8 @@ export function CoconutFrameSequence({ progress }: { progress: MotionValue<numbe
   const hostRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<Array<HTMLImageElement | null>>([]);
+  const pendingRef = useRef<Set<number>>(new Set());
+  const loadFrameRef = useRef<(index: number) => void>(() => undefined);
   const requestedFrameRef = useRef(0);
   const animationFrameRef = useRef<number | null>(null);
   const [viewport, setViewport] = useState<ViewportName | null>(null);
@@ -55,6 +57,7 @@ export function CoconutFrameSequence({ progress }: { progress: MotionValue<numbe
 
   useMotionValueEvent(progress, "change", (value) => {
     requestedFrameRef.current = Math.max(0, Math.min(coconutScrollAssets.frameCount - 1, Math.round(value * (coconutScrollAssets.frameCount - 1))));
+    for (let offset = -2; offset <= 2; offset += 1) loadFrameRef.current(requestedFrameRef.current + offset);
     renderRequestedFrame();
   });
 
@@ -78,10 +81,14 @@ export function CoconutFrameSequence({ progress }: { progress: MotionValue<numbe
     if (!viewport || !nearViewport) return undefined;
     let cancelled = false;
     const asset = coconutScrollAssets[viewport];
+    const pending = pendingRef.current;
     imagesRef.current = Array(coconutScrollAssets.frameCount).fill(null);
+    pending.clear();
     setReady(false);
 
-    asset.avif.forEach((avifPath, index) => {
+    const loadFrame = (index: number) => {
+      if (index < 0 || index >= coconutScrollAssets.frameCount || imagesRef.current[index] || pending.has(index)) return;
+      pending.add(index);
       const image = new Image();
       image.decoding = "async";
       const loadFallback = () => {
@@ -91,17 +98,22 @@ export function CoconutFrameSequence({ progress }: { progress: MotionValue<numbe
       image.onerror = loadFallback;
       image.onload = () => {
         if (cancelled) return;
+        pending.delete(index);
         imagesRef.current[index] = image;
-        if (index === 0 || index === requestedFrameRef.current) {
-          setReady(true);
-          renderRequestedFrame();
-        }
+        setReady(true);
+        renderRequestedFrame();
       };
-      image.src = avifPath;
-    });
+      image.src = asset.avif[index];
+    };
+
+    loadFrameRef.current = loadFrame;
+    loadFrame(0);
+    for (let offset = -2; offset <= 2; offset += 1) loadFrame(requestedFrameRef.current + offset);
 
     return () => {
       cancelled = true;
+      loadFrameRef.current = () => undefined;
+      pending.clear();
       imagesRef.current = [];
     };
   }, [nearViewport, renderRequestedFrame, viewport]);
