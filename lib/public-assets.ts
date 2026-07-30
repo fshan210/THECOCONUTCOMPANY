@@ -1,4 +1,28 @@
 export const publicAssets = {
+  website: {
+    homeHero: {
+      desktop: "/images/website/home/hero/CO_WEBSITE_HOME_HERO_DESKTOP_MASTER.webp",
+      mobile: "/images/website/home/hero/CO_WEBSITE_HOME_HERO_MOBILE_MASTER.webp"
+    },
+    transitions: {
+      originDesktop: "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER.webp",
+      originMobile: "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER.webp",
+      kitchenDesktop: "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER.webp",
+      kitchenMobile: "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER.webp",
+      botanicaDesktop: "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER.webp",
+      botanicaMobile: "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER.webp",
+      meltDesktop: "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER.webp",
+      meltMobile: "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER.webp"
+    },
+    aboutTimeline: [
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_01_it_all_started_MASTER.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_02_building_the_foundation_MASTER.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_03_first_product_direction_MASTER.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_04_growing_the_ecosystem_MASTER.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_05_rooted_partnerships_MASTER.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_06_made_for_living_MASTER.webp"
+    ]
+  },
   water: {
     hero: "/assets/Coconut_Water_Assets/hero composition.png",
     floating: "/assets/Coconut_Water_Assets/floating pack.png",

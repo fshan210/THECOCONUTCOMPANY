@@ -472,8 +472,8 @@ function HeroSection({ homepage }: { homepage: HomepageContent }) {
   return (
     <section className="relative isolate min-h-[445px] overflow-hidden bg-[#f7f2e8] md:min-h-[720px]">
       <Image
-        src="/assets/about/co-about-hero-editorial-4k.avif"
-        alt=".CO Coconut Water and Melt.CO mango coconut ice cream on travertine with fresh coconuts"
+        src={publicAssets.website.homeHero.mobile}
+        alt=".CO The Coconut Company product range arranged in warm natural light for mobile."
         fill
         priority
         fetchPriority="high"
@@ -484,8 +484,8 @@ function HeroSection({ homepage }: { homepage: HomepageContent }) {
         className="object-cover object-[66%_center] md:hidden"
       />
       <Image
-        src="/assets/hero/co-home-hero-solid-products.avif"
-        alt=".CO Coconut Water and Melt.CO mango coconut ice cream on travertine with fresh coconuts"
+        src={publicAssets.website.homeHero.desktop}
+        alt=".CO The Coconut Company product range arranged on pale limestone in warm natural light."
         fill
         priority
         fetchPriority="high"
