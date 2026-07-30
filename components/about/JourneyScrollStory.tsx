@@ -3,15 +3,19 @@
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { Droplets, HandHeart, Heart, Package, Sprout, TreePalm } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { ResponsiveImage as Image } from "@/components/media/ResponsiveImage";
 import { motionEase, useMotionQuality } from "@/lib/motion";
+import { publicAssets } from "@/lib/public-assets";
+
+const blurDataURL = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MCcgaGVpZ2h0PSczMCc+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsbD0nI2Y3ZjJlOCcvPjwvc3ZnPg==";
 
 const milestones = [
-  { year: "2020", title: "It all started", body: "A simple idea: build a coconut company around considered products and everyday living.", icon: Sprout },
-  { year: "2021", title: "Building the foundation", body: "Early product work turned the idea into a practical sourcing and production plan.", icon: TreePalm },
-  { year: "2022", title: "First product direction", body: "The coconut-water ecosystem became the anchor for the wider .CO brand world.", icon: Droplets },
-  { year: "2023", title: "Growing the ecosystem", body: "Kitchen, Creamery and Botanica directions expanded the brand beyond one bottle.", icon: Heart },
-  { year: "2024", title: "Rooted partnerships", body: "A Pollachi contract-farm anchor and Kerala operating base shaped the sourcing model.", icon: HandHeart },
-  { year: "Next", title: "Made for living", body: "Phase-one UHT production and a measured VAP network are the next execution milestones.", icon: Package },
+  { year: "2020", title: "It all started", body: "A simple idea: build a coconut company around considered products and everyday living.", icon: Sprout, image: publicAssets.website.aboutTimeline[0], alt: "Warm coconut-origin materials arranged as the beginning of the .CO timeline." },
+  { year: "2021", title: "Building the foundation", body: "Early product work turned the idea into a practical sourcing and production plan.", icon: TreePalm, image: publicAssets.website.aboutTimeline[1], alt: "Coconut sourcing and planning materials arranged for the .CO foundation milestone." },
+  { year: "2022", title: "First product direction", body: "The coconut-water ecosystem became the anchor for the wider .CO brand world.", icon: Droplets, image: publicAssets.website.aboutTimeline[2], alt: ".CO coconut water shown as the first product direction milestone." },
+  { year: "2023", title: "Growing the ecosystem", body: "Kitchen, Creamery and Botanica directions expanded the brand beyond one bottle.", icon: Heart, image: publicAssets.website.aboutTimeline[3], alt: ".CO product-family imagery for the growing ecosystem milestone." },
+  { year: "2024", title: "Rooted partnerships", body: "A Pollachi contract-farm anchor and Kerala operating base shaped the sourcing model.", icon: HandHeart, image: publicAssets.website.aboutTimeline[4], alt: "Kerala and Pollachi sourcing-inspired visual for the rooted partnerships milestone." },
+  { year: "Next", title: "Made for living", body: "Phase-one UHT production and a measured VAP network are the next execution milestones.", icon: Package, image: publicAssets.website.aboutTimeline[5], alt: ".CO made-for-living product visual for the next timeline milestone." },
 ] as const;
 
 export function JourneyScrollStory() {
@@ -37,7 +41,7 @@ export function JourneyScrollStory() {
           <p className="text-[10px] font-semibold uppercase tracking-[.14em] text-[#305a34]">03 <span className="ml-3">Timeline</span></p>
           <h2 id="journey-title" className="mt-3 font-['Cormorant_Garamond'] text-[34px] leading-none md:text-[42px]">Our Journey So Far</h2>
           <div className="relative mt-7 space-y-3 before:absolute before:bottom-8 before:left-5 before:top-8 before:w-px before:bg-[#305a34]/18">
-            {milestones.map((item) => { const Icon = item.icon; return <article key={item.year} className="relative grid grid-cols-[42px_1fr] gap-4 rounded-[20px] bg-white/34 p-3"><span className="relative z-10 grid size-[42px] place-items-center rounded-full border border-[#305a34]/25 bg-[#f9f6ee] text-[#305a34]"><Icon size={18} /></span><div><p className="text-[10px] font-semibold uppercase text-[#305a34]">{item.year}</p><h3 className="mt-1 font-['Cormorant_Garamond'] text-2xl">{item.title}</h3><p className="mt-2 text-[11px] leading-5 text-[#625950]">{item.body}</p></div></article>; })}
+            {milestones.map((item) => { const Icon = item.icon; return <article key={item.year} className="relative grid grid-cols-[42px_1fr] gap-4 rounded-[20px] bg-white/34 p-3"><span className="relative z-10 grid size-[42px] place-items-center rounded-full border border-[#305a34]/25 bg-[#f9f6ee] text-[#305a34]"><Icon size={18} /></span><div><p className="text-[10px] font-semibold uppercase text-[#305a34]">{item.year}</p><h3 className="mt-1 font-['Cormorant_Garamond'] text-2xl">{item.title}</h3><p className="mt-2 text-[11px] leading-5 text-[#625950]">{item.body}</p><div className="relative mt-3 aspect-[4/3] overflow-hidden rounded-[18px] border border-white/60 bg-[#f7f2e8]"><Image src={item.image} alt={item.alt} fill sizes="calc(100vw - 98px)" placeholder="blur" blurDataURL={blurDataURL} className="object-cover" /></div></div></article>; })}
           </div>
         </div>
       </section>
@@ -61,6 +65,9 @@ export function JourneyScrollStory() {
           <AnimatePresence mode="wait">
             <motion.article key={current.year} className="relative flex min-h-[440px] flex-col justify-between" initial={{ opacity: 0, y: 22, filter: "blur(7px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -16, filter: "blur(5px)" }} transition={{ duration: .54, ease: motionEase }}>
               <div className="flex items-start justify-between"><span className="grid size-16 place-items-center rounded-full bg-[#305a34] text-white shadow-[0_16px_38px_rgba(48,90,52,.22)]"><CurrentIcon size={27} strokeWidth={1.35} /></span><span className="font-['Space_Grotesk'] text-[72px] font-medium leading-none text-[#305a34]/12">0{active + 1}</span></div>
+              <div className="relative my-7 aspect-[4/3] overflow-hidden rounded-[28px] border border-white/65 bg-[#f7f2e8] shadow-[0_18px_48px_rgba(53,39,30,.08)]">
+                <Image src={current.image} alt={current.alt} fill sizes="(min-width: 768px) 680px, 92vw" placeholder="blur" blurDataURL={blurDataURL} className="object-cover" />
+              </div>
               <div><p className="text-[11px] font-semibold uppercase tracking-[.16em] text-[#305a34]">{current.year}</p><h3 className="mt-3 max-w-xl font-['Cormorant_Garamond'] text-[54px] leading-[.9]">{current.title}</h3><p className="mt-5 max-w-lg text-[14px] leading-7 text-[#625950]">{current.body}</p></div>
               <div className="h-1 overflow-hidden rounded-full bg-[#305a34]/10"><motion.div className="h-full origin-left rounded-full bg-[#305a34]" animate={{ scaleX: (active + 1) / milestones.length }} transition={{ duration: .45, ease: motionEase }} /></div>
             </motion.article>

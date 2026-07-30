@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-29T23:29:14.771Z",
+  "variants": {
+    "/images/website/home/hero/CO_WEBSITE_HOME_HERO_DESKTOP_MASTER.webp": [
+      "/images/website/home/hero/CO_WEBSITE_HOME_HERO_DESKTOP_MASTER-640.webp",
+      "/images/website/home/hero/CO_WEBSITE_HOME_HERO_DESKTOP_MASTER-960.webp",
+      "/images/website/home/hero/CO_WEBSITE_HOME_HERO_DESKTOP_MASTER-1280.webp",
+      "/images/website/home/hero/CO_WEBSITE_HOME_HERO_DESKTOP_MASTER-1600.webp",
+      "/images/website/home/hero/CO_WEBSITE_HOME_HERO_DESKTOP_MASTER-1920.webp"
+    ],
+    "/images/website/home/hero/CO_WEBSITE_HOME_HERO_MOBILE_MASTER.webp": [
+      "/images/website/home/hero/CO_WEBSITE_HOME_HERO_MOBILE_MASTER-640.webp",
+      "/images/website/home/hero/CO_WEBSITE_HOME_HERO_MOBILE_MASTER-960.webp",
+      "/images/website/home/hero/CO_WEBSITE_HOME_HERO_MOBILE_MASTER-1280.webp",
+      "/images/website/home/hero/CO_WEBSITE_HOME_HERO_MOBILE_MASTER-1600.webp"
+    ],
+    "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER.webp": [
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-640.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-960.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-1280.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-1600.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-1920.webp"
+    ],
+    "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER.webp": [
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER-640.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER-960.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER-1280.webp"
+    ],
+    "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER.webp": [
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-640.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-960.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-1280.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-1600.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-1920.webp"
+    ],
+    "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER.webp": [
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER-640.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER-960.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER-1280.webp"
+    ],
+    "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER.webp": [
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-640.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-960.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-1280.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-1600.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-1920.webp"
+    ],
+    "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER.webp": [
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER-640.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER-960.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER-1280.webp"
+    ],
+    "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER.webp": [
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-640.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-960.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-1280.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-1600.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-1920.webp"
+    ],
+    "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER.webp": [
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER-640.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER-960.webp",
+      "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER-1280.webp"
+    ],
+    "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_01_it_all_started_MASTER.webp": [
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_01_it_all_started_MASTER-640.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_01_it_all_started_MASTER-960.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_01_it_all_started_MASTER-1280.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_01_it_all_started_MASTER-1600.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_01_it_all_started_MASTER-1920.webp"
+    ],
+    "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_02_building_the_foundation_MASTER.webp": [
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_02_building_the_foundation_MASTER-640.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_02_building_the_foundation_MASTER-960.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_02_building_the_foundation_MASTER-1280.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_02_building_the_foundation_MASTER-1600.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_02_building_the_foundation_MASTER-1920.webp"
+    ],
+    "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_03_first_product_direction_MASTER.webp": [
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_03_first_product_direction_MASTER-640.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_03_first_product_direction_MASTER-960.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_03_first_product_direction_MASTER-1280.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_03_first_product_direction_MASTER-1600.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_03_first_product_direction_MASTER-1920.webp"
+    ],
+    "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_04_growing_the_ecosystem_MASTER.webp": [
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_04_growing_the_ecosystem_MASTER-640.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_04_growing_the_ecosystem_MASTER-960.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_04_growing_the_ecosystem_MASTER-1280.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_04_growing_the_ecosystem_MASTER-1600.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_04_growing_the_ecosystem_MASTER-1920.webp"
+    ],
+    "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_05_rooted_partnerships_MASTER.webp": [
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_05_rooted_partnerships_MASTER-640.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_05_rooted_partnerships_MASTER-960.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_05_rooted_partnerships_MASTER-1280.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_05_rooted_partnerships_MASTER-1600.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_05_rooted_partnerships_MASTER-1920.webp"
+    ],
+    "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_06_made_for_living_MASTER.webp": [
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_06_made_for_living_MASTER-640.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_06_made_for_living_MASTER-960.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_06_made_for_living_MASTER-1280.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_06_made_for_living_MASTER-1600.webp",
+      "/images/website/about/timeline/CO_WEBSITE_ABOUT_TIMELINE_06_made_for_living_MASTER-1920.webp"
+    ]
+  }
+}
