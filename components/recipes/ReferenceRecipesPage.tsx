@@ -9,13 +9,16 @@ import { MobileBottomNav, NewsletterSection, ReferenceFooter, ReferenceHeader } 
 import { cn } from "@/lib/utils";
 import { useSavedContent } from "@/lib/customer/use-saved-content";
 import { recipeCategories, recipes, type RecipeItem } from "./recipe-data";
+import { resolveWebsiteAsset, websiteAssets } from "@/lib/website-assets";
 
 const blurDataURL = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MCcgaGVpZ2h0PSc0MCc+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsbD0nI2YzZWVlNCcvPjwvc3ZnPg==";
 const ease = [0.16, 1, 0.3, 1] as const;
 const categoryIcons = [Sparkles, CupSoda, ChefHat, UtensilsCrossed, Cookie, CupSoda, Cookie, ChefHat, Leaf, WheatOff];
+const recipesHero = resolveWebsiteAsset(websiteAssets.recipes.hero);
 
 function PremiumImage({ src, alt, sizes, priority = false, className = "" }: { src: string; alt: string; sizes: string; priority?: boolean; className?: string }) {
-  return <Image src={src} alt={alt} fill priority={priority} sizes={sizes} quality={95} placeholder="blur" blurDataURL={blurDataURL} className={cn("object-cover transition duration-700 group-hover:scale-[1.04]", className)} />;
+  const hero = src.endsWith("/recipes-hero-editorial.png") ? recipesHero : null;
+  return <Image src={hero?.desktop ?? src} mobileSrc={hero?.mobile} alt={hero?.alt ?? alt} fill priority={priority} sizes={sizes} quality={95} placeholder="blur" blurDataURL={blurDataURL} className={cn("object-cover transition duration-700 group-hover:scale-[1.04]", className)} />;
 }
 
 export function ReferenceRecipesPage() {

@@ -11,11 +11,16 @@ import type { ContentJournalPost } from "@/lib/content/types";
 import { cn } from "@/lib/utils";
 import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
 import { SmooothyHorizontalSlider, SmooothySlide } from "@/components/sliders";
+import { websiteAssets } from "@/lib/website-assets";
 
 const blur="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MCcgaGVpZ2h0PSc0MCc+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsbD0nI2Y4ZjRlYycvPjwvc3ZnPg==";
 const ease=[.16,1,.3,1] as const;
+const journalHero = websiteAssets.journal.hero("community", "/assets/journal/refined/community-coconut-table.png", "The .CO community sharing coconut rituals around a sunlit table.");
 
-function PremiumImage({src,alt,sizes,className="",priority=false}:{src:string;alt:string;sizes:string;className?:string;priority?:boolean}){return <Image src={src} alt={alt} fill sizes={sizes} priority={priority} quality={95} placeholder="blur" blurDataURL={blur} className={cn("object-cover transition duration-700 group-hover:scale-[1.035]",className)}/>;}
+function PremiumImage({src,alt,sizes,className="",priority=false}:{src:string;alt:string;sizes:string;className?:string;priority?:boolean}){
+  const hero = src === "/assets/journal/refined/community-coconut-table.png" ? journalHero : null;
+  return <Image src={hero?.src ?? src} alt={hero?.alt ?? alt} fill sizes={sizes} priority={priority} quality={95} placeholder="blur" blurDataURL={blur} className={cn("object-cover transition duration-700 group-hover:scale-[1.035]",className)}/>;
+}
 function ArrowButton({label,onClick}:{label:string;onClick?:()=>void}){return <button type="button" onClick={onClick} aria-label={label} className="co-primary-cta grid size-11 place-items-center rounded-full border border-[#214d2b]/25 bg-white/70 transition hover:bg-[#214d2b] hover:text-white"><ArrowRight size={16}/></button>;}
 
 export function ReferenceJournalPage({journalEntries=[]}:{journalEntries?:ContentJournalPost[]}){
@@ -27,7 +32,10 @@ export function ReferenceJournalPage({journalEntries=[]}:{journalEntries?:Conten
   useBodyScrollLock(Boolean(post||creator));
   useEffect(()=>{const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){setPost(null);setCreator(false);}};window.addEventListener("keydown",close);return()=>window.removeEventListener("keydown",close);},[]);
   const swipe=(action:"like"|"save"|"skip")=>{if(!deck.length)return;const current=deck[0];setDeck((items)=>[...items.slice(1),items[0]]);if(action==="save")setToast("Pinned to your routine");else if(action==="like")setToast(`Loved ${current.handle}`);else setToast("Next story");window.setTimeout(()=>setToast(""),1800);};
-  const articles=useMemo(()=>(journalEntries.length?journalEntries.slice(0,10).map((entry)=>[entry.category,entry.title,entry.readTime,entry.image] as (typeof fallbackArticles)[number]):fallbackArticles),[journalEntries]);
+  const articles=useMemo(()=>{
+    const source=journalEntries.length?journalEntries.slice(0,10).map((entry)=>[entry.category,entry.title,entry.readTime,entry.image] as (typeof fallbackArticles)[number]):fallbackArticles;
+    return source.map(([type,title,time,image])=>[type,title,time,websiteAssets.journal.card(title.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,""),image,title).src] as (typeof fallbackArticles)[number]);
+  },[journalEntries]);
   const filtered=category==="All"?articles:articles.filter(([item])=>item===category);
   return <div className="co-journal-page min-h-screen overflow-hidden bg-[#f8f4ec] font-['Inter'] text-[#2a1b13]">
     <ReferenceHeader/>
