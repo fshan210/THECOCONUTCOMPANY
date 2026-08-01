@@ -23,6 +23,7 @@ type OptimizedImage = {
 
 type ResponsiveImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "height" | "width" | "placeholder"> & {
   src: string;
+  mobileSrc?: string;
   alt: string;
   width?: number;
   height?: number;
@@ -52,6 +53,7 @@ export function optimizedImageSrc(src: string, variant: "mobile" | "tablet" | "d
 
 export function ResponsiveImage({
   src,
+  mobileSrc,
   alt,
   width,
   height,
@@ -100,15 +102,16 @@ export function ResponsiveImage({
     />
   );
 
-  if (!meta) return image;
+  if (!meta && !mobileSrc) return image;
 
   return (
     <picture>
-      {meta.variants.mobile?.avif ? <source type="image/avif" media="(max-width: 767px)" srcSet={meta.variants.mobile.avif} /> : null}
-      {meta.variants.tablet?.avif ? <source type="image/avif" media="(max-width: 1279px)" srcSet={meta.variants.tablet.avif} /> : null}
-      {meta.variants.desktop?.avif ? <source type="image/avif" srcSet={meta.variants.desktop.avif} /> : null}
-      {meta.variants.mobile?.jpg ? <source type="image/jpeg" media="(max-width: 767px)" srcSet={meta.variants.mobile.jpg} /> : null}
-      {meta.variants.tablet?.jpg ? <source type="image/jpeg" media="(max-width: 1279px)" srcSet={meta.variants.tablet.jpg} /> : null}
+      {mobileSrc ? <source media="(max-width: 767px)" srcSet={normalizeSrc(mobileSrc)} /> : null}
+      {meta?.variants.mobile?.avif ? <source type="image/avif" media="(max-width: 767px)" srcSet={meta.variants.mobile.avif} /> : null}
+      {meta?.variants.tablet?.avif ? <source type="image/avif" media="(max-width: 1279px)" srcSet={meta.variants.tablet.avif} /> : null}
+      {meta?.variants.desktop?.avif ? <source type="image/avif" srcSet={meta.variants.desktop.avif} /> : null}
+      {meta?.variants.mobile?.jpg ? <source type="image/jpeg" media="(max-width: 767px)" srcSet={meta.variants.mobile.jpg} /> : null}
+      {meta?.variants.tablet?.jpg ? <source type="image/jpeg" media="(max-width: 1279px)" srcSet={meta.variants.tablet.jpg} /> : null}
       {image}
     </picture>
   );

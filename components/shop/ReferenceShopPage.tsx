@@ -7,6 +7,8 @@ import {
   ArrowRight,
   Check,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Gift,
   Heart,
   IceCreamBowl,
@@ -27,7 +29,7 @@ import {
   X,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useCart } from "@/lib/cart/cart-context";
 import { cn } from "@/lib/utils";
 import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
@@ -36,6 +38,7 @@ import { MobileBottomNav, NewsletterSection, ReferenceFooter, ReferenceHeader } 
 import { StatePanel } from "@/components/launch/StatePanel";
 import type { ContentProduct } from "@/lib/content/types";
 import { ProductConfigurator } from "@/components/shop/ProductConfigurator";
+import { galleryForShopSlug, type ProductGalleryAsset } from "@/lib/website-assets";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const imageRoot = "/assets/shop/products";
@@ -52,6 +55,7 @@ type Product = {
   reviews: number;
   badge?: "Bestseller" | "New" | "Limited";
   image: string;
+  gallery?: ProductGalleryAsset[];
   dietary: string[];
   collection: string[];
   description: string;
@@ -82,7 +86,7 @@ const collectionOptions = ["Bestsellers", "New Arrivals", "On Sale"];
 const sortOptions = ["Featured", "Newest", "Price Low to High", "Price High to Low", "Best Selling", "Rating", "Alphabetical"];
 
 function ProductImage({ product, sizes, priority = false }: { product: Product; sizes: string; priority?: boolean }) {
-  return <Image src={product.image} alt={product.name} fill priority={priority} sizes={sizes} quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-cover transition duration-700 group-hover:scale-105" />;
+  return <Image src={product.image} alt={product.name} fill priority={priority} sizes={sizes} quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain p-3 transition duration-700 group-hover:scale-[1.025] md:p-5" />;
 }
 
 function Quantity({ value, onChange }: { value: number; onChange: (value: number) => void }) {
@@ -116,7 +120,10 @@ function FilterChecks({ title, options, selected, onToggle }: { title: string; o
 function mergeProductCatalog(contentProducts: ContentProduct[]) {
   return fallbackShopProducts.map((fallback) => {
     const source = contentProducts.find((item) => item.slug === fallback.cartSlug || item.slug === fallback.slug);
-    if (!source) return fallback;
+    const approved = galleryForShopSlug(fallback.slug) ?? galleryForShopSlug(fallback.cartSlug);
+    const approvedImage = approved?.primary;
+    const gallery = approved?.gallery ?? [];
+    if (!source) return { ...fallback, image: approvedImage ?? fallback.image, gallery };
     return {
       ...fallback,
       cartSlug: source.slug,
@@ -124,7 +131,8 @@ function mergeProductCatalog(contentProducts: ContentProduct[]) {
       subtitle: source.subtitle || source.shortDescription || fallback.subtitle,
       category: source.category || fallback.category,
       price: source.price ?? fallback.price,
-      image: source.image || fallback.image,
+      image: approvedImage ?? source.image ?? fallback.image,
+      gallery,
       description: source.longDescription || source.shortDescription || fallback.description,
       benefits: source.benefits.length ? source.benefits : fallback.benefits,
       nutrition: source.nutritionHighlights.length ? source.nutritionHighlights.join(" · ") : fallback.nutrition,
@@ -247,7 +255,36 @@ function useDialogScrollLock(open:boolean){
   useBodyScrollLock(open);
 }
 
+function QuickViewGallery({ product }: { product: Product }) {
+  const slides = product.gallery?.length ? product.gallery : [{ src: product.image, alt: product.name, view: "Primary", width: 1200, height: 1200 }];
+  const [active, setActive] = useState(0);
+  const pointerStart = useRef<number | null>(null);
+  useEffect(() => setActive(0), [product.slug]);
+  const move = (direction: number) => setActive((current) => (current + direction + slides.length) % slides.length);
+  const current = slides[active];
+  return (
+    <div onKeyDown={(event) => { if (event.key === "ArrowLeft") move(-1); if (event.key === "ArrowRight") move(1); }}>
+      <div
+        className="relative aspect-square touch-pan-y overflow-hidden rounded-[26px] bg-[#f3eee4]"
+        onPointerDown={(event) => { pointerStart.current = event.clientX; }}
+        onPointerUp={(event) => { if (pointerStart.current === null) return; const delta = event.clientX - pointerStart.current; pointerStart.current = null; if (Math.abs(delta) > 42) move(delta > 0 ? -1 : 1); }}
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div key={current.src} className="absolute inset-0" initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -16 }} transition={{ duration: .28, ease }}>
+            <Image src={current.src} alt={current.alt} fill priority sizes="(min-width:768px) 48vw, 90vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain p-5 md:p-8" />
+          </motion.div>
+        </AnimatePresence>
+        {slides.length > 1 && <><button type="button" onClick={() => move(-1)} aria-label="Previous product image" className="absolute left-3 top-1/2 z-10 grid size-10 -translate-y-1/2 place-items-center rounded-full border border-white/70 bg-white/72 shadow-sm backdrop-blur"><ChevronLeft size={18}/></button><button type="button" onClick={() => move(1)} aria-label="Next product image" className="absolute right-3 top-1/2 z-10 grid size-10 -translate-y-1/2 place-items-center rounded-full border border-white/70 bg-white/72 shadow-sm backdrop-blur"><ChevronRight size={18}/></button></>}
+      </div>
+      <p className="sr-only" aria-live="polite">Image {active + 1} of {slides.length}: {current.view}</p>
+      <div className="mt-3 grid grid-cols-4 gap-2" aria-label="Product image gallery">
+        {slides.slice(0, 8).map((item, index) => <button type="button" key={`${item.src}-${index}`} onClick={() => setActive(index)} aria-label={`Show ${item.view} image`} aria-current={active === index ? "true" : undefined} className={cn("relative aspect-square overflow-hidden rounded-[14px] border bg-white/55", active === index ? "border-[#214d2b]" : "border-transparent")}><Image src={item.src} alt="" fill sizes="120px" className="object-contain p-2" /></button>)}
+      </div>
+    </div>
+  );
+}
+
 function QuickView({ catalog, product, open, onOpenChange, quantity, setQuantity, wished, toggleWishlist, onAdd }: { catalog:Product[]; product:Product|null; open:boolean; onOpenChange:(open:boolean)=>void; quantity:number; setQuantity:(value:number)=>void; wished:boolean; toggleWishlist:()=>void; onAdd:()=>void }) {
   useDialogScrollLock(open);
-  return <Dialog.Root open={open} onOpenChange={onOpenChange}><AnimatePresence>{open&&product&&<Dialog.Portal forceMount><Dialog.Overlay asChild><motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="fixed inset-0 z-[170] bg-[#211812]/40 backdrop-blur-[8px]"/></Dialog.Overlay><Dialog.Content asChild><motion.div initial={{opacity:0,scale:.94,y:18}} animate={{opacity:1,scale:1,y:0}} exit={{opacity:0,scale:.94,y:18}} transition={{duration:.42,ease}} className="fixed inset-3 z-[180] overflow-y-auto overscroll-contain rounded-[30px] [scrollbar-gutter:stable] [touch-action:pan-y] border border-white/70 bg-[rgba(248,244,236,.94)] p-4 shadow-[0_35px_110px_rgba(22,15,10,.3)] backdrop-blur-2xl md:inset-auto md:left-1/2 md:top-1/2 md:max-h-[88vh] md:w-[min(980px,calc(100vw-48px))] md:-translate-x-1/2 md:-translate-y-1/2 md:p-7"><div className="flex items-start justify-between"><div><Dialog.Title className="font-['Cormorant_Garamond'] text-3xl md:text-4xl">{product.name}</Dialog.Title><Dialog.Description className="mt-2 text-xs text-[#6b6057]">Quick view · {product.category}</Dialog.Description></div><Dialog.Close aria-label="Close dialog" className="grid size-10 place-items-center rounded-full border border-black/8"><X size={18}/></Dialog.Close></div><div className="mt-5 grid gap-6 md:grid-cols-[1fr_.9fr]"><div><div className="relative aspect-square overflow-hidden rounded-[26px] bg-[#f3eee4]"><ProductImage product={product} sizes="(min-width:768px) 48vw, 90vw" priority/></div><div className="mt-3 grid grid-cols-3 gap-2">{[product,catalog[(catalog.indexOf(product)+1)%catalog.length],catalog[(catalog.indexOf(product)+2)%catalog.length]].map((item)=><button type="button" key={item.slug} onClick={()=>item===product?undefined:onOpenChange(false)} className="relative aspect-[4/3] overflow-hidden rounded-[14px] bg-white/55"><ProductImage product={item} sizes="150px"/></button>)}</div></div><div className="flex flex-col"><p className="text-sm leading-7 text-[#594d43]">{product.description}</p><div className="mt-5"><p className="text-[10px] font-semibold uppercase tracking-[.12em]">Benefits</p><div className="mt-3 flex flex-wrap gap-2">{product.benefits.map((item)=><span key={item} className="rounded-full border border-black/7 bg-white/55 px-3 py-2 text-[10px]">{item}</span>)}</div></div><div className="mt-5 rounded-[18px] bg-white/48 p-4"><p className="text-[10px] font-semibold uppercase tracking-[.12em]">Product information</p><p className="mt-2 text-[11px] leading-6 text-[#6a6057]">{product.nutrition}</p></div><div className="mt-6 flex items-center justify-between"><p className="text-xl font-semibold">₹{product.price.toFixed(2)}</p><button type="button" aria-label="Toggle wishlist" onClick={toggleWishlist} className="grid size-11 place-items-center rounded-full border border-black/8"><Heart size={18} fill={wished?"currentColor":"none"}/></button></div><div className="mt-4 flex gap-3"><Quantity value={quantity} onChange={setQuantity}/><button type="button" onClick={onAdd} className="co-primary-cta min-h-11 flex-1 rounded-full bg-[#214d2b] text-[10px] font-semibold uppercase text-white">Add to cart</button></div><div className="mt-6"><p className="text-[10px] font-semibold uppercase tracking-[.12em]">Related products</p><div className="mt-3 grid grid-cols-3 gap-2">{catalog.filter((item)=>item.category===product.category&&item.slug!==product.slug).slice(0,3).map((item)=><div key={item.slug} className="rounded-[14px] bg-white/55 p-2"><div className="relative aspect-square overflow-hidden rounded-[10px]"><ProductImage product={item} sizes="120px"/></div><p className="mt-2 line-clamp-2 text-[8px] font-medium">{item.name}</p></div>)}</div></div></div></div></motion.div></Dialog.Content></Dialog.Portal>}</AnimatePresence></Dialog.Root>;
+  return <Dialog.Root open={open} onOpenChange={onOpenChange}><AnimatePresence>{open&&product&&<Dialog.Portal forceMount><Dialog.Overlay asChild><motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="fixed inset-0 z-[170] bg-[#211812]/40 backdrop-blur-[8px]"/></Dialog.Overlay><Dialog.Content asChild><motion.div initial={{opacity:0,scale:.94,y:18}} animate={{opacity:1,scale:1,y:0}} exit={{opacity:0,scale:.94,y:18}} transition={{duration:.42,ease}} className="fixed inset-3 z-[180] overflow-y-auto overscroll-contain rounded-[30px] [scrollbar-gutter:stable] [touch-action:pan-y] border border-white/70 bg-[rgba(248,244,236,.94)] p-4 shadow-[0_35px_110px_rgba(22,15,10,.3)] backdrop-blur-2xl md:inset-auto md:left-1/2 md:top-1/2 md:max-h-[88vh] md:w-[min(980px,calc(100vw-48px))] md:-translate-x-1/2 md:-translate-y-1/2 md:p-7"><div className="flex items-start justify-between"><div><Dialog.Title className="font-['Cormorant_Garamond'] text-3xl md:text-4xl">{product.name}</Dialog.Title><Dialog.Description className="mt-2 text-xs text-[#6b6057]">Quick view · {product.category}</Dialog.Description></div><Dialog.Close aria-label="Close dialog" className="grid size-10 place-items-center rounded-full border border-black/8"><X size={18}/></Dialog.Close></div><div className="mt-5 grid gap-6 md:grid-cols-[1fr_.9fr]"><QuickViewGallery product={product}/><div className="flex flex-col"><p className="text-sm leading-7 text-[#594d43]">{product.description}</p><div className="mt-5"><p className="text-[10px] font-semibold uppercase tracking-[.12em]">Benefits</p><div className="mt-3 flex flex-wrap gap-2">{product.benefits.map((item)=><span key={item} className="rounded-full border border-black/7 bg-white/55 px-3 py-2 text-[10px]">{item}</span>)}</div></div><div className="mt-5 rounded-[18px] bg-white/48 p-4"><p className="text-[10px] font-semibold uppercase tracking-[.12em]">Product information</p><p className="mt-2 text-[11px] leading-6 text-[#6a6057]">{product.nutrition}</p></div><div className="mt-6 flex items-center justify-between"><p className="text-xl font-semibold">₹{product.price.toFixed(2)}</p><button type="button" aria-label="Toggle wishlist" onClick={toggleWishlist} className="grid size-11 place-items-center rounded-full border border-black/8"><Heart size={18} fill={wished?"currentColor":"none"}/></button></div><div className="mt-4 flex gap-3"><Quantity value={quantity} onChange={setQuantity}/><button type="button" onClick={onAdd} className="co-primary-cta min-h-11 flex-1 rounded-full bg-[#214d2b] text-[10px] font-semibold uppercase text-white">Add to cart</button></div><div className="mt-6"><p className="text-[10px] font-semibold uppercase tracking-[.12em]">Related products</p><div className="mt-3 grid grid-cols-3 gap-2">{catalog.filter((item)=>item.category===product.category&&item.slug!==product.slug).slice(0,3).map((item)=><div key={item.slug} className="rounded-[14px] bg-white/55 p-2"><div className="relative aspect-square overflow-hidden rounded-[10px]"><ProductImage product={item} sizes="120px"/></div><p className="mt-2 line-clamp-2 text-[8px] font-medium">{item.name}</p></div>)}</div></div></div></div></motion.div></Dialog.Content></Dialog.Portal>}</AnimatePresence></Dialog.Root>;
 }

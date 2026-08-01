@@ -1,6 +1,21 @@
 # .CO Website Image Prompts
 
-These prompts implement the mandatory two-stage method: environment first, locked product composite second. The local implementation uses Sharp-generated editorial environments and composites the approved assets from `/public/brand-reference` without overwriting any originals.
+> **Execution lock:** every brief in this document is `MANUAL GENERATION REQUIRED`. Codex must not execute it, call an image API, or consume credits. Generate environments separately, then composite exact locked package pixels from `public/brand-reference`. No prompt may ask a model to recreate packaging.
+
+## Manual production briefs — asset mapping phase 3
+
+The authoritative filenames, fallbacks, components, dimensions and status are in `docs/manual-website-image-map.md`. Common lock: preserve the exact .CO mark, wordmarks, typography, spelling, closures, transparent areas, fill level, artwork, proportions and regulatory panels. No generative fill over a pack. No non-uniform scaling. External contact shadows and restrained reflections are permitted; painting over pack artwork is not.
+
+- **Homepage ecosystem hero — MANUAL GENERATION REQUIRED.** Produce the exact desktop/mobile files in the map at 2400×1350 and native 1800×2400. Warm coconut cream, pale limestone, subtle grove light, maximum four physically supported products, clear left text zone, no embedded text. Use approved Water, one Kitchen, BOTANiCA and MELT masters.
+- **Origin, Water, Kitchen, BOTANiCA and MELT transitions — MANUAL GENERATION REQUIRED.** Produce the exact 2400×1200 and 1600×2000 pairs. Environment only first; leave a clean placement zone, then composite locked packs. No tourist cliché, stock person, unsupported product, sealed pack pouring, excessive splash, smoke, fog or altered branding.
+- **About journey 01–06 — MANUAL GENERATION REQUIRED.** Produce each exact 4:3 desktop and 4:5 mobile pair. One story per real milestone. Do not invent dates, factories, certifications, founders or achievements. Use approved founder photographs only where supplied.
+- **Sustainability hero and sourcing — MANUAL GENERATION REQUIRED.** Use Kerala/Pollachi sourcing context without unsupported impact numbers or certification marks.
+- **Founders hero and story — MANUAL GENERATION REQUIRED.** Approved founder photography only; never generate, face-swap or fabricate a founder.
+- **Recipes hero — MANUAL GENERATION REQUIRED.** Product and recipe ingredients must match, with no impossible dispensing state or obscured label.
+- **Journal card and hero images — MANUAL GENERATION REQUIRED.** One factual article story; no collage, fake creator, unsupported claim or semantically unrelated product.
+- **Nine puzzle masters — MANUAL GENERATION REQUIRED.** One approved product, centred, complete silhouette, 1:1, minimal background, no external campaign text. Approved printed packaging copy remains visible.
+
+These briefs describe the mandatory two-stage method for a future manual production workflow: environment first, locked product composite second. Existing fallback composites are historical repository assets only; this phase does not generate environments or recreate packaging. Approved masters in `/public/brand-reference` remain untouched.
 
 ### CO_WEBSITE_HOME_HERO_DESKTOP_MASTER.webp
 

@@ -9,18 +9,21 @@ import { ArrowRight, Award, BatteryCharging, ChevronDown, Factory, FlaskConical,
 import { MobileBottomNav, NewsletterSection, ReferenceFooter, ReferenceHeader } from "@/components/home/ReferenceHomePage";
 import { getScrollTrigger, prefersReducedMotion } from "@/lib/animation/gsap-scrolltrigger";
 import { cn } from "@/lib/utils";
+import { resolveWebsiteAsset, websiteAssets } from "@/lib/website-assets";
 
 const root = "/assets/sustainability/refined";
 const rc = "/assets/sustainability/rc1";
 const blurDataURL = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MCcgaGVpZ2h0PSc0MCc+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsbD0nI2Y4ZjRlYycvPjwvc3ZnPg==";
 const ease = [0.16, 1, 0.3, 1] as const;
+const sustainabilityHero = resolveWebsiteAsset(websiteAssets.sustainability.hero);
+const sustainabilitySourcing = resolveWebsiteAsset(websiteAssets.sustainability.sourcing);
 
 const values = [
   [Sprout,"Sustainably Sourced"],[HandHeart,"Ethically Made"],[Leaf,"Low Carbon Footprint"],[PackageCheck,"Plastic Conscious"],[Sparkles,"Clean Ingredients"],[Heart,"Better for Communities"],[Award,"Certified & Transparent"],
 ] as const;
 
 const stages = [
-  { title:"Raw Materials", icon:TreePalm, body:"We source coconuts through close farmer relationships and keep origin visibility central to the model.", image:`${root}/raw-materials-farmer.png`, stats:[["100%","Traceability target"],["50+","Partner-farm goal"],["0","Harmful inputs intended"],[">30%","Farmer-income ambition"]] },
+  { title:"Raw Materials", icon:TreePalm, body:"We source coconuts through close farmer relationships and keep origin visibility central to the model.", image:sustainabilitySourcing.desktop, mobileImage:sustainabilitySourcing.mobile, stats:[["100%","Traceability target"],["50+","Partner-farm goal"],["0","Harmful inputs intended"],[">30%","Farmer-income ambition"]] },
   { title:"Clean Manufacturing", icon:Factory, body:"A compact food-safe process prioritises hygiene, energy awareness, water discipline and quality assurance.", image:`${root}/clean-manufacturing.png`, stats:[["HACCP","Process direction"],["Closed loop","Water ambition"],["Efficient","Equipment standard"],["Daily","Quality checks"]] },
   { title:"Eco-Shipping", icon:Truck, body:"Packaging efficiency, route planning and lower-impact delivery choices reduce unnecessary logistics emissions.", image:`${root}/sustainability-hero-editorial.png`, stats:[["Lean","Pack design"],["Fewer","Empty miles"],["Local","First approach"],["Measured","Route impact"]] },
   { title:"Second Life / Recycling", icon:Recycle, body:"We design for reuse, collection, material recovery and practical repurposing wherever local systems allow.", image:"/assets/farming/whole coconut mindset.png", stats:[["Reuse","First choice"],["Recover","Material goal"],["Repurpose","By-products"],["Circular","Long-term model"]] },
@@ -32,8 +35,8 @@ const impactCards = [
   { value:2350, label:"kg CO₂ diverted", detail:"A visual equivalent that makes an abstract carbon value easier to understand.", image:`${rc}/carbon-sink-coconut-plantation.png` },
 ] as const;
 
-function PremiumImage({src,alt,sizes,priority=false,className=""}:{src:string;alt:string;sizes:string;priority?:boolean;className?:string}){
-  return <Image src={src} alt={alt} fill priority={priority} sizes={sizes} quality={95} placeholder="blur" blurDataURL={blurDataURL} className={cn("object-cover transition duration-700 group-hover:scale-[1.04]",className)}/>;
+function PremiumImage({src,mobileSrc,alt,sizes,priority=false,className=""}:{src:string;mobileSrc?:string;alt:string;sizes:string;priority?:boolean;className?:string}){
+  return <Image src={src} mobileSrc={mobileSrc} alt={alt} fill priority={priority} sizes={sizes} quality={95} placeholder="blur" blurDataURL={blurDataURL} className={cn("object-cover transition duration-700 group-hover:scale-[1.04]",className)}/>;
 }
 
 function Counter({value}:{value:number}){
@@ -61,7 +64,7 @@ export function ReferenceSustainabilityPage(){
     <ReferenceHeader/>
     <main>
       <section className="relative min-h-[540px] overflow-hidden bg-[#f3eee4] md:min-h-[570px]">
-        <PremiumImage src={`${root}/sustainability-hero-editorial.png`} alt=".CO coconut water and Melt.CO with fresh coconuts in Kerala" sizes="100vw" priority className="object-[67%_center] md:object-center"/>
+        <PremiumImage src={sustainabilityHero.desktop} mobileSrc={sustainabilityHero.mobile} alt={sustainabilityHero.alt} sizes="100vw" priority className="object-[67%_center] md:object-center"/>
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(248,244,236,.99)_0%,rgba(248,244,236,.92)_39%,rgba(248,244,236,.12)_67%)]"/>
         <div className="relative mx-auto flex min-h-[540px] max-w-[1500px] items-center px-5 py-12 md:min-h-[570px] md:px-[clamp(48px,6vw,92px)]"><div className="max-w-[500px]"><p className="text-[10px] font-semibold uppercase tracking-[.15em] text-[#214d2b]">Sustainable by nature</p><h1 className="mt-5 font-['Cormorant_Garamond'] text-[54px] leading-[.88] tracking-[-.04em] md:text-[76px]">Good for you.<br/>Good for the <em className="font-normal text-[#214d2b]">planet.</em></h1><p className="mt-6 max-w-[360px] text-sm leading-7 text-[#5d5148]">From farm to you, we’re building a better future with every step we take.</p><div className="mt-7 flex flex-wrap gap-3"><a href="#journey" className="co-primary-cta inline-flex min-h-12 items-center gap-4 rounded-full bg-[#214d2b] px-6 text-[10px] font-semibold uppercase text-white">Our promise <ArrowRight size={15}/></a><Link href="/about" className="inline-flex min-h-12 items-center gap-2 rounded-full px-3 text-[10px] font-semibold uppercase"><span className="grid size-8 place-items-center rounded-full border border-[#214d2b]/40"><Play size={13}/></span>Watch our story</Link></div></div></div>
       </section>

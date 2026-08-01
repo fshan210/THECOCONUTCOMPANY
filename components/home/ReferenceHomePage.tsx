@@ -48,6 +48,7 @@ import { useCart } from "@/lib/cart/cart-context";
 import { getScrollTrigger, prefersReducedMotion } from "@/lib/animation/gsap-scrolltrigger";
 import type { ContentProduct, ContentRecipe, ContentTestimonial, HomepageContent } from "@/lib/content/types";
 import { publicAssets } from "@/lib/public-assets";
+import { resolveWebsiteAsset, websiteAssets } from "@/lib/website-assets";
 import { cn } from "@/lib/utils";
 import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
 import { ImpactCounters } from "@/components/home/ImpactCounters";
@@ -63,6 +64,14 @@ const CoconutBottleScroll = dynamic(
 );
 const blurDataURL =
   "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MCcgaGVpZ2h0PSczMCc+PGZpbHRlciBpZD0nYic+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0nNicvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbGw9JyNmN2YyZTgnLz48L3N2Zz4=";
+const homeHeroAsset = resolveWebsiteAsset(websiteAssets.home.hero);
+const familyTransitionAssets = ([
+  ["From the source", "Origin", websiteAssets.home.transitions.origin, "/about"],
+  ["Pure hydration", "Water", websiteAssets.home.transitions.water, "/shop?product=co-water"],
+  ["Everyday nourishment", "Kitchen", websiteAssets.home.transitions.kitchen, "/shop?category=Food"],
+  ["Considered care", "BOTANiCA", websiteAssets.home.transitions.botanica, "/shop?category=Cosmetics"],
+  ["Slow indulgence", "MELT", websiteAssets.home.transitions.melt, "/shop?category=Ice%20Cream"],
+] as const).map(([eyebrow, title, asset, href]) => [eyebrow, title, resolveWebsiteAsset(asset), href] as const);
 
 type DisplayProduct = {
   slug: string;
@@ -90,7 +99,7 @@ const productPresentation: Record<string, Partial<DisplayProduct>> = {
     shortName: ".CO Water 330ml",
     subtitle: "100% Organic Coconut Water",
     detail: "Clean tender coconut water with a calm, refreshing finish.",
-    image: "/assets/shop/products/IndividualProduct_CO-Water.png",
+    image: websiteAssets.products.water.primary,
     price: "₹120.00"
   },
   "melt-co-mango-coconut": {
@@ -98,7 +107,7 @@ const productPresentation: Record<string, Partial<DisplayProduct>> = {
     shortName: "Mango + Coconut 350ml",
     subtitle: "Coconut Ice Cream",
     detail: "Creamy coconut ice cream with real fruit. Pure indulgence in every spoon.",
-    image: "/assets/shop/products/IndividualProduct_MeltCO.png",
+    image: websiteAssets.products.melt.primary,
     price: "₹220.00"
   },
   "co-kitchen-coconut-oil": {
@@ -106,7 +115,7 @@ const productPresentation: Record<string, Partial<DisplayProduct>> = {
     shortName: ".CO Coconut Oil",
     subtitle: "Cold-pressed Coconut Oil",
     detail: "A versatile coconut pantry staple for everyday cooking and mindful rituals.",
-    image: "/assets/shop/products/IndividualProduct_CoconutOil.png",
+    image: websiteAssets.products["kitchen-oil"].primary,
     price: "₹160.00"
   },
   "co-botanica-coconut-care": {
@@ -114,7 +123,7 @@ const productPresentation: Record<string, Partial<DisplayProduct>> = {
     shortName: "Botanica Face Wash",
     subtitle: "Coconut Face Wash",
     detail: "A gentle, refreshing coconut care ritual made for everyday cleansing.",
-    image: "/assets/shop/products/IndividualProduct_FaceWash.png",
+    image: websiteAssets.products["botanica-face-wash"].primary,
     price: "₹499.00"
   }
 };
@@ -472,8 +481,9 @@ function HeroSection({ homepage }: { homepage: HomepageContent }) {
   return (
     <section className="relative isolate min-h-[445px] overflow-hidden bg-[#f7f2e8] md:min-h-[720px]">
       <Image
-        src={publicAssets.website.homeHero.mobile}
-        alt=".CO The Coconut Company product range arranged in warm natural light for mobile."
+        src={homeHeroAsset.desktop}
+        mobileSrc={homeHeroAsset.mobile}
+        alt={homeHeroAsset.alt}
         fill
         priority
         fetchPriority="high"
@@ -481,19 +491,7 @@ function HeroSection({ homepage }: { homepage: HomepageContent }) {
         quality={90}
         placeholder="blur"
         blurDataURL={blurDataURL}
-        className="object-cover object-[66%_center] md:hidden"
-      />
-      <Image
-        src={publicAssets.website.homeHero.desktop}
-        alt=".CO The Coconut Company product range arranged on pale limestone in warm natural light."
-        fill
-        priority
-        fetchPriority="high"
-        sizes="100vw"
-        quality={90}
-        placeholder="blur"
-        blurDataURL={blurDataURL}
-        className="hidden object-cover object-center md:block"
+        className="object-cover object-[66%_center] md:object-center"
       />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(247,242,232,.98)_0%,rgba(247,242,232,.86)_44%,rgba(247,242,232,.08)_76%)] md:bg-[linear-gradient(90deg,rgba(247,242,232,.97)_0%,rgba(247,242,232,.82)_38%,rgba(247,242,232,.03)_72%)]" />
 
@@ -710,6 +708,37 @@ function PlanetBentoSection({ products }: { products: DisplayProduct[] }) {
               </div>
             </motion.article>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BrandFamilyTransitions() {
+  return (
+    <section className="px-4 py-10 md:px-8 md:py-14" aria-labelledby="family-transition-title">
+      <div className="mx-auto max-w-[1320px]">
+        <div className="flex items-end justify-between gap-5">
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[.14em] text-[#305a34]">One coconut. Many rituals.</p>
+            <h2 id="family-transition-title" className="mt-3 max-w-[14ch] font-['Cormorant_Garamond'] text-[34px] leading-[.94] tracking-[-.025em] md:text-[52px]">From origin to everyday living.</h2>
+          </div>
+          <p className="hidden max-w-sm text-right text-xs leading-6 text-[#625950] md:block">Explore the product families connected by one considered coconut ecosystem.</p>
+        </div>
+        <div className="mt-7 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-3 [scrollbar-width:none] md:grid md:grid-cols-5 md:overflow-visible [&::-webkit-scrollbar]:hidden">
+          {familyTransitionAssets.map(([eyebrow, title, asset, href], index) => {
+            return (
+              <motion.article key={title} whileHover={{ y: -5 }} transition={{ duration: .35, ease }} className="group relative min-h-[360px] min-w-[78vw] snap-center overflow-hidden rounded-[26px] border border-white/70 bg-[#eee6d9] shadow-[0_18px_50px_rgba(53,39,30,.07)] md:min-h-[390px] md:min-w-0">
+                <Image src={asset.desktop} mobileSrc={asset.mobile} alt={asset.alt} fill sizes="(min-width:768px) 20vw, 78vw" quality={92} placeholder="blur" blurDataURL={blurDataURL} className="object-cover transition duration-700 group-hover:scale-[1.025]" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(30,24,18,.02)_35%,rgba(25,19,14,.72)_100%)]" />
+                <div className="absolute inset-x-0 bottom-0 z-10 p-5 text-white md:p-4">
+                  <p className="text-[8px] font-semibold uppercase tracking-[.16em] text-white/72">0{index + 1} · {eyebrow}</p>
+                  <h3 className="mt-2 font-['Cormorant_Garamond'] text-[30px] leading-none">{title}</h3>
+                  <Link href={href} className="mt-4 inline-flex min-h-11 items-center gap-2 text-[9px] font-semibold uppercase" aria-label={`Explore ${title}`}>Explore <ArrowRight size={14} /></Link>
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -1141,6 +1170,7 @@ export function ReferenceHomePage({ homepage, products, recipes, testimonials }:
         <DeliveryMarquee />
         <PlanetBentoSection products={popupProducts} />
         <CoconutBottleScroll />
+        <BrandFamilyTransitions />
         <ProductsSection products={displayProducts} />
         <RecipesSnapshot recipes={recipes} />
         <TestimonialsSection testimonials={testimonials} />

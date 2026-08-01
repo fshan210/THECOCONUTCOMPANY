@@ -1,2034 +1,2247 @@
 {
-  "generatedAt": "2026-07-29T23:28:57.163Z",
+  "generatedAt": "2026-07-31T18:19:33.607Z",
   "sourceDirectory": "/brand-reference",
-  "brandLock": {
-    "rule": "All approved packaging and logo pixels are locked masters. Website scenes must be environment-first, then locked-asset composite.",
-    "nonTransparentMasterNote": "Most approved masters are non-transparent PNGs. These are preserved as exact pixels; future manual cut-outs can improve physical integration without touching package artwork."
+  "brandLock": "Approved masters are read-only. Only deterministic resized WebP derivatives are produced.",
+  "totals": {
+    "assets": 70,
+    "products": 9,
+    "sourceBytes": 145409406
   },
-  "products": {
-    "water": {
-      "productName": ".CO Coconut Water",
-      "productFamily": "Coconut Water",
-      "brandLock": "Approved product pixels must not be regenerated, redrawn, retyped, stretched, or painted over.",
-      "assets": {
-        "hero": {
-          "path": "/brand-reference/coconut-water/dotco-home-hero-coconut-water-master-v1.png .png",
-          "width": 1672,
-          "height": 941,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "hero",
-          "intendedWebsiteUses": [
-            "hero",
-            "transition",
-            "editorial card"
-          ]
-        },
-        "mobileHero": {
-          "path": "/brand-reference/coconut-water/dotco-home-hero-coconut-water-mobile-master-v1.png",
-          "width": 941,
-          "height": 1672,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "mobileHero",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "front": {
-          "path": "/brand-reference/coconut-water/dotco-coconut-water-packshot-front-master-v1.png",
-          "width": 1122,
-          "height": 1402,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "front",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "angle": {
-          "path": "/brand-reference/coconut-water/dotco-coconut-water-packshot-angle-master-v1.png .png",
-          "width": 1122,
-          "height": 1402,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "angle",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "floating": {
-          "path": "/brand-reference/coconut-water/dotco-coconut-water-packshot-floating-master-v1.png",
-          "width": 2048,
-          "height": 2560,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "floating",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "lifestyle": {
-          "path": "/brand-reference/coconut-water/dotco-coconut-water-lifestyle-master-v1.png",
-          "width": 1672,
-          "height": 941,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "lifestyle",
-          "intendedWebsiteUses": [
-            "hero",
-            "transition",
-            "editorial card"
-          ]
-        }
-      }
-    },
-    "melt": {
-      "productName": "MELT Coconut Gelato",
-      "productFamily": "MELT",
-      "brandLock": "Approved product pixels must not be regenerated, redrawn, retyped, stretched, or painted over.",
-      "assets": {
-        "hero": {
-          "path": "/brand-reference/melt/dotco-melt-home-hero-desktop-master-v1.png",
-          "width": 1672,
-          "height": 941,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "hero",
-          "intendedWebsiteUses": [
-            "hero",
-            "transition",
-            "editorial card"
-          ]
-        },
-        "mobileHero": {
-          "path": "/brand-reference/melt/dotco-melt-home-hero-mobile-master-v1.png",
-          "width": 941,
-          "height": 1672,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "mobileHero",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "front": {
-          "path": "/brand-reference/melt/dotco-melt-coconut-mango-packshot-front-master-v1.png",
-          "width": 1122,
-          "height": 1402,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "front",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "angle": {
-          "path": "/brand-reference/melt/dotco-melt-coconut-mango-packshot-angle-master-v1.png",
-          "width": 1122,
-          "height": 1402,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "angle",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "floating": {
-          "path": "/brand-reference/melt/dotco-melt-coconut-mango-packshot-floating-master-v1.png",
-          "width": 1024,
-          "height": 1536,
-          "format": "png",
-          "hasTransparency": true,
-          "viewType": "floating",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "lifestyle": {
-          "path": "/brand-reference/melt/dotco-melt-lifestyle-master-v1.png",
-          "width": 1672,
-          "height": 941,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "lifestyle",
-          "intendedWebsiteUses": [
-            "hero",
-            "transition",
-            "editorial card"
-          ]
-        }
-      }
-    },
-    "kitchenOil": {
-      "productName": ".CO Kitchen Virgin Coconut Oil",
-      "productFamily": ".CO Kitchen",
-      "brandLock": "Approved product pixels must not be regenerated, redrawn, retyped, stretched, or painted over.",
-      "assets": {
-        "front": {
-          "path": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_01_Front_Final_Master.png",
-          "width": 1122,
-          "height": 1402,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "front",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "angle": {
-          "path": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_03_Three_Quarter_Final_Master.png",
-          "width": 1122,
-          "height": 1402,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "angle",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "ecommerce": {
-          "path": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_07_Ecommerce_Primary_Packshot_Master.png",
-          "width": 1254,
-          "height": 1254,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "ecommerce",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "usage": {
-          "path": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_08_Controlled_Pour_Usage_Master.png",
-          "width": 1254,
-          "height": 1254,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "usage",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        }
-      }
-    },
-    "kitchenFlour": {
-      "productName": ".CO Kitchen Coconut Flour",
-      "productFamily": ".CO Kitchen",
-      "brandLock": "Approved product pixels must not be regenerated, redrawn, retyped, stretched, or painted over.",
-      "assets": {
-        "front": {
-          "path": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_00_Packaging_Design_Master.png",
-          "width": 1122,
-          "height": 1402,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "front",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "angle": {
-          "path": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_03_Three_Quarter_Master.png",
-          "width": 1122,
-          "height": 1402,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "angle",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "ecommerce": {
-          "path": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_06_Ecommerce_Primary_Packshot_Master.png",
-          "width": 1254,
-          "height": 1254,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "ecommerce",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "texture": {
-          "path": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_07_Texture_and_Scoop_Master.png",
-          "width": 1254,
-          "height": 1254,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "texture",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        }
-      }
-    },
-    "kitchenMilk": {
-      "productName": ".CO Kitchen Coconut Milk",
-      "productFamily": ".CO Kitchen",
-      "brandLock": "Approved product pixels must not be regenerated, redrawn, retyped, stretched, or painted over.",
-      "assets": {
-        "front": {
-          "path": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_01_Front_Master.png",
-          "width": 1122,
-          "height": 1402,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "front",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "angle": {
-          "path": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_00_Packaging_Design_Master.png",
-          "width": 1122,
-          "height": 1402,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "angle",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "ecommerce": {
-          "path": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_05_Ecommerce_Primary_Packshot_Master.png",
-          "width": 1254,
-          "height": 1254,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "ecommerce",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "pantry": {
-          "path": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_09_Pantry_Lifestyle_Master.png",
-          "width": 1254,
-          "height": 1254,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "pantry",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        }
-      }
-    },
-    "botanicaShampoo": {
-      "productName": "BOTANiCA Shampoo",
-      "productFamily": "BOTANiCA",
-      "brandLock": "Approved product pixels must not be regenerated, redrawn, retyped, stretched, or painted over.",
-      "assets": {
-        "hero": {
-          "path": "/brand-reference/botanica/shampoo/BOTANICA_01_Hero_Editorial_Master.png",
-          "width": 1672,
-          "height": 941,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "hero",
-          "intendedWebsiteUses": [
-            "hero",
-            "transition",
-            "editorial card"
-          ]
-        },
-        "detail": {
-          "path": "/brand-reference/botanica/shampoo/BOTANICA_03_Product_Detail_Master.png",
-          "width": 1672,
-          "height": 941,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "detail",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "lifestyle": {
-          "path": "/brand-reference/botanica/shampoo/BOTANICA_05_Bathroom_Lifestyle_Master.png",
-          "width": 1672,
-          "height": 941,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "lifestyle",
-          "intendedWebsiteUses": [
-            "hero",
-            "transition",
-            "editorial card"
-          ]
-        }
-      }
-    },
-    "botanicaFaceWash": {
-      "productName": "BOTANiCA Face Wash",
-      "productFamily": "BOTANiCA",
-      "brandLock": "Approved product pixels must not be regenerated, redrawn, retyped, stretched, or painted over.",
-      "assets": {
-        "angle": {
-          "path": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_03_Three_Quarter_Master.png",
-          "width": 1122,
-          "height": 1402,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "angle",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "ecommerce": {
-          "path": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_06_Ecommerce_Primary_Packshot_Master.png",
-          "width": 1254,
-          "height": 1254,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "ecommerce",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "texture": {
-          "path": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_07_Texture_and_Dispense_Master.png",
-          "width": 1254,
-          "height": 1254,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "texture",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        }
-      }
-    },
-    "botanicaHairSerum": {
-      "productName": "BOTANiCA Hair Serum",
-      "productFamily": "BOTANiCA",
-      "brandLock": "Approved product pixels must not be regenerated, redrawn, retyped, stretched, or painted over.",
-      "assets": {
-        "front": {
-          "path": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_01_Front_Master.png",
-          "width": 1122,
-          "height": 1402,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "front",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "hero": {
-          "path": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_06_Hero_Editorial_Master.png",
-          "width": 1672,
-          "height": 941,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "hero",
-          "intendedWebsiteUses": [
-            "hero",
-            "transition",
-            "editorial card"
-          ]
-        },
-        "detail": {
-          "path": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_07_Dropper_Texture_Master.png",
-          "width": 1672,
-          "height": 941,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "detail",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        }
-      }
-    },
-    "botanicaMoisturizer": {
-      "productName": "BOTANiCA Body Moisturizer",
-      "productFamily": "BOTANiCA",
-      "brandLock": "Approved product pixels must not be regenerated, redrawn, retyped, stretched, or painted over.",
-      "assets": {
-        "front": {
-          "path": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_01_Front_Master.png",
-          "width": 1122,
-          "height": 1402,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "front",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "ecommerce": {
-          "path": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_06_Ecommerce_Primary_Packshot_Master.png",
-          "width": 1254,
-          "height": 1254,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "ecommerce",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        },
-        "texture": {
-          "path": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_07_Texture_and_Dispense_Master.png",
-          "width": 1254,
-          "height": 1254,
-          "format": "png",
-          "hasTransparency": false,
-          "viewType": "texture",
-          "intendedWebsiteUses": [
-            "product composite",
-            "product card"
-          ]
-        }
-      }
-    }
-  },
-  "inventory": [
+  "assets": [
     {
-      "fileName": "BOTANICA_BODY_MOISTURIZER_01_Front_Master.png",
-      "path": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_01_Front_Master.png",
+      "id": "92fd5555c5d4",
+      "productId": "botanica-moisturizer",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Body Moisturizer",
+      "assetName": "BOTANICA_BODY_MOISTURIZER_01_Front_Master.png",
+      "sourcePath": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_01_Front_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "front",
+      "hasTransparency": false,
       "bytes": 2028700,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Body Moisturizer",
-      "viewType": "front",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_BODY_MOISTURIZER_02_Back_Master.png",
-      "path": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_02_Back_Master.png",
+      "id": "e745d5b26df7",
+      "productId": "botanica-moisturizer",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Body Moisturizer",
+      "assetName": "BOTANICA_BODY_MOISTURIZER_02_Back_Master.png",
+      "sourcePath": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_02_Back_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "back",
+      "hasTransparency": false,
       "bytes": 2065492,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Body Moisturizer",
-      "viewType": "back",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_BODY_MOISTURIZER_03_Three_Quarter_Master.png",
-      "path": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_03_Three_Quarter_Master.png",
+      "id": "89bd9a028c67",
+      "productId": "botanica-moisturizer",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Body Moisturizer",
+      "assetName": "BOTANICA_BODY_MOISTURIZER_03_Three_Quarter_Master.png",
+      "sourcePath": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_03_Three_Quarter_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "three-quarter",
+      "hasTransparency": false,
       "bytes": 2000457,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Body Moisturizer",
-      "viewType": "three-quarter",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_BODY_MOISTURIZER_04_Side_Profile_Master.png",
-      "path": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_04_Side_Profile_Master.png",
+      "id": "05aeaea03275",
+      "productId": "botanica-moisturizer",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Body Moisturizer",
+      "assetName": "BOTANICA_BODY_MOISTURIZER_04_Side_Profile_Master.png",
+      "sourcePath": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_04_Side_Profile_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "reference",
+      "hasTransparency": false,
       "bytes": 1983844,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Body Moisturizer",
-      "viewType": "side",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_BODY_MOISTURIZER_05_Macro_Detail_Master.png",
-      "path": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_05_Macro_Detail_Master.png",
+      "id": "1ce237ae7651",
+      "productId": "botanica-moisturizer",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Body Moisturizer",
+      "assetName": "BOTANICA_BODY_MOISTURIZER_05_Macro_Detail_Master.png",
+      "sourcePath": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_05_Macro_Detail_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
-      "bytes": 2114431,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Body Moisturizer",
+      "orientation": "portrait",
       "viewType": "macro",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "detail card",
-        "supporting editorial"
-      ]
+      "bytes": 2114431,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_BODY_MOISTURIZER_06_Ecommerce_Primary_Packshot_Master.png",
-      "path": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_06_Ecommerce_Primary_Packshot_Master.png",
+      "id": "4b59d2201834",
+      "productId": "botanica-moisturizer",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Body Moisturizer",
+      "assetName": "BOTANICA_BODY_MOISTURIZER_06_Ecommerce_Primary_Packshot_Master.png",
+      "sourcePath": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_06_Ecommerce_Primary_Packshot_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
+      "orientation": "square",
+      "viewType": "ecommerce",
+      "hasTransparency": false,
       "bytes": 1680457,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Body Moisturizer",
-      "viewType": "packshot",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_BODY_MOISTURIZER_07_Texture_and_Dispense_Master.png",
-      "path": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_07_Texture_and_Dispense_Master.png",
+      "id": "91c8c45ab259",
+      "productId": "botanica-moisturizer",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Body Moisturizer",
+      "assetName": "BOTANICA_BODY_MOISTURIZER_07_Texture_and_Dispense_Master.png",
+      "sourcePath": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_07_Texture_and_Dispense_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
+      "orientation": "square",
+      "viewType": "usage",
+      "hasTransparency": false,
       "bytes": 1737709,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Body Moisturizer",
-      "viewType": "master",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_BODY_MOISTURIZER_08_Skin_Application_Master.png",
-      "path": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_08_Skin_Application_Master.png",
+      "id": "af44a00d452a",
+      "productId": "botanica-moisturizer",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Body Moisturizer",
+      "assetName": "BOTANICA_BODY_MOISTURIZER_08_Skin_Application_Master.png",
+      "sourcePath": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_08_Skin_Application_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
+      "orientation": "square",
+      "viewType": "usage",
+      "hasTransparency": false,
       "bytes": 2177380,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Body Moisturizer",
-      "viewType": "lifestyle",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "hero",
-        "transition",
-        "timeline",
-        "editorial card"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_BODY_MOISTURIZER_09_Ingredient_Benefit_Master.png",
-      "path": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_09_Ingredient_Benefit_Master.png",
+      "id": "78deb4a9f933",
+      "productId": "botanica-moisturizer",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Body Moisturizer",
+      "assetName": "BOTANICA_BODY_MOISTURIZER_09_Ingredient_Benefit_Master.png",
+      "sourcePath": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_09_Ingredient_Benefit_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
-      "bytes": 1910821,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Body Moisturizer",
-      "viewType": "master",
+      "orientation": "square",
+      "viewType": "ingredient-benefit",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "bytes": 1910821,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_FACE_WASH_02_Back_Master.png",
-      "path": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_02_Back_Master.png",
+      "id": "e5e280fe4613",
+      "productId": "botanica-face-wash",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Face Wash",
+      "assetName": "BOTANICA_FACE_WASH_02_Back_Master.png",
+      "sourcePath": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_02_Back_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
-      "bytes": 2090415,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Face Wash",
+      "orientation": "portrait",
       "viewType": "back",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "bytes": 2090415,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_FACE_WASH_03_Three_Quarter_Master.png",
-      "path": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_03_Three_Quarter_Master.png",
+      "id": "ff3d62716249",
+      "productId": "botanica-face-wash",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Face Wash",
+      "assetName": "BOTANICA_FACE_WASH_03_Three_Quarter_Master.png",
+      "sourcePath": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_03_Three_Quarter_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
-      "bytes": 1927543,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Face Wash",
+      "orientation": "portrait",
       "viewType": "three-quarter",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "bytes": 1927543,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_FACE_WASH_04_Side_Profile_Master.png",
-      "path": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_04_Side_Profile_Master.png",
+      "id": "e7627dcfb2db",
+      "productId": "botanica-face-wash",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Face Wash",
+      "assetName": "BOTANICA_FACE_WASH_04_Side_Profile_Master.png",
+      "sourcePath": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_04_Side_Profile_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
-      "bytes": 1693850,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Face Wash",
-      "viewType": "side",
+      "orientation": "portrait",
+      "viewType": "reference",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "bytes": 1693850,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_FACE_WASH_05_Macro_Detail_Master.png",
-      "path": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_05_Macro_Detail_Master.png",
+      "id": "06ae24e5a470",
+      "productId": "botanica-face-wash",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Face Wash",
+      "assetName": "BOTANICA_FACE_WASH_05_Macro_Detail_Master.png",
+      "sourcePath": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_05_Macro_Detail_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
-      "bytes": 2455478,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Face Wash",
+      "orientation": "portrait",
       "viewType": "macro",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "detail card",
-        "supporting editorial"
-      ]
+      "bytes": 2455478,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_FACE_WASH_06_Ecommerce_Primary_Packshot_Master.png",
-      "path": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_06_Ecommerce_Primary_Packshot_Master.png",
+      "id": "669b4e1f057e",
+      "productId": "botanica-face-wash",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Face Wash",
+      "assetName": "BOTANICA_FACE_WASH_06_Ecommerce_Primary_Packshot_Master.png",
+      "sourcePath": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_06_Ecommerce_Primary_Packshot_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
+      "orientation": "square",
+      "viewType": "ecommerce",
+      "hasTransparency": false,
       "bytes": 1948180,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Face Wash",
-      "viewType": "packshot",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_FACE_WASH_07_Texture_and_Dispense_Master.png",
-      "path": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_07_Texture_and_Dispense_Master.png",
+      "id": "c6ba69bdcbc8",
+      "productId": "botanica-face-wash",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Face Wash",
+      "assetName": "BOTANICA_FACE_WASH_07_Texture_and_Dispense_Master.png",
+      "sourcePath": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_07_Texture_and_Dispense_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
+      "orientation": "square",
+      "viewType": "usage",
+      "hasTransparency": false,
       "bytes": 1858836,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Face Wash",
-      "viewType": "master",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_FACE_WASH_08_Facial_Application_Master.png",
-      "path": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_08_Facial_Application_Master.png",
+      "id": "4c5162775fe1",
+      "productId": "botanica-face-wash",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Face Wash",
+      "assetName": "BOTANICA_FACE_WASH_08_Facial_Application_Master.png",
+      "sourcePath": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_08_Facial_Application_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
-      "bytes": 2384524,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Face Wash",
-      "viewType": "lifestyle",
+      "orientation": "square",
+      "viewType": "usage",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "hero",
-        "transition",
-        "timeline",
-        "editorial card"
-      ]
+      "bytes": 2384524,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_HAIR_SERUM_01_Front_Master.png",
-      "path": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_01_Front_Master.png",
-      "format": "png",
-      "width": 1122,
-      "height": 1402,
-      "aspectRatio": 0.8003,
-      "bytes": 1911267,
+      "id": "d49360c9ac2d",
+      "productId": "botanica-hair-serum",
       "productFamily": "BOTANiCA",
       "productName": "BOTANiCA Hair Serum",
+      "assetName": "BOTANICA_HAIR_SERUM_01_Front_Master.png",
+      "sourcePath": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_01_Front_Master.png",
+      "format": "png",
+      "width": 1122,
+      "height": 1402,
+      "aspectRatio": 0.8003,
+      "orientation": "portrait",
       "viewType": "front",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "bytes": 1911267,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_HAIR_SERUM_02_Back_Master.png",
-      "path": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_02_Back_Master.png",
+      "id": "18118d60e064",
+      "productId": "botanica-hair-serum",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Hair Serum",
+      "assetName": "BOTANICA_HAIR_SERUM_02_Back_Master.png",
+      "sourcePath": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_02_Back_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
-      "bytes": 2043088,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Hair Serum",
+      "orientation": "portrait",
       "viewType": "back",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "bytes": 2043088,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_HAIR_SERUM_03_Three_Quarter_Master.png",
-      "path": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_03_Three_Quarter_Master.png",
+      "id": "569f3f9f20a4",
+      "productId": "botanica-hair-serum",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Hair Serum",
+      "assetName": "BOTANICA_HAIR_SERUM_03_Three_Quarter_Master.png",
+      "sourcePath": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_03_Three_Quarter_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "three-quarter",
+      "hasTransparency": false,
       "bytes": 1928736,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Hair Serum",
-      "viewType": "three-quarter",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_HAIR_SERUM_04_Side_Profile_Master.png",
-      "path": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_04_Side_Profile_Master.png",
+      "id": "1df9b030279d",
+      "productId": "botanica-hair-serum",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Hair Serum",
+      "assetName": "BOTANICA_HAIR_SERUM_04_Side_Profile_Master.png",
+      "sourcePath": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_04_Side_Profile_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "reference",
+      "hasTransparency": false,
       "bytes": 1841997,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Hair Serum",
-      "viewType": "side",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_HAIR_SERUM_05_Macro_Detail_Master.png",
-      "path": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_05_Macro_Detail_Master.png",
+      "id": "e8e92ae9ba3f",
+      "productId": "botanica-hair-serum",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Hair Serum",
+      "assetName": "BOTANICA_HAIR_SERUM_05_Macro_Detail_Master.png",
+      "sourcePath": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_05_Macro_Detail_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "macro",
+      "hasTransparency": false,
       "bytes": 2219632,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Hair Serum",
-      "viewType": "macro",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "detail card",
-        "supporting editorial"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_HAIR_SERUM_06_Hero_Editorial_Master.png",
-      "path": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_06_Hero_Editorial_Master.png",
+      "id": "4c6567d74103",
+      "productId": "botanica-hair-serum",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Hair Serum",
+      "assetName": "BOTANICA_HAIR_SERUM_06_Hero_Editorial_Master.png",
+      "sourcePath": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_06_Hero_Editorial_Master.png",
       "format": "png",
       "width": 1672,
       "height": 941,
       "aspectRatio": 1.7768,
+      "orientation": "landscape",
+      "viewType": "lifestyle",
+      "hasTransparency": false,
       "bytes": 2099422,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Hair Serum",
-      "viewType": "lifestyle",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": false
-      },
-      "likelyWebsiteUse": [
-        "hero",
-        "transition",
-        "timeline",
-        "editorial card"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": false,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_HAIR_SERUM_07_Dropper_Texture_Master.png",
-      "path": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_07_Dropper_Texture_Master.png",
+      "id": "d5a33b60c7cd",
+      "productId": "botanica-hair-serum",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Hair Serum",
+      "assetName": "BOTANICA_HAIR_SERUM_07_Dropper_Texture_Master.png",
+      "sourcePath": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_07_Dropper_Texture_Master.png",
       "format": "png",
       "width": 1672,
       "height": 941,
       "aspectRatio": 1.7768,
+      "orientation": "landscape",
+      "viewType": "reference",
+      "hasTransparency": false,
       "bytes": 1778747,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Hair Serum",
-      "viewType": "master",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": false
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": false,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_HAIR_SERUM_08_Application_Ritual_Master.png",
-      "path": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_08_Application_Ritual_Master.png",
+      "id": "c5eeea3ff59e",
+      "productId": "botanica-hair-serum",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Hair Serum",
+      "assetName": "BOTANICA_HAIR_SERUM_08_Application_Ritual_Master.png",
+      "sourcePath": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_08_Application_Ritual_Master.png",
       "format": "png",
       "width": 1672,
       "height": 941,
       "aspectRatio": 1.7768,
+      "orientation": "landscape",
+      "viewType": "usage",
+      "hasTransparency": false,
       "bytes": 2270074,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Hair Serum",
-      "viewType": "lifestyle",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": false
-      },
-      "likelyWebsiteUse": [
-        "hero",
-        "transition",
-        "timeline",
-        "editorial card"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": false,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_HAIR_SERUM_09_Haircare_Routine_Duo_Master.png",
-      "path": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_09_Haircare_Routine_Duo_Master.png",
+      "id": "7dc47a1ae913",
+      "productId": "botanica-hair-serum",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Hair Serum",
+      "assetName": "BOTANICA_HAIR_SERUM_09_Haircare_Routine_Duo_Master.png",
+      "sourcePath": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_09_Haircare_Routine_Duo_Master.png",
       "format": "png",
       "width": 1672,
       "height": 941,
       "aspectRatio": 1.7768,
+      "orientation": "landscape",
+      "viewType": "reference",
+      "hasTransparency": false,
       "bytes": 2096395,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Hair Serum",
-      "viewType": "master",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": false
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": false,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_HAIR_SERUM_10_Portrait_Product_Campaign_Master.png",
-      "path": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_10_Portrait_Product_Campaign_Master.png",
+      "id": "f1cb8471b442",
+      "productId": "botanica-hair-serum",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Hair Serum",
+      "assetName": "BOTANICA_HAIR_SERUM_10_Portrait_Product_Campaign_Master.png",
+      "sourcePath": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_10_Portrait_Product_Campaign_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "lifestyle",
+      "hasTransparency": false,
       "bytes": 1949502,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Hair Serum",
-      "viewType": "master",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_01_Hero_Editorial_Master.png",
-      "path": "/brand-reference/botanica/shampoo/BOTANICA_01_Hero_Editorial_Master.png",
+      "id": "d59124120f14",
+      "productId": "botanica-shampoo",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Shampoo",
+      "assetName": "BOTANICA_01_Hero_Editorial_Master.png",
+      "sourcePath": "/brand-reference/botanica/shampoo/BOTANICA_01_Hero_Editorial_Master.png",
       "format": "png",
       "width": 1672,
       "height": 941,
       "aspectRatio": 1.7768,
+      "orientation": "landscape",
+      "viewType": "lifestyle",
+      "hasTransparency": false,
       "bytes": 1925830,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Shampoo",
-      "viewType": "lifestyle",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": false
-      },
-      "likelyWebsiteUse": [
-        "hero",
-        "transition",
-        "timeline",
-        "editorial card"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": false,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_02_Transparent_Science_Master.png",
-      "path": "/brand-reference/botanica/shampoo/BOTANICA_02_Transparent_Science_Master.png",
+      "id": "6e8f8d598016",
+      "productId": "botanica-shampoo",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Shampoo",
+      "assetName": "BOTANICA_02_Transparent_Science_Master.png",
+      "sourcePath": "/brand-reference/botanica/shampoo/BOTANICA_02_Transparent_Science_Master.png",
       "format": "png",
       "width": 1672,
       "height": 941,
       "aspectRatio": 1.7768,
+      "orientation": "landscape",
+      "viewType": "ingredient-benefit",
+      "hasTransparency": false,
       "bytes": 2572433,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Shampoo",
-      "viewType": "master",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": false
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": false,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_03_Product_Detail_Master.png",
-      "path": "/brand-reference/botanica/shampoo/BOTANICA_03_Product_Detail_Master.png",
+      "id": "6976cbcbaa94",
+      "productId": "botanica-shampoo",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Shampoo",
+      "assetName": "BOTANICA_03_Product_Detail_Master.png",
+      "sourcePath": "/brand-reference/botanica/shampoo/BOTANICA_03_Product_Detail_Master.png",
       "format": "png",
       "width": 1672,
       "height": 941,
       "aspectRatio": 1.7768,
+      "orientation": "landscape",
+      "viewType": "front",
+      "hasTransparency": false,
       "bytes": 2115063,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Shampoo",
-      "viewType": "macro",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": false
-      },
-      "likelyWebsiteUse": [
-        "detail card",
-        "supporting editorial"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": false,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_04_Ingredient_Harmony_Master.png",
-      "path": "/brand-reference/botanica/shampoo/BOTANICA_04_Ingredient_Harmony_Master.png",
+      "id": "0331174063c3",
+      "productId": "botanica-shampoo",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Shampoo",
+      "assetName": "BOTANICA_04_Ingredient_Harmony_Master.png",
+      "sourcePath": "/brand-reference/botanica/shampoo/BOTANICA_04_Ingredient_Harmony_Master.png",
       "format": "png",
       "width": 1672,
       "height": 941,
       "aspectRatio": 1.7768,
+      "orientation": "landscape",
+      "viewType": "ingredient-benefit",
+      "hasTransparency": false,
       "bytes": 2655209,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Shampoo",
-      "viewType": "master",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": false
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": false,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_05_Bathroom_Lifestyle_Master.png",
-      "path": "/brand-reference/botanica/shampoo/BOTANICA_05_Bathroom_Lifestyle_Master.png",
+      "id": "3f334444f5ff",
+      "productId": "botanica-shampoo",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Shampoo",
+      "assetName": "BOTANICA_05_Bathroom_Lifestyle_Master.png",
+      "sourcePath": "/brand-reference/botanica/shampoo/BOTANICA_05_Bathroom_Lifestyle_Master.png",
       "format": "png",
       "width": 1672,
       "height": 941,
       "aspectRatio": 1.7768,
+      "orientation": "landscape",
+      "viewType": "lifestyle",
+      "hasTransparency": false,
       "bytes": 2176210,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Shampoo",
-      "viewType": "lifestyle",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": false
-      },
-      "likelyWebsiteUse": [
-        "hero",
-        "transition",
-        "timeline",
-        "editorial card"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": false,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "BOTANICA_06_Portrait_Product_Campaign_Master.png",
-      "path": "/brand-reference/botanica/shampoo/BOTANICA_06_Portrait_Product_Campaign_Master.png",
+      "id": "b2e6712ef087",
+      "productId": "botanica-shampoo",
+      "productFamily": "BOTANiCA",
+      "productName": "BOTANiCA Shampoo",
+      "assetName": "BOTANICA_06_Portrait_Product_Campaign_Master.png",
+      "sourcePath": "/brand-reference/botanica/shampoo/BOTANICA_06_Portrait_Product_Campaign_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
-      "bytes": 2142465,
-      "productFamily": "BOTANiCA",
-      "productName": "BOTANiCA Shampoo",
-      "viewType": "master",
+      "orientation": "portrait",
+      "viewType": "lifestyle",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "bytes": 2142465,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "dotco-coconut-water-lifestyle-master-v1.png",
-      "path": "/brand-reference/coconut-water/dotco-coconut-water-lifestyle-master-v1.png",
+      "id": "18e3441d2e1b",
+      "productId": "water",
+      "productFamily": "Coconut Water",
+      "productName": ".CO Coconut Water",
+      "assetName": "dotco-coconut-water-lifestyle-master-v1.png",
+      "sourcePath": "/brand-reference/coconut-water/dotco-coconut-water-lifestyle-master-v1.png",
       "format": "png",
       "width": 1672,
       "height": 941,
       "aspectRatio": 1.7768,
-      "bytes": 2156976,
-      "productFamily": "Coconut Water",
-      "productName": ".CO Coconut Water",
+      "orientation": "landscape",
       "viewType": "lifestyle",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": false
-      },
-      "likelyWebsiteUse": [
-        "hero",
-        "transition",
-        "timeline",
-        "editorial card"
-      ]
+      "bytes": 2156976,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": false,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "dotco-coconut-water-packshot-angle-master-v1.png .png",
-      "path": "/brand-reference/coconut-water/dotco-coconut-water-packshot-angle-master-v1.png .png",
+      "id": "c1a5b85d8ac6",
+      "productId": "water",
+      "productFamily": "Coconut Water",
+      "productName": ".CO Coconut Water",
+      "assetName": "dotco-coconut-water-packshot-angle-master-v1.png .png",
+      "sourcePath": "/brand-reference/coconut-water/dotco-coconut-water-packshot-angle-master-v1.png .png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
-      "bytes": 1812262,
-      "productFamily": "Coconut Water",
-      "productName": ".CO Coconut Water",
+      "orientation": "portrait",
       "viewType": "three-quarter",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "bytes": 1812262,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "dotco-coconut-water-packshot-floating-master-v1.png",
-      "path": "/brand-reference/coconut-water/dotco-coconut-water-packshot-floating-master-v1.png",
+      "id": "785a287af0b4",
+      "productId": "water",
+      "productFamily": "Coconut Water",
+      "productName": ".CO Coconut Water",
+      "assetName": "dotco-coconut-water-packshot-floating-master-v1.png",
+      "sourcePath": "/brand-reference/coconut-water/dotco-coconut-water-packshot-floating-master-v1.png",
       "format": "png",
       "width": 2048,
       "height": 2560,
       "aspectRatio": 0.8,
-      "bytes": 3149798,
-      "productFamily": "Coconut Water",
-      "productName": ".CO Coconut Water",
-      "viewType": "packshot",
+      "orientation": "portrait",
+      "viewType": "floating",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "bytes": 3149798,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "dotco-coconut-water-packshot-front-master-v1.png",
-      "path": "/brand-reference/coconut-water/dotco-coconut-water-packshot-front-master-v1.png",
+      "id": "90e60b783707",
+      "productId": "water",
+      "productFamily": "Coconut Water",
+      "productName": ".CO Coconut Water",
+      "assetName": "dotco-coconut-water-packshot-front-master-v1.png",
+      "sourcePath": "/brand-reference/coconut-water/dotco-coconut-water-packshot-front-master-v1.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
-      "bytes": 1706952,
-      "productFamily": "Coconut Water",
-      "productName": ".CO Coconut Water",
+      "orientation": "portrait",
       "viewType": "front",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "bytes": 1706952,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "dotco-home-hero-coconut-water-master-v1.png .png",
-      "path": "/brand-reference/coconut-water/dotco-home-hero-coconut-water-master-v1.png .png",
+      "id": "c36d34bf2bc4",
+      "productId": "water",
+      "productFamily": "Coconut Water",
+      "productName": ".CO Coconut Water",
+      "assetName": "dotco-home-hero-coconut-water-master-v1.png .png",
+      "sourcePath": "/brand-reference/coconut-water/dotco-home-hero-coconut-water-master-v1.png .png",
       "format": "png",
       "width": 1672,
       "height": 941,
       "aspectRatio": 1.7768,
-      "bytes": 2100423,
-      "productFamily": "Coconut Water",
-      "productName": ".CO Coconut Water",
+      "orientation": "landscape",
       "viewType": "lifestyle",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": false
-      },
-      "likelyWebsiteUse": [
-        "hero",
-        "transition",
-        "timeline",
-        "editorial card"
-      ]
+      "bytes": 2100423,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": false,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "dotco-home-hero-coconut-water-mobile-master-v1.png",
-      "path": "/brand-reference/coconut-water/dotco-home-hero-coconut-water-mobile-master-v1.png",
+      "id": "52b33b7c1471",
+      "productId": "water",
+      "productFamily": "Coconut Water",
+      "productName": ".CO Coconut Water",
+      "assetName": "dotco-home-hero-coconut-water-mobile-master-v1.png",
+      "sourcePath": "/brand-reference/coconut-water/dotco-home-hero-coconut-water-mobile-master-v1.png",
       "format": "png",
       "width": 941,
       "height": 1672,
       "aspectRatio": 0.5628,
+      "orientation": "portrait",
+      "viewType": "lifestyle",
+      "hasTransparency": false,
       "bytes": 2029883,
-      "productFamily": "Coconut Water",
-      "productName": ".CO Coconut Water",
-      "viewType": "lifestyle",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "hero",
-        "transition",
-        "timeline",
-        "editorial card"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_FLOUR_00_Packaging_Design_Master.png",
-      "path": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_00_Packaging_Design_Master.png",
+      "id": "51581228699c",
+      "productId": "kitchen-flour",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Flour",
+      "assetName": "CO_KITCHEN_COCONUT_FLOUR_00_Packaging_Design_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_00_Packaging_Design_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "front",
+      "hasTransparency": false,
       "bytes": 2260208,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Flour",
-      "viewType": "master",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_FLOUR_02_Back_Master.png",
-      "path": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_02_Back_Master.png",
+      "id": "f7a310ef6bba",
+      "productId": "kitchen-flour",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Flour",
+      "assetName": "CO_KITCHEN_COCONUT_FLOUR_02_Back_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_02_Back_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "back",
+      "hasTransparency": false,
       "bytes": 2308291,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Flour",
-      "viewType": "back",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_FLOUR_03_Three_Quarter_Master.png",
-      "path": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_03_Three_Quarter_Master.png",
+      "id": "e5632d6b7c6e",
+      "productId": "kitchen-flour",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Flour",
+      "assetName": "CO_KITCHEN_COCONUT_FLOUR_03_Three_Quarter_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_03_Three_Quarter_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "three-quarter",
+      "hasTransparency": false,
       "bytes": 2132828,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Flour",
-      "viewType": "three-quarter",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_FLOUR_04_Left_Side_Story_Master.png",
-      "path": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_04_Left_Side_Story_Master.png",
+      "id": "b2806074eac7",
+      "productId": "kitchen-flour",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Flour",
+      "assetName": "CO_KITCHEN_COCONUT_FLOUR_04_Left_Side_Story_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_04_Left_Side_Story_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "left-side",
+      "hasTransparency": false,
       "bytes": 1865669,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Flour",
-      "viewType": "side",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_FLOUR_05_Right_Side_Benefits_Master.png",
-      "path": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_05_Right_Side_Benefits_Master.png",
+      "id": "6ac30ad40da6",
+      "productId": "kitchen-flour",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Flour",
+      "assetName": "CO_KITCHEN_COCONUT_FLOUR_05_Right_Side_Benefits_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_05_Right_Side_Benefits_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "right-side",
+      "hasTransparency": false,
       "bytes": 1971863,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Flour",
-      "viewType": "side",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_FLOUR_06_Ecommerce_Primary_Packshot_Master.png",
-      "path": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_06_Ecommerce_Primary_Packshot_Master.png",
+      "id": "a7a3e1b5e0a1",
+      "productId": "kitchen-flour",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Flour",
+      "assetName": "CO_KITCHEN_COCONUT_FLOUR_06_Ecommerce_Primary_Packshot_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_06_Ecommerce_Primary_Packshot_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
+      "orientation": "square",
+      "viewType": "ecommerce",
+      "hasTransparency": false,
       "bytes": 2228432,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Flour",
-      "viewType": "packshot",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_FLOUR_07_Texture_and_Scoop_Master.png",
-      "path": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_07_Texture_and_Scoop_Master.png",
+      "id": "fde920366f08",
+      "productId": "kitchen-flour",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Flour",
+      "assetName": "CO_KITCHEN_COCONUT_FLOUR_07_Texture_and_Scoop_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_07_Texture_and_Scoop_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
+      "orientation": "square",
+      "viewType": "reference",
+      "hasTransparency": false,
       "bytes": 2203521,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Flour",
-      "viewType": "master",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_FLOUR_08_Baking_Application_Master.png",
-      "path": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_08_Baking_Application_Master.png",
+      "id": "1aa9105339e9",
+      "productId": "kitchen-flour",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Flour",
+      "assetName": "CO_KITCHEN_COCONUT_FLOUR_08_Baking_Application_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_08_Baking_Application_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
+      "orientation": "square",
+      "viewType": "usage",
+      "hasTransparency": false,
       "bytes": 2323872,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Flour",
-      "viewType": "lifestyle",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "hero",
-        "transition",
-        "timeline",
-        "editorial card"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_FLOUR_09_Ingredient_and_Benefit_Master.png",
-      "path": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_09_Ingredient_and_Benefit_Master.png",
+      "id": "e53b3ff7b9a2",
+      "productId": "kitchen-flour",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Flour",
+      "assetName": "CO_KITCHEN_COCONUT_FLOUR_09_Ingredient_and_Benefit_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_09_Ingredient_and_Benefit_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
+      "orientation": "square",
+      "viewType": "ingredient-benefit",
+      "hasTransparency": false,
       "bytes": 2437578,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Flour",
-      "viewType": "master",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_MILK_00_Packaging_Design_Master.png",
-      "path": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_00_Packaging_Design_Master.png",
+      "id": "5270cdd762cd",
+      "productId": "kitchen-milk",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Milk",
+      "assetName": "CO_KITCHEN_COCONUT_MILK_00_Packaging_Design_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_00_Packaging_Design_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "front",
+      "hasTransparency": false,
       "bytes": 2071348,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Milk",
-      "viewType": "master",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_MILK_01_Front_Master.png",
-      "path": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_01_Front_Master.png",
+      "id": "587f4cfff69f",
+      "productId": "kitchen-milk",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Milk",
+      "assetName": "CO_KITCHEN_COCONUT_MILK_01_Front_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_01_Front_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "front",
+      "hasTransparency": false,
       "bytes": 1946889,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Milk",
-      "viewType": "front",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_MILK_02_Back_Master.png",
-      "path": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_02_Back_Master.png",
+      "id": "aee54f9ada8a",
+      "productId": "kitchen-milk",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Milk",
+      "assetName": "CO_KITCHEN_COCONUT_MILK_02_Back_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_02_Back_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "back",
+      "hasTransparency": false,
       "bytes": 2046221,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Milk",
-      "viewType": "back",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_MILK_04_Side_Story_and_Benefits_Master.png",
-      "path": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_04_Side_Story_and_Benefits_Master.png",
+      "id": "10ab0c1d207b",
+      "productId": "kitchen-milk",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Milk",
+      "assetName": "CO_KITCHEN_COCONUT_MILK_04_Side_Story_and_Benefits_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_04_Side_Story_and_Benefits_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "ingredient-benefit",
+      "hasTransparency": false,
       "bytes": 2007733,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Milk",
-      "viewType": "side",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_MILK_05_Ecommerce_Primary_Packshot_Master.png",
-      "path": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_05_Ecommerce_Primary_Packshot_Master.png",
+      "id": "86890b67e60a",
+      "productId": "kitchen-milk",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Milk",
+      "assetName": "CO_KITCHEN_COCONUT_MILK_05_Ecommerce_Primary_Packshot_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_05_Ecommerce_Primary_Packshot_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
+      "orientation": "square",
+      "viewType": "ecommerce",
+      "hasTransparency": false,
       "bytes": 2036523,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Milk",
-      "viewType": "packshot",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_MILK_06_Pour_and_Dispense_Master.png",
-      "path": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_06_Pour_and_Dispense_Master.png",
+      "id": "ae16b0660b0b",
+      "productId": "kitchen-milk",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Milk",
+      "assetName": "CO_KITCHEN_COCONUT_MILK_06_Pour_and_Dispense_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_06_Pour_and_Dispense_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
+      "orientation": "square",
+      "viewType": "usage",
+      "hasTransparency": false,
       "bytes": 2074011,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Milk",
-      "viewType": "master",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_MILK_07_Cooking_Application_Master.png",
-      "path": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_07_Cooking_Application_Master.png",
+      "id": "1cd8986d8552",
+      "productId": "kitchen-milk",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Milk",
+      "assetName": "CO_KITCHEN_COCONUT_MILK_07_Cooking_Application_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_07_Cooking_Application_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
+      "orientation": "square",
+      "viewType": "usage",
+      "hasTransparency": false,
       "bytes": 2097254,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Milk",
-      "viewType": "lifestyle",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "hero",
-        "transition",
-        "timeline",
-        "editorial card"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_MILK_08_Ingredient_and_Benefit_Master.png",
-      "path": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_08_Ingredient_and_Benefit_Master.png",
+      "id": "3e673a689394",
+      "productId": "kitchen-milk",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Milk",
+      "assetName": "CO_KITCHEN_COCONUT_MILK_08_Ingredient_and_Benefit_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_08_Ingredient_and_Benefit_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
+      "orientation": "square",
+      "viewType": "ingredient-benefit",
+      "hasTransparency": false,
       "bytes": 2062834,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Milk",
-      "viewType": "master",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_MILK_09_Pantry_Lifestyle_Master.png",
-      "path": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_09_Pantry_Lifestyle_Master.png",
+      "id": "6f849f6c11c9",
+      "productId": "kitchen-milk",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Coconut Milk",
+      "assetName": "CO_KITCHEN_COCONUT_MILK_09_Pantry_Lifestyle_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_09_Pantry_Lifestyle_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
-      "bytes": 1871510,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Coconut Milk",
+      "orientation": "square",
       "viewType": "lifestyle",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "hero",
-        "transition",
-        "timeline",
-        "editorial card"
-      ]
+      "bytes": 1871510,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_OIL_01_Front_Final_Master.png",
-      "path": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_01_Front_Final_Master.png",
-      "format": "png",
-      "width": 1122,
-      "height": 1402,
-      "aspectRatio": 0.8003,
-      "bytes": 2033204,
+      "id": "260349f32f4d",
+      "productId": "kitchen-oil",
       "productFamily": ".CO Kitchen",
       "productName": ".CO Kitchen Virgin Coconut Oil",
+      "assetName": "CO_KITCHEN_COCONUT_OIL_01_Front_Final_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_01_Front_Final_Master.png",
+      "format": "png",
+      "width": 1122,
+      "height": 1402,
+      "aspectRatio": 0.8003,
+      "orientation": "portrait",
       "viewType": "front",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "bytes": 2033204,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_OIL_02_Back_Final_Master.png",
-      "path": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_02_Back_Final_Master.png",
+      "id": "129f4dac302c",
+      "productId": "kitchen-oil",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Virgin Coconut Oil",
+      "assetName": "CO_KITCHEN_COCONUT_OIL_02_Back_Final_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_02_Back_Final_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
-      "bytes": 1975218,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Virgin Coconut Oil",
+      "orientation": "portrait",
       "viewType": "back",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "bytes": 1975218,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_OIL_03_Three_Quarter_Final_Master.png",
-      "path": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_03_Three_Quarter_Final_Master.png",
+      "id": "08935af7d818",
+      "productId": "kitchen-oil",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Virgin Coconut Oil",
+      "assetName": "CO_KITCHEN_COCONUT_OIL_03_Three_Quarter_Final_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_03_Three_Quarter_Final_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
-      "bytes": 1935406,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Virgin Coconut Oil",
+      "orientation": "portrait",
       "viewType": "three-quarter",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "bytes": 1935406,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_OIL_04_Left_Side_Story_Master.png",
-      "path": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_04_Left_Side_Story_Master.png",
+      "id": "2828a674c57f",
+      "productId": "kitchen-oil",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Virgin Coconut Oil",
+      "assetName": "CO_KITCHEN_COCONUT_OIL_04_Left_Side_Story_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_04_Left_Side_Story_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "left-side",
+      "hasTransparency": false,
       "bytes": 1852750,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Virgin Coconut Oil",
-      "viewType": "side",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_OIL_05_Right_Side_Benefits_Master.png",
-      "path": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_05_Right_Side_Benefits_Master.png",
+      "id": "05d511912bd5",
+      "productId": "kitchen-oil",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Virgin Coconut Oil",
+      "assetName": "CO_KITCHEN_COCONUT_OIL_05_Right_Side_Benefits_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_05_Right_Side_Benefits_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
+      "orientation": "portrait",
+      "viewType": "right-side",
+      "hasTransparency": false,
       "bytes": 1775769,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Virgin Coconut Oil",
-      "viewType": "side",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_OIL_06_Pourer_Macro_Master.png",
-      "path": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_06_Pourer_Macro_Master.png",
+      "id": "9d34edb70ecb",
+      "productId": "kitchen-oil",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Virgin Coconut Oil",
+      "assetName": "CO_KITCHEN_COCONUT_OIL_06_Pourer_Macro_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_06_Pourer_Macro_Master.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
-      "bytes": 2036842,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Virgin Coconut Oil",
+      "orientation": "portrait",
       "viewType": "macro",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "detail card",
-        "supporting editorial"
-      ]
+      "bytes": 2036842,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_OIL_07_Ecommerce_Primary_Packshot_Master.png",
-      "path": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_07_Ecommerce_Primary_Packshot_Master.png",
+      "id": "8bf58e923f5e",
+      "productId": "kitchen-oil",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Virgin Coconut Oil",
+      "assetName": "CO_KITCHEN_COCONUT_OIL_07_Ecommerce_Primary_Packshot_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_07_Ecommerce_Primary_Packshot_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
+      "orientation": "square",
+      "viewType": "ecommerce",
+      "hasTransparency": false,
       "bytes": 1835879,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Virgin Coconut Oil",
-      "viewType": "packshot",
-      "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "CO_KITCHEN_COCONUT_OIL_08_Controlled_Pour_Usage_Master.png",
-      "path": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_08_Controlled_Pour_Usage_Master.png",
+      "id": "68d736f39f27",
+      "productId": "kitchen-oil",
+      "productFamily": ".CO Kitchen",
+      "productName": ".CO Kitchen Virgin Coconut Oil",
+      "assetName": "CO_KITCHEN_COCONUT_OIL_08_Controlled_Pour_Usage_Master.png",
+      "sourcePath": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_08_Controlled_Pour_Usage_Master.png",
       "format": "png",
       "width": 1254,
       "height": 1254,
       "aspectRatio": 1,
-      "bytes": 2186279,
-      "productFamily": ".CO Kitchen",
-      "productName": ".CO Kitchen Virgin Coconut Oil",
-      "viewType": "master",
+      "orientation": "square",
+      "viewType": "usage",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "reference",
-        "locked master"
-      ]
+      "bytes": 2186279,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "dotco-melt-coconut-mango-packshot-angle-master-v1.png",
-      "path": "/brand-reference/melt/dotco-melt-coconut-mango-packshot-angle-master-v1.png",
+      "id": "d1b5d8821a7c",
+      "productId": "melt",
+      "productFamily": "MELT",
+      "productName": "MELT Coconut Gelato",
+      "assetName": "dotco-melt-coconut-mango-packshot-angle-master-v1.png",
+      "sourcePath": "/brand-reference/melt/dotco-melt-coconut-mango-packshot-angle-master-v1.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
-      "bytes": 2049573,
-      "productFamily": "MELT",
-      "productName": "MELT Coconut Gelato",
+      "orientation": "portrait",
       "viewType": "three-quarter",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "bytes": 2049573,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "dotco-melt-coconut-mango-packshot-floating-master-v1.png",
-      "path": "/brand-reference/melt/dotco-melt-coconut-mango-packshot-floating-master-v1.png",
+      "id": "2c8342c930a0",
+      "productId": "melt",
+      "productFamily": "MELT",
+      "productName": "MELT Coconut Gelato",
+      "assetName": "dotco-melt-coconut-mango-packshot-floating-master-v1.png",
+      "sourcePath": "/brand-reference/melt/dotco-melt-coconut-mango-packshot-floating-master-v1.png",
       "format": "png",
       "width": 1024,
       "height": 1536,
       "aspectRatio": 0.6667,
-      "bytes": 2559618,
-      "productFamily": "MELT",
-      "productName": "MELT Coconut Gelato",
-      "viewType": "packshot",
+      "orientation": "portrait",
+      "viewType": "floating",
       "hasTransparency": true,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "bytes": 2559618,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "dotco-melt-coconut-mango-packshot-front-master-v1.png",
-      "path": "/brand-reference/melt/dotco-melt-coconut-mango-packshot-front-master-v1.png",
+      "id": "10b9422682e5",
+      "productId": "melt",
+      "productFamily": "MELT",
+      "productName": "MELT Coconut Gelato",
+      "assetName": "dotco-melt-coconut-mango-packshot-front-master-v1.png",
+      "sourcePath": "/brand-reference/melt/dotco-melt-coconut-mango-packshot-front-master-v1.png",
       "format": "png",
       "width": 1122,
       "height": 1402,
       "aspectRatio": 0.8003,
-      "bytes": 2010893,
-      "productFamily": "MELT",
-      "productName": "MELT Coconut Gelato",
+      "orientation": "portrait",
       "viewType": "front",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "product card",
-        "hero composite",
-        "transition composite"
-      ]
+      "bytes": 2010893,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "dotco-melt-home-hero-desktop-master-v1.png",
-      "path": "/brand-reference/melt/dotco-melt-home-hero-desktop-master-v1.png",
+      "id": "17c1f99cb8fc",
+      "productId": "melt",
+      "productFamily": "MELT",
+      "productName": "MELT Coconut Gelato",
+      "assetName": "dotco-melt-home-hero-desktop-master-v1.png",
+      "sourcePath": "/brand-reference/melt/dotco-melt-home-hero-desktop-master-v1.png",
       "format": "png",
       "width": 1672,
       "height": 941,
       "aspectRatio": 1.7768,
-      "bytes": 2190232,
-      "productFamily": "MELT",
-      "productName": "MELT Coconut Gelato",
+      "orientation": "landscape",
       "viewType": "lifestyle",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": false
-      },
-      "likelyWebsiteUse": [
-        "hero",
-        "transition",
-        "timeline",
-        "editorial card"
-      ]
+      "bytes": 2190232,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": false,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "dotco-melt-home-hero-mobile-master-v1.png",
-      "path": "/brand-reference/melt/dotco-melt-home-hero-mobile-master-v1.png",
+      "id": "b09bedb3d9d9",
+      "productId": "melt",
+      "productFamily": "MELT",
+      "productName": "MELT Coconut Gelato",
+      "assetName": "dotco-melt-home-hero-mobile-master-v1.png",
+      "sourcePath": "/brand-reference/melt/dotco-melt-home-hero-mobile-master-v1.png",
       "format": "png",
       "width": 941,
       "height": 1672,
       "aspectRatio": 0.5628,
-      "bytes": 2071408,
-      "productFamily": "MELT",
-      "productName": "MELT Coconut Gelato",
+      "orientation": "portrait",
       "viewType": "lifestyle",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": false,
-        "mobile": true
-      },
-      "likelyWebsiteUse": [
-        "hero",
-        "transition",
-        "timeline",
-        "editorial card"
-      ]
+      "bytes": 2071408,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": false,
+      "mobileSuitable": true,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
     },
     {
-      "fileName": "dotco-melt-lifestyle-master-v1.png",
-      "path": "/brand-reference/melt/dotco-melt-lifestyle-master-v1.png",
+      "id": "fa8d7f3d3c01",
+      "productId": "melt",
+      "productFamily": "MELT",
+      "productName": "MELT Coconut Gelato",
+      "assetName": "dotco-melt-lifestyle-master-v1.png",
+      "sourcePath": "/brand-reference/melt/dotco-melt-lifestyle-master-v1.png",
       "format": "png",
       "width": 1672,
       "height": 941,
       "aspectRatio": 1.7768,
-      "bytes": 2209269,
-      "productFamily": "MELT",
-      "productName": "MELT Coconut Gelato",
+      "orientation": "landscape",
       "viewType": "lifestyle",
       "hasTransparency": false,
-      "suitability": {
-        "desktop": true,
-        "mobile": false
-      },
-      "likelyWebsiteUse": [
-        "hero",
-        "transition",
-        "timeline",
-        "editorial card"
+      "bytes": 2209269,
+      "approved": true,
+      "draft": false,
+      "desktopSuitable": true,
+      "mobileSuitable": false,
+      "safeCropNotes": "Use contain for packaging. Crop editorial/lifestyle references only when all critical branding remains visible.",
+      "logoVisibilityNotes": "Preserve the leading dot, coconut O emblem, and full approved family wordmark.",
+      "textVisibilityNotes": "Printed package copy is approved content and must remain readable in gallery views."
+    }
+  ],
+  "websiteProducts": {
+    "water": {
+      "name": ".CO Coconut Water",
+      "family": "Coconut Water",
+      "primary": "/images/website/products/coconut-water/01-front.webp",
+      "gallery": [
+        {
+          "src": "/images/website/products/coconut-water/01-front.webp",
+          "alt": "front view of .CO Coconut Water.",
+          "view": "front",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/coconut-water/dotco-coconut-water-packshot-front-master-v1.png"
+        },
+        {
+          "src": "/images/website/products/coconut-water/02-three-quarter.webp",
+          "alt": "three quarter view of .CO Coconut Water.",
+          "view": "three-quarter",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/coconut-water/dotco-coconut-water-packshot-angle-master-v1.png .png"
+        },
+        {
+          "src": "/images/website/products/coconut-water/03-lifestyle.webp",
+          "alt": "lifestyle view of .CO Coconut Water.",
+          "view": "lifestyle",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/coconut-water/dotco-coconut-water-lifestyle-master-v1.png"
+        },
+        {
+          "src": "/images/website/products/coconut-water/04-lifestyle.webp",
+          "alt": "lifestyle view of .CO Coconut Water.",
+          "view": "lifestyle",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/coconut-water/dotco-home-hero-coconut-water-master-v1.png .png"
+        },
+        {
+          "src": "/images/website/products/coconut-water/05-lifestyle.webp",
+          "alt": "lifestyle view of .CO Coconut Water.",
+          "view": "lifestyle",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/coconut-water/dotco-home-hero-coconut-water-mobile-master-v1.png"
+        },
+        {
+          "src": "/images/website/products/coconut-water/06-floating.webp",
+          "alt": "floating view of .CO Coconut Water.",
+          "view": "floating",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/coconut-water/dotco-coconut-water-packshot-floating-master-v1.png"
+        }
+      ]
+    },
+    "melt": {
+      "name": "MELT Coconut Gelato",
+      "family": "MELT",
+      "primary": "/images/website/products/melt/01-front.webp",
+      "gallery": [
+        {
+          "src": "/images/website/products/melt/01-front.webp",
+          "alt": "front view of MELT Coconut Gelato.",
+          "view": "front",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/melt/dotco-melt-coconut-mango-packshot-front-master-v1.png"
+        },
+        {
+          "src": "/images/website/products/melt/02-three-quarter.webp",
+          "alt": "three quarter view of MELT Coconut Gelato.",
+          "view": "three-quarter",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/melt/dotco-melt-coconut-mango-packshot-angle-master-v1.png"
+        },
+        {
+          "src": "/images/website/products/melt/03-lifestyle.webp",
+          "alt": "lifestyle view of MELT Coconut Gelato.",
+          "view": "lifestyle",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/melt/dotco-melt-home-hero-desktop-master-v1.png"
+        },
+        {
+          "src": "/images/website/products/melt/04-lifestyle.webp",
+          "alt": "lifestyle view of MELT Coconut Gelato.",
+          "view": "lifestyle",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/melt/dotco-melt-home-hero-mobile-master-v1.png"
+        },
+        {
+          "src": "/images/website/products/melt/05-lifestyle.webp",
+          "alt": "lifestyle view of MELT Coconut Gelato.",
+          "view": "lifestyle",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/melt/dotco-melt-lifestyle-master-v1.png"
+        },
+        {
+          "src": "/images/website/products/melt/06-floating.webp",
+          "alt": "floating view of MELT Coconut Gelato.",
+          "view": "floating",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/melt/dotco-melt-coconut-mango-packshot-floating-master-v1.png"
+        }
+      ]
+    },
+    "kitchen-oil": {
+      "name": ".CO Kitchen Virgin Coconut Oil",
+      "family": ".CO Kitchen",
+      "primary": "/images/website/products/kitchen-oil/01-ecommerce.webp",
+      "gallery": [
+        {
+          "src": "/images/website/products/kitchen-oil/01-ecommerce.webp",
+          "alt": "ecommerce view of .CO Kitchen Virgin Coconut Oil.",
+          "view": "ecommerce",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_07_Ecommerce_Primary_Packshot_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-oil/02-front.webp",
+          "alt": "front view of .CO Kitchen Virgin Coconut Oil.",
+          "view": "front",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_01_Front_Final_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-oil/03-three-quarter.webp",
+          "alt": "three quarter view of .CO Kitchen Virgin Coconut Oil.",
+          "view": "three-quarter",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_03_Three_Quarter_Final_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-oil/04-back.webp",
+          "alt": "back view of .CO Kitchen Virgin Coconut Oil.",
+          "view": "back",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_02_Back_Final_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-oil/05-left-side.webp",
+          "alt": "left side view of .CO Kitchen Virgin Coconut Oil.",
+          "view": "left-side",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_04_Left_Side_Story_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-oil/06-right-side.webp",
+          "alt": "right side view of .CO Kitchen Virgin Coconut Oil.",
+          "view": "right-side",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_05_Right_Side_Benefits_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-oil/07-macro.webp",
+          "alt": "macro view of .CO Kitchen Virgin Coconut Oil.",
+          "view": "macro",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_06_Pourer_Macro_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-oil/08-usage.webp",
+          "alt": "usage view of .CO Kitchen Virgin Coconut Oil.",
+          "view": "usage",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_08_Controlled_Pour_Usage_Master.png"
+        }
+      ]
+    },
+    "kitchen-flour": {
+      "name": ".CO Kitchen Coconut Flour",
+      "family": ".CO Kitchen",
+      "primary": "/images/website/products/kitchen-flour/01-ecommerce.webp",
+      "gallery": [
+        {
+          "src": "/images/website/products/kitchen-flour/01-ecommerce.webp",
+          "alt": "ecommerce view of .CO Kitchen Coconut Flour.",
+          "view": "ecommerce",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_06_Ecommerce_Primary_Packshot_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-flour/02-front.webp",
+          "alt": "front view of .CO Kitchen Coconut Flour.",
+          "view": "front",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_00_Packaging_Design_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-flour/03-three-quarter.webp",
+          "alt": "three quarter view of .CO Kitchen Coconut Flour.",
+          "view": "three-quarter",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_03_Three_Quarter_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-flour/04-back.webp",
+          "alt": "back view of .CO Kitchen Coconut Flour.",
+          "view": "back",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_02_Back_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-flour/05-left-side.webp",
+          "alt": "left side view of .CO Kitchen Coconut Flour.",
+          "view": "left-side",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_04_Left_Side_Story_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-flour/06-right-side.webp",
+          "alt": "right side view of .CO Kitchen Coconut Flour.",
+          "view": "right-side",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_05_Right_Side_Benefits_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-flour/07-usage.webp",
+          "alt": "usage view of .CO Kitchen Coconut Flour.",
+          "view": "usage",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_08_Baking_Application_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-flour/08-ingredient-benefit.webp",
+          "alt": "ingredient benefit view of .CO Kitchen Coconut Flour.",
+          "view": "ingredient-benefit",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_09_Ingredient_and_Benefit_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-flour/09-reference.webp",
+          "alt": "reference view of .CO Kitchen Coconut Flour.",
+          "view": "reference",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-flour/CO_KITCHEN_COCONUT_FLOUR_07_Texture_and_Scoop_Master.png"
+        }
+      ]
+    },
+    "kitchen-milk": {
+      "name": ".CO Kitchen Coconut Milk",
+      "family": ".CO Kitchen",
+      "primary": "/images/website/products/kitchen-milk/01-ecommerce.webp",
+      "gallery": [
+        {
+          "src": "/images/website/products/kitchen-milk/01-ecommerce.webp",
+          "alt": "ecommerce view of .CO Kitchen Coconut Milk.",
+          "view": "ecommerce",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_05_Ecommerce_Primary_Packshot_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-milk/02-front.webp",
+          "alt": "front view of .CO Kitchen Coconut Milk.",
+          "view": "front",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_00_Packaging_Design_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-milk/03-front.webp",
+          "alt": "front view of .CO Kitchen Coconut Milk.",
+          "view": "front",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_01_Front_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-milk/04-back.webp",
+          "alt": "back view of .CO Kitchen Coconut Milk.",
+          "view": "back",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_02_Back_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-milk/05-usage.webp",
+          "alt": "usage view of .CO Kitchen Coconut Milk.",
+          "view": "usage",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_06_Pour_and_Dispense_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-milk/06-usage.webp",
+          "alt": "usage view of .CO Kitchen Coconut Milk.",
+          "view": "usage",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_07_Cooking_Application_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-milk/07-ingredient-benefit.webp",
+          "alt": "ingredient benefit view of .CO Kitchen Coconut Milk.",
+          "view": "ingredient-benefit",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_04_Side_Story_and_Benefits_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-milk/08-ingredient-benefit.webp",
+          "alt": "ingredient benefit view of .CO Kitchen Coconut Milk.",
+          "view": "ingredient-benefit",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_08_Ingredient_and_Benefit_Master.png"
+        },
+        {
+          "src": "/images/website/products/kitchen-milk/09-lifestyle.webp",
+          "alt": "lifestyle view of .CO Kitchen Coconut Milk.",
+          "view": "lifestyle",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/kitchen/coconut-milk/CO_KITCHEN_COCONUT_MILK_09_Pantry_Lifestyle_Master.png"
+        }
+      ]
+    },
+    "botanica-shampoo": {
+      "name": "BOTANiCA Shampoo",
+      "family": "BOTANiCA",
+      "primary": "/images/website/products/botanica-shampoo/01-front.webp",
+      "gallery": [
+        {
+          "src": "/images/website/products/botanica-shampoo/01-front.webp",
+          "alt": "front view of BOTANiCA Shampoo.",
+          "view": "front",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/shampoo/BOTANICA_03_Product_Detail_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-shampoo/02-ingredient-benefit.webp",
+          "alt": "ingredient benefit view of BOTANiCA Shampoo.",
+          "view": "ingredient-benefit",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/shampoo/BOTANICA_02_Transparent_Science_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-shampoo/03-ingredient-benefit.webp",
+          "alt": "ingredient benefit view of BOTANiCA Shampoo.",
+          "view": "ingredient-benefit",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/shampoo/BOTANICA_04_Ingredient_Harmony_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-shampoo/04-lifestyle.webp",
+          "alt": "lifestyle view of BOTANiCA Shampoo.",
+          "view": "lifestyle",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/shampoo/BOTANICA_01_Hero_Editorial_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-shampoo/05-lifestyle.webp",
+          "alt": "lifestyle view of BOTANiCA Shampoo.",
+          "view": "lifestyle",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/shampoo/BOTANICA_05_Bathroom_Lifestyle_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-shampoo/06-lifestyle.webp",
+          "alt": "lifestyle view of BOTANiCA Shampoo.",
+          "view": "lifestyle",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/shampoo/BOTANICA_06_Portrait_Product_Campaign_Master.png"
+        }
+      ]
+    },
+    "botanica-face-wash": {
+      "name": "BOTANiCA Face Wash",
+      "family": "BOTANiCA",
+      "primary": "/images/website/products/botanica-face-wash/01-ecommerce.webp",
+      "gallery": [
+        {
+          "src": "/images/website/products/botanica-face-wash/01-ecommerce.webp",
+          "alt": "ecommerce view of BOTANiCA Face Wash.",
+          "view": "ecommerce",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_06_Ecommerce_Primary_Packshot_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-face-wash/02-three-quarter.webp",
+          "alt": "three quarter view of BOTANiCA Face Wash.",
+          "view": "three-quarter",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_03_Three_Quarter_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-face-wash/03-back.webp",
+          "alt": "back view of BOTANiCA Face Wash.",
+          "view": "back",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_02_Back_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-face-wash/04-macro.webp",
+          "alt": "macro view of BOTANiCA Face Wash.",
+          "view": "macro",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_05_Macro_Detail_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-face-wash/05-usage.webp",
+          "alt": "usage view of BOTANiCA Face Wash.",
+          "view": "usage",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_07_Texture_and_Dispense_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-face-wash/06-usage.webp",
+          "alt": "usage view of BOTANiCA Face Wash.",
+          "view": "usage",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_08_Facial_Application_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-face-wash/07-reference.webp",
+          "alt": "reference view of BOTANiCA Face Wash.",
+          "view": "reference",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/facewash/BOTANICA_FACE_WASH_04_Side_Profile_Master.png"
+        }
+      ]
+    },
+    "botanica-hair-serum": {
+      "name": "BOTANiCA Hair Serum",
+      "family": "BOTANiCA",
+      "primary": "/images/website/products/botanica-hair-serum/01-front.webp",
+      "gallery": [
+        {
+          "src": "/images/website/products/botanica-hair-serum/01-front.webp",
+          "alt": "front view of BOTANiCA Hair Serum.",
+          "view": "front",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_01_Front_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-hair-serum/02-three-quarter.webp",
+          "alt": "three quarter view of BOTANiCA Hair Serum.",
+          "view": "three-quarter",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_03_Three_Quarter_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-hair-serum/03-back.webp",
+          "alt": "back view of BOTANiCA Hair Serum.",
+          "view": "back",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_02_Back_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-hair-serum/04-macro.webp",
+          "alt": "macro view of BOTANiCA Hair Serum.",
+          "view": "macro",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_05_Macro_Detail_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-hair-serum/05-usage.webp",
+          "alt": "usage view of BOTANiCA Hair Serum.",
+          "view": "usage",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_08_Application_Ritual_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-hair-serum/06-lifestyle.webp",
+          "alt": "lifestyle view of BOTANiCA Hair Serum.",
+          "view": "lifestyle",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_06_Hero_Editorial_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-hair-serum/07-lifestyle.webp",
+          "alt": "lifestyle view of BOTANiCA Hair Serum.",
+          "view": "lifestyle",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_10_Portrait_Product_Campaign_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-hair-serum/08-reference.webp",
+          "alt": "reference view of BOTANiCA Hair Serum.",
+          "view": "reference",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_04_Side_Profile_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-hair-serum/09-reference.webp",
+          "alt": "reference view of BOTANiCA Hair Serum.",
+          "view": "reference",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_07_Dropper_Texture_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-hair-serum/10-reference.webp",
+          "alt": "reference view of BOTANiCA Hair Serum.",
+          "view": "reference",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/hair-serum/BOTANICA_HAIR_SERUM_09_Haircare_Routine_Duo_Master.png"
+        }
+      ]
+    },
+    "botanica-moisturizer": {
+      "name": "BOTANiCA Body Moisturizer",
+      "family": "BOTANiCA",
+      "primary": "/images/website/products/botanica-moisturizer/01-ecommerce.webp",
+      "gallery": [
+        {
+          "src": "/images/website/products/botanica-moisturizer/01-ecommerce.webp",
+          "alt": "ecommerce view of BOTANiCA Body Moisturizer.",
+          "view": "ecommerce",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_06_Ecommerce_Primary_Packshot_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-moisturizer/02-front.webp",
+          "alt": "front view of BOTANiCA Body Moisturizer.",
+          "view": "front",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_01_Front_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-moisturizer/03-three-quarter.webp",
+          "alt": "three quarter view of BOTANiCA Body Moisturizer.",
+          "view": "three-quarter",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_03_Three_Quarter_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-moisturizer/04-back.webp",
+          "alt": "back view of BOTANiCA Body Moisturizer.",
+          "view": "back",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_02_Back_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-moisturizer/05-macro.webp",
+          "alt": "macro view of BOTANiCA Body Moisturizer.",
+          "view": "macro",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_05_Macro_Detail_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-moisturizer/06-usage.webp",
+          "alt": "usage view of BOTANiCA Body Moisturizer.",
+          "view": "usage",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_07_Texture_and_Dispense_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-moisturizer/07-usage.webp",
+          "alt": "usage view of BOTANiCA Body Moisturizer.",
+          "view": "usage",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_08_Skin_Application_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-moisturizer/08-ingredient-benefit.webp",
+          "alt": "ingredient benefit view of BOTANiCA Body Moisturizer.",
+          "view": "ingredient-benefit",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_09_Ingredient_Benefit_Master.png"
+        },
+        {
+          "src": "/images/website/products/botanica-moisturizer/09-reference.webp",
+          "alt": "reference view of BOTANiCA Body Moisturizer.",
+          "view": "reference",
+          "width": 1200,
+          "height": 1200,
+          "source": "/brand-reference/botanica/Moisturiser/BOTANICA_BODY_MOISTURIZER_04_Side_Profile_Master.png"
+        }
       ]
     }
-  ]
+  }
 }

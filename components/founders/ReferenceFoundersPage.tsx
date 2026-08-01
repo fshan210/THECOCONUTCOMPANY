@@ -9,10 +9,12 @@ import { MobileBottomNav, NewsletterSection, ReferenceFooter, ReferenceHeader } 
 import { getScrollTrigger, prefersReducedMotion } from "@/lib/animation/gsap-scrolltrigger";
 import { cn } from "@/lib/utils";
 import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
+import { resolveWebsiteAsset, websiteAssets } from "@/lib/website-assets";
 
 const root="/assets/founders/refined";
 const blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MCcgaGVpZ2h0PSc0MCc+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsbD0nI2Y4ZjRlYycvPjwvc3ZnPg==";
 const ease=[0.16,1,0.3,1] as const;
+const foundersHero = resolveWebsiteAsset(websiteAssets.founders.hero);
 
 const qas=[
   {question:"What was our first business fail?",fazil:"We ordered far too many prototype jars before we understood what people actually wanted. It taught us to test small and listen early.",afsala:"That moment made our process better: test, learn, adapt—and never become too attached to the first version."},
@@ -43,7 +45,10 @@ const gallery=[
   {src:"/assets/home/refined/naturally-hydrating-4k.png",title:"Studio day"},
 ] as const;
 
-function PremiumImage({src,alt,sizes,priority=false,className=""}:{src:string;alt:string;sizes:string;priority?:boolean;className?:string}){return <Image src={src} alt={alt} fill priority={priority} sizes={sizes} quality={95} placeholder="blur" blurDataURL={blurDataURL} className={cn("object-cover transition duration-700 group-hover:scale-[1.04]",className)}/>;}
+function PremiumImage({src,alt,sizes,priority=false,className=""}:{src:string;alt:string;sizes:string;priority?:boolean;className?:string}){
+  const hero = src.endsWith("/fazil-afsala-founder-hero.png") ? foundersHero : null;
+  return <Image src={hero?.desktop ?? src} mobileSrc={hero?.mobile} alt={hero?.alt ?? alt} fill priority={priority} sizes={sizes} quality={95} placeholder="blur" blurDataURL={blurDataURL} className={cn("object-cover transition duration-700 group-hover:scale-[1.04]",className)}/>;
+}
 
 export function ReferenceFoundersPage(){
   const [qaIndex,setQaIndex]=useState(0);
