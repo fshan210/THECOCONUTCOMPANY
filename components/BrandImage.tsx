@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { mediaUrl } from "@/lib/media";
 import { publicAssets } from "@/lib/public-assets";
 
 type BrandImageProps = {
@@ -41,8 +42,14 @@ export function BrandImage({
   imageClassName = "",
   fallbackSrc = publicAssets.water.floating
 }: BrandImageProps) {
-  const [resolvedSrc, setResolvedSrc] = useState(src || fallbackSrc);
+  const resolvedFallbackSrc = mediaUrl(fallbackSrc);
+  const [resolvedSrc, setResolvedSrc] = useState(mediaUrl(src || fallbackSrc));
   const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    setResolvedSrc(mediaUrl(src || fallbackSrc));
+    setFailed(false);
+  }, [src, fallbackSrc]);
 
   return (
     <div className={`group/brand-image relative w-full max-w-full overflow-hidden border border-[var(--co-border)] rounded-[32px] bg-[var(--co-white)] ${aspectClass[aspect]} ${className}`}>
@@ -65,8 +72,8 @@ export function BrandImage({
           priority={priority}
           sizes={sizes}
           onError={() => {
-            if (resolvedSrc === fallbackSrc) setFailed(true);
-            else setResolvedSrc(fallbackSrc);
+            if (resolvedSrc === resolvedFallbackSrc) setFailed(true);
+            else setResolvedSrc(resolvedFallbackSrc);
           }}
           className={`${fit === "contain" ? "object-contain p-3 md:p-5" : "object-cover"} transform-gpu ${hoverZoom ? "transition duration-700 ease-out group-hover/brand-image:scale-[1.035] motion-reduce:transition-none" : ""} ${imageClassName}`}
           style={{ objectPosition: position }}

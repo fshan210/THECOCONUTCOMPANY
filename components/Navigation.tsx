@@ -56,21 +56,23 @@ export function Navigation() {
         className="co-site-header co-glass-header fixed left-1/2 z-[100] -translate-x-1/2 overflow-visible border"
       >
         <nav className="co-container co-nav-row relative flex min-h-[66px] items-center justify-between gap-2 py-2 lg:min-h-[76px] lg:gap-4 lg:py-3">
-          <Link href="/" className="flex min-w-0 items-center gap-3" aria-label=".CO home">
+          <Link href="/" aria-current={pathname === "/" ? "page" : undefined} className={`flex min-w-0 items-center gap-3 rounded-2xl ${pathname === "/" ? "co-nav-active" : ""}`} aria-label=".CO home">
             <span className="relative block aspect-[188/150] w-[74px] origin-left sm:w-[82px] md:w-[88px]">
               <Image src="/images/logo.svg" alt=".CO The Coconut Company" fill priority sizes="88px" className="object-contain" />
             </span>
           </Link>
           <div className="hidden items-center gap-6 text-[0.7rem] font-bold uppercase tracking-[0.08em] text-[var(--co-ink)] lg:flex xl:gap-8">
             {links.map((link) => {
-              const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
+              const route = link.href.split("#")[0];
+              const active = link.label === "Products" ? false : route === "/shop" ? pathname === "/shop" || pathname.startsWith("/shop/") : pathname === route || pathname.startsWith(`${route}/`);
               return (
                 <Link
                   key={link.href}
                   href={link.href}
+                  aria-current={active ? "page" : undefined}
                   data-analytics="cta_click"
                   data-analytics-label={`nav_${link.label.toLowerCase()}`}
-                  className={`relative py-2 transition after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-center after:bg-[var(--co-black)] after:transition-transform ${active ? "after:scale-x-100" : "after:scale-x-0 hover:after:scale-x-100"}`}
+                  className={`relative rounded-full px-2 py-2 transition after:absolute after:inset-x-2 after:-bottom-0.5 after:h-px after:origin-center after:bg-[var(--co-black)] after:transition-transform ${active ? "co-nav-active font-extrabold text-[var(--co-palm)] after:scale-x-100" : "after:scale-x-0 hover:after:scale-x-100"}`}
                 >
                   {link.label}
                 </Link>
@@ -135,15 +137,17 @@ export function Navigation() {
               className="mx-3 mb-3 rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] p-4 shadow-[0_18px_48px_rgba(58,36,22,0.08)] lg:hidden"
             >
               {links.map((link) => {
-                const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
+                const route = link.href.split("#")[0];
+                const active = link.label === "Products" ? false : route === "/shop" ? pathname === "/shop" || pathname.startsWith("/shop/") : pathname === route || pathname.startsWith(`${route}/`);
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
+                    aria-current={active ? "page" : undefined}
                     data-analytics="cta_click"
                     data-analytics-label={`mobile_nav_${link.label.toLowerCase()}`}
                     onClick={() => setOpen(false)}
-                    className={`block border-b border-[var(--co-border)] py-4 text-sm font-bold uppercase tracking-[0.12em] last:border-0 ${active ? "text-[var(--co-palm)]" : "text-[var(--co-muted)]"}`}
+                    className={`block rounded-2xl border-b border-[var(--co-border)] px-3 py-4 text-sm font-bold uppercase tracking-[0.12em] last:border-0 ${active ? "co-nav-active bg-white/68 text-[var(--co-palm)]" : "text-[var(--co-muted)]"}`}
                   >
                     {link.label}
                   </Link>

@@ -10,6 +10,7 @@ import { publicAssets } from "@/lib/public-assets";
 import { fallbackProducts } from "@/lib/content/fallback-data";
 import { getProduct, getProducts } from "@/lib/content/server";
 import { productSchema } from "@/lib/seo/structured-data";
+import { galleryForShopSlug } from "@/lib/website-assets";
 
 type ProductPageProps = {
   params: Promise<{ slug: string }>;
@@ -38,6 +39,9 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   const product = await getProduct(slug);
   if (!product) notFound();
   const shopProducts = await getProducts();
+  const approvedGallery = galleryForShopSlug(product.slug);
+  const approvedHero = approvedGallery?.primary ?? product.image;
+  const approvedLifestyle = approvedGallery?.gallery.find((asset) => /lifestyle|usage|application/i.test(asset.view))?.src;
 
   const compositionBySlug: Record<string, string> = {
     "co-water": publicAssets.campaign.breakfastRitual,
@@ -62,8 +66,8 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       <section className="bg-[var(--co-cream)] pt-8 md:pt-12">
         <div className="co-container">
           <Link href="/shop" className="co-label mb-8 inline-flex min-h-11 items-center text-[var(--co-muted)] transition hover:text-[var(--co-palm)]">Back to shop</Link>
-          <div className="grid min-h-[620px] overflow-hidden rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] lg:grid-cols-[0.86fr_1.14fr]">
-            <MotionSection>
+          <div className="grid min-h-[620px] grid-cols-[minmax(0,1fr)] overflow-hidden rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)]">
+            <MotionSection className="min-w-0">
               <div className="flex h-full min-h-[480px] flex-col justify-center p-6 md:p-10">
                 <div>
                   <p className="co-label mb-5">{product.category}</p>
@@ -82,9 +86,9 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 </div>
               </div>
             </MotionSection>
-            <MotionSection delay={0.08} className="p-4 md:p-5">
+            <MotionSection delay={0.08} className="min-w-0 p-4 md:p-5">
               <BrandImage
-                src={product.image}
+                src={approvedHero}
                 alt={product.name}
                 sizes="(min-width: 1024px) 54vw, 92vw"
                 aspect="wide"
@@ -112,7 +116,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       <section className="co-section bg-[var(--co-white)]">
         <div className="co-container grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
           <MotionSection>
-            <BrandImage src={compositionBySlug[product.slug] || publicAssets.water.flatLay} alt={`${product.name} lifestyle composition`} sizes="(min-width: 1024px) 44vw, 92vw" aspect="portrait" fit="cover" hoverZoom className="h-full min-h-[560px] rounded-[40px]" />
+            <BrandImage src={approvedLifestyle || compositionBySlug[product.slug] || publicAssets.water.flatLay} alt={`${product.name} lifestyle composition`} sizes="(min-width: 1024px) 44vw, 92vw" aspect="portrait" fit="cover" hoverZoom className="h-full min-h-[560px] rounded-[40px]" />
           </MotionSection>
           <MotionSection delay={0.08}>
             <BentoCard className="h-full min-h-[560px]">
@@ -151,7 +155,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           <div className="grid gap-4 lg:grid-cols-[1.08fr_0.92fr]">
             <MotionSection>
               <BrandImage
-                src={product.hoverImage || product.image}
+                src={approvedGallery?.gallery[1]?.src || product.hoverImage || approvedHero}
                 alt={`${product.name} product detail and packaging`}
                 sizes="(min-width: 1024px) 54vw, 92vw"
                 aspect="wide"

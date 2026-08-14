@@ -22,7 +22,7 @@ These briefs describe the mandatory two-stage method for a future manual product
 - Purpose: Desktop homepage ecosystem hero
 - Target page: Homepage
 - Dimensions: 2400 × 1350
-- Source product assets: `coconut-water/dotco-coconut-water-packshot-front-master-v1.png`, `melt/dotco-melt-coconut-mango-packshot-floating-master-v1.png`, `kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_03_Three_Quarter_Final_Master.png`, `botanica/facewash/BOTANICA_FACE_WASH_03_Three_Quarter_Master.png`
+- Source product assets: `coconut-water/dotco-coconut-water-packshot-front-master-v1.png`, `assets-source/products/transparent-current/co-melt-coconut-mango-master-v1.png`, `kitchen/coconut-oil/CO_KITCHEN_COCONUT_OIL_03_Three_Quarter_Final_Master.png`, `botanica/facewash/BOTANICA_FACE_WASH_03_Three_Quarter_Master.png`
 - Packaging lock: Generate the environment only. Leave a clean product-placement area. The approved packaging will be composited from the locked source asset. Never recreate the .CO, KITCHEN, BOTANiCA, or MELT typography.
 - Composition: A calm .CO ecosystem on a pale limestone platform with generous left text-safe space.
 - Physical state: Products stand on or visually occupy supported limestone tiers; no package is dispensing.
@@ -37,7 +37,7 @@ These briefs describe the mandatory two-stage method for a future manual product
 - Purpose: Mobile homepage ecosystem hero
 - Target page: Homepage
 - Dimensions: 1800 × 2400
-- Source product assets: `coconut-water/dotco-coconut-water-packshot-front-master-v1.png`, `melt/dotco-melt-coconut-mango-packshot-floating-master-v1.png`, `botanica/facewash/BOTANICA_FACE_WASH_03_Three_Quarter_Master.png`
+- Source product assets: `coconut-water/dotco-coconut-water-packshot-front-master-v1.png`, `assets-source/products/transparent-current/co-melt-coconut-mango-master-v1.png`, `botanica/facewash/BOTANICA_FACE_WASH_03_Three_Quarter_Master.png`
 - Packaging lock: Generate the environment only. Leave a clean product-placement area. The approved packaging will be composited from the locked source asset. Never recreate the .CO, KITCHEN, BOTANiCA, or MELT typography.
 - Composition: Vertical composition with clear upper headline-safe zone and product cluster in lower middle.
 - Physical state: Products remain fully readable and supported.
@@ -149,7 +149,7 @@ These briefs describe the mandatory two-stage method for a future manual product
 - Purpose: Desktop MELT transition
 - Target page: Homepage
 - Dimensions: 2400 × 1200
-- Source product assets: `melt/dotco-melt-coconut-mango-packshot-floating-master-v1.png`
+- Source product assets: `assets-source/products/transparent-current/co-melt-coconut-mango-master-v1.png`
 - Packaging lock: Generate the environment only. Leave a clean product-placement area. The approved packaging will be composited from the locked source asset. Never recreate the .CO, KITCHEN, BOTANiCA, or MELT typography.
 - Composition: Warm slow-living table scene around the approved MELT tub.
 - Physical state: Tub is closed and supported; no melted mess.
@@ -165,7 +165,7 @@ These briefs describe the mandatory two-stage method for a future manual product
 - Purpose: Mobile MELT transition
 - Target page: Homepage
 - Dimensions: 1600 × 2000
-- Source product assets: `melt/dotco-melt-coconut-mango-packshot-floating-master-v1.png`
+- Source product assets: `assets-source/products/transparent-current/co-melt-coconut-mango-master-v1.png`
 - Packaging lock: Generate the environment only. Leave a clean product-placement area. The approved packaging will be composited from the locked source asset. Never recreate the .CO, KITCHEN, BOTANiCA, or MELT typography.
 - Composition: Vertical warm table scene with single MELT tub emphasis.
 - Physical state: Tub remains closed and supported.

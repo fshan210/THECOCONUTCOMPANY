@@ -8,7 +8,6 @@ No new assets were downloaded during Phase 4.5.
 
 Existing local coverage is strong enough for the next implementation pass:
 
-- Hero animation/video: `public/assets/video/coconut-to-bottle.mp4`, `public/assets/video/coconut-to-bottle.webm`, `public/assets/video/coconut-to-bottle-poster.png`
 - Homepage refinement photography: `public/assets/home/refined/*.png` — generated as text-free, premium studio and Kerala editorial scenes to avoid synthetic packaging or label artifacts.
 - Shop product photography: `public/assets/shop/products/IndividualProduct_*.png` — fourteen individually generated 2048px PNG catalog photographs using one warm cream, travertine and morning-light studio system.
 - Homepage hero background: `public/assets/hero/co-home-hero-background-v2.png` — generated with OpenAI image generation for this project. Prompt direction: an opaque cream-beige Kerala coconut studio scene with palm shadows, a travertine pedestal, fresh coconut ingredients and generous clear copy space; no text, labels, logos, or product packaging.
@@ -59,3 +58,14 @@ Every downloaded asset must include:
 - Usage notes.
 
 Do not use Firebase Storage for Phase 4.5 motion assets.
+# Homepage sustainability data authority
+
+The homepage Sustainability section reads its current launch-impact figures only from `lib/content/impact.ts` → `sustainabilityImpact`.
+
+- Current mode: `simulation`
+- Scenario basis: 10,000 units
+- Values: 12,500+ coconut-equivalents, 180 kg plastic avoided, 1,150 kg CO₂e reduced, and 24 farmer families supported
+- Assumptions: 1.25 coconut-equivalents, 0.018 kg plastic avoided, and 0.115 kg CO₂e reduced per unit; 24 supported farmer families
+- Disclosure: `10,000-unit launch scenario`
+
+These are design-stage simulation assumptions, not verified historical reporting. Production replacement requires reviewed source data, a switch to `verified` mode, and an approved reporting/source period. Legacy homepage CMS impact values are retained only for content-schema compatibility and do not override this canonical object.

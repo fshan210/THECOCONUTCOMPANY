@@ -4,6 +4,8 @@ import { UtilityPage } from "@/components/launch/UtilityPage";
 import { launchPages, launchPageSlugs } from "@/lib/launch-pages";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return launchPageSlugs.map((slug) => ({ slug }));
 }

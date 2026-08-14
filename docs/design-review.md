@@ -66,7 +66,7 @@ This checklist governs review for visual, motion, content, documentation, and de
 
 - [ ] Hero is product-first and clear above the fold.
 - [ ] Hero uses approved local assets, not external or placeholder imagery.
-- [ ] If the coconut-to-bottle film is used, the local MP4/WebM sources, poster fallback, clean crop, and reduced-motion still state all work.
+- [ ] Approved hero and transition media use canonical local/CDN paths, clean crops, and a reduced-motion still state.
 - [ ] Hero headline is readable and does not wrap into an awkward wall of text.
 - [ ] Hero copy and CTAs are not buried under imagery.
 - [ ] Hero trust badges are compact and legible.

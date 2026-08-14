@@ -59,36 +59,6 @@
     },
     "fallback": "/assets/Coconut_Water_Assets/lifestyle scene.png"
   },
-  "/assets/Ecosystem_Assets/BOtanica-Facewash-Flat Lay.png": {
-    "src": "/assets/Ecosystem_Assets/BOtanica-Facewash-Flat Lay.png",
-    "width": 1254,
-    "height": 1254,
-    "originalBytes": 2502949,
-    "variants": {
-      "mobile": {
-        "width": 828,
-        "avif": "/assets-optimized/Ecosystem_Assets/BOtanica-Facewash-Flat-Lay-15c4baecff-mobile.avif",
-        "jpg": "/assets-optimized/Ecosystem_Assets/BOtanica-Facewash-Flat-Lay-15c4baecff-mobile.jpg",
-        "avifBytes": 77727,
-        "jpgBytes": 109269
-      },
-      "tablet": {
-        "width": 1254,
-        "avif": "/assets-optimized/Ecosystem_Assets/BOtanica-Facewash-Flat-Lay-15c4baecff-tablet.avif",
-        "jpg": "/assets-optimized/Ecosystem_Assets/BOtanica-Facewash-Flat-Lay-15c4baecff-tablet.jpg",
-        "avifBytes": 138941,
-        "jpgBytes": 216850
-      },
-      "desktop": {
-        "width": 1254,
-        "avif": "/assets-optimized/Ecosystem_Assets/BOtanica-Facewash-Flat-Lay-15c4baecff-desktop.avif",
-        "jpg": "/assets-optimized/Ecosystem_Assets/BOtanica-Facewash-Flat-Lay-15c4baecff-desktop.jpg",
-        "avifBytes": 154290,
-        "jpgBytes": 256419
-      }
-    },
-    "fallback": "/assets/Ecosystem_Assets/BOtanica-Facewash-Flat Lay.png"
-  },
   "/assets/Ecosystem_Assets/Botanica-Shampoo-Lifestyle Scene.png": {
     "src": "/assets/Ecosystem_Assets/Botanica-Shampoo-Lifestyle Scene.png",
     "width": 1122,
@@ -149,36 +119,6 @@
     },
     "fallback": "/assets/Ecosystem_Assets/Kitchen-group ecosystem.png"
   },
-  "/assets/Ecosystem_Assets/coconut oil-flat lay.png": {
-    "src": "/assets/Ecosystem_Assets/coconut oil-flat lay.png",
-    "width": 1122,
-    "height": 1402,
-    "originalBytes": 2819008,
-    "variants": {
-      "mobile": {
-        "width": 828,
-        "avif": "/assets-optimized/Ecosystem_Assets/coconut-oil-flat-lay-5269848679-mobile.avif",
-        "jpg": "/assets-optimized/Ecosystem_Assets/coconut-oil-flat-lay-5269848679-mobile.jpg",
-        "avifBytes": 104775,
-        "jpgBytes": 140996
-      },
-      "tablet": {
-        "width": 1122,
-        "avif": "/assets-optimized/Ecosystem_Assets/coconut-oil-flat-lay-5269848679-tablet.avif",
-        "jpg": "/assets-optimized/Ecosystem_Assets/coconut-oil-flat-lay-5269848679-tablet.jpg",
-        "avifBytes": 173380,
-        "jpgBytes": 247511
-      },
-      "desktop": {
-        "width": 1122,
-        "avif": "/assets-optimized/Ecosystem_Assets/coconut-oil-flat-lay-5269848679-desktop.avif",
-        "jpg": "/assets-optimized/Ecosystem_Assets/coconut-oil-flat-lay-5269848679-desktop.jpg",
-        "avifBytes": 193654,
-        "jpgBytes": 294139
-      }
-    },
-    "fallback": "/assets/Ecosystem_Assets/coconut oil-flat lay.png"
-  },
   "/assets/Ecosystem_Assets/coconut vinegar-lifestyle scene.png": {
     "src": "/assets/Ecosystem_Assets/coconut vinegar-lifestyle scene.png",
     "width": 1402,
@@ -208,36 +148,6 @@
       }
     },
     "fallback": "/assets/Ecosystem_Assets/coconut vinegar-lifestyle scene.png"
-  },
-  "/assets/Melt_Ice_Cream_Assets/flat lay.png": {
-    "src": "/assets/Melt_Ice_Cream_Assets/flat lay.png",
-    "width": 1254,
-    "height": 1254,
-    "originalBytes": 2516394,
-    "variants": {
-      "mobile": {
-        "width": 828,
-        "avif": "/assets-optimized/Melt_Ice_Cream_Assets/flat-lay-e573931ebc-mobile.avif",
-        "jpg": "/assets-optimized/Melt_Ice_Cream_Assets/flat-lay-e573931ebc-mobile.jpg",
-        "avifBytes": 79666,
-        "jpgBytes": 116304
-      },
-      "tablet": {
-        "width": 1254,
-        "avif": "/assets-optimized/Melt_Ice_Cream_Assets/flat-lay-e573931ebc-tablet.avif",
-        "jpg": "/assets-optimized/Melt_Ice_Cream_Assets/flat-lay-e573931ebc-tablet.jpg",
-        "avifBytes": 138979,
-        "jpgBytes": 225231
-      },
-      "desktop": {
-        "width": 1254,
-        "avif": "/assets-optimized/Melt_Ice_Cream_Assets/flat-lay-e573931ebc-desktop.avif",
-        "jpg": "/assets-optimized/Melt_Ice_Cream_Assets/flat-lay-e573931ebc-desktop.jpg",
-        "avifBytes": 154734,
-        "jpgBytes": 265328
-      }
-    },
-    "fallback": "/assets/Melt_Ice_Cream_Assets/flat lay.png"
   },
   "/assets/about/co-about-hero-editorial-4k.avif": {
     "src": "/assets/about/co-about-hero-editorial-4k.avif",
@@ -329,36 +239,6 @@
     },
     "fallback": "/assets/about/co-zero-waste-palm-editorial-4k.avif"
   },
-  "/assets/about/generic-coconut-water-comparison.png": {
-    "src": "/assets/about/generic-coconut-water-comparison.png",
-    "width": 1122,
-    "height": 1402,
-    "originalBytes": 1851330,
-    "variants": {
-      "mobile": {
-        "width": 828,
-        "avif": "/assets-optimized/about/generic-coconut-water-comparison-833a020511-mobile.avif",
-        "jpg": "/assets-optimized/about/generic-coconut-water-comparison-833a020511-mobile.jpg",
-        "avifBytes": 37843,
-        "jpgBytes": 69451
-      },
-      "tablet": {
-        "width": 1122,
-        "avif": "/assets-optimized/about/generic-coconut-water-comparison-833a020511-tablet.avif",
-        "jpg": "/assets-optimized/about/generic-coconut-water-comparison-833a020511-tablet.jpg",
-        "avifBytes": 59498,
-        "jpgBytes": 113217
-      },
-      "desktop": {
-        "width": 1122,
-        "avif": "/assets-optimized/about/generic-coconut-water-comparison-833a020511-desktop.avif",
-        "jpg": "/assets-optimized/about/generic-coconut-water-comparison-833a020511-desktop.jpg",
-        "avifBytes": 66268,
-        "jpgBytes": 136015
-      }
-    },
-    "fallback": "/assets/about/generic-coconut-water-comparison.png"
-  },
   "/assets/backgrounds/kerala-groves/co-kerala-grove-editorial-4k.avif": {
     "src": "/assets/backgrounds/kerala-groves/co-kerala-grove-editorial-4k.avif",
     "width": 3840,
@@ -418,66 +298,6 @@
       }
     },
     "fallback": "/assets/branding/made-for-living-reference.png"
-  },
-  "/assets/coconut/whole coconut mindset.png": {
-    "src": "/assets/coconut/whole coconut mindset.png",
-    "width": 1122,
-    "height": 1402,
-    "originalBytes": 2247556,
-    "variants": {
-      "mobile": {
-        "width": 828,
-        "avif": "/assets-optimized/coconut/whole-coconut-mindset-4c2e6d75ac-mobile.avif",
-        "jpg": "/assets-optimized/coconut/whole-coconut-mindset-4c2e6d75ac-mobile.jpg",
-        "avifBytes": 71110,
-        "jpgBytes": 115924
-      },
-      "tablet": {
-        "width": 1122,
-        "avif": "/assets-optimized/coconut/whole-coconut-mindset-4c2e6d75ac-tablet.avif",
-        "jpg": "/assets-optimized/coconut/whole-coconut-mindset-4c2e6d75ac-tablet.jpg",
-        "avifBytes": 111204,
-        "jpgBytes": 188433
-      },
-      "desktop": {
-        "width": 1122,
-        "avif": "/assets-optimized/coconut/whole-coconut-mindset-4c2e6d75ac-desktop.avif",
-        "jpg": "/assets-optimized/coconut/whole-coconut-mindset-4c2e6d75ac-desktop.jpg",
-        "avifBytes": 124396,
-        "jpgBytes": 222695
-      }
-    },
-    "fallback": "/assets/coconut/whole coconut mindset.png"
-  },
-  "/assets/farming/whole coconut mindset.png": {
-    "src": "/assets/farming/whole coconut mindset.png",
-    "width": 1122,
-    "height": 1402,
-    "originalBytes": 2247556,
-    "variants": {
-      "mobile": {
-        "width": 828,
-        "avif": "/assets-optimized/farming/whole-coconut-mindset-4c2e6d75ac-mobile.avif",
-        "jpg": "/assets-optimized/farming/whole-coconut-mindset-4c2e6d75ac-mobile.jpg",
-        "avifBytes": 71110,
-        "jpgBytes": 115924
-      },
-      "tablet": {
-        "width": 1122,
-        "avif": "/assets-optimized/farming/whole-coconut-mindset-4c2e6d75ac-tablet.avif",
-        "jpg": "/assets-optimized/farming/whole-coconut-mindset-4c2e6d75ac-tablet.jpg",
-        "avifBytes": 111204,
-        "jpgBytes": 188433
-      },
-      "desktop": {
-        "width": 1122,
-        "avif": "/assets-optimized/farming/whole-coconut-mindset-4c2e6d75ac-desktop.avif",
-        "jpg": "/assets-optimized/farming/whole-coconut-mindset-4c2e6d75ac-desktop.jpg",
-        "avifBytes": 124396,
-        "jpgBytes": 222695
-      }
-    },
-    "fallback": "/assets/farming/whole coconut mindset.png"
   },
   "/assets/founders/refined/afsala-muthali-portrait.jpg": {
     "src": "/assets/founders/refined/afsala-muthali-portrait.jpg",
@@ -569,36 +389,6 @@
     },
     "fallback": "/assets/founders/refined/fazil-shersha-portrait.jpg"
   },
-  "/assets/generated/whole coconut mindset.png": {
-    "src": "/assets/generated/whole coconut mindset.png",
-    "width": 1122,
-    "height": 1402,
-    "originalBytes": 2247556,
-    "variants": {
-      "mobile": {
-        "width": 828,
-        "avif": "/assets-optimized/generated/whole-coconut-mindset-4c2e6d75ac-mobile.avif",
-        "jpg": "/assets-optimized/generated/whole-coconut-mindset-4c2e6d75ac-mobile.jpg",
-        "avifBytes": 71110,
-        "jpgBytes": 115924
-      },
-      "tablet": {
-        "width": 1122,
-        "avif": "/assets-optimized/generated/whole-coconut-mindset-4c2e6d75ac-tablet.avif",
-        "jpg": "/assets-optimized/generated/whole-coconut-mindset-4c2e6d75ac-tablet.jpg",
-        "avifBytes": 111204,
-        "jpgBytes": 188433
-      },
-      "desktop": {
-        "width": 1122,
-        "avif": "/assets-optimized/generated/whole-coconut-mindset-4c2e6d75ac-desktop.avif",
-        "jpg": "/assets-optimized/generated/whole-coconut-mindset-4c2e6d75ac-desktop.jpg",
-        "avifBytes": 124396,
-        "jpgBytes": 222695
-      }
-    },
-    "fallback": "/assets/generated/whole coconut mindset.png"
-  },
   "/assets/hero/Botanica-Shampoo-Lifestyle Scene.png": {
     "src": "/assets/hero/Botanica-Shampoo-Lifestyle Scene.png",
     "width": 1122,
@@ -658,36 +448,6 @@
       }
     },
     "fallback": "/assets/hero/co-home-hero-background-v2.png"
-  },
-  "/assets/hero/co-home-hero-solid-products.avif": {
-    "src": "/assets/hero/co-home-hero-solid-products.avif",
-    "width": 1672,
-    "height": 941,
-    "originalBytes": 188901,
-    "variants": {
-      "mobile": {
-        "width": 828,
-        "avif": "/assets-optimized/hero/co-home-hero-solid-products-d541ac2df1-mobile.avif",
-        "jpg": "/assets-optimized/hero/co-home-hero-solid-products-d541ac2df1-mobile.jpg",
-        "avifBytes": 24800,
-        "jpgBytes": 43334
-      },
-      "tablet": {
-        "width": 1280,
-        "avif": "/assets-optimized/hero/co-home-hero-solid-products-d541ac2df1-tablet.avif",
-        "jpg": "/assets-optimized/hero/co-home-hero-solid-products-d541ac2df1-tablet.jpg",
-        "avifBytes": 46975,
-        "jpgBytes": 85269
-      },
-      "desktop": {
-        "width": 1672,
-        "avif": "/assets-optimized/hero/co-home-hero-solid-products-d541ac2df1-desktop.avif",
-        "jpg": "/assets-optimized/hero/co-home-hero-solid-products-d541ac2df1-desktop.jpg",
-        "avifBytes": 77428,
-        "jpgBytes": 155511
-      }
-    },
-    "fallback": "/assets/hero/co-home-hero-solid-products.avif"
   },
   "/assets/home/refined/made-with-care-4k.png": {
     "src": "/assets/home/refined/made-with-care-4k.png",
@@ -1709,36 +1469,6 @@
     },
     "fallback": "/assets/shop/products/IndividualProduct_Utensils.png"
   },
-  "/assets/skincare/BOtanica-Facewash-Flat Lay.png": {
-    "src": "/assets/skincare/BOtanica-Facewash-Flat Lay.png",
-    "width": 1254,
-    "height": 1254,
-    "originalBytes": 2502949,
-    "variants": {
-      "mobile": {
-        "width": 828,
-        "avif": "/assets-optimized/skincare/BOtanica-Facewash-Flat-Lay-15c4baecff-mobile.avif",
-        "jpg": "/assets-optimized/skincare/BOtanica-Facewash-Flat-Lay-15c4baecff-mobile.jpg",
-        "avifBytes": 77727,
-        "jpgBytes": 109269
-      },
-      "tablet": {
-        "width": 1254,
-        "avif": "/assets-optimized/skincare/BOtanica-Facewash-Flat-Lay-15c4baecff-tablet.avif",
-        "jpg": "/assets-optimized/skincare/BOtanica-Facewash-Flat-Lay-15c4baecff-tablet.jpg",
-        "avifBytes": 138941,
-        "jpgBytes": 216850
-      },
-      "desktop": {
-        "width": 1254,
-        "avif": "/assets-optimized/skincare/BOtanica-Facewash-Flat-Lay-15c4baecff-desktop.avif",
-        "jpg": "/assets-optimized/skincare/BOtanica-Facewash-Flat-Lay-15c4baecff-desktop.jpg",
-        "avifBytes": 154290,
-        "jpgBytes": 256419
-      }
-    },
-    "fallback": "/assets/skincare/BOtanica-Facewash-Flat Lay.png"
-  },
   "/assets/skincare/Botanica-Shampoo-Lifestyle Scene.png": {
     "src": "/assets/skincare/Botanica-Shampoo-Lifestyle Scene.png",
     "width": 1122,
@@ -1859,66 +1589,6 @@
     },
     "fallback": "/assets/sustainability/rc1/carbon-sink-coconut-plantation.png"
   },
-  "/assets/sustainability/rc1/clean-ocean-community.png": {
-    "src": "/assets/sustainability/rc1/clean-ocean-community.png",
-    "width": 1672,
-    "height": 941,
-    "originalBytes": 2533153,
-    "variants": {
-      "mobile": {
-        "width": 828,
-        "avif": "/assets-optimized/sustainability/rc1/clean-ocean-community-cd7337ecdd-mobile.avif",
-        "jpg": "/assets-optimized/sustainability/rc1/clean-ocean-community-cd7337ecdd-mobile.jpg",
-        "avifBytes": 55589,
-        "jpgBytes": 82654
-      },
-      "tablet": {
-        "width": 1280,
-        "avif": "/assets-optimized/sustainability/rc1/clean-ocean-community-cd7337ecdd-tablet.avif",
-        "jpg": "/assets-optimized/sustainability/rc1/clean-ocean-community-cd7337ecdd-tablet.jpg",
-        "avifBytes": 104752,
-        "jpgBytes": 166898
-      },
-      "desktop": {
-        "width": 1672,
-        "avif": "/assets-optimized/sustainability/rc1/clean-ocean-community-cd7337ecdd-desktop.avif",
-        "jpg": "/assets-optimized/sustainability/rc1/clean-ocean-community-cd7337ecdd-desktop.jpg",
-        "avifBytes": 170083,
-        "jpgBytes": 292547
-      }
-    },
-    "fallback": "/assets/sustainability/rc1/clean-ocean-community.png"
-  },
-  "/assets/sustainability/rc1/community-empowerment-training.png": {
-    "src": "/assets/sustainability/rc1/community-empowerment-training.png",
-    "width": 1672,
-    "height": 941,
-    "originalBytes": 2266913,
-    "variants": {
-      "mobile": {
-        "width": 828,
-        "avif": "/assets-optimized/sustainability/rc1/community-empowerment-training-e855e7b042-mobile.avif",
-        "jpg": "/assets-optimized/sustainability/rc1/community-empowerment-training-e855e7b042-mobile.jpg",
-        "avifBytes": 40882,
-        "jpgBytes": 62304
-      },
-      "tablet": {
-        "width": 1280,
-        "avif": "/assets-optimized/sustainability/rc1/community-empowerment-training-e855e7b042-tablet.avif",
-        "jpg": "/assets-optimized/sustainability/rc1/community-empowerment-training-e855e7b042-tablet.jpg",
-        "avifBytes": 77901,
-        "jpgBytes": 122861
-      },
-      "desktop": {
-        "width": 1672,
-        "avif": "/assets-optimized/sustainability/rc1/community-empowerment-training-e855e7b042-desktop.avif",
-        "jpg": "/assets-optimized/sustainability/rc1/community-empowerment-training-e855e7b042-desktop.jpg",
-        "avifBytes": 124323,
-        "jpgBytes": 219693
-      }
-    },
-    "fallback": "/assets/sustainability/rc1/community-empowerment-training.png"
-  },
   "/assets/sustainability/rc1/plastic-bales-recycling.png": {
     "src": "/assets/sustainability/rc1/plastic-bales-recycling.png",
     "width": 1672,
@@ -2008,36 +1678,6 @@
       }
     },
     "fallback": "/assets/sustainability/rc1/water-conservation-facility.png"
-  },
-  "/assets/sustainability/rc1/zero-waste-coir-materials.png": {
-    "src": "/assets/sustainability/rc1/zero-waste-coir-materials.png",
-    "width": 1672,
-    "height": 941,
-    "originalBytes": 2464744,
-    "variants": {
-      "mobile": {
-        "width": 828,
-        "avif": "/assets-optimized/sustainability/rc1/zero-waste-coir-materials-0e986a0f94-mobile.avif",
-        "jpg": "/assets-optimized/sustainability/rc1/zero-waste-coir-materials-0e986a0f94-mobile.jpg",
-        "avifBytes": 43131,
-        "jpgBytes": 60137
-      },
-      "tablet": {
-        "width": 1280,
-        "avif": "/assets-optimized/sustainability/rc1/zero-waste-coir-materials-0e986a0f94-tablet.avif",
-        "jpg": "/assets-optimized/sustainability/rc1/zero-waste-coir-materials-0e986a0f94-tablet.jpg",
-        "avifBytes": 91479,
-        "jpgBytes": 132037
-      },
-      "desktop": {
-        "width": 1672,
-        "avif": "/assets-optimized/sustainability/rc1/zero-waste-coir-materials-0e986a0f94-desktop.avif",
-        "jpg": "/assets-optimized/sustainability/rc1/zero-waste-coir-materials-0e986a0f94-desktop.jpg",
-        "avifBytes": 153183,
-        "jpgBytes": 248748
-      }
-    },
-    "fallback": "/assets/sustainability/rc1/zero-waste-coir-materials.png"
   },
   "/assets/sustainability/refined/clean-manufacturing.png": {
     "src": "/assets/sustainability/refined/clean-manufacturing.png",
@@ -2189,124 +1829,904 @@
     },
     "fallback": "/assets/sustainability/refined/sustainability-hero-editorial.png"
   },
-  "/assets/transparent/co-coconut-icecream.png": {
-    "src": "/assets/transparent/co-coconut-icecream.png",
-    "width": 990,
-    "height": 1257,
-    "originalBytes": 2090668,
+  "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER.webp": {
+    "src": "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER.webp",
+    "width": 1774,
+    "height": 887,
+    "originalBytes": 2089510,
     "variants": {
       "mobile": {
         "width": 828,
-        "avif": "/assets-optimized/transparent/co-coconut-icecream-31158fe8c3-mobile.avif",
-        "jpg": "/assets-optimized/transparent/co-coconut-icecream-31158fe8c3-mobile.jpg",
-        "avifBytes": 91048,
-        "jpgBytes": 91774
-      },
-      "tablet": {
-        "width": 990,
-        "avif": "/assets-optimized/transparent/co-coconut-icecream-31158fe8c3-tablet.avif",
-        "jpg": "/assets-optimized/transparent/co-coconut-icecream-31158fe8c3-tablet.jpg",
-        "avifBytes": 63527,
-        "jpgBytes": 118432
-      },
-      "desktop": {
-        "width": 990,
-        "avif": "/assets-optimized/transparent/co-coconut-icecream-31158fe8c3-desktop.avif",
-        "jpg": "/assets-optimized/transparent/co-coconut-icecream-31158fe8c3-desktop.jpg",
-        "avifBytes": 69944,
-        "jpgBytes": 136108
-      }
-    },
-    "fallback": "/assets/transparent/co-coconut-icecream.png"
-  },
-  "/assets/transparent/co-tender-coconut.png": {
-    "src": "/assets/transparent/co-tender-coconut.png",
-    "width": 1004,
-    "height": 1216,
-    "originalBytes": 1698542,
-    "variants": {
-      "mobile": {
-        "width": 828,
-        "avif": "/assets-optimized/transparent/co-tender-coconut-827ccc1a3a-mobile.avif",
-        "jpg": "/assets-optimized/transparent/co-tender-coconut-827ccc1a3a-mobile.jpg",
-        "avifBytes": 60530,
-        "jpgBytes": 68846
-      },
-      "tablet": {
-        "width": 1004,
-        "avif": "/assets-optimized/transparent/co-tender-coconut-827ccc1a3a-tablet.avif",
-        "jpg": "/assets-optimized/transparent/co-tender-coconut-827ccc1a3a-tablet.jpg",
-        "avifBytes": 56781,
-        "jpgBytes": 91134
-      },
-      "desktop": {
-        "width": 1004,
-        "avif": "/assets-optimized/transparent/co-tender-coconut-827ccc1a3a-desktop.avif",
-        "jpg": "/assets-optimized/transparent/co-tender-coconut-827ccc1a3a-desktop.jpg",
-        "avifBytes": 61987,
-        "jpgBytes": 107008
-      }
-    },
-    "fallback": "/assets/transparent/co-tender-coconut.png"
-  },
-  "/assets/transparent/co-water-bottle.png": {
-    "src": "/assets/transparent/co-water-bottle.png",
-    "width": 554,
-    "height": 1100,
-    "originalBytes": 816157,
-    "variants": {
-      "mobile": {
-        "width": 554,
-        "avif": "/assets-optimized/transparent/co-water-bottle-41231b5ae8-mobile.avif",
-        "jpg": "/assets-optimized/transparent/co-water-bottle-41231b5ae8-mobile.jpg",
-        "avifBytes": 36837,
-        "jpgBytes": 60391
-      },
-      "tablet": {
-        "width": 554,
-        "avif": "/assets-optimized/transparent/co-water-bottle-41231b5ae8-tablet.avif",
-        "jpg": "/assets-optimized/transparent/co-water-bottle-41231b5ae8-tablet.jpg",
-        "avifBytes": 36837,
-        "jpgBytes": 60391
-      },
-      "desktop": {
-        "width": 554,
-        "avif": "/assets-optimized/transparent/co-water-bottle-41231b5ae8-desktop.avif",
-        "jpg": "/assets-optimized/transparent/co-water-bottle-41231b5ae8-desktop.jpg",
-        "avifBytes": 41525,
-        "jpgBytes": 70224
-      }
-    },
-    "fallback": "/assets/transparent/co-water-bottle.png"
-  },
-  "/assets/video/coconut-to-bottle-poster.png": {
-    "src": "/assets/video/coconut-to-bottle-poster.png",
-    "width": 1440,
-    "height": 822,
-    "originalBytes": 329712,
-    "variants": {
-      "mobile": {
-        "width": 828,
-        "avif": "/assets-optimized/video/coconut-to-bottle-poster-10f1e88fb7-mobile.avif",
-        "jpg": "/assets-optimized/video/coconut-to-bottle-poster-10f1e88fb7-mobile.jpg",
-        "avifBytes": 8346,
-        "jpgBytes": 16505
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-6e4c46c61f-mobile.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-6e4c46c61f-mobile.jpg",
+        "avifBytes": 20876,
+        "jpgBytes": 31607
       },
       "tablet": {
         "width": 1280,
-        "avif": "/assets-optimized/video/coconut-to-bottle-poster-10f1e88fb7-tablet.avif",
-        "jpg": "/assets-optimized/video/coconut-to-bottle-poster-10f1e88fb7-tablet.jpg",
-        "avifBytes": 13971,
-        "jpgBytes": 29041
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-6e4c46c61f-tablet.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-6e4c46c61f-tablet.jpg",
+        "avifBytes": 46666,
+        "jpgBytes": 70442
       },
       "desktop": {
-        "width": 1440,
-        "avif": "/assets-optimized/video/coconut-to-bottle-poster-10f1e88fb7-desktop.avif",
-        "jpg": "/assets-optimized/video/coconut-to-bottle-poster-10f1e88fb7-desktop.jpg",
-        "avifBytes": 18744,
-        "jpgBytes": 39934
+        "width": 1774,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-6e4c46c61f-desktop.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-6e4c46c61f-desktop.jpg",
+        "avifBytes": 86539,
+        "jpgBytes": 153042
       }
     },
-    "fallback": "/assets/video/coconut-to-bottle-poster.png"
+    "fallback": "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER.webp"
+  },
+  "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER.webp": {
+    "src": "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER.webp",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 1909888,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER-8c4da629ab-mobile.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER-8c4da629ab-mobile.jpg",
+        "avifBytes": 40170,
+        "jpgBytes": 64202
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER-8c4da629ab-tablet.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER-8c4da629ab-tablet.jpg",
+        "avifBytes": 62741,
+        "jpgBytes": 106499
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER-8c4da629ab-desktop.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER-8c4da629ab-desktop.jpg",
+        "avifBytes": 69601,
+        "jpgBytes": 130811
+      }
+    },
+    "fallback": "/images/website/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER.webp"
+  },
+  "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER.webp": {
+    "src": "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER.webp",
+    "width": 1774,
+    "height": 887,
+    "originalBytes": 2192407,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-061ec54da5-mobile.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-061ec54da5-mobile.jpg",
+        "avifBytes": 25211,
+        "jpgBytes": 41478
+      },
+      "tablet": {
+        "width": 1280,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-061ec54da5-tablet.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-061ec54da5-tablet.jpg",
+        "avifBytes": 53384,
+        "jpgBytes": 88354
+      },
+      "desktop": {
+        "width": 1774,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-061ec54da5-desktop.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-061ec54da5-desktop.jpg",
+        "avifBytes": 100309,
+        "jpgBytes": 186867
+      }
+    },
+    "fallback": "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER.webp"
+  },
+  "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER.webp": {
+    "src": "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER.webp",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 2153577,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER-5161850f44-mobile.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER-5161850f44-mobile.jpg",
+        "avifBytes": 53690,
+        "jpgBytes": 87551
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER-5161850f44-tablet.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER-5161850f44-tablet.jpg",
+        "avifBytes": 87652,
+        "jpgBytes": 149081
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER-5161850f44-desktop.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER-5161850f44-desktop.jpg",
+        "avifBytes": 98440,
+        "jpgBytes": 180211
+      }
+    },
+    "fallback": "/images/website/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER.webp"
+  },
+  "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER.webp": {
+    "src": "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER.webp",
+    "width": 1774,
+    "height": 887,
+    "originalBytes": 2221587,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-d02de0af56-mobile.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-d02de0af56-mobile.jpg",
+        "avifBytes": 30916,
+        "jpgBytes": 41634
+      },
+      "tablet": {
+        "width": 1280,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-d02de0af56-tablet.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-d02de0af56-tablet.jpg",
+        "avifBytes": 63588,
+        "jpgBytes": 93535
+      },
+      "desktop": {
+        "width": 1774,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-d02de0af56-desktop.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-d02de0af56-desktop.jpg",
+        "avifBytes": 114438,
+        "jpgBytes": 197669
+      }
+    },
+    "fallback": "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER.webp"
+  },
+  "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER.webp": {
+    "src": "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER.webp",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 1941165,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER-c4539e28cb-mobile.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER-c4539e28cb-mobile.jpg",
+        "avifBytes": 43928,
+        "jpgBytes": 72050
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER-c4539e28cb-tablet.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER-c4539e28cb-tablet.jpg",
+        "avifBytes": 69006,
+        "jpgBytes": 121350
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER-c4539e28cb-desktop.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER-c4539e28cb-desktop.jpg",
+        "avifBytes": 77732,
+        "jpgBytes": 148868
+      }
+    },
+    "fallback": "/images/website/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER.webp"
+  },
+  "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER.webp": {
+    "src": "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER.webp",
+    "width": 1774,
+    "height": 887,
+    "originalBytes": 2369241,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-d2349a756f-mobile.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-d2349a756f-mobile.jpg",
+        "avifBytes": 42350,
+        "jpgBytes": 69118
+      },
+      "tablet": {
+        "width": 1280,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-d2349a756f-tablet.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-d2349a756f-tablet.jpg",
+        "avifBytes": 78595,
+        "jpgBytes": 135485
+      },
+      "desktop": {
+        "width": 1774,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-d2349a756f-desktop.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-d2349a756f-desktop.jpg",
+        "avifBytes": 137549,
+        "jpgBytes": 258072
+      }
+    },
+    "fallback": "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER.webp"
+  },
+  "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER.webp": {
+    "src": "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER.webp",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 2189372,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER-ce2ee695fa-mobile.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER-ce2ee695fa-mobile.jpg",
+        "avifBytes": 69227,
+        "jpgBytes": 116864
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER-ce2ee695fa-tablet.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER-ce2ee695fa-tablet.jpg",
+        "avifBytes": 102392,
+        "jpgBytes": 185962
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER-ce2ee695fa-desktop.avif",
+        "jpg": "/assets-optimized/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER-ce2ee695fa-desktop.jpg",
+        "avifBytes": 115018,
+        "jpgBytes": 216827
+      }
+    },
+    "fallback": "/images/website/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER.webp"
+  },
+  "/images/website/lifestyle images/Face_wash.png": {
+    "src": "/images/website/lifestyle images/Face_wash.png",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 2288301,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/lifestyle images/Face_wash-6b0fc02e9c-mobile.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/Face_wash-6b0fc02e9c-mobile.jpg",
+        "avifBytes": 67432,
+        "jpgBytes": 104804
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/Face_wash-6b0fc02e9c-tablet.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/Face_wash-6b0fc02e9c-tablet.jpg",
+        "avifBytes": 105232,
+        "jpgBytes": 172724
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/Face_wash-6b0fc02e9c-desktop.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/Face_wash-6b0fc02e9c-desktop.jpg",
+        "avifBytes": 117433,
+        "jpgBytes": 204770
+      }
+    },
+    "fallback": "/images/website/lifestyle images/Face_wash.png"
+  },
+  "/images/website/lifestyle images/Melt_icecream.png": {
+    "src": "/images/website/lifestyle images/Melt_icecream.png",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 2611216,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/lifestyle images/Melt_icecream-85f1c7e73d-mobile.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/Melt_icecream-85f1c7e73d-mobile.jpg",
+        "avifBytes": 85789,
+        "jpgBytes": 119159
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/Melt_icecream-85f1c7e73d-tablet.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/Melt_icecream-85f1c7e73d-tablet.jpg",
+        "avifBytes": 135689,
+        "jpgBytes": 202013
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/Melt_icecream-85f1c7e73d-desktop.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/Melt_icecream-85f1c7e73d-desktop.jpg",
+        "avifBytes": 151925,
+        "jpgBytes": 241760
+      }
+    },
+    "fallback": "/images/website/lifestyle images/Melt_icecream.png"
+  },
+  "/images/website/lifestyle images/Moisturizer.png": {
+    "src": "/images/website/lifestyle images/Moisturizer.png",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 2593553,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/lifestyle images/Moisturizer-3cc2c7d9c2-mobile.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/Moisturizer-3cc2c7d9c2-mobile.jpg",
+        "avifBytes": 90170,
+        "jpgBytes": 129388
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/Moisturizer-3cc2c7d9c2-tablet.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/Moisturizer-3cc2c7d9c2-tablet.jpg",
+        "avifBytes": 139481,
+        "jpgBytes": 214477
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/Moisturizer-3cc2c7d9c2-desktop.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/Moisturizer-3cc2c7d9c2-desktop.jpg",
+        "avifBytes": 156246,
+        "jpgBytes": 252401
+      }
+    },
+    "fallback": "/images/website/lifestyle images/Moisturizer.png"
+  },
+  "/images/website/lifestyle images/coconut_flour.png": {
+    "src": "/images/website/lifestyle images/coconut_flour.png",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 2846120,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/lifestyle images/coconut_flour-1154b682ae-mobile.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/coconut_flour-1154b682ae-mobile.jpg",
+        "avifBytes": 110560,
+        "jpgBytes": 148526
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/coconut_flour-1154b682ae-tablet.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/coconut_flour-1154b682ae-tablet.jpg",
+        "avifBytes": 180615,
+        "jpgBytes": 258473
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/coconut_flour-1154b682ae-desktop.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/coconut_flour-1154b682ae-desktop.jpg",
+        "avifBytes": 202094,
+        "jpgBytes": 305296
+      }
+    },
+    "fallback": "/images/website/lifestyle images/coconut_flour.png"
+  },
+  "/images/website/lifestyle images/coconut_milk.png": {
+    "src": "/images/website/lifestyle images/coconut_milk.png",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 2289010,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/lifestyle images/coconut_milk-bbc9e91ece-mobile.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/coconut_milk-bbc9e91ece-mobile.jpg",
+        "avifBytes": 70601,
+        "jpgBytes": 110029
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/coconut_milk-bbc9e91ece-tablet.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/coconut_milk-bbc9e91ece-tablet.jpg",
+        "avifBytes": 107127,
+        "jpgBytes": 177431
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/coconut_milk-bbc9e91ece-desktop.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/coconut_milk-bbc9e91ece-desktop.jpg",
+        "avifBytes": 120170,
+        "jpgBytes": 210887
+      }
+    },
+    "fallback": "/images/website/lifestyle images/coconut_milk.png"
+  },
+  "/images/website/lifestyle images/coconut_oil.png": {
+    "src": "/images/website/lifestyle images/coconut_oil.png",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 2131337,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/lifestyle images/coconut_oil-2af30b243c-mobile.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/coconut_oil-2af30b243c-mobile.jpg",
+        "avifBytes": 49160,
+        "jpgBytes": 87926
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/coconut_oil-2af30b243c-tablet.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/coconut_oil-2af30b243c-tablet.jpg",
+        "avifBytes": 75864,
+        "jpgBytes": 141861
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/coconut_oil-2af30b243c-desktop.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/coconut_oil-2af30b243c-desktop.jpg",
+        "avifBytes": 85181,
+        "jpgBytes": 170869
+      }
+    },
+    "fallback": "/images/website/lifestyle images/coconut_oil.png"
+  },
+  "/images/website/lifestyle images/coconut_water.png": {
+    "src": "/images/website/lifestyle images/coconut_water.png",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 2655509,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/lifestyle images/coconut_water-45dbdde7bb-mobile.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/coconut_water-45dbdde7bb-mobile.jpg",
+        "avifBytes": 87751,
+        "jpgBytes": 129215
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/coconut_water-45dbdde7bb-tablet.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/coconut_water-45dbdde7bb-tablet.jpg",
+        "avifBytes": 141860,
+        "jpgBytes": 217272
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/coconut_water-45dbdde7bb-desktop.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/coconut_water-45dbdde7bb-desktop.jpg",
+        "avifBytes": 159271,
+        "jpgBytes": 257630
+      }
+    },
+    "fallback": "/images/website/lifestyle images/coconut_water.png"
+  },
+  "/images/website/lifestyle images/hair_serum.png": {
+    "src": "/images/website/lifestyle images/hair_serum.png",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 2386811,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/lifestyle images/hair_serum-4038ba2042-mobile.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/hair_serum-4038ba2042-mobile.jpg",
+        "avifBytes": 67926,
+        "jpgBytes": 114194
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/hair_serum-4038ba2042-tablet.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/hair_serum-4038ba2042-tablet.jpg",
+        "avifBytes": 105190,
+        "jpgBytes": 188491
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/hair_serum-4038ba2042-desktop.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/hair_serum-4038ba2042-desktop.jpg",
+        "avifBytes": 116909,
+        "jpgBytes": 223230
+      }
+    },
+    "fallback": "/images/website/lifestyle images/hair_serum.png"
+  },
+  "/images/website/lifestyle images/shampoo.png": {
+    "src": "/images/website/lifestyle images/shampoo.png",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 2628686,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/lifestyle images/shampoo-a12917a1cf-mobile.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/shampoo-a12917a1cf-mobile.jpg",
+        "avifBytes": 93196,
+        "jpgBytes": 133180
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/shampoo-a12917a1cf-tablet.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/shampoo-a12917a1cf-tablet.jpg",
+        "avifBytes": 149113,
+        "jpgBytes": 223503
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/lifestyle images/shampoo-a12917a1cf-desktop.avif",
+        "jpg": "/assets-optimized/images/website/lifestyle images/shampoo-a12917a1cf-desktop.jpg",
+        "avifBytes": 166626,
+        "jpgBytes": 263887
+      }
+    },
+    "fallback": "/images/website/lifestyle images/shampoo.png"
+  },
+  "/images/website/manual/about/CO_WEBSITE_ABOUT_PRODUCT_ECOSYSTEM_DESKTOP_MASTER.webp": {
+    "src": "/images/website/manual/about/CO_WEBSITE_ABOUT_PRODUCT_ECOSYSTEM_DESKTOP_MASTER.webp",
+    "width": 1086,
+    "height": 1448,
+    "originalBytes": 2284063,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/manual/about/CO_WEBSITE_ABOUT_PRODUCT_ECOSYSTEM_DESKTOP_MASTER-dea8d7f223-mobile.avif",
+        "jpg": "/assets-optimized/images/website/manual/about/CO_WEBSITE_ABOUT_PRODUCT_ECOSYSTEM_DESKTOP_MASTER-dea8d7f223-mobile.jpg",
+        "avifBytes": 68577,
+        "jpgBytes": 105930
+      },
+      "tablet": {
+        "width": 1086,
+        "avif": "/assets-optimized/images/website/manual/about/CO_WEBSITE_ABOUT_PRODUCT_ECOSYSTEM_DESKTOP_MASTER-dea8d7f223-tablet.avif",
+        "jpg": "/assets-optimized/images/website/manual/about/CO_WEBSITE_ABOUT_PRODUCT_ECOSYSTEM_DESKTOP_MASTER-dea8d7f223-tablet.jpg",
+        "avifBytes": 106972,
+        "jpgBytes": 172180
+      },
+      "desktop": {
+        "width": 1086,
+        "avif": "/assets-optimized/images/website/manual/about/CO_WEBSITE_ABOUT_PRODUCT_ECOSYSTEM_DESKTOP_MASTER-dea8d7f223-desktop.avif",
+        "jpg": "/assets-optimized/images/website/manual/about/CO_WEBSITE_ABOUT_PRODUCT_ECOSYSTEM_DESKTOP_MASTER-dea8d7f223-desktop.jpg",
+        "avifBytes": 120076,
+        "jpgBytes": 207000
+      }
+    },
+    "fallback": "/images/website/manual/about/CO_WEBSITE_ABOUT_PRODUCT_ECOSYSTEM_DESKTOP_MASTER.webp"
+  },
+  "/images/website/manual/about/journey/CO_WEBSITE_ABOUT_JOURNEY_OVERVIEW_DESKTOP_MASTER.webp": {
+    "src": "/images/website/manual/about/journey/CO_WEBSITE_ABOUT_JOURNEY_OVERVIEW_DESKTOP_MASTER.webp",
+    "width": 1672,
+    "height": 941,
+    "originalBytes": 2300700,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/manual/about/journey/CO_WEBSITE_ABOUT_JOURNEY_OVERVIEW_DESKTOP_MASTER-7ed5b89c51-mobile.avif",
+        "jpg": "/assets-optimized/images/website/manual/about/journey/CO_WEBSITE_ABOUT_JOURNEY_OVERVIEW_DESKTOP_MASTER-7ed5b89c51-mobile.jpg",
+        "avifBytes": 30481,
+        "jpgBytes": 47683
+      },
+      "tablet": {
+        "width": 1280,
+        "avif": "/assets-optimized/images/website/manual/about/journey/CO_WEBSITE_ABOUT_JOURNEY_OVERVIEW_DESKTOP_MASTER-7ed5b89c51-tablet.avif",
+        "jpg": "/assets-optimized/images/website/manual/about/journey/CO_WEBSITE_ABOUT_JOURNEY_OVERVIEW_DESKTOP_MASTER-7ed5b89c51-tablet.jpg",
+        "avifBytes": 67120,
+        "jpgBytes": 105175
+      },
+      "desktop": {
+        "width": 1672,
+        "avif": "/assets-optimized/images/website/manual/about/journey/CO_WEBSITE_ABOUT_JOURNEY_OVERVIEW_DESKTOP_MASTER-7ed5b89c51-desktop.avif",
+        "jpg": "/assets-optimized/images/website/manual/about/journey/CO_WEBSITE_ABOUT_JOURNEY_OVERVIEW_DESKTOP_MASTER-7ed5b89c51-desktop.jpg",
+        "avifBytes": 117236,
+        "jpgBytes": 204093
+      }
+    },
+    "fallback": "/images/website/manual/about/journey/CO_WEBSITE_ABOUT_JOURNEY_OVERVIEW_DESKTOP_MASTER.webp"
+  },
+  "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER.webp": {
+    "src": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER.webp",
+    "width": 1774,
+    "height": 887,
+    "originalBytes": 2089510,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-6e4c46c61f-mobile.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-6e4c46c61f-mobile.jpg",
+        "avifBytes": 20876,
+        "jpgBytes": 31607
+      },
+      "tablet": {
+        "width": 1280,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-6e4c46c61f-tablet.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-6e4c46c61f-tablet.jpg",
+        "avifBytes": 46666,
+        "jpgBytes": 70442
+      },
+      "desktop": {
+        "width": 1774,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-6e4c46c61f-desktop.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER-6e4c46c61f-desktop.jpg",
+        "avifBytes": 86539,
+        "jpgBytes": 153042
+      }
+    },
+    "fallback": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_DESKTOP_MASTER.webp"
+  },
+  "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER.webp": {
+    "src": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER.webp",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 1909888,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER-8c4da629ab-mobile.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER-8c4da629ab-mobile.jpg",
+        "avifBytes": 40170,
+        "jpgBytes": 64202
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER-8c4da629ab-tablet.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER-8c4da629ab-tablet.jpg",
+        "avifBytes": 62741,
+        "jpgBytes": 106499
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER-8c4da629ab-desktop.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER-8c4da629ab-desktop.jpg",
+        "avifBytes": 69601,
+        "jpgBytes": 130811
+      }
+    },
+    "fallback": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_BOTANICA_MOBILE_MASTER.webp"
+  },
+  "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER.webp": {
+    "src": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER.webp",
+    "width": 1774,
+    "height": 887,
+    "originalBytes": 2180710,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-f8461634cd-mobile.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-f8461634cd-mobile.jpg",
+        "avifBytes": 23419,
+        "jpgBytes": 38955
+      },
+      "tablet": {
+        "width": 1280,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-f8461634cd-tablet.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-f8461634cd-tablet.jpg",
+        "avifBytes": 51777,
+        "jpgBytes": 85515
+      },
+      "desktop": {
+        "width": 1774,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-f8461634cd-desktop.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER-f8461634cd-desktop.jpg",
+        "avifBytes": 98317,
+        "jpgBytes": 183328
+      }
+    },
+    "fallback": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_DESKTOP_MASTER.webp"
+  },
+  "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER.webp": {
+    "src": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER.webp",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 2153577,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER-5161850f44-mobile.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER-5161850f44-mobile.jpg",
+        "avifBytes": 53690,
+        "jpgBytes": 87551
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER-5161850f44-tablet.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER-5161850f44-tablet.jpg",
+        "avifBytes": 87652,
+        "jpgBytes": 149081
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER-5161850f44-desktop.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER-5161850f44-desktop.jpg",
+        "avifBytes": 98440,
+        "jpgBytes": 180211
+      }
+    },
+    "fallback": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_KITCHEN_MOBILE_MASTER.webp"
+  },
+  "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER.webp": {
+    "src": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER.webp",
+    "width": 1774,
+    "height": 887,
+    "originalBytes": 2221587,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-d02de0af56-mobile.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-d02de0af56-mobile.jpg",
+        "avifBytes": 30916,
+        "jpgBytes": 41634
+      },
+      "tablet": {
+        "width": 1280,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-d02de0af56-tablet.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-d02de0af56-tablet.jpg",
+        "avifBytes": 63588,
+        "jpgBytes": 93535
+      },
+      "desktop": {
+        "width": 1774,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-d02de0af56-desktop.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER-d02de0af56-desktop.jpg",
+        "avifBytes": 114438,
+        "jpgBytes": 197669
+      }
+    },
+    "fallback": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_DESKTOP_MASTER.webp"
+  },
+  "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER.webp": {
+    "src": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER.webp",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 1941165,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER-c4539e28cb-mobile.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER-c4539e28cb-mobile.jpg",
+        "avifBytes": 43928,
+        "jpgBytes": 72050
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER-c4539e28cb-tablet.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER-c4539e28cb-tablet.jpg",
+        "avifBytes": 69006,
+        "jpgBytes": 121350
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER-c4539e28cb-desktop.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER-c4539e28cb-desktop.jpg",
+        "avifBytes": 77732,
+        "jpgBytes": 148868
+      }
+    },
+    "fallback": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_MELT_MOBILE_MASTER.webp"
+  },
+  "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER.webp": {
+    "src": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER.webp",
+    "width": 1774,
+    "height": 887,
+    "originalBytes": 2517964,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-3d2d4fb28b-mobile.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-3d2d4fb28b-mobile.jpg",
+        "avifBytes": 47470,
+        "jpgBytes": 66731
+      },
+      "tablet": {
+        "width": 1280,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-3d2d4fb28b-tablet.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-3d2d4fb28b-tablet.jpg",
+        "avifBytes": 88764,
+        "jpgBytes": 135116
+      },
+      "desktop": {
+        "width": 1774,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-3d2d4fb28b-desktop.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER-3d2d4fb28b-desktop.jpg",
+        "avifBytes": 156256,
+        "jpgBytes": 264850
+      }
+    },
+    "fallback": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_DESKTOP_MASTER.webp"
+  },
+  "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER.webp": {
+    "src": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER.webp",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 2189372,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER-ce2ee695fa-mobile.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER-ce2ee695fa-mobile.jpg",
+        "avifBytes": 69227,
+        "jpgBytes": 116864
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER-ce2ee695fa-tablet.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER-ce2ee695fa-tablet.jpg",
+        "avifBytes": 102392,
+        "jpgBytes": 185962
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER-ce2ee695fa-desktop.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER-ce2ee695fa-desktop.jpg",
+        "avifBytes": 115018,
+        "jpgBytes": 216827
+      }
+    },
+    "fallback": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_ORIGIN_MOBILE_MASTER.webp"
+  },
+  "/images/website/manual/home/hero/CO_WEBSITE_HOME_ECOSYSTEM_HERO_MOBILE_MASTER.webp": {
+    "src": "/images/website/manual/home/hero/CO_WEBSITE_HOME_ECOSYSTEM_HERO_MOBILE_MASTER.webp",
+    "width": 1086,
+    "height": 1448,
+    "originalBytes": 2013127,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/manual/home/hero/CO_WEBSITE_HOME_ECOSYSTEM_HERO_MOBILE_MASTER-954f78e7ad-mobile.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/hero/CO_WEBSITE_HOME_ECOSYSTEM_HERO_MOBILE_MASTER-954f78e7ad-mobile.jpg",
+        "avifBytes": 45776,
+        "jpgBytes": 72480
+      },
+      "tablet": {
+        "width": 1086,
+        "avif": "/assets-optimized/images/website/manual/home/hero/CO_WEBSITE_HOME_ECOSYSTEM_HERO_MOBILE_MASTER-954f78e7ad-tablet.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/hero/CO_WEBSITE_HOME_ECOSYSTEM_HERO_MOBILE_MASTER-954f78e7ad-tablet.jpg",
+        "avifBytes": 70579,
+        "jpgBytes": 116787
+      },
+      "desktop": {
+        "width": 1086,
+        "avif": "/assets-optimized/images/website/manual/home/hero/CO_WEBSITE_HOME_ECOSYSTEM_HERO_MOBILE_MASTER-954f78e7ad-desktop.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/hero/CO_WEBSITE_HOME_ECOSYSTEM_HERO_MOBILE_MASTER-954f78e7ad-desktop.jpg",
+        "avifBytes": 79433,
+        "jpgBytes": 142935
+      }
+    },
+    "fallback": "/images/website/manual/home/hero/CO_WEBSITE_HOME_ECOSYSTEM_HERO_MOBILE_MASTER.webp"
+  },
+  "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_WATER_MOBILE_MASTER.webp": {
+    "src": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_WATER_MOBILE_MASTER.webp",
+    "width": 1122,
+    "height": 1402,
+    "originalBytes": 1836515,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_WATER_MOBILE_MASTER-6e1f382527-mobile.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_WATER_MOBILE_MASTER-6e1f382527-mobile.jpg",
+        "avifBytes": 35003,
+        "jpgBytes": 64420
+      },
+      "tablet": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_WATER_MOBILE_MASTER-6e1f382527-tablet.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_WATER_MOBILE_MASTER-6e1f382527-tablet.jpg",
+        "avifBytes": 55857,
+        "jpgBytes": 105482
+      },
+      "desktop": {
+        "width": 1122,
+        "avif": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_WATER_MOBILE_MASTER-6e1f382527-desktop.avif",
+        "jpg": "/assets-optimized/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_WATER_MOBILE_MASTER-6e1f382527-desktop.jpg",
+        "avifBytes": 62426,
+        "jpgBytes": 129965
+      }
+    },
+    "fallback": "/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_WATER_MOBILE_MASTER.webp"
+  },
+  "/images/website/manual/products/galleries/CO_WEBSITE_PDP_BOTANICA_FACE_WASH_HERO_DESKTOP_MASTER.webp": {
+    "src": "/images/website/manual/products/galleries/CO_WEBSITE_PDP_BOTANICA_FACE_WASH_HERO_DESKTOP_MASTER.webp",
+    "width": 1586,
+    "height": 992,
+    "originalBytes": 1852830,
+    "variants": {
+      "mobile": {
+        "width": 828,
+        "avif": "/assets-optimized/images/website/manual/products/galleries/CO_WEBSITE_PDP_BOTANICA_FACE_WASH_HERO_DESKTOP_MASTER-f4165aeae1-mobile.avif",
+        "jpg": "/assets-optimized/images/website/manual/products/galleries/CO_WEBSITE_PDP_BOTANICA_FACE_WASH_HERO_DESKTOP_MASTER-f4165aeae1-mobile.jpg",
+        "avifBytes": 18390,
+        "jpgBytes": 31820
+      },
+      "tablet": {
+        "width": 1280,
+        "avif": "/assets-optimized/images/website/manual/products/galleries/CO_WEBSITE_PDP_BOTANICA_FACE_WASH_HERO_DESKTOP_MASTER-f4165aeae1-tablet.avif",
+        "jpg": "/assets-optimized/images/website/manual/products/galleries/CO_WEBSITE_PDP_BOTANICA_FACE_WASH_HERO_DESKTOP_MASTER-f4165aeae1-tablet.jpg",
+        "avifBytes": 37894,
+        "jpgBytes": 66867
+      },
+      "desktop": {
+        "width": 1586,
+        "avif": "/assets-optimized/images/website/manual/products/galleries/CO_WEBSITE_PDP_BOTANICA_FACE_WASH_HERO_DESKTOP_MASTER-f4165aeae1-desktop.avif",
+        "jpg": "/assets-optimized/images/website/manual/products/galleries/CO_WEBSITE_PDP_BOTANICA_FACE_WASH_HERO_DESKTOP_MASTER-f4165aeae1-desktop.jpg",
+        "avifBytes": 58523,
+        "jpgBytes": 118418
+      }
+    },
+    "fallback": "/images/website/manual/products/galleries/CO_WEBSITE_PDP_BOTANICA_FACE_WASH_HERO_DESKTOP_MASTER.webp"
   }
 }

@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { headers } from "next/headers";
@@ -19,10 +20,13 @@ import { CustomerAuthProvider } from "@/components/auth/CustomerAuthProvider";
 import { LenisProvider } from "@/components/providers/LenisProvider";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { LaunchExperience } from "@/components/launch/LaunchExperience";
+import { GlobalWaterRipple } from "@/components/motion/GlobalWaterRipple";
+import { GlobalMotionEffects } from "@/components/motion/GlobalMotionEffects";
 import { CartProvider } from "@/lib/cart/cart-context";
 import { getCustomerSession } from "@/lib/customer/auth";
 import { defaultDescription, siteName, siteUrl } from "@/lib/seo/metadata";
 import { getProducts } from "@/lib/content/server";
+import { mediaUrl } from "@/lib/media";
 import "./globals.css";
 
 const roboto = localFont({
@@ -113,9 +117,16 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const headerStore = await headers();
   const isAdminShell = headerStore.get("x-co-admin-rewrite") === "1";
   const products = await getProducts();
+  // jquery.ripples refracts the background image of its target. This deliberately
+  // uses a detailed same-origin water material rather than a flat page colour.
+  const rippleImage = mediaUrl("/assets/backgrounds/water-material/co-coconut-water-material.png");
 
   return (
-    <html lang="en-IN" data-scroll-behavior="smooth">
+    <html
+      lang="en-IN"
+      data-scroll-behavior="smooth"
+      style={{ "--co-route-leaf-image": `url("${rippleImage}")` } as CSSProperties}
+    >
       <head>
         <ConsentDefaults />
       </head>
@@ -125,8 +136,10 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             <LenisProvider>
               <MotionProvider>
                 <StructuredData includeGlobal />
+                {isAdminShell ? null : <GlobalWaterRipple image={rippleImage} />}
+                {isAdminShell ? null : <GlobalMotionEffects />}
                 {isAdminShell ? null : <Navigation />}
-                <main>{children}</main>
+                <main className="co-site-content">{children}</main>
                 {isAdminShell ? null : <Footer />}
                 {isAdminShell ? null : <CartDrawer />}
                 {isAdminShell ? null : <LaunchExperience />}

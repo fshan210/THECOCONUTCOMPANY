@@ -14,6 +14,7 @@ export interface SmooothySliderProps {
   showControls?: boolean;
   showDots?: boolean;
   parallax?: boolean;
+  autoplayMs?: number;
   onSlideChange?: (index: number) => void;
 }
 

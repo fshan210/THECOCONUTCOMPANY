@@ -229,6 +229,7 @@ export function BrandSlidingPuzzle({
                     disabled={!available.has(tile) || preview.visible}
                     onClick={() => play(tile)}
                     aria-label={`Move tile ${tile}${available.has(tile) ? "" : ", unavailable"}`}
+                    data-puzzle-tile
                     className="relative overflow-hidden rounded-[12px] border border-white/75 bg-[#e7d5b7] shadow-[0_7px_18px_rgba(53,39,30,.1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#305a34] disabled:cursor-default"
                     style={{ backgroundImage: `url('${activeImageSrc}')`, backgroundSize: `${grid.columns * 100}% ${grid.rows * 100}%`, backgroundPosition: tileBackgroundPosition(tile, grid) }}
                     transition={{ type: "spring", stiffness: 410, damping: 36, mass: 0.72 }}

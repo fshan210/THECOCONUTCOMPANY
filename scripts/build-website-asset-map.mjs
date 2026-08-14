@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { access, mkdir, readdir, stat, writeFile } from "node:fs/promises";
+import { mkdir, readdir, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 
@@ -109,32 +109,11 @@ const manifest = {
 };
 
 await writeFile(path.join(sourceRoot, "asset-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
-const manualPaths = [
-  "/images/website/manual/home/hero/CO_WEBSITE_HOME_ECOSYSTEM_HERO_DESKTOP_MASTER.webp",
-  "/images/website/manual/home/hero/CO_WEBSITE_HOME_ECOSYSTEM_HERO_MOBILE_MASTER.webp",
-  ...["ORIGIN", "WATER", "KITCHEN", "BOTANICA", "MELT"].flatMap((name) => ["DESKTOP", "MOBILE"].map((viewport) => `/images/website/manual/home/transitions/CO_WEBSITE_TRANSITION_${name}_${viewport}_MASTER.webp`)),
-  ...["it_all_started", "building_the_foundation", "first_product_direction", "growing_the_ecosystem", "rooted_partnerships", "made_for_living"].flatMap((slug, index) => ["DESKTOP", "MOBILE"].map((viewport) => `/images/website/manual/about/journey/CO_WEBSITE_ABOUT_JOURNEY_${String(index + 1).padStart(2, "0")}_${slug}_${viewport}_MASTER.webp`)),
-  "/images/website/manual/founders/CO_WEBSITE_FOUNDERS_HERO_DESKTOP_MASTER.webp",
-  "/images/website/manual/founders/CO_WEBSITE_FOUNDERS_HERO_MOBILE_MASTER.webp",
-  "/images/website/manual/founders/CO_WEBSITE_FOUNDERS_STORY_01_MASTER.webp",
-  "/images/website/manual/recipes/CO_WEBSITE_RECIPES_HERO_DESKTOP_MASTER.webp",
-  "/images/website/manual/recipes/CO_WEBSITE_RECIPES_HERO_MOBILE_MASTER.webp",
-  ...["HERO", "SOURCING"].flatMap((name) => ["DESKTOP", "MOBILE"].map((viewport) => `/images/website/manual/sustainability/CO_WEBSITE_SUSTAINABILITY_${name}_${viewport}_MASTER.webp`)),
-  "/images/website/manual/journal/CO_WEBSITE_JOURNAL_COMMUNITY_HERO_MASTER.webp",
-  ...[
-    "HOW_WE_RE_RETHINKING_COCONUT_FARMING",
-    "3_REFRESHING_SUMMER_RECIPES_WITH_CO",
-    "MEET_THE_CHANGEMAKERS_IN_OUR_COMMUNITY",
-    "THE_JOURNEY_FROM_A_DREAM_TO_CO",
-    "SIMPLE_DAILY_RITUALS_FOR_A_BETTER_YOU",
-  ].map((slug) => `/images/website/manual/journal/CO_WEBSITE_JOURNAL_${slug}_CARD_MASTER.webp`),
-  ...["COCONUT_WATER", "COCONUT_OIL", "COCONUT_FLOUR", "COCONUT_MILK", "MELT", "BOTANICA_SHAMPOO", "BOTANICA_FACE_WASH", "BOTANICA_HAIR_SERUM", "BOTANICA_MOISTURIZER"].map((name) => `/images/website/manual/puzzle/CO_PUZZLE_${name}_MASTER.webp`),
-];
-const manualAvailability = {};
-for (const publicPath of manualPaths) {
-  try { await access(path.join(root, "public", publicPath)); manualAvailability[publicPath] = true; }
-  catch { manualAvailability[publicPath] = false; }
-}
+const manualFiles = await walk(manualRoot);
+const manualAvailability = Object.fromEntries(manualFiles.map((absolute) => [
+  `/${path.relative(path.join(root, "public"), absolute).split(path.sep).join("/")}`,
+  true,
+]));
 await mkdir(path.join(root, "lib/generated"), { recursive: true });
 await writeFile(path.join(root, "lib/generated/manual-asset-availability.json"), `${JSON.stringify(manualAvailability, null, 2)}\n`);
 console.log(`Mapped ${inventory.length} approved masters into ${Object.values(websiteProducts).reduce((sum, product) => sum + product.gallery.length, 0)} website derivatives.`);

@@ -105,9 +105,8 @@ The header is a protected component.
 
 ## Hero Rules
 
-- `components/HeroStoryCanvas.tsx` must remain product-first.
 - Hero must communicate: cold coconut water, Kerala source, fridge shelf ritual, and product desirability.
-- Hero must use approved local product assets or the approved optimized local coconut-to-bottle film under `public/assets/video/`.
+- Hero must use approved assets from the canonical asset manifest and media abstraction.
 - Hero must not use fake 3D, external imagery, random floating fruit, abstract placeholders, or unapproved stock assets.
 - Hero headline must be readable above the fold on desktop and mobile.
 - Hero copy and CTA must never sit under product imagery or become visually buried.

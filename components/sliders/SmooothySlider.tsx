@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { SmooothyControls } from "./SmooothyControls";
 import { pointerDistance, shouldSuppressDraggedClick } from "./interaction";
@@ -19,11 +19,32 @@ export function SmooothySlider({
   showControls = true,
   showDots = true,
   parallax = true,
+  autoplayMs,
   onSlideChange,
 }: SmooothySliderProps) {
   const { wrapperRef, current, goTo, next, previous, reduced } = useSmooothySlider({ axis, infinite, variableWidth, parallax, slideCount, onSlideChange });
   const dragStart = useRef<{ x: number; y: number } | null>(null);
   const dragged = useRef(false);
+  const paused = useRef(false);
+  const resumeTimer = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!autoplayMs || reduced || slideCount < 2) return undefined;
+    const interval = Math.min(autoplayMs, 4200);
+    const timer = window.setInterval(() => {
+      if (!paused.current && !document.hidden) next();
+    }, interval);
+    return () => window.clearInterval(timer);
+  }, [autoplayMs, next, reduced, slideCount]);
+
+  const pause = () => {
+    paused.current = true;
+    if (resumeTimer.current) window.clearTimeout(resumeTimer.current);
+  };
+  const resume = () => {
+    if (resumeTimer.current) window.clearTimeout(resumeTimer.current);
+    resumeTimer.current = window.setTimeout(() => { paused.current = false; }, 2400);
+  };
 
   return (
     <section
@@ -32,7 +53,11 @@ export function SmooothySlider({
       role="region"
       aria-roledescription="carousel"
       aria-label={label}
+      data-autoplay={autoplayMs ? "true" : "false"}
+      data-current-slide={current}
       className={className}
+      onFocusCapture={pause}
+      onBlurCapture={resume}
       onKeyDown={(event) => {
         if (event.altKey || event.ctrlKey || event.metaKey) return;
         if ((axis === "horizontal" && event.key === "ArrowRight") || (axis === "vertical" && event.key === "ArrowDown")) { event.preventDefault(); next(); }
@@ -41,6 +66,7 @@ export function SmooothySlider({
         if (event.key === "End") { event.preventDefault(); goTo(slideCount - 1); }
       }}
       onPointerDown={(event) => {
+        pause();
         dragStart.current = { x: event.clientX, y: event.clientY };
         dragged.current = false;
       }}
@@ -49,7 +75,7 @@ export function SmooothySlider({
         const distance = pointerDistance(dragStart.current, { x: event.clientX, y: event.clientY });
         if (distance > 7) dragged.current = true;
       }}
-      onPointerUp={() => { dragStart.current = null; }}
+      onPointerUp={() => { dragStart.current = null; resume(); }}
       onClickCapture={(event) => {
         if (shouldSuppressDraggedClick(dragged.current, event)) {
           event.preventDefault();

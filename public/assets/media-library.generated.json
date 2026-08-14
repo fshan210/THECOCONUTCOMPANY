@@ -37,39 +37,6 @@
       "thumbnail": "/assets/products/Botanica-Shampoo-Lifestyle Scene.png"
     },
     {
-      "id": "products-co-water-reserve-jpg",
-      "filename": "co-water-reserve.jpg",
-      "title": "Co Water Reserve",
-      "path": "/assets/products/co-water-reserve.jpg",
-      "category": "products",
-      "type": "image",
-      "altText": "Co Water Reserve for .CO The Coconut Company",
-      "tags": [
-        "products",
-        "image",
-        "co",
-        "water",
-        "reserve"
-      ],
-      "thumbnail": "/assets/products/co-water-reserve.jpg"
-    },
-    {
-      "id": "products-co-water-jpg",
-      "filename": "co-water.jpg",
-      "title": "Co Water",
-      "path": "/assets/products/co-water.jpg",
-      "category": "products",
-      "type": "image",
-      "altText": "Co Water for .CO The Coconut Company",
-      "tags": [
-        "products",
-        "image",
-        "co",
-        "water"
-      ],
-      "thumbnail": "/assets/products/co-water.jpg"
-    },
-    {
       "id": "products-coconut-oil-individual-product-2-png",
       "filename": "coconut oil individual product-2.png",
       "title": "Coconut Oil Individual Product 2",

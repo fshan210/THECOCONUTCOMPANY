@@ -1,11 +1,107 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import type { ImpactCounterConfig, ImpactMetric } from "@/lib/content/impact";
+
+import { AnimatePresence, motion } from "framer-motion";
+import { Cloud, Leaf, Package, UsersRound } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { SustainabilityImpactConfig, SustainabilityImpactMetric, SustainabilityImpactMetricId } from "@/lib/content/impact";
 import { useMotionQuality } from "@/lib/motion";
 
-function MetricCounter({ metric }: { metric: ImpactMetric }) {
-  const ref = useRef<HTMLDivElement>(null); const [value, setValue] = useState(metric.startValue); const quality = useMotionQuality();
-  useEffect(() => { const node = ref.current; if (!node) return; if (quality !== "full") { setValue(metric.endValue); return; } let frame = 0; let started = false; const observer = new IntersectionObserver(([entry]) => { if (!entry.isIntersecting || started) return; started = true; const startedAt = performance.now(); const render = (time: number) => { const progress = Math.min(1, (time - startedAt) / 1550); const eased = 1 - Math.pow(1 - progress, 4); setValue(Math.round(metric.startValue + (metric.endValue - metric.startValue) * eased)); if (progress < 1) frame = requestAnimationFrame(render); }; frame = requestAnimationFrame(render); observer.disconnect(); }, { threshold: .4 }); observer.observe(node); return () => { observer.disconnect(); cancelAnimationFrame(frame); }; }, [metric.endValue, metric.startValue, quality]);
-  return <div ref={ref}><p className="font-['Space_Grotesk'] text-[34px] font-medium leading-none md:text-[45px]">{metric.prefix}{value.toLocaleString("en-IN")}{metric.suffix}</p><p className="mt-2 max-w-[170px] text-[10px] leading-4 text-white/86 md:text-[11px] md:leading-5">{metric.label}</p><p className="mt-2 text-[8px] uppercase tracking-[.1em] text-white/55">{metric.status === "estimate" ? "Estimate · " : ""}{metric.sourceNote}</p></div>;
+const iconByMetric: Record<SustainabilityImpactMetricId, typeof Leaf> = {
+  coconuts: Leaf,
+  plastic: Package,
+  carbon: Cloud,
+  farmers: UsersRound,
+};
+
+const STEP_INTERVAL_MS = 450;
+const METRIC_STAGGER_MS = 130;
+const SESSION_KEY = "co-sustainability-impact-seen";
+
+function RollingCharacter({ character, position, frame }: { character: string; position: number; frame: number }) {
+  const kind = /\d/.test(character) ? "digit" : character === "," ? "punctuation" : character === " " ? "space" : "suffix";
+  return (
+    <span className="co-impact-counter__digit" data-character-kind={kind} aria-hidden="true">
+      <AnimatePresence initial={false} mode="popLayout">
+        <motion.span
+          key={`${position}-${character}-${frame}`}
+          initial={{ y: "105%", opacity: 0.2 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: "-105%", opacity: 0.15 }}
+          transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {character === " " ? "\u00a0" : character}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
 }
-export function ImpactCounters({ config }: { config: ImpactCounterConfig }) { const metrics = config.metrics.filter((metric) => metric.enabled).slice(0, 3); return <div className="grid grid-cols-3 gap-4" aria-label={config.heading}>{metrics.map((metric) => <MetricCounter key={metric.id} metric={metric} />)}</div>; }
+
+function MetricCounter({ active, delay, metric, reduced }: { active: boolean; delay: number; metric: SustainabilityImpactMetric; reduced: boolean }) {
+  const sequence = useMemo(() => [...metric.rollValues, metric.value].filter((value, index, values) => index === 0 || value !== values[index - 1]), [metric]);
+  const [frame, setFrame] = useState(reduced || active ? sequence.length - 1 : 0);
+
+  useEffect(() => {
+    if (reduced) {
+      setFrame(sequence.length - 1);
+      return undefined;
+    }
+    if (!active) return undefined;
+    const timers = sequence.slice(1).map((_, index) => window.setTimeout(() => setFrame(index + 1), delay + (index + 1) * STEP_INTERVAL_MS));
+    return () => timers.forEach((timer) => window.clearTimeout(timer));
+  }, [active, delay, reduced, sequence]);
+
+  const value = sequence[frame] ?? metric.value;
+  const formatted = `${value.toLocaleString("en-IN")}${metric.suffix}`;
+  const Icon = iconByMetric[metric.id];
+
+  return (
+    <div className="co-impact-counter">
+      <Icon className="co-impact-counter__icon" size={20} strokeWidth={1.25} aria-hidden="true" />
+      <p className="co-impact-counter__value" aria-label={formatted}>
+        {Array.from(formatted).map((character, position) => <RollingCharacter key={position} character={character} position={position} frame={frame} />)}
+      </p>
+      <p className="co-impact-counter__label">{metric.label}</p>
+    </div>
+  );
+}
+
+export function ImpactCounters({ config }: { config: SustainabilityImpactConfig }) {
+  const hostRef = useRef<HTMLDivElement>(null);
+  const quality = useMotionQuality();
+  const reduced = quality !== "full";
+  const [active, setActive] = useState(false);
+  const [instant, setInstant] = useState(false);
+
+  useEffect(() => {
+    const node = hostRef.current;
+    if (!node) return undefined;
+    if (reduced || window.sessionStorage.getItem(SESSION_KEY) === "1") {
+      setInstant(true);
+      setActive(true);
+      return undefined;
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      window.sessionStorage.setItem(SESSION_KEY, "1");
+      setActive(true);
+      observer.disconnect();
+    }, { threshold: 0.36 });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [reduced]);
+
+  const disclosure = config.mode === "verified"
+    ? config.reportingPeriod ?? config.disclosure
+    : config.disclosure;
+
+  return (
+    <div ref={hostRef} className="co-impact-counters-wrap">
+      <div className="co-impact-counters" aria-label={config.heading} data-impact-mode={config.mode}>
+        {config.metrics.map((metric, index) => (
+          <MetricCounter key={metric.id} metric={metric} active={active} reduced={reduced || instant} delay={index * METRIC_STAGGER_MS} />
+        ))}
+      </div>
+      <p className="co-impact-disclosure">{disclosure}</p>
+    </div>
+  );
+}

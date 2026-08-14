@@ -19,6 +19,7 @@ import {
 } from "@/lib/admin/data";
 import { useAdminHref } from "@/components/admin/AdminPathContext";
 import { syncLocalMediaLibrary } from "@/lib/admin/media-actions";
+import { mediaUrl } from "@/lib/media";
 import mediaManifest from "@/public/assets/media-library.generated.json";
 
 const spring = { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const };
@@ -124,7 +125,7 @@ function AdminHero() {
           </div>
         </div>
         <div className="co-neu relative aspect-[4/3] overflow-hidden rounded-lg">
-          <Image src="/assets/Coconut_Water_Assets/lifestyle scene.png" alt=".CO product operating preview" fill priority sizes="(min-width: 1024px) 32vw, 92vw" className="object-cover" />
+          <Image src={mediaUrl("/assets/Coconut_Water_Assets/lifestyle scene.png")} alt=".CO product operating preview" fill priority sizes="(min-width: 1024px) 32vw, 92vw" className="object-cover" />
         </div>
       </div>
     </section>
@@ -261,7 +262,7 @@ function ProductOps({ expanded = false }: { expanded?: boolean }) {
         {topProducts.slice(0, expanded ? topProducts.length : 5).map((product) => (
           <div key={product.slug} className="co-neu grid grid-cols-[64px_1fr_auto] items-center gap-4 p-3 dark:bg-paper">
             <div className="relative aspect-square overflow-hidden rounded-lg bg-paper">
-              <Image src={product.image} alt={product.name} fill sizes="64px" className="object-contain p-2" />
+              <Image src={mediaUrl(product.image)} alt={product.name} fill sizes="64px" className="object-contain p-2" />
             </div>
             <div>
               <p className="font-medium text-ink">{product.name}</p>
@@ -303,7 +304,7 @@ function MediaLibrary() {
           <article key={asset.path} className="co-neu p-4 dark:bg-paper">
             <div className="relative mb-4 aspect-[4/3] overflow-hidden rounded-lg bg-paper">
               {asset.thumbnail ? (
-                <Image src={asset.thumbnail} alt={asset.altText} fill sizes="(min-width: 1024px) 22vw, 90vw" className="object-contain p-3" />
+                <Image src={mediaUrl(asset.thumbnail)} alt={asset.altText} fill sizes="(min-width: 1024px) 22vw, 90vw" className="object-contain p-3" />
               ) : (
                 <div className="grid h-full place-items-center px-4 text-center text-xs uppercase tracking-editorial text-muted">{asset.type}</div>
               )}

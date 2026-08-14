@@ -8,7 +8,11 @@ const websiteRoot = path.join(root, "public/images/website");
 const promptsPath = path.join(root, "docs/website-image-prompts.md");
 const manifestPath = path.join(brandRoot, "asset-manifest.json");
 
-const rel = (file) => `/${path.relative(path.join(root, "public"), file).replaceAll(path.sep, "/")}`;
+const rel = (file) => {
+  const publicRelative = path.relative(path.join(root, "public"), file);
+  if (!publicRelative.startsWith("..")) return `/${publicRelative.replaceAll(path.sep, "/")}`;
+  return path.relative(root, file).replaceAll(path.sep, "/");
+};
 
 const locked = {
   water: {
@@ -28,7 +32,7 @@ const locked = {
     mobileHero: "melt/dotco-melt-home-hero-mobile-master-v1.png",
     front: "melt/dotco-melt-coconut-mango-packshot-front-master-v1.png",
     angle: "melt/dotco-melt-coconut-mango-packshot-angle-master-v1.png",
-    floating: "melt/dotco-melt-coconut-mango-packshot-floating-master-v1.png",
+    floating: "../../assets-source/products/transparent-current/co-melt-coconut-mango-master-v1.png",
     lifestyle: "melt/dotco-melt-lifestyle-master-v1.png",
   },
   kitchenOil: {

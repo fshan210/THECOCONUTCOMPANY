@@ -2,64 +2,49 @@ import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 
-const publicDir = path.join(process.cwd(), "public");
-const outputDir = path.join(publicDir, "assets", "transparent");
+const rootDir = process.cwd();
+const sourceDir = path.join(rootDir, "assets-source", "products", "transparent-current");
+const outputDir = path.join(rootDir, "public", "assets", "products", "transparent-current");
 
-const candidates = [
-  "assets/products/co-water.jpg",
-  "assets/products/co-water-reserve.jpg",
-  "assets/recipes/mango-coconut-dessert.png",
-  "assets/skincare/coconut-care.png",
-  "assets/social/founder-journey.png"
+const approvedAssets = [
+  ["co-coconut-water-master-v1.png", "co-coconut-water-v1.webp"],
+  ["co-kitchen-coconut-oil-master-v1.png", "co-kitchen-coconut-oil-v1.webp"],
+  ["co-kitchen-coconut-flour-master-v1.png", "co-kitchen-coconut-flour-v1.webp"],
+  ["co-kitchen-coconut-milk-master-v1.png", "co-kitchen-coconut-milk-v1.webp"],
+  ["co-melt-coconut-mango-master-v1.png", "co-melt-coconut-mango-v1.webp"],
+  ["co-botanica-hair-serum-master-v1.png", "co-botanica-hair-serum-v1.webp"],
+  ["co-botanica-body-moisturizer-master-v1.png", "co-botanica-body-moisturizer-v1.webp"],
+  ["co-botanica-shampoo-master-v1.png", "co-botanica-shampoo-v1.webp"],
+  ["co-botanica-face-wash-master-v1.png", "co-botanica-face-wash-v1.webp"],
 ];
-
-function outputName(source, ext) {
-  return path
-    .basename(source)
-    .replace(/\.[^.]+$/, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-") + ext;
-}
 
 await mkdir(outputDir, { recursive: true });
 
 const results = [];
 
-for (const relative of candidates) {
-  const input = path.join(publicDir, relative);
-  const image = sharp(input).rotate().resize({ width: 1200, withoutEnlargement: true }).ensureAlpha();
-  const { data, info } = await image.raw().toBuffer({ resolveWithObject: true });
+for (const [sourceName, outputName] of approvedAssets) {
+  const source = path.join(sourceDir, sourceName);
+  const output = path.join(outputDir, outputName);
+  const metadata = await sharp(source).metadata();
 
-  for (let index = 0; index < data.length; index += info.channels) {
-    const red = data[index];
-    const green = data[index + 1];
-    const blue = data[index + 2];
-    const brightness = (red + green + blue) / 3;
-    const chroma = Math.max(red, green, blue) - Math.min(red, green, blue);
-
-    if (brightness > 232 && chroma < 26) {
-      data[index + 3] = Math.max(0, Math.round((255 - brightness) * 3.4));
-    }
+  if (metadata.width !== 1080 || metadata.height !== 1080 || !metadata.hasAlpha) {
+    throw new Error(`Approved transparent master failed validation: ${sourceName}`);
   }
 
-  const transparent = sharp(data, {
-    raw: {
-      width: info.width,
-      height: info.height,
-      channels: info.channels
-    }
-  });
+  await sharp(source)
+    .trim({ background: { r: 0, g: 0, b: 0, alpha: 0 }, threshold: 1 })
+    .extend({ top: 24, bottom: 24, left: 24, right: 24, background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .resize({ height: 800, fit: "inside", withoutEnlargement: true })
+    .webp({ lossless: true, effort: 6 })
+    .toFile(output);
 
-  const png = path.join(outputDir, outputName(relative, ".png"));
-  const webp = path.join(outputDir, outputName(relative, ".webp"));
-
-  await transparent.clone().png({ compressionLevel: 9 }).toFile(png);
-  await transparent.clone().webp({ quality: 88, effort: 5 }).toFile(webp);
-
+  const runtime = await sharp(output).metadata();
   results.push({
-    source: relative,
-    png: path.relative(publicDir, png),
-    webp: path.relative(publicDir, webp)
+    source: path.relative(rootDir, source),
+    runtime: `/${path.relative(path.join(rootDir, "public"), output)}`,
+    width: runtime.width,
+    height: runtime.height,
+    hasAlpha: runtime.hasAlpha,
   });
 }
 

@@ -1,8 +1,9 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { App } from "aws-cdk-lib";
-import { Template } from "aws-cdk-lib/assertions";
+import { Match, Template } from "aws-cdk-lib/assertions";
 import { DotCoBackendStack } from "../lib/dotco-backend-stack.js";
+import { DotCoMediaStack } from "../lib/dotco-media-stack.js";
 
 test("stack creates Cognito, DynamoDB and Lambda resources", () => {
   const app = new App();
@@ -33,6 +34,65 @@ test("production stack restricts browser origins and protects durable tables", (
   template.hasResourceProperties("AWS::ApiGatewayV2::Api", {
     CorsConfiguration: {
       AllowOrigins: ["https://cothecoconutcompany.com", "https://www.cothecoconutcompany.com"]
+    }
+  });
+});
+
+test("media stack keeps S3 private and grants access through CloudFront OAC", () => {
+  const app = new App();
+  const stack = new DotCoMediaStack(app, "media-test-stack", { env: { region: "ap-south-1" } });
+  const template = Template.fromStack(stack);
+  template.resourceCountIs("AWS::S3::Bucket", 1);
+  template.hasResourceProperties("AWS::S3::Bucket", {
+    BucketEncryption: {
+      ServerSideEncryptionConfiguration: [{ ServerSideEncryptionByDefault: { SSEAlgorithm: "AES256" } }]
+    },
+    OwnershipControls: { Rules: [{ ObjectOwnership: "BucketOwnerEnforced" }] },
+    PublicAccessBlockConfiguration: {
+      BlockPublicAcls: true,
+      BlockPublicPolicy: true,
+      IgnorePublicAcls: true,
+      RestrictPublicBuckets: true
+    },
+    VersioningConfiguration: { Status: "Enabled" }
+  });
+  template.resourceCountIs("AWS::CloudFront::OriginAccessControl", 1);
+  template.hasResourceProperties("AWS::CloudFront::Distribution", {
+    DistributionConfig: {
+      DefaultCacheBehavior: {
+        AllowedMethods: ["GET", "HEAD"],
+        ResponseHeadersPolicyId: Match.anyValue(),
+        ViewerProtocolPolicy: "redirect-to-https"
+      },
+      HttpVersion: "http2and3",
+      IPV6Enabled: true
+    }
+  });
+  template.hasResourceProperties("AWS::CloudFront::ResponseHeadersPolicy", {
+    ResponseHeadersPolicyConfig: {
+      CorsConfig: {
+        AccessControlAllowCredentials: false,
+        AccessControlAllowHeaders: { Items: ["*"] },
+        AccessControlAllowMethods: { Items: ["GET", "HEAD"] },
+        AccessControlAllowOrigins: { Items: ["*"] },
+        OriginOverride: true
+      }
+    }
+  });
+  template.hasResourceProperties("AWS::S3::BucketPolicy", {
+    PolicyDocument: {
+      Statement: Match.arrayWith([
+        Match.objectLike({
+          Effect: "Deny",
+          Action: "s3:*",
+          Condition: { Bool: { "aws:SecureTransport": "false" } }
+        }),
+        Match.objectLike({
+          Effect: "Allow",
+          Principal: { Service: "cloudfront.amazonaws.com" },
+          Action: "s3:GetObject"
+        })
+      ])
     }
   });
 });
