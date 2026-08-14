@@ -14,13 +14,7 @@ export type CartItem = {
 
 export type CartConfiguration = Pick<CartItem, "sku" | "unitPrice" | "variantLabel">;
 
-const previewPrices: Record<string, number> = {
-  "co-water": 120,
-  "melt-co-mango-coconut": 220,
-  "co-kitchen-coconut-oil": 250,
-  "co-botanica-coconut-care": 499,
-  "co-lifestyle": 350
-};
+const previewPrices = Object.fromEntries(shopProducts.map((product) => [product.slug, product.price])) as Record<string, number>;
 
 export function getCartPreviewPrice(slug: string) {
   return previewPrices[slug] || 0;

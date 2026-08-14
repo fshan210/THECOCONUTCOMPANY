@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, ChefHat, Clock3, Heart, Printer, Share2, Timer, UtensilsCrossed } from "lucide-react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { MobileBottomNav, ReferenceFooter, ReferenceHeader } from "@/components/home/ReferenceHomePage";
+import { NewsletterSection } from "@/components/launch/NewsletterSection";
 import { DietaryVersions, ProductsUsed } from "./ReferenceRecipesPage";
 import { recipes, type RecipeItem } from "./recipe-data";
 
@@ -50,7 +51,7 @@ export function RecipeDetailPage({ recipe }: { recipe: RecipeItem }) {
       </div>
     </main>
     <button type="button" onClick={()=>document.getElementById("method")?.scrollIntoView({behavior:"smooth"})} className="fixed bottom-[58px] left-4 right-4 z-[104] min-h-12 rounded-full bg-[#214d2b] text-[9px] font-semibold uppercase text-white shadow-[0_14px_35px_rgba(33,77,43,.28)] md:hidden">View full recipe <ArrowRight className="ml-2 inline" size={14}/></button>
-    <ReferenceFooter /><MobileBottomNav />
+    <NewsletterSection /><ReferenceFooter /><MobileBottomNav />
   </div>;
 }
 

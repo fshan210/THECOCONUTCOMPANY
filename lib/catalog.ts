@@ -1,4 +1,5 @@
 import { publicAssets } from "@/lib/public-assets";
+import { productGalleries } from "@/lib/website-assets";
 
 export type ProductStatus = "coming-soon" | "preview";
 
@@ -8,6 +9,7 @@ export type ShopProduct = {
   category: string;
   format: string;
   status: ProductStatus;
+  price?: number;
   image: string;
   hoverImage?: string;
   shortDescription: string;
@@ -17,7 +19,10 @@ export type ShopProduct = {
   availability: string;
 };
 
-export const productCategories = ["Coconut Water", "Ice Cream", "Kitchen", "Botanica", "Wellness", "Lifestyle"];
+export const productCategories = ["Coconut Water", "Ice Cream", "Kitchen", "BOTANiCA"];
+
+const approvedProductImage = (id: string) => productGalleries[id]?.primary ?? publicAssets.water.floating;
+const approvedProductHover = (id: string) => productGalleries[id]?.gallery[1]?.src ?? productGalleries[id]?.primary;
 
 export const shopProducts: ShopProduct[] = [
   {
@@ -26,8 +31,9 @@ export const shopProducts: ShopProduct[] = [
     category: "Coconut Water",
     format: "Chilled bottle",
     status: "coming-soon",
-    image: publicAssets.water.floating,
-    hoverImage: publicAssets.water.flatLay,
+    price: 60,
+    image: approvedProductImage("water"),
+    hoverImage: approvedProductHover("water"),
     shortDescription: "Tender coconut water with a clean, easy taste for everyday refreshment.",
     benefits: ["Clean coconut taste", "Best served chilled", "Easy everyday ritual"],
     ingredients: ["Tender coconut water"],
@@ -40,8 +46,9 @@ export const shopProducts: ShopProduct[] = [
     category: "Ice Cream",
     format: "Frozen dessert",
     status: "coming-soon",
-    image: publicAssets.melt.hero,
-    hoverImage: publicAssets.melt.flatLay,
+    price: 220,
+    image: approvedProductImage("melt"),
+    hoverImage: approvedProductHover("melt"),
     shortDescription: "A coconut-led frozen dessert with mango brightness and a smooth, sunny finish.",
     benefits: ["Coconut creaminess", "Mango-forward taste", "Dessert bowl friendly"],
     ingredients: ["Coconut base", "Mango", "Natural flavour"],
@@ -54,8 +61,9 @@ export const shopProducts: ShopProduct[] = [
     category: "Kitchen",
     format: "Kitchen staple",
     status: "preview",
-    image: publicAssets.ecosystem.kitchenHero,
-    hoverImage: publicAssets.ecosystem.kitchenAlt,
+    price: 250,
+    image: approvedProductImage("kitchen-oil"),
+    hoverImage: approvedProductHover("kitchen-oil"),
     shortDescription: "A coconut kitchen staple for simple cooking, finishing, and everyday pantry use.",
     benefits: ["Kitchen-friendly", "Coconut aroma", "Daily pantry ritual"],
     ingredients: ["Coconut-derived oil"],
@@ -63,32 +71,94 @@ export const shopProducts: ShopProduct[] = [
     availability: "Product preview. Final pack details will be shared before release."
   },
   {
-    slug: "co-botanica-coconut-care",
-    name: ".CO Botanica Coconut Care",
-    category: "Botanica",
-    format: "Care preview",
+    slug: "co-kitchen-coconut-flour",
+    name: ".CO Kitchen Coconut Flour",
+    category: "Kitchen",
+    format: "Pantry staple",
     status: "preview",
-    image: publicAssets.ecosystem.botanicaHero,
-    hoverImage: publicAssets.ecosystem.botanicaAlt,
-    shortDescription: "A gentle coconut-inspired care direction for body, hair, and shelf rituals.",
-    benefits: ["Everyday care feel", "Coconut-inspired", "Simple usage mindset"],
-    ingredients: ["Coconut-inspired care ingredients"],
-    howToUse: ["Use only as directed on pack", "Patch-test care products", "Stop use if irritation occurs"],
-    availability: "Product preview. No treatment or medical claims are made."
+    price: 180,
+    image: approvedProductImage("kitchen-flour"),
+    hoverImage: approvedProductHover("kitchen-flour"),
+    shortDescription: "Finely milled coconut flour for baking, breakfast bowls, and everyday pantry use.",
+    benefits: ["Coconut pantry staple", "Baking friendly", "Naturally versatile"],
+    ingredients: ["Coconut flour"],
+    howToUse: ["Use in baking blends", "Stir into breakfast bowls", "Store sealed in a cool, dry place"],
+    availability: "Product preview. Final pack details will be shared before release."
   },
   {
-    slug: "co-lifestyle",
-    name: ".CO Lifestyle",
-    category: "Lifestyle",
-    format: "Ritual objects",
+    slug: "co-kitchen-coconut-milk",
+    name: ".CO Kitchen Coconut Milk",
+    category: "Kitchen",
+    format: "Cooking essential",
     status: "preview",
-    image: publicAssets.water.lifestyle,
-    hoverImage: publicAssets.water.hero,
-    shortDescription: "A warm collection of coconut-world objects, recipe ideas, and seasonal living notes.",
-    benefits: ["Made for Living", "Giftable moments", "Coconut culture"],
-    ingredients: ["Product-specific materials"],
-    howToUse: ["Use according to each item", "Pair with recipes and product rituals", "Keep close to daily life"],
-    availability: "Preview collection for the .CO world."
+    price: 180,
+    image: approvedProductImage("kitchen-milk"),
+    hoverImage: approvedProductHover("kitchen-milk"),
+    shortDescription: "A smooth coconut milk direction for curries, desserts, drinks, and daily cooking.",
+    benefits: ["Creamy coconut base", "Cooking friendly", "Everyday pantry ritual"],
+    ingredients: ["Coconut milk"],
+    howToUse: ["Shake before use", "Add to curries and desserts", "Refrigerate after opening"],
+    availability: "Product preview. Final pack details will be shared before release."
+  },
+  {
+    slug: "co-botanica-shampoo",
+    name: ".CO BOTANiCA Coconut Shampoo",
+    category: "BOTANiCA",
+    format: "Hair care preview",
+    status: "preview",
+    price: 399,
+    image: approvedProductImage("botanica-shampoo"),
+    hoverImage: approvedProductHover("botanica-shampoo"),
+    shortDescription: "A gentle coconut-led shampoo direction for a clean, balanced wash ritual.",
+    benefits: ["Gentle cleanse", "Coconut-led care", "Daily ritual"],
+    ingredients: ["Final INCI list pending retail pack"],
+    howToUse: ["Use only as directed on pack", "Rinse thoroughly", "Stop use if irritation occurs"],
+    availability: "Care preview. No treatment or medical claims are made."
+  },
+  {
+    slug: "co-botanica-face-wash",
+    name: ".CO BOTANiCA Coconut Face Wash",
+    category: "BOTANiCA",
+    format: "Face care preview",
+    status: "preview",
+    price: 399,
+    image: approvedProductImage("botanica-face-wash"),
+    hoverImage: approvedProductHover("botanica-face-wash"),
+    shortDescription: "A calm daily cleanse inspired by coconut botanicals.",
+    benefits: ["Gentle cleanse", "Daily ritual", "Coconut botanical direction"],
+    ingredients: ["Final INCI list pending retail pack"],
+    howToUse: ["Use only as directed on pack", "Patch-test before use", "Stop use if irritation occurs"],
+    availability: "Care preview. No treatment or medical claims are made."
+  },
+  {
+    slug: "co-botanica-hair-serum",
+    name: ".CO BOTANiCA Coconut Hair Serum",
+    category: "BOTANiCA",
+    format: "Hair care preview",
+    status: "preview",
+    price: 499,
+    image: approvedProductImage("botanica-hair-serum"),
+    hoverImage: approvedProductHover("botanica-hair-serum"),
+    shortDescription: "A lightweight coconut botanical serum direction for an easy finishing ritual.",
+    benefits: ["Light finish", "Coconut-led care", "Everyday ritual"],
+    ingredients: ["Final INCI list pending retail pack"],
+    howToUse: ["Use only as directed on pack", "Apply sparingly", "Stop use if irritation occurs"],
+    availability: "Care preview. No treatment or medical claims are made."
+  },
+  {
+    slug: "co-botanica-body-moisturizer",
+    name: ".CO BOTANiCA Coconut Body Moisturizer",
+    category: "BOTANiCA",
+    format: "Body care preview",
+    status: "preview",
+    price: 499,
+    image: approvedProductImage("botanica-moisturizer"),
+    hoverImage: approvedProductHover("botanica-moisturizer"),
+    shortDescription: "A soft coconut botanical moisturizer direction for daily body care.",
+    benefits: ["Daily moisture", "Soft finish", "Coconut botanical direction"],
+    ingredients: ["Final INCI list pending retail pack"],
+    howToUse: ["Use only as directed on pack", "Patch-test before use", "Stop use if irritation occurs"],
+    availability: "Care preview. No treatment or medical claims are made."
   }
 ];
 

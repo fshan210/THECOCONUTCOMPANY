@@ -2,6 +2,20 @@ import { NextResponse, type NextRequest } from "next/server";
 import { adminSessionCookie } from "@/lib/admin/auth-config";
 import { getAdminPath, isConfiguredAdminPath, mapConfiguredAdminPath } from "@/lib/admin/path";
 import { awsSessionCookie } from "@/lib/auth/aws-cookie";
+import { launchPageSlugs } from "@/lib/launch-pages";
+
+const publicTopLevelRoutes = new Set([
+  "404", "about", "account", "api", "cart", "contact", "email-verified", "forgot-password", "founders",
+  "journal", "login", "offline", "opengraph-image", "orders", "products", "profile", "recipes", "register", "reset-password",
+  "ripple-debug", "saved-recipes", "shop", "sign-in", "sign-up", "status", "sustainability", "verify-email", "wishlist",
+  ...launchPageSlugs,
+]);
+
+function isKnownPublicPath(pathname: string) {
+  if (pathname === "/") return true;
+  const topLevel = pathname.split("/").filter(Boolean)[0];
+  return Boolean(topLevel && publicTopLevelRoutes.has(topLevel));
+}
 
 export function middleware(request: NextRequest) {
   const supabaseConfigured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
@@ -50,6 +64,12 @@ export function middleware(request: NextRequest) {
   }
 
   const isLegacySupabaseAccountRoute = pathname.startsWith("/account");
+  if (!isKnownPublicPath(pathname)) {
+    const notFoundUrl = request.nextUrl.clone();
+    notFoundUrl.pathname = "/404";
+    return NextResponse.rewrite(notFoundUrl, { status: 404 });
+  }
+
   if (!supabaseConfigured || !isLegacySupabaseAccountRoute) {
     return NextResponse.next();
   }

@@ -35,8 +35,7 @@ Future Codex work must read all four references before coding:
 The official `.CO` branding PDF is the authority for identity. The primary type system is self-hosted Roboto Light, Regular, Medium, and Bold. Instrument Serif remains only for selected quotation and signature accents. Both use SIL OFL 1.1 licenses stored beside the font files in `app/fonts/`; there is no runtime font dependency.
 
 - Standard motion uses the existing Framer Motion dependency. No new runtime animation package was added.
-- The homepage uses the supplied coconut-to-bottle transition film, cropped to remove unwanted overlays and exported locally as optimized MP4/WebM with a poster fallback under `public/assets/video/`.
-- Reduced-motion visitors receive the final still frame rather than autoplay video or scroll travel.
+- Homepage media is resolved through the canonical media abstraction; motion sections must provide an approved reduced-motion still or crossfade state.
 - Recipes use existing campaign assets plus six generated editorial food photographs stored under `public/assets/recipes/generated/`. These cover lunch, dinner, snacks, quick meals, healthy, and seasonal recipe gaps.
 - Generated recipe imagery is local, contains no text or logos, and follows the approved cream, earth-brown, and muted-green campaign grade.
 - Products browse through `/shop`; `/products` remains only as a compatibility redirect and is excluded from the sitemap.

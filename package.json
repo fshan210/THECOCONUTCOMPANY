@@ -20,6 +20,11 @@
     "assets:optimize": "node scripts/optimize-assets.mjs",
     "assets:transparent": "node scripts/create-transparent-assets.mjs",
     "assets:map": "node scripts/build-website-asset-map.mjs",
+    "media:audit": "node scripts/audit-public-assets.mjs",
+    "media:upload": "node scripts/upload-media.mjs",
+    "media:validate": "node scripts/validate-media.mjs",
+    "media:find-local-references": "node scripts/find-local-media-references.mjs",
+    "media:write-vercel-ignore": "node scripts/write-vercel-media-ignore.mjs",
     "favicons:generate": "node scripts/generate-favicons.mjs",
     "media:generate": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/generate-media-library.ts",
     "media:sync": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --experimental-strip-types scripts/sync-local-media-library.ts",
@@ -50,6 +55,8 @@
     "firebase-admin": "^14.0.0",
     "framer-motion": "^11.18.2",
     "gsap": "^3.15.0",
+    "jquery": "^3.7.1",
+    "jquery.ripples": "^0.6.3",
     "lenis": "^1.3.25",
     "lucide-react": "^0.468.0",
     "next": "^15.5.19",
@@ -64,6 +71,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@types/jquery": "^3.5.32",
     "@types/node": "^20.14.10",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",

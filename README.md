@@ -9,6 +9,8 @@ npm install
 npm run dev
 ```
 
+Runtime images and video use `NEXT_PUBLIC_MEDIA_BASE_URL`. Production and preview should set it to `https://media.cothecoconutcompany.com`; leaving it empty preserves the local `/public` fallback. Audit, upload, reference scanning, and CloudFront validation are available through the `media:*` npm scripts.
+
 ## Backend
 
 ```bash

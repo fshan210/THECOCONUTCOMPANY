@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { productCategories, recipes } from "@/lib/catalog";
 import { publicAssets } from "@/lib/public-assets";
-import { NewsletterForm } from "@/components/launch/NewsletterForm";
+import { NewsletterSection } from "@/components/launch/NewsletterSection";
 import { CookiePreferencesButton } from "@/components/launch/CookiePreferencesButton";
 
 const links = [
@@ -25,6 +25,8 @@ export function Footer() {
   if (pathname === "/" || pathname === "/about" || pathname === "/shop" || pathname === "/recipes" || pathname.startsWith("/recipes/") || pathname === "/sustainability" || pathname === "/founders" || pathname.startsWith("/journal") || pathname.startsWith("/admin")) return null;
 
   return (
+    <>
+    <NewsletterSection />
     <footer className="relative z-10 overflow-visible rounded-t-[2rem] border-t border-coconut/10 bg-coconut text-paper">
       <div className="co-wave-pattern pointer-events-none absolute inset-y-0 right-0 w-80 opacity-[0.07]" />
       <div className="pointer-events-none absolute -top-10 left-5 hidden rounded-full border border-paper/10 px-5 py-3 text-[0.65rem] uppercase tracking-editorial text-paper/45 md:block">
@@ -82,8 +84,7 @@ export function Footer() {
           </div>
         </div>
         <div className="space-y-4 text-sm text-paper/70">
-          <p className="text-[0.7rem] font-medium uppercase tracking-editorial text-paper">Newsletter / trade</p>
-          <NewsletterForm compact className="text-paper" />
+          <p className="text-[0.7rem] font-medium uppercase tracking-editorial text-paper">Trade</p>
           <Link href="/shop" className="inline-flex items-center gap-2 pt-3 text-sm font-medium text-paper transition hover:text-sun">
             Distributor / product interest <ArrowUpRight size={15} />
           </Link>
@@ -107,5 +108,6 @@ export function Footer() {
         </div>
       </div>
     </footer>
+    </>
   );
 }

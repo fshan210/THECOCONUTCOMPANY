@@ -1,4 +1,6 @@
-export const publicAssets = {
+import { mapMediaUrls } from "@/lib/media";
+
+const localPublicAssets = {
   website: {
     homeHero: {
       desktop: "/images/website/home/hero/CO_WEBSITE_HOME_HERO_DESKTOP_MASTER.webp",
@@ -90,20 +92,15 @@ export const publicAssets = {
     seasonalBowl: "/assets/recipes/generated/seasonal-coconut-berry-salad.jpg"
   },
   social: {
-    founderJourney: "/assets/transparent/founder-journey.png",
     founderFazil: "/assets/social/fazil-founder-clean.png",
     founderAfsala: "/assets/social/afsala-founder-clean.png"
   },
   doodles: {
     rawCoconut: "/assets/SVG Transparent Assets/raw coconut.svg",
-    bottle: "/assets/SVG Transparent Assets/coconut water bottle.svg",
-    tetra: "/assets/SVG Transparent Assets/coconut water tetra pack.svg",
-    iceCream: "/assets/SVG Transparent Assets/ice cream.svg",
     social: "/assets/SVG Transparent Assets/coconut water-social media.svg"
   },
   brand: {
     madeForLiving: "/assets/branding/made-for-living-reference.png",
-    tenderCoconut: "/assets/transparent/co-tender-coconut.png",
     grove: "/assets/farming/coconut belt-world.png",
     palms: "/assets/farming/whole coconut mindset.png",
     harvest: "/assets/farms/village aggregation point.png",
@@ -111,3 +108,5 @@ export const publicAssets = {
     wholeCoconut: "/assets/farming/whole coconut mindset.png"
   }
 } as const;
+
+export const publicAssets = mapMediaUrls(localPublicAssets);

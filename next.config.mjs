@@ -11,21 +11,19 @@ const nextConfig = {
   images: {
     unoptimized: true,
     formats: ["image/avif", "image/webp"],
-    qualities: [75, 90, 95]
+    qualities: [75, 90, 95],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "media.cothecoconutcompany.com",
+        pathname: "/site-media/v1/**"
+      }
+    ]
   },
   async headers() {
     return [
       {
         source: "/assets-optimized/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable"
-          }
-        ]
-      },
-      {
-        source: "/experience/coconut-bottle/:version/:path*",
         headers: [
           {
             key: "Cache-Control",

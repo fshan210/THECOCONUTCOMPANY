@@ -4,6 +4,8 @@ out
 dist
 cdk.out
 infra/cdk.out
+.codex/
+.agents/
 .env
 .env.local
 .venv
@@ -11,10 +13,37 @@ infra/cdk.out
 .pycache
 __pycache__
 *.pyc
+*.tsbuildinfo
 .DS_Store
 .vercel
 lighthouse-*.json
 reports/
+assets-source/
+graphify-out/cache/
+graphify-out/.graphify_python
+
+# Local media masters and manual creative source files. Runtime derivatives
+# live under public/assets-optimized and public/assets.
+public/brand-reference/**
+!public/brand-reference/asset-manifest.json
+public/images/website/manual/
+public/images/website/lifestyle images/
+public/images/website/home/transitions/*_MASTER.webp
+public/assets/home/co-coconut-hero-aura-v1.png
+public/assets/home/co-coconut-packshot-floating-master-v1.png
+
+# Migration evidence is regenerated locally. Keep only the canonical mapping,
+# rollback instructions, and final operating note in version control.
+migration-reports/baseline/
+migration-reports/inventory/
+migration-reports/remediation/
+migration-reports/validation/
+migration-reports/preview/
+migration-reports/staging/
+migration-reports/screenshots/
+migration-reports/visual-qa/
+migration-reports/final/*
+!migration-reports/final/production-media-migration.md
 *coconutcompany-firebase-adminsdk*.json
 *firebase-adminsdk*.json
 .env*

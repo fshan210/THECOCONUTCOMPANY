@@ -1,5 +1,6 @@
 import type { CSSProperties, ImgHTMLAttributes } from "react";
 import optimizedManifest from "@/lib/generated/optimized-image-manifest.json";
+import { localMediaPath, mediaUrl, normalizeMediaPath } from "@/lib/media";
 
 type OptimizedVariant = {
   width: number;
@@ -38,17 +39,17 @@ type ResponsiveImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "h
 const manifest = optimizedManifest as Record<string, OptimizedImage | undefined>;
 
 function normalizeSrc(src: string) {
-  if (src.startsWith("http://") || src.startsWith("https://") || src.startsWith("data:")) return src;
-  return src.startsWith("/") ? src : `/${src}`;
+  if (/^(?:https?:)?\/\//i.test(src) || /^(?:data|blob):/i.test(src)) return src;
+  return normalizeMediaPath(src);
 }
 
 function imageMeta(src: string) {
-  return manifest[normalizeSrc(src)];
+  return manifest[localMediaPath(src)];
 }
 
 export function optimizedImageSrc(src: string, variant: "mobile" | "tablet" | "desktop" = "desktop") {
   const meta = imageMeta(src);
-  return meta?.variants[variant]?.avif || normalizeSrc(src);
+  return mediaUrl(meta?.variants[variant]?.avif || normalizeSrc(src));
 }
 
 export function ResponsiveImage({
@@ -71,7 +72,9 @@ export function ResponsiveImage({
   ...props
 }: ResponsiveImageProps) {
   const normalizedSrc = normalizeSrc(src);
+  const normalizedMobileSrc = mobileSrc ? normalizeSrc(mobileSrc) : undefined;
   const meta = imageMeta(normalizedSrc);
+  const mobileMeta = normalizedMobileSrc ? imageMeta(normalizedMobileSrc) : undefined;
   const imgWidth = width || meta?.width || undefined;
   const imgHeight = height || meta?.height || undefined;
   const resolvedLoading = loading || (priority ? "eager" : "lazy");
@@ -88,7 +91,7 @@ export function ResponsiveImage({
   const image = (
     // eslint-disable-next-line @next/next/no-img-element -- Static <picture> delivery is intentional here to avoid Vercel runtime Image Optimization costs.
     <img
-      src={meta?.variants.desktop?.jpg || meta?.fallback || normalizedSrc}
+      src={mediaUrl(meta?.variants.desktop?.jpg || meta?.fallback || normalizedSrc)}
       alt={alt}
       width={imgWidth}
       height={imgHeight}
@@ -106,12 +109,14 @@ export function ResponsiveImage({
 
   return (
     <picture>
-      {mobileSrc ? <source media="(max-width: 767px)" srcSet={normalizeSrc(mobileSrc)} /> : null}
-      {meta?.variants.mobile?.avif ? <source type="image/avif" media="(max-width: 767px)" srcSet={meta.variants.mobile.avif} /> : null}
-      {meta?.variants.tablet?.avif ? <source type="image/avif" media="(max-width: 1279px)" srcSet={meta.variants.tablet.avif} /> : null}
-      {meta?.variants.desktop?.avif ? <source type="image/avif" srcSet={meta.variants.desktop.avif} /> : null}
-      {meta?.variants.mobile?.jpg ? <source type="image/jpeg" media="(max-width: 767px)" srcSet={meta.variants.mobile.jpg} /> : null}
-      {meta?.variants.tablet?.jpg ? <source type="image/jpeg" media="(max-width: 1279px)" srcSet={meta.variants.tablet.jpg} /> : null}
+      {mobileMeta?.variants.mobile?.avif ? <source type="image/avif" media="(max-width: 767px)" srcSet={mediaUrl(mobileMeta.variants.mobile.avif)} /> : null}
+      {mobileMeta?.variants.mobile?.jpg ? <source type="image/jpeg" media="(max-width: 767px)" srcSet={mediaUrl(mobileMeta.variants.mobile.jpg)} /> : null}
+      {normalizedMobileSrc ? <source media="(max-width: 767px)" srcSet={mediaUrl(normalizedMobileSrc)} /> : null}
+      {!normalizedMobileSrc && meta?.variants.mobile?.avif ? <source type="image/avif" media="(max-width: 767px)" srcSet={mediaUrl(meta.variants.mobile.avif)} /> : null}
+      {meta?.variants.tablet?.avif ? <source type="image/avif" media="(max-width: 1279px)" srcSet={mediaUrl(meta.variants.tablet.avif)} /> : null}
+      {meta?.variants.desktop?.avif ? <source type="image/avif" srcSet={mediaUrl(meta.variants.desktop.avif)} /> : null}
+      {!normalizedMobileSrc && meta?.variants.mobile?.jpg ? <source type="image/jpeg" media="(max-width: 767px)" srcSet={mediaUrl(meta.variants.mobile.jpg)} /> : null}
+      {meta?.variants.tablet?.jpg ? <source type="image/jpeg" media="(max-width: 1279px)" srcSet={mediaUrl(meta.variants.tablet.jpg)} /> : null}
       {image}
     </picture>
   );

@@ -1,6 +1,7 @@
 import type { ConfiguredVariant, ProcessingMethod, ProductSize, PulpOption } from "./configurator-types";
+import { websiteAssets } from "@/lib/website-assets";
 
-const productImage = "/assets/shop/products/IndividualProduct_CO-Water.png";
+const productImage = websiteAssets.products.water.primary;
 const sizes: ProductSize[] = [100, 200, 500];
 const processing: ProcessingMethod[] = ["UHT", "RAW"];
 const pulp: PulpOption[] = ["without-pulp", "with-pulp"];

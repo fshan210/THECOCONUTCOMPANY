@@ -25,9 +25,6 @@ public/assets/generated/composition-morning.webp
 public/assets/generated/composition-tetra.webp
 public/assets/generated/composition-icecream.webp
 public/assets/generated/composition-flatlay.webp
-public/assets/transparent/co-water-bottle.webp
-public/assets/transparent/co-coconut-icecream.webp
-public/assets/transparent/co-social-media-pack.webp
 public/assets/generated/journey-aggregation.webp
 public/assets/generated/journey-manufacturing.webp
 public/assets/generated/journey-uae.webp
@@ -80,10 +77,6 @@ Whole Coconut -> Coconut Water -> .CO Bottle -> Made for Living
 ```text
 public/assets/coconut.jpg
 public/assets/bottle.jpg
-public/assets/transparent/co-water.webp
-public/assets/transparent/co-water-reserve.webp
-public/assets/transparent/mango-coconut-dessert.webp
-public/assets/transparent/coconut-care.webp
 public/assets/generated/product-kitchen-oil.webp
 public/assets/generated/product-lifestyle.webp
 ```
@@ -149,9 +142,6 @@ Transformed the site from a sparse premium presentation into a fuller consumer-f
 
 ```text
 public/assets/generated/hero-coconut-render.webp
-public/assets/transparent/co-water.webp
-public/assets/transparent/mango-coconut-dessert.webp
-public/assets/transparent/coconut-care.webp
 public/assets/generated/product-kitchen-oil.webp
 public/assets/generated/product-lifestyle.webp
 public/assets/generated/recipe-smoothie-bowl.webp

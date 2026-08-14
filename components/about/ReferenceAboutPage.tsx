@@ -296,7 +296,7 @@ export function ReferenceAboutPage() {
       <AboutHero />
       <StatsAndQuote />
       <ZeroWasteTree />
-      <BrandSlidingPuzzle />
+      <BrandSlidingPuzzle initialShuffleMoves={64} />
       <JourneyScrollStory />
       <ValuesSection />
       <PromiseAndMovement />

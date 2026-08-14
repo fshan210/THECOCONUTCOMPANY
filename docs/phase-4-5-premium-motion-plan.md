@@ -4,7 +4,7 @@ This plan prepares the next implementation PR. It does not authorize redesigning
 
 ## Current setup status
 
-- Existing motion foundation: `framer-motion`, `MotionSection`, `useCoconutMotionMode()`, reduced-motion CSS, and the coconut-to-bottle local video.
+- Existing motion foundation: `framer-motion`, `MotionSection`, `useCoconutMotionMode()`, and reduced-motion CSS.
 - New approved tooling installed: `gsap`, `lenis`, `split-type`, `embla-carousel-react`, `clsx`, and `tailwind-merge`.
 - New setup-only motion utilities were added under `lib/motion/` and `components/motion/`.
 - Public routes were not rewired in this setup pass.
@@ -156,4 +156,3 @@ Performance budget:
 - Verify reduced-motion mode.
 - Confirm no public layout redesign occurred.
 - Confirm GA4, sitemap, robots, and structured data are unchanged unless intentionally updated.
-
