@@ -24,21 +24,38 @@ jobs:
         run: npm ci
       - name: Install workspace dependencies
         run: |
-          npm install --prefix packages/contracts
-          npm install --prefix backend
-          npm install --prefix infra
-      - name: Lint and typecheck frontend
+          npm ci --prefix packages/contracts
+          npm ci --prefix backend
+          npm ci --prefix infra
+      - name: Lint and typecheck
         run: |
           npm run lint
           npm run typecheck
+          npm run backend:typecheck
       - name: Test contracts, backend, and infrastructure
         run: npm run test
       - name: Build frontend
         run: npm run build
+      - name: Smoke test production build
+        run: |
+          npm run start -- --hostname 127.0.0.1 --port 3000 > /tmp/dotco-next.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:3000/ > /dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          BASE_URL=http://127.0.0.1:3000 npm run smoke:production
       - name: Synthesize infrastructure
         run: npm run infra:synth
-      - name: Dependency audit (informational)
-        run: npm audit --audit-level=high || true
+      - name: Dependency audit (record known transitive findings)
+        run: |
+          npm audit --omit=dev --audit-level=high || true
+          npm --prefix backend audit --omit=dev --audit-level=high
+          npm --prefix infra audit --omit=dev --audit-level=high
+          npm --prefix packages/contracts audit --omit=dev --audit-level=high
       - name: Configure AWS OIDC credentials for optional DEV checks
         if: ${{ vars.AWS_DEV_ROLE_ARN != '' }}
         uses: aws-actions/configure-aws-credentials@v4

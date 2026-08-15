@@ -76,7 +76,7 @@ function PasswordField({ label, id, value, onChange, error, autoComplete = "curr
 }
 
 export function AuthShell({ eyebrow, title, description, children }: { eyebrow: string; title: string; description: string; children: ReactNode }) {
-  return <main className="co-auth-page"><motion.section initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }} className="co-auth-card"><div className="co-auth-orb" aria-hidden="true"><Sparkles size={18}/></div><p className="co-label text-[#214d2b]">{eyebrow}</p><h1 className="mt-4 font-['Cormorant_Garamond'] text-[clamp(2.6rem,8vw,3.35rem)] leading-[0.9] tracking-[-0.045em] text-[#2a1b13]">{title}</h1><p className="mt-4 text-sm leading-6 text-[#695e55]">{description}</p>{children}</motion.section></main>;
+  return <div className="co-auth-page"><motion.section initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }} className="co-auth-card"><div className="co-auth-orb" aria-hidden="true"><Sparkles size={18}/></div><p className="co-label text-[#214d2b]">{eyebrow}</p><h1 className="mt-4 font-['Cormorant_Garamond'] text-[clamp(2.6rem,8vw,3.35rem)] leading-[0.9] tracking-[-0.045em] text-[#2a1b13]">{title}</h1><p className="mt-4 text-sm leading-6 text-[#695e55]">{description}</p>{children}</motion.section></div>;
 }
 
 function PrimaryButton({ children, pending, type = "submit", onClick }: { children: ReactNode; pending?: boolean; type?: "button" | "submit"; onClick?: () => void }) {

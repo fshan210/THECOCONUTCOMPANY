@@ -10,13 +10,13 @@
     "synth": "cdk synth"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.177.0",
+    "aws-cdk-lib": "^2.265.0",
     "constructs": "^10.4.2"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",
-    "aws-cdk": "^2.177.0",
-    "esbuild": "^0.24.2",
+    "aws-cdk": "^2.1130.0",
+    "esbuild": "^0.28.1",
     "tsx": "^4.20.6",
     "typescript": "^5.5.3"
   }

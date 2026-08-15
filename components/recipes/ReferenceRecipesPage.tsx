@@ -40,7 +40,7 @@ export function ReferenceRecipesPage() {
   return (
     <div className="co-recipes-page min-h-screen overflow-hidden bg-[#f8f4ec] font-['Inter'] text-[#2a1b13]">
       <ReferenceHeader />
-      <main>
+      <div>
         <section className="relative min-h-[480px] overflow-hidden bg-[#f3eee4] md:min-h-[600px]">
           <PremiumImage src="/assets/recipes/refined/recipes-hero-editorial.png" alt=".CO coconut products with a mango coconut breakfast bowl" sizes="100vw" priority className="object-[70%_center] md:object-center" />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(248,244,236,.99)_0%,rgba(248,244,236,.92)_45%,rgba(248,244,236,.05)_75%,rgba(248,244,236,0)_100%)] md:bg-[linear-gradient(90deg,rgba(248,244,236,.98)_0%,rgba(248,244,236,.88)_36%,rgba(248,244,236,.02)_67%)]" />
@@ -62,7 +62,7 @@ export function ReferenceRecipesPage() {
 
         <TrustStrip />
         <NewsletterSection />
-      </main>
+      </div>
       <ReferenceFooter />
       <MobileBottomNav />
     </div>

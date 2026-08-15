@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  poweredByHeader: false,
   serverExternalPackages: [
     "firebase-admin",
     "firebase-admin/app",
@@ -21,16 +22,33 @@ const nextConfig = {
     ]
   },
   async headers() {
+    const securityHeaders = [
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      { key: "X-Frame-Options", value: "DENY" },
+      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+      { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" }
+    ];
+    const immutableHeaders = [
+      {
+        key: "Cache-Control",
+        value: "public, max-age=31536000, immutable"
+      }
+    ];
     return [
       {
+        source: "/:path*",
+        headers: securityHeaders
+      },
+      {
         source: "/assets-optimized/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable"
-          }
-        ]
-      }
+        headers: immutableHeaders
+      },
+      { source: "/assets/video/homepage-v2/:path*", headers: immutableHeaders },
+      { source: "/assets/products/transparent-current/:path*", headers: immutableHeaders },
+      { source: "/assets/home/generated/:path*", headers: immutableHeaders },
+      { source: "/assets/home/co-hero-coconut-transparent-v1.webp", headers: immutableHeaders },
+      { source: "/assets/backgrounds/water-material/co-coconut-water-material.png", headers: immutableHeaders },
+      { source: "/assets/backgrounds/day-with-co/midday-kitchen.png", headers: immutableHeaders }
     ];
   },
   async redirects() {

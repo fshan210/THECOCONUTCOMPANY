@@ -78,7 +78,7 @@ export function AdminShell({ children, session, adminBasePath }: AdminShellProps
               </div>
             </div>
           </header>
-          <main className="relative px-4 py-6 md:px-6 lg:px-8">{children}</main>
+          <div className="relative px-4 py-6 md:px-6 lg:px-8">{children}</div>
         </div>
       </div>
     </div>

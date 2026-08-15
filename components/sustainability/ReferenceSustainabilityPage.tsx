@@ -75,7 +75,7 @@ export function ReferenceSustainabilityPage(){
   const stage=stages[activeStage];
   return <div className="co-sustainability-page min-h-screen overflow-hidden bg-[#f8f4ec] font-['Inter'] text-[#2a1b13]">
     <ReferenceHeader/>
-    <main>
+    <div>
       <section className="relative min-h-[540px] overflow-hidden bg-[#f3eee4] md:min-h-[570px]">
         <PremiumImage src={sustainabilityHero.desktop} mobileSrc={sustainabilityHero.mobile} alt={sustainabilityHero.alt} sizes="100vw" priority className="object-[67%_center] md:object-center"/>
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(248,244,236,.99)_0%,rgba(248,244,236,.92)_39%,rgba(248,244,236,.12)_67%)]"/>
@@ -94,7 +94,7 @@ export function ReferenceSustainabilityPage(){
       <section className="px-4 py-16 md:px-8"><div className="mx-auto grid max-w-[1320px] gap-6 md:grid-cols-[.72fr_1fr]"><div><p className="text-[9px] font-semibold uppercase tracking-[.14em] text-[#214d2b]">Our community</p><h2 className="mt-3 font-['Cormorant_Garamond'] text-[42px] leading-none">Together, we can grow change.</h2><p className="mt-4 text-xs leading-6 text-[#665b52]">Share your journey and get featured.</p><p className="mt-2 text-xl">#COCoconut</p><a href="https://www.instagram.com/cothecoconutcompany" target="_blank" rel="noreferrer" className="co-primary-cta mt-6 inline-flex min-h-11 items-center gap-3 rounded-full bg-[#214d2b] px-5 text-[9px] font-semibold uppercase text-white">Join our community <ArrowRight size={13}/></a></div><div className="grid grid-cols-3 gap-2">{communityStories.map((asset,index)=><div key={asset.desktop} className="group relative aspect-[4/5] overflow-hidden rounded-[20px]"><PremiumImage src={asset.desktop} mobileSrc={asset.mobile} alt={asset.alt} sizes="30vw"/></div>)}</div></div><div className="mx-auto mt-10 grid max-w-[1320px] gap-3 md:grid-cols-3">{[["Priya S.",".CO products align with my values and make it easy to live sustainably every day."],["Arjun M.","I love seeing a brand that cares about the planet and the people behind it."],["Neha R.","The transparency and impact updates build so much trust."]].map(([name,quote])=><article key={name} className="rounded-[23px] border border-black/6 bg-white/55 p-6"><p className="tracking-[.12em] text-[#d99b12]">★★★★★</p><p className="mt-4 min-h-[74px] text-xs leading-6">“{quote}”</p><div className="mt-4 flex items-center gap-3"><span className="grid size-9 place-items-center rounded-full bg-[#d7c2a5] font-['Cormorant_Garamond'] text-lg">{name[0]}</span><span><b className="block text-[9px]">{name}</b><span className="text-[8px] text-[#756a61]">Community member</span></span></div></article>)}</div></section>
 
       <NewsletterSection/>
-    </main>
+    </div>
     <ReferenceFooter/><MobileBottomNav/>
     <MethodologyDialog open={methodOpen} onOpenChange={setMethodOpen}/>
   </div>;

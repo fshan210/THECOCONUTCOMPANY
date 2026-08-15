@@ -591,7 +591,7 @@ export function ReferenceShopPage({
   return (
     <div className="co-shop-page min-h-screen overflow-x-clip bg-[#f8f4ec] font-['Inter'] text-[#2a1b13]">
       <ReferenceHeader />
-      <main>
+      <div>
         <section className="relative min-h-[520px] overflow-hidden bg-[#f3eee4] md:min-h-[540px]">
           <Image
             src="/assets/about/co-about-hero-editorial-4k.avif"
@@ -995,7 +995,7 @@ export function ReferenceShopPage({
           </div>
         </section>
         <NewsletterSection />
-      </main>
+      </div>
       <ReferenceFooter />
       <MobileBottomNav />
 

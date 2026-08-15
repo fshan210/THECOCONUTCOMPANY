@@ -22,5 +22,5 @@ export default async function StatusPage({ params }: { params: Promise<{ state: 
   const value = states[state as keyof typeof states];
   if (!value) notFound();
   const [kind, title, body, label, href] = value;
-  return <main className="grid min-h-[72vh] place-items-center bg-[#f8f4ec] px-4 py-12"><div className="w-full max-w-[680px]"><StatePanel kind={kind} eyebrow={kind === "success" ? "All set" : "Not completed"} title={title} body={body} primary={{ label, href }} secondary={{ label: "Visit .CO home", href: "/" }} /></div></main>;
+  return <div className="grid min-h-[72vh] place-items-center bg-[#f8f4ec] px-4 py-12"><div className="w-full max-w-[680px]"><StatePanel kind={kind} eyebrow={kind === "success" ? "All set" : "Not completed"} title={title} body={body} primary={{ label, href }} secondary={{ label: "Visit .CO home", href: "/" }} /></div></div>;
 }
