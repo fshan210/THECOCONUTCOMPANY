@@ -9,7 +9,8 @@ const managedPrefixes = [
 ] as const;
 
 const bundledRuntimePrefixes = [
-  "/assets/about/floating-coconut-water-splash.png",
+  "/assets/about/about-hand-holding-coconut.png",
+  "/assets/about/about-scraped-coconut-split.png",
   "/assets/home/co-hero-coconut-transparent-v1.webp",
   "/assets/home/generated/",
   "/assets/backgrounds/water-material/co-coconut-water-material.png",

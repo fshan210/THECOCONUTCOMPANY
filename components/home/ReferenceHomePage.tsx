@@ -1657,7 +1657,7 @@ export function ReferenceHomePage({ homepage, products, recipes, testimonials }:
         <RecipesSnapshot recipes={recipes} />
         <SustainabilityBanner />
         <section className="co-home-footer-environment">
-          <div className="co-home-footer-environment__media" aria-hidden="true"><Image src={mediaUrl("/assets/home/generated/co-newsletter-footer-coconut-still-life-v1.webp")} alt="" fill sizes="100vw" className="object-cover" /></div>
+          <div className="co-home-footer-environment__media" aria-hidden="true"><video autoPlay muted loop playsInline preload="metadata" poster={mediaUrl(homepageVideoAssets.farm.poster)}><source src={mediaUrl(homepageVideoAssets.farm.src)} type="video/mp4" /></video></div>
           <div className="co-home-footer-environment__wash" aria-hidden="true" />
           <CoNewsletterSection />
           <ReferenceFooter />

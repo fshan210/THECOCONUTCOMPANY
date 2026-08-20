@@ -11,7 +11,8 @@ const buildRequired = new Set([
   "public/assets/media-library.generated.json",
 ]);
 const bundledRuntimePrefixes = [
-  "public/assets/about/floating-coconut-water-splash.png",
+  "public/assets/about/about-hand-holding-coconut.png",
+  "public/assets/about/about-scraped-coconut-split.png",
   "public/assets/home/co-hero-coconut-transparent-v1.webp",
   "public/assets/home/generated/",
   "public/assets/backgrounds/water-material/co-coconut-water-material.png",

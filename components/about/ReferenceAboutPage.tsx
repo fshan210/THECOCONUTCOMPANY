@@ -49,8 +49,14 @@ function AboutHero() {
         <p>We exist to bring the goodness of coconut to everyday life—honestly, consciously and beautifully.</p>
         <Link className="about-button" href="#coconut-story">Our story <ArrowRight size={14} /></Link>
       </motion.div>
-      <motion.div className="about-hero__coconut" style={{ y: coconutY, scale: coconutScale }}>
-        <Image src="/assets/about/floating-coconut-water-splash.png" alt="An opened mature coconut surrounded by a dynamic splash of coconut water" fill priority sizes="(min-width: 900px) 64vw, 96vw" className="object-contain" />
+      <motion.div
+        className="about-hero__coconut"
+        initial={{ x: "38vw", opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1.35, delay: .18, ease }}
+        style={{ y: coconutY, scale: coconutScale }}
+      >
+        <Image src="/assets/about/about-hand-holding-coconut.png" alt="A hand presenting a whole mature coconut" fill priority sizes="(min-width: 900px) 78vw, 155vw" className="object-contain" />
       </motion.div>
       <div className="about-seal" aria-label="Rooted in nature. Made for living.">
         <svg viewBox="0 0 120 120" aria-hidden="true"><defs><path id="about-seal-path" d="M60,60 m-43,0 a43,43 0 1,1 86,0 a43,43 0 1,1 -86,0" /></defs><text><textPath href="#about-seal-path">ROOTED IN NATURE · MADE FOR LIVING · </textPath></text></svg>
@@ -70,7 +76,7 @@ function CoconutStory() {
         <p>We honour every part of the coconut. Nothing wasted. Everything crafted with care.</p>
       </div>
       <div className="about-anatomy">
-        <div className="about-anatomy__visual"><Image src="/assets/about/floating-coconut-water-splash.png" alt="Opened mature coconut showing shell, flesh and coconut water" fill sizes="(min-width: 900px) 50vw, 90vw" className="object-contain" /></div>
+        <div className="about-anatomy__visual"><Image src="/assets/about/about-scraped-coconut-split.png" alt="Split mature coconut filled with freshly scraped coconut flesh" fill sizes="(min-width: 900px) 50vw, 90vw" className="object-contain" /></div>
         {coconutParts.map((part, index) => { const Icon = part.icon; return <motion.article key={part.title} className={`about-part ${part.className}`} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .45 }} transition={{ duration: .65, delay: index * .07, ease }}><Icon /><h3>{part.title}</h3><p>{part.copy}</p></motion.article>; })}
       </div>
     </section>
@@ -135,7 +141,7 @@ export function ReferenceAboutPage() {
   return (
     <div className="co-about-page about-cinematic min-h-screen overflow-x-clip font-['Inter']">
       <ReferenceHeader />
-      <main><AboutHero /><CoconutStory /><PuzzleEnvironment /><CompanyStory /><BrandWorlds /><JourneyScrollStory /><FoundersNote /><section className="about-newsletter" aria-label="Join the journey"><NewsletterSection /></section></main>
+      <main><AboutHero /><CoconutStory /><PuzzleEnvironment /><CompanyStory /><BrandWorlds /><JourneyScrollStory /><FoundersNote /><section className="about-newsletter" aria-label="Join the journey"><NewsletterSection backgroundVideo /></section></main>
       <ReferenceFooter />
     </div>
   );

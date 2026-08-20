@@ -14,7 +14,8 @@ test("media URL abstraction preserves local fallback and maps managed paths", ()
     assert.equal(mediaUrl("/assets/products/transparent-current/co-coconut-water-v1.webp"), "/assets/products/transparent-current/co-coconut-water-v1.webp");
     assert.equal(mediaUrl("/assets/video/homepage-v2/co-home-scraping-scroll-desktop-v1.mp4"), "/assets/video/homepage-v2/co-home-scraping-scroll-desktop-v1.mp4");
     assert.equal(mediaUrl("/assets/home/co-hero-coconut-transparent-v1.webp"), "/assets/home/co-hero-coconut-transparent-v1.webp");
-    assert.equal(mediaUrl("/assets/about/floating-coconut-water-splash.png"), "/assets/about/floating-coconut-water-splash.png");
+    assert.equal(mediaUrl("/assets/about/about-hand-holding-coconut.png"), "/assets/about/about-hand-holding-coconut.png");
+    assert.equal(mediaUrl("/assets/about/about-scraped-coconut-split.png"), "/assets/about/about-scraped-coconut-split.png");
 
     assert.equal(mediaUrl("/images/website/manual/editorial/example.webp"), "https://media.cothecoconutcompany.com/site-media/v1/images/website/manual/editorial/example.webp");
     assert.equal(mediaUrl("https://example.com/image.jpg"), "https://example.com/image.jpg");
