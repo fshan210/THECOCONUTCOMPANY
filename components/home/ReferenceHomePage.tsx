@@ -548,7 +548,9 @@ function HeroScrapeSequence({ homepage, products }: { homepage: HomepageContent;
   const targetVideoTimeRef = useRef(0);
   const displayedVideoTimeRef = useRef(0);
   const progressRef = useRef(0);
+  const videoDeliveryActiveRef = useRef(false);
   const [mobileVideo, setMobileVideo] = useState(false);
+  const [videoDeliveryActive, setVideoDeliveryActive] = useState(false);
   const reducedMotion = useHydrationSafeReducedMotion();
   const sequenceMotion = choreography.homepage.heroScrape;
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
@@ -630,6 +632,29 @@ function HeroScrapeSequence({ homepage, products }: { homepage: HomepageContent;
     return () => query.removeEventListener("change", update);
   }, []);
 
+  useEffect(() => {
+    const activateWithinScrollLead = () => {
+      const section = sectionRef.current;
+      if (!section || videoDeliveryActiveRef.current) return;
+      const scrollDistance = Math.max(section.offsetHeight - window.innerHeight, 1);
+      const layoutProgress = (window.scrollY - section.offsetTop) / scrollDistance;
+      if (layoutProgress < 0.08) return;
+      videoDeliveryActiveRef.current = true;
+      setVideoDeliveryActive(true);
+    };
+    const frame = window.requestAnimationFrame(activateWithinScrollLead);
+    window.addEventListener("scroll", activateWithinScrollLead, { passive: true });
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", activateWithinScrollLead);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!videoDeliveryActive) return;
+    videoRef.current?.load();
+  }, [videoDeliveryActive]);
+
   useEffect(() => () => {
     if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
     if (videoFrameRef.current !== null && videoRef.current?.cancelVideoFrameCallback) videoRef.current.cancelVideoFrameCallback(videoFrameRef.current);
@@ -653,20 +678,27 @@ function HeroScrapeSequence({ homepage, products }: { homepage: HomepageContent;
             <video
               ref={videoRef}
               className="co-hero-scrape-sequence__video"
-              src={mediaUrl(mobileVideo ? homepageVideoAssets.scraping.mobile : homepageVideoAssets.scraping.desktop)}
               poster={mediaUrl(homepageVideoAssets.scraping.poster)}
               muted
               playsInline
               controls={false}
-              preload="auto"
+              preload={videoDeliveryActive ? "auto" : "none"}
               tabIndex={-1}
+              data-delivery-active={videoDeliveryActive}
               onLoadedMetadata={(event) => {
                 event.currentTarget.currentTime = videoSequence.introTimestampSeconds;
                 displayedVideoTimeRef.current = videoSequence.introTimestampSeconds;
                 targetVideoTimeRef.current = videoSequence.introTimestampSeconds;
                 syncVideo(progressRef.current);
               }}
-            />
+            >
+              {videoDeliveryActive ? (
+                <>
+                  <source media="(max-width: 900px)" src={mediaUrl(homepageVideoAssets.scraping.mobile)} type="video/mp4" />
+                  <source src={mediaUrl(homepageVideoAssets.scraping.desktop)} type="video/mp4" />
+                </>
+              ) : null}
+            </video>
           )}
           <div className="co-hero-scrape-sequence__video-mask" />
         </motion.div>
@@ -958,8 +990,11 @@ function CoReceiptSection() {
   });
   const addDay = () => selectedProducts.forEach(({ product }) => cart.addItem(product.slug));
   useEffect(() => {
-    const activeButton = mobileTimesRef.current?.querySelector<HTMLButtonElement>(`button[data-moment-index="${activeMoment}"]`);
-    activeButton?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "nearest", inline: "center" });
+    const scroller = mobileTimesRef.current;
+    const activeButton = scroller?.querySelector<HTMLButtonElement>(`button[data-moment-index="${activeMoment}"]`);
+    if (!scroller || !activeButton) return;
+    const centeredLeft = activeButton.offsetLeft - (scroller.clientWidth - activeButton.offsetWidth) / 2;
+    scroller.scrollTo({ left: Math.max(0, centeredLeft), behavior: reducedMotion ? "auto" : "smooth" });
   }, [activeMoment, reducedMotion]);
 
   return (
@@ -1116,22 +1151,47 @@ function FarmEnvironmentalMedia() {
   const reducedMotion = useHydrationSafeReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
   const hostRef = useRef<HTMLDivElement>(null);
+  const inViewRef = useRef(false);
+  const [videoDeliveryActive, setVideoDeliveryActive] = useState(false);
   useEffect(() => {
     const host = hostRef.current;
     const video = videoRef.current;
     if (reducedMotion || !host || !video) return undefined;
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) void video.play().catch(() => undefined);
-      else video.pause();
-    }, { rootMargin: "120px" });
+      inViewRef.current = entry.isIntersecting;
+      if (entry.isIntersecting) {
+        setVideoDeliveryActive(true);
+        if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) void video.play().catch(() => undefined);
+      } else video.pause();
+    }, { rootMargin: "700px 0px" });
     observer.observe(host);
     return () => { observer.disconnect(); video.pause(); };
   }, [reducedMotion]);
+  useEffect(() => {
+    if (!videoDeliveryActive) return;
+    videoRef.current?.load();
+  }, [videoDeliveryActive]);
   return reducedMotion ? (
     <Image src={homepageVideoAssets.farm.poster} alt="Kerala coconut farm landscape" fill sizes="100vw" className="object-cover" />
   ) : (
     <div ref={hostRef} className="absolute inset-0">
-      <video ref={videoRef} className="absolute inset-0 size-full object-cover" src={mediaUrl(homepageVideoAssets.farm.src)} poster={mediaUrl(homepageVideoAssets.farm.poster)} autoPlay muted loop playsInline controls={false} preload="metadata" aria-label="Kerala coconut farm landscape" />
+      <video
+        ref={videoRef}
+        className="absolute inset-0 size-full object-cover"
+        poster={mediaUrl(homepageVideoAssets.farm.poster)}
+        muted
+        loop
+        playsInline
+        controls={false}
+        preload={videoDeliveryActive ? "auto" : "none"}
+        data-delivery-active={videoDeliveryActive}
+        aria-label="Kerala coconut farm landscape"
+        onCanPlay={(event) => {
+          if (inViewRef.current) void event.currentTarget.play().catch(() => undefined);
+        }}
+      >
+        {videoDeliveryActive ? <source src={mediaUrl(homepageVideoAssets.farm.src)} type="video/mp4" /> : null}
+      </video>
     </div>
   );
 }
@@ -1657,7 +1717,7 @@ export function ReferenceHomePage({ homepage, products, recipes, testimonials }:
         <RecipesSnapshot recipes={recipes} />
         <SustainabilityBanner />
         <section className="co-home-footer-environment">
-          <div className="co-home-footer-environment__media" aria-hidden="true"><video autoPlay muted loop playsInline preload="metadata" poster={mediaUrl(homepageVideoAssets.farm.poster)}><source src={mediaUrl(homepageVideoAssets.farm.src)} type="video/mp4" /></video></div>
+          <div className="co-home-footer-environment__media" aria-hidden="true"><FarmEnvironmentalMedia /></div>
           <div className="co-home-footer-environment__wash" aria-hidden="true" />
           <CoNewsletterSection />
           <ReferenceFooter />
