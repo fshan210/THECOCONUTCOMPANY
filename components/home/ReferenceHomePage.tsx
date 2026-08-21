@@ -298,6 +298,7 @@ export function ReferenceHeader() {
                 <Link
                   key={href}
                   href={href}
+                  prefetch={href === "/" ? false : undefined}
                   aria-current={active ? "page" : undefined}
                   onClick={() => setMenuOpen(false)}
                   className={cn("block rounded-2xl border-b border-[#35271e]/8 px-4 py-3 text-xs font-semibold uppercase tracking-[.08em] last:border-0", active && "co-nav-active bg-white/68 font-bold text-[#214d2b]")}
@@ -1635,7 +1636,7 @@ export function MobileBottomNav() {
   const items = [[Leaf, "Home", "/"], [ShoppingBag, "Shop", "/shop"], [Grid2X2, "Recipes", "/recipes"], [Heart, "Wishlist", "/wishlist"], [CircleUserRound, "Account", "/account"]] as const;
   return (
     <nav className="co-mobile-bottom-nav fixed inset-x-0 bottom-0 z-[105] grid grid-cols-5 border-t border-[#35271e]/10 bg-[rgba(250,247,240,.94)] px-2 pb-[max(6px,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl md:hidden" aria-label="Mobile quick navigation">
-      {items.map(([Icon, label, href]) => { const active = pathname === href || (href !== "/" && pathname.startsWith(`${href}/`)); return <Link key={label} href={href} aria-current={active ? "page" : undefined} className={cn("flex flex-col items-center gap-1 rounded-2xl py-1 text-[8px] transition", active && "co-nav-active bg-white/70 font-bold text-[#305a34]")}><Icon size={17} strokeWidth={1.6} /><span>{label}</span></Link>; })}
+      {items.map(([Icon, label, href]) => { const active = pathname === href || (href !== "/" && pathname.startsWith(`${href}/`)); return <Link key={label} href={href} prefetch={href === "/" ? false : undefined} aria-current={active ? "page" : undefined} className={cn("flex flex-col items-center gap-1 rounded-2xl py-1 text-[8px] transition", active && "co-nav-active bg-white/70 font-bold text-[#305a34]")}><Icon size={17} strokeWidth={1.6} /><span>{label}</span></Link>; })}
     </nav>
   );
 }
