@@ -3,12 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Check, ChevronRight, GripHorizontal, Minus, PackageCheck, Plus, ShoppingBag, Sparkles, Trash2, X } from "lucide-react";
+import { Check, ChevronRight, GripHorizontal, Minus, Plus, ShoppingBag, Sparkles, Trash2, X } from "lucide-react";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { useEffect, useMemo, useRef } from "react";
 import { getCartPreviewPrice, useCart } from "@/lib/cart/cart-context";
 import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
 import { StatePanel } from "@/components/launch/StatePanel";
+import { CartInterestHandoff } from "@/components/cart/CartInterestHandoff";
 
 const spring = { type: "spring", stiffness: 330, damping: 30, mass: 0.82 } as const;
 
@@ -55,8 +56,6 @@ export function CartDrawer() {
   }, [cart, cart.open]);
 
   const close = () => cart.setOpen(false);
-  const lineSubtotal = recentlyAdded ? (recentlyAdded.unitPrice ?? getCartPreviewPrice(recentlyAdded.slug)) * recentlyAdded.quantity : cart.subtotal;
-
   return (
     <AnimatePresence>
       {cart.open ? (
@@ -111,18 +110,22 @@ export function CartDrawer() {
                   </div>
                 </div>
               ) : <StatePanel compact kind="empty" eyebrow="Your shelf" title="Nothing saved yet." body="Add a coconut favourite and it will wait here for you." onPrimary={{ label: "Browse products", action: () => { close(); router.push("/shop"); } }} />}
+              {cart.products.length ? (
+                <div className="mt-5">
+                  <CartInterestHandoff
+                    variant="drawer"
+                    productSlugs={cart.products.map((product) => product.slug)}
+                    productCategories={cart.products.map((product) => product.category)}
+                  />
+                </div>
+              ) : null}
             </div>
 
             <div className="border-t border-white/70 px-5 pt-4">
-              <motion.div key={cart.subtotal} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="rounded-[18px] border border-white/70 bg-white/52 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,.72)]">
-                <div className="flex items-center justify-between text-xs text-[#6a5f56]"><span>Estimated subtotal</span><motion.strong key={cart.subtotal} initial={{ opacity: 0, scale: .94 }} animate={{ opacity: 1, scale: 1 }} className="text-base text-[#2a1b13]">₹{cart.subtotal.toLocaleString("en-IN")}</motion.strong></div>
-                {recentlyAdded ? <p className="mt-1 text-[10px] text-[#6a5f56]">Latest selection subtotal: ₹{lineSubtotal.toLocaleString("en-IN")}</p> : null}
-              </motion.div>
-              <div className="mt-3 grid grid-cols-2 gap-2.5">
+              <div className="grid grid-cols-2 gap-2.5">
                 <button type="button" onClick={close} className="min-h-11 rounded-full border border-[#214d2b]/20 bg-white/62 px-4 text-[10px] font-semibold uppercase tracking-[.06em] text-[#214d2b] shadow-[0_7px_18px_rgba(58,36,22,.045)] transition hover:-translate-y-0.5 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#214d2b]">Continue shopping</button>
                 <Link href="/cart" onClick={close} className="group flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#214d2b] px-4 text-[10px] font-semibold uppercase tracking-[.06em] text-white shadow-[0_12px_26px_rgba(33,77,43,.24)] transition hover:-translate-y-0.5 hover:bg-[#183b20] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#214d2b]">View cart <ChevronRight size={14} className="transition-transform group-hover:translate-x-0.5" /></Link>
               </div>
-              <button type="button" disabled aria-label="Checkout coming soon" className="mt-2.5 flex min-h-11 w-full cursor-not-allowed items-center justify-center gap-2 rounded-full border border-[#214d2b]/15 bg-[linear-gradient(100deg,#f4efe1,#e7f0df)] px-4 text-[10px] font-semibold uppercase tracking-[.06em] text-[#214d2b]/70 shadow-[0_8px_22px_rgba(33,77,43,.08)]"><PackageCheck size={15}/>Checkout coming soon</button>
             </div>
           </motion.aside>
         </>
