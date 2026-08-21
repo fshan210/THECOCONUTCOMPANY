@@ -17,6 +17,7 @@ export function LaunchExperience() {
   const pathname = usePathname();
   const router = useRouter();
   const excluded = pathname.startsWith("/admin") || pathname.startsWith("/control-center");
+  const welcomeExcluded = excluded || pathname === "/shop" || pathname.startsWith("/shop/");
   const [consentVisible, setConsentVisible] = useState(false);
   const [consentResolved, setConsentResolved] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
@@ -39,10 +40,13 @@ export function LaunchExperience() {
   }, [excluded]);
 
   useEffect(() => {
-    if (excluded || !consentResolved || window.localStorage.getItem(welcomeKey)) return;
+    if (welcomeExcluded || !consentResolved || window.localStorage.getItem(welcomeKey)) {
+      setWelcomeOpen(false);
+      return;
+    }
     const timer = window.setTimeout(() => setWelcomeOpen(true), 3200);
     return () => window.clearTimeout(timer);
-  }, [consentResolved, excluded]);
+  }, [consentResolved, welcomeExcluded]);
 
   useEffect(() => {
     const openPreferences = () => setPreferencesOpen(true);

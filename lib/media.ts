@@ -16,6 +16,8 @@ const bundledRuntimePrefixes = [
   "/assets/backgrounds/water-material/co-coconut-water-material.png",
   "/assets/backgrounds/day-with-co/midday-kitchen.png",
   "/assets/products/transparent-current/",
+  "/assets/products/shop-hero/",
+  "/assets/video/shop/",
   "/assets/video/homepage-v2/",
 ] as const;
 

@@ -43,6 +43,10 @@ import {
 import { StatePanel } from "@/components/launch/StatePanel";
 import type { ContentProduct } from "@/lib/content/types";
 import { ProductConfigurator } from "@/components/shop/ProductConfigurator";
+import { ShopHero } from "@/components/shop/ShopHero";
+import { ShopCategorySlab, shopCategories } from "@/components/shop/ShopCategorySlab";
+import { ShopBundleBuilder } from "@/components/shop/ShopBundleBuilder";
+import type { ShopViewProduct } from "@/components/shop/shop-types";
 import {
   galleryForShopSlug,
   type ProductGalleryAsset,
@@ -53,23 +57,18 @@ const imageRoot = "/assets/shop/products";
 const blurDataURL =
   "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MCcgaGVpZ2h0PSc0MCc+PGZpbHRlciBpZD0nYic+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0nNicvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbGw9JyNmOGY0ZWMnLz48L3N2Zz4=";
 
-type Product = {
-  slug: string;
-  cartSlug: string;
-  name: string;
-  subtitle: string;
-  category: string;
-  price: number;
-  rating: number;
-  reviews: number;
-  badge?: "Bestseller" | "New" | "Limited";
-  image: string;
-  gallery?: ProductGalleryAsset[];
-  dietary: string[];
-  collection: string[];
-  description: string;
-  benefits: string[];
-  nutrition: string;
+type Product = ShopViewProduct;
+
+const transparentProductImages: Record<string, string> = {
+  "co-water": "/assets/products/transparent-current/co-coconut-water-v1.webp",
+  "melt-co-mango-coconut": "/assets/products/transparent-current/co-melt-coconut-mango-v1.webp",
+  "co-kitchen-coconut-oil": "/assets/products/transparent-current/co-kitchen-coconut-oil-v1.webp",
+  "co-kitchen-coconut-flour": "/assets/products/transparent-current/co-kitchen-coconut-flour-v1.webp",
+  "co-kitchen-coconut-milk": "/assets/products/transparent-current/co-kitchen-coconut-milk-v1.webp",
+  "co-botanica-shampoo": "/assets/products/transparent-current/co-botanica-shampoo-v1.webp",
+  "co-botanica-face-wash": "/assets/products/transparent-current/co-botanica-face-wash-v1.webp",
+  "co-botanica-hair-serum": "/assets/products/transparent-current/co-botanica-hair-serum-v1.webp",
+  "co-botanica-body-moisturizer": "/assets/products/transparent-current/co-botanica-body-moisturizer-v1.webp",
 };
 
 const fallbackShopProducts: Product[] = [
@@ -80,12 +79,8 @@ const fallbackShopProducts: Product[] = [
     subtitle: "Chilled bottle",
     category: "Coconut Water",
     price: 60,
-    rating: 4.9,
-    reviews: 128,
-    badge: "Bestseller",
     image: `${imageRoot}/IndividualProduct_CO-Water.png`,
-    dietary: ["Vegan", "Gluten Free", "No Added Sugar", "Dairy Free"],
-    collection: ["Bestsellers"],
+    collection: ["Featured", "Coming soon"],
     description:
       "Clean tender coconut water with a light, naturally refreshing finish.",
     benefits: [
@@ -103,12 +98,8 @@ const fallbackShopProducts: Product[] = [
     subtitle: "Frozen dessert",
     category: "Ice Cream",
     price: 220,
-    rating: 4.8,
-    reviews: 96,
-    badge: "New",
     image: `${imageRoot}/IndividualProduct_MeltCO.png`,
-    dietary: ["Vegan", "Gluten Free", "Dairy Free"],
-    collection: ["New Arrivals"],
+    collection: ["Featured", "Coming soon"],
     description:
       "A creamy coconut-led frozen dessert lifted with bright mango.",
     benefits: ["Coconut creaminess", "Mango-forward", "Dairy free"],
@@ -122,12 +113,8 @@ const fallbackShopProducts: Product[] = [
     subtitle: "Kitchen staple",
     category: "Kitchen",
     price: 250,
-    rating: 4.8,
-    reviews: 45,
-    badge: "Bestseller",
     image: `${imageRoot}/IndividualProduct_CoconutOil.png`,
-    dietary: ["Vegan", "Gluten Free", "No Added Sugar", "Dairy Free"],
-    collection: ["Bestsellers"],
+    collection: ["Featured", "Product previews"],
     description:
       "A versatile coconut oil for simple cooking and everyday rituals.",
     benefits: ["Kitchen-friendly", "Multipurpose", "Simple ingredient"],
@@ -141,11 +128,8 @@ const fallbackShopProducts: Product[] = [
     subtitle: "Pantry staple",
     category: "Kitchen",
     price: 180,
-    rating: 4.7,
-    reviews: 36,
     image: `${imageRoot}/IndividualProduct_CoconutFlour.png`,
-    dietary: ["Vegan", "Gluten Free", "Dairy Free"],
-    collection: ["New Arrivals"],
+    collection: ["Product previews"],
     description:
       "Finely milled coconut flour for baking, breakfast bowls, and everyday pantry use.",
     benefits: ["Baking friendly", "Naturally versatile", "Pantry ready"],
@@ -159,12 +143,8 @@ const fallbackShopProducts: Product[] = [
     subtitle: "Cooking essential",
     category: "Kitchen",
     price: 180,
-    rating: 4.8,
-    reviews: 42,
-    badge: "New",
     image: `${imageRoot}/IndividualProduct_CoconutMilk.png`,
-    dietary: ["Vegan", "Gluten Free", "Dairy Free"],
-    collection: ["New Arrivals"],
+    collection: ["Product previews"],
     description:
       "A smooth coconut milk direction for curries, desserts, drinks, and daily cooking.",
     benefits: [
@@ -182,12 +162,8 @@ const fallbackShopProducts: Product[] = [
     subtitle: "Hair care preview",
     category: "BOTANiCA",
     price: 399,
-    rating: 4.7,
-    reviews: 31,
-    badge: "New",
     image: `${imageRoot}/IndividualProduct_Shampoo.png`,
-    dietary: ["Vegan"],
-    collection: ["New Arrivals"],
+    collection: ["Product previews"],
     description:
       "A gentle coconut-led shampoo direction for a clean, balanced wash ritual.",
     benefits: ["Gentle cleanse", "Coconut-led care", "Daily ritual"],
@@ -201,12 +177,8 @@ const fallbackShopProducts: Product[] = [
     subtitle: "Face care preview",
     category: "BOTANiCA",
     price: 399,
-    rating: 4.8,
-    reviews: 41,
-    badge: "Bestseller",
     image: `${imageRoot}/IndividualProduct_FaceWash.png`,
-    dietary: ["Vegan"],
-    collection: ["Bestsellers"],
+    collection: ["Product previews"],
     description: "A calm daily cleanse inspired by coconut botanicals.",
     benefits: ["Gentle cleanse", "Daily ritual", "Coconut botanical direction"],
     nutrition:
@@ -219,11 +191,8 @@ const fallbackShopProducts: Product[] = [
     subtitle: "Hair care preview",
     category: "BOTANiCA",
     price: 499,
-    rating: 4.8,
-    reviews: 52,
     image: `${imageRoot}/IndividualProduct_HairOil.png`,
-    dietary: ["Vegan"],
-    collection: ["New Arrivals"],
+    collection: ["Product previews"],
     description:
       "A lightweight coconut botanical serum direction for an easy finishing ritual.",
     benefits: ["Light finish", "Coconut-led care", "Everyday ritual"],
@@ -237,11 +206,8 @@ const fallbackShopProducts: Product[] = [
     subtitle: "Body care preview",
     category: "BOTANiCA",
     price: 499,
-    rating: 4.7,
-    reviews: 32,
     image: `${imageRoot}/IndividualProduct_BodyLotion.png`,
-    dietary: ["Vegan"],
-    collection: ["New Arrivals"],
+    collection: ["Product previews"],
     description:
       "A soft coconut botanical moisturizer direction for daily body care.",
     benefits: ["Daily moisture", "Soft finish", "Coconut botanical direction"],
@@ -250,22 +216,12 @@ const fallbackShopProducts: Product[] = [
   },
 ];
 
-const categoryOptions = [
-  "All Products",
-  "Coconut Water",
-  "Ice Cream",
-  "Kitchen",
-  "BOTANiCA",
-];
-const dietaryOptions = ["Vegan", "Gluten Free", "No Added Sugar", "Dairy Free"];
-const collectionOptions = ["Bestsellers", "New Arrivals", "On Sale"];
+const categoryOptions = shopCategories.map((category) => category.value);
+const collectionOptions = ["Featured", "Product previews"];
 const sortOptions = [
   "Featured",
-  "Newest",
   "Price Low to High",
   "Price High to Low",
-  "Best Selling",
-  "Rating",
   "Alphabetical",
 ];
 
@@ -301,7 +257,7 @@ function Quantity({
   onChange: (value: number) => void;
 }) {
   return (
-    <div className="inline-flex h-9 items-center rounded-full bg-[#f4efe7] px-1">
+    <div className="co-shop-quantity inline-flex h-9 items-center rounded-full px-1">
       <button
         type="button"
         aria-label="Decrease quantity"
@@ -328,22 +284,34 @@ function FilterContent({
   setCategory,
   maxPrice,
   setMaxPrice,
-  dietary,
-  toggleDietary,
   collections,
   toggleCollection,
+  availability,
+  toggleAvailability,
+  formats,
+  selectedFormats,
+  toggleFormat,
+  clearAll,
 }: {
   category: string;
   setCategory: (value: string) => void;
   maxPrice: number;
   setMaxPrice: (value: number) => void;
-  dietary: Set<string>;
-  toggleDietary: (value: string) => void;
   collections: Set<string>;
   toggleCollection: (value: string) => void;
+  availability: Set<string>;
+  toggleAvailability: (value: string) => void;
+  formats: string[];
+  selectedFormats: Set<string>;
+  toggleFormat: (value: string) => void;
+  clearAll: () => void;
 }) {
   return (
-    <div className="space-y-7 text-[#2a1b13]">
+    <div className="co-shop-filter-content space-y-7">
+      <div className="flex items-center justify-between">
+        <p className="text-[10px] font-semibold uppercase tracking-[.14em]">Filters</p>
+        <button type="button" onClick={clearAll} className="min-h-9 text-[9px] font-semibold uppercase text-[#214d2b] underline underline-offset-4">Clear all</button>
+      </div>
       <div>
         <p className="mb-3 text-[10px] font-semibold uppercase tracking-[.12em]">
           Categories
@@ -354,8 +322,8 @@ function FilterContent({
             key={item}
             onClick={() => setCategory(item)}
             className={cn(
-              "block w-full rounded-lg px-3 py-2 text-left text-xs",
-              category === item && "bg-[#e7e8df] font-semibold text-[#214d2b]",
+              "co-shop-filter-option block w-full rounded-lg px-3 py-2 text-left text-xs",
+              category === item && "is-active font-semibold",
             )}
           >
             {item}
@@ -369,31 +337,37 @@ function FilterContent({
         <input
           aria-label="Maximum price"
           type="range"
-          min="100"
+          min="0"
           max="1000"
           step="50"
           value={maxPrice}
           onChange={(event) => setMaxPrice(Number(event.target.value))}
-          className="mt-4 w-full accent-[#214d2b]"
+          className="co-shop-price-range mt-4 w-full"
         />
         <div className="mt-1 flex justify-between text-[10px]">
-          <span>₹100</span>
+          <span>₹0</span>
           <span>₹{maxPrice}</span>
         </div>
       </div>
-      <FilterChecks
-        title="Dietary"
-        options={dietaryOptions}
-        selected={dietary}
-        onToggle={toggleDietary}
-      />
       <FilterChecks
         title="Collection"
         options={collectionOptions}
         selected={collections}
         onToggle={toggleCollection}
       />
-      <div className="overflow-hidden rounded-[22px] bg-[linear-gradient(135deg,#f2e4d1,#f8f4ec)] p-4">
+      <FilterChecks
+        title="Availability"
+        options={["Coming soon", "Product preview"]}
+        selected={availability}
+        onToggle={toggleAvailability}
+      />
+      <FilterChecks
+        title="Size / type"
+        options={formats}
+        selected={selectedFormats}
+        onToggle={toggleFormat}
+      />
+      <div className="co-shop-filter-promo overflow-hidden rounded-[22px] p-4">
         <p className="font-['Cormorant_Garamond'] text-2xl">BOTANiCA rituals</p>
         <p className="mt-2 text-[11px] leading-5 text-[#685b50]">
           Explore the distinct coconut care previews.
@@ -435,7 +409,7 @@ function FilterChecks({
             type="checkbox"
             checked={selected.has(item)}
             onChange={() => onToggle(item)}
-            className="size-4 accent-[#214d2b]"
+            className="co-shop-checkbox size-4"
           />
           {item}
         </label>
@@ -454,8 +428,9 @@ function mergeProductCatalog(contentProducts: ContentProduct[]) {
       galleryForShopSlug(fallback.cartSlug);
     const approvedImage = approved?.primary;
     const gallery = approved?.gallery ?? [];
+    const transparentImage = transparentProductImages[fallback.slug] ?? transparentProductImages[fallback.cartSlug];
     if (!source)
-      return { ...fallback, image: approvedImage ?? fallback.image, gallery };
+      return { ...fallback, image: transparentImage ?? approvedImage ?? fallback.image, gallery };
     return {
       ...fallback,
       cartSlug: source.slug,
@@ -463,7 +438,12 @@ function mergeProductCatalog(contentProducts: ContentProduct[]) {
       subtitle: source.subtitle || source.shortDescription || fallback.subtitle,
       category: source.category || fallback.category,
       price: source.price ?? fallback.price,
-      image: approvedImage ?? source.image ?? fallback.image,
+      currency: source.currency || "INR",
+      status: source.status,
+      availabilityStatus: source.availabilityStatus,
+      featured: source.featured,
+      format: source.format,
+      image: transparentImage ?? approvedImage ?? source.image ?? fallback.image,
       gallery,
       description:
         source.longDescription ||
@@ -473,7 +453,11 @@ function mergeProductCatalog(contentProducts: ContentProduct[]) {
       nutrition: source.nutritionHighlights.length
         ? source.nutritionHighlights.join(" · ")
         : fallback.nutrition,
-      badge: source.featured ? ("Bestseller" as const) : fallback.badge,
+      collection: [
+        ...(source.featured ? ["Featured"] : []),
+        source.status === "coming-soon" ? "Coming soon" : "Product previews",
+      ],
+      badge: source.featured ? ("Featured" as const) : undefined,
     };
   });
 }
@@ -490,8 +474,9 @@ export function ReferenceShopPage({
   );
   const [category, setCategory] = useState("All Products");
   const [maxPrice, setMaxPrice] = useState(1000);
-  const [dietary, setDietary] = useState(new Set<string>());
   const [collections, setCollections] = useState(new Set<string>());
+  const [availability, setAvailability] = useState(new Set<string>());
+  const [formats, setFormats] = useState(new Set<string>());
   const [sort, setSort] = useState("Featured");
   const [sortOpen, setSortOpen] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -499,19 +484,74 @@ export function ReferenceShopPage({
   const [searchFocused, setSearchFocused] = useState(false);
   const [activeSuggestion, setActiveSuggestion] = useState(0);
   const [quickView, setQuickView] = useState<Product | null>(null);
+  const [configuratorOpen, setConfiguratorOpen] = useState(false);
   const wishlist = useSavedContent("product");
   const recentProducts = useSavedContent("recent");
   const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const formatOptions = useMemo(() => Array.from(new Set(products.map((product) => product.format || product.subtitle))), [products]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const requested = params.get("product");
-    if (!requested) return;
-    const match = products.find(
-      (item) => item.slug === requested || item.cartSlug === requested,
-    );
-    if (match) setSearch(match.name);
+    const requestedCategory = params.get("category");
+    const aliases: Record<string, string> = { Food: "Kitchen", Cosmetics: "BOTANiCA" };
+    const resolvedCategory = requestedCategory ? (aliases[requestedCategory] ?? requestedCategory) : null;
+    if (resolvedCategory && categoryOptions.includes(resolvedCategory as (typeof categoryOptions)[number])) setCategory(resolvedCategory);
+    const requestedSort = params.get("sort");
+    if (requestedSort && sortOptions.includes(requestedSort)) setSort(requestedSort);
+    const requestedQuery = params.get("q");
+    if (requestedQuery) setSearch(requestedQuery.slice(0, 120));
+    const requestedPriceValue = params.get("maxPrice");
+    const requestedPrice = Number(requestedPriceValue);
+    if (requestedPriceValue && Number.isFinite(requestedPrice) && requestedPrice >= 0 && requestedPrice <= 1000) setMaxPrice(requestedPrice);
+    if (requested) {
+      const match = products.find((item) => item.slug === requested || item.cartSlug === requested);
+      if (match) setSearch(match.name);
+    }
   }, [products]);
+
+  useEffect(() => {
+    const syncFromHistory = () => {
+      const params = new URLSearchParams(window.location.search);
+      const aliases: Record<string, string> = { Food: "Kitchen", Cosmetics: "BOTANiCA" };
+      const nextCategory = aliases[params.get("category") ?? ""] ?? params.get("category") ?? "All Products";
+      setCategory(categoryOptions.includes(nextCategory as (typeof categoryOptions)[number]) ? nextCategory : "All Products");
+      const nextSort = params.get("sort") ?? "Featured";
+      setSort(sortOptions.includes(nextSort) ? nextSort : "Featured");
+      setSearch((params.get("q") ?? "").slice(0, 120));
+      const nextPriceValue = params.get("maxPrice");
+      const nextPrice = Number(nextPriceValue);
+      setMaxPrice(nextPriceValue && Number.isFinite(nextPrice) && nextPrice >= 0 && nextPrice <= 1000 ? nextPrice : 1000);
+    };
+    window.addEventListener("popstate", syncFromHistory);
+    return () => window.removeEventListener("popstate", syncFromHistory);
+  }, []);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      const params = new URLSearchParams(window.location.search);
+      if (search.trim()) params.set("q", search.trim()); else params.delete("q");
+      if (maxPrice < 1000) params.set("maxPrice", String(maxPrice)); else params.delete("maxPrice");
+      window.history.replaceState(null, "", `${window.location.pathname}${params.size ? `?${params.toString()}` : ""}${window.location.hash}`);
+    }, 180);
+    return () => window.clearTimeout(timer);
+  }, [maxPrice, search]);
+
+  const commitShopParam = (key: "category" | "sort", value: string, defaultValue: string) => {
+    const params = new URLSearchParams(window.location.search);
+    if (value === defaultValue) params.delete(key); else params.set(key, value);
+    window.history.pushState(null, "", `${window.location.pathname}${params.size ? `?${params.toString()}` : ""}${window.location.hash}`);
+  };
+  const chooseCategory = (value: string) => { setCategory(value); commitShopParam("category", value, "All Products"); };
+  const chooseSort = (value: string) => { setSort(value); commitShopParam("sort", value, "Featured"); };
+  const clearFilters = () => {
+    chooseCategory("All Products");
+    setCollections(new Set());
+    setAvailability(new Set());
+    setFormats(new Set());
+    setMaxPrice(1000);
+    setSearch("");
+  };
 
   const toggleSet = (
     setter: React.Dispatch<React.SetStateAction<Set<string>>>,
@@ -530,17 +570,15 @@ export function ReferenceShopPage({
         return false;
       if (product.price > maxPrice) return false;
       if (
-        dietary.size &&
-        !Array.from(dietary).every((item) => product.dietary.includes(item))
-      )
-        return false;
-      if (
         collections.size &&
         !Array.from(collections).some((item) =>
           product.collection.includes(item),
         )
       )
         return false;
+      const availabilityLabel = product.status === "coming-soon" ? "Coming soon" : "Product preview";
+      if (availability.size && !availability.has(availabilityLabel)) return false;
+      if (formats.size && !formats.has(product.format || product.subtitle)) return false;
       if (
         query &&
         !`${product.name} ${product.subtitle} ${product.category}`
@@ -555,18 +593,11 @@ export function ReferenceShopPage({
         ? a.price - b.price
         : sort === "Price High to Low"
           ? b.price - a.price
-          : sort === "Rating"
-            ? b.rating - a.rating
-            : sort === "Alphabetical"
+          : sort === "Alphabetical"
               ? a.name.localeCompare(b.name)
-              : sort === "Best Selling"
-                ? b.reviews - a.reviews
-                : sort === "Newest"
-                  ? Number(Boolean(b.badge === "New")) -
-                    Number(Boolean(a.badge === "New"))
-                  : 0,
+              : Number(Boolean(b.featured)) - Number(Boolean(a.featured)),
     );
-  }, [category, collections, dietary, maxPrice, products, search, sort]);
+  }, [availability, category, collections, formats, maxPrice, products, search, sort]);
   const suggestions = useMemo(
     () =>
       products
@@ -589,69 +620,21 @@ export function ReferenceShopPage({
   };
 
   return (
-    <div className="co-shop-page min-h-screen overflow-x-clip bg-[#f8f4ec] font-['Inter'] text-[#2a1b13]">
+    <div className="co-shop-page min-h-screen overflow-x-clip font-['Inter']">
       <ReferenceHeader />
       <div>
-        <section className="relative min-h-[520px] overflow-hidden bg-[#f3eee4] md:min-h-[540px]">
-          <Image
-            src="/assets/about/co-about-hero-editorial-4k.avif"
-            alt=".CO coconut water and Melt.CO products with fresh coconuts"
-            fill
-            priority
-            sizes="100vw"
-            quality={95}
-            placeholder="blur"
-            blurDataURL={blurDataURL}
-            className="object-cover object-[62%_center] md:object-center"
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(248,244,236,.98)_0%,rgba(248,244,236,.88)_43%,rgba(248,244,236,.08)_72%)]" />
-          <div className="relative mx-auto flex min-h-[520px] max-w-[1500px] items-center px-6 py-12 md:min-h-[540px] md:px-[clamp(48px,6vw,92px)]">
-            <div className="max-w-[560px]">
-              <p className="text-[10px] font-semibold uppercase tracking-[.15em] text-[#214d2b]">
-                Shop
-              </p>
-              <h1 className="mt-5 font-['Cormorant_Garamond'] text-[52px] leading-[.9] tracking-[-.04em] md:text-[74px]">
-                Good for you,
-                <br />
-                good for the{" "}
-                <em className="font-normal text-[#214d2b]">planet.</em>
-              </h1>
-              <p className="mt-6 max-w-[360px] text-sm leading-7 text-[#5e5045]">
-                Explore our range of coconut goodness, made with care for you
-                and the Earth.
-              </p>
-              <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-                {[
-                  [Leaf, "Natural Ingredients"],
-                  [Recycle, "Sustainably Sourced"],
-                  [Sparkles, "No Artificial Additives"],
-                  [Heart, "Cruelty Free"],
-                ].map(([Icon, label]) => {
-                  const FeatureIcon = Icon as typeof Leaf;
-                  return (
-                    <div
-                      key={String(label)}
-                      className="flex items-center gap-2"
-                    >
-                      <span className="grid size-9 shrink-0 place-items-center rounded-full border border-[#214d2b]/25 bg-white/35">
-                        <FeatureIcon size={17} strokeWidth={1.5} />
-                      </span>
-                      <span className="text-[9px] font-semibold leading-4">
-                        {String(label)}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </section>
+        <ShopHero products={products} search={search} onSearch={setSearch} />
+        <ShopCategorySlab
+          value={category}
+          onChange={(nextCategory) => {
+            chooseCategory(nextCategory);
+            window.setTimeout(() => document.getElementById(nextCategory === "Bundles & Gifts" ? "bundle-builder" : "all-products")?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
+          }}
+        />
 
-        <ProductConfigurator />
-
-        <section id="all-products" className="px-4 py-8 md:px-8 md:py-12">
+        <section id="all-products" className="co-shop-commerce px-4 py-8 md:px-8 md:py-10">
           <div className="mx-auto max-w-[1320px]">
-            <div className="relative z-30 mb-6 flex items-center gap-4 overflow-visible rounded-[22px] border border-black/6 bg-[rgba(255,255,255,.88)] p-3 shadow-[0_12px_40px_rgba(42,27,19,.08)] backdrop-blur-xl md:bg-white/72">
+            <div className="co-shop-toolbar sticky top-[84px] z-30 mb-6 flex items-center gap-4 overflow-visible rounded-[22px] p-3 backdrop-blur-xl md:relative md:top-auto">
               <div className="relative min-w-0 flex-1">
                 <Search
                   className="absolute left-4 top-1/2 -translate-y-1/2"
@@ -696,8 +679,9 @@ export function ReferenceShopPage({
                   aria-autocomplete="list"
                   aria-expanded={searchFocused}
                   aria-controls="shop-search-results"
-                  className="h-11 w-full rounded-full bg-[#f8f4ec] pl-11 pr-4 text-xs outline-none"
+                  className="co-shop-toolbar__search h-11 w-full rounded-full pl-11 pr-11 text-xs outline-none"
                 />
+                {search ? <button type="button" onClick={() => { setSearch(""); setSearchFocused(false); }} aria-label="Clear search" className="absolute right-1 top-1/2 grid size-9 -translate-y-1/2 place-items-center rounded-full text-[#5f554d] hover:bg-white"><X size={14} /></button> : null}
                 <AnimatePresence>
                   {searchFocused && (
                     <motion.div
@@ -707,7 +691,7 @@ export function ReferenceShopPage({
                       initial={{ opacity: 0, y: -6 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -6 }}
-                      className="absolute left-0 right-0 top-[calc(100%+8px)] z-40 max-h-[min(52dvh,360px)] overflow-y-auto overscroll-contain rounded-[20px] border border-white/70 bg-[rgba(248,244,236,.98)] p-2 shadow-[0_28px_80px_rgba(42,27,19,.24)] backdrop-blur-2xl [touch-action:pan-y]"
+                      className="co-shop-search-results absolute left-0 right-0 top-[calc(100%+8px)] z-40 max-h-[min(52dvh,360px)] overflow-y-auto overscroll-contain rounded-[20px] p-2 backdrop-blur-2xl [touch-action:pan-y]"
                     >
                       <p className="px-3 py-2 text-[9px] font-semibold uppercase text-[#75695f]">
                         {search ? "Suggestions" : "Popular products"}
@@ -726,7 +710,7 @@ export function ReferenceShopPage({
                             }}
                             className={cn(
                               "flex min-h-12 w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-xs",
-                              activeSuggestion === index && "bg-white/75",
+                              activeSuggestion === index && "bg-white/[.08]",
                             )}
                           >
                             <span className="relative size-10 overflow-hidden rounded-lg">
@@ -743,7 +727,7 @@ export function ReferenceShopPage({
               <button
                 type="button"
                 onClick={() => setFiltersOpen(true)}
-                className="inline-flex h-11 items-center gap-2 rounded-full border border-black/8 px-4 text-[10px] font-semibold uppercase md:hidden"
+                className="co-shop-toolbar__button inline-flex h-11 items-center gap-2 rounded-full px-4 text-[10px] font-semibold uppercase md:hidden"
               >
                 <SlidersHorizontal size={15} /> Filters
               </button>
@@ -751,7 +735,7 @@ export function ReferenceShopPage({
                 <button
                   type="button"
                   onClick={() => setSortOpen((value) => !value)}
-                  className="inline-flex h-11 min-w-[180px] items-center justify-between rounded-full bg-[#f8f4ec] px-5 text-[10px] font-semibold uppercase"
+                  className="co-shop-toolbar__button inline-flex h-11 min-w-[180px] items-center justify-between rounded-full px-5 text-[10px] font-semibold uppercase"
                 >
                   Sort by:{" "}
                   <span className="normal-case font-normal">{sort}</span>
@@ -761,51 +745,46 @@ export function ReferenceShopPage({
                   open={sortOpen}
                   setOpen={setSortOpen}
                   value={sort}
-                  onChange={setSort}
+                  onChange={chooseSort}
                 />
               </div>
             </div>
 
-            <div className="mb-6 flex gap-2 overflow-x-auto pb-2 [scrollbar-width:none] md:hidden">
-              {categoryOptions.map((item) => (
-                <button
-                  type="button"
-                  key={item}
-                  onClick={() => setCategory(item)}
-                  className={cn(
-                    "shrink-0 rounded-full border px-4 py-2 text-[10px] font-semibold",
-                    category === item
-                      ? "border-[#214d2b] bg-[#214d2b] text-white"
-                      : "border-black/8 bg-white/45",
-                  )}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
+            {(collections.size > 0 || availability.size > 0 || formats.size > 0 || maxPrice < 1000) ? (
+              <div className="mb-5 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none]" aria-label="Active filters">
+                {Array.from(collections).map((item) => <button type="button" key={item} onClick={() => toggleSet(setCollections, item)} className="co-shop-filter-chip">{item}<X size={11} /></button>)}
+                {Array.from(availability).map((item) => <button type="button" key={item} onClick={() => toggleSet(setAvailability, item)} className="co-shop-filter-chip">{item}<X size={11} /></button>)}
+                {Array.from(formats).map((item) => <button type="button" key={item} onClick={() => toggleSet(setFormats, item)} className="co-shop-filter-chip">{item}<X size={11} /></button>)}
+                {maxPrice < 1000 ? <button type="button" onClick={() => setMaxPrice(1000)} className="co-shop-filter-chip">Up to ₹{maxPrice}<X size={11} /></button> : null}
+              </div>
+            ) : null}
 
-            <div className="grid items-start gap-5 md:grid-cols-[190px_1fr]">
-              <aside className="sticky top-24 hidden rounded-[24px] border border-black/6 bg-white/52 p-4 shadow-[0_18px_50px_rgba(42,27,19,.05)] backdrop-blur-xl md:block">
+            <div className="grid items-start gap-5 md:grid-cols-[minmax(190px,22%)_1fr]">
+              <aside className="co-shop-filter-panel sticky top-24 hidden rounded-[24px] p-4 backdrop-blur-xl md:block">
                 <FilterContent
                   category={category}
-                  setCategory={setCategory}
+                  setCategory={chooseCategory}
                   maxPrice={maxPrice}
                   setMaxPrice={setMaxPrice}
-                  dietary={dietary}
-                  toggleDietary={(value) => toggleSet(setDietary, value)}
                   collections={collections}
                   toggleCollection={(value) => toggleSet(setCollections, value)}
+                  availability={availability}
+                  toggleAvailability={(value) => toggleSet(setAvailability, value)}
+                  formats={formatOptions}
+                  selectedFormats={formats}
+                  toggleFormat={(value) => toggleSet(setFormats, value)}
+                  clearAll={clearFilters}
                 />
               </aside>
               <div>
                 <div className="mb-5 flex items-center justify-between">
-                  <p className="text-xs text-[#665b52]">
+                  <p className="text-xs text-[#cdb092]">
                     Showing{" "}
                     <motion.span
                       key={visible.length}
                       initial={{ opacity: 0, y: 4 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="inline-block font-semibold text-[#214d2b]"
+                      className="inline-block font-semibold text-[#f0bc7e]"
                     >
                       {visible.length}
                     </motion.span>{" "}
@@ -825,7 +804,7 @@ export function ReferenceShopPage({
                       open={sortOpen}
                       setOpen={setSortOpen}
                       value={sort}
-                      onChange={setSort}
+                      onChange={chooseSort}
                     />
                   </div>
                 </div>
@@ -848,7 +827,8 @@ export function ReferenceShopPage({
                       wished={wishlist.saved.has(product.slug)}
                       toggleWishlist={() => toggleWishlist(product.slug)}
                       onQuickView={() => openQuickView(product)}
-                      onAdd={() => addProduct(product)}
+                      onAdd={() => product.cartSlug === "co-water" ? setConfiguratorOpen(true) : addProduct(product)}
+                      actionLabel={product.cartSlug === "co-water" ? "Configure" : "Add to cart"}
                     />
                   ))}
                 </motion.div>
@@ -860,13 +840,7 @@ export function ReferenceShopPage({
                     body="Try a broader category or clear the current search and filter choices."
                     onPrimary={{
                       label: "Reset filters",
-                      action: () => {
-                        setCategory("All Products");
-                        setDietary(new Set());
-                        setCollections(new Set());
-                        setMaxPrice(1000);
-                        setSearch("");
-                      },
+                      action: clearFilters,
                     }}
                     secondary={{ label: "Browse recipes", href: "/recipes" }}
                   />
@@ -876,70 +850,15 @@ export function ReferenceShopPage({
           </div>
         </section>
 
-        <section className="px-4 pb-8 md:px-8">
-          <div className="mx-auto grid max-w-[1320px] gap-4 md:grid-cols-3">
-            {[
-              [
-                "Bestsellers",
-                "The most-loved launch previews.",
-                products[0],
-                "Bestsellers",
-              ],
-              [
-                "New Arrivals",
-                "Discover the latest coconut creations.",
-                products[4],
-                "New Arrivals",
-              ],
-              [
-                "BOTANiCA rituals",
-                "Four distinct coconut care previews.",
-                products[8],
-                "BOTANiCA",
-              ],
-            ].map(([title, body, product, filter], index) => (
-              <motion.button
-                type="button"
-                whileHover={{ y: -5 }}
-                onClick={() => {
-                  if (String(filter) === "BOTANiCA") setCategory("BOTANiCA");
-                  else toggleSet(setCollections, String(filter));
-                  document
-                    .getElementById("all-products")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }}
-                key={String(title)}
-                className={cn(
-                  "group relative min-h-[220px] overflow-hidden rounded-[28px] p-6 text-left shadow-[0_18px_50px_rgba(42,27,19,.07)]",
-                  index === 0 ? "bg-[#183b20] text-white" : "bg-[#eee3d4]",
-                )}
-              >
-                <div className="relative z-10 max-w-[48%]">
-                  <h2 className="font-['Cormorant_Garamond'] text-3xl">
-                    {String(title)}
-                  </h2>
-                  <p className="mt-3 text-xs leading-6 opacity-75">
-                    {String(body)}
-                  </p>
-                  <span className="mt-6 inline-flex items-center gap-2 border-b pb-1 text-[9px] font-semibold uppercase">
-                    Shop now <ArrowRight size={13} />
-                  </span>
-                </div>
-                <div className="absolute bottom-0 right-0 h-[92%] w-[55%]">
-                  <ProductImage product={product as Product} sizes="430px" />
-                </div>
-              </motion.button>
-            ))}
-          </div>
-        </section>
+        <ShopBundleBuilder products={products} />
 
-        <section className="px-4 pb-8 md:px-8">
-          <div className="mx-auto grid max-w-[1320px] grid-cols-2 gap-3 rounded-[28px] border border-black/6 bg-white/48 p-4 md:grid-cols-4 md:p-6">
+        <section className="co-shop-trust px-4 pb-8 md:px-8">
+          <div className="mx-auto grid max-w-[1320px] grid-cols-2 gap-3 rounded-[28px] p-4 md:grid-cols-4 md:p-5">
             {[
-              [Truck, "Free Shipping", "On orders over ₹699"],
-              [RotateCcw, "Easy Returns", "14-day return policy"],
-              [LockKeyhole, "Secure Payments", "100% secure checkout"],
-              [Gift, "Earn Rewards", "Collect points with every order"],
+              [PackageCheck, "Real catalog", "Prices and product routes use current data"],
+              [Heart, "Account wishlist", "Saved products use the existing account flow"],
+              [ShoppingBag, "Persistent cart", "Your shelf remains after refresh"],
+              [Gift, "Honest bundles", "Exact product sum with no invented savings"],
             ].map(([Icon, title, body]) => {
               const TrustIcon = Icon as typeof Truck;
               return (
@@ -955,7 +874,7 @@ export function ReferenceShopPage({
                     <span className="block text-[10px] font-semibold">
                       {String(title)}
                     </span>
-                    <span className="mt-1 block text-[9px] leading-4 text-[#6c625a]">
+                    <span className="mt-1 block text-[9px] leading-4 text-[#b99c80]">
                       {String(body)}
                     </span>
                   </span>
@@ -965,36 +884,7 @@ export function ReferenceShopPage({
           </div>
         </section>
 
-        <section className="overflow-hidden border-y border-black/6 bg-[#faf7f1] px-4 py-8 md:px-8">
-          <div className="mx-auto grid max-w-[1120px] grid-cols-2 gap-5 md:grid-cols-4">
-            {[
-              [Leaf, "100% Natural", "Nothing artificial. Ever."],
-              [Recycle, "Sustainably Sourced", "From trusted partner farms."],
-              [Sparkles, "Made with Care", "Thoughtfully crafted for you."],
-              [
-                PackageCheck,
-                "Better for Earth",
-                "Committed to a greener tomorrow.",
-              ],
-            ].map(([Icon, title, body]) => {
-              const BenefitIcon = Icon as typeof Leaf;
-              return (
-                <div key={String(title)} className="flex gap-3">
-                  <BenefitIcon className="shrink-0 text-[#214d2b]" size={24} />
-                  <span>
-                    <span className="block text-[10px] font-semibold">
-                      {String(title)}
-                    </span>
-                    <span className="mt-1 block text-[9px] leading-4 text-[#6c625a]">
-                      {String(body)}
-                    </span>
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-        <NewsletterSection />
+        <section className="co-shop-newsletter-shell"><NewsletterSection /></section>
       </div>
       <ReferenceFooter />
       <MobileBottomNav />
@@ -1017,32 +907,36 @@ export function ReferenceShopPage({
                   animate={{ x: 0 }}
                   exit={{ x: "100%" }}
                   transition={{ duration: 0.4, ease }}
-                  className="fixed inset-y-0 right-0 z-[160] max-h-[100dvh] w-[min(88vw,390px)] overflow-y-auto overscroll-contain bg-[#f8f4ec] p-6 shadow-[-24px_0_70px_rgba(42,27,19,.2)] [scrollbar-gutter:stable] [touch-action:pan-y]"
+                  className="co-shop-filter-sheet fixed inset-y-0 right-0 z-[160] max-h-[100dvh] w-[min(92vw,410px)] overflow-y-auto overscroll-contain p-6 [scrollbar-gutter:stable] [touch-action:pan-y]"
                 >
-                  <div className="mb-7 flex items-center justify-between">
-                    <Dialog.Title className="font-['Cormorant_Garamond'] text-3xl">
+                  <div className="co-shop-filter-sheet__header sticky top-0 z-20 -mx-6 -mt-6 mb-7 flex items-center justify-between px-6 pb-4 pt-6">
+                    <Dialog.Title className="co-shop-filter-sheet__title font-['Cormorant_Garamond'] text-3xl">
                       Filters
                     </Dialog.Title>
                     <Dialog.Close
                       aria-label="Close filters"
-                      className="grid size-11 place-items-center rounded-full border border-black/8"
+                      className="co-shop-filter-sheet__close grid size-11 place-items-center rounded-full"
                     >
                       <X size={18} />
                     </Dialog.Close>
                   </div>
                   <FilterContent
                     category={category}
-                    setCategory={setCategory}
+                    setCategory={chooseCategory}
                     maxPrice={maxPrice}
                     setMaxPrice={setMaxPrice}
-                    dietary={dietary}
-                    toggleDietary={(value) => toggleSet(setDietary, value)}
                     collections={collections}
                     toggleCollection={(value) =>
                       toggleSet(setCollections, value)
                     }
+                    availability={availability}
+                    toggleAvailability={(value) => toggleSet(setAvailability, value)}
+                    formats={formatOptions}
+                    selectedFormats={formats}
+                    toggleFormat={(value) => toggleSet(setFormats, value)}
+                    clearAll={clearFilters}
                   />
-                  <Dialog.Close className="sticky bottom-3 mt-8 min-h-12 w-full rounded-full bg-[#214d2b] text-xs font-semibold uppercase text-white">
+                  <Dialog.Close className="co-shop-filter-sheet__apply sticky bottom-3 mt-8 min-h-12 w-full rounded-full text-xs font-semibold uppercase text-white">
                     Show {visible.length} products
                   </Dialog.Close>
                 </motion.div>
@@ -1063,8 +957,25 @@ export function ReferenceShopPage({
         }
         wished={quickView ? wishlist.saved.has(quickView.slug) : false}
         toggleWishlist={() => quickView && toggleWishlist(quickView.slug)}
-        onAdd={() => quickView && addProduct(quickView)}
+        onAdd={() => quickView && (quickView.cartSlug === "co-water" ? setConfiguratorOpen(true) : addProduct(quickView))}
       />
+      <Dialog.Root open={configuratorOpen} onOpenChange={setConfiguratorOpen}>
+        <AnimatePresence>
+          {configuratorOpen ? (
+            <Dialog.Portal forceMount>
+              <Dialog.Overlay asChild><motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[190] bg-[#211812]/55 backdrop-blur-sm" /></Dialog.Overlay>
+              <Dialog.Content asChild>
+                <motion.div initial={{ opacity: 0, y: 24, scale: .98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 20, scale: .98 }} className="fixed inset-x-2 bottom-2 z-[200] max-h-[calc(100dvh-16px)] overflow-y-auto rounded-[30px] bg-[#f8f4ec] shadow-[0_30px_90px_rgba(0,0,0,.32)] md:inset-x-8 md:bottom-6 md:mx-auto md:max-w-[1180px]">
+                  <Dialog.Title className="sr-only">Configure .CO Coconut Water</Dialog.Title>
+                  <Dialog.Description className="sr-only">Choose the available coconut water size, processing and pulp options.</Dialog.Description>
+                  <Dialog.Close aria-label="Close Coconut Water configurator" className="sticky left-full top-3 z-20 mr-3 grid size-11 place-items-center rounded-full border border-black/8 bg-white/85 shadow-sm"><X size={18} /></Dialog.Close>
+                  <div className="-mt-11"><ProductConfigurator /></div>
+                </motion.div>
+              </Dialog.Content>
+            </Dialog.Portal>
+          ) : null}
+        </AnimatePresence>
+      </Dialog.Root>
     </div>
   );
 }
@@ -1087,7 +998,7 @@ function SortMenu({
           initial={{ opacity: 0, y: -8, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -8, scale: 0.98 }}
-          className="absolute right-0 top-[calc(100%+8px)] z-50 w-52 rounded-[20px] border border-white/70 bg-[rgba(248,244,236,.96)] p-2 shadow-[0_22px_60px_rgba(42,27,19,.16)] backdrop-blur-2xl"
+          className="co-shop-sort-menu absolute right-0 top-[calc(100%+8px)] z-50 w-52 rounded-[20px] p-2 backdrop-blur-2xl"
         >
           {sortOptions.map((item) => (
             <button
@@ -1099,7 +1010,7 @@ function SortMenu({
               }}
               className={cn(
                 "flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-xs",
-                value === item && "bg-white/75 font-semibold text-[#214d2b]",
+                value === item && "bg-white/[.08] font-semibold text-[#f0bc7e]",
               )}
             >
               {item}
@@ -1121,6 +1032,7 @@ function ProductCard({
   toggleWishlist,
   onQuickView,
   onAdd,
+  actionLabel,
 }: {
   product: Product;
   index: number;
@@ -1130,6 +1042,7 @@ function ProductCard({
   toggleWishlist: () => void;
   onQuickView: () => void;
   onAdd: () => void;
+  actionLabel: string;
 }) {
   return (
     <motion.article
@@ -1139,13 +1052,12 @@ function ProductCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, delay: Math.min(index * 0.025, 0.2), ease }}
       whileHover={{ y: -8 }}
-      className="group relative flex min-w-0 flex-col overflow-hidden rounded-[22px] border border-black/6 bg-white/58 p-2.5 shadow-[0_12px_35px_rgba(42,27,19,.045)] transition-shadow hover:shadow-[0_24px_60px_rgba(42,27,19,.12)] md:rounded-[28px] md:p-3"
+      className="co-shop-product-card group relative flex min-w-0 flex-col overflow-hidden rounded-[20px] p-2.5 transition-shadow md:p-3"
     >
-      <button
-        type="button"
-        onClick={onQuickView}
-        aria-label={`Quick view ${product.name}`}
-        className="relative aspect-square overflow-hidden rounded-[18px] bg-[#f3eee4] md:rounded-[23px]"
+      <Link
+        href={`/shop/${product.cartSlug}`}
+        aria-label={`View ${product.name}`}
+        className="co-shop-product-card__image relative aspect-[.92] overflow-hidden rounded-[16px] md:rounded-[18px]"
       >
         <ProductImage product={product} sizes="(min-width:1024px) 19vw, 48vw" />
         {product.badge && (
@@ -1153,14 +1065,14 @@ function ProductCard({
             {product.badge}
           </span>
         )}
-      </button>
+      </Link>
       <button
         type="button"
         onClick={toggleWishlist}
         aria-label={`${wished ? "Remove" : "Add"} ${product.name} ${wished ? "from" : "to"} wishlist`}
         className={cn(
-          "absolute right-5 top-5 grid size-9 place-items-center rounded-full bg-white/78 shadow-sm transition",
-          wished && "text-[#214d2b]",
+          "co-shop-product-card__wish absolute right-5 top-5 grid size-9 place-items-center rounded-full transition",
+          wished && "is-active",
         )}
       >
         <motion.span animate={wished ? { scale: [1, 1.25, 1] } : { scale: 1 }}>
@@ -1168,43 +1080,37 @@ function ProductCard({
         </motion.span>
       </button>
       <div className="flex flex-1 flex-col px-1 pb-1 pt-4">
-        <button type="button" onClick={onQuickView} className="text-left">
+        <Link href={`/shop/${product.cartSlug}`} className="text-left">
           <h2 className="text-[11px] font-semibold leading-5 md:text-[13px]">
             {product.name}
           </h2>
-          <p className="mt-1 text-[9px] text-[#6a6057] md:text-[10px]">
+          <p className="mt-1 text-[9px] text-[#c2a789] md:text-[10px]">
             {product.subtitle}
           </p>
-          <div className="mt-3 flex items-center gap-1 text-[9px]">
-            <span className="tracking-[.08em] text-[#d79b17]">★★★★★</span>
-            <span className="text-[#786d64]">({product.reviews})</span>
-          </div>
           <p className="mt-3 text-xs font-semibold md:text-sm">
             ₹{product.price.toFixed(2)}
           </p>
-        </button>
-        <Link
-          href={`/shop/${product.cartSlug}`}
-          className="mt-2 w-fit border-b border-[#214d2b]/45 pb-0.5 text-[8px] font-semibold uppercase text-[#214d2b]"
-        >
-          View product
         </Link>
+        <div className="mt-2 flex items-center gap-3 text-[8px] font-semibold uppercase text-[#e4ad73]">
+          <Link href={`/shop/${product.cartSlug}`} className="border-b border-[#e4ad73]/45 pb-0.5">View product</Link>
+          <button type="button" onClick={onQuickView} className="border-b border-[#e4ad73]/25 pb-0.5">Quick view</button>
+        </div>
         <div className="mt-auto flex items-center justify-between gap-2 pt-4">
           <Quantity value={quantity} onChange={setQuantity} />
           <button
             type="button"
             onClick={onAdd}
-            aria-label={`Add ${product.name} to cart`}
-            className="co-primary-cta grid size-9 shrink-0 place-items-center rounded-full bg-[#214d2b] text-white transition md:hidden"
+            aria-label={actionLabel === "Configure" ? `Configure ${product.name}` : `Add ${product.name} to cart`}
+            className="co-shop-card-cta co-primary-cta grid size-9 shrink-0 place-items-center rounded-full text-white transition md:hidden"
           >
             <ShoppingBag size={15} />
           </button>
           <button
             type="button"
             onClick={onAdd}
-            className="co-primary-cta hidden min-h-9 flex-1 rounded-full bg-[#214d2b] px-3 text-[8px] font-semibold uppercase text-white shadow-[0_10px_24px_rgba(33,77,43,.2)] transition hover:bg-[#183b20] md:block"
+            className="co-shop-card-cta co-primary-cta hidden min-h-9 flex-1 rounded-full px-3 text-[8px] font-semibold uppercase text-white transition md:block"
           >
-            Add to cart
+            {actionLabel}
           </button>
         </div>
       </div>

@@ -3,7 +3,7 @@ const baseUrl = (process.env.BASE_URL || "https://cothecoconutcompany.com").repl
 const routes = [
   ["/", "Rooted in nature"],
   ["/about", "Rooted in nature"],
-  ["/shop", "Good for you"],
+  ["/shop", "Shop coconut"],
   ["/recipes", "Good food"],
   ["/journal", "Real people"],
   ["/sustainability", "Good for you"]
