@@ -217,6 +217,7 @@ function toPopupProducts(products: DisplayProduct[]): DisplayProduct[] {
 
 export function ReferenceHeader() {
   const pathname = usePathname();
+  const shopShell = pathname === "/shop" || pathname.startsWith("/shop/");
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const session = useCustomerSession();
@@ -248,19 +249,19 @@ export function ReferenceHeader() {
       </AnimatePresence>
       <motion.header
         initial={false}
-        animate={{ width: "min(1320px, calc(100% - 28px))", top: 10, borderRadius: 26, minHeight: scrolled ? 66 : 70, backgroundColor: scrolled ? "rgba(248,244,236,.88)" : "rgba(134,72,41,.48)", boxShadow: scrolled ? "inset 0 1px 0 rgba(255,255,255,.88), 0 16px 44px rgba(29,13,7,.20)" : "inset 0 1px 0 rgba(255,239,219,.18), 0 16px 44px rgba(29,13,7,.12)" }}
+        animate={{ width: "min(1320px, calc(100% - 28px))", top: 10, borderRadius: 26, minHeight: scrolled ? 66 : 70, backgroundColor: shopShell ? "rgba(91,48,29,.72)" : scrolled ? "rgba(248,244,236,.88)" : "rgba(134,72,41,.48)", boxShadow: shopShell ? "inset 0 1px 0 rgba(255,239,219,.12), 0 16px 44px rgba(18,7,3,.22)" : scrolled ? "inset 0 1px 0 rgba(255,255,255,.88), 0 16px 44px rgba(29,13,7,.20)" : "inset 0 1px 0 rgba(255,239,219,.18), 0 16px 44px rgba(29,13,7,.12)" }}
         transition={{ duration: 0.42, ease }}
         style={{ backdropFilter: "blur(14px) saturate(1.08)", WebkitBackdropFilter: "blur(14px) saturate(1.08)" }}
-        className={cn("co-glass-header fixed left-1/2 top-2.5 z-[110] flex min-h-[70px] w-[calc(100%-28px)] -translate-x-1/2 items-center rounded-[26px] px-5 md:px-8", scrolled ? "border border-white/55 text-[#17130f]" : "border border-[#f5dbbc]/20 text-[#fff7e9]")}
+        className={cn("co-glass-header fixed left-1/2 top-2.5 z-[110] flex min-h-[70px] w-[calc(100%-28px)] -translate-x-1/2 items-center rounded-[26px] px-5 md:px-8", shopShell || !scrolled ? "border border-[#f5dbbc]/20 text-[#fff7e9]" : "border border-white/55 text-[#17130f]")}
       >
         <div className="relative mx-auto flex w-full max-w-[1500px] items-center justify-between gap-5">
           <Link href="/" aria-current={pathname === "/" ? "page" : undefined} className={cn("relative ml-10 block h-[52px] w-[86px] rounded-2xl md:ml-0 md:h-[58px] md:w-[88px]", pathname === "/" && "co-nav-active")} aria-label=".CO home">
-            <Image src="/images/logo.svg" alt=".CO The Coconut Company" fill priority sizes="88px" className={cn("object-contain object-left transition-[filter] duration-300", !scrolled && "brightness-0 invert")} />
+            <Image src="/images/logo.svg" alt=".CO The Coconut Company" fill priority sizes="88px" className={cn("object-contain object-left transition-[filter] duration-300", (shopShell || !scrolled) && "brightness-0 invert")} />
           </Link>
 
-          <DockNavigation links={links} pathname={pathname} light={!scrolled} />
+          <DockNavigation links={links} pathname={pathname} light={shopShell || !scrolled} />
 
-          <div className={cn("ml-auto flex items-center gap-1 transition-colors md:gap-1.5", scrolled ? "text-[#17130f]" : "text-[#fff7e9]")}>
+          <div className={cn("ml-auto flex items-center gap-1 transition-colors md:gap-1.5", shopShell || !scrolled ? "text-[#fff7e9]" : "text-[#17130f]")}>
             <Link href="/shop" aria-label="Search products" className="grid size-10 place-items-center rounded-full transition hover:bg-white/70">
               <Search size={19} strokeWidth={1.7} />
             </Link>
@@ -1633,7 +1634,7 @@ export function MobileBottomNav() {
   const pathname = usePathname();
   const items = [[Leaf, "Home", "/"], [ShoppingBag, "Shop", "/shop"], [Grid2X2, "Recipes", "/recipes"], [Heart, "Wishlist", "/wishlist"], [CircleUserRound, "Account", "/account"]] as const;
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-[105] grid grid-cols-5 border-t border-[#35271e]/10 bg-[rgba(250,247,240,.94)] px-2 pb-[max(6px,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl md:hidden" aria-label="Mobile quick navigation">
+    <nav className="co-mobile-bottom-nav fixed inset-x-0 bottom-0 z-[105] grid grid-cols-5 border-t border-[#35271e]/10 bg-[rgba(250,247,240,.94)] px-2 pb-[max(6px,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl md:hidden" aria-label="Mobile quick navigation">
       {items.map(([Icon, label, href]) => { const active = pathname === href || (href !== "/" && pathname.startsWith(`${href}/`)); return <Link key={label} href={href} aria-current={active ? "page" : undefined} className={cn("flex flex-col items-center gap-1 rounded-2xl py-1 text-[8px] transition", active && "co-nav-active bg-white/70 font-bold text-[#305a34]")}><Icon size={17} strokeWidth={1.6} /><span>{label}</span></Link>; })}
     </nav>
   );

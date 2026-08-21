@@ -8,7 +8,7 @@ const mobileSource = mediaUrl("/assets/video/shop/coconut-water-flow-mobile-v1.m
 const poster = mediaUrl("/assets/video/shop/coconut-water-flow-poster-v1.jpg");
 
 export function ShopWaterFilm() {
-  const hostRef = useRef<HTMLElement>(null);
+  const hostRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [source, setSource] = useState("");
 
@@ -19,25 +19,36 @@ export function ShopWaterFilm() {
     const saveData = Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData);
     if (reducedMotion || saveData) return;
 
+    let delay = 0;
+    const activate = () => {
+      window.clearTimeout(delay);
+      setSource(window.matchMedia("(max-width: 767px)").matches ? mobileSource : desktopSource);
+      window.setTimeout(() => void videoRef.current?.play().catch(() => undefined), 0);
+    };
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
-        setSource(window.matchMedia("(max-width: 767px)").matches ? mobileSource : desktopSource);
-        window.setTimeout(() => void videoRef.current?.play().catch(() => undefined), 0);
+        window.addEventListener("pointerdown", activate, { once: true, passive: true });
+        window.addEventListener("keydown", activate, { once: true });
+        window.addEventListener("scroll", activate, { once: true, passive: true });
+        delay = window.setTimeout(activate, 12000);
       } else {
+        window.clearTimeout(delay);
         videoRef.current?.pause();
       }
-    }, { rootMargin: "0px", threshold: .65 });
+    }, { rootMargin: "0px", threshold: .35 });
     observer.observe(host);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(delay);
+      window.removeEventListener("pointerdown", activate);
+      window.removeEventListener("keydown", activate);
+      window.removeEventListener("scroll", activate);
+    };
   }, []);
 
   return (
-    <section ref={hostRef} className="relative overflow-hidden bg-[#23130c] px-4 pb-9 md:px-8 md:pb-12" aria-label="Coconut water in motion">
-      <div className="relative mx-auto h-[min(84vw,520px)] max-w-[1340px] overflow-hidden rounded-[32px] border border-[#e4ad77]/16 bg-[#432819] md:h-[310px]">
-        <video ref={videoRef} src={source || undefined} muted playsInline loop preload="none" poster={poster} aria-label="Water flowing into a fresh coconut" className="h-full w-full object-cover" />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(26,13,8,.22),transparent_42%,rgba(26,13,8,.15)),linear-gradient(180deg,rgba(35,19,12,.06),rgba(35,19,12,.32))]" />
-        <p className="absolute bottom-5 left-5 max-w-[19ch] font-['Cormorant_Garamond'] text-3xl leading-[.9] text-[#fff0dc] md:bottom-8 md:left-8 md:text-5xl">From coconut into the everyday.</p>
-      </div>
-    </section>
+    <div ref={hostRef} className="co-shop-hero__film" aria-hidden="true">
+      <video ref={videoRef} src={source || undefined} muted playsInline loop preload="none" poster={poster} tabIndex={-1} />
+    </div>
   );
 }

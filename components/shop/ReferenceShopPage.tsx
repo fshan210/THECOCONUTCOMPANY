@@ -46,7 +46,6 @@ import { ProductConfigurator } from "@/components/shop/ProductConfigurator";
 import { ShopHero } from "@/components/shop/ShopHero";
 import { ShopCategorySlab, shopCategories } from "@/components/shop/ShopCategorySlab";
 import { ShopBundleBuilder } from "@/components/shop/ShopBundleBuilder";
-import { ShopWaterFilm } from "@/components/shop/ShopWaterFilm";
 import type { ShopViewProduct } from "@/components/shop/shop-types";
 import {
   galleryForShopSlug,
@@ -59,6 +58,18 @@ const blurDataURL =
   "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MCcgaGVpZ2h0PSc0MCc+PGZpbHRlciBpZD0nYic+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0nNicvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbGw9JyNmOGY0ZWMnLz48L3N2Zz4=";
 
 type Product = ShopViewProduct;
+
+const transparentProductImages: Record<string, string> = {
+  "co-water": "/assets/products/transparent-current/co-coconut-water-v1.webp",
+  "melt-co-mango-coconut": "/assets/products/transparent-current/co-melt-coconut-mango-v1.webp",
+  "co-kitchen-coconut-oil": "/assets/products/transparent-current/co-kitchen-coconut-oil-v1.webp",
+  "co-kitchen-coconut-flour": "/assets/products/transparent-current/co-kitchen-coconut-flour-v1.webp",
+  "co-kitchen-coconut-milk": "/assets/products/transparent-current/co-kitchen-coconut-milk-v1.webp",
+  "co-botanica-shampoo": "/assets/products/transparent-current/co-botanica-shampoo-v1.webp",
+  "co-botanica-face-wash": "/assets/products/transparent-current/co-botanica-face-wash-v1.webp",
+  "co-botanica-hair-serum": "/assets/products/transparent-current/co-botanica-hair-serum-v1.webp",
+  "co-botanica-body-moisturizer": "/assets/products/transparent-current/co-botanica-body-moisturizer-v1.webp",
+};
 
 const fallbackShopProducts: Product[] = [
   {
@@ -246,7 +257,7 @@ function Quantity({
   onChange: (value: number) => void;
 }) {
   return (
-    <div className="inline-flex h-9 items-center rounded-full bg-[#f4efe7] px-1">
+    <div className="co-shop-quantity inline-flex h-9 items-center rounded-full px-1">
       <button
         type="button"
         aria-label="Decrease quantity"
@@ -296,7 +307,7 @@ function FilterContent({
   clearAll: () => void;
 }) {
   return (
-    <div className="space-y-7 text-[#2a1b13]">
+    <div className="co-shop-filter-content space-y-7">
       <div className="flex items-center justify-between">
         <p className="text-[10px] font-semibold uppercase tracking-[.14em]">Filters</p>
         <button type="button" onClick={clearAll} className="min-h-9 text-[9px] font-semibold uppercase text-[#214d2b] underline underline-offset-4">Clear all</button>
@@ -311,8 +322,8 @@ function FilterContent({
             key={item}
             onClick={() => setCategory(item)}
             className={cn(
-              "block w-full rounded-lg px-3 py-2 text-left text-xs",
-              category === item && "bg-[#e7e8df] font-semibold text-[#214d2b]",
+              "co-shop-filter-option block w-full rounded-lg px-3 py-2 text-left text-xs",
+              category === item && "is-active font-semibold",
             )}
           >
             {item}
@@ -331,7 +342,7 @@ function FilterContent({
           step="50"
           value={maxPrice}
           onChange={(event) => setMaxPrice(Number(event.target.value))}
-          className="mt-4 w-full accent-[#214d2b]"
+          className="co-shop-price-range mt-4 w-full"
         />
         <div className="mt-1 flex justify-between text-[10px]">
           <span>₹0</span>
@@ -356,7 +367,7 @@ function FilterContent({
         selected={selectedFormats}
         onToggle={toggleFormat}
       />
-      <div className="overflow-hidden rounded-[22px] bg-[linear-gradient(135deg,#f2e4d1,#f8f4ec)] p-4">
+      <div className="co-shop-filter-promo overflow-hidden rounded-[22px] p-4">
         <p className="font-['Cormorant_Garamond'] text-2xl">BOTANiCA rituals</p>
         <p className="mt-2 text-[11px] leading-5 text-[#685b50]">
           Explore the distinct coconut care previews.
@@ -398,7 +409,7 @@ function FilterChecks({
             type="checkbox"
             checked={selected.has(item)}
             onChange={() => onToggle(item)}
-            className="size-4 accent-[#214d2b]"
+            className="co-shop-checkbox size-4"
           />
           {item}
         </label>
@@ -417,8 +428,9 @@ function mergeProductCatalog(contentProducts: ContentProduct[]) {
       galleryForShopSlug(fallback.cartSlug);
     const approvedImage = approved?.primary;
     const gallery = approved?.gallery ?? [];
+    const transparentImage = transparentProductImages[fallback.slug] ?? transparentProductImages[fallback.cartSlug];
     if (!source)
-      return { ...fallback, image: approvedImage ?? fallback.image, gallery };
+      return { ...fallback, image: transparentImage ?? approvedImage ?? fallback.image, gallery };
     return {
       ...fallback,
       cartSlug: source.slug,
@@ -431,7 +443,7 @@ function mergeProductCatalog(contentProducts: ContentProduct[]) {
       availabilityStatus: source.availabilityStatus,
       featured: source.featured,
       format: source.format,
-      image: approvedImage ?? source.image ?? fallback.image,
+      image: transparentImage ?? approvedImage ?? source.image ?? fallback.image,
       gallery,
       description:
         source.longDescription ||
@@ -608,11 +620,10 @@ export function ReferenceShopPage({
   };
 
   return (
-    <div className="co-shop-page min-h-screen overflow-x-clip bg-[#f8f4ec] font-['Inter'] text-[#2a1b13]">
+    <div className="co-shop-page min-h-screen overflow-x-clip font-['Inter']">
       <ReferenceHeader />
       <div>
         <ShopHero products={products} search={search} onSearch={setSearch} />
-        <ShopWaterFilm />
         <ShopCategorySlab
           value={category}
           onChange={(nextCategory) => {
@@ -621,9 +632,9 @@ export function ReferenceShopPage({
           }}
         />
 
-        <section id="all-products" className="px-4 py-8 md:px-8 md:py-12">
+        <section id="all-products" className="co-shop-commerce px-4 py-8 md:px-8 md:py-10">
           <div className="mx-auto max-w-[1320px]">
-            <div className="sticky top-[84px] z-30 mb-6 flex items-center gap-4 overflow-visible rounded-[22px] border border-black/6 bg-[rgba(255,255,255,.92)] p-3 shadow-[0_12px_40px_rgba(42,27,19,.08)] backdrop-blur-xl md:relative md:top-auto md:bg-white/72">
+            <div className="co-shop-toolbar sticky top-[84px] z-30 mb-6 flex items-center gap-4 overflow-visible rounded-[22px] p-3 backdrop-blur-xl md:relative md:top-auto">
               <div className="relative min-w-0 flex-1">
                 <Search
                   className="absolute left-4 top-1/2 -translate-y-1/2"
@@ -668,7 +679,7 @@ export function ReferenceShopPage({
                   aria-autocomplete="list"
                   aria-expanded={searchFocused}
                   aria-controls="shop-search-results"
-                  className="h-11 w-full rounded-full bg-[#f8f4ec] pl-11 pr-11 text-xs outline-none"
+                  className="co-shop-toolbar__search h-11 w-full rounded-full pl-11 pr-11 text-xs outline-none"
                 />
                 {search ? <button type="button" onClick={() => { setSearch(""); setSearchFocused(false); }} aria-label="Clear search" className="absolute right-1 top-1/2 grid size-9 -translate-y-1/2 place-items-center rounded-full text-[#5f554d] hover:bg-white"><X size={14} /></button> : null}
                 <AnimatePresence>
@@ -680,7 +691,7 @@ export function ReferenceShopPage({
                       initial={{ opacity: 0, y: -6 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -6 }}
-                      className="absolute left-0 right-0 top-[calc(100%+8px)] z-40 max-h-[min(52dvh,360px)] overflow-y-auto overscroll-contain rounded-[20px] border border-white/70 bg-[rgba(248,244,236,.98)] p-2 shadow-[0_28px_80px_rgba(42,27,19,.24)] backdrop-blur-2xl [touch-action:pan-y]"
+                      className="co-shop-search-results absolute left-0 right-0 top-[calc(100%+8px)] z-40 max-h-[min(52dvh,360px)] overflow-y-auto overscroll-contain rounded-[20px] p-2 backdrop-blur-2xl [touch-action:pan-y]"
                     >
                       <p className="px-3 py-2 text-[9px] font-semibold uppercase text-[#75695f]">
                         {search ? "Suggestions" : "Popular products"}
@@ -699,7 +710,7 @@ export function ReferenceShopPage({
                             }}
                             className={cn(
                               "flex min-h-12 w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-xs",
-                              activeSuggestion === index && "bg-white/75",
+                              activeSuggestion === index && "bg-white/[.08]",
                             )}
                           >
                             <span className="relative size-10 overflow-hidden rounded-lg">
@@ -716,7 +727,7 @@ export function ReferenceShopPage({
               <button
                 type="button"
                 onClick={() => setFiltersOpen(true)}
-                className="inline-flex h-11 items-center gap-2 rounded-full border border-black/8 px-4 text-[10px] font-semibold uppercase md:hidden"
+                className="co-shop-toolbar__button inline-flex h-11 items-center gap-2 rounded-full px-4 text-[10px] font-semibold uppercase md:hidden"
               >
                 <SlidersHorizontal size={15} /> Filters
               </button>
@@ -724,7 +735,7 @@ export function ReferenceShopPage({
                 <button
                   type="button"
                   onClick={() => setSortOpen((value) => !value)}
-                  className="inline-flex h-11 min-w-[180px] items-center justify-between rounded-full bg-[#f8f4ec] px-5 text-[10px] font-semibold uppercase"
+                  className="co-shop-toolbar__button inline-flex h-11 min-w-[180px] items-center justify-between rounded-full px-5 text-[10px] font-semibold uppercase"
                 >
                   Sort by:{" "}
                   <span className="normal-case font-normal">{sort}</span>
@@ -739,35 +750,17 @@ export function ReferenceShopPage({
               </div>
             </div>
 
-            <div className="mb-6 flex gap-2 overflow-x-auto pb-2 [scrollbar-width:none] md:hidden">
-              {categoryOptions.map((item) => (
-                <button
-                  type="button"
-                  key={item}
-                  onClick={() => chooseCategory(item)}
-                  className={cn(
-                    "shrink-0 rounded-full border px-4 py-2 text-[10px] font-semibold",
-                    category === item
-                      ? "border-[#214d2b] bg-[#214d2b] text-white"
-                      : "border-black/8 bg-white/45",
-                  )}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-
             {(collections.size > 0 || availability.size > 0 || formats.size > 0 || maxPrice < 1000) ? (
               <div className="mb-5 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none]" aria-label="Active filters">
-                {Array.from(collections).map((item) => <button type="button" key={item} onClick={() => toggleSet(setCollections, item)} className="inline-flex min-h-9 shrink-0 items-center gap-2 rounded-full bg-[#214d2b] px-3 text-[9px] font-semibold text-white">{item}<X size={11} /></button>)}
-                {Array.from(availability).map((item) => <button type="button" key={item} onClick={() => toggleSet(setAvailability, item)} className="inline-flex min-h-9 shrink-0 items-center gap-2 rounded-full bg-[#214d2b] px-3 text-[9px] font-semibold text-white">{item}<X size={11} /></button>)}
-                {Array.from(formats).map((item) => <button type="button" key={item} onClick={() => toggleSet(setFormats, item)} className="inline-flex min-h-9 shrink-0 items-center gap-2 rounded-full bg-[#214d2b] px-3 text-[9px] font-semibold text-white">{item}<X size={11} /></button>)}
-                {maxPrice < 1000 ? <button type="button" onClick={() => setMaxPrice(1000)} className="inline-flex min-h-9 shrink-0 items-center gap-2 rounded-full bg-[#214d2b] px-3 text-[9px] font-semibold text-white">Up to ₹{maxPrice}<X size={11} /></button> : null}
+                {Array.from(collections).map((item) => <button type="button" key={item} onClick={() => toggleSet(setCollections, item)} className="co-shop-filter-chip">{item}<X size={11} /></button>)}
+                {Array.from(availability).map((item) => <button type="button" key={item} onClick={() => toggleSet(setAvailability, item)} className="co-shop-filter-chip">{item}<X size={11} /></button>)}
+                {Array.from(formats).map((item) => <button type="button" key={item} onClick={() => toggleSet(setFormats, item)} className="co-shop-filter-chip">{item}<X size={11} /></button>)}
+                {maxPrice < 1000 ? <button type="button" onClick={() => setMaxPrice(1000)} className="co-shop-filter-chip">Up to ₹{maxPrice}<X size={11} /></button> : null}
               </div>
             ) : null}
 
-            <div className="grid items-start gap-5 md:grid-cols-[190px_1fr]">
-              <aside className="sticky top-24 hidden rounded-[24px] border border-black/6 bg-white/52 p-4 shadow-[0_18px_50px_rgba(42,27,19,.05)] backdrop-blur-xl md:block">
+            <div className="grid items-start gap-5 md:grid-cols-[minmax(190px,22%)_1fr]">
+              <aside className="co-shop-filter-panel sticky top-24 hidden rounded-[24px] p-4 backdrop-blur-xl md:block">
                 <FilterContent
                   category={category}
                   setCategory={chooseCategory}
@@ -785,13 +778,13 @@ export function ReferenceShopPage({
               </aside>
               <div>
                 <div className="mb-5 flex items-center justify-between">
-                  <p className="text-xs text-[#665b52]">
+                  <p className="text-xs text-[#cdb092]">
                     Showing{" "}
                     <motion.span
                       key={visible.length}
                       initial={{ opacity: 0, y: 4 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="inline-block font-semibold text-[#214d2b]"
+                      className="inline-block font-semibold text-[#f0bc7e]"
                     >
                       {visible.length}
                     </motion.span>{" "}
@@ -859,8 +852,8 @@ export function ReferenceShopPage({
 
         <ShopBundleBuilder products={products} />
 
-        <section className="px-4 pb-8 md:px-8">
-          <div className="mx-auto grid max-w-[1320px] grid-cols-2 gap-3 rounded-[28px] border border-black/6 bg-white/48 p-4 md:grid-cols-4 md:p-6">
+        <section className="co-shop-trust px-4 pb-8 md:px-8">
+          <div className="mx-auto grid max-w-[1320px] grid-cols-2 gap-3 rounded-[28px] p-4 md:grid-cols-4 md:p-5">
             {[
               [PackageCheck, "Real catalog", "Prices and product routes use current data"],
               [Heart, "Account wishlist", "Saved products use the existing account flow"],
@@ -881,7 +874,7 @@ export function ReferenceShopPage({
                     <span className="block text-[10px] font-semibold">
                       {String(title)}
                     </span>
-                    <span className="mt-1 block text-[9px] leading-4 text-[#6c625a]">
+                    <span className="mt-1 block text-[9px] leading-4 text-[#b99c80]">
                       {String(body)}
                     </span>
                   </span>
@@ -891,7 +884,7 @@ export function ReferenceShopPage({
           </div>
         </section>
 
-        <NewsletterSection />
+        <section className="co-shop-newsletter-shell"><NewsletterSection /></section>
       </div>
       <ReferenceFooter />
       <MobileBottomNav />
@@ -914,15 +907,15 @@ export function ReferenceShopPage({
                   animate={{ x: 0 }}
                   exit={{ x: "100%" }}
                   transition={{ duration: 0.4, ease }}
-                  className="fixed inset-y-0 right-0 z-[160] max-h-[100dvh] w-[min(88vw,390px)] overflow-y-auto overscroll-contain bg-[#f8f4ec] p-6 shadow-[-24px_0_70px_rgba(42,27,19,.2)] [scrollbar-gutter:stable] [touch-action:pan-y]"
+                  className="co-shop-filter-sheet fixed inset-y-0 right-0 z-[160] max-h-[100dvh] w-[min(92vw,410px)] overflow-y-auto overscroll-contain p-6 [scrollbar-gutter:stable] [touch-action:pan-y]"
                 >
-                  <div className="mb-7 flex items-center justify-between">
-                    <Dialog.Title className="font-['Cormorant_Garamond'] text-3xl">
+                  <div className="co-shop-filter-sheet__header sticky top-0 z-20 -mx-6 -mt-6 mb-7 flex items-center justify-between px-6 pb-4 pt-6">
+                    <Dialog.Title className="co-shop-filter-sheet__title font-['Cormorant_Garamond'] text-3xl">
                       Filters
                     </Dialog.Title>
                     <Dialog.Close
                       aria-label="Close filters"
-                      className="grid size-11 place-items-center rounded-full border border-black/8"
+                      className="co-shop-filter-sheet__close grid size-11 place-items-center rounded-full"
                     >
                       <X size={18} />
                     </Dialog.Close>
@@ -943,7 +936,7 @@ export function ReferenceShopPage({
                     toggleFormat={(value) => toggleSet(setFormats, value)}
                     clearAll={clearFilters}
                   />
-                  <Dialog.Close className="sticky bottom-3 mt-8 min-h-12 w-full rounded-full bg-[#214d2b] text-xs font-semibold uppercase text-white">
+                  <Dialog.Close className="co-shop-filter-sheet__apply sticky bottom-3 mt-8 min-h-12 w-full rounded-full text-xs font-semibold uppercase text-white">
                     Show {visible.length} products
                   </Dialog.Close>
                 </motion.div>
@@ -1005,7 +998,7 @@ function SortMenu({
           initial={{ opacity: 0, y: -8, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -8, scale: 0.98 }}
-          className="absolute right-0 top-[calc(100%+8px)] z-50 w-52 rounded-[20px] border border-white/70 bg-[rgba(248,244,236,.96)] p-2 shadow-[0_22px_60px_rgba(42,27,19,.16)] backdrop-blur-2xl"
+          className="co-shop-sort-menu absolute right-0 top-[calc(100%+8px)] z-50 w-52 rounded-[20px] p-2 backdrop-blur-2xl"
         >
           {sortOptions.map((item) => (
             <button
@@ -1017,7 +1010,7 @@ function SortMenu({
               }}
               className={cn(
                 "flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-xs",
-                value === item && "bg-white/75 font-semibold text-[#214d2b]",
+                value === item && "bg-white/[.08] font-semibold text-[#f0bc7e]",
               )}
             >
               {item}
@@ -1059,12 +1052,12 @@ function ProductCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, delay: Math.min(index * 0.025, 0.2), ease }}
       whileHover={{ y: -8 }}
-      className="group relative flex min-w-0 flex-col overflow-hidden rounded-[22px] border border-black/6 bg-white/58 p-2.5 shadow-[0_12px_35px_rgba(42,27,19,.045)] transition-shadow hover:shadow-[0_24px_60px_rgba(42,27,19,.12)] md:rounded-[28px] md:p-3"
+      className="co-shop-product-card group relative flex min-w-0 flex-col overflow-hidden rounded-[20px] p-2.5 transition-shadow md:p-3"
     >
       <Link
         href={`/shop/${product.cartSlug}`}
         aria-label={`View ${product.name}`}
-        className="relative aspect-square overflow-hidden rounded-[18px] bg-[#f3eee4] md:rounded-[23px]"
+        className="co-shop-product-card__image relative aspect-[.92] overflow-hidden rounded-[16px] md:rounded-[18px]"
       >
         <ProductImage product={product} sizes="(min-width:1024px) 19vw, 48vw" />
         {product.badge && (
@@ -1078,8 +1071,8 @@ function ProductCard({
         onClick={toggleWishlist}
         aria-label={`${wished ? "Remove" : "Add"} ${product.name} ${wished ? "from" : "to"} wishlist`}
         className={cn(
-          "absolute right-5 top-5 grid size-9 place-items-center rounded-full bg-white/78 shadow-sm transition",
-          wished && "text-[#214d2b]",
+          "co-shop-product-card__wish absolute right-5 top-5 grid size-9 place-items-center rounded-full transition",
+          wished && "is-active",
         )}
       >
         <motion.span animate={wished ? { scale: [1, 1.25, 1] } : { scale: 1 }}>
@@ -1091,16 +1084,16 @@ function ProductCard({
           <h2 className="text-[11px] font-semibold leading-5 md:text-[13px]">
             {product.name}
           </h2>
-          <p className="mt-1 text-[9px] text-[#6a6057] md:text-[10px]">
+          <p className="mt-1 text-[9px] text-[#c2a789] md:text-[10px]">
             {product.subtitle}
           </p>
           <p className="mt-3 text-xs font-semibold md:text-sm">
             ₹{product.price.toFixed(2)}
           </p>
         </Link>
-        <div className="mt-2 flex items-center gap-3 text-[8px] font-semibold uppercase text-[#214d2b]">
-          <Link href={`/shop/${product.cartSlug}`} className="border-b border-[#214d2b]/45 pb-0.5">View product</Link>
-          <button type="button" onClick={onQuickView} className="border-b border-[#214d2b]/25 pb-0.5">Quick view</button>
+        <div className="mt-2 flex items-center gap-3 text-[8px] font-semibold uppercase text-[#e4ad73]">
+          <Link href={`/shop/${product.cartSlug}`} className="border-b border-[#e4ad73]/45 pb-0.5">View product</Link>
+          <button type="button" onClick={onQuickView} className="border-b border-[#e4ad73]/25 pb-0.5">Quick view</button>
         </div>
         <div className="mt-auto flex items-center justify-between gap-2 pt-4">
           <Quantity value={quantity} onChange={setQuantity} />
@@ -1108,14 +1101,14 @@ function ProductCard({
             type="button"
             onClick={onAdd}
             aria-label={actionLabel === "Configure" ? `Configure ${product.name}` : `Add ${product.name} to cart`}
-            className="co-primary-cta grid size-9 shrink-0 place-items-center rounded-full bg-[#214d2b] text-white transition md:hidden"
+            className="co-shop-card-cta co-primary-cta grid size-9 shrink-0 place-items-center rounded-full text-white transition md:hidden"
           >
             <ShoppingBag size={15} />
           </button>
           <button
             type="button"
             onClick={onAdd}
-            className="co-primary-cta hidden min-h-9 flex-1 rounded-full bg-[#214d2b] px-3 text-[8px] font-semibold uppercase text-white shadow-[0_10px_24px_rgba(33,77,43,.2)] transition hover:bg-[#183b20] md:block"
+            className="co-shop-card-cta co-primary-cta hidden min-h-9 flex-1 rounded-full px-3 text-[8px] font-semibold uppercase text-white transition md:block"
           >
             {actionLabel}
           </button>

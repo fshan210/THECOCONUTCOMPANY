@@ -15,10 +15,10 @@ test("shop route composes the approved discovery and bundle architecture", async
 
   assert.match(page, /<ReferenceShopPage contentProducts={products}/);
   assert.match(shop, /<ShopHero/);
-  assert.match(shop, /<ShopWaterFilm/);
+  assert.match(hero, /<ShopWaterFilm/);
   assert.match(shop, /<ShopCategorySlab/);
   assert.match(shop, /<ShopBundleBuilder/);
-  assert.match(hero, /shop-hero\/v1\/\$\{viewport\}/);
+  assert.match(hero, /shop-hero\/v2\/\$\{viewport\}/);
   assert.match(hero, /co-product-ecosystem-v1\.webp/);
   assert.match(hero, /mobileSrc=\{transparentPixel\}/);
   for (const label of ["All Products", ".CO Water", ".CO Kitchen", "BOTANiCA", "MELT", "Bundles & Gifts"]) assert.match(categories, new RegExp(label.replace(".", "\\.")));
