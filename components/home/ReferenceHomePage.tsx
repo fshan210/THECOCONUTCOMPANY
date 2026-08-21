@@ -96,7 +96,7 @@ function DockNavigationItem({ active, href, label, light, pointerX }: { active: 
   };
 
   return <motion.div style={{ scale, y }} className="origin-center will-change-transform">
-    <Link ref={itemRef} href={href} aria-current={active ? "page" : undefined} onFocus={activate} className={cn("co-reference-nav-link relative block rounded-full px-2 py-2 transition after:absolute after:inset-x-2 after:bottom-0 after:h-px after:origin-left after:transition-transform hover:after:scale-x-100", light ? "after:bg-[#f5dbbc] hover:text-white" : "after:bg-[#305a34] hover:text-[#305a34]", active ? light ? "font-bold text-white after:scale-x-100" : "font-bold text-[#214d2b] after:scale-x-100" : "after:scale-x-0")}>
+    <Link ref={itemRef} href={href} prefetch={href === "/" ? false : undefined} aria-current={active ? "page" : undefined} onFocus={activate} className={cn("co-reference-nav-link relative block rounded-full px-2 py-2 transition after:absolute after:inset-x-2 after:bottom-0 after:h-px after:origin-left after:transition-transform hover:after:scale-x-100", light ? "after:bg-[#f5dbbc] hover:text-white" : "after:bg-[#305a34] hover:text-[#305a34]", active ? light ? "font-bold text-white after:scale-x-100" : "font-bold text-[#214d2b] after:scale-x-100" : "after:scale-x-0")}>
       {label}
     </Link>
   </motion.div>;
@@ -255,7 +255,7 @@ export function ReferenceHeader() {
         className={cn("co-glass-header fixed left-1/2 top-2.5 z-[110] flex min-h-[70px] w-[calc(100%-28px)] -translate-x-1/2 items-center rounded-[26px] px-5 md:px-8", shopShell || !scrolled ? "border border-[#f5dbbc]/20 text-[#fff7e9]" : "border border-white/55 text-[#17130f]")}
       >
         <div className="relative mx-auto flex w-full max-w-[1500px] items-center justify-between gap-5">
-          <Link href="/" aria-current={pathname === "/" ? "page" : undefined} className={cn("relative ml-10 block h-[52px] w-[86px] rounded-2xl md:ml-0 md:h-[58px] md:w-[88px]", pathname === "/" && "co-nav-active")} aria-label=".CO home">
+          <Link href="/" prefetch={false} aria-current={pathname === "/" ? "page" : undefined} className={cn("relative ml-10 block h-[52px] w-[86px] rounded-2xl md:ml-0 md:h-[58px] md:w-[88px]", pathname === "/" && "co-nav-active")} aria-label=".CO home">
             <Image src="/images/logo.svg" alt=".CO The Coconut Company" fill priority sizes="88px" className={cn("object-contain object-left transition-[filter] duration-300", (shopShell || !scrolled) && "brightness-0 invert")} />
           </Link>
 
