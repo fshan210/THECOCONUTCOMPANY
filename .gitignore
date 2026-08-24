@@ -47,3 +47,5 @@ migration-reports/final/*
 *coconutcompany-firebase-adminsdk*.json
 *firebase-adminsdk*.json
 .env*
+.claude/settings.local.json*
+graphify-out/
