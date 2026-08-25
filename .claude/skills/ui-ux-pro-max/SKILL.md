@@ -71,14 +71,27 @@ Do NOT use for:
 - Trend-following redesigns without user request
 - Unnecessary component replacement
 
-## Hierarchy
+## Project authority
 
-```
-brand-protection  >  design-system  >  motion-architecture  >  ui-ux-pro-max
-```
+This skill is **tier 5** in the project authority hierarchy.
 
-This skill is subordinate to the three existing project skills. When guidance
-conflicts with any of them, defer to the higher-priority skill.
+Full canonical hierarchy (highest → lowest):
+
+1. `brand-protection`
+2. `design-system`
+3. `motion-architecture`
+4. `graphify`
+5. `ui-ux-pro-max` (this skill)
+6. `frontend-taste`
+7. `emilkowalski-motion`
+8. `redesign-skill`
+
+`brand-protection`, `design-system`, `motion-architecture`, and `graphify`
+take precedence over this skill. `frontend-taste`, `emilkowalski-motion`,
+and `redesign-skill` are lower-tier consumers/orchestrators and do not
+override this skill's UX-domain rules unless a higher-tier skill governs
+the conflict. When guidance conflicts with a higher-priority skill, defer
+to that skill.
 
 ## Project override rules
 

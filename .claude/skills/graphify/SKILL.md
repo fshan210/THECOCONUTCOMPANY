@@ -134,6 +134,23 @@ When the user asks to install the post-commit auto-rebuild hook or wire graphify
 
 ---
 
-## Interpreter fallback (Step 1 port)
+## Project authority
+
+This skill is **tier 4** — subordinate to `brand-protection`, `design-system`,
+and `motion-architecture` where their domain rules apply. The full project
+authority hierarchy (highest → lowest) is:
+
+1. `brand-protection`
+2. `design-system`
+3. `motion-architecture`
+4. `graphify` (this skill)
+5. `ui-ux-pro-max`
+6. `frontend-taste`
+7. `emilkowalski-motion`
+8. `redesign-skill`
+
+This skill is authoritative for architecture understanding and impact analysis.
+
+### Interpreter fallback
 
 If `graphify` is not on `$PATH` or the binary at `/Users/fazilshersha/.local/bin/graphify` is missing, do not attempt to install. Tell the user Graphify must be installed separately and exit. This skill does not install or upgrade Graphify.

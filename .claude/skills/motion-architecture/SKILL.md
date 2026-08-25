@@ -161,3 +161,20 @@ giving those elements competing transforms.
   imagery sources, and sustainability truth.
 - This skill: owns choreography values, quality-tier behaviour, parallax depths,
   scroll synchronization, and library assignment rules.
+
+## Project authority
+
+This skill is **tier 3** — subordinate to `brand-protection` (tier 1) and
+`design-system` (tier 2). The full project authority hierarchy (highest →
+lowest) is:
+
+1. `brand-protection`
+2. `design-system`
+3. `motion-architecture` (this skill)
+4. `graphify`
+5. `ui-ux-pro-max`
+6. `frontend-taste`
+7. `emilkowalski-motion`
+8. `redesign-skill`
+
+This skill is authoritative for motion implementation and choreography.

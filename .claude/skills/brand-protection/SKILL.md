@@ -162,3 +162,17 @@ Before editing any file that touches brand-visible surfaces:
   depths, and scroll synchronization.
 - This skill: owns brand-asset locks, packaging/farm/routine/origin locks, prohibited
   imagery sources, continuity of the homepage sequence, and sustainability/Pulse truth.
+
+## Project authority
+
+This skill is **tier 1** — the highest authority on brand-visible matters.
+The full project authority hierarchy (highest → lowest) is:
+
+1. `brand-protection` (this skill)
+2. `design-system`
+3. `motion-architecture`
+4. `graphify`
+5. `ui-ux-pro-max`
+6. `frontend-taste`
+7. `emilkowalski-motion`
+8. `redesign-skill`

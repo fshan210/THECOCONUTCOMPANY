@@ -51,15 +51,30 @@ Do NOT use for:
 - Motion without an existing artifact to polish
 - Motion for motion's sake
 
-## Hierarchy
+## Motion-stack hierarchy
 
 ```
 brand-protection  >  design-system  >  motion-architecture  >  emilkowalski-motion
 ```
 
-This skill is subordinate to motion-architecture. When timing, easing,
+This block describes only the motion-specific relationship. The full project
+authority hierarchy is the canonical 8-tier chain:
+
+1. `brand-protection`
+2. `design-system`
+3. `motion-architecture`
+4. `graphify`
+5. `ui-ux-pro-max`
+6. `frontend-taste`
+7. `emilkowalski-motion` (this skill, tier 7)
+8. `redesign-skill`
+
+`emilkowalski-motion` must obey every higher tier, including `frontend-taste`
+where visual judgement is involved and all tiers above it.
+
+This skill is subordinate to `motion-architecture`. When timing, easing,
 library assignment, or quality-tier guidance conflicts with
-motion-architecture, defer to motion-architecture.
+`motion-architecture`, defer to `motion-architecture`.
 
 ## Project override rules
 

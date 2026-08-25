@@ -21,6 +21,25 @@ metadata:
    easing, reveal, or stagger values across components.
 4. This skill — operational enforcement rules.
 
+## Project authority
+
+Within the Claude skill authority hierarchy, this skill is **tier 2** —
+subordinate only to `brand-protection`. The full project hierarchy
+(highest → lowest) is:
+
+1. `brand-protection`
+2. `design-system` (this skill)
+3. `motion-architecture`
+4. `graphify`
+5. `ui-ux-pro-max`
+6. `frontend-taste`
+7. `emilkowalski-motion`
+8. `redesign-skill`
+
+This skill is authoritative for design tokens and system-level visual rules.
+All other skills defer to it for palette, typography, spacing, radii,
+glass/neumorphism tokens, responsive breakpoints, and accessibility floors.
+
 ## Palette (locked)
 
 - Deep environment brown `#381408` · primary brown `#612c17` · lifted brown `#7b381b`
