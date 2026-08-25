@@ -15,9 +15,9 @@ export default async function AccountPage() {
   const session = await requireCustomerSession();
 
   return (
-    <>
+    <div className="rd-account-page">
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Account", path: "/account" }]} />
       <CustomerAccountDashboard session={session} />
-    </>
+    </div>
   );
 }

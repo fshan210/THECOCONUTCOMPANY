@@ -15,7 +15,7 @@ export default async function ProfilePage() {
   const session = await requireVerifiedCustomerSession();
   const profile = await getCustomerProfile();
   const address = profile?.address ?? {};
-  return <>
+  return <div className="rd-account-page">
     <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Profile", path: "/profile" }]} />
     <CustomerSimplePage session={session} title="Profile." body="Keep your identity, delivery details, and communication preferences current." items={[]} suppressEmpty />
     <section className="bg-[var(--co-cream)] px-4 pb-20 md:pb-24">
@@ -39,7 +39,7 @@ export default async function ProfilePage() {
         <form action={deleteCustomerAccount} className="rounded-[28px] border border-red-900/10 bg-white/65 p-6"><p className="co-label text-red-800">Account controls</p><h2 className="mt-3 font-['Cormorant_Garamond'] text-3xl">Delete account</h2><p className="mt-3 text-sm text-[#695e55]">Type DELETE to permanently remove your customer profile.</p><input name="confirmation" aria-label="Type DELETE to confirm" className={`${fieldClass} mt-4`} /><button className="mt-4 rounded-full border border-red-900/20 px-5 py-3 text-sm font-semibold text-red-900">Delete account</button></form>
       </div>
     </section>
-  </>;
+  </div>;
 }
 
 function Field({name,label,value="",type="text"}:{name:string;label:string;value?:string;type?:string}) { return <label className="space-y-2"><span className="block text-sm font-medium text-coconut">{label}</span><input name={name} type={type} defaultValue={value} className={fieldClass} /></label>; }

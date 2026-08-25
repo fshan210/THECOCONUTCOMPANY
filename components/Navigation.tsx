@@ -90,6 +90,7 @@ export function Navigation() {
             {session ? (
               <Link
                 href={accountHref}
+                prefetch={false}
                 aria-label={`Open account for ${greeting}`}
                 className="inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-[24px] border border-[var(--co-border)] bg-[var(--co-white)] px-3 text-sm font-bold text-[var(--co-ink)] transition hover:border-[var(--co-black)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)]"
               >
@@ -99,6 +100,7 @@ export function Navigation() {
             ) : (
               <Link
                 href={accountHref}
+                prefetch={false}
                 aria-label="Sign in to your account"
                 className="grid h-11 w-11 place-items-center rounded-[24px] border border-[var(--co-border)] bg-[var(--co-white)] text-[var(--co-ink)] transition hover:border-[var(--co-black)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)]"
               >
@@ -153,10 +155,10 @@ export function Navigation() {
                   </Link>
                 );
               })}
-              <Link href="/wishlist" onClick={() => setOpen(false)} className="block border-b border-[var(--co-border)] py-4 text-sm font-bold uppercase tracking-[0.12em] text-[var(--co-muted)]">
+              <Link href="/wishlist" prefetch={false} onClick={() => setOpen(false)} className="block border-b border-[var(--co-border)] py-4 text-sm font-bold uppercase tracking-[0.12em] text-[var(--co-muted)]">
                 Wishlist
               </Link>
-              <Link href={accountHref} onClick={() => setOpen(false)} className="block py-4 text-sm font-bold uppercase tracking-[0.12em] text-[var(--co-ink)]">
+              <Link href={accountHref} prefetch={false} onClick={() => setOpen(false)} className="block py-4 text-sm font-bold uppercase tracking-[0.12em] text-[var(--co-ink)]">
                 {session ? `Hi, ${greeting}` : "Login"}
               </Link>
               {session ? (
