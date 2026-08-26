@@ -28,6 +28,12 @@ import { defaultDescription, siteName, siteUrl } from "@/lib/seo/metadata";
 import { getProducts } from "@/lib/content/server";
 import { mediaUrl } from "@/lib/media";
 import "./globals.css";
+import "../styles/reference-dark.css";
+import "../styles/reference-recipes.css";
+import "../styles/reference-sustainability.css";
+import "../styles/reference-journal.css";
+import "../styles/reference-commerce.css";
+import "../styles/reference-newsletter.css";
 
 const roboto = localFont({
   src: [

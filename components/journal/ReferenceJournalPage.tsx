@@ -1,66 +1,662 @@
 "use client";
-
-import { ResponsiveImage as Image } from "@/components/media/ResponsiveImage";
 import Link from "next/link";
-import { AnimatePresence, motion, useMotionValue } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, ArrowRight, Bookmark, Camera, Check, Droplets, Heart, Instagram, Leaf, Menu, MessageCircle, PackageOpen, Play, Recycle, Search, Sparkles, Star, Trash2, UserRound, X, Youtube } from "lucide-react";
-import { MobileBottomNav, NewsletterSection, ReferenceFooter, ReferenceHeader } from "@/components/home/ReferenceHomePage";
-import { communityPosts, communityTestimonials as testimonials, journalArticles as fallbackArticles, routineCards } from "@/data/journal";
+import { useMemo, useState } from "react";
+import {
+  Bookmark,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Heart,
+  Search,
+  Send,
+} from "lucide-react";
 import type { ContentJournalPost } from "@/lib/content/types";
-import { cn } from "@/lib/utils";
-import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
-import { SmooothyHorizontalSlider, SmooothySlide } from "@/components/sliders";
-import { websiteAssets } from "@/lib/website-assets";
-
-const blur="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MCcgaGVpZ2h0PSc0MCc+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsbD0nI2Y4ZjRlYycvPjwvc3ZnPg==";
-const ease=[.16,1,.3,1] as const;
-const journalHero = websiteAssets.journal.hero;
-const journalFeatured = websiteAssets.journal.featured;
-
-function PremiumImage({src,mobileSrc,alt,sizes,className="",priority=false}:{src:string;mobileSrc?:string;alt:string;sizes:string;className?:string;priority?:boolean}){
-  const responsiveMobileSrc = mobileSrc ?? (src === journalFeatured.desktop ? journalFeatured.mobile : undefined);
-  return <Image src={src} mobileSrc={responsiveMobileSrc} alt={alt} fill sizes={sizes} priority={priority} quality={95} placeholder="blur" blurDataURL={blur} className={cn("object-cover transition duration-700 group-hover:scale-[1.035]",className)}/>;
+import {
+  ButtonLink,
+  DarkShell,
+  Eyebrow,
+  Newsletter,
+  RD,
+  Scene,
+} from "@/components/reference/DarkReference";
+import { useSavedContent } from "@/lib/customer/use-saved-content";
+const A = RD.journal,
+  R = RD.recipe,
+  S = RD.sustainability;
+const visualStories = [
+  [
+    "Sourcing",
+    "What actually happens to a coconut husk?",
+    `${S}NOTHING WASTED EVERYTHING ACCOUNTED FOR-DESKTOP.png`,
+  ],
+  [
+    "People",
+    "Meet Lakshmi: twenty years among coconuts.",
+    `${S}IMPACT SHOULD REACH PEOPLE TOO.png`,
+  ],
+  [
+    "Recipes",
+    "Kerala Coconut Breakfast Bowl",
+    `${R}coconut breakfast bowl.png`,
+  ],
+  [
+    "Sustainability",
+    "Why traceability matters in Pollachi.",
+    `${S}A BETTER COCONUT SYSTEM STARTS AT THE SOURCE.png`,
+  ],
+  ["Field note", "First rains, new growth.", `${S}COCONUT HERO IMAGE.png`],
+  [
+    "Behind .CO",
+    "A day in our kitchen lab.",
+    `${A}STORIES FROM THE COCONUT AND EVERYTHING AROUND IT.png`,
+  ],
+];
+const qas = [
+  [
+    "How do you decide when to harvest coconuts?",
+    "Age, water content and sound are checked. Each grove and harvest differs.",
+  ],
+  [
+    "What happens to shells after the water is harvested?",
+    "The intended circular pathway includes biochar and other material uses; production evidence will be published before claims are verified.",
+  ],
+  [
+    "Can I replace fresh coconut with .CO products?",
+    "Choose the format suited to your recipe and follow the product instructions.",
+  ],
+];
+const people = [
+  ["Raghavan Pillai", "Farmer", "COCONUT HERO IMAGE.png"],
+  ["Meena Devi", "Processing lead", "IMPACT SHOULD REACH PEOPLE TOO.png"],
+  ["Arjun Menon", "Food specialist", "GOOD FOOD GETS PASSED AROUND.png"],
+  [
+    "Ananya Krishnan",
+    "Co-founder",
+    "STORIES FROM THE COCONUT AND EVERYTHING AROUND IT.png",
+  ],
+];
+export function ReferenceJournalPage({
+  journalEntries = [],
+}: {
+  journalEntries?: ContentJournalPost[];
+}) {
+  const saved = useSavedContent("journal");
+  const [category, setCategory] = useState("All");
+  const [query, setQuery] = useState("");
+  const [sort, setSort] = useState("Newest");
+  const [open, setOpen] = useState(0);
+  const [topic, setTopic] = useState("Farming");
+  const [question, setQuestion] = useState("");
+  const [notice, setNotice] = useState("");
+  const [config, setConfig] = useState({
+    form: "Milk",
+    process: "Fresh",
+    dish: "Curry",
+  });
+  const [rituals, setRituals] = useState([
+    "Warm lemon + coconut water",
+    "Hydrate with coconut water",
+    "Coconut oil self massage",
+  ]);
+  const chooseConfig = (key: keyof typeof config, value: string) =>
+    setConfig((v) => ({ ...v, [key]: value }));
+  const posts = useMemo(() => {
+    const source = journalEntries.length
+      ? journalEntries.map(
+          (e) => [e.category, e.title, e.image, e.slug] as const,
+        )
+      : visualStories.map((x, i) => [x[0], x[1], x[2], `story-${i}`] as const);
+    return source
+      .filter(
+        (p) =>
+          (category === "All" || p[0] === category) &&
+          `${p[0]} ${p[1]}`.toLowerCase().includes(query.toLowerCase()),
+      )
+      .sort((a, b) => (sort === "A–Z" ? a[1].localeCompare(b[1]) : 0));
+  }, [journalEntries, category, query, sort]);
+  return (
+    <DarkShell className="rd-journal">
+      <section className="journal-hero">
+        <Scene
+          priority
+          src={`${A}STORIES FROM THE COCONUT AND EVERYTHING AROUND IT.png`}
+          alt="Editorial journal, coconut product and field notes on a warm wooden desk"
+        />
+        <div>
+          <Eyebrow>The .CO journal</Eyebrow>
+          <h1>
+            Stories from
+            <br />
+            the coconut and
+            <br />
+            <em>everything around it.</em>
+          </h1>
+          <p>
+            Field notes, kitchen discoveries and real people from inside the
+            world of .CO.
+          </p>
+          <ButtonLink href="#journal-index">Explore the journal</ButtonLink>{" "}
+          <ButtonLink href="#ask" ghost>
+            Ask the farm
+          </ButtonLink>
+        </div>
+      </section>
+      <nav className="journal-ticker rd-glass">
+        <Eyebrow>Today in the journal</Eyebrow>
+        {[
+          "Pollachi Harvest Notes",
+          "Kitchen Coconut Milk Experiments",
+          "CoCarbon Biochar Field Trial",
+          "Community Morning Rituals",
+        ].map((x) => (
+          <a href="#journal-index" key={x}>
+            {x}
+          </a>
+        ))}
+      </nav>
+      <section className="rd-section editors-desk">
+        <div className="editor-heading">
+          <Eyebrow>From the editor’s desk</Eyebrow>
+          <h2>
+            What matters most,
+            <br />
+            starts at the <em>source.</em>
+          </h2>
+          <p>
+            Our journal shares what we’re learning in the field, the kitchen and
+            our community.
+          </p>
+        </div>
+        <article className="rd-glass">
+          <Scene
+            src={`${S}IMPACT SHOULD REACH PEOPLE TOO.png`}
+            alt="People working with coconuts"
+          />
+          <div>
+            <Eyebrow>People & culture · 7 min read</Eyebrow>
+            <h3>
+              The people behind
+              <br />
+              <em>every coconut we source.</em>
+            </h3>
+            <p>
+              Meet the farmers, artisans and families who make our work
+              possible.
+            </p>
+            <ButtonLink href="/about">Read the story</ButtonLink>
+            <button
+              aria-label="Save editor story"
+              onClick={() => void saved.toggle("people-behind-every-coconut")}
+            >
+              <Bookmark
+                fill={
+                  saved.saved.has("people-behind-every-coconut")
+                    ? "currentColor"
+                    : "none"
+                }
+              />
+            </button>
+          </div>
+        </article>
+      </section>
+      <section id="journal-index" className="rd-section journal-index">
+        <div className="index-heading">
+          <div>
+            <Eyebrow>Explore the journal</Eyebrow>
+            <h2>
+              Follow what
+              <br />
+              <em>interests you.</em>
+            </h2>
+          </div>
+          <p>
+            Stories, research, recipes and field notes organised around what .CO
+            cares about.
+          </p>
+        </div>
+        <div className="journal-toolbar rd-glass">
+          <div className="rd-pills">
+            {[
+              "All",
+              "Sourcing",
+              "Sustainability",
+              "Recipes",
+              "Behind .CO",
+              "People",
+              "Culture",
+            ].map((c) => (
+              <button
+                className="rd-pill"
+                aria-pressed={category === c}
+                onClick={() => setCategory(c)}
+                key={c}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+          <label>
+            <Search />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search the journal"
+            />
+          </label>
+          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+            <option>Newest</option>
+            <option>A–Z</option>
+          </select>
+        </div>
+        <div className="journal-masonry">
+          {posts.slice(0, 8).map(([cat, title, image, slug], i) => (
+            <article className={`rd-card item-${i}`} key={slug}>
+              <Link href={`/journal?story=${encodeURIComponent(slug)}`}>
+                <Scene src={image} alt={title} />
+              </Link>
+              <div className="rd-card-copy">
+                <Eyebrow>{cat}</Eyebrow>
+                <h3>{title}</h3>
+                <div className="rd-meta">
+                  {4 + i} min read · Pollachi / Kerala
+                </div>
+                <button
+                  aria-label={`Save ${title}`}
+                  onClick={() => void saved.toggle(slug)}
+                >
+                  <Heart
+                    fill={saved.saved.has(slug) ? "currentColor" : "none"}
+                  />
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="rd-section field-notes">
+        <div>
+          <Eyebrow>From the field</Eyebrow>
+          <h2>
+            Small moments. <em>Real impact.</em>
+          </h2>
+        </div>
+        <div className="field-rail">
+          {[
+            [
+              "07:42",
+              "Pollachi",
+              "The morning harvest is in. Tender coconuts show strong water content.",
+            ],
+            [
+              "14:10",
+              "Coimbatore",
+              "Testing a new husk-chip mix for moisture retention.",
+            ],
+            ["16:30", "Palakkad", "First rains over the western ghats."],
+            ["11:05", "Kasaragod", "Community training on composting today."],
+            [
+              "18:20",
+              "Ariyalur",
+              "Biochar trial observations recorded for review.",
+            ],
+          ].map(([time, place, note]) => (
+            <article className="rd-glass" key={time}>
+              <b>{time}</b>
+              <span>{place}</span>
+              <p>{note}</p>
+              <small>Field note · Evidence review pending</small>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section id="ask" className="rd-section ask-farm rd-glass">
+        <div>
+          <Eyebrow>Ask the farm</Eyebrow>
+          <h2>
+            Curious about
+            <br />
+            something? Ask
+            <br />
+            <em>the people who know.</em>
+          </h2>
+          <Scene
+            src={`${S}IMPACT SHOULD REACH PEOPLE TOO.png`}
+            alt="Coconut workers sharing their expertise"
+          />
+        </div>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            setNotice(
+              "Your question is ready for the farm integration queue. It has not been submitted because no production endpoint is configured.",
+            );
+          }}
+        >
+          <h3>Submit your question</h3>
+          <p>Choose a topic</p>
+          <div className="rd-pills">
+            {[
+              "Farming",
+              "Processing",
+              "Sourcing",
+              "Sustainability",
+              "Coconut Science",
+            ].map((t) => (
+              <button
+                type="button"
+                className="rd-pill"
+                aria-pressed={topic === t}
+                onClick={() => setTopic(t)}
+                key={t}
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+          <label>
+            Your question
+            <textarea
+              required
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              placeholder="What would you like to ask?"
+            />
+          </label>
+          <button className="rd-button">
+            Send to the farm <Send />
+          </button>
+          {notice && <p role="status">{notice}</p>}
+        </form>
+      </section>
+      <section className="rd-section answers">
+        <Eyebrow>Answers from the field</Eyebrow>
+        <h2>Real questions. Real answers.</h2>
+        {qas.map(([q, a], i) => (
+          <article className="rd-glass" key={q}>
+            <button
+              onClick={() => setOpen(i === open ? -1 : i)}
+              aria-expanded={i === open}
+            >
+              <h3>{q}</h3>
+              <ChevronDown />
+            </button>
+            {i === open && <p>{a}</p>}
+          </article>
+        ))}
+      </section>
+      <section className="rd-section coconut-config">
+        <div>
+          <Eyebrow>One coconut, many possibilities</Eyebrow>
+          <h2>
+            Change one thing.
+            <br />
+            See what the coconut becomes.
+          </h2>
+          <div className="config-controls rd-glass">
+            {[
+              [
+                "form",
+                "1. Coconut form",
+                ["Milk", "Cream", "Oil", "Flour", "Water", "Sugar"],
+              ],
+              [
+                "process",
+                "2. Processing style",
+                ["Fresh", "Cold-Pressed", "Fermented", "Dehydrated"],
+              ],
+              [
+                "dish",
+                "3. What are you making?",
+                ["Curry", "Snack", "Drink", "Dessert", "Bake"],
+              ],
+            ].map(([key, title, items]) => (
+              <fieldset key={String(key)}>
+                <legend>{title}</legend>
+                <div className="rd-pills">
+                  {(items as string[]).map((x) => {
+                    const field = String(key) as keyof typeof config;
+                    return (
+                      <button
+                        type="button"
+                        className="rd-pill"
+                        aria-pressed={config[field] === x}
+                        onClick={() => chooseConfig(field, x)}
+                        key={x}
+                      >
+                        {x}
+                      </button>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            ))}
+          </div>
+        </div>
+        <article className="config-result rd-card">
+          <Scene
+            src={`${R}Kerala Vegetable Stew.png`}
+            alt="Matched Kerala coconut vegetable stew"
+          />
+          <div className="rd-card-copy">
+            <Eyebrow>New match</Eyebrow>
+            <h3>
+              {config.process} {config.form} {config.dish}
+            </h3>
+            <div className="rd-meta">35 min · Easy · Serves 3</div>
+            <p>
+              The recommendation updates as you change the coconut form,
+              processing style and dish.
+            </p>
+            <ButtonLink href="/recipes/coconut-thai-veggie-curry">
+              View recipe
+            </ButtonLink>
+          </div>
+        </article>
+      </section>
+      <section className="rd-section explained">
+        <div>
+          <Eyebrow>The coconut explained</Eyebrow>
+          <h2>Some questions deserve more than a caption.</h2>
+          <p>
+            A library of honest answers—from how things are made to why it
+            matters.
+          </p>
+        </div>
+        <div className="rd-glass">
+          {[
+            "Tender vs Mature Coconut",
+            "How Coconut Milk Is Made",
+            "What Happens to the Husk",
+            "Virgin vs Refined Coconut Oil",
+            "Why Coconut Flour Behaves Differently",
+            "What Biochar Actually Does",
+          ].map((x) => (
+            <Link href="/journal" key={x}>
+              {x}
+              <span>→</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+      <section className="rd-section community-stories">
+        <div>
+          <Eyebrow>From the community</Eyebrow>
+          <h2>
+            .CO, out in the
+            <br />
+            <em>real world.</em>
+          </h2>
+          <p>Stories from kitchens, farms, studios and daily routines.</p>
+          <ButtonLink href="#your-turn">Share your story</ButtonLink>
+        </div>
+        <div className="story-rail" role="region" aria-label="Community stories carousel" tabIndex={-1}>
+          {visualStories.slice(0, 5).map(([cat, title, image]) => (
+            <article className="rd-card" key={title}>
+              <Scene src={image} alt={title} />
+              <div className="rd-card-copy">
+                <Eyebrow>{cat}</Eyebrow>
+                <h3>{title}</h3>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="story-rail-controls">
+          <button type="button" className="story-rail__arrow story-rail__arrow--prev" aria-label="Previous story" onClick={() => document.querySelector('.story-rail')?.scrollBy({left:-340,behavior:'smooth'})}>&larr;</button>
+          <button type="button" className="story-rail__arrow story-rail__arrow--next" aria-label="Next story" onClick={() => document.querySelector('.story-rail')?.scrollBy({left:340,behavior:'smooth'})}>&rarr;</button>
+        </div>
+      </section>
+      <section className="rd-section husk-stack">
+        <div>
+          <Eyebrow>The husk stack</Eyebrow>
+          <h2>
+            Small stories.
+            <br />
+            Big impact.
+          </h2>
+          <p>Swipe through quick reads from the community and team.</p>
+        </div>
+        <div className="stack-cards">
+          {visualStories.slice(0, 5).map(([cat, title, image], i) => (
+            <article
+              className="rd-card"
+              style={{
+                transform: `translateX(${i * 70}px) rotate(${i * 2}deg)`,
+                zIndex: 5 - i,
+              }}
+              key={title}
+            >
+              <Scene src={image} alt={title} />
+              <div className="rd-card-copy">
+                <h3>{title}</h3>
+                <Eyebrow>{cat}</Eyebrow>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="rd-section build-day">
+        <div>
+          <Eyebrow>Build your day</Eyebrow>
+          <h2>Borrow a ritual.</h2>
+          <p>
+            Save what inspires you and build a day that feels good, naturally.
+          </p>
+        </div>
+        <div className="day-board rd-glass">
+          {["Morning", "Afternoon", "Evening"].map((period, i) => (
+            <article key={period}>
+              <h3>{period}</h3>
+              <div className="ritual-card">
+                <b>{rituals[i]}</b>
+                <small>{[5, 20, 15][i]} min</small>
+              </div>
+              <button
+                onClick={() =>
+                  setRituals((r) =>
+                    r.map((x, n) =>
+                      n === i ? "Golden milk with coconut milk" : x,
+                    ),
+                  )
+                }
+              >
+                + Add a ritual
+              </button>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="rd-section journal-people">
+        <div>
+          <Eyebrow>People of .CO</Eyebrow>
+          <h2>
+            Products move.
+            <br />
+            <em>People make them possible.</em>
+          </h2>
+          <p>Behind every product is a person with purpose.</p>
+        </div>
+        <div>
+          {people.map(([name, role, image], i) => (
+            <article className="rd-card" key={name}>
+              <Scene
+                src={
+                  image.startsWith("GOOD")
+                    ? `${R}${image}`
+                    : image.startsWith("STORIES")
+                      ? `${A}${image}`
+                      : `${S}${image}`
+                }
+                alt={`${name}, ${role}`}
+              />
+              <blockquote>
+                “
+                {
+                  [
+                    "I grow with the seasons, not shortcuts.",
+                    "Clean process. Stronger future.",
+                    "I test every batch like it’s for my family.",
+                    "We grow together. We lead together.",
+                  ][i]
+                }
+                ”
+              </blockquote>
+              <h3>{name}</h3>
+              <p>{role}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section id="your-turn" className="rd-section journal-closing">
+        <article className="rd-glass">
+          <Eyebrow>Follow a series</Eyebrow>
+          <h2>Journal Series</h2>
+          {["Field Notes", "Inside .CO", "Coconut 101", "CoCarbon Notes"].map(
+            (x) => (
+              <Link href="/journal" key={x}>
+                {x} →
+              </Link>
+            ),
+          )}
+        </article>
+        <article className="rd-glass">
+          <Eyebrow>Most read</Eyebrow>
+          <h2>Readers keep coming back to</h2>
+          {visualStories.slice(0, 4).map((x, i) => (
+            <p key={x[1]}>
+              <b>0{i + 1}</b>
+              {x[1]}
+            </p>
+          ))}
+        </article>
+        <article className="rd-glass">
+          <Eyebrow>Community love</Eyebrow>
+          <blockquote>
+            “.CO is a reminder that we can choose better every day.”
+          </blockquote>
+          <small>— Community reader, Coimbatore</small>
+        </article>
+        <article className="rd-glass your-turn">
+          <Eyebrow>Your turn</Eyebrow>
+          <h2>Something worth sharing?</h2>
+          <p>Share a recipe, or an answer to a question from the farm.</p>
+          <ButtonLink href="mailto:hello@cothecoconutcompany.com">
+            Share your story
+          </ButtonLink>
+        </article>
+        <article className="rd-glass archive">
+          <Eyebrow>Search & archive</Eyebrow>
+          <h2>Find a story</h2>
+          <label>
+            <Search />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search articles, people, places…"
+            />
+          </label>
+        </article>
+      </section>
+      <Newsletter />
+    </DarkShell>
+  );
 }
-function ArrowButton({label,onClick}:{label:string;onClick?:()=>void}){return <button type="button" onClick={onClick} aria-label={label} className="co-primary-cta grid size-11 place-items-center rounded-full border border-[#214d2b]/25 bg-white/70 transition hover:bg-[#214d2b] hover:text-white"><ArrowRight size={16}/></button>;}
-
-export function ReferenceJournalPage({journalEntries=[]}:{journalEntries?:ContentJournalPost[]}){
-  const [post,setPost]=useState<(typeof communityPosts)[number]|null>(null);
-  const [deck,setDeck]=useState(()=>[...communityPosts.slice(0,5)]);
-  const [toast,setToast]=useState("");
-  const [creator,setCreator]=useState(false);
-  const [category,setCategory]=useState("All");
-  useBodyScrollLock(Boolean(post||creator));
-  useEffect(()=>{const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){setPost(null);setCreator(false);}};window.addEventListener("keydown",close);return()=>window.removeEventListener("keydown",close);},[]);
-  const swipe=(action:"like"|"save"|"skip")=>{if(!deck.length)return;const current=deck[0];setDeck((items)=>[...items.slice(1),items[0]]);if(action==="save")setToast("Pinned to your routine");else if(action==="like")setToast(`Loved ${current.handle}`);else setToast("Next story");window.setTimeout(()=>setToast(""),1800);};
-  const articles=useMemo(()=>{
-    const source=journalEntries.length?journalEntries.slice(0,10).map((entry)=>[entry.category,entry.title,entry.readTime,entry.image] as (typeof fallbackArticles)[number]):fallbackArticles;
-    return source.map(([type,title,time,image],index)=>[type,title,time,index===0?journalFeatured.desktop:websiteAssets.journal.card(title.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,""),image,title).src] as (typeof fallbackArticles)[number]);
-  },[journalEntries]);
-  const filtered=category==="All"?articles:articles.filter(([item])=>item===category);
-  return <div className="co-journal-page min-h-screen overflow-hidden bg-[#f8f4ec] font-['Inter'] text-[#2a1b13]">
-    <ReferenceHeader/>
-    <div>
-      <section className="relative min-h-[520px] overflow-hidden bg-[#f3eee4] md:min-h-[510px]"><div className="absolute inset-y-0 right-0 hidden w-[61%] md:block"><PremiumImage src={journalHero.desktop} mobileSrc={journalHero.mobile} alt={journalHero.alt} sizes="61vw" priority/><div className="absolute inset-0 bg-gradient-to-r from-[#f3eee4] via-[#f3eee4]/20 to-transparent"/></div><div className="absolute right-[-70px] top-28 h-[360px] w-[260px] md:hidden"><PremiumImage src={journalHero.mobile} alt={journalHero.alt} sizes="260px" priority className="object-[65%_center]"/></div><div className="absolute inset-0 bg-gradient-to-r from-[#f8f4ec] via-[#f8f4ec]/90 to-transparent md:w-[62%]"/><div className="relative mx-auto flex min-h-[520px] max-w-[1500px] items-center px-5 py-14 md:min-h-[510px] md:px-[clamp(48px,6vw,92px)]"><motion.div initial={{opacity:0,y:18}} animate={{opacity:1,y:0}} transition={{duration:.8,ease}} className="max-w-[470px]"><p className="text-[10px] font-semibold uppercase tracking-[.16em] text-[#214d2b]">The .CO Journal</p><h1 className="mt-5 font-['Cormorant_Garamond'] text-[57px] leading-[.9] tracking-[-.035em] md:text-[74px]">Real people.<br/>Real stories.<br/><em className="font-normal text-[#214d2b]">Real impact.</em></h1><p className="mt-6 max-w-[31ch] text-sm leading-7 text-[#5f554d]">A space for our community to share ideas, recipes, rituals, and real-life moments with .CO.</p><a href="#share" className="co-primary-cta mt-7 inline-flex min-h-12 items-center gap-4 rounded-full bg-[#214d2b] px-6 text-[10px] font-semibold uppercase text-white">Share your story <ArrowRight size={15}/></a></motion.div></div></section>
-
-      <section id="community-posts" className="px-4 py-14 md:px-8"><div className="mx-auto max-w-[1400px]"><SectionTitle index="01" label="Live from our community" title="What’s happening right now" action="View all posts" actionHref="#community-posts"/><SmooothyHorizontalSlider slideCount={communityPosts.length} label="Live community posts" className="mt-6" trackClassName="pb-3" infinite variableWidth parallax autoplayMs={6000} showControls showDots={false}>{communityPosts.map((item,index)=><SmooothySlide key={item.handle} index={index} total={communityPosts.length} className="w-[225px] md:w-[240px]"><button type="button" onClick={()=>setPost(item)} className="group w-full overflow-hidden rounded-[22px] border border-black/6 bg-white/56 text-left shadow-[0_12px_35px_rgba(42,27,19,.045)]"><div className="flex items-center gap-2 p-3"><span className="grid size-7 place-items-center rounded-full bg-[#dfe7d9]"><Leaf size={12}/></span><span><b className="block text-[9px]">{item.handle}</b><small className="text-[8px] text-black/45">{item.time}</small></span></div><div data-smooothy-media className="relative aspect-square overflow-hidden will-change-transform"><PremiumImage src={item.image} alt={item.caption} sizes="240px"/></div><div className="flex min-h-[76px] items-start justify-between gap-2 p-3"><p className="text-[10px] leading-5">{item.caption}</p><span className="flex items-center gap-1 text-[9px] text-[#a34e48]"><Heart size={13}/>{item.likes}</span></div></button></SmooothySlide>)}</SmooothyHorizontalSlider></div></section>
-
-      <section className="bg-white/28 px-4 py-14 md:px-8"><div className="mx-auto max-w-[1400px]"><SectionTitle index="02" label="Husk swiper" title="Swipe. Discover. Get inspired." description="Real reviews, recipes & unboxings from our amazing community."/><div className="mt-8 grid gap-8 md:grid-cols-[310px_1fr] md:items-center"><div className="md:pr-6"><p className="font-['Cormorant_Garamond'] text-3xl leading-tight">Real community stories, one joyful swipe at a time.</p><p className="mt-4 text-xs leading-6 text-[#665c54]">Like the moments you love. Save useful rituals to your routine. Skip anything that is not for you.</p><div className="mt-7 flex gap-3"><SwipeControl label="Like" icon={Heart} onClick={()=>swipe("like")}/><SwipeControl label="Save" icon={Bookmark} onClick={()=>swipe("save")}/><SwipeControl label="Skip" icon={X} onClick={()=>swipe("skip")}/></div><p className="mt-4 text-center text-[8px] uppercase tracking-[.18em] text-black/45 md:text-left">Drag to swipe</p></div><div className="relative min-h-[470px] md:min-h-[500px]">{deck.slice(0,5).map((item,index)=><SwipeCard key={item.handle} item={item} index={index} onSwipe={swipe}/>)}</div></div></div></section>
-
-      <section className="px-4 py-16 md:px-8"><div className="mx-auto grid max-w-[1400px] gap-6 md:grid-cols-[.62fr_1.38fr]"><div><p className="text-[9px] font-semibold uppercase tracking-[.14em] text-[#214d2b]">03 &nbsp; Community co-creation workspace</p><h2 className="mt-3 font-['Cormorant_Garamond'] text-[43px] leading-[.94]">Build your day.<br/>Powered by our community.</h2><p className="mt-4 max-w-[40ch] text-xs leading-6 text-[#655b53]">Drag, drop or tap real community posts into your routine. Get your Organic Synergy Score, Daily Hydration Index, and Plastic Avoided — in real time.</p><Link href="/journal/social-cocreation-hub" className="co-primary-cta mt-6 inline-flex min-h-11 items-center gap-4 rounded-full bg-[#214d2b] px-5 text-[9px] font-semibold uppercase text-white">Open the hub <ArrowRight size={13}/></Link><div className="mt-7 grid grid-cols-3 gap-2">{[["87%","Organic Synergy",Leaf],["92%","Daily Hydration",Droplets],["12","Plastic Avoided",Recycle]].map(([value,label,Icon])=>{const I=Icon as typeof Leaf;return <div key={String(label)} className="rounded-[17px] border border-black/6 bg-white/52 p-3"><b className="font-['Cormorant_Garamond'] text-2xl">{String(value)}</b><span className="mt-1 block text-[7px] leading-3">{String(label)}</span><I size={16} className="mt-3 text-[#214d2b]"/></div>})}</div></div><RoutinePreview onCreator={()=>setCreator(true)}/></div></section>
-
-      <section id="journal-articles" className="bg-white/28 px-4 py-14 md:px-8"><div className="mx-auto max-w-[1400px]"><SectionTitle index="04" label="Stories, ideas & more" title="Dive deeper into what matters" action="View all articles" actionHref="#journal-articles"/><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">{filtered.map(([type,title,time,image])=><Link href={`/journal?category=${encodeURIComponent(type)}`} key={title} className="group"><div className="relative aspect-[4/3] overflow-hidden rounded-[19px]"><PremiumImage src={image} alt={title} sizes="(min-width:1024px) 19vw, 46vw"/></div><p className="mt-3 text-[8px] font-semibold uppercase tracking-[.12em] text-[#214d2b]">{type}</p><h3 className="mt-2 font-['Cormorant_Garamond'] text-[22px] leading-[1.05]">{title}</h3><p className="mt-2 text-[8px] text-black/48">{time}</p></Link>)}</div></div></section>
-
-      <section className="px-4 py-16 md:px-8"><div className="mx-auto grid max-w-[1400px] gap-5 lg:grid-cols-[1fr_.72fr]"><div><h2 className="font-['Cormorant_Garamond'] text-[43px]">Community Love</h2><p className="text-xs text-[#685e55]">Real words from real people</p><div className="mt-6 flex snap-x gap-3 overflow-x-auto pb-2 [scrollbar-width:none]">{testimonials.map(([name,quote,avatar])=><article key={name} className="min-w-[285px] snap-start rounded-[24px] border border-black/6 bg-white/55 p-6 md:min-w-[320px]"><div className="flex text-[#e4a400]">{Array.from({length:5}).map((_,i)=><Star key={i} size={13} fill="currentColor"/>)}</div><p className="mt-5 font-['Cormorant_Garamond'] text-xl leading-8">“{quote}”</p><div className="mt-5 flex items-center gap-3"><span className="relative size-10 overflow-hidden rounded-full"><PremiumImage src={avatar} alt={name} sizes="40px"/></span><span><b className="block text-[9px]">{name}</b><small className="text-[8px] text-black/45">Verified Buyer</small></span></div></article>)}</div></div><aside className="space-y-5"><div><h3 className="font-['Cormorant_Garamond'] text-3xl">Journal Categories</h3><div className="mt-4 overflow-hidden rounded-[22px] border border-black/6 bg-white/46">{[["Recipes","Delicious & healthy",Sparkles],["Sustainability","Tips, ideas & impact",Leaf],["Community","Stories & spotlights",Heart],["Wellness","Rituals & self-care",Droplets],["Behind .CO","Our journey",PackageOpen]].map(([name,desc,Icon])=>{const I=Icon as typeof Leaf;return <button type="button" key={String(name)} onClick={()=>setCategory(name===category?"All":String(name))} className={cn("flex w-full items-center gap-3 border-b border-black/6 p-4 text-left last:border-0",category===name&&"bg-[#e8eee2]")}><span className="grid size-10 place-items-center rounded-full border border-[#214d2b]/18"><I size={17}/></span><span className="flex-1"><b className="block text-[10px]">{String(name)}</b><small className="text-[8px] text-black/46">{String(desc)}</small></span><ArrowRight size={14}/></button>})}</div></div><div id="share" className="rounded-[22px] border border-black/6 bg-[#f3eee4] p-6"><h3 className="font-['Cormorant_Garamond'] text-3xl">Join the Conversation</h3><p className="mt-2 text-xs leading-5">Follow us & be part of our growing community.</p><div className="mt-5 flex gap-3">{[Instagram,Play,Youtube,Camera].map((Icon,index)=><a href={index===0?"https://www.instagram.com/cothecoconutcompany":"#share"} aria-label={["Instagram","TikTok","YouTube","Pinterest"][index]} key={index} className="grid size-10 place-items-center rounded-full border border-black/7 bg-white/60"><Icon size={17}/></a>)}</div></div></aside></div></section>
-      <NewsletterSection/>
-    </div><ReferenceFooter/><MobileBottomNav/>
-    <AnimatePresence>{post&&<PostModal post={post} close={()=>setPost(null)} onFeedback={(message)=>{setToast(message);window.setTimeout(()=>setToast(""),1800);}}/>} {creator&&<CreatorModal close={()=>setCreator(false)}/>} {toast&&<motion.div initial={{opacity:0,y:18}} animate={{opacity:1,y:0}} exit={{opacity:0,y:18}} className="fixed bottom-24 left-1/2 z-[190] -translate-x-1/2 rounded-full bg-[#214d2b] px-5 py-3 text-[10px] font-semibold text-white shadow-2xl"><Check className="mr-2 inline" size={14}/>{toast}</motion.div>}</AnimatePresence>
-  </div>;
-}
-
-function SectionTitle({index,label,title,description,action,actionHref}:{index:string;label:string;title:string;description?:string;action?:string;actionHref?:string}){return <div className="flex items-end justify-between gap-4"><div><p className="text-[9px] font-semibold uppercase tracking-[.14em] text-[#214d2b]">{index} &nbsp; {label}</p><h2 className="mt-3 font-['Cormorant_Garamond'] text-[40px] leading-none md:text-[46px]">{title}</h2>{description&&<p className="mt-3 text-xs text-[#655b53]">{description}</p>}</div>{action&&<Link href={actionHref??"#share"} className="hidden rounded-full border border-[#214d2b]/25 px-5 py-3 text-[8px] font-semibold uppercase md:block">{action}</Link>}</div>}
-function SwipeControl({label,icon:Icon,onClick}:{label:string;icon:typeof Heart;onClick:()=>void}){return <button type="button" onClick={onClick} aria-label={label} className="co-primary-cta grid size-12 place-items-center rounded-full border border-black/7 bg-white shadow-[0_8px_22px_rgba(42,27,19,.1)] transition hover:-translate-y-1 hover:bg-[#214d2b] hover:text-white"><Icon size={18}/></button>}
-function SwipeCard({item,index,onSwipe}:{item:(typeof communityPosts)[number];index:number;onSwipe:(action:"like"|"save"|"skip")=>void}){const x=useMotionValue(0);return <motion.article drag={index===0?"x":false} dragMomentum={false} dragElastic={.16} whileDrag={{scale:1.015,cursor:"grabbing"}} style={{x,zIndex:10-index,rotate:index===0?0:(index-2)*3,y:index*7}} dragConstraints={{left:-180,right:180}} onDragEnd={(_,info)=>{if(info.offset.x>100)onSwipe("like");else if(info.offset.x< -100)onSwipe("skip");}} className="absolute left-1/2 top-0 w-[270px] -translate-x-1/2 cursor-grab select-none touch-pan-y overflow-hidden rounded-[24px] border-[8px] border-white bg-white shadow-[0_22px_60px_rgba(42,27,19,.15)] md:w-[330px]"><div className="pointer-events-none relative aspect-[4/3]"><PremiumImage src={item.image} alt={item.caption} sizes="330px"/></div><div className="pointer-events-none p-5"><div className="flex items-center justify-between"><b className="text-[9px]">{item.handle}</b><span className="rounded-full bg-[#eee9de] px-2 py-1 text-[7px]">{item.category}</span></div><div className="mt-3 flex text-[#e4a400]">{Array.from({length:5}).map((_,i)=><Star key={i} size={12} fill="currentColor"/>)}</div><p className="mt-3 text-xs leading-6">{item.caption}. A small ritual that makes the day feel better.</p><div className="mt-4 flex gap-4 text-[8px] text-black/48"><span><Heart className="mr-1 inline" size={12}/>{item.likes}</span><span><MessageCircle className="mr-1 inline" size={12}/>{Math.floor(item.likes/6)}</span></div></div></motion.article>}
-function RoutinePreview({onCreator}:{onCreator:()=>void}){return <div className="rounded-[27px] border border-black/7 bg-white/62 p-4 shadow-[0_18px_48px_rgba(42,27,19,.07)]"><div className="flex items-center justify-between border-b border-black/6 pb-4"><b className="font-['Cormorant_Garamond'] text-2xl">Your Day Routine Canvas</b><button onClick={onCreator} type="button" className="text-[8px] font-semibold uppercase text-[#214d2b]">Trending creators</button></div><div className="mt-4 grid grid-cols-3 gap-2">{["Morning","Afternoon","Night"].map((period)=><div key={period}><p className="mb-3 text-center text-[8px] font-semibold uppercase">{period}</p>{routineCards.filter((card)=>card.period===period.toLowerCase()).slice(0,1).map((card)=><button type="button" onClick={onCreator} key={card.id} className="w-full overflow-hidden rounded-[15px] border border-black/6 bg-[#f8f4ec] text-left"><div className="relative aspect-[4/3]"><PremiumImage src={card.image} alt={card.title} sizes="230px"/></div><div className="p-2"><span className="block text-[7px] text-black/42">{card.handle}</span><b className="text-[8px]">{card.title}</b></div></button>)}<div className="mt-2 grid h-16 place-items-center rounded-[13px] border border-dashed border-black/15 text-xl text-[#214d2b]">+</div></div>)}</div></div>}
-function PostModal({post,close,onFeedback}:{post:(typeof communityPosts)[number];close:()=>void;onFeedback:(message:string)=>void}){return <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={close} className="fixed inset-0 z-[180] grid place-items-center bg-[#1e1510]/65 p-3 backdrop-blur-sm"><motion.article role="dialog" aria-modal="true" aria-label={`Community post by ${post.handle}`} initial={{scale:.94,y:18}} animate={{scale:1,y:0}} exit={{scale:.94,y:18}} onClick={(e)=>e.stopPropagation()} className="max-h-[calc(100dvh-24px)] w-full max-w-[720px] overflow-y-auto overscroll-contain rounded-[28px] bg-[#f8f4ec] [scrollbar-gutter:stable] [touch-action:pan-y] md:grid md:grid-cols-2"><div className="relative min-h-[300px] md:min-h-[340px]"><PremiumImage src={post.image} alt={post.caption} sizes="(min-width:768px) 360px, 92vw"/></div><div className="relative p-6"><button onClick={close} className="absolute right-4 top-4 grid size-11 place-items-center rounded-full bg-white" aria-label="Close post"><X size={16}/></button><p className="text-[9px] font-semibold text-[#214d2b]">{post.handle}</p><h3 className="mt-8 font-['Cormorant_Garamond'] text-4xl">{post.caption}</h3><p className="mt-5 text-xs leading-6 text-[#655b53]">A real moment shared by our community—simple, useful and made to be passed along.</p><div className="mt-7 flex gap-3"><button type="button" onClick={()=>onFeedback(`Loved ${post.handle}`)} className="min-h-11 rounded-full bg-[#214d2b] px-5 py-3 text-[9px] font-semibold uppercase text-white">Love this</button><button type="button" onClick={()=>onFeedback("Saved to your routine")} aria-label="Save post" className="grid size-11 place-items-center rounded-full border border-black/10"><Bookmark size={15}/></button></div></div></motion.article></motion.div>}
-function CreatorModal({close}:{close:()=>void}){return <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={close} className="fixed inset-0 z-[180] grid place-items-center bg-[#1e1510]/65 p-3 backdrop-blur-sm"><motion.div role="dialog" aria-modal="true" aria-label="Creator spotlight" initial={{scale:.94,y:18}} animate={{scale:1,y:0}} exit={{scale:.94,y:18}} onClick={(e)=>e.stopPropagation()} className="relative max-h-[calc(100dvh-24px)] w-full max-w-[700px] overflow-y-auto overscroll-contain rounded-[28px] bg-[#f8f4ec] p-6 [scrollbar-gutter:stable] [touch-action:pan-y] md:p-8"><button onClick={close} className="absolute right-4 top-4 grid size-11 place-items-center rounded-full bg-white" aria-label="Close creator spotlight"><X size={16}/></button><div className="flex items-center gap-4"><span className="relative size-16 overflow-hidden rounded-full"><PremiumImage src="/assets/social/afsala-founder-clean.png" alt="Botanical Bess" sizes="64px"/></span><div><h3 className="font-['Cormorant_Garamond'] text-3xl">@botanical_bess</h3><p className="text-[9px] text-[#214d2b]">Eco Lifestyle Creator</p></div></div><div className="mt-7 grid grid-cols-3 gap-2">{[["12.4k","Followers"],["387","Posts"],["98%","Sustainability"]].map(([value,label])=><div key={label} className="rounded-[16px] bg-white/65 p-3 sm:p-4"><b className="font-['Cormorant_Garamond'] text-2xl">{value}</b><span className="block text-[8px]">{label}</span></div>)}</div><blockquote className="mt-6 font-['Cormorant_Garamond'] text-2xl leading-8">“I’ve switched to .CO because it aligns with my values — clean ingredients, real impact, zero compromise.”</blockquote><div className="mt-6 flex flex-wrap gap-3"><Link href="/journal/social-cocreation-hub" className="co-primary-cta inline-flex min-h-11 items-center rounded-full bg-[#214d2b] px-5 py-3 text-[9px] font-semibold uppercase text-white">View spotlight</Link><Link href="/shop" className="inline-flex min-h-11 items-center rounded-full border border-[#214d2b]/30 px-5 py-3 text-[9px] font-semibold uppercase">Shop products</Link></div></motion.div></motion.div>}

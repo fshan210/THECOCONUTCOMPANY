@@ -9,6 +9,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { getCartPreviewPrice, useCart } from "@/lib/cart/cart-context";
 import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
 import { StatePanel } from "@/components/launch/StatePanel";
+import { transparentProductAssets } from "@/lib/website-assets";
 
 const spring = { type: "spring", stiffness: 330, damping: 30, mass: 0.82 } as const;
 
@@ -83,7 +84,7 @@ export function CartDrawer() {
             animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, x: 34, y: 18 }}
             transition={spring}
-            className="fixed inset-x-0 bottom-0 z-[310] flex max-h-[min(86dvh,760px)] flex-col overflow-hidden rounded-t-[32px] border border-white/75 bg-[linear-gradient(145deg,rgba(255,255,255,.86),rgba(248,244,236,.93)_44%,rgba(234,242,228,.82))] pb-[calc(14px+env(safe-area-inset-bottom))] text-[#2a1b13] shadow-[0_-24px_90px_rgba(31,22,15,.25)] backdrop-blur-3xl focus:outline-none md:inset-x-auto md:bottom-auto md:right-5 md:top-[max(106px,calc(env(safe-area-inset-top)+88px))] md:max-h-[calc(100dvh-126px)] md:w-[420px] md:rounded-[28px] md:pb-0 md:shadow-[-24px_28px_90px_rgba(31,22,15,.24)]"
+            className="rd-cart-drawer fixed inset-x-0 bottom-0 z-[310] flex max-h-[min(90dvh,900px)] flex-col overflow-hidden rounded-t-[32px] border pb-[calc(14px+env(safe-area-inset-bottom))] focus:outline-none md:inset-x-auto md:bottom-auto md:right-5 md:top-[88px] md:max-h-[calc(100dvh-108px)] md:w-[460px] md:rounded-[28px] md:pb-0"
           >
             <div className="flex justify-center pt-2 md:hidden">
               <button type="button" aria-label="Drag down to close cart" onPointerDown={(event) => dragControls.start(event)} onClick={close} className="grid h-7 w-16 cursor-grab place-items-center rounded-full text-[#7a6e64] active:cursor-grabbing">
@@ -109,6 +110,8 @@ export function CartDrawer() {
                   <div className="space-y-2.5">
                     {cart.products.filter((product) => product.cartKey !== recentlyAdded?.cartKey).map((product) => <CartLine key={product.cartKey} product={product} />)}
                   </div>
+                  <section className="rd-drawer-recommendation"><p>Complete the moment</p><div><span className="relative block h-24 w-20"><Image src={transparentProductAssets["kitchen-milk"].src} alt=".CO Coconut Milk" fill sizes="80px" className="object-contain"/></span><span><b>.CO Coconut Milk</b><small>Made for curries, stews and slow cooking.</small></span><button onClick={()=>cart.addItem("co-kitchen-coconut-milk")}>+ Add</button></div></section>
+                  <section className="rd-drawer-set"><p>Make this a set</p><span>You are one product away from a complete .CO Kitchen shelf.</span><Link href="/shop?category=Food" onClick={close}>Complete the set →</Link></section>
                 </div>
               ) : <StatePanel compact kind="empty" eyebrow="Your shelf" title="Nothing saved yet." body="Add a coconut favourite and it will wait here for you." onPrimary={{ label: "Browse products", action: () => { close(); router.push("/shop"); } }} />}
             </div>
@@ -120,7 +123,7 @@ export function CartDrawer() {
               </motion.div>
               <div className="mt-3 grid grid-cols-2 gap-2.5">
                 <button type="button" onClick={close} className="min-h-11 rounded-full border border-[#214d2b]/20 bg-white/62 px-4 text-[10px] font-semibold uppercase tracking-[.06em] text-[#214d2b] shadow-[0_7px_18px_rgba(58,36,22,.045)] transition hover:-translate-y-0.5 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#214d2b]">Continue shopping</button>
-                <Link href="/cart" onClick={close} className="group flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#214d2b] px-4 text-[10px] font-semibold uppercase tracking-[.06em] text-white shadow-[0_12px_26px_rgba(33,77,43,.24)] transition hover:-translate-y-0.5 hover:bg-[#183b20] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#214d2b]">View cart <ChevronRight size={14} className="transition-transform group-hover:translate-x-0.5" /></Link>
+                <Link href="/cart" onClick={close} className="rd-drawer-primary group flex min-h-11 items-center justify-center gap-2 rounded-full px-4 text-[10px] font-semibold uppercase tracking-[.06em] text-white">View full cart <ChevronRight size={14} /></Link>
               </div>
               <button type="button" disabled aria-label="Checkout coming soon" className="mt-2.5 flex min-h-11 w-full cursor-not-allowed items-center justify-center gap-2 rounded-full border border-[#214d2b]/15 bg-[linear-gradient(100deg,#f4efe1,#e7f0df)] px-4 text-[10px] font-semibold uppercase tracking-[.06em] text-[#214d2b]/70 shadow-[0_8px_22px_rgba(33,77,43,.08)]"><PackageCheck size={15}/>Checkout coming soon</button>
             </div>

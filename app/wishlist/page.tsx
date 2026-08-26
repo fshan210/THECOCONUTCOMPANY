@@ -17,5 +17,5 @@ export default async function WishlistPage() {
     ...communityPosts.filter((post)=>saved.communityIds.includes(post.handle)).map((post)=>({id:post.handle,kind:"community" as const,title:post.handle,detail:post.caption,image:post.image,href:"/journal#community-posts"})),
     ...products.filter((p)=>saved.recentlyViewedProductIds.includes(p.slug)).map((p)=>({id:p.slug,kind:"recent" as const,title:p.name,detail:p.subtitle||p.shortDescription,image:p.image,href:`/shop?product=${p.slug}#all-products`,cartSlug:p.slug}))
   ];
-  return <><CustomerSimplePage session={session} title="Your saved .CO." body="Wishlist, recipes, journal bookmarks, community saves, and recently viewed products—persisted securely to your account." items={[]} suppressEmpty/><SavedContentGrid initialItems={items}/></>;
+  return <main className="rd-account-page"><CustomerSimplePage session={session} title="Your saved .CO." body="Wishlist, recipes, journal bookmarks, community saves, and recently viewed products—persisted securely to your account." items={[]} suppressEmpty/><SavedContentGrid initialItems={items}/></main>;
 }

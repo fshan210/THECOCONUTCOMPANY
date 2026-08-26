@@ -1,0 +1,4 @@
+.rd-newsletter .rd-newsletter-form{display:block;border:0;border-radius:0;background:transparent}
+.rd-newsletter .rd-newsletter-form .co-newsletter-control{display:flex;border:1px solid var(--line);border-radius:999px;background:rgba(18,11,7,.55)}
+.rd-newsletter .rd-newsletter-form .co-newsletter-consent{display:flex;gap:8px;align-items:center;margin:10px 12px 0;color:#bca58e;font-size:9px}
+.rd-newsletter .rd-newsletter-form .co-newsletter-status{min-height:14px;margin:4px 12px 0;font-size:9px}
