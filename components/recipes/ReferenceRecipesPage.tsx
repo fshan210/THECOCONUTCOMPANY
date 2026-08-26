@@ -1,41 +1,574 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo,useState } from "react";
-import { ChevronLeft,ChevronRight,Clock3,Heart,Search } from "lucide-react";
-import { ButtonLink,DarkShell,Eyebrow,Newsletter,RD,Scene } from "@/components/reference/DarkReference";
+import { useMemo, useState } from "react";
+import { ChevronLeft, ChevronRight, Clock3, Heart, Search } from "lucide-react";
+import {
+  ButtonLink,
+  DarkShell,
+  Eyebrow,
+  Newsletter,
+  RD,
+  Scene,
+} from "@/components/reference/DarkReference";
 import { useSavedContent } from "@/lib/customer/use-saved-content";
 import { transparentProductAssets } from "@/lib/website-assets";
 import type { RecipeItem } from "./recipe-data";
-const A=RD.recipe;
-const recipes=[
- {slug:"coconut-breakfast-bowl",title:"Coconut Breakfast Bowl",image:`${A}coconut breakfast bowl.png`,time:10,cuisine:"Kerala",product:".CO Water"},
- {slug:"kerala-vegetable-stew",title:"Kerala Coconut Vegetable Stew",image:`${A}Kerala Vegetable Stew.png`,time:30,cuisine:"Kerala",product:".CO Coconut Milk"},
- {slug:"coconut-flour-pancakes",title:"Coconut Flour Pancakes",image:`${A}coconut flour pancackes.png`,time:20,cuisine:"Global",product:".CO Flour"},
- {slug:"red-thai-coconut-curry",title:"Red Thai Coconut Curry",image:`${A}RED THAI COCONUT CURRY.png`,time:30,cuisine:"Thailand",product:".CO Coconut Milk"},
- {slug:"coconut-matcha-smoothie",title:"Coconut Matcha Smoothie",image:`${A}coconut matcha smoothie.png`,time:10,cuisine:"Global",product:".CO Water"},
- {slug:"baked-coconut-donuts",title:"Baked Coconut Donuts",image:`${A}BAKED COCONUT DONUTS.png`,time:35,cuisine:"Global",product:".CO Flour"}];
-const moods=[["Running Late","Under 15 min","RUNNING LATE-under 15 mins.png"],["Feeding Everyone","Family favourites","feeding everyone.png"],["Gym Done","High protein","gym done.png"],["Friends Over","Share & impress","friends over.png"],["Something Sweet","Desserts & treats","something sweet.png"],["Slow Sunday","Take your time","slow sunday.png"]];
-const world=[["Kerala","Kerala Vegetable Stew.png"],["Thailand","THAILAND GREEN COCONUT CURRY.png"],["Middle East","Basbousa Recipe Dessert (Middle Eastern Coconut Semolina Cake).png"],["Caribbean","JAMAICAN TOTO – TRADITIONAL CARIBBEAN COCONUT CAKE.png"],["Brazil","MANJAR DE COCO – BRAZILIAN COCONUT PUDDING RECIPE.png"]];
-export function ReferenceRecipesPage(){
- const saved=useSavedContent("recipe"); const [wi,setWi]=useState(1); const [variation,setVariation]=useState("Vegan Version"); const [query,setQuery]=useState(""); const [cuisine,setCuisine]=useState("All");
- const [lab,setLab]=useState({meal:"Dinner",time:"30 min",cuisine:"Kerala",diet:"Vegan",product:"milk"});
- const filtered=useMemo(()=>recipes.filter(r=>(cuisine==="All"||r.cuisine===cuisine)&&(`${r.title} ${r.product}`.toLowerCase().includes(query.toLowerCase()))),[query,cuisine]);
- const choose=(key:keyof typeof lab,value:string)=>setLab(v=>({...v,[key]:value}));
- return <DarkShell className="rd-recipes">
-  <section className="recipe-hero"><Scene priority src={`${A}RECIPIE HERO IMAGE.png`} alt=".CO products surrounded by coconut dishes in warm light"/><div className="recipe-hero-copy"><Eyebrow>The .CO table</Eyebrow><h1>One coconut.<br/>A world of ways<br/><em>to cook.</em></h1><p>From Kerala to kitchens around the world, real ingredients, real recipes, made for living.</p><ButtonLink href="#explore">Explore recipes</ButtonLink> <ButtonLink href="#lab" ghost>Make me something</ButtonLink></div></section>
-  <nav className="recipe-categories rd-glass" aria-label="Recipe categories">{["Breakfast","15 min","Dinner","Dessert","Drink","Vegan","High Protein","Global Favourites"].map(x=><a href="#explore" key={x}><span>◌</span>{x}</a>)}</nav>
-  <section className="recipe-culture"><Scene src={`${A}RECIPIE BRINGS CULTURE TOGETHER.png`} alt="Coconut landscape and a shared table at sunset"/><div><h2>Recipes that bring<br/>cultures <em>together.</em></h2><p>Curated by people. Inspired by places. Made in your kitchen.</p><blockquote>“Good food has no borders.<br/>It only travels.”</blockquote></div><aside className="rd-glass">{[["200+","Recipes from around the world"],["8","Global cuisines explored"],["100%","Real ingredients. Real kitchens."],["1","Coconut at the heart of it all"]].map(([v,l])=><span key={l}><b>{v}</b><small>{l}</small></span>)}</aside></section>
-  <section id="explore" className="rd-section world-section"><Eyebrow>The .CO table</Eyebrow><h2>Around the world.<br/><em>Passed across the table.</em></h2><div className="world-stage"><button onClick={()=>setWi((wi+world.length-1)%world.length)} aria-label="Previous cuisine"><ChevronLeft/></button><div className="world-cards">{world.map(([name,image],i)=><article onClick={()=>setWi(i)} className={`rd-card ${i===wi?"active":""}`} key={name}><Scene src={`${A}${image}`} alt={`${name} coconut dish`}/><h3>{name}</h3></article>)}</div><button onClick={()=>setWi((wi+1)%world.length)} aria-label="Next cuisine"><ChevronRight/></button></div><div className="world-active rd-glass"><Eyebrow>{world[wi][0]}</Eyebrow><h3>{wi===1?"Green Coconut Curry":world[wi][0]+" coconut favourite"}</h3><div className="rd-meta">25 min · Medium · Serves 4</div><ButtonLink href="/recipes/kerala-vegetable-stew">Cook this</ButtonLink><button className="save-text" onClick={()=>void saved.toggle("kerala-vegetable-stew")}><Heart fill={saved.saved.has("kerala-vegetable-stew")?"currentColor":"none"}/> Save</button></div></section>
-  <section className="rd-section moment rd-glass"><h2>Recipe of the Moment</h2><div className="rd-split"><Scene src={`${A}RED THAI COCONUT CURRY.png`} alt="Thai coconut red curry with vegetables"/><div className="moment-copy"><h3>Thai Coconut Red Curry<br/><em>with Vegetables</em></h3><p>A comforting bowl of spice, creaminess and warmth. Vibrant vegetables, fragrant red chilli, and steamed rice.</p><div className="rd-meta">25 min · Easy · Serves 4</div><ButtonLink href="/recipes/red-thai-coconut-curry">Start cooking</ButtonLink></div></div><div className="variation-tabs">{["Vegan Version","High-Protein Version","Lighter Version"].map(v=><button className={variation===v?"active":""} onClick={()=>setVariation(v)} key={v}>{v}</button>)}</div><p className="variation-copy">{variation==="Vegan Version"?"A plant-forward twist with tofu, extra vegetables and maple in place of coconut sugar.":variation==="High-Protein Version"?"Add chickpeas or grilled tofu while keeping the same coconut base.":"Use more vegetables and a lighter coconut milk ratio for a brighter bowl."}</p></section>
-  <section id="lab" className="rd-section recipe-lab"><div><Eyebrow>.CO recipe lab</Eyebrow><h2>What are we<br/>making?</h2><p>Add what you have, choose your vibe, we’ll create something delicious.</p><div className="lab-controls rd-glass">{[["meal","I want…",["Breakfast","Lunch","Dinner","Snack"]],["time","I have…",["10 min","20 min","30 min","45+ min"]],["cuisine","Take me to…",["Kerala","Thai","Middle East","Caribbean"]],["diet","Made it…",["Vegan","High Protein","Gluten Free","Low Sugar"]]].map(([key,title,items])=><fieldset key={key as string}><legend>{title}</legend><div className="rd-pills">{(items as string[]).map(item=><button type="button" className="rd-pill" aria-pressed={lab[key as keyof typeof lab]===item} onClick={()=>choose(key as keyof typeof lab,item)} key={item}>{item}</button>)}</div></fieldset>)}<fieldset><legend>.CO products</legend><div className="lab-products">{[["water",transparentProductAssets.water.src],["oil",transparentProductAssets["kitchen-oil"].src],["milk",transparentProductAssets["kitchen-milk"].src],["flour",transparentProductAssets["kitchen-flour"].src],["melt",transparentProductAssets.melt.src]].map(([id,src])=><button className={lab.product===id?"active":""} onClick={()=>choose("product",id)} key={id}><Image src={src} alt={`.CO ${id}`} fill sizes="70px" className="object-contain"/></button>)}</div></fieldset></div></div><article className="lab-result rd-glass"><Scene src={`${A}Kerala Vegetable Stew.png`} alt="Kerala coconut vegetable stew"/><button className="heart" onClick={()=>void saved.toggle("kerala-vegetable-stew")}><Heart/></button><h2>{lab.cuisine} Coconut<br/>Vegetable Stew</h2><div className="rd-meta">30 min · Easy · Serves 3–4</div><p>Fragrant coconut milk with garden vegetables, curry leaves and a touch of chilli.</p><ButtonLink href="/recipes/kerala-vegetable-stew">View full recipe</ButtonLink></article></section>
-  <section className="rd-section three-worlds rd-glass"><h2>One product.<br/>Three worlds.</h2><p>Same .CO Coconut Milk. Three recipes. Three cuisines.</p><div className="rd-grid-3">{world.slice(0,3).map(([name,image])=><article className="rd-card" key={name}><Scene src={`${A}${image}`} alt={`${name} coconut recipe`}/><div className="rd-card-copy"><Eyebrow>{name}</Eyebrow><h3>{name} coconut recipe</h3><div className="rd-meta">30 min · Easy · Serves 3–4</div></div></article>)}</div></section>
-  <section className="rd-section lifestyle"><h2>Cook by the life<br/>you’re living.</h2><div className="mood-grid">{moods.map(([title,sub,image])=><article className="rd-card" key={title}><Scene src={`${A}${image}`} alt={title}/><div><h3>{title}</h3><p>{sub}</p></div></article>)}</div></section>
-  <section className="rd-section recipe-index rd-glass"><h2>Find your next one.</h2><div className="recipe-search"><Search/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search a dish, ingredient, mood or .CO product…" aria-label="Search recipes"/></div><div className="rd-pills">{["All","Kerala","Thailand","Global"].map(c=><button className="rd-pill" aria-pressed={cuisine===c} onClick={()=>setCuisine(c)} key={c}>{c}</button>)}</div><div className="rd-grid-3 recipe-grid">{filtered.map(r=><article className="rd-card" key={r.slug}><Scene src={r.image} alt={r.title}/><div className="rd-card-copy"><button className="heart" aria-label={`Save ${r.title}`} onClick={()=>void saved.toggle(r.slug)}><Heart fill={saved.saved.has(r.slug)?"currentColor":"none"}/></button><h3>{r.title}</h3><div className="rd-meta"><Clock3/> {r.time} min · Easy</div><p>{r.product}</p><Link href={`/recipes/${r.slug}`}>View recipe →</Link></div></article>)}</div></section>
-  <section className="rd-section community-recipes"><div><Eyebrow>Community</Eyebrow><h2>Made by us.<br/>Made <em>yours.</em></h2><p>Real kitchens. Real people. Real .CO recipes.</p></div><div className="community-rail">{moods.slice(0,5).map(([title,,image],i)=><article className="rd-card" key={title}><Scene src={`${A}${image}`} alt={`${title} community cook`}/><h3>{["Aavya","Sara","Rahul","Megha","Arjun"][i]}</h3><p>{title}</p></article>)}</div></section>
-  <section className="rd-section passed-around"><Scene src={`${A}GOOD FOOD GETS PASSED AROUND.png`} alt="Hands passing a coconut dish around a table"/><div><Eyebrow>Together, we cook</Eyebrow><h2>Good food<br/>gets passed<br/><em>around.</em></h2><p>Cook it. Share it. Pass it on.</p><ButtonLink href="/journal">Share your recipe</ButtonLink></div></section><Newsletter/>
- </DarkShell>;
+const A = RD.recipe;
+const recipes = [
+  {
+    slug: "tropical-coconut-chia-pudding",
+    title: "Tropical Coconut Chia Pudding",
+    image: `${A}coconut breakfast bowl.png`,
+    time: 10,
+    cuisine: "Kerala",
+    product: ".CO Water",
+  },
+  {
+    slug: "coconut-thai-veggie-curry",
+    title: "Coconut Thai Veggie Curry",
+    image: `${A}Kerala Vegetable Stew.png`,
+    time: 20,
+    cuisine: "Thailand",
+    product: ".CO Coconut Milk",
+  },
+  {
+    slug: "chocolate-coconut-pudding",
+    title: "Chocolate Coconut Pudding",
+    image: `${A}coconut flour pancackes.png`,
+    time: 10,
+    cuisine: "Global",
+    product: ".CO Coconut Sugar",
+  },
+  {
+    slug: "green-coconut-detox-smoothie",
+    title: "Green Coconut Detox Smoothie",
+    image: `${A}coconut matcha smoothie.png`,
+    time: 5,
+    cuisine: "Global",
+    product: ".CO Water",
+  },
+  {
+    slug: "coconut-lime-rice-bowl",
+    title: "Coconut Lime Rice Bowl",
+    image: `${A}RED THAI COCONUT CURRY.png`,
+    time: 25,
+    cuisine: "Thailand",
+    product: ".CO Coconut Oil",
+  },
+  {
+    slug: "melt-co-mango-nice-cream",
+    title: "Melt.CO Mango Nice Cream",
+    image: `${A}BAKED COCONUT DONUTS.png`,
+    time: 15,
+    cuisine: "Global",
+    product: "MELT.CO",
+  },
+];
+const moods = [
+  ["Running Late", "Under 15 min", "RUNNING LATE-under 15 mins.png"],
+  ["Feeding Everyone", "Family favourites", "feeding everyone.png"],
+  ["Gym Done", "High protein", "gym done.png"],
+  ["Friends Over", "Share & impress", "friends over.png"],
+  ["Something Sweet", "Desserts & treats", "something sweet.png"],
+  ["Slow Sunday", "Take your time", "slow sunday.png"],
+];
+const world = [
+  ["Kerala", "Kerala Vegetable Stew.png"],
+  ["Thailand", "THAILAND GREEN COCONUT CURRY.png"],
+  [
+    "Middle East",
+    "Basbousa Recipe Dessert (Middle Eastern Coconut Semolina Cake).png",
+  ],
+  ["Caribbean", "JAMAICAN TOTO – TRADITIONAL CARIBBEAN COCONUT CAKE.png"],
+  ["Brazil", "MANJAR DE COCO – BRAZILIAN COCONUT PUDDING RECIPE.png"],
+];
+export function ReferenceRecipesPage() {
+  const saved = useSavedContent("recipe");
+  const [wi, setWi] = useState(1);
+  const [variation, setVariation] = useState("Vegan Version");
+  const [query, setQuery] = useState("");
+  const [cuisine, setCuisine] = useState("All");
+  const [lab, setLab] = useState({
+    meal: "Dinner",
+    time: "30 min",
+    cuisine: "Kerala",
+    diet: "Vegan",
+    product: "milk",
+  });
+  const filtered = useMemo(
+    () =>
+      recipes.filter(
+        (r) =>
+          (cuisine === "All" || r.cuisine === cuisine) &&
+          `${r.title} ${r.product}`.toLowerCase().includes(query.toLowerCase()),
+      ),
+    [query, cuisine],
+  );
+  const choose = (key: keyof typeof lab, value: string) =>
+    setLab((v) => ({ ...v, [key]: value }));
+  return (
+    <DarkShell className="rd-recipes">
+      <section className="recipe-hero">
+        <Scene
+          priority
+          src={`${A}RECIPIE HERO IMAGE.png`}
+          alt=".CO products surrounded by coconut dishes in warm light"
+        />
+        <div className="recipe-hero-copy">
+          <Eyebrow>The .CO table</Eyebrow>
+          <h1>
+            One coconut.
+            <br />A world of ways
+            <br />
+            <em>to cook.</em>
+          </h1>
+          <p>
+            From Kerala to kitchens around the world, real ingredients, real
+            recipes, made for living.
+          </p>
+          <ButtonLink href="#explore">Explore recipes</ButtonLink>{" "}
+          <ButtonLink href="#lab" ghost>
+            Make me something
+          </ButtonLink>
+        </div>
+      </section>
+      <nav
+        className="recipe-categories rd-glass"
+        aria-label="Recipe categories"
+      >
+        {[
+          "Breakfast",
+          "15 min",
+          "Dinner",
+          "Dessert",
+          "Drink",
+          "Vegan",
+          "High Protein",
+          "Global Favourites",
+        ].map((x) => (
+          <a href="#explore" key={x}>
+            <span>◌</span>
+            {x}
+          </a>
+        ))}
+      </nav>
+      <section className="recipe-culture">
+        <Scene
+          src={`${A}RECIPIE BRINGS CULTURE TOGETHER.png`}
+          alt="Coconut landscape and a shared table at sunset"
+        />
+        <div>
+          <h2>
+            Recipes that bring
+            <br />
+            cultures <em>together.</em>
+          </h2>
+          <p>Curated by people. Inspired by places. Made in your kitchen.</p>
+          <blockquote>
+            “Good food has no borders.
+            <br />
+            It only travels.”
+          </blockquote>
+        </div>
+        <aside className="rd-glass">
+          {[
+            ["200+", "Recipes from around the world"],
+            ["8", "Global cuisines explored"],
+            ["100%", "Real ingredients. Real kitchens."],
+            ["1", "Coconut at the heart of it all"],
+          ].map(([v, l]) => (
+            <span key={l}>
+              <b>{v}</b>
+              <small>{l}</small>
+            </span>
+          ))}
+        </aside>
+      </section>
+      <section id="explore" className="rd-section world-section">
+        <Eyebrow>The .CO table</Eyebrow>
+        <h2>
+          Around the world.
+          <br />
+          <em>Passed across the table.</em>
+        </h2>
+        <div className="world-stage">
+          <button
+            onClick={() => setWi((wi + world.length - 1) % world.length)}
+            aria-label="Previous cuisine"
+          >
+            <ChevronLeft />
+          </button>
+          <div className="world-cards">
+            {world.map(([name, image], i) => (
+              <article
+                onClick={() => setWi(i)}
+                className={`rd-card ${i === wi ? "active" : ""}`}
+                key={name}
+              >
+                <Scene src={`${A}${image}`} alt={`${name} coconut dish`} />
+                <h3>{name}</h3>
+              </article>
+            ))}
+          </div>
+          <button
+            onClick={() => setWi((wi + 1) % world.length)}
+            aria-label="Next cuisine"
+          >
+            <ChevronRight />
+          </button>
+        </div>
+        <div className="world-active rd-glass">
+          <Eyebrow>{world[wi][0]}</Eyebrow>
+          <h3>
+            {wi === 1
+              ? "Green Coconut Curry"
+              : world[wi][0] + " coconut favourite"}
+          </h3>
+          <div className="rd-meta">25 min · Medium · Serves 4</div>
+          <ButtonLink href="/recipes/coconut-thai-veggie-curry">
+            Cook this
+          </ButtonLink>
+          <button
+            className="save-text"
+            onClick={() => void saved.toggle("coconut-thai-veggie-curry")}
+          >
+            <Heart
+              fill={
+                saved.saved.has("coconut-thai-veggie-curry")
+                  ? "currentColor"
+                  : "none"
+              }
+            />{" "}
+            Save
+          </button>
+        </div>
+      </section>
+      <section className="rd-section moment rd-glass">
+        <h2>Recipe of the Moment</h2>
+        <div className="rd-split">
+          <Scene
+            src={`${A}RED THAI COCONUT CURRY.png`}
+            alt="Thai coconut red curry with vegetables"
+          />
+          <div className="moment-copy">
+            <h3>
+              Thai Coconut Red Curry
+              <br />
+              <em>with Vegetables</em>
+            </h3>
+            <p>
+              A comforting bowl of spice, creaminess and warmth. Vibrant
+              vegetables, fragrant red chilli, and steamed rice.
+            </p>
+            <div className="rd-meta">25 min · Easy · Serves 4</div>
+            <ButtonLink href="/recipes/coconut-thai-veggie-curry">
+              Start cooking
+            </ButtonLink>
+          </div>
+        </div>
+        <div className="variation-tabs">
+          {["Vegan Version", "High-Protein Version", "Lighter Version"].map(
+            (v) => (
+              <button
+                className={variation === v ? "active" : ""}
+                onClick={() => setVariation(v)}
+                key={v}
+              >
+                {v}
+              </button>
+            ),
+          )}
+        </div>
+        <p className="variation-copy">
+          {variation === "Vegan Version"
+            ? "A plant-forward twist with tofu, extra vegetables and maple in place of coconut sugar."
+            : variation === "High-Protein Version"
+              ? "Add chickpeas or grilled tofu while keeping the same coconut base."
+              : "Use more vegetables and a lighter coconut milk ratio for a brighter bowl."}
+        </p>
+      </section>
+      <section id="lab" className="rd-section recipe-lab">
+        <div>
+          <Eyebrow>.CO recipe lab</Eyebrow>
+          <h2>
+            What are we
+            <br />
+            making?
+          </h2>
+          <p>
+            Add what you have, choose your vibe, we’ll create something
+            delicious.
+          </p>
+          <div className="lab-controls rd-glass">
+            {[
+              ["meal", "I want…", ["Breakfast", "Lunch", "Dinner", "Snack"]],
+              ["time", "I have…", ["10 min", "20 min", "30 min", "45+ min"]],
+              [
+                "cuisine",
+                "Take me to…",
+                ["Kerala", "Thai", "Middle East", "Caribbean"],
+              ],
+              [
+                "diet",
+                "Made it…",
+                ["Vegan", "High Protein", "Gluten Free", "Low Sugar"],
+              ],
+            ].map(([key, title, items]) => (
+              <fieldset key={key as string}>
+                <legend>{title}</legend>
+                <div className="rd-pills">
+                  {(items as string[]).map((item) => (
+                    <button
+                      type="button"
+                      className="rd-pill"
+                      aria-pressed={lab[key as keyof typeof lab] === item}
+                      onClick={() => choose(key as keyof typeof lab, item)}
+                      key={item}
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+            ))}
+            <fieldset>
+              <legend>.CO products</legend>
+              <div className="lab-products">
+                {[
+                  ["water", transparentProductAssets.water.src],
+                  ["oil", transparentProductAssets["kitchen-oil"].src],
+                  ["milk", transparentProductAssets["kitchen-milk"].src],
+                  ["flour", transparentProductAssets["kitchen-flour"].src],
+                  ["melt", transparentProductAssets.melt.src],
+                ].map(([id, src]) => (
+                  <button
+                    className={lab.product === id ? "active" : ""}
+                    onClick={() => choose("product", id)}
+                    key={id}
+                  >
+                    <Image
+                      src={src}
+                      alt={`.CO ${id}`}
+                      fill
+                      sizes="70px"
+                      className="object-contain"
+                    />
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <article className="lab-result rd-glass">
+          <Scene
+            src={`${A}Kerala Vegetable Stew.png`}
+            alt="Kerala coconut vegetable stew"
+          />
+          <button
+            className="heart"
+            onClick={() => void saved.toggle("coconut-thai-veggie-curry")}
+          >
+            <Heart />
+          </button>
+          <h2>
+            {lab.cuisine} Coconut
+            <br />
+            Vegetable Stew
+          </h2>
+          <div className="rd-meta">30 min · Easy · Serves 3–4</div>
+          <p>
+            Fragrant coconut milk with garden vegetables, curry leaves and a
+            touch of chilli.
+          </p>
+          <ButtonLink href="/recipes/coconut-thai-veggie-curry">
+            View full recipe
+          </ButtonLink>
+        </article>
+      </section>
+      <section className="rd-section three-worlds rd-glass">
+        <h2>
+          One product.
+          <br />
+          Three worlds.
+        </h2>
+        <p>Same .CO Coconut Milk. Three recipes. Three cuisines.</p>
+        <div className="rd-grid-3">
+          {world.slice(0, 3).map(([name, image]) => (
+            <article className="rd-card" key={name}>
+              <Scene src={`${A}${image}`} alt={`${name} coconut recipe`} />
+              <div className="rd-card-copy">
+                <Eyebrow>{name}</Eyebrow>
+                <h3>{name} coconut recipe</h3>
+                <div className="rd-meta">30 min · Easy · Serves 3–4</div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="rd-section lifestyle">
+        <h2>
+          Cook by the life
+          <br />
+          you’re living.
+        </h2>
+        <div className="mood-grid">
+          {moods.map(([title, sub, image]) => (
+            <article className="rd-card" key={title}>
+              <Scene src={`${A}${image}`} alt={title} />
+              <div>
+                <h3>{title}</h3>
+                <p>{sub}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="rd-section recipe-index rd-glass">
+        <h2>Find your next one.</h2>
+        <div className="recipe-search">
+          <Search />
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search a dish, ingredient, mood or .CO product…"
+            aria-label="Search recipes"
+          />
+        </div>
+        <div className="rd-pills">
+          {["All", "Kerala", "Thailand", "Global"].map((c) => (
+            <button
+              className="rd-pill"
+              aria-pressed={cuisine === c}
+              onClick={() => setCuisine(c)}
+              key={c}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+        <div className="rd-grid-3 recipe-grid">
+          {filtered.map((r) => (
+            <article className="rd-card" key={r.slug}>
+              <Scene src={r.image} alt={r.title} />
+              <div className="rd-card-copy">
+                <button
+                  className="heart"
+                  aria-label={`Save ${r.title}`}
+                  onClick={() => void saved.toggle(r.slug)}
+                >
+                  <Heart
+                    fill={saved.saved.has(r.slug) ? "currentColor" : "none"}
+                  />
+                </button>
+                <h3>{r.title}</h3>
+                <div className="rd-meta">
+                  <Clock3 /> {r.time} min · Easy
+                </div>
+                <p>{r.product}</p>
+                <Link href={`/recipes/${r.slug}`}>View recipe →</Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="rd-section community-recipes">
+        <div>
+          <Eyebrow>Community</Eyebrow>
+          <h2>
+            Made by us.
+            <br />
+            Made <em>yours.</em>
+          </h2>
+          <p>Real kitchens. Real people. Real .CO recipes.</p>
+        </div>
+        <div className="community-rail">
+          {moods.slice(0, 5).map(([title, , image], i) => (
+            <article className="rd-card" key={title}>
+              <Scene src={`${A}${image}`} alt={`${title} community cook`} />
+              <h3>{["Aavya", "Sara", "Rahul", "Megha", "Arjun"][i]}</h3>
+              <p>{title}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="rd-section passed-around">
+        <Scene
+          src={`${A}GOOD FOOD GETS PASSED AROUND.png`}
+          alt="Hands passing a coconut dish around a table"
+        />
+        <div>
+          <Eyebrow>Together, we cook</Eyebrow>
+          <h2>
+            Good food
+            <br />
+            gets passed
+            <br />
+            <em>around.</em>
+          </h2>
+          <p>Cook it. Share it. Pass it on.</p>
+          <ButtonLink href="/journal">Share your recipe</ButtonLink>
+        </div>
+      </section>
+      <Newsletter />
+    </DarkShell>
+  );
 }
 
-export function ProductsUsed({products}:{products:RecipeItem["products"]}){return <div className="rd-glass" style={{padding:20}}><Eyebrow>.CO products used</Eyebrow>{products.map(product=><Link href={`/shop?product=${product.slug}`} key={product.slug} style={{display:"flex",alignItems:"center",gap:12,padding:"12px 0",borderBottom:"1px solid rgba(219,145,71,.2)"}}><span style={{position:"relative",width:54,height:64}}><Image src={product.image} alt={product.name} fill sizes="54px" className="object-contain"/></span><span><b style={{display:"block"}}>{product.name}</b><small>{product.detail}</small></span></Link>)}</div>}
-export function DietaryVersions({items}:{items:RecipeItem["variations"]}){return <div className="rd-glass" style={{padding:20}}><Eyebrow>Dietary versions</Eyebrow><div className="rd-grid-3" style={{marginTop:16}}>{items.map(item=><article key={item.name}><h3 style={{fontSize:24}}>{item.name}</h3><p style={{fontSize:11}}>{item.detail}</p></article>)}</div></div>}
+export function ProductsUsed({
+  products,
+}: {
+  products: RecipeItem["products"];
+}) {
+  return (
+    <div className="rd-glass" style={{ padding: 20 }}>
+      <Eyebrow>.CO products used</Eyebrow>
+      {products.map((product) => (
+        <Link
+          href={`/shop?product=${product.slug}`}
+          key={product.slug}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+            padding: "12px 0",
+            borderBottom: "1px solid rgba(219,145,71,.2)",
+          }}
+        >
+          <span style={{ position: "relative", width: 54, height: 64 }}>
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              sizes="54px"
+              className="object-contain"
+            />
+          </span>
+          <span>
+            <b style={{ display: "block" }}>{product.name}</b>
+            <small>{product.detail}</small>
+          </span>
+        </Link>
+      ))}
+    </div>
+  );
+}
+export function DietaryVersions({
+  items,
+}: {
+  items: RecipeItem["variations"];
+}) {
+  return (
+    <div className="rd-glass" style={{ padding: 20 }}>
+      <Eyebrow>Dietary versions</Eyebrow>
+      <div className="rd-grid-3" style={{ marginTop: 16 }}>
+        {items.map((item) => (
+          <article key={item.name}>
+            <h3 style={{ fontSize: 24 }}>{item.name}</h3>
+            <p style={{ fontSize: 11 }}>{item.detail}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
