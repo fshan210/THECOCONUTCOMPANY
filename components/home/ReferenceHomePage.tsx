@@ -1654,7 +1654,7 @@ export function ReferenceFooter() {
   ];
 
   return (
-    <footer className="co-reference-footer">
+    <footer className="co-reference-footer co-cinematic-footer-transition">
       <div className="co-reference-footer__layout">
         <div className="co-reference-footer__brand">
           <span className="relative block h-[70px] w-[110px]">

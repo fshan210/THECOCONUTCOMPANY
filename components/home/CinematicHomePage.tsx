@@ -7,12 +7,13 @@ import { shopProducts } from "@/lib/catalog";
 import type { ContentProduct, ContentRecipe, ContentTestimonial, HomepageContent } from "@/lib/content/types";
 import { mediaUrl } from "@/lib/media";
 import { transparentProductAssets } from "@/lib/website-assets";
-import { ArrowLeft, ArrowRight, Leaf, Minus, Pause, Play, Plus, ShoppingBag, Sparkles, Utensils } from "lucide-react";
+import { ArrowLeft, ArrowRight, FileText, Leaf, MapPinned, Minus, PackageCheck, Pause, Play, Plus, Recycle, ShoppingBag, Sparkles, Sprout, Utensils } from "lucide-react";
 import Link from "next/link";
-import { useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { CSSProperties } from "react";
+import type { CSSProperties, SyntheticEvent } from "react";
 import styles from "./CinematicHomePage.module.css";
+import corrections from "./CinematicHomeCorrections.module.css";
 
 const assetRoot = "/assets/redesign/home/cinematic";
 
@@ -43,10 +44,14 @@ const routineProducts = [
 ] as const;
 
 const lifestyleMoments = [
-  { src: "/assets/Coconut_Water_Assets/lifestyle scene.png", alt: ".CO coconut water in an everyday setting" },
-  { src: "/assets/Melt_Ice_Cream_Assets/lifestyle Scene.png", alt: "MELT coconut dessert in an everyday setting" },
-  { src: "/assets/products/Botanica-Shampoo-Lifestyle Scene.png", alt: "BOTANiCA shampoo in a daily care ritual" },
-  { src: "/assets/Ecosystem_Assets/coconut vinegar-lifestyle scene.png", alt: ".CO coconut pantry product in an everyday setting" },
+  { src: `${assetRoot}/lifestyle/coconut-oil.png`, alt: ".CO virgin coconut oil at the dinner table" },
+  { src: `${assetRoot}/lifestyle/face-wash.png`, alt: "BOTANiCA coconut face wash packed for a daily routine" },
+  { src: `${assetRoot}/lifestyle/coconut-milk.png`, alt: ".CO coconut milk beside a freshly cooked meal" },
+  { src: `${assetRoot}/lifestyle/hair-serum.png`, alt: "BOTANiCA coconut hair serum in a morning care ritual" },
+  { src: `${assetRoot}/lifestyle/coconut-flour.png`, alt: ".CO coconut flour used for everyday baking" },
+  { src: `${assetRoot}/lifestyle/moisturizer.png`, alt: "BOTANiCA body moisturizer in an evening wind-down" },
+  { src: `${assetRoot}/lifestyle/melt-icecream.png`, alt: "MELT coconut mango gelato shared at home" },
+  { src: `${assetRoot}/lifestyle/shampoo.png`, alt: "BOTANiCA coconut shampoo ready for a pool-day routine" },
 ] as const;
 
 function formatPrice(value?: number) {
@@ -65,6 +70,10 @@ function productAsset(slug: string, fallback: string) {
   return transparentProductAssets[keyBySlug[slug]]?.src ?? fallback;
 }
 
+function SectionTransition() {
+  return <span className="co-cinematic-section-transition" aria-hidden="true" />;
+}
+
 export function HomeEnvironmentCanvas() {
   return (
     <div className={styles.environment} aria-hidden="true">
@@ -81,24 +90,31 @@ export function HomeEnvironmentCanvas() {
 }
 
 function Hero({ homepage, products }: { homepage: HomepageContent; products: ContentProduct[] }) {
+  const heroRef = useRef<HTMLElement>(null);
+  const reducedMotion = Boolean(useReducedMotion());
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const coconutY = useTransform(scrollYProgress, [0, 0.5, 1], ["0vh", "-8vh", "-18vh"]);
+  const coconutScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.03, 1.06]);
   const featured = productOrder.map(([slug, name, size]) => {
     const current = products.find((item) => item.slug === slug) ?? shopProducts.find((item) => item.slug === slug);
     return { slug, name, size, price: current?.price, image: productAsset(slug, current?.image ?? "") };
   });
 
   return (
-    <section className={`${styles.scene} ${styles.hero}`} data-home-section="hero">
+    <section ref={heroRef} className={`${styles.scene} ${styles.hero}`} data-home-section="hero">
       <div className={styles.heroCopy}>
         <p className={styles.eyebrow}>Made for living.</p>
         <h1 id="cinematic-home-title">Rooted in <em>nature.</em><br />Made for <em>living.</em></h1>
         <p>Honest coconut essentials crafted for a better you and a better planet.</p>
         <Link className={styles.primaryButton} href={homepage.heroCtaLink || "/shop"}>Explore Products <ArrowRight size={16} /></Link>
       </div>
-      <div className={styles.heroVisual} aria-hidden="true">
-        <span className={styles.orbit} />
-        <Image src="/assets/home/co-hero-coconut-transparent-v1.webp" alt="" fill priority sizes="(min-width: 900px) 52vw, 92vw" className={styles.coconut} />
-        <span className={styles.coconutShadow} />
-      </div>
+      <motion.div className={corrections.heroMotion} style={reducedMotion ? undefined : { y: coconutY, scale: coconutScale }} aria-hidden="true">
+        <div className={`${styles.heroVisual} ${corrections.heroVisual}`}>
+          <span className={`${styles.orbit} ${corrections.orbit}`} />
+          <Image src="/assets/home/co-hero-coconut-transparent-v1.webp" alt="" fill priority sizes="(min-width: 900px) 62vw, 110vw" className={`${styles.coconut} ${corrections.heroCoconut}`} />
+          <span className={`${styles.coconutShadow} ${corrections.heroShadow}`} />
+        </div>
+      </motion.div>
       <div className={styles.benefits}>
         {[
           [Leaf, "Naturally coconut-led", "No shortcuts in spirit."],
@@ -119,12 +135,13 @@ function Hero({ homepage, products }: { homepage: HomepageContent; products: Con
         </header>
         <div className={styles.productScroller}>
           {featured.map((product) => <Link href={`/shop/${product.slug}`} key={product.slug} className={styles.productCard}>
-            <span className={styles.productImage}><Image src={product.image} alt={product.name} fill sizes="180px" className="object-contain" /></span>
+            <span className={`${styles.productImage} ${corrections.productStage}`} data-light="top-left"><Image src={product.image} alt={product.name} fill sizes="180px" className={`object-contain ${corrections.productCutout}`} /></span>
             <span><strong>{product.name}</strong><small>{product.size}</small><b>{formatPrice(product.price)}</b></span>
             <i aria-hidden="true"><Plus size={13} /></i>
           </Link>)}
         </div>
       </div>
+      <SectionTransition />
     </section>
   );
 }
@@ -173,10 +190,8 @@ export function HomePinnedScrubVideo() {
   }, [reducedMotion, mobile]);
 
   const fade = progress <= 0.82 ? 0 : Math.min(1, (progress - 0.82) / 0.18);
-  const dissolve = progress <= 0.9 ? 0 : Math.min(1, (progress - 0.9) / 0.1);
-
   return (
-    <section ref={hostRef} className={styles.scrub} data-home-section="pinned-scrub" style={{ "--scrub-fade": fade, "--origin-dissolve": dissolve } as CSSProperties}>
+    <section ref={hostRef} className={styles.scrub} data-home-section="pinned-scrub" style={{ "--scrub-fade": fade } as CSSProperties}>
       <div className={styles.scrubStage}>
         {reducedMotion ? <Image src="/assets/video/homepage-v2/co-home-scraping-poster-v1.jpg" alt="Traditional coconut scraping" fill sizes="100vw" className="object-cover" /> :
           <video ref={videoRef} muted playsInline preload="auto" poster="/assets/video/homepage-v2/co-home-scraping-poster-v1.jpg" aria-label="Traditional coconut scraping">
@@ -189,7 +204,7 @@ export function HomePinnedScrubVideo() {
           <p>In Kerala, every coconut is a promise. Of care, of tradition, of goodness that stays with you.</p>
           <Link href="/about#journey" className={styles.filmButton}><Play size={15} fill="currentColor" /> <span><b>Play film</b><small>Discover our story</small></span></Link>
         </div>
-        <div className={styles.scrubOriginPreview} aria-hidden="true"><Image src={`${assetRoot}/origin-to-everyday.png`} alt="" fill sizes="100vw" className="object-cover" /></div>
+        <SectionTransition />
       </div>
     </section>
   );
@@ -200,9 +215,14 @@ function OriginScene() {
     <Image src={`${assetRoot}/origin-to-everyday.png`} alt="A coconut-growing landscape flowing into an everyday kitchen scene" fill sizes="100vw" className="object-cover" />
     <span className={styles.originWash} />
     <div className={styles.originTitle}><span>From</span><strong>Origin</strong><i>to</i><strong>Everyday<br />Living</strong></div>
-    <div className={styles.currentLine} aria-hidden="true"><span /><i /><b /></div>
+    <svg className={corrections.originCurrent} viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
+      <path className={corrections.currentBase} d="M20 70 C190 24 320 98 500 58 S795 25 980 64" />
+      <path className={corrections.currentFlow} d="M20 70 C190 24 320 98 500 58 S795 25 980 64" />
+      {[80, 360, 650, 920].map((cx, index) => <circle key={cx} className={corrections.currentNode} cx={cx} cy={[57, 67, 45, 57][index]} r="5" />)}
+    </svg>
     <p className={styles.originLabelLeft}>Pollachi, Tamil Nadu</p><p className={styles.originLabelRight}>A better everyday</p>
     <Link href="/about#journey" className={styles.primaryButton}>Explore Our Journey <ArrowRight size={15} /></Link>
+    <SectionTransition />
   </section>;
 }
 
@@ -222,7 +242,7 @@ function ReceiptSection({ products }: { products: ContentProduct[] }) {
     <div className={styles.sectionIntro}><p className={styles.eyebrow}>.CO Receipt</p><h2>Your .CO Day</h2><p>Build your perfect day with the goodness of coconut.</p><a className={styles.secondaryButton} href="#receipt-builder">How it works <ArrowRight size={14} /></a></div>
     <div id="receipt-builder" className={styles.routineBuilder}>
       {rows.map((row) => <article key={row.slug} className={styles.routineProduct}>
-        <p>{row.time}</p><span><Image src={row.image} alt={row.name} fill sizes="150px" className="object-contain" /></span><h3>{row.name}</h3><small>{row.size}</small>
+        <p>{row.time}</p><span className={corrections.productStage} data-light="top-left"><Image src={row.image} alt={row.name} fill sizes="150px" className={`object-contain ${corrections.productCutout}`} /></span><h3>{row.name}</h3><small>{row.size}</small>
         <div className={styles.quantity}><button type="button" onClick={() => adjust(row.slug, -1)} aria-label={`Remove one ${row.name}`}><Minus size={12} /></button><b>{quantities[row.slug]}</b><button type="button" onClick={() => adjust(row.slug, 1)} aria-label={`Add one ${row.name}`}><Plus size={12} /></button></div>
       </article>)}
     </div>
@@ -232,6 +252,7 @@ function ReceiptSection({ products }: { products: ContentProduct[] }) {
       <div className={styles.receiptTotal}><span>Total</span><strong>{formatPrice(total)}</strong></div>
       <button type="button" onClick={addRoutine}>Get my day <ShoppingBag size={15} /></button><button type="button" onClick={saveRoutine}>Save for later</button>
     </aside>
+    <SectionTransition />
   </section>;
 }
 
@@ -255,6 +276,7 @@ function RoutineSection({ testimonials }: { testimonials: ContentTestimonial[] }
       const safeQuote = review.quote.replace(/sustainable approach/gi, "thoughtful direction");
       return <blockquote key={review.id}><span>{review.name.slice(0, 1)}</span><p>“{safeQuote}”<cite>{review.name}, {safeRole}</cite></p></blockquote>;
     })}</div><button type="button" onClick={() => shift(1)} aria-label="Next reviews"><ArrowRight size={16} /></button></div>
+    <SectionTransition />
   </section>;
 }
 
@@ -265,8 +287,13 @@ function RealLifeSection() {
   useEffect(() => { if (!playing) return undefined; const timer = window.setInterval(() => move(1), 4200); return () => clearInterval(timer); }, [move, playing]);
   return <section className={`${styles.scene} ${styles.realLife}`} data-home-section="real-life">
     <header className={styles.sectionHeader}><div><p className={styles.eyebrow}>.CO Outside the Shelf</p><h2>Real life. <em>Real moments.</em></h2></div><Link href="/journal" className={styles.textLink}>See more moments <ArrowRight size={15} /></Link></header>
-    <div className={styles.momentRail}>{lifestyleMoments.map((moment, index) => { const offset = (index - active + lifestyleMoments.length) % lifestyleMoments.length; return <figure key={moment.src} data-offset={offset}><Image src={moment.src} alt={moment.alt} fill sizes="(min-width: 900px) 40vw, 78vw" className="object-cover" /></figure>; })}</div>
+    <div className={`${styles.momentRail} ${corrections.momentRail}`}>{lifestyleMoments.map((moment, index) => {
+      const offset = (index - active + lifestyleMoments.length) % lifestyleMoments.length;
+      const position = offset === 0 ? "active" : offset === 1 ? "next" : offset === lifestyleMoments.length - 1 ? "previous" : offset === 2 ? "far-next" : offset === lifestyleMoments.length - 2 ? "far-previous" : "hidden";
+      return <figure key={moment.src} data-position={position} aria-hidden={position === "hidden"}><Image src={moment.src} alt={moment.alt} fill sizes="(min-width: 900px) 40vw, 78vw" className="object-cover" /></figure>;
+    })}</div>
     <div className={styles.carouselControls}><button type="button" onClick={() => move(-1)} aria-label="Previous moment"><ArrowLeft /></button><button type="button" onClick={() => setPlaying((value) => !value)} aria-label={playing ? "Pause moments" : "Play moments"}>{playing ? <Pause fill="currentColor" /> : <Play fill="currentColor" />}</button><button type="button" onClick={() => move(1)} aria-label="Next moment"><ArrowRight /></button></div>
+    <SectionTransition />
   </section>;
 }
 
@@ -276,19 +303,26 @@ function RecipeSection({ recipes }: { recipes: ContentRecipe[] }) {
     ["Green Coconut Smoothie", "/assets/recipes/generated/co-green-coconut-smoothie-editorial-4k.avif", "7 mins"],
     ["Creamy Coconut Curry", "/assets/recipes/generated/coconut-milk-veggie-curry.jpg", "20 mins"],
   ] as const;
-  return <section className={`${styles.scene} ${styles.recipes}`} data-home-section="recipes"><div className={styles.recipeIntro}><p className={styles.eyebrow}>Made with coconut</p><h2>Recipes for<br /><em>real life.</em></h2><p>Simple, nourishing recipes with ingredients you trust.</p><Link className={styles.primaryButton} href="/recipes">Explore recipes <ArrowRight size={15} /></Link></div><div className={styles.recipeCards}>{requested.map(([title, image, time]) => { const recipe = recipes.find((item) => item.title.toLowerCase().includes(title.split(" ").slice(-1)[0].toLowerCase())); return <Link href={recipe ? `/recipes/${recipe.slug}` : "/recipes"} key={title}><span><Image src={image} alt={title} fill sizes="(min-width: 900px) 26vw, 82vw" className="object-cover" /></span><h3>{title}</h3><p>Ready in {time}</p></Link>; })}</div></section>;
+  return <section className={`${styles.scene} ${styles.recipes}`} data-home-section="recipes"><div className={styles.recipeIntro}><p className={styles.eyebrow}>Made with coconut</p><h2>Recipes for<br /><em>real life.</em></h2><p>Simple, nourishing recipes with ingredients you trust.</p><Link className={styles.primaryButton} href="/recipes">Explore recipes <ArrowRight size={15} /></Link></div><div className={styles.recipeCards}>{requested.map(([title, image, time]) => { const recipe = recipes.find((item) => item.title.toLowerCase().includes(title.split(" ").slice(-1)[0].toLowerCase())); return <Link href={recipe ? `/recipes/${recipe.slug}` : "/recipes"} key={title}><span><Image src={image} alt={title} fill sizes="(min-width: 900px) 26vw, 82vw" className="object-cover" /></span><h3>{title}</h3><p>Ready in {time}</p></Link>; })}</div><SectionTransition /></section>;
 }
 
 function SustainabilitySection() {
-  return <section className={`${styles.scene} ${styles.sustainability}`} data-home-section="sustainability"><Image src="/assets/video/homepage-v2/co-home-farm-poster-v1.jpg" alt="Coconut grove at warm sunset" fill sizes="100vw" className="object-cover" /><span className={styles.sustainabilityWash} /><div className={styles.sustainabilityCopy}><p className={styles.eyebrow}>Sustainability in action</p><h2 style={{ marginBottom: 28 }}>Small choices.<br /><em>Big impact.</em></h2><p>Every drop, every jar, every choice is part of a more thoughtful coconut system.</p><Link href="/sustainability" className={styles.primaryButton}>Our Sustainability <ArrowRight size={15} /></Link></div><div className={styles.safeCounters} aria-label="Illustrative sustainability planning areas">{["10,000-unit launch scenario", "Coconuts accounted for", "Packaging choices reviewed", "Farm relationships mapped", "Waste streams identified"].map((label, index) => <article key={label}><strong>{String(index + 1).padStart(2, "0")}</strong><span>{label}</span></article>)}</div></section>;
+  const counters = [
+    [FileText, "10,000-unit launch scenario"],
+    [Sprout, "Coconuts accounted for"],
+    [PackageCheck, "Packaging choices reviewed"],
+    [MapPinned, "Farm relationships mapped"],
+    [Recycle, "Waste streams identified"],
+  ] as const;
+  return <section className={`${styles.scene} ${styles.sustainability} ${corrections.sustainability}`} data-home-section="sustainability"><Image src={`${assetRoot}/sustainability-farm.png`} alt="A coconut farm illuminated by warm morning light" fill sizes="100vw" className="object-cover" /><span className={`${styles.sustainabilityWash} ${corrections.sustainabilityWash}`} /><div className={styles.sustainabilityCopy}><p className={styles.eyebrow}>Sustainability in action</p><h2 style={{ marginBottom: 28 }}>Small choices.<br /><em>Big impact.</em></h2><p>Every drop, every jar, every choice is part of a more thoughtful coconut system.</p><Link href="/sustainability" className={styles.primaryButton}>Our Sustainability <ArrowRight size={15} /></Link></div><div className={`${styles.safeCounters} ${corrections.safeCounters}`} aria-label="Illustrative sustainability planning areas">{counters.map(([Icon, label], index) => <article key={label}><i className={corrections.counterIcon} aria-hidden="true"><Icon size={18} strokeWidth={1.5} /></i><strong>{String(index + 1).padStart(2, "0")}</strong><span>{label}</span></article>)}</div><SectionTransition /></section>;
 }
 
 function NewsletterSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const restart = () => { const video = videoRef.current; if (!video) return; video.currentTime = 0; void video.play().catch(() => undefined); };
-  return <section className={`${styles.scene} ${styles.newsletter}`} data-home-section="newsletter"><video ref={videoRef} autoPlay muted loop playsInline preload="auto" poster="/assets/video/homepage-v2/co-home-farm-poster-v1.jpg" onEnded={restart} aria-hidden="true"><source src={mediaUrl("/assets/video/homepage-v2/co-home-farm-1080p-v1.mp4")} type="video/mp4" /></video><span /><div><p className={styles.eyebrow}>Stay in the loop</p><h2>Good things, straight to you.</h2><p>Recipes, new drops and real stories.</p></div><NewsletterForm compact className={styles.newsletterForm} /></section>;
+  const restart = (event: SyntheticEvent<HTMLVideoElement>) => { const video = event.currentTarget; video.currentTime = 0.01; void video.play().catch(() => undefined); };
+  return <section className={`${styles.scene} ${styles.newsletter} ${corrections.newsletter}`} data-home-section="newsletter"><video ref={videoRef} className={corrections.newsletterVideo} autoPlay muted loop playsInline preload="auto" poster={`${assetRoot}/sustainability-farm.png`} onPlaying={(event) => event.currentTarget.removeAttribute("poster")} onEnded={restart} aria-hidden="true"><source src={mediaUrl("/assets/video/homepage-v2/co-home-farm-1080p-v1.mp4")} type="video/mp4" /></video><span /><div><p className={styles.eyebrow}>Stay in the loop</p><h2>Good things, straight to you.</h2><p>Recipes, new drops and real stories.</p></div><NewsletterForm compact className={styles.newsletterForm} /><SectionTransition /></section>;
 }
 
 export function CinematicHomeSequence({ homepage, products, recipes, testimonials }: { homepage: HomepageContent; products: ContentProduct[]; recipes: ContentRecipe[]; testimonials: ContentTestimonial[] }) {
-  return <main className={styles.home} style={{ overflowX: "clip", overflowY: "visible" }} aria-labelledby="cinematic-home-title"><HomeEnvironmentCanvas /><Hero homepage={homepage} products={products} /><HomePinnedScrubVideo /><OriginScene /><ReceiptSection products={products} /><RoutineSection testimonials={testimonials} /><RealLifeSection /><RecipeSection recipes={recipes} /><SustainabilitySection /><NewsletterSection /></main>;
+  return <main className={`${styles.home} co-cinematic-flow`} style={{ overflowX: "clip", overflowY: "visible" }} aria-labelledby="cinematic-home-title"><HomeEnvironmentCanvas /><Hero homepage={homepage} products={products} /><HomePinnedScrubVideo /><OriginScene /><ReceiptSection products={products} /><RoutineSection testimonials={testimonials} /><RealLifeSection /><RecipeSection recipes={recipes} /><SustainabilitySection /><NewsletterSection /></main>;
 }
