@@ -36,7 +36,14 @@ test("Home uses supplied assets, safe claims, and required newsletter behavior",
     assert.equal(source.includes(forbidden), false, `forbidden Home copy: ${forbidden}`);
   }
   assert.match(source, /href="\/sustainability"/);
-  assert.match(source, /autoPlay muted loop playsInline/);
+  assert.match(source, /autoPlay=\{active\} muted loop playsInline/);
+  assert.match(source, /active && !reducedMotion \? <source/);
+  assert.match(source, /IntersectionObserver/);
+  assert.match(source, /media="\(max-width: 700px\)"/);
+  assert.match(source, /localStorage\.getItem\("co-saved-day"\)/);
+  for (const slug of ["tender-coconut-smoothie-bowl", "green-coconut-smoothie", "coconut-milk-veggie-curry"]) {
+    assert.ok(source.includes(slug), `expected stable recipe slug ${slug}`);
+  }
   assert.match(source, /onEnded=\{restart\}/);
   assert.match(source, /video\.currentTime = 0\.01/);
   const newsletterSource = source.slice(source.indexOf("function NewsletterSection"), source.indexOf("export function CinematicHomeSequence"));

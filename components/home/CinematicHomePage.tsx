@@ -77,16 +77,31 @@ function SectionTransition() {
 export function HomeEnvironmentCanvas() {
   return (
     <div className={styles.environment} aria-hidden="true">
-      {environmentPlates.map((plate, index) => (
-        <span
-          key={plate}
-          className={styles.environmentPlate}
-          style={{ backgroundImage: `url('${assetRoot}/${plate}')`, top: `${index * 17}%` }}
-        />
-      ))}
+      {environmentPlates.map((plate, index) => <EnvironmentPlate key={plate} plate={plate} index={index} />)}
       <span className={styles.environmentGrain} />
     </div>
   );
+}
+
+function EnvironmentPlate({ plate, index }: { plate: (typeof environmentPlates)[number]; index: number }) {
+  const plateRef = useRef<HTMLSpanElement>(null);
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    const plateElement = plateRef.current;
+    if (!plateElement) return undefined;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setActive(true);
+      observer.disconnect();
+    }, { rootMargin: "900px 0px" });
+    observer.observe(plateElement);
+    return () => observer.disconnect();
+  }, []);
+
+  return <span ref={plateRef} className={styles.environmentPlate} style={{ top: `${index * 17}%` }}>
+    {active ? <Image src={`${assetRoot}/${plate}`} alt="" fill loading="lazy" sizes="100vw" className={styles.environmentPlateImage} /> : null}
+  </span>;
 }
 
 function Hero({ homepage, products }: { homepage: HomepageContent; products: ContentProduct[] }) {
@@ -152,16 +167,6 @@ export function HomePinnedScrubVideo() {
   const frameRef = useRef<number | null>(null);
   const reducedMotion = Boolean(useReducedMotion());
   const [progress, setProgress] = useState(0);
-  const [mobile, setMobile] = useState(false);
-
-  useEffect(() => {
-    const query = window.matchMedia("(max-width: 700px)");
-    const update = () => setMobile(query.matches);
-    update();
-    query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
-  }, []);
-
   useEffect(() => {
     if (reducedMotion) return undefined;
     const update = () => {
@@ -187,7 +192,7 @@ export function HomePinnedScrubVideo() {
       window.removeEventListener("resize", schedule);
       if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
     };
-  }, [reducedMotion, mobile]);
+  }, [reducedMotion]);
 
   const fade = progress <= 0.82 ? 0 : Math.min(1, (progress - 0.82) / 0.18);
   return (
@@ -195,7 +200,8 @@ export function HomePinnedScrubVideo() {
       <div className={styles.scrubStage}>
         {reducedMotion ? <Image src="/assets/video/homepage-v2/co-home-scraping-poster-v1.jpg" alt="Traditional coconut scraping" fill sizes="100vw" className="object-cover" /> :
           <video ref={videoRef} muted playsInline preload="auto" poster="/assets/video/homepage-v2/co-home-scraping-poster-v1.jpg" aria-label="Traditional coconut scraping">
-            <source src={mediaUrl(mobile ? "/assets/video/homepage-v2/co-home-scraping-scroll-mobile-portrait-v2.mp4" : "/assets/video/homepage-v2/co-home-scraping-scroll-desktop-v1.mp4")} type="video/mp4" />
+            <source media="(max-width: 700px)" src={mediaUrl("/assets/video/homepage-v2/co-home-scraping-scroll-mobile-portrait-v2.mp4")} type="video/mp4" />
+            <source media="(min-width: 701px)" src={mediaUrl("/assets/video/homepage-v2/co-home-scraping-scroll-desktop-v1.mp4")} type="video/mp4" />
           </video>}
         <span className={styles.scrubShade} />
         <div className={styles.scrubCopy}>
@@ -229,14 +235,35 @@ function OriginScene() {
 function ReceiptSection({ products }: { products: ContentProduct[] }) {
   const cart = useCart();
   const [quantities, setQuantities] = useState<Record<string, number>>(() => Object.fromEntries(routineProducts.map(([slug]) => [slug, 1])));
+  const [saved, setSaved] = useState(false);
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem("co-saved-day");
+      if (!stored) return;
+      const parsed = JSON.parse(stored) as Record<string, unknown>;
+      setQuantities(Object.fromEntries(routineProducts.map(([slug]) => {
+        const value = parsed[slug];
+        return [slug, typeof value === "number" ? Math.max(0, Math.min(9, Math.round(value))) : 1];
+      })));
+      setSaved(true);
+    } catch {
+      window.localStorage.removeItem("co-saved-day");
+    }
+  }, []);
   const rows = routineProducts.map(([slug, time, name, size]) => {
     const product = products.find((item) => item.slug === slug) ?? shopProducts.find((item) => item.slug === slug);
     return { slug, time, name, size, image: productAsset(slug, product?.image ?? ""), price: product?.price ?? 0 };
   });
   const total = rows.reduce((sum, row) => sum + row.price * quantities[row.slug], 0);
-  const adjust = (slug: string, delta: number) => setQuantities((current) => ({ ...current, [slug]: Math.max(0, Math.min(9, current[slug] + delta)) }));
+  const adjust = (slug: string, delta: number) => {
+    setSaved(false);
+    setQuantities((current) => ({ ...current, [slug]: Math.max(0, Math.min(9, current[slug] + delta)) }));
+  };
   const addRoutine = () => rows.forEach((row) => Array.from({ length: quantities[row.slug] }).forEach(() => cart.addItem(row.slug)));
-  const saveRoutine = () => window.localStorage.setItem("co-saved-day", JSON.stringify(quantities));
+  const saveRoutine = () => {
+    window.localStorage.setItem("co-saved-day", JSON.stringify(quantities));
+    setSaved(true);
+  };
 
   return <section className={`${styles.scene} ${styles.receiptSection}`} data-home-section="receipt">
     <div className={styles.sectionIntro}><p className={styles.eyebrow}>.CO Receipt</p><h2>Your .CO Day</h2><p>Build your perfect day with the goodness of coconut.</p><a className={styles.secondaryButton} href="#receipt-builder">How it works <ArrowRight size={14} /></a></div>
@@ -250,7 +277,7 @@ function ReceiptSection({ products }: { products: ContentProduct[] }) {
       <p>Your .CO Receipt</p><div className={styles.receiptHead}><span>Item</span><span>Qty</span><span>Price</span></div>
       {rows.filter((row) => quantities[row.slug] > 0).map((row) => <div key={row.slug} className={styles.receiptRow}><span>{row.name}<small>{row.size}</small></span><span>{quantities[row.slug]}</span><span>{formatPrice(row.price * quantities[row.slug])}</span></div>)}
       <div className={styles.receiptTotal}><span>Total</span><strong>{formatPrice(total)}</strong></div>
-      <button type="button" onClick={addRoutine}>Get my day <ShoppingBag size={15} /></button><button type="button" onClick={saveRoutine}>Save for later</button>
+      <button type="button" onClick={addRoutine}>Get my day <ShoppingBag size={15} /></button><button type="button" onClick={saveRoutine} aria-live="polite">{saved ? "Saved for later" : "Save for later"}</button>
     </aside>
     <SectionTransition />
   </section>;
@@ -299,11 +326,11 @@ function RealLifeSection() {
 
 function RecipeSection({ recipes }: { recipes: ContentRecipe[] }) {
   const requested = [
-    ["Coconut Breakfast Bowl", "/assets/redesign/recipes/coconut breakfast bowl.png", "5 mins"],
-    ["Green Coconut Smoothie", "/assets/recipes/generated/co-green-coconut-smoothie-editorial-4k.avif", "7 mins"],
-    ["Creamy Coconut Curry", "/assets/recipes/generated/coconut-milk-veggie-curry.jpg", "20 mins"],
+    ["Coconut Breakfast Bowl", "tender-coconut-smoothie-bowl", "/assets/redesign/recipes/coconut breakfast bowl.png", "5 mins"],
+    ["Green Coconut Smoothie", "green-coconut-smoothie", "/assets/recipes/generated/co-green-coconut-smoothie-editorial-4k.avif", "7 mins"],
+    ["Creamy Coconut Curry", "coconut-milk-veggie-curry", "/assets/recipes/generated/coconut-milk-veggie-curry.jpg", "20 mins"],
   ] as const;
-  return <section className={`${styles.scene} ${styles.recipes}`} data-home-section="recipes"><div className={styles.recipeIntro}><p className={styles.eyebrow}>Made with coconut</p><h2>Recipes for<br /><em>real life.</em></h2><p>Simple, nourishing recipes with ingredients you trust.</p><Link className={styles.primaryButton} href="/recipes">Explore recipes <ArrowRight size={15} /></Link></div><div className={styles.recipeCards}>{requested.map(([title, image, time]) => { const recipe = recipes.find((item) => item.title.toLowerCase().includes(title.split(" ").slice(-1)[0].toLowerCase())); return <Link href={recipe ? `/recipes/${recipe.slug}` : "/recipes"} key={title}><span><Image src={image} alt={title} fill sizes="(min-width: 900px) 26vw, 82vw" className="object-cover" /></span><h3>{title}</h3><p>Ready in {time}</p></Link>; })}</div><SectionTransition /></section>;
+  return <section className={`${styles.scene} ${styles.recipes}`} data-home-section="recipes"><div className={styles.recipeIntro}><p className={styles.eyebrow}>Made with coconut</p><h2>Recipes for<br /><em>real life.</em></h2><p>Simple, nourishing recipes with ingredients you trust.</p><Link className={styles.primaryButton} href="/recipes">Explore recipes <ArrowRight size={15} /></Link></div><div className={styles.recipeCards}>{requested.map(([title, slug, image, time]) => { const recipe = recipes.find((item) => item.slug === slug); return <Link href={recipe ? `/recipes/${recipe.slug}` : `/recipes/${slug}`} key={title}><span><Image src={image} alt={title} fill sizes="(min-width: 900px) 26vw, 82vw" className="object-cover" /></span><h3>{title}</h3><p>Ready in {time}</p></Link>; })}</div><SectionTransition /></section>;
 }
 
 function SustainabilitySection() {
@@ -318,9 +345,30 @@ function SustainabilitySection() {
 }
 
 function NewsletterSection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const reducedMotion = Boolean(useReducedMotion());
+  const [active, setActive] = useState(false);
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section || reducedMotion) return undefined;
+    const observer = new IntersectionObserver(([entry]) => setActive(entry.isIntersecting), { rootMargin: "360px 0px" });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [reducedMotion]);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || reducedMotion) return undefined;
+    if (!active) {
+      video.pause();
+      return undefined;
+    }
+    video.load();
+    void video.play().catch(() => undefined);
+    return () => video.pause();
+  }, [active, reducedMotion]);
   const restart = (event: SyntheticEvent<HTMLVideoElement>) => { const video = event.currentTarget; video.currentTime = 0.01; void video.play().catch(() => undefined); };
-  return <section className={`${styles.scene} ${styles.newsletter} ${corrections.newsletter}`} data-home-section="newsletter"><video ref={videoRef} className={corrections.newsletterVideo} autoPlay muted loop playsInline preload="auto" poster={`${assetRoot}/sustainability-farm.png`} onPlaying={(event) => event.currentTarget.removeAttribute("poster")} onEnded={restart} aria-hidden="true"><source src={mediaUrl("/assets/video/homepage-v2/co-home-farm-1080p-v1.mp4")} type="video/mp4" /></video><span /><div><p className={styles.eyebrow}>Stay in the loop</p><h2>Good things, straight to you.</h2><p>Recipes, new drops and real stories.</p></div><NewsletterForm compact className={styles.newsletterForm} /><SectionTransition /></section>;
+  return <section ref={sectionRef} className={`${styles.scene} ${styles.newsletter} ${corrections.newsletter}`} data-home-section="newsletter"><video ref={videoRef} className={corrections.newsletterVideo} autoPlay={active} muted loop playsInline preload={active ? "auto" : "none"} poster={`${assetRoot}/sustainability-farm.png`} onPlaying={(event) => event.currentTarget.removeAttribute("poster")} onEnded={restart} aria-hidden="true">{active && !reducedMotion ? <source src={mediaUrl("/assets/video/homepage-v2/co-home-farm-1080p-v1.mp4")} type="video/mp4" /> : null}</video><span /><div><p className={styles.eyebrow}>Stay in the loop</p><h2>Good things, straight to you.</h2><p>Recipes, new drops and real stories.</p></div><NewsletterForm compact className={styles.newsletterForm} /><SectionTransition /></section>;
 }
 
 export function CinematicHomeSequence({ homepage, products, recipes, testimonials }: { homepage: HomepageContent; products: ContentProduct[]; recipes: ContentRecipe[]; testimonials: ContentTestimonial[] }) {
