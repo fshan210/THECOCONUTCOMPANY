@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ReferenceAboutPage } from "@/components/about/ReferenceAboutPage";
+import { CinematicAboutPage } from "@/components/about/CinematicAboutPage";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { getSeoMetadata } from "@/lib/content/server";
 import { createPageMetadata } from "@/lib/seo/metadata";
@@ -19,7 +19,7 @@ export default function AboutPage() {
   return (
     <>
       <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "About", path: "/about" }]} />
-      <ReferenceAboutPage />
+      <CinematicAboutPage />
     </>
   );
 }
