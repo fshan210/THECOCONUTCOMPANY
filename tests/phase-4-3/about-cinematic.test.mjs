@@ -31,6 +31,7 @@ test("About maps supplied assets to the required cinematic sequence", () => {
     "kitchen.png",
     "botanica.png",
     "melt.png",
+    "founders.png",
   ]) assert.match(about, new RegExp(asset.replaceAll(".", "\\.")));
   assert.match(media, /\/assets\/redesign\/about\//);
 });

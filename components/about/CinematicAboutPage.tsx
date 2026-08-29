@@ -193,7 +193,7 @@ function FoundersAndClosing() {
   return (
     <>
       <section className={`${styles.scene} ${styles.founders}`} aria-labelledby="founders-title">
-        <div className={styles.foundersImage}><Image src="/assets/founders/refined/fazil-afsala-founder-hero.png" alt=".CO co-founders Fazil and Afsala" fill sizes="100vw" className={styles.cover} /></div><div className={styles.foundersShade} />
+        <div className={styles.foundersImage}><Image src={`${assetRoot}/founders.png`} alt=".CO co-founders Fazil and Afsala" fill sizes="100vw" className={styles.cover} /></div><div className={styles.foundersShade} />
         <Reveal className={styles.foundersCopy}><Eyebrow>From the founders</Eyebrow><h2 id="founders-title">Made for living.<br /><em>Made with love.</em></h2><div className={styles.founderNotes}>{notes.map(([title, copy]) => <article key={title}><h3>{title}</h3><p>{copy}</p></article>)}</div><blockquote>“We believe the best things in life should be simple, honest, and good for the world around us.”</blockquote></Reveal>
         <SceneTransition />
       </section>
