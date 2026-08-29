@@ -27,18 +27,32 @@
 .page :global(.co-reference-footer) {
   position: relative;
   z-index: 3;
-  margin-top: -1px;
+  margin-top: 0;
   border-top: 0;
   background: linear-gradient(180deg, #120804 0%, #210903 24%, #2b0b04 100%);
 }
 
 .page :global(.co-reference-footer)::before {
   position: absolute;
-  inset: -160px 0 auto;
-  height: 170px;
+  inset: -240px 0 auto;
+  height: 242px;
   pointer-events: none;
   content: "";
-  background: linear-gradient(180deg, transparent, rgba(16, 6, 3, .76) 52%, #120804 100%);
+  background:
+    radial-gradient(ellipse at 52% 100%, rgba(77, 25, 8, .42), transparent 64%),
+    linear-gradient(to bottom, rgba(10, 6, 4, 0), rgba(10, 6, 4, .72) 44%, #120804 100%);
+  filter: blur(.2px);
+}
+
+.footerBridge {
+  position: relative;
+  z-index: 4;
+  height: clamp(180px, 18vw, 270px);
+  margin-top: clamp(-270px, -18vw, -180px);
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 48% 100%, rgba(74, 23, 7, .48), transparent 66%),
+    linear-gradient(to bottom, rgba(10, 6, 4, 0), rgba(10, 6, 4, .76) 48%, #120804 100%);
 }
 
 .page h1,
@@ -74,12 +88,12 @@
 
 .scene::before {
   top: -1px;
-  background: linear-gradient(180deg, var(--cocoa-950), rgba(14, 9, 6, .76) 30%, transparent 100%);
+  background: linear-gradient(to bottom, rgba(10, 6, 4, .95), rgba(10, 6, 4, 0));
 }
 
 .scene::after {
   bottom: -1px;
-  background: linear-gradient(0deg, var(--cocoa-950), rgba(14, 9, 6, .8) 30%, transparent 100%);
+  background: linear-gradient(to top, rgba(10, 6, 4, .95), rgba(10, 6, 4, 0));
 }
 
 .sceneTransition {
@@ -89,8 +103,8 @@
   height: 150px;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 50% 100%, rgba(53, 20, 7, .62), transparent 60%),
-    linear-gradient(180deg, transparent, rgba(14, 9, 6, .78) 60%, var(--cocoa-950));
+    radial-gradient(ellipse at 50% 100%, rgba(53, 20, 7, .5), transparent 64%),
+    linear-gradient(to bottom, rgba(10, 6, 4, 0), rgba(10, 6, 4, .88) 74%, rgba(10, 6, 4, .98));
   filter: blur(4px);
 }
 
@@ -139,8 +153,7 @@
 
 .centerHeading h2,
 .valuesHeading h2,
-.mapCopy h2,
-.mapIntro h2 {
+.mapCopy h2 {
   margin: 0;
   color: var(--ivory);
   font-size: clamp(48px, 5.6vw, 82px);
@@ -281,14 +294,15 @@
 .puzzleGame > div { border-color: rgba(224,159,82,.23) !important; color: var(--ivory) !important; background: linear-gradient(145deg, rgba(29,16,10,.76), rgba(16,9,6,.58)) !important; box-shadow: inset 0 1px rgba(255,238,214,.1), 0 36px 100px rgba(4,1,0,.5) !important; backdrop-filter: blur(18px); }
 .puzzleGame :global(h2), .puzzleGame :global(p), .puzzleGame :global(span) { color: inherit !important; }
 .puzzleGame :global(button:not([data-puzzle-tile])) { border-color: rgba(224,159,82,.28) !important; color: #f5dfc4 !important; background-color: rgba(38,20,10,.62) !important; }
-.puzzleGame :global([data-puzzle-tile]) { border-color: rgba(255,239,219,.36) !important; }
+.puzzleGame :global([data-puzzle-tile]) { border-color: rgba(255,239,219,.36) !important; filter: brightness(1.14) saturate(.94) contrast(1.04); }
+.puzzleGame :global([data-puzzle-image-controls="compact"]) { max-width: 480px; }
 .connects { position: relative; z-index: 12; display: flex; justify-content: center; align-items: center; gap: 10px; margin: 26px 0 0; color: #ead1b2; font-family: "Cormorant Garamond", serif; font-size: 23px; }
 
 /* Origin */
-.origin { min-height: 2000px; padding: 160px 0; background: radial-gradient(circle at 35% 30%, rgba(90,45,20,.2), transparent 32%), var(--cocoa-950); }
+.origin { min-height: 0; padding: 160px 0 250px; background: radial-gradient(circle at 35% 30%, rgba(90,45,20,.2), transparent 32%), var(--cocoa-950); }
 .originIntro { position: sticky; z-index: 12; top: 130px; width: 27%; margin-left: max(4vw, calc((100vw - 1440px) / 2)); }
-.originIntro h2, .mapIntro h2 { margin: 0; font-size: clamp(48px, 5vw, 78px); letter-spacing: -.04em; line-height: .92; }
-.originRows { position: relative; z-index: 12; width: min(1420px, calc(100% - 48px)); margin: -180px auto 180px; padding-left: 30%; }
+.originIntro h2 { margin: 0; font-size: clamp(48px, 5vw, 78px); letter-spacing: -.04em; line-height: .92; }
+.originRows { position: relative; z-index: 12; width: min(1420px, calc(100% - 48px)); margin: -180px auto 0; padding-left: 30%; }
 .originRow { position: relative; display: grid; min-height: 360px; grid-template-columns: 280px 1fr; align-items: center; }
 .originText { position: relative; z-index: 2; margin-right: -45px; padding: 26px 30px; border: 1px solid rgba(224,159,82,.16); border-radius: 24px; background: rgba(18,9,5,.7); box-shadow: inset 0 1px rgba(255,237,212,.07); backdrop-filter: blur(14px); }
 .originText > span { color: var(--amber); font-family: "Cormorant Garamond", serif; font-size: 30px; }
@@ -296,10 +310,8 @@
 .originText p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
 .originImage { position: relative; height: 330px; overflow: hidden; border-radius: 42px; filter: saturate(.78) contrast(1.04); mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%), linear-gradient(180deg, transparent 0, #000 15%, #000 85%, transparent 100%); mask-composite: intersect; }
 .originImage::after { position: absolute; inset: 0; content: ""; background: radial-gradient(ellipse at 55% 50%, transparent 40%, rgba(14,9,6,.66) 100%); }
-.mapIntro { position: relative; z-index: 12; width: min(1400px, calc(100% - 48px)); margin: 0 auto; }
-
 /* Map and company */
-.map { min-height: 900px; }
+.map { min-height: 900px; margin-top: -1px; }
 .map > img { z-index: -1; object-position: center; }
 .mapShade { position: absolute; z-index: 1; inset: 0; background: linear-gradient(90deg, rgba(13,7,4,.96), rgba(13,7,4,.72) 33%, transparent 64%), linear-gradient(180deg, rgba(13,7,4,.52), transparent 30%, rgba(13,7,4,.67)); }
 .mapCopy { position: absolute; z-index: 12; top: 29%; left: max(5vw, calc((100vw - 1440px) / 2)); }
@@ -340,9 +352,11 @@
 /* Brands */
 .brands { min-height: 1280px; padding: 150px 0 170px; }
 .brands > img { z-index: -3; opacity: .82; }
-.brandShade { position: absolute; z-index: -2; inset: 0; background: linear-gradient(180deg, rgba(13,7,4,.72), rgba(13,7,4,.26) 38%, rgba(13,7,4,.82)), radial-gradient(circle at 50% 42%, rgba(224,159,82,.12), transparent 45%); }
-.sourceCoconut { position: relative; z-index: 12; width: 270px; height: 230px; margin: 20px auto 0; overflow: hidden; border-radius: 50%; mask-image: radial-gradient(circle, #000 45%, transparent 72%); }
-.sourceCoconut img { object-position: 73% 58%; transform: scale(1.6); }
+.brandShade { position: absolute; z-index: -2; inset: 0; background: linear-gradient(180deg, rgba(13,7,4,.64), rgba(13,7,4,.14) 34%, rgba(13,7,4,.76)), radial-gradient(circle at 50% 40%, rgba(224,159,82,.2), transparent 38%); }
+.sourceCoconut { position: relative; z-index: 12; isolation: isolate; width: 320px; height: 260px; margin: 18px auto 0; overflow: visible; border-radius: 50%; }
+.sourceCoconut::before { position: absolute; z-index: 0; inset: 5% 4% 1%; border-radius: 50%; content: ""; background: radial-gradient(circle, rgba(224,159,82,.27), rgba(224,159,82,.08) 46%, transparent 72%); filter: blur(13px); }
+.sourceCoconut::after { position: absolute; z-index: 1; right: 16%; bottom: 5%; left: 16%; height: 18%; border-radius: 50%; content: ""; background: rgba(3,1,0,.74); filter: blur(15px); transform: perspective(120px) rotateX(62deg); }
+.sourceCoconut img { z-index: 2; object-position: 73% 58%; filter: brightness(1.34) saturate(.96) contrast(1.05) drop-shadow(0 0 14px rgba(232,173,97,.34)); mask-image: radial-gradient(circle, #000 48%, rgba(0,0,0,.96) 58%, transparent 76%); transform: scale(1.55); }
 .brandLines { position: relative; z-index: 10; display: block; width: min(1320px, calc(100% - 60px)); height: 230px; margin: -50px auto -175px; overflow: visible; }
 .brandLines path { fill: none; stroke: rgba(232,173,97,.76); stroke-width: 1.25; filter: drop-shadow(0 0 7px rgba(224,159,82,.7)); }
 .orbGrid { position: relative; z-index: 12; display: grid; width: min(1420px, calc(100% - 48px)); grid-template-columns: repeat(4, 1fr); gap: 24px; margin: 0 auto; }
@@ -403,7 +417,7 @@
 
 /* Newsletter */
 .newsletter { display: grid; min-height: 660px; grid-template-columns: 1fr 1.2fr; align-items: center; gap: 7vw; padding: 120px max(5vw, calc((100vw - 1440px) / 2)) 170px; background: #120805 url("/assets/redesign/about/where-it-begins.png") center/cover; }
-.newsletter::after { height: clamp(170px, 18vw, 280px); background: linear-gradient(0deg, #120804 0%, rgba(18,8,4,.94) 28%, rgba(18,8,4,.62) 58%, transparent 100%); }
+.newsletter::after { height: clamp(210px, 22vw, 340px); background: linear-gradient(to top, #120804 0%, rgba(18,8,4,.96) 32%, rgba(10,6,4,.68) 64%, rgba(10,6,4,0) 100%); }
 .newsletter .sceneTransition { background: radial-gradient(ellipse at 50% 100%, rgba(61,18,5,.48), transparent 64%), linear-gradient(180deg, transparent, rgba(18,8,4,.78) 58%, #120804); }
 .newsletter video { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.72) sepia(.12) brightness(.55); }
 .newsletterShade { position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(29,9,3,.9), rgba(20,9,5,.5) 52%, rgba(16,8,5,.76)), radial-gradient(circle at 55% 45%, rgba(224,159,82,.1), transparent 48%); }
@@ -435,7 +449,7 @@
   .scene { min-height: 620px; }
   .eyebrow { margin-bottom: 13px; font-size: 9px; }
   .centerHeading { width: calc(100% - 32px); }
-  .centerHeading h2, .valuesHeading h2, .mapCopy h2, .mapIntro h2 { font-size: clamp(42px, 13vw, 60px); }
+  .centerHeading h2, .valuesHeading h2, .mapCopy h2 { font-size: clamp(42px, 13vw, 60px); }
   .hero { min-height: 820px; }
   .heroImage img { object-position: 68% center; transform: scale(1.32); }
   .heroAtmosphere { background: linear-gradient(180deg, rgba(10,5,3,.45), rgba(10,5,3,.1) 30%, rgba(10,5,3,.88) 66%, #0e0906 100%), linear-gradient(90deg, rgba(10,5,3,.56), transparent 70%); }
@@ -457,13 +471,12 @@
   .puzzle { min-height: 1180px; padding: 120px 0; }
   .puzzleGame { margin-top: 30px; }
   .puzzleGame > div { border-radius: 22px !important; }
-  .origin { min-height: auto; padding: 120px 0; }
+  .origin { min-height: auto; padding: 120px 0 180px; }
   .originIntro { width: calc(100% - 36px); margin-bottom: 30px; }
-  .originRows { width: 100%; margin-bottom: 100px; }
+  .originRows { width: 100%; margin-bottom: 0; }
   .originRow { display: flex; min-height: 500px; flex-direction: column-reverse; justify-content: flex-end; }
   .originText { width: calc(100% - 36px); margin: -58px auto 0; padding: 22px; }
   .originImage { width: 100%; height: 360px; border-radius: 0; mask-image: linear-gradient(180deg, transparent, #000 8%, #000 80%, transparent); }
-  .mapIntro { width: calc(100% - 36px); }
   .map { min-height: 760px; }
   .map > img { object-position: 66% center; }
   .mapShade { background: linear-gradient(180deg, rgba(13,7,4,.84), rgba(13,7,4,.22) 45%, rgba(13,7,4,.88)); }
@@ -481,7 +494,7 @@
   .valueGrid { width: calc(100% - 28px); grid-template-columns: 1fr; }
   .valueGrid article { min-height: 420px; border-right: 0; border-bottom: 1px solid rgba(224,159,82,.13); }
   .brands { min-height: 2360px; padding: 120px 0; }
-  .sourceCoconut { width: 220px; height: 190px; }
+  .sourceCoconut { width: 250px; height: 210px; }
   .orbGrid { width: calc(100% - 34px); grid-template-columns: 1fr; gap: 60px; }
   .orbGrid article { max-width: 390px; margin: 0 auto; }
   .timeline { min-height: 1500px; padding: 120px 0; }
@@ -506,7 +519,8 @@
   .newsletter { min-height: 850px; grid-template-columns: 1fr; align-content: center; gap: 38px; padding: 130px 20px 200px; }
   .newsletterCopy h2 { font-size: 61px; }
   .newsletterForm { padding: 18px; }
-  .page :global(.co-reference-footer)::before { top: -120px; height: 130px; }
+  .footerBridge { height: 180px; margin-top: -180px; }
+  .page :global(.co-reference-footer)::before { top: -160px; height: 162px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

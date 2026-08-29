@@ -7,6 +7,7 @@ const about = readFileSync("components/about/CinematicAboutPage.tsx", "utf8");
 const css = readFileSync("components/about/CinematicAboutPage.module.css", "utf8");
 const shell = readFileSync("components/home/ReferenceHomePage.tsx", "utf8");
 const media = readFileSync("lib/media.ts", "utf8");
+const puzzle = readFileSync("components/interactive/BrandSlidingPuzzle/BrandSlidingPuzzle.tsx", "utf8");
 
 test("About route has one cinematic owner and disconnects the legacy render path", () => {
   assert.match(page, /CinematicAboutPage/);
@@ -15,6 +16,8 @@ test("About route has one cinematic owner and disconnects the legacy render path
   assert.equal((about.match(/<ReferenceFooter\s*\/>/g) ?? []).length, 1);
   assert.equal((about.match(/<h1/g) ?? []).length, 1);
   assert.doesNotMatch(about, /JourneyScrollStory|ReferenceAboutPage/);
+  assert.equal((about.match(/Rooted locally\./g) ?? []).length, 1);
+  assert.equal((about.match(/Before \.CO,/g) ?? []).length, 1);
 });
 
 test("About maps supplied assets to the required cinematic sequence", () => {
@@ -40,12 +43,19 @@ test("About preserves interactions, evidence-safe copy, and dark section dissolv
   assert.match(about, /BrandSlidingPuzzle/);
   assert.match(about, /aria-pressed=\{selected\}/);
   assert.match(about, /motion\.path/);
-  assert.match(about, /autoPlay muted loop playsInline preload="metadata"/);
+  assert.match(about, /autoPlay=\{active\} muted loop playsInline/);
+  assert.match(about, /onEnded=\{restart\}/);
+  assert.match(about, /compactControls/);
+  assert.match(puzzle, /data-puzzle-board=\{board\.join/);
+  assert.match(puzzle, /data-puzzle-image=\{activeImage\.id\}/);
+  assert.match(puzzle, /repeatedBoard/);
   assert.doesNotMatch(about, /XX\+|20XX|verified markets|carbon neutral/i);
   assert.match(css, /\.scene::before/);
   assert.match(css, /\.scene::after/);
   assert.match(css, /\.newsletter::after/);
-  assert.match(css, /linear-gradient\(0deg, #120804/);
+  assert.match(css, /\.footerBridge/);
+  assert.match(css, /linear-gradient\(to top, #120804/);
+  assert.doesNotMatch(css, /\.mapIntro/);
 });
 
 test("About keeps the approved shared shell dark while Home behavior remains shared", () => {

@@ -4,7 +4,8 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { ArrowDown, ArrowRight, Droplets, Leaf, Recycle, Shell, Sparkles, Sprout, UsersRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { SyntheticEvent } from "react";
 import { MobileBottomNav, ReferenceFooter, ReferenceHeader } from "@/components/home/ReferenceHomePage";
 import { BrandSlidingPuzzle } from "@/components/interactive/BrandSlidingPuzzle";
 import { NewsletterForm } from "@/components/launch/NewsletterForm";
@@ -33,6 +34,12 @@ const brands = [
   { id: "kitchen", name: ".CO KITCHEN", copy: "Everyday essentials. Made for real life.", image: "kitchen.png", href: "/shop?category=Food" },
   { id: "botanica", name: "BOTANICA", copy: "Rooted in nature. Made to nurture.", image: "botanica.png", href: "/shop?category=Cosmetics" },
   { id: "melt", name: "MELT", copy: "Indulgence, reimagined. Coconut at its creamiest.", image: "melt.png", href: "/shop?category=Ice%20Cream" },
+] as const;
+
+const puzzleImages = [
+  { id: "pollachi-landscape", title: "Where it begins", subtitle: "Pollachi, Tamil Nadu", src: `${assetRoot}/where-it-begins.png`, alt: "A coconut-growing landscape in Pollachi" },
+  { id: "grown-by-people", title: "Grown by people", subtitle: "Hands behind every harvest", src: `${assetRoot}/grown-by-people.png`, alt: "Coconut growers gathering a harvest" },
+  { id: "origin-to-living", title: "Origin to everyday", subtitle: "Thoughtfully brought home", src: `${assetRoot}/origin-to-everyday-living.png`, alt: ".CO coconut oil in an everyday kitchen" },
 ] as const;
 
 const milestones = [
@@ -104,7 +111,7 @@ function Puzzle() {
     <section className={`${styles.scene} ${styles.puzzle}`} aria-labelledby="puzzle-heading">
       <div className={styles.puzzleBackground}><Image src={`${assetRoot}/backgrounds/5.png`} alt="" fill sizes="100vw" className={styles.cover} /></div>
       <Reveal className={styles.centerHeading}><Eyebrow>Piece by piece</Eyebrow><h2 id="puzzle-heading">The bigger picture.</h2><p>Move the pieces and discover how every part becomes something bigger.</p></Reveal>
-      <BrandSlidingPuzzle imageSrc={`${assetRoot}/where-it-begins.png`} imageAlt="A coconut-growing landscape in Pollachi" initialShuffleMoves={48} className={styles.puzzleGame} />
+      <BrandSlidingPuzzle images={[...puzzleImages]} initialShuffleMoves={64} compactControls className={styles.puzzleGame} />
       <p className={styles.connects}><Sprout size={17} /> Everything connects.</p>
       <SceneTransition />
     </section>
@@ -112,13 +119,17 @@ function Puzzle() {
 }
 
 function OriginStory() {
+  const ref = useRef<HTMLElement>(null);
+  const reducedMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 72%", "end 18%"] });
+  const headingOpacity = useTransform(scrollYProgress, [0, .58, .76], [1, 1, 0]);
+  const headingY = useTransform(scrollYProgress, [0, .58, .76], [0, 0, -72]);
   return (
-    <section id="journey" className={`${styles.scene} ${styles.origin}`} aria-labelledby="origin-title">
-      <div className={styles.originIntro}><Eyebrow>Our origin</Eyebrow><h2 id="origin-title">Before .CO,<br /><em>there is the coconut.</em></h2></div>
+    <section ref={ref} id="journey" className={`${styles.scene} ${styles.origin}`} aria-labelledby="origin-title">
+      <motion.div className={styles.originIntro} style={reducedMotion ? undefined : { opacity: headingOpacity, y: headingY }}><Eyebrow>Our origin</Eyebrow><h2 id="origin-title">Before .CO,<br /><em>there is the coconut.</em></h2></motion.div>
       <div className={styles.originRows}>
         {originSteps.map((step, index) => <Reveal key={step.title} className={styles.originRow}><div className={styles.originText}><span>0{index + 1}</span><h3>{step.title}</h3><p>{step.copy}</p></div><div className={styles.originImage}><Image src={`${assetRoot}/${step.image}`} alt={step.alt} fill sizes="(min-width: 900px) 72vw, 100vw" className={styles.cover} /></div></Reveal>)}
       </div>
-      <div className={styles.mapIntro}><Eyebrow>From here to everywhere</Eyebrow><h2>Rooted locally,<br /><em>reaching thoughtfully.</em></h2></div>
       <SceneTransition />
     </section>
   );
@@ -203,11 +214,37 @@ function FoundersAndClosing() {
 }
 
 function Newsletter() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const reducedMotion = useReducedMotion();
   const [failed, setFailed] = useState(false);
+  const [active, setActive] = useState(false);
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section || reducedMotion) return undefined;
+    const observer = new IntersectionObserver(([entry]) => setActive(entry.isIntersecting), { rootMargin: "360px 0px" });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [reducedMotion]);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || reducedMotion || failed) return undefined;
+    if (!active) {
+      video.pause();
+      return undefined;
+    }
+    video.load();
+    void video.play().catch(() => undefined);
+    return () => video.pause();
+  }, [active, failed, reducedMotion]);
+  const restart = (event: SyntheticEvent<HTMLVideoElement>) => {
+    const video = event.currentTarget;
+    video.currentTime = .01;
+    void video.play().catch(() => undefined);
+  };
   return (
-    <section className={`${styles.scene} ${styles.newsletter}`} aria-labelledby="about-newsletter-title">
-      {!reducedMotion && !failed ? <video autoPlay muted loop playsInline preload="metadata" onError={() => setFailed(true)} aria-hidden="true"><source src={mediaUrl("/assets/video/homepage-v2/co-home-farm-1080p-v1.mp4")} type="video/mp4" /></video> : null}
+    <section ref={sectionRef} className={`${styles.scene} ${styles.newsletter}`} aria-labelledby="about-newsletter-title">
+      {!reducedMotion && !failed ? <video ref={videoRef} autoPlay={active} muted loop playsInline preload={active ? "auto" : "none"} onEnded={restart} onError={() => setFailed(true)} aria-hidden="true">{active ? <source src={mediaUrl("/assets/video/homepage-v2/co-home-farm-1080p-v1.mp4")} type="video/mp4" /> : null}</video> : null}
       <div className={styles.newsletterShade} />
       <Reveal className={styles.newsletterCopy}><Eyebrow>Stay in the loop</Eyebrow><h2 id="about-newsletter-title">Be part of our journey.</h2><p>New products. Real stories. Honest updates.</p></Reveal>
       <NewsletterForm compact className={styles.newsletterForm} />
@@ -221,6 +258,7 @@ export function CinematicAboutPage() {
     <div className={styles.page}>
       <ReferenceHeader />
       <main><Hero /><Anatomy /><Puzzle /><OriginStory /><MapAndCompany /><Values /><BrandEcosystem /><Journey /><FoundersAndClosing /><Newsletter /></main>
+      <div className={styles.footerBridge} aria-hidden="true" />
       <ReferenceFooter />
       <MobileBottomNav />
     </div>

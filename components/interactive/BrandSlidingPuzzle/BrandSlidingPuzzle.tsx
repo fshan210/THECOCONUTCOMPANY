@@ -50,6 +50,7 @@ export interface BrandSlidingPuzzleProps {
   promotion?: PuzzlePromotion;
   logoSrc?: string;
   initialShuffleMoves?: number;
+  compactControls?: boolean;
   onSolved?: (result: PuzzleResult) => void;
   className?: string;
 }
@@ -61,6 +62,7 @@ export function BrandSlidingPuzzle({
   grid: requestedGrid,
   promotion = defaultPromotion,
   initialShuffleMoves,
+  compactControls = false,
   onSolved,
   className = "",
 }: BrandSlidingPuzzleProps = {}) {
@@ -87,7 +89,9 @@ export function BrandSlidingPuzzle({
   const activeImageSrc = grid.columns === 3 ? activeImage.thumbnailSrc ?? activeImage.src : activeImage.src;
 
   const restart = (nextGrid = grid, imageId = activeImage?.id) => {
-    const next = shuffleSolvable(nextGrid, initialShuffleMoves);
+    const shuffled = shuffleSolvable(nextGrid, initialShuffleMoves);
+    const repeatedBoard = shuffled.length === board.length && shuffled.every((tile, index) => tile === board[index]);
+    const next = repeatedBoard ? moveTile(shuffled, getLegalMoves(shuffled, nextGrid)[0], nextGrid) : shuffled;
     if (previewTimer.current) window.clearTimeout(previewTimer.current);
     setGrid(nextGrid);
     setBoard(next);
@@ -191,15 +195,15 @@ export function BrandSlidingPuzzle({
           <h2 id="brand-puzzle-title" className="mt-3 font-['Cormorant_Garamond'] text-[34px] leading-[.95] md:text-[44px]">Put every part<br />back with purpose.</h2>
           <p className="mt-4 max-w-md text-[12px] leading-6 text-[#625950]">Slide a complete row or column toward the open space. Restore the photograph to reveal another part of the .CO product world.</p>
 
-          <div className="mt-5 rounded-[22px] border border-white/80 bg-white/58 p-3 shadow-[0_12px_30px_rgba(53,39,30,.05)] backdrop-blur-xl">
+          <div className={`mt-5 ${compactControls ? "py-2" : "rounded-[22px] border border-white/80 bg-white/58 p-3 shadow-[0_12px_30px_rgba(53,39,30,.05)] backdrop-blur-xl"}`} data-puzzle-image-controls={compactControls ? "compact" : "full"}>
             <div className="flex items-center justify-between gap-2">
               <button type="button" onClick={() => chooseImage(activeImageIndex - 1)} aria-label="Previous puzzle image" className="grid size-11 shrink-0 place-items-center rounded-full border border-[#305a34]/15 text-[#305a34] transition-colors hover:bg-[#305a34] hover:text-white"><ChevronLeft size={16} /></button>
               <div className="min-w-0 text-center"><p className="truncate font-['Cormorant_Garamond'] text-xl leading-none">{activeImage.title}</p><p className="mt-1 truncate text-[9px] uppercase tracking-[.08em] text-[#6c6258]">{activeImage.subtitle}</p></div>
               <button type="button" onClick={() => chooseImage(activeImageIndex + 1)} aria-label="Next puzzle image" className="grid size-11 shrink-0 place-items-center rounded-full border border-[#305a34]/15 text-[#305a34] transition-colors hover:bg-[#305a34] hover:text-white"><ChevronRight size={16} /></button>
             </div>
-            <div className="mt-3 flex justify-center gap-2 overflow-x-auto pb-1" aria-label="Choose a product photograph">
+            {!compactControls ? <div className="mt-3 flex justify-center gap-2 overflow-x-auto pb-1" aria-label="Choose a product photograph">
               {imageOptions.map((image, index) => <button key={image.id} type="button" aria-label={`Use ${image.title}`} aria-pressed={index === activeImageIndex} onClick={() => chooseImage(index)} className={`relative size-12 shrink-0 overflow-hidden rounded-[14px] border-2 transition ${index === activeImageIndex ? "border-[#305a34] shadow-[0_5px_14px_rgba(48,90,52,.18)]" : "border-white/80 opacity-65 hover:opacity-100"}`}><ResponsiveImage src={image.thumbnailSrc ?? image.src} alt="" fill sizes="48px" className="object-cover" /></button>)}
-            </div>
+            </div> : null}
           </div>
 
           <p className="sr-only">Focus the puzzle board and use the arrow keys, or activate any tile in the open row or column.</p>
@@ -217,6 +221,8 @@ export function BrandSlidingPuzzle({
             aria-label={`${grid.columns} by ${grid.rows} sliding puzzle. ${moves} moves.`}
             tabIndex={0}
             onKeyDown={handleBoardKeyDown}
+            data-puzzle-board={board.join(",")}
+            data-puzzle-image={activeImage.id}
             style={{ aspectRatio: `${grid.columns} / ${grid.rows}` }}
           >
             <LayoutGroup id={`brand-puzzle-${activeImage.id}`}>
