@@ -13,6 +13,7 @@ export type CartItem = {
 };
 
 export type CartConfiguration = Pick<CartItem, "sku" | "unitPrice" | "variantLabel">;
+export type CartAddOptions = { openDrawer?: boolean };
 
 const previewPrices = Object.fromEntries(shopProducts.map((product) => [product.slug, product.price])) as Record<string, number>;
 
@@ -28,7 +29,7 @@ type CartContextValue = {
   open: boolean;
   recentlyAddedSlug: string | null;
   setOpen: (value: boolean) => void;
-  addItem: (slug: string, configuration?: CartConfiguration) => void;
+  addItem: (slug: string, configuration?: CartConfiguration, options?: CartAddOptions) => void;
   removeItem: (cartKey: string) => void;
   updateQuantity: (cartKey: string, quantity: number) => void;
   clearCart: () => void;
@@ -84,7 +85,7 @@ export function CartProvider({ children, catalog = shopProducts }: { children: R
         if (!value) setRecentlyAddedSlug(null);
       },
       recentlyAddedSlug,
-      addItem: (slug, configuration = {}) => {
+      addItem: (slug, configuration = {}, options = {}) => {
         setItems((current) => {
           const existing = current.find((item) => item.slug === slug && item.sku === configuration.sku);
           if (existing) {
@@ -92,8 +93,10 @@ export function CartProvider({ children, catalog = shopProducts }: { children: R
           }
           return [...current, { slug, quantity: 1, ...configuration }];
         });
-        setRecentlyAddedSlug(configuration.sku ?? slug);
-        setOpen(true);
+        if (options.openDrawer !== false) {
+          setRecentlyAddedSlug(configuration.sku ?? slug);
+          setOpen(true);
+        }
       },
       removeItem: (cartKey) => setItems((current) => current.filter((item) => cartItemKey(item) !== cartKey)),
       updateQuantity: (cartKey, quantity) => {

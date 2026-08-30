@@ -526,6 +526,7 @@ export function ReferenceShopPage({
   const [searchFocused, setSearchFocused] = useState(false);
   const [activeSuggestion, setActiveSuggestion] = useState(0);
   const [quickView, setQuickView] = useState<Product | null>(null);
+  const [quickViewInitialStage, setQuickViewInitialStage] = useState<"product" | "added">("product");
   const quickViewReturnFocus = useRef<HTMLElement | null>(null);
   const [configuratorOpen, setConfiguratorOpen] = useState(false);
   const wishlist = useSavedContent("product");
@@ -654,13 +655,21 @@ export function ReferenceShopPage({
   const addProduct = (product: Product) => {
     const quantity = quantities[product.slug] ?? 1;
     for (let index = 0; index < quantity; index += 1)
-      cart.addItem(product.cartSlug);
+      cart.addItem(product.cartSlug, undefined, { openDrawer: false });
   };
   const toggleWishlist = (slug: string) => void wishlist.toggle(slug);
   const openQuickView = (product: Product) => {
     quickViewReturnFocus.current = document.activeElement instanceof HTMLElement
       ? document.activeElement
       : null;
+    setQuickViewInitialStage("product");
+    setQuickView(product);
+    void recentProducts.save(product.slug);
+  };
+  const addFromCard = (product: Product) => {
+    quickViewReturnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    addProduct(product);
+    setQuickViewInitialStage("added");
     setQuickView(product);
     void recentProducts.save(product.slug);
   };
@@ -875,7 +884,7 @@ export function ReferenceShopPage({
                       wished={wishlist.saved.has(product.slug)}
                       toggleWishlist={() => toggleWishlist(product.slug)}
                       onQuickView={() => openQuickView(product)}
-                      onAdd={() => product.cartSlug === "co-water" ? setConfiguratorOpen(true) : addProduct(product)}
+                      onAdd={() => product.cartSlug === "co-water" ? setConfiguratorOpen(true) : addFromCard(product)}
                       actionLabel={product.cartSlug === "co-water" ? "Configure" : "Add to cart"}
                     />
                   ))}
@@ -1008,6 +1017,7 @@ export function ReferenceShopPage({
         wished={quickView ? wishlist.saved.has(quickView.slug) : false}
         toggleWishlist={() => quickView && toggleWishlist(quickView.slug)}
         onAdd={() => quickView && addProduct(quickView)}
+        initialStage={quickViewInitialStage}
       />
       <Dialog.Root open={configuratorOpen} onOpenChange={setConfiguratorOpen}>
         <AnimatePresence>
@@ -1019,7 +1029,14 @@ export function ReferenceShopPage({
                   <Dialog.Title className="sr-only">Configure .CO Coconut Water</Dialog.Title>
                   <Dialog.Description className="sr-only">Choose the available coconut water size, processing and pulp options.</Dialog.Description>
                   <Dialog.Close aria-label="Close Coconut Water configurator" className="sticky left-full top-3 z-20 mr-3 grid size-11 place-items-center rounded-full border border-black/8 bg-white/85 shadow-sm"><X size={18} /></Dialog.Close>
-                  <div className="-mt-11"><ProductConfigurator /></div>
+                  <div className="-mt-11"><ProductConfigurator onAdded={() => {
+                    const water = products.find((item) => item.cartSlug === "co-water");
+                    setConfiguratorOpen(false);
+                    if (water) {
+                      setQuickViewInitialStage("added");
+                      setQuickView(water);
+                    }
+                  }} /></div>
                 </motion.div>
               </Dialog.Content>
             </Dialog.Portal>
@@ -1104,8 +1121,9 @@ function ProductCard({
       whileHover={{ y: -8 }}
       className="co-shop-product-card group relative flex min-w-0 flex-col overflow-hidden rounded-[20px] p-2.5 transition-shadow md:p-3"
     >
-      <Link
-        href={`/shop/${product.cartSlug}`}
+      <button
+        type="button"
+        onClick={onQuickView}
         aria-label={`View ${product.name}`}
         className="co-shop-product-card__image relative aspect-[.92] overflow-hidden rounded-[16px] md:rounded-[18px]"
       >
@@ -1115,7 +1133,7 @@ function ProductCard({
             {product.badge}
           </span>
         )}
-      </Link>
+      </button>
       <button
         type="button"
         onClick={toggleWishlist}
@@ -1130,7 +1148,7 @@ function ProductCard({
         </motion.span>
       </button>
       <div className="flex flex-1 flex-col px-1 pb-1 pt-4">
-        <Link href={`/shop/${product.cartSlug}`} className="text-left">
+        <button type="button" onClick={onQuickView} className="text-left">
           <h2 className="text-[11px] font-semibold leading-5 md:text-[13px]">
             {product.name}
           </h2>
@@ -1140,9 +1158,9 @@ function ProductCard({
           <p className="mt-3 text-xs font-semibold md:text-sm">
             ₹{product.price.toFixed(2)}
           </p>
-        </Link>
+        </button>
         <div className="mt-2 flex items-center gap-3 text-[8px] font-semibold uppercase text-[#e4ad73]">
-          <Link href={`/shop/${product.cartSlug}`} className="border-b border-[#e4ad73]/45 pb-0.5">View product</Link>
+          <button type="button" onClick={onQuickView} className="border-b border-[#e4ad73]/45 pb-0.5">View product</button>
           <button type="button" onClick={onQuickView} className="border-b border-[#e4ad73]/25 pb-0.5">Quick view</button>
         </div>
         <div className="mt-auto flex items-center justify-between gap-2 pt-4">
@@ -1263,6 +1281,7 @@ function QuickView({
   wished,
   toggleWishlist,
   onAdd,
+  initialStage,
 }: {
   catalog: Product[];
   product: Product | null;
@@ -1274,6 +1293,7 @@ function QuickView({
   wished: boolean;
   toggleWishlist: () => void;
   onAdd: () => void;
+  initialStage: "product" | "added";
 }) {
   const cart = useCart();
   const reducedMotion = useReducedMotion();
@@ -1284,9 +1304,9 @@ function QuickView({
 
   useEffect(() => {
     if (!open || !product) return;
-    setStage("product");
+    setStage(initialStage);
     setAddedRelated(new Set());
-  }, [open, product]);
+  }, [initialStage, open, product]);
 
   useEffect(() => {
     if (!open) return;
@@ -1301,13 +1321,11 @@ function QuickView({
     setStage("adding");
     window.setTimeout(() => {
       onAdd();
-      cart.setOpen(false);
       setStage("added");
     }, reducedMotion ? 30 : 260);
   };
   const addRelated = (item: Product) => {
-    cart.addItem(item.cartSlug);
-    cart.setOpen(false);
+    cart.addItem(item.cartSlug, undefined, { openDrawer: false });
     setAddedRelated((current) => new Set(current).add(item.slug));
   };
 
@@ -1339,7 +1357,7 @@ function QuickView({
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: .98, y: 10 }}
                   transition={{ duration: reducedMotion ? .14 : .62, ease }}
-                  className="co-shop-quick-dialog"
+                  className={cn("co-shop-quick-dialog", stage === "added" && "is-added")}
                 >
                   <Dialog.Title className="sr-only">{stage === "added" ? "Added to your cart" : product.name}</Dialog.Title>
                   <Dialog.Description className="sr-only">{stage === "added" ? `${product.name} was added to your cart.` : `Quick view for ${product.name}.`}</Dialog.Description>
@@ -1403,7 +1421,6 @@ function QuickView({
                             <Quantity value={quantity} onChange={setQuantity} />
                             <button type="button" aria-label="Toggle wishlist" aria-pressed={wished} onClick={toggleWishlist} className="co-shop-product-actions__wish"><Heart size={18} fill={wished ? "currentColor" : "none"} /></button>
                             <button type="button" onClick={addPrimary} disabled={stage === "adding"} className="co-shop-product-actions__primary">{stage === "adding" ? "Adding…" : "Add to cart"}<ShoppingBag size={16} /></button>
-                            <Link href={`/shop/${product.cartSlug}`}>Full details</Link>
                           </div>
                         </div>
                       </motion.div>

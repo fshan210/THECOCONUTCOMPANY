@@ -12,7 +12,7 @@ import type { ProcessingMethod, ProductConfiguration, ProductSize, PulpOption } 
 
 const optionClass = "min-h-11 rounded-full border px-4 text-[10px] font-semibold uppercase transition disabled:cursor-not-allowed disabled:opacity-35";
 
-export function ProductConfigurator() {
+export function ProductConfigurator({ onAdded }: { onAdded?: () => void } = {}) {
   const cart = useCart();
   const [selected, setSelected] = useState<ProductConfiguration>({ sizeMl: 200, processing: "UHT", pulp: "without-pulp" });
   const [displayed, setDisplayed] = useState(selected);
@@ -30,7 +30,16 @@ export function ProductConfigurator() {
   }, [pendingVariant, selected]);
 
   const updateSize = (sizeMl: ProductSize) => { const nextProcessing = availableProcessing(sizeMl, selected.pulp).includes(selected.processing) ? selected.processing : "UHT"; setSelected({ ...selected, sizeMl, processing: nextProcessing }); };
-  const add = () => { if (!variant?.available) return; cart.addItem("co-water", { sku: variant.sku, unitPrice: variant.price, variantLabel: `${variant.sizeMl}ml · ${variant.processing} · ${variant.pulp === "with-pulp" ? "With pulp" : "Without pulp"}` }); trackConfigurator("configurator_add_to_cart", variant); };
+  const add = () => {
+    if (!variant?.available) return;
+    cart.addItem(
+      "co-water",
+      { sku: variant.sku, unitPrice: variant.price, variantLabel: `${variant.sizeMl}ml · ${variant.processing} · ${variant.pulp === "with-pulp" ? "With pulp" : "Without pulp"}` },
+      { openDrawer: !onAdded },
+    );
+    trackConfigurator("configurator_add_to_cart", variant);
+    onAdded?.();
+  };
 
   return (
     <section className="px-4 py-8 md:px-8 md:py-12" aria-labelledby="configurator-heading">

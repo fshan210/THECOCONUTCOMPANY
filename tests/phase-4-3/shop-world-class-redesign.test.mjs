@@ -5,12 +5,13 @@ import test from "node:test";
 const source = (path) => readFile(new URL(path, import.meta.url), "utf8");
 
 test("shop route composes the approved discovery and bundle architecture", async () => {
-  const [page, shop, hero, categories, bundle] = await Promise.all([
+  const [page, shop, hero, categories, bundle, styles] = await Promise.all([
     source("../../app/shop/page.tsx"),
     source("../../components/shop/ReferenceShopPage.tsx"),
     source("../../components/shop/ShopHero.tsx"),
     source("../../components/shop/ShopCategorySlab.tsx"),
     source("../../components/shop/ShopBundleBuilder.tsx"),
+    source("../../app/globals.css"),
   ]);
 
   assert.match(page, /<ReferenceShopPage contentProducts={products}/);
@@ -26,6 +27,11 @@ test("shop route composes the approved discovery and bundle architecture", async
   assert.match(bundle, /maxSlots = 5/);
   assert.match(bundle, /selectedProducts\.forEach\(\(product\) => cart\.addItem/);
   assert.match(bundle, /Catalog total/);
+  assert.doesNotMatch(shop, /href=\{`\/shop\/\$\{product\.cartSlug\}`\}/);
+  assert.match(shop, /openDrawer: false/);
+  assert.doesNotMatch(bundle, /co-shop-bundle-(?:builder|slab|slots)/);
+  for (const asset of ["morning-hydration", "kitchen-starter", "botanica-ritual", "melt-treat"]) assert.match(bundle, new RegExp(`${asset}\\.webp`));
+  assert.doesNotMatch(styles, /\.co-shop-delivery-marquee::(?:before|after)/);
 });
 
 test("shop discovery remains functional and uses real-data-safe controls", async () => {
