@@ -28,7 +28,7 @@ import {
   Utensils,
   X,
 } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useCart } from "@/lib/cart/cart-context";
 import { cn } from "@/lib/utils";
@@ -58,6 +58,48 @@ const blurDataURL =
   "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MCcgaGVpZ2h0PSc0MCc+PGZpbHRlciBpZD0nYic+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0nNicvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbGw9JyNmOGY0ZWMnLz48L3N2Zz4=";
 
 type Product = ShopViewProduct;
+
+const deliveryBenefits = [
+  [Truck, "Free shipping", "On orders above ₹999"],
+  [RotateCcw, "Easy returns", "30-day return policy"],
+  [LockKeyhole, "Secure checkout", "Protected payments"],
+  [Gift, ".CO Rewards", "Earn & redeem points"],
+  [Recycle, "Sustainably packed", "Less waste, more care"],
+  [PackageCheck, "Thoughtfully delivered", "From our shelf to yours"],
+] as const;
+
+function DeliveryBenefitsMarquee() {
+  return (
+    <section className="co-shop-delivery-marquee" aria-label="Delivery and service benefits">
+      <div className="co-shop-delivery-marquee__viewport">
+        <div className="co-shop-delivery-marquee__track">
+          {[0, 1].map((group) => (
+            <div
+              className="co-shop-delivery-marquee__group"
+              aria-hidden={group === 1}
+              key={group}
+            >
+              {[0, 1, 2].flatMap((cycle) => deliveryBenefits.map(([Icon, title, copy]) => {
+                const BenefitIcon = Icon as typeof Truck;
+                return (
+                  <div className="co-shop-delivery-marquee__item" key={`${group}-${cycle}-${title}`}>
+                    <span className="co-shop-delivery-marquee__icon" aria-hidden="true">
+                      <BenefitIcon size={21} strokeWidth={1.35} />
+                    </span>
+                    <span>
+                      <strong>{title}</strong>
+                      <small>{copy}</small>
+                    </span>
+                  </div>
+                );
+              }))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 const transparentProductImages: Record<string, string> = {
   "co-water": "/assets/products/transparent-current/co-coconut-water-v1.webp",
@@ -484,6 +526,7 @@ export function ReferenceShopPage({
   const [searchFocused, setSearchFocused] = useState(false);
   const [activeSuggestion, setActiveSuggestion] = useState(0);
   const [quickView, setQuickView] = useState<Product | null>(null);
+  const quickViewReturnFocus = useRef<HTMLElement | null>(null);
   const [configuratorOpen, setConfiguratorOpen] = useState(false);
   const wishlist = useSavedContent("product");
   const recentProducts = useSavedContent("recent");
@@ -615,6 +658,9 @@ export function ReferenceShopPage({
   };
   const toggleWishlist = (slug: string) => void wishlist.toggle(slug);
   const openQuickView = (product: Product) => {
+    quickViewReturnFocus.current = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
     setQuickView(product);
     void recentProducts.save(product.slug);
   };
@@ -623,7 +669,7 @@ export function ReferenceShopPage({
     <div className="co-shop-page min-h-screen overflow-x-clip font-['Inter']">
       <ReferenceHeader />
       <div>
-        <ShopHero products={products} search={search} onSearch={setSearch} />
+        <ShopHero search={search} onSearch={setSearch} />
         <ShopCategorySlab
           value={category}
           onChange={(nextCategory) => {
@@ -631,6 +677,8 @@ export function ReferenceShopPage({
             window.setTimeout(() => document.getElementById(nextCategory === "Bundles & Gifts" ? "bundle-builder" : "all-products")?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
           }}
         />
+
+        <DeliveryBenefitsMarquee />
 
         <section id="all-products" className="co-shop-commerce px-4 py-8 md:px-8 md:py-10">
           <div className="mx-auto max-w-[1320px]">
@@ -886,6 +934,7 @@ export function ReferenceShopPage({
 
         <section className="co-shop-newsletter-shell"><NewsletterSection /></section>
       </div>
+      <div className="co-shop-footer-dissolve" aria-hidden="true" />
       <ReferenceFooter />
       <MobileBottomNav />
 
@@ -950,6 +999,7 @@ export function ReferenceShopPage({
         product={quickView}
         open={Boolean(quickView)}
         onOpenChange={(open) => !open && setQuickView(null)}
+        returnFocusRef={quickViewReturnFocus}
         quantity={quickView ? (quantities[quickView.slug] ?? 1) : 1}
         setQuantity={(value) =>
           quickView &&
@@ -957,7 +1007,7 @@ export function ReferenceShopPage({
         }
         wished={quickView ? wishlist.saved.has(quickView.slug) : false}
         toggleWishlist={() => quickView && toggleWishlist(quickView.slug)}
-        onAdd={() => quickView && (quickView.cartSlug === "co-water" ? setConfiguratorOpen(true) : addProduct(quickView))}
+        onAdd={() => quickView && addProduct(quickView)}
       />
       <Dialog.Root open={configuratorOpen} onOpenChange={setConfiguratorOpen}>
         <AnimatePresence>
@@ -1123,37 +1173,39 @@ function useDialogScrollLock(open: boolean) {
 }
 
 function QuickViewGallery({ product }: { product: Product }) {
-  const slides = product.gallery?.length
-    ? product.gallery
-    : [
-        {
-          src: product.image,
-          alt: product.name,
-          view: "Primary",
-          width: 1200,
-          height: 1200,
-        },
-      ];
+  const primarySlide: ProductGalleryAsset = { src: product.image, alt: product.name, view: "Primary", width: 1200, height: 1200 };
+  const slides = [
+    primarySlide,
+    ...(product.gallery ?? []).filter((item) => item.src !== product.image),
+  ];
   const [active, setActive] = useState(0);
   const pointerStart = useRef<number | null>(null);
   useEffect(() => setActive(0), [product.slug]);
-  const move = (direction: number) =>
-    setActive(
-      (current) => (current + direction + slides.length) % slides.length,
-    );
   const current = slides[active];
+  const move = (direction: number) => setActive((value) => (value + direction + slides.length) % slides.length);
+
   return (
-    <div
-      onKeyDown={(event) => {
-        if (event.key === "ArrowLeft") move(-1);
-        if (event.key === "ArrowRight") move(1);
-      }}
-    >
+    <div className="co-shop-quick-gallery" onKeyDown={(event) => {
+      if (event.key === "ArrowLeft") move(-1);
+      if (event.key === "ArrowRight") move(1);
+    }}>
+      <div className="co-shop-quick-gallery__thumbs" aria-label="Product image gallery">
+        {slides.slice(0, 4).map((item, index) => (
+          <button
+            type="button"
+            key={`${item.src}-${index}`}
+            onClick={() => setActive(index)}
+            aria-label={`Show ${item.view} image`}
+            aria-current={active === index ? "true" : undefined}
+            className={cn("co-shop-quick-gallery__thumb", active === index && "is-active")}
+          >
+            <Image src={item.src} alt="" fill sizes="110px" className="object-contain p-2" />
+          </button>
+        ))}
+      </div>
       <div
-        className="relative aspect-square touch-pan-y overflow-hidden rounded-[26px] bg-[#f3eee4]"
-        onPointerDown={(event) => {
-          pointerStart.current = event.clientX;
-        }}
+        className="co-shop-quick-gallery__stage"
+        onPointerDown={(event) => { pointerStart.current = event.clientX; }}
         onPointerUp={(event) => {
           if (pointerStart.current === null) return;
           const delta = event.clientX - pointerStart.current;
@@ -1164,77 +1216,40 @@ function QuickViewGallery({ product }: { product: Product }) {
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={current.src}
-            className="absolute inset-0"
-            initial={{ opacity: 0, x: 16 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -16 }}
-            transition={{ duration: 0.28, ease }}
+            className="co-shop-quick-gallery__image"
+            initial={{ opacity: 0, scale: .985, filter: "contrast(.82) blur(2px)" }}
+            animate={{ opacity: 1, scale: 1, filter: "contrast(1) blur(0px)" }}
+            exit={{ opacity: 0, scale: .99 }}
+            transition={{ duration: .48, ease }}
           >
-            <Image
-              src={current.src}
-              alt={current.alt}
-              fill
-              priority
-              sizes="(min-width:768px) 48vw, 90vw"
-              quality={95}
-              placeholder="blur"
-              blurDataURL={blurDataURL}
-              className="object-contain p-5 md:p-8"
-            />
+            <Image src={current.src} alt={current.alt} fill priority sizes="(min-width:768px) 38vw, 88vw" quality={95} placeholder="blur" blurDataURL={blurDataURL} className="object-contain p-7 md:p-10" />
           </motion.div>
         </AnimatePresence>
-        {slides.length > 1 && (
-          <>
-            <button
-              type="button"
-              onClick={() => move(-1)}
-              aria-label="Previous product image"
-              className="absolute left-3 top-1/2 z-10 grid size-10 -translate-y-1/2 place-items-center rounded-full border border-white/70 bg-white/72 shadow-sm backdrop-blur"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <button
-              type="button"
-              onClick={() => move(1)}
-              aria-label="Next product image"
-              className="absolute right-3 top-1/2 z-10 grid size-10 -translate-y-1/2 place-items-center rounded-full border border-white/70 bg-white/72 shadow-sm backdrop-blur"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </>
-        )}
+        <div className="co-shop-quick-gallery__shadow" aria-hidden="true" />
+        {slides.length > 1 ? (
+          <div className="co-shop-quick-gallery__arrows">
+            <button type="button" onClick={() => move(-1)} aria-label="Previous product image"><ChevronLeft size={17} /></button>
+            <button type="button" onClick={() => move(1)} aria-label="Next product image"><ChevronRight size={17} /></button>
+          </div>
+        ) : null}
       </div>
-      <p className="sr-only" aria-live="polite">
-        Image {active + 1} of {slides.length}: {current.view}
-      </p>
-      <div
-        className="mt-3 grid grid-cols-4 gap-2"
-        aria-label="Product image gallery"
-      >
-        {slides.slice(0, 8).map((item, index) => (
-          <button
-            type="button"
-            key={`${item.src}-${index}`}
-            onClick={() => setActive(index)}
-            aria-label={`Show ${item.view} image`}
-            aria-current={active === index ? "true" : undefined}
-            className={cn(
-              "relative aspect-square overflow-hidden rounded-[14px] border bg-white/55",
-              active === index ? "border-[#214d2b]" : "border-transparent",
-            )}
-          >
-            <Image
-              src={item.src}
-              alt=""
-              fill
-              sizes="120px"
-              className="object-contain p-2"
-            />
-          </button>
-        ))}
-      </div>
+      <p className="sr-only" aria-live="polite">Image {active + 1} of {slides.length}: {current.view}</p>
     </div>
   );
+}
+
+function relatedFor(product: Product, catalog: Product[]) {
+  const priorities: Record<string, string[]> = {
+    "Coconut Water": ["Kitchen", "Ice Cream", "BOTANiCA"],
+    Kitchen: ["Kitchen", "Coconut Water", "Ice Cream"],
+    BOTANiCA: ["BOTANiCA", "Coconut Water", "Kitchen"],
+    "Ice Cream": ["Kitchen", "Coconut Water", "BOTANiCA"],
+  };
+  const order = priorities[product.category] ?? [product.category];
+  return catalog
+    .filter((item) => item.slug !== product.slug)
+    .sort((a, b) => order.indexOf(a.category) - order.indexOf(b.category))
+    .slice(0, 4);
 }
 
 function QuickView({
@@ -1242,6 +1257,7 @@ function QuickView({
   product,
   open,
   onOpenChange,
+  returnFocusRef,
   quantity,
   setQuantity,
   wished,
@@ -1252,146 +1268,152 @@ function QuickView({
   product: Product | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  returnFocusRef: React.RefObject<HTMLElement | null>;
   quantity: number;
   setQuantity: (value: number) => void;
   wished: boolean;
   toggleWishlist: () => void;
   onAdd: () => void;
 }) {
+  const cart = useCart();
+  const reducedMotion = useReducedMotion();
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const [stage, setStage] = useState<"product" | "adding" | "added">("product");
+  const [addedRelated, setAddedRelated] = useState(new Set<string>());
   useDialogScrollLock(open);
+
+  useEffect(() => {
+    if (!open || !product) return;
+    setStage("product");
+    setAddedRelated(new Set());
+  }, [open, product]);
+
+  useEffect(() => {
+    if (!open) return;
+    window.requestAnimationFrame(() => dialogRef.current?.scrollTo({ top: 0 }));
+  }, [open, stage]);
+
+  if (!product) return null;
+  const related = relatedFor(product, catalog);
+  const cartLine = cart.products.find((item) => item.slug === product.cartSlug);
+
+  const addPrimary = () => {
+    setStage("adding");
+    window.setTimeout(() => {
+      onAdd();
+      cart.setOpen(false);
+      setStage("added");
+    }, reducedMotion ? 30 : 260);
+  };
+  const addRelated = (item: Product) => {
+    cart.addItem(item.cartSlug);
+    cart.setOpen(false);
+    setAddedRelated((current) => new Set(current).add(item.slug));
+  };
+
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <AnimatePresence>
-        {open && product && (
+        {open ? (
           <Dialog.Portal forceMount>
             <Dialog.Overlay asChild>
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[170] bg-[#211812]/42 backdrop-blur-[3px]"
+                initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+                animate={{ opacity: 1, backdropFilter: "blur(8px)" }}
+                exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+                transition={{ duration: reducedMotion ? .12 : .52, ease }}
+                className="co-shop-quick-overlay"
               />
             </Dialog.Overlay>
-            <div className="pointer-events-none fixed inset-0 z-[180] grid items-end p-3 md:place-items-center md:p-6">
-              <Dialog.Content asChild>
+            <div className="co-shop-quick-positioner">
+              <Dialog.Content
+                asChild
+                onCloseAutoFocus={(event) => {
+                  event.preventDefault();
+                  returnFocusRef.current?.focus();
+                }}
+              >
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.96, y: 22 }}
+                  ref={dialogRef}
+                  initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: .965, y: 18 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.96, y: 22 }}
-                  transition={{ duration: 0.38, ease }}
-                  className="pointer-events-auto max-h-[calc(100dvh-24px)] w-full overflow-y-auto overscroll-contain rounded-[30px] border border-white/70 bg-[rgba(248,244,236,.97)] p-4 shadow-[0_30px_90px_rgba(22,15,10,.26)] [scrollbar-gutter:stable] [touch-action:pan-y] md:max-h-[88dvh] md:w-[min(980px,calc(100vw-48px))] md:p-7"
+                  exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: .98, y: 10 }}
+                  transition={{ duration: reducedMotion ? .14 : .62, ease }}
+                  className="co-shop-quick-dialog"
                 >
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <Dialog.Title className="font-['Cormorant_Garamond'] text-3xl md:text-4xl">
-                        {product.name}
-                      </Dialog.Title>
-                      <Dialog.Description className="mt-2 text-xs text-[#6b6057]">
-                        Quick view · {product.category}
-                      </Dialog.Description>
-                    </div>
-                    <Dialog.Close
-                      aria-label="Close dialog"
-                      className="grid size-10 place-items-center rounded-full border border-black/8 bg-white/60"
-                    >
-                      <X size={18} />
-                    </Dialog.Close>
-                  </div>
-                  <div className="mt-5 grid gap-6 md:grid-cols-[1fr_.9fr]">
-                    <QuickViewGallery product={product} />
-                    <div className="flex flex-col">
-                      <p className="text-sm leading-7 text-[#594d43]">
-                        {product.description}
-                      </p>
-                      <div className="mt-5">
-                        <p className="text-[10px] font-semibold uppercase tracking-[.12em]">
-                          Benefits
-                        </p>
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          {product.benefits.map((item) => (
-                            <span
-                              key={item}
-                              className="rounded-full border border-black/7 bg-white/55 px-3 py-2 text-[10px]"
-                            >
-                              {item}
-                            </span>
-                          ))}
+                  <Dialog.Title className="sr-only">{stage === "added" ? "Added to your cart" : product.name}</Dialog.Title>
+                  <Dialog.Description className="sr-only">{stage === "added" ? `${product.name} was added to your cart.` : `Quick view for ${product.name}.`}</Dialog.Description>
+                  <Dialog.Close aria-label="Close product quick view" className="co-shop-quick-close"><X size={18} /></Dialog.Close>
+
+                  <AnimatePresence mode="wait" initial={false}>
+                    {stage === "added" ? (
+                      <motion.div key="added" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: reducedMotion ? .1 : .38, ease }} className="co-shop-added-stage">
+                        <header className="co-shop-added-stage__header">
+                          <span><Check size={19} /></span>
+                          <div><h2>Added to your cart</h2><p>{product.name} has been added to your cart.</p></div>
+                        </header>
+                        <div className="co-shop-added-summary">
+                          <div className="co-shop-added-summary__image"><ProductImage product={product} sizes="100px" /></div>
+                          <div><h3>{product.name}</h3><p>{product.subtitle}</p></div>
+                          {cartLine ? <Quantity value={cartLine.quantity} onChange={(value) => cart.updateQuantity(cartLine.cartKey, value)} /> : null}
+                          <strong>₹{((cartLine?.unitPrice ?? product.price) * (cartLine?.quantity ?? quantity)).toLocaleString("en-IN")}</strong>
                         </div>
-                      </div>
-                      <div className="mt-5 rounded-[18px] bg-white/48 p-4">
-                        <p className="text-[10px] font-semibold uppercase tracking-[.12em]">
-                          Product information
-                        </p>
-                        <p className="mt-2 text-[11px] leading-6 text-[#6a6057]">
-                          {product.nutrition}
-                        </p>
-                      </div>
-                      <div className="mt-6 flex items-center justify-between">
-                        <p className="text-xl font-semibold">
-                          ₹{product.price.toFixed(2)}
-                        </p>
-                        <button
-                          type="button"
-                          aria-label="Toggle wishlist"
-                          onClick={toggleWishlist}
-                          className="grid size-11 place-items-center rounded-full border border-black/8"
-                        >
-                          <Heart
-                            size={18}
-                            fill={wished ? "currentColor" : "none"}
-                          />
-                        </button>
-                      </div>
-                      <div className="mt-4 flex gap-3">
-                        <Quantity value={quantity} onChange={setQuantity} />
-                        <button
-                          type="button"
-                          onClick={onAdd}
-                          className="co-primary-cta min-h-11 flex-1 rounded-full bg-[#214d2b] text-[10px] font-semibold uppercase text-white"
-                        >
-                          Add to cart
-                        </button>
-                      </div>
-                      <Link
-                        href={`/shop/${product.cartSlug}`}
-                        className="mt-3 inline-flex min-h-10 items-center justify-center rounded-full border border-[#214d2b]/25 px-5 text-[9px] font-semibold uppercase text-[#214d2b]"
-                      >
-                        View full product
-                      </Link>
-                      <div className="mt-6">
-                        <p className="text-[10px] font-semibold uppercase tracking-[.12em]">
-                          Related products
-                        </p>
-                        <div className="mt-3 grid grid-cols-3 gap-2">
-                          {catalog
-                            .filter(
-                              (item) =>
-                                item.category === product.category &&
-                                item.slug !== product.slug,
-                            )
-                            .slice(0, 3)
-                            .map((item) => (
-                              <div
-                                key={item.slug}
-                                className="rounded-[14px] bg-white/55 p-2"
-                              >
-                                <div className="relative aspect-square overflow-hidden rounded-[10px]">
-                                  <ProductImage product={item} sizes="120px" />
-                                </div>
-                                <p className="mt-2 line-clamp-2 text-[8px] font-medium">
-                                  {item.name}
-                                </p>
-                              </div>
-                            ))}
+                        <div className="co-shop-added-total"><span>Cart subtotal <small>({cart.totalQuantity} {cart.totalQuantity === 1 ? "item" : "items"})</small></span><strong>₹{cart.subtotal.toLocaleString("en-IN")}</strong></div>
+                        <div className="co-shop-added-actions">
+                          <Link href="/cart">View cart</Link>
+                          <Link className="is-primary" href="/cart" aria-label="Continue to checkout in cart">Checkout <ArrowRight size={15} /></Link>
                         </div>
-                      </div>
-                    </div>
-                  </div>
+                        <section className="co-shop-pairings" aria-labelledby="pairings-title">
+                          <div><h3 id="pairings-title">Pair it with</h3><p>Complete your routine with catalogue favourites.</p></div>
+                          <div className="co-shop-pairings__rail">
+                            {related.map((item) => {
+                              const isAdded = addedRelated.has(item.slug);
+                              return (
+                                <article className={cn("co-shop-pairing-card", isAdded && "is-added")} key={item.slug}>
+                                  <div className="co-shop-pairing-card__image"><ProductImage product={item} sizes="150px" /></div>
+                                  <h4>{item.name}</h4><p>{item.subtitle}</p><strong>₹{item.price.toLocaleString("en-IN")}</strong>
+                                  <button type="button" onClick={() => addRelated(item)} disabled={isAdded}>{isAdded ? <><Check size={13} /> Added</> : <>Add <Plus size={13} /></>}</button>
+                                </article>
+                              );
+                            })}
+                          </div>
+                          <p className="co-shop-pairings__note"><Gift size={17} /> Thoughtful pairings. Prices remain the exact catalogue sum.</p>
+                        </section>
+                      </motion.div>
+                    ) : (
+                      <motion.div key="product" initial={{ opacity: 0 }} animate={{ opacity: stage === "adding" ? .62 : 1, scale: stage === "adding" ? .985 : 1 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: reducedMotion ? .1 : .32, ease }} className="co-shop-product-stage">
+                        <QuickViewGallery product={product} />
+                        <div className="co-shop-product-stage__info">
+                          <p className="co-shop-eyebrow">{product.category}</p>
+                          <h2>{product.name}</h2>
+                          <p className="co-shop-product-stage__variant">{product.subtitle}</p>
+                          <p className="co-shop-product-stage__price">₹{product.price.toLocaleString("en-IN")}<small>Catalogue price</small></p>
+                          <p className="co-shop-product-stage__positioning">{product.description}</p>
+                          <div className="co-shop-product-facts">
+                            <div><h3>Key benefits</h3>{product.benefits.map((benefit) => <p key={benefit}><Check size={12} />{benefit}</p>)}</div>
+                            <div><h3>Product information</h3><p>{product.nutrition}</p></div>
+                            <div><h3>Availability</h3><p>{product.availabilityStatus || (product.status === "coming-soon" ? "Coming soon" : "Product preview")}</p></div>
+                          </div>
+                          <div className="co-shop-product-context">
+                            <div><PackageCheck size={17} /><span><b>How to enjoy</b><small>Follow the directions on the approved pack.</small></span></div>
+                            <div><Heart size={17} /><span><b>Why you’ll love it</b><small>{product.benefits[0] ?? product.description}</small></span></div>
+                            <div><Utensils size={17} /><span><b>Pairs well with</b><small>{related[0]?.category ?? "Your daily ritual"}</small></span></div>
+                          </div>
+                          <div className="co-shop-product-actions">
+                            <Quantity value={quantity} onChange={setQuantity} />
+                            <button type="button" aria-label="Toggle wishlist" aria-pressed={wished} onClick={toggleWishlist} className="co-shop-product-actions__wish"><Heart size={18} fill={wished ? "currentColor" : "none"} /></button>
+                            <button type="button" onClick={addPrimary} disabled={stage === "adding"} className="co-shop-product-actions__primary">{stage === "adding" ? "Adding…" : "Add to cart"}<ShoppingBag size={16} /></button>
+                            <Link href={`/shop/${product.cartSlug}`}>Full details</Link>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
               </Dialog.Content>
             </div>
           </Dialog.Portal>
-        )}
+        ) : null}
       </AnimatePresence>
     </Dialog.Root>
   );

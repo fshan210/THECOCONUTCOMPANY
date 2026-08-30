@@ -1,47 +1,17 @@
 "use client";
 
 import { Search, Sprout, Waves, PackageCheck, HeartHandshake, X } from "lucide-react";
-import { ResponsiveImage as Image } from "@/components/media/ResponsiveImage";
-import type { ShopViewProduct } from "./shop-types";
-import { ShopWaterFilm } from "./ShopWaterFilm";
-
-const heroOrder = [
-  "co-water",
-  "co-kitchen-coconut-oil",
-  "co-kitchen-coconut-flour",
-  "melt-co-mango-coconut",
-  "co-kitchen-coconut-milk",
-];
-
-const heroAssetName: Record<string, string> = {
-  "co-water": "co-coconut-water-v1.webp",
-  "co-kitchen-coconut-oil": "co-kitchen-coconut-oil-v1.webp",
-  "co-kitchen-coconut-flour": "co-kitchen-coconut-flour-v1.webp",
-  "melt-co-mango-coconut": "co-melt-coconut-mango-v1.webp",
-  "co-kitchen-coconut-milk": "co-kitchen-coconut-milk-v1.webp",
-};
-
-const heroAsset = (slug: string, cartSlug: string, viewport: "desktop" | "mobile") =>
-  `/assets/products/shop-hero/v2/${viewport}/${heroAssetName[slug] ?? heroAssetName[cartSlug]}`;
-const transparentPixel = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
 export function ShopHero({
-  products,
   search,
   onSearch,
 }: {
-  products: ShopViewProduct[];
   search: string;
   onSearch: (value: string) => void;
 }) {
-  const heroProducts = heroOrder
-    .map((slug) => products.find((product) => product.slug === slug || product.cartSlug === slug))
-    .filter(Boolean) as ShopViewProduct[];
-
   return (
     <section className="co-shop-hero">
       <div className="co-shop-hero__base" aria-hidden="true" />
-      <ShopWaterFilm />
       <div className="co-shop-hero__veil" aria-hidden="true" />
       <div className="co-shop-hero__environment" aria-hidden="true" />
       <div className="co-shop-hero__layout">
@@ -91,24 +61,6 @@ export function ShopHero({
             style={{ backgroundImage: "url('/assets/products/shop-hero/v1/mobile/co-product-ecosystem-v1.webp')" }}
             aria-hidden="true"
           />
-          <div className="co-shop-hero__desktop-products">
-            {heroProducts.map((product, index) => (
-              <div
-                key={product.slug}
-                className={`co-shop-hero__product co-shop-hero__product--${index + 1}`}
-              >
-                <Image
-                  src={heroAsset(product.slug, product.cartSlug, "desktop")}
-                  mobileSrc={transparentPixel}
-                  alt={product.name}
-                  fill
-                  priority={index < 2}
-                  sizes="(min-width:1024px) 13vw, 20vw"
-                  className="object-contain object-bottom"
-                />
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>

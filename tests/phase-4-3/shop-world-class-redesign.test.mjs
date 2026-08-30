@@ -15,12 +15,13 @@ test("shop route composes the approved discovery and bundle architecture", async
 
   assert.match(page, /<ReferenceShopPage contentProducts={products}/);
   assert.match(shop, /<ShopHero/);
-  assert.match(hero, /<ShopWaterFilm/);
+  assert.match(hero, /co-shop-hero__environment/);
   assert.match(shop, /<ShopCategorySlab/);
   assert.match(shop, /<ShopBundleBuilder/);
-  assert.match(hero, /shop-hero\/v2\/\$\{viewport\}/);
+  assert.doesNotMatch(hero, /<ShopWaterFilm/);
   assert.match(hero, /co-product-ecosystem-v1\.webp/);
-  assert.match(hero, /mobileSrc=\{transparentPixel\}/);
+  assert.match(shop, /DeliveryBenefitsMarquee/);
+  assert.match(shop, /co-shop-delivery-marquee__track/);
   for (const label of ["All Products", ".CO Water", ".CO Kitchen", "BOTANiCA", "MELT", "Bundles & Gifts"]) assert.match(categories, new RegExp(label.replace(".", "\\.")));
   assert.match(bundle, /maxSlots = 5/);
   assert.match(bundle, /selectedProducts\.forEach\(\(product\) => cart\.addItem/);
@@ -40,7 +41,9 @@ test("shop discovery remains functional and uses real-data-safe controls", async
   assert.match(shop, /window\.history\.pushState/);
   assert.match(shop, /window\.addEventListener\("popstate"/);
   assert.match(shop, /product\.cartSlug === "co-water" \? setConfiguratorOpen\(true\)/);
-  assert.doesNotMatch(shop, /★★★★★|Free Shipping|14-day return|Secure Payments|Earn Rewards|Save ₹/i);
+  assert.doesNotMatch(shop, /★★★★★|14-day return|Secure Payments|Earn Rewards|Save ₹/i);
+  assert.match(shop, /"product" \| "adding" \| "added"/);
+  assert.match(shop, /onCloseAutoFocus/);
   assert.match(launch, /pathname === "\/shop" \|\| pathname\.startsWith\("\/shop\/"\)/);
 });
 

@@ -24,6 +24,7 @@ export function ShopBundleBuilder({ products }: { products: ShopViewProduct[] })
     "co-botanica-shampoo",
   ]);
   const [added, setAdded] = useState(false);
+  const minItems = 3;
   const maxSlots = 5;
   const selectedProducts = selected.map((slug) => products.find((product) => product.slug === slug)!).filter(Boolean);
   const total = selectedProducts.reduce((sum, product) => sum + product.price, 0);
@@ -33,21 +34,23 @@ export function ShopBundleBuilder({ products }: { products: ShopViewProduct[] })
     setSelected((current) => current.includes(slug) ? current.filter((item) => item !== slug) : current.length < maxSlots ? [...current, slug] : current);
   };
   const addBundle = () => {
+    if (selectedProducts.length < minItems) return;
     selectedProducts.forEach((product) => cart.addItem(product.cartSlug));
-    setAdded(Boolean(selectedProducts.length));
+    setAdded(true);
   };
 
   return (
-    <section id="bundle-builder" className="co-shop-bundles" aria-labelledby="bundle-title">
-      <div className="co-shop-bundles__light" />
-      <div className="relative mx-auto max-w-[1340px]">
+    <>
+      <section id="bundle-builder" className="co-shop-ritual" aria-labelledby="bundle-title">
+        <div className="co-shop-ritual__dissolve" aria-hidden="true" />
+        <div className="relative mx-auto max-w-[1340px]">
         <div className="co-shop-bundle-builder grid gap-7 rounded-[30px] p-5 md:grid-cols-[.68fr_1.32fr] md:p-7">
           <div className="flex flex-col justify-center">
             <p className="text-[9px] font-semibold uppercase tracking-[.22em] text-[#d99c62]">Build your ritual</p>
             <h2 id="bundle-title" className="mt-4 max-w-[10ch] font-['Cormorant_Garamond'] text-[clamp(2.75rem,4vw,4.25rem)] font-normal leading-[.86] tracking-[-.04em]">Build a .CO Bundle that&apos;s <em>yours.</em></h2>
             <p className="mt-5 max-w-[42ch] text-xs leading-6 text-[#ddc4aa]/72">Handpick your favourites and compose an everyday coconut shelf around your own rituals.</p>
             <div className="mt-6 space-y-3 text-[11px] text-[#ead2b7]/82">
-              {["Pick up to five products", "See the exact catalog total", "Add every selected item together"].map((item) => <p key={item} className="flex items-center gap-3"><span className="grid size-6 place-items-center rounded-full border border-[#d99c62]/32"><Check size={12} /></span>{item}</p>)}
+              {["Pick 3 or more products", "See the exact catalog total", "Thoughtfully packed. Beautifully you."].map((item) => <p key={item} className="flex items-center gap-3"><span className="grid size-6 place-items-center rounded-full border border-[#d99c62]/32"><Check size={12} /></span>{item}</p>)}
             </div>
           </div>
 
@@ -82,15 +85,20 @@ export function ShopBundleBuilder({ products }: { products: ShopViewProduct[] })
             </div>
             <div className="mt-2 grid gap-3 rounded-[18px] border border-[#e0a66d]/14 bg-[#1d0f0a]/38 p-4 sm:grid-cols-[1fr_auto] sm:items-center">
               <div className="flex items-end justify-between gap-5 sm:justify-start"><span><small className="block text-[8px] uppercase tracking-[.14em] text-[#cfad8d]/65">Selected</small><strong className="mt-1 block text-sm">{selected.length} / {maxSlots} products</strong></span><span><small className="block text-[8px] uppercase tracking-[.14em] text-[#cfad8d]/65">Catalog total</small><strong className="mt-1 block text-2xl tabular-nums">₹{total.toLocaleString("en-IN")}</strong></span></div>
-              <button type="button" onClick={addBundle} disabled={!selected.length} className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#8b4f30] px-6 text-[10px] font-semibold uppercase text-white transition hover:bg-[#a45d38] disabled:cursor-not-allowed disabled:opacity-40">{added ? "Added to cart" : "Add bundle to cart"}<ArrowRight size={14} /></button>
+              <button type="button" onClick={addBundle} disabled={selected.length < minItems} className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#8b4f30] px-6 text-[10px] font-semibold uppercase text-white transition hover:bg-[#a45d38] disabled:cursor-not-allowed disabled:opacity-40">{added ? "Added to cart" : selected.length < minItems ? `Choose ${minItems - selected.length} more` : "Create bundle"}<ArrowRight size={14} /></button>
             </div>
             <p className="mt-3 flex items-center gap-2 text-[9px] text-[#d8b99a]/60"><Gift size={13} /> Gift fulfilment is not collected until a supported flow exists.</p>
           </div>
         </div>
 
-        <div className="co-shop-curated mt-8">
+        </div>
+      </section>
+
+      <section className="co-shop-curated-section" aria-labelledby="curated-bundles-title">
+        <div className="relative mx-auto max-w-[1340px]">
+        <div className="co-shop-curated">
           <div className="co-shop-curated__heading"><div><p className="text-[9px] font-semibold uppercase tracking-[.22em] text-[#d99c62]">Curated for you</p>
-          <h3 className="mt-3 font-['Cormorant_Garamond'] text-4xl font-normal leading-[.9] md:text-5xl">Thoughtful bundles.<br />Beautifully crafted.</h3></div></div>
+          <h3 id="curated-bundles-title" className="mt-3 font-['Cormorant_Garamond'] text-4xl font-normal leading-[.9] md:text-5xl">Thoughtful bundles.<br />Beautifully crafted.</h3></div></div>
           <div className="co-shop-curated__rail mt-5 flex snap-x gap-3 overflow-x-auto pb-3 [scrollbar-width:none] md:grid md:grid-cols-4">
             {curatedSpecs.map((spec) => {
               const setProducts = spec.slugs.map((slug) => products.find((product) => product.slug === slug || product.cartSlug === slug)).filter(Boolean) as ShopViewProduct[];
@@ -98,7 +106,7 @@ export function ShopBundleBuilder({ products }: { products: ShopViewProduct[] })
               return (
                 <article key={spec.title} className="co-shop-curated-card min-w-[86vw] snap-start rounded-[22px] p-3 sm:min-w-[340px] md:min-w-0">
                   <div className={`co-shop-curated-card__scene co-shop-curated-card__scene--${spec.scene} flex h-44 items-end justify-center gap-1 rounded-[16px] p-3`}>
-                    {setProducts.map((product) => <span key={product.slug} className="relative h-full min-w-0 flex-1"><Image src={product.image} alt={product.name} fill sizes="(min-width:768px) 8vw, 28vw" className="object-contain object-bottom" /></span>)}
+                    {setProducts.map((product) => <span key={product.slug} className="co-shop-curated-card__product relative h-full min-w-0 flex-1"><Image src={product.image} alt={product.name} fill sizes="(min-width:768px) 8vw, 28vw" className="object-contain object-bottom" /></span>)}
                   </div>
                   <h4 className="mt-4 font-['Cormorant_Garamond'] text-2xl">{spec.title}</h4>
                   <p className="mt-1 text-[10px] leading-4 text-[#d9bea3]/68">{spec.copy}<br />{setProducts.length} catalog {setProducts.length === 1 ? "product" : "products"} · ₹{setTotal.toLocaleString("en-IN")}</p>
@@ -108,7 +116,8 @@ export function ShopBundleBuilder({ products }: { products: ShopViewProduct[] })
             })}
           </div>
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }
