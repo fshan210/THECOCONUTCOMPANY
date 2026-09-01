@@ -1232,3 +1232,16 @@
   width: 44px;
   height: 44px;
 }
+@media (max-width: 768px) {
+  .rd-recipes .rd-card-copy > a {
+    min-height: 46px;
+  }
+  .rd-recipes .recipe-card-image > .save-text {
+    width: 46px;
+    height: 46px;
+  }
+  .rd-recipes .co-mobile-bottom-nav a,
+  .rd-recipes .co-mobile-bottom-nav button {
+    min-height: 44px;
+  }
+}
