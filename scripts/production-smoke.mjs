@@ -6,7 +6,7 @@ const routes = [
   ["/shop", "Shop coconut"],
   ["/recipes", "Good food"],
   ["/journal", "Real people"],
-  ["/sustainability", "Good for you"]
+  ["/sustainability", "Nothing wasted"]
 ];
 
 const infrastructureRoutes = ["/robots.txt", "/sitemap.xml", "/image-sitemap.xml", "/opengraph-image"];
