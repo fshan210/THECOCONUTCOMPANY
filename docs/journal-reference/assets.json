@@ -1,0 +1,170 @@
+[
+  {
+    "name": "farmer",
+    "source": "public/assets/sustainability/refined/raw-materials-farmer.png",
+    "width": 1000,
+    "height": 750,
+    "bytes": 236062
+  },
+  {
+    "name": "fazil",
+    "source": "public/assets/founders/refined/fazil-shersha-portrait.jpg",
+    "width": 1000,
+    "height": 1333,
+    "bytes": 201140
+  },
+  {
+    "name": "afsala",
+    "source": "public/assets/founders/refined/afsala-muthali-portrait.jpg",
+    "width": 1000,
+    "height": 1333,
+    "bytes": 185148
+  },
+  {
+    "name": "hero",
+    "source": "SUPPLIED/journal/STORIES FROM THE COCONUT AND EVERYTHING AROUND IT.png",
+    "width": 1448,
+    "height": 1086,
+    "bytes": 211430
+  },
+  {
+    "name": "world-1",
+    "source": "SUPPLIED/backgrounds/journal/1.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 168462
+  },
+  {
+    "name": "world-2",
+    "source": "SUPPLIED/backgrounds/journal/2.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 73638
+  },
+  {
+    "name": "world-3",
+    "source": "SUPPLIED/backgrounds/journal/3.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 84474
+  },
+  {
+    "name": "world-4",
+    "source": "SUPPLIED/backgrounds/journal/4.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 78394
+  },
+  {
+    "name": "world-5",
+    "source": "SUPPLIED/backgrounds/journal/5.png",
+    "width": 1672,
+    "height": 941,
+    "bytes": 81188
+  },
+  {
+    "name": "people",
+    "source": "public/assets/redesign/sustainability/IMPACT SHOULD REACH PEOPLE TOO.png",
+    "width": 1000,
+    "height": 667,
+    "bytes": 107948
+  },
+  {
+    "name": "husk",
+    "source": "public/assets/redesign/about/built-by-people.png",
+    "width": 1000,
+    "height": 750,
+    "bytes": 103124
+  },
+  {
+    "name": "farm",
+    "source": "public/assets/redesign/about/grown-by-people.png",
+    "width": 1000,
+    "height": 563,
+    "bytes": 75862
+  },
+  {
+    "name": "grove",
+    "source": "public/assets/redesign/about/where-it-begins.png",
+    "width": 1000,
+    "height": 563,
+    "bytes": 52902
+  },
+  {
+    "name": "bowl",
+    "source": "public/assets/redesign/recipes/coconut breakfast bowl.png",
+    "width": 1000,
+    "height": 750,
+    "bytes": 119736
+  },
+  {
+    "name": "stew",
+    "source": "public/assets/redesign/recipes/Kerala Vegetable Stew.png",
+    "width": 1000,
+    "height": 750,
+    "bytes": 99054
+  },
+  {
+    "name": "drink",
+    "source": "public/assets/redesign/recipes/coconut matcha smoothie.png",
+    "width": 1000,
+    "height": 750,
+    "bytes": 80186
+  },
+  {
+    "name": "cake",
+    "source": "public/assets/redesign/recipes/JAMAICAN TOTO – TRADITIONAL CARIBBEAN COCONUT CAKE.png",
+    "width": 1000,
+    "height": 750,
+    "bytes": 122160
+  },
+  {
+    "name": "pancakes",
+    "source": "public/assets/redesign/recipes/coconut flour pancackes.png",
+    "width": 1000,
+    "height": 750,
+    "bytes": 103076
+  },
+  {
+    "name": "kitchen",
+    "source": "public/assets/redesign/about/kitchen.png",
+    "width": 1000,
+    "height": 1000,
+    "bytes": 141424
+  },
+  {
+    "name": "community",
+    "source": "public/assets/redesign/recipes/GOOD FOOD GETS PASSED AROUND.png",
+    "width": 1000,
+    "height": 563,
+    "bytes": 61372
+  },
+  {
+    "name": "oil",
+    "source": "public/assets/redesign/home/cinematic/lifestyle/coconut-oil.png",
+    "width": 1000,
+    "height": 1250,
+    "bytes": 107590
+  },
+  {
+    "name": "water",
+    "source": "public/assets/redesign/home/cinematic/sunrise-reset.png",
+    "width": 1000,
+    "height": 563,
+    "bytes": 81796
+  },
+  {
+    "name": "milk",
+    "source": "public/assets/redesign/home/cinematic/lifestyle/coconut-milk.png",
+    "width": 1000,
+    "height": 1250,
+    "bytes": 149296
+  },
+  {
+    "name": "soil",
+    "source": "public/assets/redesign/sustainability/cinematic/impact.webp",
+    "width": 1000,
+    "height": 750,
+    "bytes": 72942
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "route": "/",
+    "status": 200,
+    "errors": [],
+    "journalCSS": 0
+  },
+  {
+    "route": "/about",
+    "status": 200,
+    "errors": [],
+    "journalCSS": 0
+  },
+  {
+    "route": "/shop",
+    "status": 200,
+    "errors": [],
+    "journalCSS": 0
+  },
+  {
+    "route": "/recipes",
+    "status": 200,
+    "errors": [],
+    "journalCSS": 0
+  },
+  {
+    "route": "/sustainability",
+    "status": 200,
+    "errors": [],
+    "journalCSS": 0
+  }
+]
