@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowRight, BookOpen, Check, CheckCircle2, ChefHat, CircleAlert, Eye, EyeOff, Heart, Loader2, LockKeyhole, Mail, PackageCheck, ShieldCheck, ShoppingBag, UserRound, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import { ReferenceHeader } from "@/components/home/ReferenceHomePage";
+import { createClientSubmissionLock } from "@/lib/auth/client-submission-lock";
 
 type AuthResult = { ok?: boolean; message?: string; status?: string; email?: string; flow?: string; returnTo?: string; retryAfter?: number; resumed?: boolean; data?: { delivery?: string; maskedDestination?: string } };
 type Notice = { kind: "success" | "error"; message: string } | null;
@@ -216,13 +217,20 @@ export function CustomerVerifyEmailForm({ initialEmail = "", maskedDestination =
   const [digits, setDigits] = useState(["", "", "", "", "", ""]);
   const [notice, setNotice] = useState<Notice>(search.get("notice") === "unconfirmed" ? { kind: "error", message: "Your email is not verified yet. Enter your code or request a new one." } : search.get("notice") === "created" ? { kind: "success", message: "Account created. Check your email for the six-digit code." } : null);
   const [remaining, setRemaining] = useState(0);
+  const [retrySequence, setRetrySequence] = useState(0);
   const [pending, startTransition] = useTransition();
   const refs = useRef<Array<HTMLInputElement | null>>([]);
   const countdownRef = useRef<number | null>(null);
+  const submissionLock = useRef(createClientSubmissionLock());
   const returnTo = safeClientReturnTo(search.get("returnTo") || initialReturnTo);
   useEffect(() => () => {
     if (countdownRef.current !== null) window.clearInterval(countdownRef.current);
   }, []);
+  useEffect(() => {
+    if (!retrySequence) return;
+    submissionLock.current.release();
+    refs.current[0]?.focus();
+  }, [retrySequence]);
   const tick = (seconds: number) => {
     if (countdownRef.current !== null) window.clearInterval(countdownRef.current);
     setRemaining(seconds);
@@ -238,11 +246,12 @@ export function CustomerVerifyEmailForm({ initialEmail = "", maskedDestination =
   const setDigit = (index: number, value: string) => { const next = [...digits]; next[index] = value.replace(/\D/g, "").slice(-1); setDigits(next); if (next[index] && index < 5) refs.current[index + 1]?.focus(); };
   const paste = (event: React.ClipboardEvent) => { const code = event.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6); if (!code) return; event.preventDefault(); setDigits(Array.from({ length: 6 }, (_, index) => code[index] || "")); refs.current[Math.min(code.length, 5)]?.focus(); };
   const verify = () => {
+    if (!submissionLock.current.tryAcquire()) return;
     const code = digits.join("");
-    if (!emailIsValid(email) || code.length !== 6 || pending) { setNotice({ kind: "error", message: "Enter the complete six-digit code." }); return; }
+    if (!emailIsValid(email) || code.length !== 6 || pending) { submissionLock.current.release(); setNotice({ kind: "error", message: "Enter the complete six-digit code." }); return; }
     startTransition(async () => {
       try { await cognitoAuth({ action: "confirm", email, code, returnTo }); setNotice({ kind: "success", message: "Your email has been verified." }); window.setTimeout(() => router.replace(`/email-verified?returnTo=${encodeURIComponent(returnTo)}&email=${encodeURIComponent(email)}`), 500); }
-      catch (error) { setNotice({ kind: "error", message: error instanceof Error ? error.message : "We could not verify that code." }); setDigits(["", "", "", "", "", ""]); refs.current[0]?.focus(); }
+      catch (error) { setNotice({ kind: "error", message: error instanceof Error ? error.message : "We could not verify that code." }); setDigits(["", "", "", "", "", ""]); setRetrySequence((value) => value + 1); }
     });
   };
   const resend = () => {

@@ -12,11 +12,13 @@ import { useBodyScrollLock } from "@/lib/ui/use-body-scroll-lock";
 
 const welcomeKey = "co_welcome_claimed_v1";
 const ease = [0.16, 1, 0.3, 1] as const;
+const cinematicAuthRoutes = new Set(["/login", "/register", "/forgot-password", "/reset-password", "/verify-email", "/email-verified"]);
 
 export function LaunchExperience() {
   const pathname = usePathname();
   const router = useRouter();
   const excluded = pathname.startsWith("/admin") || pathname.startsWith("/control-center");
+  const cinematicAuthRoute = cinematicAuthRoutes.has(pathname);
   const welcomeExcluded = excluded || pathname === "/shop" || pathname.startsWith("/shop/");
   const [consentVisible, setConsentVisible] = useState(false);
   const [consentResolved, setConsentResolved] = useState(false);
@@ -106,7 +108,7 @@ export function LaunchExperience() {
         ) : null}
       </AnimatePresence>
 
-      {!consentVisible ? <button type="button" onClick={() => setPreferencesOpen(true)} aria-label="Manage cookie preferences" className="fixed bottom-[calc(10px+env(safe-area-inset-bottom))] left-3 z-[120] hidden size-10 place-items-center rounded-full border border-black/8 bg-[rgba(248,244,236,.9)] text-[#214d2b] shadow-lg backdrop-blur-xl md:grid"><Cookie size={16} /></button> : null}
+      {!consentVisible ? <button type="button" onClick={() => setPreferencesOpen(true)} aria-label="Manage cookie preferences" className={`fixed bottom-[calc(10px+env(safe-area-inset-bottom))] left-3 z-[120] place-items-center rounded-full border border-black/8 bg-[rgba(248,244,236,.9)] text-[#214d2b] shadow-lg backdrop-blur-xl ${cinematicAuthRoute ? "grid size-11" : "hidden size-10 md:grid"}`}><Cookie size={16} /></button> : null}
 
       <Dialog.Root open={preferencesOpen} onOpenChange={setPreferencesOpen}>
         <Dialog.Portal>
