@@ -22,6 +22,8 @@ const links = [
   { href: "/journal", label: "Journal" }
 ];
 
+const cinematicAuthRoutes = new Set(["/login", "/register", "/forgot-password", "/reset-password", "/verify-email", "/email-verified"]);
+
 export function Navigation() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -37,7 +39,7 @@ export function Navigation() {
   const headerTop = useTransform(scrollY, [0, 90], ["0px", "14px"]);
 
   const configuredAdminPath = getAdminPath();
-  if (pathname === "/" || pathname === "/about" || pathname === "/shop" || pathname === "/recipes" || pathname.startsWith("/recipes/") || pathname === "/sustainability" || pathname === "/founders" || pathname.startsWith("/journal") || pathname.startsWith("/admin") || pathname === configuredAdminPath || pathname.startsWith(`${configuredAdminPath}/`)) return null;
+  if (pathname === "/" || pathname === "/about" || pathname === "/shop" || pathname === "/recipes" || pathname.startsWith("/recipes/") || pathname === "/sustainability" || pathname === "/founders" || pathname.startsWith("/journal") || cinematicAuthRoutes.has(pathname) || pathname.startsWith("/admin") || pathname === configuredAdminPath || pathname.startsWith(`${configuredAdminPath}/`)) return null;
 
   return (
     <>

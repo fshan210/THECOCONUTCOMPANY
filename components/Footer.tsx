@@ -19,10 +19,12 @@ const links = [
   { label: "Journal", href: "/journal" }
 ];
 
+const cinematicAuthRoutes = new Set(["/login", "/register", "/forgot-password", "/reset-password", "/verify-email", "/email-verified"]);
+
 export function Footer() {
   const pathname = usePathname();
 
-  if (pathname === "/" || pathname === "/about" || pathname === "/shop" || pathname === "/recipes" || pathname.startsWith("/recipes/") || pathname === "/sustainability" || pathname === "/founders" || pathname.startsWith("/journal") || pathname.startsWith("/admin")) return null;
+  if (pathname === "/" || pathname === "/about" || pathname === "/shop" || pathname === "/recipes" || pathname.startsWith("/recipes/") || pathname === "/sustainability" || pathname === "/founders" || pathname.startsWith("/journal") || cinematicAuthRoutes.has(pathname) || pathname.startsWith("/admin")) return null;
 
   return (
     <>

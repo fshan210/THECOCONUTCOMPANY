@@ -11,5 +11,5 @@ export const metadata: Metadata = createPageMetadata({ title: "Sign In", descrip
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ redirect?: string }> }) {
   const { redirect: returnTo } = await searchParams;
   if (await getCustomerSession()) redirect(safeReturnTo(returnTo));
-  return <><StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Sign in", path: "/login" }]} /><AuthShell eyebrow="Customer account" title="Welcome back." description="Sign in to keep your favourites, saved recipes, and .CO shelf close."><CustomerLoginForm/></AuthShell></>;
+  return <><StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Sign in", path: "/login" }]} /><AuthShell variant="login" eyebrow="Welcome back" title={<>Your .CO,<br/><em>right where<br/>you left it.</em></>} description="Sign in to continue your journey with products that care for you and the planet."><CustomerLoginForm/></AuthShell></>;
 }

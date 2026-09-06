@@ -220,7 +220,8 @@ export function ReferenceHeader() {
   const pathname = usePathname();
   const shopShell = pathname === "/shop" || pathname.startsWith("/shop/");
   const homeShell = pathname === "/";
-  const cinematicShell = homeShell || pathname === "/about";
+  const authShell = ["/login", "/register", "/forgot-password", "/reset-password", "/verify-email", "/email-verified"].includes(pathname);
+  const cinematicShell = homeShell || pathname === "/about" || authShell;
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const session = useCustomerSession();

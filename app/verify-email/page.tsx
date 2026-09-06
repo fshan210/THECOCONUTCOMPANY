@@ -9,5 +9,5 @@ export const metadata: Metadata = createPageMetadata({ title: "Verify Email", de
 
 export default async function VerifyEmailPage() {
   const pending = await getPendingVerification();
-  return <><StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Verify email", path: "/verify-email" }]} /><AuthShell eyebrow="One last step" title="Verify your email." description="Enter the six-digit code we sent to finish setting up your .CO account."><Suspense fallback={null}><CustomerVerifyEmailForm initialEmail={pending?.email} maskedDestination={pending ? maskEmail(pending.email) : undefined} initialReturnTo={pending?.returnTo}/></Suspense></AuthShell></>;
+  return <><StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Verify email", path: "/verify-email" }]} /><AuthShell variant="verify" eyebrow="The entry" title={<>Enter the code<br/>we sent to<br/><em>your email</em></>} description="Take your time. Enter all six digits from the message we sent."><Suspense fallback={null}><CustomerVerifyEmailForm initialEmail={pending?.email} maskedDestination={pending ? maskEmail(pending.email) : undefined} initialReturnTo={pending?.returnTo}/></Suspense></AuthShell></>;
 }

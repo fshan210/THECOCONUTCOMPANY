@@ -34,6 +34,7 @@ import "../styles/reference-sustainability.css";
 import "../styles/reference-journal.css";
 import "../styles/reference-commerce.css";
 import "../styles/reference-newsletter.css";
+import "../styles/reference-auth.css";
 
 const roboto = localFont({
   src: [
