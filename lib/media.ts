@@ -9,6 +9,7 @@ const managedPrefixes = [
 ] as const;
 
 const bundledRuntimePrefixes = [
+  "/assets/redesign/account/",
   "/assets/about/about-hand-holding-coconut.png",
   "/assets/about/about-scraped-coconut-split.png",
   "/assets/home/co-hero-coconut-transparent-v1.webp",

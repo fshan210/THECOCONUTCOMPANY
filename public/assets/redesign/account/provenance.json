@@ -1,0 +1,50 @@
+[
+  {
+    "file": "scene-1.webp",
+    "source": "/Users/fazilshersha/Desktop/redesign asset/backgrounds/default pages/profile/1.png",
+    "sha256": "508a52fc20415e3a6b6b38acc3c693afc4f99b9ce9758b3ab3f0497f49c630da",
+    "provenance": "User supplied account background, deterministic WebP conversion; source unchanged."
+  },
+  {
+    "file": "scene-2.webp",
+    "source": "/Users/fazilshersha/Desktop/redesign asset/backgrounds/default pages/profile/2.png",
+    "sha256": "4ece6b540ccdd1cc6b00a73dde261bfdde8617fd6597fe2f823c1db99d6ea038",
+    "provenance": "User supplied account background, deterministic WebP conversion; source unchanged."
+  },
+  {
+    "file": "scene-3.webp",
+    "source": "/Users/fazilshersha/Desktop/redesign asset/backgrounds/default pages/profile/3.png",
+    "sha256": "82417b3c26040707a86d59e26ea4bf2568d5634bb6bec154efce932250973428",
+    "provenance": "User supplied account background, deterministic WebP conversion; source unchanged."
+  },
+  {
+    "file": "scene-4.webp",
+    "source": "/Users/fazilshersha/Desktop/redesign asset/backgrounds/default pages/profile/4.png",
+    "sha256": "9dffa78f5f13ea96894c189d7f6a646db6b9d55913c8c85af6da7451d6ea752c",
+    "provenance": "User supplied account background, deterministic WebP conversion; source unchanged."
+  },
+  {
+    "file": "scene-5.webp",
+    "source": "/Users/fazilshersha/Desktop/redesign asset/backgrounds/default pages/profile/5.png",
+    "sha256": "fbe8f5fe738b61c52434de8d021aeba6dd042167a7c69e299e55f42586acf82b",
+    "provenance": "User supplied account background, deterministic WebP conversion; source unchanged."
+  },
+  {
+    "file": "scene-6.webp",
+    "source": "/Users/fazilshersha/Desktop/redesign asset/backgrounds/default pages/profile/6.png",
+    "sha256": "74e9a77caa45df0a62fc47817704bd89a4d0a0aca005762fcdecd5c07488dbb0",
+    "provenance": "User supplied account background, deterministic WebP conversion; source unchanged."
+  },
+  {
+    "file": "scene-7.webp",
+    "source": "/Users/fazilshersha/Desktop/redesign asset/backgrounds/default pages/profile/7.png",
+    "sha256": "7d07c1d0e2dd882476d295473c611406bf5f4978d17fc476857ea31a94c60ec6",
+    "provenance": "User supplied account background, deterministic WebP conversion; source unchanged."
+  },
+  {
+    "file": "scene-8.webp",
+    "source": "/Users/fazilshersha/Desktop/redesign asset/backgrounds/default pages/profile/8.png",
+    "sha256": "4c8032138971acfa2306b87332363774d9d99d64f647c018ff81ae52ad551134",
+    "provenance": "User supplied account background, deterministic WebP conversion; source unchanged."
+  }
+]

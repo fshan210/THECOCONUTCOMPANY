@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Menu, Search, UserRound, X } from "lucide-react";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { isAccountRoute } from "@/lib/account/routes";
 import { useState } from "react";
 import { CartButton } from "@/components/cart/CartDrawer";
 import { useCustomerSession } from "@/components/auth/CustomerAuthProvider";
@@ -39,7 +40,7 @@ export function Navigation() {
   const headerTop = useTransform(scrollY, [0, 90], ["0px", "14px"]);
 
   const configuredAdminPath = getAdminPath();
-  if (pathname === "/" || pathname === "/about" || pathname === "/shop" || pathname === "/recipes" || pathname.startsWith("/recipes/") || pathname === "/sustainability" || pathname === "/founders" || pathname.startsWith("/journal") || cinematicAuthRoutes.has(pathname) || pathname.startsWith("/admin") || pathname === configuredAdminPath || pathname.startsWith(`${configuredAdminPath}/`)) return null;
+  if (isAccountRoute(pathname) || pathname === "/" || pathname === "/about" || pathname === "/shop" || pathname === "/recipes" || pathname.startsWith("/recipes/") || pathname === "/sustainability" || pathname === "/founders" || pathname.startsWith("/journal") || cinematicAuthRoutes.has(pathname) || pathname.startsWith("/admin") || pathname === configuredAdminPath || pathname.startsWith(`${configuredAdminPath}/`)) return null;
 
   return (
     <>

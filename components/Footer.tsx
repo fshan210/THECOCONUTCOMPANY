@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { isAccountRoute } from "@/lib/account/routes";
 import { ArrowUpRight } from "lucide-react";
 import { productCategories, recipes } from "@/lib/catalog";
 import { publicAssets } from "@/lib/public-assets";
@@ -24,7 +25,7 @@ const cinematicAuthRoutes = new Set(["/login", "/register", "/forgot-password", 
 export function Footer() {
   const pathname = usePathname();
 
-  if (pathname === "/" || pathname === "/about" || pathname === "/shop" || pathname === "/recipes" || pathname.startsWith("/recipes/") || pathname === "/sustainability" || pathname === "/founders" || pathname.startsWith("/journal") || cinematicAuthRoutes.has(pathname) || pathname.startsWith("/admin")) return null;
+  if (isAccountRoute(pathname) || pathname === "/" || pathname === "/about" || pathname === "/shop" || pathname === "/recipes" || pathname.startsWith("/recipes/") || pathname === "/sustainability" || pathname === "/founders" || pathname.startsWith("/journal") || cinematicAuthRoutes.has(pathname) || pathname.startsWith("/admin")) return null;
 
   return (
     <>

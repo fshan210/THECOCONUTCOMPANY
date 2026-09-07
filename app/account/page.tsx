@@ -1,23 +1,4 @@
-import type { Metadata } from "next";
-import { CustomerAccountDashboard } from "@/components/auth/CustomerAccountDashboard";
-import { StructuredData } from "@/components/seo/StructuredData";
-import { requireCustomerSession } from "@/lib/customer/auth";
+import { AccountPage } from "@/components/account/AccountPage";
 import { createPageMetadata } from "@/lib/seo/metadata";
-
-export const metadata: Metadata = createPageMetadata({
-  title: "Account",
-  description: "Your .CO customer dashboard.",
-  path: "/account",
-  index: false
-});
-
-export default async function AccountPage() {
-  const session = await requireCustomerSession();
-
-  return (
-    <div className="rd-account-page">
-      <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Account", path: "/account" }]} />
-      <CustomerAccountDashboard session={session} />
-    </div>
-  );
-}
+export const metadata = createPageMetadata({title:"Account",description:"Your personal .CO account, favourites and everyday rituals.",path:"/account",index:false});
+export default function Page() { return <AccountPage view="overview"/>; }

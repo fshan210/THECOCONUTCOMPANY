@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import { isAccountRoute } from "@/lib/account/routes";
 
 const excludedImageAncestor = "[data-smooothy-slider], [data-lifestyle-3d-gallery], [role='dialog'], header, footer";
 
@@ -9,7 +10,7 @@ export function GlobalMotionEffects() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname.startsWith("/admin") || pathname.startsWith("/control-center")) return undefined;
+    if (isAccountRoute(pathname) || pathname.startsWith("/admin") || pathname.startsWith("/control-center")) return undefined;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const revealNodes = new Set<HTMLElement>();
     const parallaxNodes = new Set<HTMLImageElement>();
