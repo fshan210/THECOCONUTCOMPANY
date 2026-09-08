@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ResponsiveImage } from "@/components/media/ResponsiveImage";
 import { useEffect, useRef, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
@@ -31,17 +32,17 @@ const intros: Record<AccountView,{title:string;emphasis?:string;body:string;note
   empty:{title:"Your .CO space",emphasis:"A more coconutful you.",body:"Save your favourites, manage your orders, explore recipes and more — all in one place.",note:"Good things taste better together.",scene:1}
 };
 export function AccountShell({view,name,children}:{view:AccountView;name:string;children:ReactNode}) {
- const intro=intros[view]; const scene=intro.scene===1?5:intro.scene; const reduce=useReducedMotion(); const nav=useRef<HTMLElement>(null);
+ const intro=intros[view]; const scene=intro.scene===1?5:intro.scene; const reduce=useReducedMotion(); const nav=useRef<HTMLElement>(null); const pathname=usePathname();
  useEffect(()=>{const active=nav.current?.querySelector<HTMLElement>('[aria-current="page"]'); if(active && nav.current) nav.current.scrollLeft=active.offsetLeft-nav.current.offsetLeft-16;},[view]);
+ useEffect(()=>{if(reduce)return;const body=document.querySelector<HTMLElement>('.ac-body');const distance=window.matchMedia('(max-width: 700px)').matches?10:18;const entry=body?.animate([{opacity:0,transform:`translateX(${distance}px)`},{opacity:1,transform:'translateX(0)'}],{duration:420,easing:'cubic-bezier(.22,1,.36,1)'});return()=>entry?.cancel();},[pathname,reduce]);
  return <div className="co-account" data-account-view={view}>
   <ReferenceHeader/>
   <header className={`ac-hero ac-hero--${view}`}>
    <picture><source media="(max-width: 600px)" srcSet={`/assets/redesign/account/scene-${scene+1}.webp`}/><img src={`/assets/redesign/account/scene-${scene}.webp`} alt="" fetchPriority="high" width="1672" height="941"/></picture>
-   {intro.scene===1&&<div className="ac-hero-products" aria-hidden="true"><ResponsiveImage src="/assets/products/transparent-current/co-coconut-water-v1.webp" alt="" width={450} height={900} priority/><ResponsiveImage src="/assets/products/transparent-current/co-kitchen-coconut-oil-v1.webp" alt="" width={600} height={750} priority/></div>}
    <div className="ac-hero-copy"><p className="ac-eyebrow">{view==="overview" ? "Welcome back" : "My account"}</p><h1>{intro.title}{view==="overview" ? <em>{name.split(" ")[0]}.</em> : intro.emphasis ? <em>{intro.emphasis}</em> : null}</h1><p>{intro.body}</p><span className="ac-script">{intro.note}</span></div>
   </header>
   <div className="ac-content">
-   <nav className="ac-tabs" aria-label="Account sections" ref={nav}>{tabs.map(({label,href,views,Icon})=><Link key={href} href={href} aria-current={views.includes(view)?"page":undefined}>{views.includes(view)&&<motion.span className="ac-active-tab" layoutId="account-active-tab" transition={{duration:reduce?0:.28}}/>}<Icon size={20}/><span>{label}</span></Link>)}</nav>
+   <nav className="ac-tabs" aria-label="Account sections" ref={nav}>{tabs.map(({label,href,views,Icon})=><a key={href} href={href} data-motion="off" aria-current={views.includes(view)?"page":undefined}>{views.includes(view)&&<motion.span className="ac-active-tab" layoutId="account-active-tab" transition={{duration:reduce?0:.36,ease:[.22,1,.36,1]}}/>}<Icon size={20}/><span>{label}</span></a>)}</nav>
    <div className="ac-body">{children}</div>
    <footer className="ac-footer"><div className="ac-trust">{[{Icon:ShieldCheck,title:"Secure account",body:"Your details, thoughtfully handled",href:"/privacy-policy"},{Icon:Package,title:"Delivery & returns",body:"Read our delivery policies",href:"/shipping-returns"},{Icon:Heart,title:"Your .CO favourites",body:"Good things, kept close",href:"/wishlist"},{Icon:Leaf,title:"Our coconut story",body:"Rooted in a better tomorrow",href:"/sustainability"}].map(({Icon,title,body,href})=><Link href={href} key={title}><Icon/><span>{title}<small>{body}</small></span></Link>)}</div><p><span>.CO</span> — Goodness stays with you</p><div className="ac-footer-links"><Link href="/contact">Support</Link><Link href="/privacy-policy">Privacy</Link><Link href="/terms-and-conditions">Terms</Link></div></footer>
   </div>

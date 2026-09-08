@@ -4,6 +4,7 @@ import { MotionConfig } from "framer-motion";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import type { MouseEvent as ReactMouseEvent, ReactNode } from "react";
+import { isAccountNavigation } from "@/lib/account/routes";
 import { choreography, motionEase, updateMotionDiagnostics, useMotionQuality, type MotionQuality } from "@/lib/motion";
 import { MotionDebugOverlay } from "./MotionDebugOverlay";
 
@@ -54,6 +55,14 @@ export function MotionProvider({ children }: { children: ReactNode }) {
   const navigate = useCallback((href: string) => {
     if (href === `${window.location.pathname}${window.location.search}${window.location.hash}`) return;
     clearTimer();
+    const targetPath = new URL(href, window.location.origin).pathname;
+    if (isAccountNavigation(window.location.pathname, targetPath)) {
+      pendingHref.current = null;
+      setRoutePhase("idle");
+      updateMotionDiagnostics({ routePhase: "idle", lastNavigation: href });
+      router.push(href);
+      return;
+    }
     pendingHref.current = href;
     updateMotionDiagnostics({ routePhase: "covering", lastNavigation: href });
     if (quality !== "full") {
