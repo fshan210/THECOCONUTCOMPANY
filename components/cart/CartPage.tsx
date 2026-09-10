@@ -1,12 +1,128 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
-import { Heart,Minus,PackageCheck,Plus,ShoppingBag,Trash2,Truck } from "lucide-react";
-import { DarkFooter,DarkHeader,Eyebrow,RD,Scene } from "@/components/reference/DarkReference";
-import { getCartPreviewPrice,useCart } from "@/lib/cart/cart-context";
-import { transparentProductAssets } from "@/lib/website-assets";
-export function CartPage(){
- const cart=useCart();
- if(!cart.products.length)return <div className="rd-cart-page"><DarkHeader/><main><section className="cart-empty rd-glass" style={{maxWidth:720,margin:"80px auto",padding:60,textAlign:"center"}}><ShoppingBag style={{margin:"auto"}}/><Eyebrow>Your .CO order</Eyebrow><h1 style={{fontSize:58}}>Your cart is waiting.</h1><p>Add a coconut favourite and it will be ready here when you are.</p><Link className="rd-button" href="/shop">Continue shopping →</Link></section></main><DarkFooter/></div>;
- return <div className="rd-cart-page"><DarkHeader/><main><section className="cart-hero"><div><Eyebrow>Your .CO order</Eyebrow><h1>The good stuff,<br/>almost <em>yours.</em></h1><p>Every choice supports real people, restores the earth, and brings honest goodness home.</p></div><div className="cart-hero-scene">{["water","kitchen-oil","kitchen-milk"].map((id,i)=><Image key={id} src={transparentProductAssets[id].src} alt={`.CO ${id}`} fill sizes="220px" className="object-contain" style={{objectPosition:`${30+i*25}% center`}}/>)}</div></section><div className="cart-layout"><div><section className="cart-lines">{cart.products.map(product=><article className="cart-line" key={product.cartKey}><div className="cart-line-image"><Image src={product.image} alt={product.name} fill sizes="100px" className="object-contain"/></div><div><p>{product.variantLabel??product.category}</p><h2>{product.name}</h2><p>In stock</p><div className="cart-quantity"><button onClick={()=>cart.updateQuantity(product.cartKey,product.quantity-1)} aria-label={`Decrease ${product.name}`}><Minus/></button><b>{product.quantity}</b><button onClick={()=>cart.updateQuantity(product.cartKey,product.quantity+1)} aria-label={`Increase ${product.name}`}><Plus/></button></div></div><div className="cart-line-actions"><strong>₹{((product.unitPrice??getCartPreviewPrice(product.slug))*product.quantity).toLocaleString("en-IN")}</strong><button><Heart/> Save</button><button onClick={()=>cart.removeItem(product.cartKey)}><Trash2/> Remove</button></div></article>)}</section><div className="cart-modules"><article className="cart-module"><Scene src={`${RD.recipe}THAILAND GREEN COCONUT CURRY.png`} alt="Thai coconut green curry"/><div><Eyebrow>Your cart makes</Eyebrow><h2>Thai Coconut Green Curry</h2><p>With coconut milk and oil already in your cart, you’re most of the way there.</p><Link href="/recipes/kerala-vegetable-stew">View recipe →</Link></div></article><article className="cart-module"><figure><Image src={transparentProductAssets.melt.src} alt="MELT coconut gelato" fill sizes="180px" className="object-contain"/></figure><div><Eyebrow>One thing that fits</Eyebrow><h2>MELT Coconut Gelato</h2><p>A slow tropical finish.</p><button onClick={()=>cart.addItem("melt-co-mango-coconut")}>Add to cart →</button></div></article><section className="cart-module saved-later"><Eyebrow>Saved for later</Eyebrow>{["botanica-hair-serum","botanica-face-wash","kitchen-flour"].map(id=><article key={id}><figure><Image src={transparentProductAssets[id].src} alt={id} fill sizes="85px" className="object-contain"/></figure><span><b>{id.replaceAll("-"," ")}</b><button onClick={()=>cart.addItem(id.startsWith("kitchen")?"co-kitchen-coconut-flour":`co-${id}`)}>Move to cart</button></span></article>)}</section></div></div><aside className="cart-summary"><Eyebrow>Order summary</Eyebrow><h2>Review your order</h2><dl><div><dt>Subtotal</dt><dd>₹{cart.subtotal.toLocaleString("en-IN")}</dd></div><div><dt>Rewards discount</dt><dd>—</dd></div><div><dt>Shipping</dt><dd>Calculated at checkout</dd></div><div><dt>Tax</dt><dd>Calculated at checkout</dd></div></dl><div className="cart-total"><span>Total</span><span>₹{cart.subtotal.toLocaleString("en-IN")}</span></div><input className="cart-promo" placeholder="Promo code" aria-label="Promo code"/><button className="cart-checkout" disabled title="Checkout is not configured">Checkout coming soon →</button><Link href="/shop" style={{display:"block",textAlign:"center",marginTop:14,color:"#dda05f"}}>Continue shopping</Link><div className="cart-timeline"><Eyebrow>What happens next</Eyebrow>{[[PackageCheck,"Confirmed"],[ShoppingBag,"Packed"],[Truck,"Shipped"],[PackageCheck,"Delivered"]].map(([Icon,label])=>{const I=Icon as typeof Truck;return <span key={label as string}><i/><b><I style={{display:"inline",width:13}}/> {label as string}</b></span>})}</div></aside></div></main><DarkFooter/></div>;
+import { ResponsiveImage as Image } from "@/components/media/ResponsiveImage";
+import { Heart, ShoppingBag } from "lucide-react";
+import { useCart } from "@/lib/cart/cart-context";
+import {
+  CommerceHero,
+  CommerceSurface,
+  CommerceLink,
+  CommerceTrust,
+  CommerceClose,
+} from "@/components/commerce/Primitives";
+import { CartItems } from "@/components/commerce/CartItems";
+export function CartPage({
+  recipe,
+}: {
+  recipe?: { title: string; description: string; image: string; slug: string };
+}) {
+  const cart = useCart();
+  return (
+    <CommerceSurface>
+      <CommerceHero
+        products
+        eyebrow="Your .CO order"
+        title={
+          <>
+            The good stuff,
+            <br />
+            almost <em>yours.</em>
+          </>
+        }
+        body="A few favourites for your everyday. Keep your selection here while you explore the coconut world."
+      />
+      <div className="cm-container">
+        {cart.products.length ? (
+          <div className="cm-split">
+            <div className="cm-stack">
+              <section className="cm-panel cm-cart-panel">
+                <div className="cm-cart-heading">
+                  <p className="cm-eyebrow">Product</p>
+                  <span>Price</span>
+                </div>
+                <CartItems />
+              </section>
+              {recipe && (
+                <section className="cm-panel cm-cart-recipe">
+                  <div className="cm-recipe-image">
+                    <Image
+                      src={recipe.image}
+                      alt={recipe.title}
+                      fill
+                      sizes="(max-width:600px) 85vw, 260px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <p className="cm-eyebrow">From the recipe collection</p>
+                    <h2>{recipe.title}</h2>
+                    <p>{recipe.description}</p>
+                    <CommerceLink href={`/recipes/${recipe.slug}`}>
+                      View recipe
+                    </CommerceLink>
+                  </div>
+                </section>
+              )}
+              <section className="cm-panel">
+                <Heart />
+                <h2>Saved for another day.</h2>
+                <p>
+                  Your saved products and stories live together in your account.
+                </p>
+                <CommerceLink href="/wishlist" secondary>
+                  View your wishlist
+                </CommerceLink>
+              </section>
+            </div>
+            <aside className="cm-panel cm-summary">
+              <p className="cm-eyebrow">Order summary</p>
+              <h2>Your selection.</h2>
+              <dl>
+                <div>
+                  <dt>Subtotal ({cart.totalQuantity} items)</dt>
+                  <dd>₹{cart.subtotal.toLocaleString("en-IN")}</dd>
+                </div>
+                <div>
+                  <dt>Shipping & tax</dt>
+                  <dd>Not yet available</dd>
+                </div>
+              </dl>
+              <div className="cm-total" aria-live="polite">
+                <span>Estimated subtotal</span>
+                <strong>₹{cart.subtotal.toLocaleString("en-IN")}</strong>
+              </div>
+              <p>
+                Purchasing is not open yet. Final prices, delivery and payment
+                details will be confirmed when checkout launches.
+              </p>
+              <button className="cm-button" disabled>
+                Checkout coming soon
+              </button>
+              <CommerceLink href="/checkout" secondary>
+                Checkout information
+              </CommerceLink>
+              <div className="cm-summary-help">
+                <p>Need help with your selection?</p>
+                <CommerceLink href="/contact" secondary>
+                  Contact support
+                </CommerceLink>
+              </div>
+            </aside>
+          </div>
+        ) : (
+          <section className="cm-panel cm-empty">
+            <ShoppingBag size={36} />
+            <p className="cm-eyebrow">Your cart</p>
+            <h2>Good things start here.</h2>
+            <p>
+              Your cart is empty. Explore our coconut essentials and keep your
+              favourites close.
+            </p>
+            <CommerceLink href="/shop">Explore the collection</CommerceLink>
+          </section>
+        )}
+        <CommerceClose />
+        <CommerceTrust />
+      </div>
+    </CommerceSurface>
+  );
 }

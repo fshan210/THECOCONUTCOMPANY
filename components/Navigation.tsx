@@ -1,4 +1,6 @@
 "use client";
+import { isCommerceRoute } from "@/lib/commerce-routes";
+import { ReferenceHeader } from "@/components/home/ReferenceHomePage";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -40,6 +42,7 @@ export function Navigation() {
   const headerTop = useTransform(scrollY, [0, 90], ["0px", "14px"]);
 
   const configuredAdminPath = getAdminPath();
+  if (isCommerceRoute(pathname)) return <ReferenceHeader />;
   if (isAccountRoute(pathname) || pathname === "/" || pathname === "/about" || pathname === "/shop" || pathname === "/recipes" || pathname.startsWith("/recipes/") || pathname === "/sustainability" || pathname === "/founders" || pathname.startsWith("/journal") || cinematicAuthRoutes.has(pathname) || pathname.startsWith("/admin") || pathname === configuredAdminPath || pathname.startsWith(`${configuredAdminPath}/`)) return null;
 
   return (

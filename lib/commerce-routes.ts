@@ -1,0 +1,22 @@
+const commerceRoutes = new Set([
+  "/cart",
+  "/checkout",
+  "/payment",
+  "/search",
+  "/contact",
+  "/support",
+  "/faqs",
+  "/shipping-delivery",
+  "/shipping-returns",
+  "/returns",
+  "/refund-policy",
+  "/legal",
+  "/privacy-policy",
+  "/terms-and-conditions",
+  "/terms",
+  "/cookie-policy",
+  "/track-order",
+  "/404",
+  "/offline",
+]);
+export const isCommerceRoute = (path: string) => commerceRoutes.has(path);

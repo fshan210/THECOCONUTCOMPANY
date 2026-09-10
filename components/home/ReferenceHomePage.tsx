@@ -1,4 +1,5 @@
 "use client";
+import { isCommerceRoute } from "@/lib/commerce-routes";
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { ResponsiveImage as Image } from "@/components/media/ResponsiveImage";
@@ -221,7 +222,7 @@ export function ReferenceHeader() {
   const shopShell = pathname === "/shop" || pathname.startsWith("/shop/");
   const homeShell = pathname === "/";
   const authShell = ["/login", "/register", "/forgot-password", "/reset-password", "/verify-email", "/email-verified"].includes(pathname);
-  const cinematicShell = homeShell || pathname === "/about" || authShell;
+  const cinematicShell = homeShell || pathname === "/about" || authShell || isCommerceRoute(pathname);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const session = useCustomerSession();
@@ -266,7 +267,7 @@ export function ReferenceHeader() {
           <DockNavigation links={links} pathname={pathname} light={shopShell || cinematicShell || !scrolled} />
 
           <div className={cn("ml-auto flex items-center gap-1 transition-colors md:gap-1.5", shopShell || cinematicShell || !scrolled ? "text-[#fff7e9]" : "text-[#17130f]")}>
-            <Link href="/shop" aria-label="Search products" className="grid size-10 place-items-center rounded-full transition hover:bg-white/70">
+            <Link href={isCommerceRoute(pathname) ? "/search" : "/shop"} aria-label="Search products" className="grid size-10 place-items-center rounded-full transition hover:bg-white/70">
               <Search size={19} strokeWidth={1.7} />
             </Link>
             <Link href={accountHref} aria-label={session ? `Open account for ${greeting}` : "Sign in to your account"} className="inline-flex h-10 items-center gap-2 rounded-full px-1.5 transition hover:bg-white/70">

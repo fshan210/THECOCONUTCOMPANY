@@ -1,4 +1,6 @@
 "use client";
+import { isCommerceRoute } from "@/lib/commerce-routes";
+import { ReferenceFooter } from "@/components/home/ReferenceHomePage";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -25,6 +27,7 @@ const cinematicAuthRoutes = new Set(["/login", "/register", "/forgot-password", 
 export function Footer() {
   const pathname = usePathname();
 
+  if (isCommerceRoute(pathname)) return <ReferenceFooter />;
   if (isAccountRoute(pathname) || pathname === "/" || pathname === "/about" || pathname === "/shop" || pathname === "/recipes" || pathname.startsWith("/recipes/") || pathname === "/sustainability" || pathname === "/founders" || pathname.startsWith("/journal") || cinematicAuthRoutes.has(pathname) || pathname.startsWith("/admin")) return null;
 
   return (

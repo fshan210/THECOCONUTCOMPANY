@@ -2,15 +2,16 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import { isCommerceRoute } from "@/lib/commerce-routes";
 import { isAccountRoute } from "@/lib/account/routes";
 
-const excludedImageAncestor = "[data-smooothy-slider], [data-lifestyle-3d-gallery], [role='dialog'], header, footer";
+const excludedImageAncestor = "[data-smooothy-slider], [data-lifestyle-3d-gallery], [role='dialog'], header, footer, .commerce-surface";
 
 export function GlobalMotionEffects() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (isAccountRoute(pathname) || pathname.startsWith("/admin") || pathname.startsWith("/control-center")) return undefined;
+    if (isCommerceRoute(pathname) || isAccountRoute(pathname) || pathname.startsWith("/admin") || pathname.startsWith("/control-center")) return undefined;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const revealNodes = new Set<HTMLElement>();
     const parallaxNodes = new Set<HTMLImageElement>();
@@ -42,7 +43,7 @@ export function GlobalMotionEffects() {
     const scan = () => {
       Array.from(document.querySelectorAll<HTMLElement>(".co-site-content h1, .co-site-content h2, .co-site-content [data-co-reveal]"))
         .forEach((node, index) => {
-          if (revealNodes.has(node)) return;
+          if (revealNodes.has(node) || node.closest(".commerce-surface")) return;
           revealNodes.add(node);
           node.dataset.coReveal = reduced ? "reduced" : "pending";
           node.style.setProperty("--co-reveal-delay", `${Math.min(index % 4, 3) * 55}ms`);

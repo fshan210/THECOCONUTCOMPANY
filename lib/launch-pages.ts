@@ -64,4 +64,9 @@ export const launchPages: Record<string, LaunchPage> = {
   "our-story": { eyebrow: "Our story", title: "Rooted in nature. Made for living.", intro: "Meet the people, purpose and coconut thinking behind .CO.", sections: [], action: { label: "Read our story", href: "/about" } }
 };
 
+// Register the additional informational surfaces with the existing public-route registry.
+launchPages.payment = { ...launchPages.checkout, eyebrow: "Payment", title: "Payments are being prepared." };
+launchPages.legal = { ...launchPages["privacy-policy"], eyebrow: "Legal centre" };
+launchPages["shipping-returns"] = { ...launchPages["shipping-delivery"], eyebrow: "Help & support" };
+
 export const launchPageSlugs = Object.keys(launchPages);

@@ -1,5 +1,6 @@
 "use client";
 
+import { isCommerceRoute } from "@/lib/commerce-routes";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -19,7 +20,7 @@ export function GlobalWaterRipple({ image }: { image: string }) {
   const adminRoute = pathname.startsWith("/admin") || pathname.startsWith("/control-center");
   // The catalogue is deliberately static: scanning and buying products must not
   // compete with a WebGL material layer. PDPs remain editorial route surfaces.
-  const shopCatalogueRoute = pathname === "/shop";
+  const shopCatalogueRoute = pathname === "/shop" || isCommerceRoute(pathname);
 
   useEffect(() => {
     const host = hostRef.current;
