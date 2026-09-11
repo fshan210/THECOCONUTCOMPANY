@@ -75,7 +75,8 @@ export default async function LaunchUtilityRoute({
         image: commerceProductImage(p.slug, p.image),
         href: `/shop/${p.slug}`,
         price: p.price,
-        cartSlug: p.availabilityStatus === "out-of-stock" ? undefined : p.slug,
+        cartSlug: p.availabilityStatus === "in-stock" ? p.slug : undefined,
+        availabilityStatus: p.availabilityStatus,
       })),
       ...recipes.map((r) => ({
         id: `recipe:${r.slug}`,
@@ -93,7 +94,7 @@ export default async function LaunchUtilityRoute({
         kind: "Journal" as const,
         category: j.category,
         image: j.image,
-        href: "/journal",
+        href: `/journal?story=${encodeURIComponent(j.slug)}`,
       })),
     ];
     return <SearchSurface entries={entries} />;

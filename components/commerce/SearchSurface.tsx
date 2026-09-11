@@ -20,6 +20,7 @@ export type SearchEntry = {
   href: string;
   price?: number;
   cartSlug?: string;
+  availabilityStatus?: "preview" | "coming-soon" | "in-stock" | "out-of-stock";
 };
 export function SearchSurface({ entries }: { entries: SearchEntry[] }) {
   const [query, setQuery] = useState("");
@@ -241,7 +242,11 @@ export function SearchSurface({ entries }: { entries: SearchEntry[] }) {
                                 {x.cartSlug ? (
                                   <button
                                     className="cm-button"
-                                    onClick={() => cart.addItem(x.cartSlug!)}
+                                    onClick={() =>
+                                      cart.addItem(x.cartSlug!, {
+                                        unitPrice: x.price,
+                                      })
+                                    }
                                   >
                                     Add to cart →
                                   </button>
@@ -249,7 +254,13 @@ export function SearchSurface({ entries }: { entries: SearchEntry[] }) {
                                   <CommerceLink secondary href={x.href}>
                                     {x.kind === "Recipes"
                                       ? "View recipe"
-                                      : "Read journal"}
+                                      : x.kind === "Journal"
+                                        ? "Read journal"
+                                        : x.availabilityStatus === "out-of-stock"
+                                          ? "Out of stock"
+                                          : x.availabilityStatus === "coming-soon"
+                                            ? "Coming soon"
+                                            : "View product"}
                                   </CommerceLink>
                                 )}
                               </div>
