@@ -6,6 +6,13 @@ import { getScrollTrigger } from "@/lib/animation/gsap-scrolltrigger";
 export type CoLenis = InstanceType<typeof Lenis>;
 export type CoLenisOptions = ConstructorParameters<typeof Lenis>[0];
 
+let activeLenis: CoLenis | null = null;
+
+export function scrollToDocumentTop() {
+  activeLenis?.scrollTo(0, { immediate: true, force: true });
+  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+}
+
 export function createCoLenis(options: CoLenisOptions = {}) {
   return new Lenis({
     duration: 1.08,
@@ -18,6 +25,7 @@ export function createCoLenis(options: CoLenisOptions = {}) {
 }
 
 export function startCoLenis(lenis: CoLenis) {
+  activeLenis = lenis;
   const { gsap, ScrollTrigger } = getScrollTrigger();
   const update = (time: number) => lenis.raf(time * 1000);
   const syncScrollTrigger = () => ScrollTrigger.update();
@@ -28,6 +36,7 @@ export function startCoLenis(lenis: CoLenis) {
   return () => {
     lenis.off("scroll", syncScrollTrigger);
     gsap.ticker.remove(update);
+    if (activeLenis === lenis) activeLenis = null;
     lenis.destroy();
   };
 }

@@ -428,3 +428,95 @@
   .co-auth-primary:hover:not(:disabled),
   .co-auth-choice-list button[aria-pressed="true"] { transform: none; }
 }
+
+/* Compact entry forms; recovery and verification retain their established layout. */
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) { overflow: clip; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-split { min-height: 100svh; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-content { padding: 96px clamp(28px, 4vw, 64px) 28px; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-intro h1 { font-size: clamp(38px, 3.4vw, 52px); }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-eyebrow { margin-bottom: 8px; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-intro > p:last-child { margin-top: 10px; font-size: 14px; line-height: 1.45; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-tabs { margin-top: 18px; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-tabs a { min-height: 44px; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-form { gap: 9px; margin-top: 16px; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-notice:empty,
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-field-message:empty { display: none; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-field { gap: 4px; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-field input { min-height: 48px; padding-block: 10px; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-primary { min-height: 48px; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-oauth { grid-template-columns: 1fr 1fr; gap: 8px; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-oauth button { min-height: 48px; grid-template-columns: 22px 1fr; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-oauth button small { grid-column: 2; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-check { min-height: 44px; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-scene { min-height: 100%; background-size: cover; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-scene-quote { top: 18%; right: 9%; bottom: auto; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-benefits { position: absolute; right: 28px; bottom: 32px; left: 28px; margin: 0; padding: 18px; background: linear-gradient(145deg, rgba(33, 21, 14, .88), rgba(16, 11, 8, .86)); }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-benefit-grid { margin-top: 12px; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-benefit-grid > div { min-height: 65px; padding: 8px; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-benefit-icon { width: 36px; height: 36px; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-benefits .co-auth-primary { margin-top: 14px; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-marker { right: auto; bottom: 0; left: 0; width: 51.7%; padding: 0 20px 14px; transform: none; }
+.co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-marker::after { display: none; }
+.co-auth-page--register .co-auth-step { margin-top: 14px; }
+.co-auth-page--register .co-auth-step + .co-auth-step { padding-top: 12px; }
+.co-auth-page--register .co-auth-step h2 { margin-top: 9px; font-size: 20px; }
+.co-auth-page--register .co-auth-choice-list { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.co-auth-page--register .co-auth-choice-list button { min-height: 72px; grid-template-columns: 22px 1fr; gap: 7px; padding: 8px; }
+.co-auth-page--register .co-auth-choice-list svg { width: 20px; }
+.co-auth-page--register .co-auth-choice-list strong { font-size: 12px; }
+.co-auth-page--register .co-auth-choice-list small { font-size: 9px; }
+.co-auth-page--register .co-auth-choice-list i { display: none; }
+.co-auth-page--register .co-auth-register-form { grid-template-columns: 1fr 1fr; gap: 7px 12px; margin-top: 0; }
+.co-auth-page--register .co-auth-register-form > :not(.co-auth-field) { grid-column: 1 / -1; }
+.co-auth-page--register .co-auth-register-form > .co-auth-field:nth-child(4) { grid-column: 1; grid-row: 2; }
+.co-auth-page--register .co-auth-register-form > .co-auth-field:nth-child(6) { grid-column: 2; grid-row: 2; }
+.co-auth-page--register .co-auth-password-rules { grid-template-columns: repeat(3, 1fr); margin: 0; padding: 6px 8px; }
+.co-auth-page--register .co-auth-register-form > .co-auth-switch { grid-column: 2; grid-row: 4; min-height: 44px; }
+.co-auth-page--register .co-auth-register-form > .co-auth-terms { grid-column: 1; grid-row: 4; min-height: 44px; }
+.co-auth-page--register .co-auth-register-form > .co-auth-primary { grid-column: 1; grid-row: 5; }
+.co-auth-page--register .co-auth-register-form > .co-auth-account-link { grid-column: 2; grid-row: 5; }
+
+@media (min-width: 901px) {
+  .co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-split { min-height: calc(100svh - 30px); }
+  .co-auth-page.co-auth-page--login .co-auth-content { display: flex; align-items: center; padding-bottom: 6px; }
+  .co-auth-page.co-auth-page--login .co-auth-intro h1 { font-size: clamp(38px, 3.1vw, 48px); }
+  .co-auth-page.co-auth-page--login .co-auth-tabs { margin-top: 14px; }
+  .co-auth-page.co-auth-page--login .co-auth-form { gap: 6px; }
+  .co-auth-page.co-auth-page--register .co-auth-content { padding-top: 88px; padding-bottom: 12px; }
+  .co-auth-page.co-auth-page--register .co-auth-intro h1 { font-size: 34px; }
+  .co-auth-page.co-auth-page--register .co-auth-intro > p:last-child { max-width: none; font-size: 12px; }
+  .co-auth-page.co-auth-page--register .co-auth-step { margin-top: 8px; }
+  .co-auth-page.co-auth-page--register .co-auth-step + .co-auth-step { padding-top: 8px; }
+  .co-auth-page.co-auth-page--register .co-auth-step-label,
+  .co-auth-page.co-auth-page--register .co-auth-step h2 { display: inline-block; }
+  .co-auth-page.co-auth-page--register .co-auth-step-label { margin-right: 12px; }
+  .co-auth-page.co-auth-page--register .co-auth-step h2 { margin: 0; font-size: 17px; line-height: 1.2; }
+  .co-auth-page.co-auth-page--register .co-auth-choice-list { margin-top: 8px; }
+  .co-auth-page.co-auth-page--register .co-auth-choice-list button { min-height: 54px; }
+  .co-auth-page.co-auth-page--register .co-auth-register-form { gap: 5px 12px; margin-top: 8px; }
+  .co-auth-page.co-auth-page--register .co-auth-field-message:not(:has([role="alert"])) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .co-auth-page.co-auth-page--register .co-auth-fields { align-content: start; }
+  .co-auth-page.co-auth-page--register .co-auth-switch b { font-size: 10px; }
+  .co-auth-page.co-auth-page--register .co-auth-terms b { font-size: 9px; line-height: 1.4; }
+}
+
+@media (max-width: 900px) {
+  .co-auth-page:is(.co-auth-page--login, .co-auth-page--register) { overflow: visible; }
+  .co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-content { padding: 98px 22px 24px; }
+  .co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-intro h1 { font-size: clamp(36px, 8vw, 48px); }
+  .co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-scene { min-height: 0; padding: 24px 20px; background-position: right 70%; }
+  .co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-scene-quote { position: static; margin: 0 0 22px; }
+  .co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-scene-quote p { font-size: 23px; }
+  .co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-benefits { position: relative; inset: auto; }
+  .co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-benefit-grid { grid-template-columns: 1fr 1fr; }
+  .co-auth-page:is(.co-auth-page--login, .co-auth-page--register) .co-auth-marker { position: relative; right: auto; bottom: auto; left: auto; width: 100%; padding-top: 14px; }
+  .co-auth-page--register .co-auth-register-form { grid-template-columns: 1fr; }
+  .co-auth-page--register .co-auth-register-form > * { grid-column: auto !important; grid-row: auto !important; }
+  .co-auth-page--register .co-auth-password-rules { grid-template-columns: 1fr 1fr; }
+  .co-auth-page--register .co-auth-choice-list { grid-template-columns: 1fr; }
+  .co-auth-page--register .co-auth-choice-list button { min-height: 56px; grid-template-columns: 28px 1fr 26px; padding: 8px 12px; }
+  .co-auth-page--register .co-auth-choice-list i { display: grid; }
+  .co-auth-page--register .co-auth-choice-list strong { font-size: 14px; }
+  .co-auth-page--register .co-auth-choice-list small { font-size: 10px; }
+  .co-auth-page:is(.co-auth-page--login, .co-auth-page--register) input { font-size: 16px; }
+}

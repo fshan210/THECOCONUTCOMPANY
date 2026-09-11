@@ -241,7 +241,7 @@ export function ReferenceHeader() {
   const links: HeaderLink[] = [
     ["Home", "/"],
     ["About", "/about"],
-    ["Products", "/shop#all-products"],
+    ["Products", "/shop"],
     ["Recipes", "/recipes"],
     ["Sustainability", "/sustainability"],
     ["Journal", "/journal"]

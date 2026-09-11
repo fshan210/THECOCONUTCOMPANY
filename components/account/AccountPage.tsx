@@ -5,7 +5,7 @@ import type { AccountView } from "@/lib/account/routes";
 import type { CustomerSession } from "@/lib/customer/auth-config";
 import { communityPosts } from "@/data/journal";
 import type { SavedCard } from "@/components/auth/SavedContentGrid";
-import { AccountShell, ActionLink, EmptyCard, HelpPanel, Panel, Promo, Unavailable } from "./AccountShell";
+import { AccountContent, ActionLink, EmptyCard, HelpPanel, Panel, Promo, Unavailable } from "./AccountShell";
 import { ProductRail, RecipeCard, SavedCollection } from "./AccountCollections";
 import { AddressBook, Preferences, Security } from "./AccountSettings";
 import { OrderDetail, OrderRow, Orders } from "./AccountOrders";
@@ -28,7 +28,7 @@ export async function AccountPage({view,orderId}:{view:AccountView;orderId?:stri
  if((view==="overview"||view==="empty")&&!Object.values(data.unavailable).some(Boolean)) view=hasData?"overview":"empty";
  const cards=savedCards(data);let detail:AccountOrder|null=null;
  if(view==="detail"&&orderId){const response=await customerAwsApi<AccountOrder>(`v1/orders/${encodeURIComponent(orderId)}`).catch(()=>null);if(response?.ok&&response.data?.status!=="NOT_IMPLEMENTED"&&response.data?.orderId)detail=response.data;}
- return <AccountShell view={view} name={data.profile?.displayName||session.name}>
+ return <AccountContent view={view} name={data.profile?.displayName||session.name}>
  {view==="overview"&&Object.values(data.unavailable).some(Boolean)&&<Unavailable>Some account information couldn’t be loaded. Please refresh to try again.</Unavailable>}
  {(view==="overview"||view==="empty")&&<Overview data={data} session={session} empty={view==="empty"}/>}
  {(view==="orders"||view==="history")&&<Orders data={data} session={session} history={view==="history"}/>}
@@ -38,5 +38,5 @@ export async function AccountPage({view,orderId}:{view:AccountView;orderId?:stri
  {view==="security"&&<Security session={session}/>}
  {(view==="wishlist"||view==="recipes")&&<>{data.unavailable.saved?<Unavailable>Your saved collection couldn’t be loaded. Please refresh to try again.</Unavailable>:view==="recipes"?<><div className="ac-columns"><SavedCollection key={JSON.stringify(data.saved.recipeIds)} items={cards.filter(c=>c.kind==="recipe")} recipes/><div className="ac-stack"><Stats data={data}/><Panel title="Cook later"><h3>Inspiration for another day.</h3><p>Save a recipe using its heart and find it here when you’re ready to cook.</p><ActionLink href="/recipes">Find a recipe</ActionLink></Panel></div></div><Panel title="Weekly meal inspiration" action={<ActionLink href="/recipes" secondary>Explore more recipes</ActionLink>}><div className="ac-recipe-grid">{data.recipes.slice(0,4).map(r=><RecipeCard recipe={r} key={r.slug}/>)}</div></Panel><Promo title="Pantry goodness. Bigger possibilities." body="Find your coconut essentials for something delicious." action="Explore pantry products" scene={7}/></>:<><SavedCollection key={JSON.stringify(data.saved)} items={cards}/><div className="ac-columns"><Promo title="Pairs perfectly with your favourites." body="Find a little inspiration for a more nourishing day." action="Build your ritual" scene={1}/><Panel title="Your ritual"><h3>Better together</h3><p>Products, recipes and stories, all in your .CO space.</p><ActionLink href="/saved-recipes">Find your saved recipes</ActionLink></Panel></div></>}<ProductRail products={data.products.slice(0,6)} title={view==="recipes"?"Complete your kitchen":"Explore more .CO"}/></>}
  {view==="payments"&&<div className="ac-columns"><Panel title="Payment methods"><CreditCard className="ac-feature-icon"/><h2 className="ac-display">A little peace of mind.</h2><p>Live payments and saved payment methods are not available yet. No payment details are stored in this account area.</p><ActionLink href="/checkout">Checkout information</ActionLink></Panel><HelpPanel/></div>}
- </AccountShell>;
+ </AccountContent>;
 }

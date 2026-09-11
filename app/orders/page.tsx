@@ -1,4 +1,0 @@
-import { AccountPage } from "@/components/account/AccountPage";
-import { createPageMetadata } from "@/lib/seo/metadata";
-export const metadata = createPageMetadata({title:"Orders",description:"Your personal .CO account, favourites and everyday rituals.",path:"/orders",index:false});
-export default function Page() { return <AccountPage view="orders"/>; }

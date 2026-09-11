@@ -17,7 +17,7 @@ import { getAdminPath } from "@/lib/admin/path";
 
 const links = [
   { href: "/about", label: "About" },
-  { href: "/shop#all-products", label: "Products" },
+  { href: "/shop", label: "Products" },
   { href: "/shop", label: "Shop" },
   { href: "/recipes", label: "Recipes" },
   { href: "/sustainability", label: "Sustainability" },

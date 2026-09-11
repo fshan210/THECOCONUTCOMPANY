@@ -11,5 +11,5 @@ export const metadata: Metadata = createPageMetadata({ title: "Create Account", 
 export default async function RegisterPage({ searchParams }: { searchParams: Promise<{ redirect?: string; returnTo?: string }> }) {
   const { redirect: redirectTo, returnTo } = await searchParams;
   if (await getCustomerSession()) redirect(safeReturnTo(returnTo || redirectTo));
-  return <><StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Create account", path: "/register" }]} /><AuthShell variant="register" eyebrow="Choose your beginning" title={<>Start your .CO<br/>story, <em>in the way<br/>that fits you.</em></>} description="Join .CO for incredible products, inspiring recipes, and a more thoughtful way of living."><CustomerRegisterForm/></AuthShell></>;
+  return <><StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Create account", path: "/register" }]} /><AuthShell variant="register" eyebrow="Choose your beginning" title={<>Start your .CO story,<br/><em>in the way that fits you.</em></>} description="Join .CO for incredible products, inspiring recipes, and a more thoughtful way of living."><CustomerRegisterForm/></AuthShell></>;
 }
