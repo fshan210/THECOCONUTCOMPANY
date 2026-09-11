@@ -75,7 +75,7 @@ export default async function LaunchUtilityRoute({
         image: commerceProductImage(p.slug, p.image),
         href: `/shop/${p.slug}`,
         price: p.price,
-        cartSlug: p.availabilityStatus === "in-stock" ? p.slug : undefined,
+        cartSlug: p.availabilityStatus === "out-of-stock" ? undefined : p.slug,
         availabilityStatus: p.availabilityStatus,
       })),
       ...recipes.map((r) => ({
