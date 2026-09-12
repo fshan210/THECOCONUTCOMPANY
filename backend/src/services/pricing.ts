@@ -1,19 +1,16 @@
 import { orderPreviewSchema, type OrderPreviewInput } from "@dotco/contracts";
-
-const prices = new Map([
-  ["co-water-330", 12000],
-  ["meltco-mango-350", 22000],
-  ["toasted-coconut-chips", 16000],
-  ["body-lotion-200", 49900]
-]);
+import { notFound } from "../errors/api-error.js";
+import { resolveCatalogItem } from "./catalog.js";
 
 export function previewOrder(input: OrderPreviewInput) {
   const parsed = orderPreviewSchema.parse(input);
   const items = parsed.items.map((item) => {
-    const unitAmount = prices.get(item.productId) ?? 0;
+    const resolved = resolveCatalogItem(item.productId, item.variantId);
+    if (!resolved) throw notFound("Product or variant not found.");
+    const unitAmount = resolved.unitAmount;
     return {
-      productId: item.productId,
-      variantId: item.variantId ?? null,
+      productId: resolved.product.id,
+      variantId: resolved.variant?.id ?? null,
       quantity: item.quantity,
       unitAmount,
       lineTotal: unitAmount * item.quantity

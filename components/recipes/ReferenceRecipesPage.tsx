@@ -370,6 +370,7 @@ export function ReferenceRecipesPage() {
   };
   return (
     <div ref={pageRef} className="rd-page rd-recipes">
+      {saved.error ? <p role="status" className="mx-auto max-w-[1320px] px-5 py-3 text-xs text-[#8a4c3a]">{saved.error}</p> : null}
       <ReferenceHeader />
       <div className="recipes-scenes">
         <section className="recipe-hero">

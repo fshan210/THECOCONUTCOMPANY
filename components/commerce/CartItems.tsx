@@ -9,6 +9,7 @@ export function CartItems() {
   const cart = useCart();
   return (
     <div className="cm-cart-items">
+      {cart.error ? <p role="status" className="cm-cart-feedback">{cart.error}</p> : null}
       {cart.products.map((product) => (
         <CartItem key={product.cartKey} product={product} />
       ))}

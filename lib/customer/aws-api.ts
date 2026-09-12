@@ -35,20 +35,25 @@ export async function customerAwsApi<T>(path: string, init: RequestInit = {}) {
   const cookieStore = await cookies();
   const session = readAwsSession(cookieStore);
   const baseUrl = process.env.SERVER_API_BASE_URL;
-  if (!session?.accessToken || !baseUrl) return { ok: false as const, status: 401, data: null };
+  if (!session?.accessToken) return { ok: false as const, status: 401, data: null };
+  if (!baseUrl) return { ok: false as const, status: 503, data: null };
 
-  const response = await fetch(new URL(path.replace(/^\//, ""), `${baseUrl.replace(/\/?$/, "/")}`), {
-    ...init,
-    headers: {
-      accept: "application/json",
-      authorization: `Bearer ${session.accessToken}`,
-      ...(init.body ? { "content-type": "application/json" } : {}),
-      ...(init.headers || {})
-    },
-    cache: "no-store"
-  });
-  const payload = await response.json().catch(() => null) as { data?: T } | null;
-  return { ok: response.ok, status: response.status, data: payload?.data ?? null } as const;
+  try {
+    const response = await fetch(new URL(path.replace(/^\//, ""), `${baseUrl.replace(/\/?$/, "/")}`), {
+      ...init,
+      headers: {
+        accept: "application/json",
+        authorization: `Bearer ${session.accessToken}`,
+        ...(init.body ? { "content-type": "application/json" } : {}),
+        ...(init.headers || {})
+      },
+      cache: "no-store"
+    });
+    const payload = await response.json().catch(() => null) as { data?: T } | null;
+    return { ok: response.ok, status: response.status, data: payload?.data ?? null } as const;
+  } catch {
+    return { ok: false as const, status: 503, data: null };
+  }
 }
 
 export async function getCustomerSavedContent() {
