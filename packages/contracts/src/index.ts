@@ -82,10 +82,37 @@ export const addressInputSchema = z.object({
   isDefault: z.boolean().default(false)
 }).strict();
 
+export const cartBundleContextSchema = z.object({
+  bundleId: z.string().trim().min(2).max(100),
+  bundleName: z.string().trim().min(2).max(120).optional()
+}).strict();
+
 export const cartItemInputSchema = z.object({
   productId: z.string().trim().min(2).max(100),
   variantId: z.string().trim().min(2).max(100).optional(),
-  quantity: z.number().int().min(1).max(12)
+  quantity: z.number().int().min(1).max(12),
+  bundle: cartBundleContextSchema.optional(),
+  bundleMetadata: z.array(cartBundleContextSchema).max(12).optional()
+}).strict();
+
+export const idempotencyKeySchema = z.string().trim().min(12).max(120).regex(/^[A-Za-z0-9._:-]+$/);
+
+export const cartAddInputSchema = cartItemInputSchema.extend({
+  idempotencyKey: idempotencyKeySchema
+}).strict();
+
+export const cartMergeInputSchema = z.object({
+  items: z.array(cartItemInputSchema).max(24),
+  idempotencyKey: idempotencyKeySchema
+}).strict();
+
+export const cartQuantityInputSchema = z.object({
+  quantity: z.number().int().min(1).max(12),
+  idempotencyKey: idempotencyKeySchema
+}).strict();
+
+export const cartMutationInputSchema = z.object({
+  idempotencyKey: idempotencyKeySchema
 }).strict();
 
 export const cartItemIdParamSchema = z.object({
@@ -99,7 +126,8 @@ export const wishlistItemInputSchema = z.object({
 export const savedContentKindSchema = z.enum(["product", "recipe", "journal", "community", "recent"]);
 export const savedContentItemSchema = z.object({
   kind: savedContentKindSchema,
-  itemId: z.string().trim().min(2).max(120)
+  itemId: z.string().trim().min(2).max(120),
+  idempotencyKey: idempotencyKeySchema.optional()
 }).strict();
 
 export const productIdParamSchema = z.object({
@@ -147,6 +175,9 @@ export const orderCreateSchema = orderPreviewSchema.extend({
 export type ProductListQuery = z.infer<typeof productListQuerySchema>;
 export type AddressInput = z.infer<typeof addressInputSchema>;
 export type CartItemInput = z.infer<typeof cartItemInputSchema>;
+export type CartAddInput = z.infer<typeof cartAddInputSchema>;
+export type CartMergeInput = z.infer<typeof cartMergeInputSchema>;
+export type CartBundleContext = z.infer<typeof cartBundleContextSchema>;
 export type MePatchInput = z.infer<typeof mePatchSchema>;
 export type SavedContentKind = z.infer<typeof savedContentKindSchema>;
 export type NewsletterSubscriptionInput = z.infer<typeof newsletterSubscriptionSchema>;

@@ -105,6 +105,7 @@ export function JournalSavedProvider({ children }: { children: ReactNode }) {
   const recipe = useSavedContent("recipe");
   return (
     <JournalSavedContext.Provider value={{ journal, recipe }}>
+      {journal.error || recipe.error ? <p role="status" className="mx-auto max-w-[1320px] px-5 py-3 text-xs text-[#d6a58e]">{journal.error || recipe.error}</p> : null}
       {children}
     </JournalSavedContext.Provider>
   );

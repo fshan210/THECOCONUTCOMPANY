@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mePatchSchema, newsletterSubscriptionSchema, productListQuerySchema, roleSchema, savedContentItemSchema } from "./index.js";
+import { cartAddInputSchema, cartMergeInputSchema, mePatchSchema, newsletterSubscriptionSchema, productListQuerySchema, roleSchema, savedContentItemSchema } from "./index.js";
 
 test("role schema rejects public role escalation strings", () => {
   assert.equal(roleSchema.safeParse("CUSTOMER").success, true);
@@ -21,6 +21,13 @@ test("product list query caps page size", () => {
 test("saved content accepts only supported ownership-scoped kinds", () => {
   assert.equal(savedContentItemSchema.safeParse({ kind: "recipe", itemId: "coconut-cooler" }).success, true);
   assert.equal(savedContentItemSchema.safeParse({ kind: "admin", itemId: "coconut-cooler" }).success, false);
+});
+
+test("cart mutations require idempotency and reject browser prices and totals", () => {
+  assert.equal(cartAddInputSchema.safeParse({ productId: "co-water", quantity: 1, idempotencyKey: "cart-key-123456" }).success, true);
+  assert.equal(cartAddInputSchema.safeParse({ productId: "co-water", quantity: 1 }).success, false);
+  assert.equal(cartAddInputSchema.safeParse({ productId: "co-water", quantity: 1, unitPrice: 1, idempotencyKey: "cart-key-123456" }).success, false);
+  assert.equal(cartMergeInputSchema.safeParse({ items: [{ productId: "co-water", quantity: 1, total: 1 }], idempotencyKey: "merge-key-123456" }).success, false);
 });
 
 test("profile patch validates structured preferences and address", () => {

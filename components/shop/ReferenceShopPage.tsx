@@ -677,6 +677,7 @@ export function ReferenceShopPage({
   return (
     <div className="co-shop-page min-h-screen overflow-x-clip font-['Inter']">
       <ReferenceHeader />
+      {wishlist.error || recentProducts.error ? <p role="status" className="mx-auto max-w-[1320px] px-4 py-3 text-xs text-[#8a4c3a] md:px-8">{wishlist.error || recentProducts.error}</p> : null}
       <div>
         <ShopHero search={search} onSearch={setSearch} />
         <ShopCategorySlab

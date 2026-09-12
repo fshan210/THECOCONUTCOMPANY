@@ -43,7 +43,8 @@ export function ShopBundleBuilder({ products }: { products: ShopViewProduct[] })
   };
   const addBundle = () => {
     if (selectedProducts.length < minItems) return;
-    selectedProducts.forEach((product) => cart.addItem(product.cartSlug, undefined, { openDrawer: false }));
+    const bundleId = `bundle-${crypto.randomUUID()}`;
+    selectedProducts.forEach((product) => cart.addItem(product.cartSlug, { bundle: { bundleId, bundleName: "Build your ritual" } }, { openDrawer: false }));
     setAdded(true);
   };
 

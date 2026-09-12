@@ -24,7 +24,7 @@ export const accountRoutes = new Hono<AppBindings>()
   .patch("/me/addresses/:addressId", requireAuth, async (c) => {
     const params = addressIdParamSchema.parse(c.req.param());
     const body = addressInputSchema.parse(await c.req.json());
-    return c.json({ data: await saveAddress(c.get("user")!.userId, body, params.addressId), meta: { persisted: true }, requestId: c.get("requestId") });
+    return c.json({ data: await saveAddress(c.get("user")!.userId, body, params.addressId, true), meta: { persisted: true }, requestId: c.get("requestId") });
   })
   .delete("/me/addresses/:addressId", requireAuth, async (c) => {
     const params = addressIdParamSchema.parse(c.req.param());
