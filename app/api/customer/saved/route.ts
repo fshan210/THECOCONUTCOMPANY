@@ -27,8 +27,9 @@ export async function POST(request: Request) {
   if (!isSameOrigin(request)) return failure(403, "Origin not allowed.");
   const parsed = savedContentItemSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return failure(400, "Invalid saved item.");
-  const body = { ...parsed.data, idempotencyKey: parsed.data.idempotencyKey ?? crypto.randomUUID() };
-  const result = await customerAwsApi<SavedContentRecord>("v1/saved", { method: "POST", body: JSON.stringify(body), headers: { "idempotency-key": body.idempotencyKey } });
+  const { idempotencyKey: requestedKey, ...item } = parsed.data;
+  const idempotencyKey = requestedKey ?? crypto.randomUUID();
+  const result = await customerAwsApi<SavedContentRecord>("v1/saved", { method: "POST", body: JSON.stringify(item), headers: { "idempotency-key": idempotencyKey } });
   return reply(result);
 }
 

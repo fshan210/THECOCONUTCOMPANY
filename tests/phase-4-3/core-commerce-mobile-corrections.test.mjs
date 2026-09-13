@@ -83,6 +83,9 @@ test("saved-content client uses the BFF and visibly rolls back failed optimistic
   assert.match(hook, /if \(removing\) next\.add\(itemId\); else next\.delete\(itemId\)/);
   assert.match(route, /customerAwsApi<SavedContentRecord>\("v1\/wishlist"\)/);
   assert.match(route, /customerAwsApi<SavedContentRecord>\("v1\/saved"/);
+  assert.match(route, /const \{ idempotencyKey: requestedKey, \.\.\.item \} = parsed\.data/);
+  assert.match(route, /body: JSON\.stringify\(item\)/);
+  assert.match(route, /headers: \{ "idempotency-key": idempotencyKey \}/);
   assert.match(route, /`v1\/saved\/\$\{parsed\.data\.kind\}/);
 });
 
