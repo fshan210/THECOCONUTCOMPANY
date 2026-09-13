@@ -36,6 +36,60 @@ export const productCategorySchema = z.enum([
   "bundles-gifts"
 ]);
 
+export type CommerceCatalogVariant = {
+  id: string;
+  sku: string;
+  label: string;
+  amount: number;
+  available: boolean;
+};
+
+export type CommerceCatalogProduct = {
+  id: string;
+  slug: string;
+  title: string;
+  subtitle: string;
+  category: z.infer<typeof productCategorySchema>;
+  categoryLabel: "Coconut Water" | "Ice Cream" | "Kitchen" | "BOTANiCA";
+  storefrontStatus: "coming-soon" | "preview";
+  amount: number;
+  available: boolean;
+  variants?: CommerceCatalogVariant[];
+};
+
+const coconutWaterVariants: CommerceCatalogVariant[] = [100, 200, 500].flatMap((sizeMl) =>
+  (["UHT", "RAW"] as const).flatMap((processing) =>
+    (["without-pulp", "with-pulp"] as const).map((pulp) => {
+      const available = !(sizeMl === 100 && processing === "RAW");
+      const rupees = (sizeMl === 100 ? 35 : sizeMl === 200 ? 60 : 135) + (pulp === "with-pulp" ? 5 : 0);
+      const sku = `CO-CW-${sizeMl}-${processing}-${pulp === "with-pulp" ? "P" : "NP"}`;
+      return {
+        id: sku,
+        sku,
+        label: `${sizeMl}ml · ${processing} · ${pulp === "with-pulp" ? "With pulp" : "Without pulp"}`,
+        amount: rupees * 100,
+        available
+      };
+    })
+  )
+);
+
+/**
+ * The commerce-critical product contract shared by storefront and backend.
+ * Editorial copy and imagery remain owned by the content layer.
+ */
+export const commerceCatalog: CommerceCatalogProduct[] = [
+  { id: "co-water", slug: "co-water", title: ".CO Water", subtitle: "Chilled bottle", category: "coconut-water", categoryLabel: "Coconut Water", storefrontStatus: "coming-soon", amount: 6000, available: true, variants: coconutWaterVariants },
+  { id: "melt-co-mango-coconut", slug: "melt-co-mango-coconut", title: "MELT.CO Mango Coconut", subtitle: "Frozen dessert", category: "ice-cream", categoryLabel: "Ice Cream", storefrontStatus: "coming-soon", amount: 22000, available: true },
+  { id: "co-kitchen-coconut-oil", slug: "co-kitchen-coconut-oil", title: ".CO Kitchen Coconut Oil", subtitle: "Kitchen staple", category: "food", categoryLabel: "Kitchen", storefrontStatus: "preview", amount: 25000, available: true },
+  { id: "co-kitchen-coconut-flour", slug: "co-kitchen-coconut-flour", title: ".CO Kitchen Coconut Flour", subtitle: "Pantry staple", category: "food", categoryLabel: "Kitchen", storefrontStatus: "preview", amount: 18000, available: true },
+  { id: "co-kitchen-coconut-milk", slug: "co-kitchen-coconut-milk", title: ".CO Kitchen Coconut Milk", subtitle: "Cooking essential", category: "food", categoryLabel: "Kitchen", storefrontStatus: "preview", amount: 18000, available: true },
+  { id: "co-botanica-shampoo", slug: "co-botanica-shampoo", title: ".CO BOTANiCA Coconut Shampoo", subtitle: "Hair care preview", category: "cosmetics", categoryLabel: "BOTANiCA", storefrontStatus: "preview", amount: 39900, available: true },
+  { id: "co-botanica-face-wash", slug: "co-botanica-face-wash", title: ".CO BOTANiCA Coconut Face Wash", subtitle: "Face care preview", category: "cosmetics", categoryLabel: "BOTANiCA", storefrontStatus: "preview", amount: 39900, available: true },
+  { id: "co-botanica-hair-serum", slug: "co-botanica-hair-serum", title: ".CO BOTANiCA Coconut Hair Serum", subtitle: "Hair care preview", category: "cosmetics", categoryLabel: "BOTANiCA", storefrontStatus: "preview", amount: 49900, available: true },
+  { id: "co-botanica-body-moisturizer", slug: "co-botanica-body-moisturizer", title: ".CO BOTANiCA Coconut Body Moisturizer", subtitle: "Body care preview", category: "cosmetics", categoryLabel: "BOTANiCA", storefrontStatus: "preview", amount: 49900, available: true }
+];
+
 export const productListQuerySchema = paginationQuerySchema.extend({
   category: productCategorySchema.optional(),
   search: z.string().trim().min(1).max(80).optional(),

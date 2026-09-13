@@ -1,5 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { commerceCatalog } from "@dotco/contracts";
+import { listProducts } from "../services/catalog.js";
 import {
   addCartItem,
   cartItemId,
@@ -116,4 +118,40 @@ test("addresses support CRUD, one default and ownership isolation", async () => 
   items = (await listAddresses("customer-a")).items;
   assert.equal(items.some((item) => item.addressId === "address-a002"), false);
   await assert.rejects(() => saveAddress("customer-a", address(), "missing-id01", true), /Address not found/);
+});
+
+test("concurrent default-address writes expose exactly one winner", async () => {
+  await Promise.all([
+    saveAddress("customer-a", address(true), "address-a101"),
+    saveAddress("customer-a", { ...address(true), line1: "99 Palm Road" }, "address-a102")
+  ]);
+  let items = (await listAddresses("customer-a")).items;
+  assert.equal(items.length, 2);
+  assert.equal(items.filter((item) => item.isDefault).length, 1);
+
+  const winner = items.find((item) => item.isDefault)!;
+  await saveAddress("customer-a", { ...winner, isDefault: true }, winner.addressId, true);
+  items = (await listAddresses("customer-a")).items;
+  assert.equal(items.filter((item) => item.isDefault).length, 1);
+  assert.equal(items.find((item) => item.isDefault)?.addressId, winner.addressId);
+
+  await deleteAddress("customer-a", winner.addressId);
+  assert.equal((await listAddresses("customer-a")).items.some((item) => item.isDefault), false);
+});
+
+test("backend product IDs, prices, status and variants match the shared catalog contract", async () => {
+  const products = (await listProducts({ limit: 50, sort: "featured" })).items;
+  assert.deepEqual(products.map((product) => ({
+    id: product.id,
+    slug: product.slug,
+    amount: product.price.amount,
+    available: product.available,
+    variants: product.variants?.map((variant) => ({ id: variant.id, sku: variant.sku, amount: variant.price.amount, available: variant.available })) ?? []
+  })), commerceCatalog.map((product) => ({
+    id: product.id,
+    slug: product.slug,
+    amount: product.amount,
+    available: product.available,
+    variants: product.variants?.map((variant) => ({ id: variant.id, sku: variant.sku, amount: variant.amount, available: variant.available })) ?? []
+  })));
 });

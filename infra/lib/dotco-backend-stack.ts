@@ -145,6 +145,7 @@ export class DotCoBackendStack extends Stack {
         "dynamodb:UpdateItem",
         "dynamodb:DeleteItem",
         "dynamodb:BatchWriteItem",
+        "dynamodb:TransactWriteItems",
         "dynamodb:DescribeTable"
       ],
       resources: [...tableAndIndexArns(commerceTable), ...tableAndIndexArns(contentTable)]

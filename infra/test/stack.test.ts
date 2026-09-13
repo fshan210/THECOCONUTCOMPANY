@@ -12,6 +12,13 @@ test("stack creates Cognito, DynamoDB and Lambda resources", () => {
   template.resourceCountIs("AWS::Cognito::UserPool", 1);
   template.resourceCountIs("AWS::DynamoDB::Table", 3);
   template.resourceCountIs("AWS::Lambda::Function", 1);
+  template.hasResourceProperties("AWS::IAM::Policy", {
+    PolicyDocument: {
+      Statement: Match.arrayWith([
+        Match.objectLike({ Action: Match.arrayWith(["dynamodb:TransactWriteItems"]) })
+      ])
+    }
+  });
   assert.ok(template.toJSON());
 });
 

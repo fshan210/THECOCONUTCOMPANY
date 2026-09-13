@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { cartAddInputSchema, cartMergeInputSchema, mePatchSchema, newsletterSubscriptionSchema, productListQuerySchema, roleSchema, savedContentItemSchema } from "./index.js";
+import { cartAddInputSchema, cartMergeInputSchema, commerceCatalog, mePatchSchema, newsletterSubscriptionSchema, productListQuerySchema, roleSchema, savedContentItemSchema } from "./index.js";
 
 test("role schema rejects public role escalation strings", () => {
   assert.equal(roleSchema.safeParse("CUSTOMER").success, true);
@@ -33,4 +33,13 @@ test("cart mutations require idempotency and reject browser prices and totals", 
 test("profile patch validates structured preferences and address", () => {
   assert.equal(mePatchSchema.safeParse({ firstName: "Fazil", displayName: "Fazil", newsletterOptIn: true, address: { city: "Palakkad", country: "India" } }).success, true);
   assert.equal(mePatchSchema.safeParse({ phone: "x".repeat(60) }).success, false);
+});
+
+test("commerce catalog has unique stable identities, positive minor-unit prices and unique variant SKUs", () => {
+  assert.equal(new Set(commerceCatalog.map((product) => product.id)).size, commerceCatalog.length);
+  assert.equal(new Set(commerceCatalog.map((product) => product.slug)).size, commerceCatalog.length);
+  assert.equal(commerceCatalog.every((product) => product.id === product.slug && Number.isInteger(product.amount) && product.amount > 0), true);
+  const variants = commerceCatalog.flatMap((product) => product.variants ?? []);
+  assert.equal(new Set(variants.map((variant) => variant.sku)).size, variants.length);
+  assert.equal(variants.every((variant) => variant.id === variant.sku && Number.isInteger(variant.amount) && variant.amount > 0), true);
 });

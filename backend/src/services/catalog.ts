@@ -1,4 +1,4 @@
-import type { ProductListQuery } from "@dotco/contracts";
+import { commerceCatalog, type ProductListQuery } from "@dotco/contracts";
 
 export type ApiProductVariant = {
   id: string;
@@ -19,34 +19,24 @@ export type ApiProduct = {
   variants?: ApiProductVariant[];
 };
 
-const waterVariants: ApiProductVariant[] = [100, 200, 500].flatMap((sizeMl) =>
-  (["UHT", "RAW"] as const).flatMap((processing) =>
-    (["without-pulp", "with-pulp"] as const).map((pulp) => {
-      const available = !(sizeMl === 100 && processing === "RAW");
-      const rupees = (sizeMl === 100 ? 35 : sizeMl === 200 ? 60 : 135) + (pulp === "with-pulp" ? 5 : 0);
-      const sku = `CO-CW-${sizeMl}-${processing}-${pulp === "with-pulp" ? "P" : "NP"}`;
-      return {
-        id: sku,
-        sku,
-        label: `${sizeMl}ml · ${processing} · ${pulp === "with-pulp" ? "With pulp" : "Without pulp"}`,
-        price: { currency: "INR" as const, amount: rupees * 100 },
-        available
-      };
-    })
-  )
-);
-
-const catalog: ApiProduct[] = [
-  { id: "co-water", slug: "co-water", title: ".CO Water", subtitle: "Chilled bottle", category: "coconut-water", price: { currency: "INR", amount: 6000 }, available: true, variants: waterVariants },
-  { id: "melt-co-mango-coconut", slug: "melt-co-mango-coconut", title: "MELT.CO Mango Coconut", subtitle: "Frozen dessert", category: "ice-cream", price: { currency: "INR", amount: 22000 }, available: true },
-  { id: "co-kitchen-coconut-oil", slug: "co-kitchen-coconut-oil", title: ".CO Kitchen Coconut Oil", subtitle: "Kitchen staple", category: "food", price: { currency: "INR", amount: 25000 }, available: true },
-  { id: "co-kitchen-coconut-flour", slug: "co-kitchen-coconut-flour", title: ".CO Kitchen Coconut Flour", subtitle: "Pantry staple", category: "food", price: { currency: "INR", amount: 18000 }, available: true },
-  { id: "co-kitchen-coconut-milk", slug: "co-kitchen-coconut-milk", title: ".CO Kitchen Coconut Milk", subtitle: "Cooking essential", category: "food", price: { currency: "INR", amount: 18000 }, available: true },
-  { id: "co-botanica-shampoo", slug: "co-botanica-shampoo", title: ".CO BOTANiCA Coconut Shampoo", subtitle: "Hair care preview", category: "cosmetics", price: { currency: "INR", amount: 39900 }, available: true },
-  { id: "co-botanica-face-wash", slug: "co-botanica-face-wash", title: ".CO BOTANiCA Coconut Face Wash", subtitle: "Face care preview", category: "cosmetics", price: { currency: "INR", amount: 39900 }, available: true },
-  { id: "co-botanica-hair-serum", slug: "co-botanica-hair-serum", title: ".CO BOTANiCA Coconut Hair Serum", subtitle: "Hair care preview", category: "cosmetics", price: { currency: "INR", amount: 49900 }, available: true },
-  { id: "co-botanica-body-moisturizer", slug: "co-botanica-body-moisturizer", title: ".CO BOTANiCA Coconut Body Moisturizer", subtitle: "Body care preview", category: "cosmetics", price: { currency: "INR", amount: 49900 }, available: true }
-];
+const catalog: ApiProduct[] = commerceCatalog.map((product) => ({
+  id: product.id,
+  slug: product.slug,
+  title: product.title,
+  subtitle: product.subtitle,
+  category: product.category,
+  price: { currency: "INR", amount: product.amount },
+  available: product.available,
+  ...(product.variants ? {
+    variants: product.variants.map((variant) => ({
+      id: variant.id,
+      sku: variant.sku,
+      label: variant.label,
+      price: { currency: "INR", amount: variant.amount },
+      available: variant.available
+    }))
+  } : {})
+}));
 
 // Compatibility aliases for the initial API contract. They are not exposed as
 // duplicate storefront products.

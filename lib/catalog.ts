@@ -1,5 +1,6 @@
 import { publicAssets } from "@/lib/public-assets";
 import { productGalleries } from "@/lib/website-assets";
+import { commerceCatalog } from "@dotco/contracts";
 
 export type ProductStatus = "coming-soon" | "preview";
 
@@ -24,14 +25,11 @@ export const productCategories = ["Coconut Water", "Ice Cream", "Kitchen", "BOTA
 const approvedProductImage = (id: string) => productGalleries[id]?.primary ?? publicAssets.water.floating;
 const approvedProductHover = (id: string) => productGalleries[id]?.gallery[1]?.src ?? productGalleries[id]?.primary;
 
-export const shopProducts: ShopProduct[] = [
+type ShopProductPresentation = Omit<ShopProduct, "name" | "category" | "format" | "status" | "price">;
+
+const shopProductPresentation: ShopProductPresentation[] = [
   {
     slug: "co-water",
-    name: ".CO Water",
-    category: "Coconut Water",
-    format: "Chilled bottle",
-    status: "coming-soon",
-    price: 60,
     image: approvedProductImage("water"),
     hoverImage: approvedProductHover("water"),
     shortDescription: "Tender coconut water with a clean, easy taste for everyday refreshment.",
@@ -42,11 +40,6 @@ export const shopProducts: ShopProduct[] = [
   },
   {
     slug: "melt-co-mango-coconut",
-    name: "MELT.CO Mango Coconut",
-    category: "Ice Cream",
-    format: "Frozen dessert",
-    status: "coming-soon",
-    price: 220,
     image: approvedProductImage("melt"),
     hoverImage: approvedProductHover("melt"),
     shortDescription: "A coconut-led frozen dessert with mango brightness and a smooth, sunny finish.",
@@ -57,11 +50,6 @@ export const shopProducts: ShopProduct[] = [
   },
   {
     slug: "co-kitchen-coconut-oil",
-    name: ".CO Kitchen Coconut Oil",
-    category: "Kitchen",
-    format: "Kitchen staple",
-    status: "preview",
-    price: 250,
     image: approvedProductImage("kitchen-oil"),
     hoverImage: approvedProductHover("kitchen-oil"),
     shortDescription: "A coconut kitchen staple for simple cooking, finishing, and everyday pantry use.",
@@ -72,11 +60,6 @@ export const shopProducts: ShopProduct[] = [
   },
   {
     slug: "co-kitchen-coconut-flour",
-    name: ".CO Kitchen Coconut Flour",
-    category: "Kitchen",
-    format: "Pantry staple",
-    status: "preview",
-    price: 180,
     image: approvedProductImage("kitchen-flour"),
     hoverImage: approvedProductHover("kitchen-flour"),
     shortDescription: "Finely milled coconut flour for baking, breakfast bowls, and everyday pantry use.",
@@ -87,11 +70,6 @@ export const shopProducts: ShopProduct[] = [
   },
   {
     slug: "co-kitchen-coconut-milk",
-    name: ".CO Kitchen Coconut Milk",
-    category: "Kitchen",
-    format: "Cooking essential",
-    status: "preview",
-    price: 180,
     image: approvedProductImage("kitchen-milk"),
     hoverImage: approvedProductHover("kitchen-milk"),
     shortDescription: "A smooth coconut milk direction for curries, desserts, drinks, and daily cooking.",
@@ -102,11 +80,6 @@ export const shopProducts: ShopProduct[] = [
   },
   {
     slug: "co-botanica-shampoo",
-    name: ".CO BOTANiCA Coconut Shampoo",
-    category: "BOTANiCA",
-    format: "Hair care preview",
-    status: "preview",
-    price: 399,
     image: approvedProductImage("botanica-shampoo"),
     hoverImage: approvedProductHover("botanica-shampoo"),
     shortDescription: "A gentle coconut-led shampoo direction for a clean, balanced wash ritual.",
@@ -117,11 +90,6 @@ export const shopProducts: ShopProduct[] = [
   },
   {
     slug: "co-botanica-face-wash",
-    name: ".CO BOTANiCA Coconut Face Wash",
-    category: "BOTANiCA",
-    format: "Face care preview",
-    status: "preview",
-    price: 399,
     image: approvedProductImage("botanica-face-wash"),
     hoverImage: approvedProductHover("botanica-face-wash"),
     shortDescription: "A calm daily cleanse inspired by coconut botanicals.",
@@ -132,11 +100,6 @@ export const shopProducts: ShopProduct[] = [
   },
   {
     slug: "co-botanica-hair-serum",
-    name: ".CO BOTANiCA Coconut Hair Serum",
-    category: "BOTANiCA",
-    format: "Hair care preview",
-    status: "preview",
-    price: 499,
     image: approvedProductImage("botanica-hair-serum"),
     hoverImage: approvedProductHover("botanica-hair-serum"),
     shortDescription: "A lightweight coconut botanical serum direction for an easy finishing ritual.",
@@ -147,11 +110,6 @@ export const shopProducts: ShopProduct[] = [
   },
   {
     slug: "co-botanica-body-moisturizer",
-    name: ".CO BOTANiCA Coconut Body Moisturizer",
-    category: "BOTANiCA",
-    format: "Body care preview",
-    status: "preview",
-    price: 499,
     image: approvedProductImage("botanica-moisturizer"),
     hoverImage: approvedProductHover("botanica-moisturizer"),
     shortDescription: "A soft coconut botanical moisturizer direction for daily body care.",
@@ -161,6 +119,22 @@ export const shopProducts: ShopProduct[] = [
     availability: "Care preview. No treatment or medical claims are made."
   }
 ];
+
+const presentationBySlug = new Map(shopProductPresentation.map((product) => [product.slug, product]));
+
+export const shopProducts: ShopProduct[] = commerceCatalog.map((product) => {
+  const presentation = presentationBySlug.get(product.slug);
+  if (!presentation) throw new Error(`Missing storefront presentation for ${product.slug}.`);
+  return {
+    ...presentation,
+    slug: product.slug,
+    name: product.title,
+    category: product.categoryLabel,
+    format: product.subtitle,
+    status: product.storefrontStatus,
+    price: product.amount / 100
+  };
+});
 
 export const recipeCategories = [
   "All recipes",

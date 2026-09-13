@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { DeleteCommand, GetCommand, PutCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
+import { DeleteCommand, GetCommand, PutCommand, QueryCommand, TransactWriteCommand } from "@aws-sdk/lib-dynamodb";
 import { getDocumentClient } from "../repositories/dynamodb.js";
 import { getEnv } from "../config/env.js";
 import type { AuthenticatedUser } from "../types/context.js";
@@ -280,17 +280,36 @@ export function removeContentItem(userId: string, kind: SavedContentKind, itemId
 }
 
 export type StoredAddress = AddressInput & { addressId: string; createdAt: string; updatedAt: string };
+type StoredAddressRecord = StoredAddress & { PK: string; SK: string; userId: string };
+type DefaultAddressPointer = { PK: string; SK: "DEFAULT_ADDRESS"; userId: string; addressId: string | null; updatedAt: string };
+const defaultAddressKey = "DEFAULT_ADDRESS";
+
+async function getDefaultAddressPointer(userId: string) {
+  return read<DefaultAddressPointer>(userId, defaultAddressKey);
+}
+
+function presentAddresses(records: StoredAddress[], pointer: DefaultAddressPointer | null) {
+  const pointedId = pointer && records.some((record) => record.addressId === pointer.addressId) ? pointer.addressId : null;
+  const legacyId = pointer ? null : records
+    .filter((record) => record.isDefault)
+    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt) || a.addressId.localeCompare(b.addressId))[0]?.addressId ?? null;
+  const defaultId = pointedId ?? legacyId;
+  return records.map((record) => ({ ...record, isDefault: record.addressId === defaultId }));
+}
+
 export async function listAddresses(userId: string) {
+  const pointerPromise = getDefaultAddressPointer(userId);
   if (isLocal()) {
     const prefix = `USER#${userId}#ADDRESS#`;
-    return { items: [...memory.entries()].filter(([entryKey]) => entryKey.startsWith(prefix)).map(([, value]) => value as unknown as StoredAddress) };
+    const records = [...memory.entries()].filter(([entryKey]) => entryKey.startsWith(prefix)).map(([, value]) => value as unknown as StoredAddress);
+    return { items: presentAddresses(records, await pointerPromise) };
   }
   const result = await getDocumentClient().send(new QueryCommand({
     TableName: getEnv().COMMERCE_TABLE_NAME,
     KeyConditionExpression: "PK = :pk AND begins_with(SK, :sk)",
     ExpressionAttributeValues: { ":pk": `USER#${userId}`, ":sk": "ADDRESS#" }
   }));
-  return { items: (result.Items ?? []).map((item) => item as unknown as StoredAddress) };
+  return { items: presentAddresses((result.Items ?? []).map((item) => item as unknown as StoredAddress), await pointerPromise) };
 }
 
 function normalizeAddress(input: AddressInput): AddressInput {
@@ -298,28 +317,80 @@ function normalizeAddress(input: AddressInput): AddressInput {
 }
 
 export async function getAddress(userId: string, addressId: string) {
-  return read<StoredAddress>(userId, `ADDRESS#${addressId}`);
+  const [address, pointer] = await Promise.all([
+    read<StoredAddress>(userId, `ADDRESS#${addressId}`),
+    getDefaultAddressPointer(userId)
+  ]);
+  if (!address) return null;
+  return { ...address, isDefault: pointer ? pointer.addressId === addressId : address.isDefault };
 }
 
 export async function saveAddress(userId: string, input: AddressInput, addressId: string = crypto.randomUUID(), requireExisting = false) {
   const now = new Date().toISOString();
-  const existing = await getAddress(userId, addressId);
+  const [existing, currentPointer] = await Promise.all([
+    read<StoredAddressRecord>(userId, `ADDRESS#${addressId}`),
+    getDefaultAddressPointer(userId)
+  ]);
   if (requireExisting && !existing) throw notFound("Address not found.");
   const normalized = normalizeAddress(input);
-  if (normalized.isDefault) {
-    const addresses = await listAddresses(userId);
-    await Promise.all(addresses.items.filter((item) => item.isDefault && item.addressId !== addressId).map((item) => write({ ...item, userId, PK: `USER#${userId}`, SK: `ADDRESS#${item.addressId}`, isDefault: false, updatedAt: now })));
+  const address: StoredAddressRecord = { PK: `USER#${userId}`, SK: `ADDRESS#${addressId}`, userId, addressId, ...normalized, isDefault: false, createdAt: existing?.createdAt ?? now, updatedAt: now };
+  const pointer: DefaultAddressPointer = { PK: `USER#${userId}`, SK: defaultAddressKey, userId, addressId, updatedAt: now };
+  const emptyPointer: DefaultAddressPointer = { ...pointer, addressId: null };
+  if (isLocal()) {
+    memory.set(key(userId, address.SK), address);
+    if (normalized.isDefault) memory.set(key(userId, defaultAddressKey), pointer);
+    else if (currentPointer?.addressId === addressId && (memory.get(key(userId, defaultAddressKey)) as DefaultAddressPointer | undefined)?.addressId === addressId) {
+      memory.set(key(userId, defaultAddressKey), emptyPointer);
+    }
+    return { ...address, isDefault: normalized.isDefault };
   }
-  const address = { PK: `USER#${userId}`, SK: `ADDRESS#${addressId}`, userId, addressId, ...normalized, createdAt: existing?.createdAt ?? now, updatedAt: now };
-  await write(address);
-  return address;
+  const tableName = getEnv().COMMERCE_TABLE_NAME;
+  if (normalized.isDefault) {
+    await getDocumentClient().send(new TransactWriteCommand({ TransactItems: [
+      { Put: { TableName: tableName, Item: address } },
+      { Put: { TableName: tableName, Item: pointer } }
+    ] }));
+  } else if (currentPointer?.addressId === addressId) {
+    try {
+      await getDocumentClient().send(new TransactWriteCommand({ TransactItems: [
+        { Put: { TableName: tableName, Item: address } },
+        { Put: { TableName: tableName, Item: emptyPointer, ConditionExpression: "addressId = :addressId", ExpressionAttributeValues: { ":addressId": addressId } } }
+      ] }));
+    } catch (error) {
+      if (!(error instanceof Error) || error.name !== "TransactionCanceledException") throw error;
+      await write(address);
+    }
+  } else await write(address);
+  return { ...address, isDefault: normalized.isDefault };
 }
 
 export async function deleteAddress(userId: string, addressId: string) {
-  const existing = await getAddress(userId, addressId);
+  const [existing, pointer] = await Promise.all([
+    read<StoredAddressRecord>(userId, `ADDRESS#${addressId}`),
+    getDefaultAddressPointer(userId)
+  ]);
   if (!existing) throw notFound("Address not found.");
-  if (isLocal()) { memory.delete(key(userId, `ADDRESS#${addressId}`)); return existing; }
-  await getDocumentClient().send(new DeleteCommand({ TableName: getEnv().COMMERCE_TABLE_NAME, Key: { PK: `USER#${userId}`, SK: `ADDRESS#${addressId}` }, ConditionExpression: "attribute_exists(PK)" }));
+  if (isLocal()) {
+    memory.delete(key(userId, `ADDRESS#${addressId}`));
+    if (pointer?.addressId === addressId && (memory.get(key(userId, defaultAddressKey)) as DefaultAddressPointer | undefined)?.addressId === addressId) {
+      memory.set(key(userId, defaultAddressKey), { ...pointer, addressId: null, updatedAt: new Date().toISOString() });
+    }
+    return { ...existing, isDefault: pointer?.addressId === addressId };
+  }
+  const tableName = getEnv().COMMERCE_TABLE_NAME;
+  if (pointer?.addressId === addressId) {
+    const emptyPointer: DefaultAddressPointer = { ...pointer, addressId: null, updatedAt: new Date().toISOString() };
+    try {
+      await getDocumentClient().send(new TransactWriteCommand({ TransactItems: [
+        { Delete: { TableName: tableName, Key: { PK: `USER#${userId}`, SK: `ADDRESS#${addressId}` }, ConditionExpression: "attribute_exists(PK)" } },
+        { Put: { TableName: tableName, Item: emptyPointer, ConditionExpression: "addressId = :addressId", ExpressionAttributeValues: { ":addressId": addressId } } }
+      ] }));
+      return { ...existing, isDefault: true };
+    } catch (error) {
+      if (!(error instanceof Error) || error.name !== "TransactionCanceledException") throw error;
+    }
+  }
+  await getDocumentClient().send(new DeleteCommand({ TableName: tableName, Key: { PK: `USER#${userId}`, SK: `ADDRESS#${addressId}` }, ConditionExpression: "attribute_exists(PK)" }));
   return existing;
 }
 

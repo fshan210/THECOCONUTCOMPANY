@@ -20,6 +20,7 @@ import type {
   HomepageContent,
   SeoMetadataContent
 } from "@/lib/content/types";
+import { projectStorefrontCatalog } from "@/lib/content/catalog-authority";
 
 const cacheSeconds = 300;
 
@@ -31,7 +32,7 @@ function mergeById<T extends { id: string; publicationStatus: string }>(fallback
 
 const cachedProducts = unstable_cache(async () => {
   try {
-    const products = mergeById(fallbackProducts, await getContentSource().getProducts(true));
+    const products = projectStorefrontCatalog(fallbackProducts, await getContentSource().getProducts(true));
     return products.length ? products : fallbackProducts;
   } catch {
     return fallbackProducts;
