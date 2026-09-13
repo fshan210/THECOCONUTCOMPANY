@@ -457,7 +457,7 @@
   .heroCopy h1 { font-size: clamp(56px, 17vw, 74px); }
   .heroCopy p { margin: 20px 0 16px; font-size: 13px; }
   .seal { top: 125px; right: 20px; bottom: auto; width: 104px; }
-  .scrollCue { bottom: 46px; }
+  .scrollCue { bottom: calc(var(--co-mobile-content-clearance) + 20px); }
   .anatomy { min-height: 1180px; padding: 120px 0 90px; }
   .anatomyStage { width: calc(100% - 24px); height: 850px; margin-top: 35px; }
   .splitCoconut { top: 13%; width: 96vw; height: 430px; }

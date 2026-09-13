@@ -1060,7 +1060,7 @@
 }
 @media (max-width: 768px) {
   .recipe-hero {
-    min-height: 760px;
+    min-height: calc(100svh + 12px);
   }
   .recipe-hero-copy {
     width: 100%;
@@ -1079,6 +1079,9 @@
       rgba(9, 5, 3, 0.92) 62%,
       #100906
     );
+  }
+  .recipe-categories {
+    margin-top: 0;
   }
   .recipe-culture {
     min-height: 760px;
@@ -1199,6 +1202,11 @@
   }
   .rd-newsletter {
     margin-top: 30px;
+  }
+}
+@media (max-width: 390px) {
+  .recipe-hero-copy {
+    padding-top: 350px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

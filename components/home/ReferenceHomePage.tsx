@@ -222,9 +222,11 @@ export function ReferenceHeader() {
   const shopShell = pathname === "/shop" || pathname.startsWith("/shop/");
   const homeShell = pathname === "/";
   const authShell = ["/login", "/register", "/forgot-password", "/reset-password", "/verify-email", "/email-verified"].includes(pathname);
-  const cinematicShell = homeShell || pathname === "/about" || authShell || isCommerceRoute(pathname);
+  const cinematicShell = homeShell || pathname === "/about" || pathname === "/sustainability" || pathname === "/founders" || pathname.startsWith("/journal") || authShell || isCommerceRoute(pathname);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
   const session = useCustomerSession();
   const greeting = customerGreeting(session);
   const accountHref = session ? "/account" : "/login?redirect=%2Faccount";
@@ -233,7 +235,13 @@ export function ReferenceHeader() {
   useMotionValueEvent(scrollY, "change", (latest) => setScrolled((current) => current === (latest > 460) ? current : latest > 460));
   useEffect(() => {
     if (!menuOpen) return;
-    const close = (event: KeyboardEvent) => { if (event.key === "Escape") setMenuOpen(false); };
+    const firstLink = menuRef.current?.querySelector<HTMLElement>("a");
+    window.requestAnimationFrame(() => firstLink?.focus());
+    const close = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setMenuOpen(false);
+      window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+    };
     window.addEventListener("keydown", close);
     return () => window.removeEventListener("keydown", close);
   }, [menuOpen]);
@@ -254,7 +262,7 @@ export function ReferenceHeader() {
       </AnimatePresence>
       <motion.header
         initial={false}
-        animate={{ width: "min(1320px, calc(100% - 28px))", top: 10, borderRadius: 26, minHeight: scrolled ? 66 : 70, backgroundColor: shopShell || cinematicShell ? "rgba(57,28,17,.78)" : scrolled ? "rgba(248,244,236,.88)" : "rgba(134,72,41,.48)", boxShadow: shopShell || cinematicShell ? "inset 0 1px 0 rgba(255,239,219,.12), 0 16px 44px rgba(18,7,3,.22)" : scrolled ? "inset 0 1px 0 rgba(255,255,255,.88), 0 16px 44px rgba(29,13,7,.20)" : "inset 0 1px 0 rgba(255,239,219,.18), 0 16px 44px rgba(29,13,7,.12)" }}
+        animate={{ width: "min(1320px, calc(100% - 28px))", top: "calc(env(safe-area-inset-top, 0px) + 10px)", borderRadius: 26, minHeight: scrolled ? 66 : 70, backgroundColor: shopShell || cinematicShell ? "rgba(57,28,17,.9)" : scrolled ? "rgba(248,244,236,.88)" : "rgba(134,72,41,.48)", boxShadow: shopShell || cinematicShell ? "inset 0 1px 0 rgba(255,239,219,.12), 0 16px 44px rgba(18,7,3,.22)" : scrolled ? "inset 0 1px 0 rgba(255,255,255,.88), 0 16px 44px rgba(29,13,7,.20)" : "inset 0 1px 0 rgba(255,239,219,.18), 0 16px 44px rgba(29,13,7,.12)" }}
         transition={{ duration: 0.42, ease }}
         style={{ backdropFilter: "blur(14px) saturate(1.08)", WebkitBackdropFilter: "blur(14px) saturate(1.08)" }}
         className={cn("co-glass-header fixed left-1/2 top-2.5 z-[110] flex min-h-[70px] w-[calc(100%-28px)] -translate-x-1/2 items-center rounded-[26px] px-5 md:px-8", shopShell || cinematicShell || !scrolled ? "border border-[#f5dbbc]/20 text-[#fff7e9]" : "border border-white/55 text-[#17130f]")}
@@ -276,9 +284,11 @@ export function ReferenceHeader() {
             </Link>
             <CartButton showZero className="!size-10 !rounded-full !border-0 !bg-transparent !shadow-none hover:!bg-white/70" />
             <button
+              ref={menuButtonRef}
               type="button"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
+              aria-controls="co-mobile-navigation"
               onClick={() => setMenuOpen((value) => !value)}
               className="absolute left-3 grid size-10 place-items-center rounded-full lg:hidden"
             >
@@ -289,12 +299,14 @@ export function ReferenceHeader() {
         <AnimatePresence>
           {menuOpen ? (
             <motion.nav
+              ref={menuRef}
+              id="co-mobile-navigation"
               aria-label="Mobile navigation"
               initial={{ opacity: 0, y: -10, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.98 }}
               transition={{ duration: 0.28, ease }}
-              className="absolute left-3 right-3 top-[calc(100%+8px)] max-h-[calc(100dvh-96px)] overflow-y-auto overscroll-contain rounded-[26px] border border-white/70 bg-[rgba(247,242,232,.96)] p-3 shadow-[0_24px_65px_rgba(53,39,30,.16)] backdrop-blur-[22px] [touch-action:pan-y] lg:hidden"
+              className="absolute left-3 right-3 top-[calc(100%+8px)] max-h-[calc(100dvh-112px-env(safe-area-inset-top,0px))] overflow-y-auto overscroll-contain rounded-[26px] border border-[#e09f52]/25 bg-[rgba(29,14,9,.97)] p-3 text-[#f5e4cf] shadow-[0_24px_65px_rgba(8,3,1,.46)] backdrop-blur-[22px] [touch-action:pan-y] lg:hidden"
             >
               {links.map(([label, href]) => {
                 const route = href.split("#")[0];
@@ -306,13 +318,13 @@ export function ReferenceHeader() {
                   prefetch={href === "/" ? false : undefined}
                   aria-current={active ? "page" : undefined}
                   onClick={() => setMenuOpen(false)}
-                  className={cn("block rounded-2xl border-b border-[#35271e]/8 px-4 py-3 text-xs font-semibold uppercase tracking-[.08em] last:border-0", active && "co-nav-active bg-white/68 font-bold text-[#214d2b]")}
+                  className={cn("block min-h-12 rounded-2xl border-b border-[#f5dbbc]/10 px-4 py-3 text-xs font-semibold uppercase tracking-[.08em] text-[#f5e4cf] last:border-0", active && "co-nav-active bg-[#e09f52]/16 font-bold text-[#ffd7a8]")}
                 >
                   {label}
                 </Link>
                 );
               })}
-              <Link href={accountHref} onClick={() => setMenuOpen(false)} className="block px-4 py-3 text-xs font-semibold uppercase tracking-[.08em] text-[#305a34]">
+              <Link href={accountHref} onClick={() => setMenuOpen(false)} className="block min-h-12 px-4 py-3 text-xs font-semibold uppercase tracking-[.08em] text-[#ffd7a8]">
                 {session ? `Hi, ${greeting}` : "Sign in"}
               </Link>
             </motion.nav>
@@ -1638,12 +1650,14 @@ export { NewsletterSection } from "@/components/launch/NewsletterSection";
 
 export function MobileBottomNav() {
   const pathname = usePathname();
-  const homeShell = pathname === "/" || pathname === "/about";
   const items = [[Leaf, "Home", "/"], [ShoppingBag, "Shop", "/shop"], [Grid2X2, "Recipes", "/recipes"], [Heart, "Wishlist", "/wishlist"], [CircleUserRound, "Account", "/account"]] as const;
   return (
-    <nav className={cn("co-mobile-bottom-nav fixed inset-x-0 bottom-0 z-[105] grid grid-cols-5 border-t px-2 pb-[max(6px,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl md:hidden", homeShell ? "border-[#e09f52]/15 bg-[rgba(25,13,8,.92)] text-[#e8d6bd]" : "border-[#35271e]/10 bg-[rgba(250,247,240,.94)]")} aria-label="Mobile quick navigation">
-      {items.map(([Icon, label, href]) => { const active = pathname === href || (href !== "/" && pathname.startsWith(`${href}/`)); return <Link key={label} href={href} prefetch={href === "/" ? false : undefined} aria-current={active ? "page" : undefined} className={cn("flex flex-col items-center gap-1 rounded-2xl py-1 text-[8px] transition", active && (homeShell ? "co-nav-active bg-[#e09f52]/15 font-bold text-[#f7f4ef]" : "co-nav-active bg-white/70 font-bold text-[#305a34]"))}><Icon size={17} strokeWidth={1.6} /><span>{label}</span></Link>; })}
-    </nav>
+    <>
+      <div className="co-mobile-bottom-nav-spacer md:hidden" aria-hidden="true" />
+      <nav className="co-mobile-bottom-nav fixed inset-x-0 bottom-0 z-[105] grid grid-cols-5 border-t border-[#e09f52]/15 bg-[rgba(25,13,8,.94)] px-2 pb-[max(6px,env(safe-area-inset-bottom))] pt-2 text-[#e8d6bd] backdrop-blur-xl md:hidden" aria-label="Mobile quick navigation">
+        {items.map(([Icon, label, href]) => { const active = pathname === href || (href !== "/" && pathname.startsWith(`${href}/`)); return <Link key={label} href={href} prefetch={href === "/" ? false : undefined} aria-current={active ? "page" : undefined} className={cn("flex min-h-12 flex-col items-center justify-center gap-1 rounded-2xl px-1 text-[9px] transition", active && "co-nav-active bg-[#e09f52]/15 font-bold text-[#f7f4ef]")}><Icon size={18} strokeWidth={1.6} /><span>{label}</span></Link>; })}
+      </nav>
+    </>
   );
 }
 

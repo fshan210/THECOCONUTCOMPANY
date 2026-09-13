@@ -57,6 +57,7 @@ test("cart merge ignores invalid catalog lines and retry does not duplicate", as
 test("saved-content API persists wishlist and recipe toggles", async () => {
   const app = createApp();
   assert.equal((await app.request("/v1/saved", json("POST", { kind: "product", itemId: "co-water", idempotencyKey: "api-save-product-1" }))).status, 202);
+  assert.equal((await app.request("/v1/saved", json("POST", { kind: "product", itemId: "co-water", idempotencyKey: "api-save-product-1" }))).status, 202);
   assert.equal((await app.request("/v1/saved", json("POST", { kind: "recipe", itemId: "coconut-mango-cooler", idempotencyKey: "api-save-recipe-01" }))).status, 202);
   let response = await app.request("/v1/wishlist");
   let body = await response.json() as { data: { productIds: string[]; recipeIds: string[] } };
@@ -66,6 +67,9 @@ test("saved-content API persists wishlist and recipe toggles", async () => {
   assert.equal(response.status, 200);
   body = await (await app.request("/v1/wishlist")).json() as typeof body;
   assert.deepEqual(body.data.recipeIds, []);
+  assert.equal((await app.request("/v1/saved/product/co-water?idempotencyKey=api-remove-product1", { method: "DELETE" })).status, 200);
+  body = await (await app.request("/v1/wishlist")).json() as typeof body;
+  assert.deepEqual(body.data.productIds, []);
 });
 
 test("address API enforces existing-resource edit/delete and one default", async () => {

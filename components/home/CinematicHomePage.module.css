@@ -5,3 +5,6 @@
 @media(max-width:430px){.hero{min-height:1080px}.heroVisual{top:265px;height:500px}.benefits{top:650px}.benefits article>svg{padding:8px}.benefits strong{font-size:8px}.productRail header{min-height:150px}.productRail h2{max-width:9ch;font-size:24px}.productRail nav{margin-top:6px}.productScroller{grid-template-columns:repeat(6,154px)}.productCard{grid-template-columns:72px 1fr}.productImage{height:112px}.origin{min-height:650px}.originTitle strong{font-size:48px}.routineProduct{min-width:150px}.routineCards article{min-width:86vw}.sectionHeader h2,.sectionIntro h2,.recipeIntro h2{font-size:48px}.sustainabilityCopy h2{font-size:58px}.safeCounters{grid-template-columns:1fr 1fr}.safeCounters article{padding:15px}.newsletter h2{font-size:50px}.newsletterForm{padding:12px}}
 @media(prefers-reduced-motion:reduce){.coconut,.currentLine{animation:none}.productCard,.momentRail figure{transition:none}.scrub{height:auto}.scrubStage{position:relative;height:100svh}.scrubOriginPreview{display:none}}
 .environmentPlate{overflow:hidden}.environmentPlateImage{object-fit:cover}
+.scrubStage>video{position:absolute;inset:0;transition:opacity .35s ease}
+.filmButton{text-align:left}
+@media(max-width:800px){.hero{min-height:calc(100svh + 346px + var(--co-mobile-content-clearance))}}

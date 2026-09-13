@@ -611,7 +611,7 @@
 }
 
 @media (max-width: 767px) {
-  .co-shop-hero { min-height: 760px; padding: 104px 16px 18px; }
+  .co-shop-hero { min-height: calc(100svh + 12px); padding: 104px 16px 18px; }
   .co-shop-hero__environment { background-image: url('/assets/redesign/shop/backgrounds/1.png'); background-position: center; opacity: .78; }
   .co-shop-hero__film { opacity: .06; }
   .co-shop-hero__veil { background: linear-gradient(180deg,rgba(17,7,4,.58) 0%,rgba(20,9,5,.82) 47%,rgba(24,11,7,.12) 73%,#1d0e09 100%); }
@@ -638,25 +638,29 @@
   .co-shop-product-card { min-height: 0; }
   .co-shop-product-card__image { aspect-ratio: .86; }
   .co-shop-product-card h2 { min-height: 40px; }
-  .co-shop-ritual { min-height: 0; padding: 70px 10px 20px; }
-  .co-shop-ritual__canvas { height: clamp(900px,246vw,960px); aspect-ratio: auto; background-image: url('/assets/redesign/shop/backgrounds/build your ritual-mobile.png'); background-size: 100% 100%; }
-  .co-shop-ritual__copy { top: 3.5%; left: 6%; width: 88%; }
-  .co-shop-ritual__copy h2 { max-width: 10ch; margin-top: 3%; font-size: clamp(42px,12.5vw,60px); }
-  .co-shop-ritual__copy > p:nth-of-type(2) { max-width: 40ch; margin-top: 4%; font-size: 11px; line-height: 1.55; }
-  .co-shop-ritual__promises { gap: 8px; margin-top: 4%; font-size: 9px; }
-  .co-shop-ritual__promises svg { padding: 5px; }
-  .co-shop-ritual__slots { top: 39.2%; right: 10.6%; width: 78.8%; height: 19.1%; gap: 1.3%; }
-  .co-shop-ritual__product { inset: 7% 5% 2%; }
-  .co-shop-ritual__product button { width: 24px; height: 24px; }
-  .co-shop-ritual__summary { top: 60%; right: 10.5%; width: 79%; grid-template-columns: 1fr 1fr; gap: 8px; padding: 3.6% 3.2%; }
-  .co-shop-ritual__summary strong { font-size: clamp(16px,5.5vw,24px); }
-  .co-shop-ritual__summary > button { grid-column: 1/-1; min-height: 42px; }
-  .co-shop-ritual__summary > p { font-size: 7px; }
-  .co-shop-ritual__benefits { right: 7.3%; bottom: 11.6%; left: 7.3%; height: 9.5%; grid-template-columns: repeat(2,1fr); row-gap: 8px; }
-  .co-shop-ritual__benefits > div { justify-content: flex-start; gap: 8px; }
-  .co-shop-ritual__benefits svg { width: 18px; }
-  .co-shop-ritual__benefits strong { font-size: 8px; }
-  .co-shop-ritual__benefits small { font-size: 7px; }
+  .co-shop-ritual { min-height: 0; padding: 70px 12px 24px; }
+  .co-shop-ritual__canvas { display: grid; height: auto; aspect-ratio: auto; gap: 18px; border: 1px solid rgba(224,159,82,.17); border-radius: 30px; padding: 26px 14px 16px; background-image: linear-gradient(180deg,rgba(31,14,8,.58),rgba(20,9,5,.86)),url('/assets/redesign/shop/backgrounds/build your ritual-mobile.png'); background-position: center top; background-size: cover; box-shadow: inset 0 1px rgba(255,235,212,.08),0 22px 54px rgba(0,0,0,.28); }
+  .co-shop-ritual__copy { position: relative; top: auto; left: auto; width: auto; padding: 0 6px; }
+  .co-shop-ritual__copy h2 { max-width: 9ch; margin-top: 12px; font-size: clamp(42px,12vw,56px); }
+  .co-shop-ritual__copy > p:nth-of-type(2) { max-width: 40ch; margin-top: 18px; font-size: 12px; line-height: 1.6; }
+  .co-shop-ritual__promises { gap: 10px; margin-top: 20px; font-size: 10px; }
+  .co-shop-ritual__promises span { min-height: 32px; }
+  .co-shop-ritual__promises svg { flex: 0 0 auto; padding: 6px; }
+  .co-shop-ritual__slots { position: relative; top: auto; right: auto; width: auto; height: auto; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+  .co-shop-ritual__slot { min-height: 190px; overflow: hidden; border: 1px solid rgba(224,159,82,.2); border-radius: 20px; background: linear-gradient(155deg,rgba(84,43,24,.54),rgba(36,17,10,.7)); box-shadow: inset 0 1px rgba(255,232,205,.06); }
+  .co-shop-ritual__product { position: relative; inset: auto; width: 100%; height: 190px; padding: 8px; }
+  .co-shop-ritual__product button { top: 6px; right: 6px; width: 44px; height: 44px; background: rgba(43,21,13,.94); }
+  .co-shop-ritual__add { min-height: 190px; }
+  .co-shop-ritual__summary { position: relative; top: auto; right: auto; width: auto; grid-template-columns: 1fr 1fr; gap: 14px 10px; border: 1px solid rgba(224,159,82,.18); border-radius: 22px; padding: 20px 16px 16px; background: rgba(32,15,9,.76); }
+  .co-shop-ritual__summary small { font-size: 8px; }
+  .co-shop-ritual__summary strong { font-size: clamp(22px,7vw,30px); }
+  .co-shop-ritual__summary > button { grid-column: 1/-1; min-height: 52px; }
+  .co-shop-ritual__summary > p { margin-top: 0; font-size: 8px; line-height: 1.45; }
+  .co-shop-ritual__benefits { position: relative; right: auto; bottom: auto; left: auto; height: auto; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+  .co-shop-ritual__benefits > div { min-height: 74px; justify-content: flex-start; gap: 10px; border: 1px solid rgba(224,159,82,.12); border-radius: 16px; padding: 12px; background: rgba(35,16,10,.54); }
+  .co-shop-ritual__benefits svg { width: 20px; flex: 0 0 auto; }
+  .co-shop-ritual__benefits strong { font-size: 9px; }
+  .co-shop-ritual__benefits small { font-size: 8px; line-height: 1.4; }
   .co-shop-curated-section { padding: 62px 14px 96px; background-image: linear-gradient(180deg,rgba(18,8,5,.38),rgba(16,7,4,.62)),url('/assets/redesign/shop/backgrounds/4.png'); background-position: 64% center; }
   .co-shop-curated__heading { padding-inline: 2px; }
   .co-shop-curated__rail { display: flex; gap: 12px; overflow-x: auto; margin-top: 25px; padding-bottom: 8px; scroll-padding-inline: 0; scroll-snap-type: x mandatory; scrollbar-width: none; }
@@ -2683,7 +2687,14 @@ html {
 .co-shop-filter-sheet__close { border: 1px solid rgba(233,178,122,.24); color: #f0c497; background: rgba(48,22,13,.56); box-shadow: inset 0 1px rgba(255,255,255,.07); }
 
 /* Persistent document canvas beneath streamed route content and overscroll. */
-:root { --co-document-canvas: #0a0908; }
+:root {
+  --co-document-canvas: #0a0908;
+  --co-mobile-bottom-nav-height: 64px;
+  --co-mobile-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --co-mobile-content-clearance: calc(var(--co-mobile-bottom-nav-height) + var(--co-mobile-safe-bottom) + 12px);
+}
 html { background: var(--co-document-canvas); }
 .co-site-content, [data-motion-element="route-shell"] { min-height: 100svh; background: var(--co-document-canvas); }
 .co-route-pending { min-height: 100svh; background: var(--co-document-canvas); }
+.co-mobile-bottom-nav { min-height: calc(var(--co-mobile-bottom-nav-height) + var(--co-mobile-safe-bottom)); }
+.co-mobile-bottom-nav-spacer { height: var(--co-mobile-content-clearance); background: #0a0908; }

@@ -8,7 +8,7 @@ import { Menu, Search, UserRound, X } from "lucide-react";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { isAccountRoute } from "@/lib/account/routes";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CartButton } from "@/components/cart/CartDrawer";
 import { useCustomerSession } from "@/components/auth/CustomerAuthProvider";
 import { customerGreeting } from "@/lib/customer/display-name";
@@ -30,6 +30,8 @@ const cinematicAuthRoutes = new Set(["/login", "/register", "/forgot-password", 
 export function Navigation() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const session = useCustomerSession();
   const greeting = customerGreeting(session);
   const accountHref = session ? "/account" : "/login?redirect=%2Faccount";
@@ -40,6 +42,18 @@ export function Navigation() {
   const headerWidth = useTransform(scrollY, [0, 90], ["100%", "min(1180px, calc(100% - 32px))"]);
   const headerRadius = useTransform(scrollY, [0, 90], ["0px", "40px"]);
   const headerTop = useTransform(scrollY, [0, 90], ["0px", "14px"]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    window.requestAnimationFrame(() => menuRef.current?.querySelector<HTMLElement>("a")?.focus());
+    const close = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, [open]);
 
   const configuredAdminPath = getAdminPath();
   if (isCommerceRoute(pathname)) return <ReferenceHeader />;
@@ -125,9 +139,11 @@ export function Navigation() {
             </Link>
             <CartButton showZero className="co-mobile-cart h-11 w-11 rounded-[24px]" />
             <button
+              ref={menuButtonRef}
               type="button"
               aria-label="Toggle navigation"
               aria-expanded={open}
+              aria-controls="co-standard-mobile-navigation"
               onClick={() => setOpen((value) => !value)}
               className="co-mobile-menu grid h-11 w-11 place-items-center rounded-[24px] text-[var(--co-ink)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[rgba(244,201,93,0.72)]"
             >
@@ -138,11 +154,13 @@ export function Navigation() {
         <AnimatePresence>
           {open ? (
             <motion.div
+              ref={menuRef}
+              id="co-standard-mobile-navigation"
               initial={{ opacity: 0, scale: 0.98, y: -8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.98, y: -8 }}
               transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-              className="mx-3 mb-3 rounded-[32px] border border-[var(--co-border)] bg-[var(--co-white)] p-4 shadow-[0_18px_48px_rgba(58,36,22,0.08)] lg:hidden"
+              className="mx-3 mb-3 max-h-[calc(100dvh-110px-env(safe-area-inset-top,0px))] overflow-y-auto overscroll-contain rounded-[32px] border border-[#e09f52]/25 bg-[rgba(29,14,9,.97)] p-4 text-[#f5e4cf] shadow-[0_18px_48px_rgba(8,3,1,.42)] [touch-action:pan-y] lg:hidden"
             >
               {links.map((link) => {
                 const route = link.href.split("#")[0];
@@ -155,25 +173,25 @@ export function Navigation() {
                     data-analytics="cta_click"
                     data-analytics-label={`mobile_nav_${link.label.toLowerCase()}`}
                     onClick={() => setOpen(false)}
-                    className={`block rounded-2xl border-b border-[var(--co-border)] px-3 py-4 text-sm font-bold uppercase tracking-[0.12em] last:border-0 ${active ? "co-nav-active bg-white/68 text-[var(--co-palm)]" : "text-[var(--co-muted)]"}`}
+                    className={`block min-h-12 rounded-2xl border-b border-[#f5dbbc]/10 px-3 py-4 text-sm font-bold uppercase tracking-[0.12em] last:border-0 ${active ? "co-nav-active bg-[#e09f52]/16 text-[#ffd7a8]" : "text-[#f5e4cf]"}`}
                   >
                     {link.label}
                   </Link>
                 );
               })}
-              <Link href="/wishlist" prefetch={false} onClick={() => setOpen(false)} className="block border-b border-[var(--co-border)] py-4 text-sm font-bold uppercase tracking-[0.12em] text-[var(--co-muted)]">
+              <Link href="/wishlist" prefetch={false} onClick={() => setOpen(false)} className="block min-h-12 border-b border-[#f5dbbc]/10 py-4 text-sm font-bold uppercase tracking-[0.12em] text-[#f5e4cf]">
                 Wishlist
               </Link>
-              <Link href={accountHref} prefetch={false} onClick={() => setOpen(false)} className="block py-4 text-sm font-bold uppercase tracking-[0.12em] text-[var(--co-ink)]">
+              <Link href={accountHref} prefetch={false} onClick={() => setOpen(false)} className="block min-h-12 py-4 text-sm font-bold uppercase tracking-[0.12em] text-[#ffd7a8]">
                 {session ? `Hi, ${greeting}` : "Login"}
               </Link>
               {session ? (
                 <>
-                  <Link href="/orders" onClick={() => setOpen(false)} className="block border-t border-[var(--co-border)] py-4 text-sm font-bold uppercase tracking-[0.12em] text-[var(--co-muted)]">
+                  <Link href="/orders" onClick={() => setOpen(false)} className="block min-h-12 border-t border-[#f5dbbc]/10 py-4 text-sm font-bold uppercase tracking-[0.12em] text-[#f5e4cf]">
                     Orders
                   </Link>
                   <form action={logoutCustomer}>
-                    <button type="submit" className="block w-full py-4 text-left text-sm font-bold uppercase tracking-[0.12em] text-[var(--co-ink)]">
+                    <button type="submit" className="block min-h-12 w-full py-4 text-left text-sm font-bold uppercase tracking-[0.12em] text-[#ffd7a8]">
                       Logout
                     </button>
                   </form>

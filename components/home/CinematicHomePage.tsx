@@ -165,10 +165,64 @@ export function HomePinnedScrubVideo() {
   const hostRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const frameRef = useRef<number | null>(null);
+  const manualPlayIntentRef = useRef(false);
   const reducedMotion = Boolean(useReducedMotion());
   const [progress, setProgress] = useState(0);
+  const [sourceAttached, setSourceAttached] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [inView, setInView] = useState(false);
+  const [mediaVisible, setMediaVisible] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
+
+  useEffect(() => {
+    const mobile = window.matchMedia("(max-width: 800px)");
+    const update = () => setIsMobile(mobile.matches);
+    update();
+    mobile.addEventListener("change", update);
+    return () => mobile.removeEventListener("change", update);
+  }, []);
+
   useEffect(() => {
     if (reducedMotion) return undefined;
+    const host = hostRef.current;
+    if (!host) return undefined;
+    const preloadObserver = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        setSourceAttached(true);
+        preloadObserver.disconnect();
+      }
+    }, { rootMargin: "90% 0px" });
+    const playbackObserver = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.12 });
+    preloadObserver.observe(host);
+    playbackObserver.observe(host);
+    return () => {
+      preloadObserver.disconnect();
+      playbackObserver.disconnect();
+    };
+  }, [reducedMotion]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !sourceAttached || reducedMotion) return undefined;
+    if (!isMobile && !manualPlayIntentRef.current) return undefined;
+    if (isMobile && !inView && !manualPlayIntentRef.current) {
+      video.pause();
+      return undefined;
+    }
+    const play = () => {
+      video.play().catch(() => {
+        manualPlayIntentRef.current = false;
+        setPlaying(false);
+      });
+    };
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) play();
+    else video.addEventListener("canplay", play, { once: true });
+    return () => video.removeEventListener("canplay", play);
+  }, [inView, isMobile, reducedMotion, sourceAttached]);
+
+  useEffect(() => {
+    if (reducedMotion || isMobile || playing) return undefined;
     const update = () => {
       frameRef.current = null;
       const host = hostRef.current;
@@ -192,23 +246,63 @@ export function HomePinnedScrubVideo() {
       window.removeEventListener("resize", schedule);
       if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
     };
-  }, [reducedMotion]);
+  }, [isMobile, playing, reducedMotion]);
+
+  const togglePlayback = () => {
+    const video = videoRef.current;
+    if (!video || reducedMotion || videoFailed) return;
+    if (!sourceAttached) {
+      manualPlayIntentRef.current = true;
+      setSourceAttached(true);
+      return;
+    }
+    if (video.paused) {
+      manualPlayIntentRef.current = true;
+      video.play().catch(() => {
+        manualPlayIntentRef.current = false;
+        setPlaying(false);
+      });
+    } else {
+      manualPlayIntentRef.current = false;
+      video.pause();
+    }
+  };
 
   const fade = progress <= 0.82 ? 0 : Math.min(1, (progress - 0.82) / 0.18);
   return (
     <section ref={hostRef} className={styles.scrub} data-home-section="pinned-scrub" style={{ "--scrub-fade": fade } as CSSProperties}>
       <div className={styles.scrubStage}>
-        {reducedMotion ? <Image src="/assets/video/homepage-v2/co-home-scraping-poster-v1.jpg" alt="Traditional coconut scraping" fill sizes="100vw" className="object-cover" /> :
-          <video ref={videoRef} muted playsInline preload="auto" poster="/assets/video/homepage-v2/co-home-scraping-poster-v1.jpg" aria-label="Traditional coconut scraping">
-            <source media="(max-width: 700px)" src={mediaUrl("/assets/video/homepage-v2/co-home-scraping-scroll-mobile-portrait-v2.mp4")} type="video/mp4" />
-            <source media="(min-width: 701px)" src={mediaUrl("/assets/video/homepage-v2/co-home-scraping-scroll-desktop-v1.mp4")} type="video/mp4" />
-          </video>}
+        <Image src="/assets/video/homepage-v2/co-home-scraping-poster-v1.jpg" alt="Traditional coconut scraping" fill sizes="100vw" className="object-cover" />
+        {!reducedMotion && !videoFailed ?
+          <video
+            ref={videoRef}
+            muted
+            playsInline
+            loop={isMobile}
+            autoPlay={isMobile && sourceAttached && inView}
+            preload={sourceAttached ? "metadata" : "none"}
+            poster="/assets/video/homepage-v2/co-home-scraping-poster-v1.jpg"
+            aria-label="Traditional coconut scraping"
+            onLoadedData={() => { if (!isMobile) setMediaVisible(true); }}
+            onPlaying={() => { setPlaying(true); setMediaVisible(true); }}
+            onPause={() => setPlaying(false)}
+            onError={() => { setVideoFailed(true); setMediaVisible(false); }}
+            style={{ opacity: mediaVisible ? 1 : 0 }}
+          >
+            {sourceAttached ? <>
+              <source media="(max-width: 800px)" src={mediaUrl("/assets/video/homepage-v2/co-home-scraping-scroll-mobile-portrait-v2.mp4")} type="video/mp4" />
+              <source media="(min-width: 801px)" src={mediaUrl("/assets/video/homepage-v2/co-home-scraping-scroll-desktop-v1.mp4")} type="video/mp4" />
+            </> : null}
+          </video> : null}
         <span className={styles.scrubShade} />
         <div className={styles.scrubCopy}>
           <p className={styles.eyebrow}>Crafted by tradition</p>
           <h2>From our hands,<br /><em>to yours.</em></h2>
           <p>In Kerala, every coconut is a promise. Of care, of tradition, of goodness that stays with you.</p>
-          <Link href="/about#journey" className={styles.filmButton}><Play size={15} fill="currentColor" /> <span><b>Play film</b><small>Discover our story</small></span></Link>
+          <button type="button" onClick={togglePlayback} disabled={reducedMotion || videoFailed} aria-pressed={playing} className={styles.filmButton}>
+            {playing ? <Pause size={15} fill="currentColor" /> : <Play size={15} fill="currentColor" />}
+            <span><b>{playing ? "Pause film" : "Play film"}</b><small>{reducedMotion ? "Motion reduced" : videoFailed ? "Poster available" : "Traditional coconut craft"}</small></span>
+          </button>
         </div>
         <SectionTransition />
       </div>

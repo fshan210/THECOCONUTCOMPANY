@@ -39,7 +39,7 @@ test("Home uses supplied assets, safe claims, and required newsletter behavior",
   assert.match(source, /autoPlay=\{active\} muted loop playsInline/);
   assert.match(source, /active && !reducedMotion \? <source/);
   assert.match(source, /IntersectionObserver/);
-  assert.match(source, /media="\(max-width: 700px\)"/);
+  assert.match(source, /media="\(max-width: 800px\)"/);
   assert.match(source, /localStorage\.getItem\("co-saved-day"\)/);
   for (const slug of ["tender-coconut-smoothie-bowl", "green-coconut-smoothie", "coconut-milk-veggie-curry"]) {
     assert.ok(source.includes(slug), `expected stable recipe slug ${slug}`);

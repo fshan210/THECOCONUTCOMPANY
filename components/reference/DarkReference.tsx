@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Heart, Search, ShoppingCart, UserRound } from "lucide-react";
 import { useCart } from "@/lib/cart/cart-context";
 import { NewsletterForm } from "@/components/launch/NewsletterForm";
+import { MobileBottomNav, ReferenceFooter, ReferenceHeader } from "@/components/home/ReferenceHomePage";
 
 export const RD = {
   recipe: "/assets/redesign/recipes/",
@@ -148,10 +149,11 @@ export function DarkShell({
   className?: string;
 }) {
   return (
-    <div className={`rd-page ${className}`}>
-      <DarkHeader />
-      <main>{children}</main>
-      <DarkFooter />
+    <div className={`rd-page rd-shared-shell ${className}`}>
+      <ReferenceHeader />
+      {children}
+      <ReferenceFooter />
+      <MobileBottomNav />
     </div>
   );
 }
