@@ -36,7 +36,7 @@ import { NewsletterSection } from "@/components/launch/NewsletterSection";
 import { useSavedContent } from "@/lib/customer/use-saved-content";
 import { transparentProductAssets } from "@/lib/website-assets";
 import { useRecipesMotion } from "./useRecipesMotion";
-import { recipeIndexRecipeIds, type RecipeItem } from "./recipe-data";
+import { recipeBasbousaIdentity, recipeIndexIdentities, recipeMomentIdentity, type RecipeItem } from "./recipe-data";
 
 const A = "/assets/redesign/recipes/",
   B = `${A}backgrounds/`;
@@ -56,8 +56,8 @@ type Recipe = {
 };
 const recipes: Recipe[] = [
   {
-    slug: recipeIndexRecipeIds[0],
-    title: "Coconut Breakfast Bowl",
+    slug: recipeIndexIdentities[0].recipeId,
+    title: recipeIndexIdentities[0].title,
     image: `${A}coconut breakfast bowl.png`,
     time: 10,
     difficulty: "Easy",
@@ -71,8 +71,8 @@ const recipes: Recipe[] = [
     ingredients: ["coconut water", "banana", "berries", "chia"],
   },
   {
-    slug: recipeIndexRecipeIds[1],
-    title: "Thai Green Coconut Curry",
+    slug: recipeIndexIdentities[1].recipeId,
+    title: recipeIndexIdentities[1].title,
     image: `${A}THAILAND GREEN COCONUT CURRY.png`,
     time: 20,
     difficulty: "Medium",
@@ -86,8 +86,8 @@ const recipes: Recipe[] = [
     ingredients: ["coconut milk", "spinach", "vegetables", "tofu"],
   },
   {
-    slug: recipeIndexRecipeIds[2],
-    title: "Kerala Vegetable Stew",
+    slug: recipeIndexIdentities[2].recipeId,
+    title: recipeIndexIdentities[2].title,
     image: `${A}Kerala Vegetable Stew.png`,
     time: 25,
     difficulty: "Easy",
@@ -101,8 +101,8 @@ const recipes: Recipe[] = [
     ingredients: ["coconut milk", "potato", "carrot", "curry leaves"],
   },
   {
-    slug: recipeIndexRecipeIds[3],
-    title: "Coconut Matcha Smoothie",
+    slug: recipeIndexIdentities[3].recipeId,
+    title: recipeIndexIdentities[3].title,
     image: `${A}coconut matcha smoothie.png`,
     time: 5,
     difficulty: "Easy",
@@ -115,8 +115,8 @@ const recipes: Recipe[] = [
     ingredients: ["coconut water", "matcha", "lime", "spinach"],
   },
   {
-    slug: recipeIndexRecipeIds[4],
-    title: "Coconut Flour Pancakes",
+    slug: recipeIndexIdentities[4].recipeId,
+    title: recipeIndexIdentities[4].title,
     image: `${A}coconut flour pancackes.png`,
     time: 20,
     difficulty: "Easy",
@@ -129,8 +129,8 @@ const recipes: Recipe[] = [
     ingredients: ["coconut flour", "milk", "maple"],
   },
   {
-    slug: recipeIndexRecipeIds[5],
-    title: "Baked Coconut Donuts",
+    slug: recipeIndexIdentities[5].recipeId,
+    title: recipeIndexIdentities[5].title,
     image: `${A}BAKED COCONUT DONUTS.png`,
     time: 35,
     difficulty: "Medium",
@@ -143,8 +143,8 @@ const recipes: Recipe[] = [
     ingredients: ["coconut flour", "coconut milk", "coconut flakes"],
   },
   {
-    slug: recipeIndexRecipeIds[6],
-    title: "Jamaican Toto",
+    slug: recipeIndexIdentities[6].recipeId,
+    title: recipeIndexIdentities[6].title,
     image: `${A}JAMAICAN TOTO – TRADITIONAL CARIBBEAN COCONUT CAKE.png`,
     time: 45,
     difficulty: "Medium",
@@ -157,8 +157,8 @@ const recipes: Recipe[] = [
     ingredients: ["coconut", "coconut sugar", "spice"],
   },
   {
-    slug: recipeIndexRecipeIds[7],
-    title: "Brazilian Coconut Pudding",
+    slug: recipeIndexIdentities[7].recipeId,
+    title: recipeIndexIdentities[7].title,
     image: `${A}MANJAR DE COCO – BRAZILIAN COCONUT PUDDING RECIPE.png`,
     time: 30,
     difficulty: "Medium",
@@ -178,7 +178,8 @@ const destinations = [
     region: "Middle East",
     recipe: {
       ...recipes[5],
-      title: "Coconut Basbousa",
+      slug: recipeBasbousaIdentity.recipeId,
+      title: recipeBasbousaIdentity.title,
       cuisine: "Middle East",
       image: `${A}Basbousa Recipe Dessert (Middle Eastern Coconut Semolina Cake).png`,
     },
@@ -567,11 +568,11 @@ export function ReferenceRecipesPage() {
               </p>
               <Meta r={{ ...recipes[1], time: 25, difficulty: "Easy" }} />
               <p>.CO Coconut Milk · .CO Coconut Oil</p>
-              <ButtonLink href={`/recipes/${recipes[1].slug}`}>
+              <ButtonLink href={`/recipes/${recipeMomentIdentity.recipeId}`}>
                 Start cooking
               </ButtonLink>
               <Save
-                slug={recipes[1].slug}
+                slug={recipeMomentIdentity.recipeId}
                 label="Thai Coconut Red Curry"
                 saved={saved}
               />

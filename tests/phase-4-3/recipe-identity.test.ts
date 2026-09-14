@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { recipeIndexRecipeIds, recipes as detailRecipes } from "../../components/recipes/recipe-data";
+import { recipeBasbousaIdentity, recipeIndexIdentities, recipeIndexRecipeIds, recipeMomentIdentity, recipes as detailRecipes } from "../../components/recipes/recipe-data";
 import { fallbackRecipes } from "../../lib/content/fallback-data";
 import {
   canonicalRecipeIdentities,
@@ -34,6 +34,15 @@ test("every Recipes experience save identity resolves through the canonical cata
     assert.ok(saved, `saved recipe ${recipeId} is not renderable`);
     assert.equal(saved.persistedId, recipeId);
     assert.equal(saved.recipe.slug, identity.slug);
+  }
+});
+
+test("every Recipes index title opens the same canonical title and route", () => {
+  for (const expected of [...recipeIndexIdentities, recipeMomentIdentity, recipeBasbousaIdentity]) {
+    const saved = resolveSavedRecipe(expected.recipeId, fallbackRecipes);
+    assert.ok(saved, `missing saveable recipe ${expected.recipeId}`);
+    assert.equal(saved.recipe.slug, expected.recipeId);
+    assert.equal(saved.recipe.title, expected.title);
   }
 });
 
