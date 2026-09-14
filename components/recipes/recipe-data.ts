@@ -13,6 +13,17 @@ export type RecipeItem = {
   nutrition: string[];
 };
 
+export const recipeIndexRecipeIds = [
+  "tropical-coconut-chia-pudding",
+  "coconut-thai-veggie-curry",
+  "coconut-lime-rice-bowl",
+  "green-coconut-detox-smoothie",
+  "coconut-flour-pancakes",
+  "melt-co-mango-nice-cream",
+  "coconut-energy-balls",
+  "brazilian-coconut-pudding",
+] as const;
+
 const shop = "/assets/shop/products";
 const generated = "/assets/recipes/generated";
 
@@ -46,8 +57,9 @@ export const recipes: RecipeItem[] = [
   { slug: "coconut-thai-veggie-curry", title: "Coconut Thai Veggie Curry", category: "Lunch", time: 20, difficulty: "Medium", image: `${generated}/coconut-milk-veggie-curry.jpg`, description: "A fragrant, deeply comforting vegetable curry with coconut richness.", products: [{ name: ".CO Coconut Oil", detail: "Cold pressed", image: `${shop}/IndividualProduct_CoconutOil.png`, slug: "coconut-oil" }, { name: ".CO Coconut Aminos", detail: "Savoury seasoning", image: `${shop}/IndividualProduct_CoconutAminos.png`, slug: "coconut-aminos" }], variations: [{ name: "High Protein", detail: "Add tofu or chickpeas" }, { name: "Gluten Free", detail: "Use certified gluten-free aminos" }], ingredients: ["Mixed vegetables", "Coconut milk", "Curry paste", ".CO Coconut Oil", "Fresh herbs"], steps: ["Sauté curry paste in coconut oil.", "Add vegetables and coconut milk.", "Simmer until tender and finish with herbs."], nutrition: ["Vegan", "Vegetable-rich"] },
   { slug: "coconut-energy-balls", title: "Coconut Energy Balls", category: "Snacks", time: 15, difficulty: "Easy", image: `${generated}/toasted-coconut-energy-bites.jpg`, description: "Soft cocoa-coconut bites made for an easy afternoon lift.", products: [{ name: ".CO Toasted Coconut Chips", detail: "Golden + crisp", image: `${shop}/IndividualProduct_CoconutChips.png`, slug: "coconut-chips" }, { name: ".CO Coconut Sugar", detail: "Warm pantry sweetness", image: `${shop}/IndividualProduct_CoconutSugar.png`, slug: "coconut-sugar" }], variations: [{ name: "Gym Friendly", detail: "Add your preferred plant protein" }], ingredients: ["Dates", "Cocoa", "Coconut chips", "Coconut sugar", "Pinch of salt"], steps: ["Pulse everything in a food processor.", "Roll into even balls.", "Chill before serving."], nutrition: ["Vegan", "No refined sugar"] },
   { slug: "chocolate-coconut-pudding", title: "Chocolate Coconut Pudding", category: "Desserts", time: 10, difficulty: "Easy", image: "/assets/recipes/coconut coffee chill.png", description: "Silky chocolate pudding with deep cocoa and soft coconut notes.", products: [{ name: ".CO Coconut Sugar", detail: "Warm pantry sweetness", image: `${shop}/IndividualProduct_CoconutSugar.png`, slug: "coconut-sugar" }], variations: [{ name: "Low Sugar", detail: "Reduce coconut sugar to taste" }, { name: "Pregnancy Friendly", detail: "Use pasteurised coconut milk and omit coffee" }], ingredients: ["Coconut milk", "Cocoa", "Coconut sugar", "Chia seeds"], steps: ["Whisk all ingredients until smooth.", "Chill until set.", "Finish with shaved coconut."], nutrition: ["Dairy free", "Plant-based"] },
+  { slug: "coconut-flour-pancakes", title: "Coconut Flour Pancakes", category: "Breakfast", time: 20, difficulty: "Easy", image: "/assets/redesign/recipes/coconut flour pancackes.png", description: "Soft breakfast pancakes finished with toasted coconut.", products: [{ name: ".CO Coconut Flour", detail: "Made for baking", image: "/assets/products/transparent-current/co-kitchen-coconut-flour-v1.webp", slug: "co-kitchen-coconut-flour" }], variations: [{ name: "Gluten Free", detail: "Use certified gluten-free accompaniments" }], ingredients: ["Coconut flour", "Milk", "Maple syrup"], steps: ["Whisk the batter until smooth.", "Cook small pancakes on a warm pan.", "Finish with toasted coconut and maple syrup."], nutrition: ["Gluten free"] },
+  { slug: "brazilian-coconut-pudding", title: "Brazilian Coconut Pudding", category: "Desserts", time: 30, difficulty: "Medium", image: "/assets/redesign/recipes/MANJAR%20DE%20COCO%20%E2%80%93%20BRAZILIAN%20COCONUT%20PUDDING%20RECIPE.png", description: "Silky coconut pudding with a dark fruit glaze.", products: [{ name: ".CO Coconut Milk", detail: "Creamy coconut base", image: "/assets/products/transparent-current/co-kitchen-coconut-milk-v1.webp", slug: "co-kitchen-coconut-milk" }], variations: [{ name: "Gluten Free", detail: "Already prepared without gluten-containing ingredients" }], ingredients: ["Coconut milk", "Fruit", "Coconut sugar"], steps: ["Cook the coconut pudding base until thickened.", "Chill until firmly set.", "Finish with the dark fruit glaze."], nutrition: ["Gluten free", "Vegetarian"] },
   { slug: "coconut-lime-rice-bowl", title: "Coconut Lime Rice Bowl", category: "Lunch", time: 25, difficulty: "Easy", image: `${generated}/coconut-lime-rice-bowl.jpg`, description: "Bright coconut rice, greens and a fresh lime finish.", products: [{ name: ".CO Coconut Oil", detail: "Cold pressed", image: `${shop}/IndividualProduct_CoconutOil.png`, slug: "coconut-oil" }], variations: [{ name: "High Protein", detail: "Add tofu, tempeh or lentils" }], ingredients: ["Cooked rice", "Coconut milk", "Lime", "Greens", "Coconut oil"], steps: ["Warm rice with coconut milk.", "Sauté greens in coconut oil.", "Assemble and finish with lime."], nutrition: ["Vegan", "Gluten free"] },
 ];
 
 export const recipeCategories = ["All Recipes", "Smoothies", "Breakfast", "Lunch", "Desserts", "Drinks", "Snacks", "Baking", "Vegan", "Gluten Free"];
-

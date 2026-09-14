@@ -9,6 +9,7 @@ import type {
   SeoMetadataContent
 } from "@/lib/content/types";
 import { defaultImpactCounterConfig } from "@/lib/content/impact";
+import { mergeCanonicalRecipes } from "@/lib/recipes/canonical";
 
 export const fallbackProducts: ContentProduct[] = shopProducts.map((product, index) => ({
   id: product.slug,
@@ -30,7 +31,7 @@ export const fallbackProducts: ContentProduct[] = shopProducts.map((product, ind
   featured: index < 3
 }));
 
-export const fallbackRecipes: ContentRecipe[] = recipes.map((recipe, index) => ({
+const catalogRecipes: ContentRecipe[] = recipes.map((recipe, index) => ({
   id: recipe.slug,
   ...recipe,
   steps: [],
@@ -47,6 +48,8 @@ export const fallbackRecipes: ContentRecipe[] = recipes.map((recipe, index) => (
   publicationStatus: "published",
   featured: index === 0
 }));
+
+export const fallbackRecipes: ContentRecipe[] = mergeCanonicalRecipes(catalogRecipes);
 
 function toSlug(title: string) {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");

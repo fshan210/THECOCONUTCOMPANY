@@ -3,6 +3,7 @@ import { customerAwsApi, type CustomerProfileRecord, type SavedContentRecord } f
 import { getProducts, getRecipes, getJournalPosts } from "@/lib/content/server";
 import { transparentProductAssets } from "@/lib/website-assets";
 import type { AddressInput } from "@dotco/contracts";
+import { resolveSavedRecipe } from "@/lib/recipes/canonical";
 
 export type AccountAddress = AddressInput & { addressId: string };
 export type AccountOrder = { orderId: string; status: string; placedAt?: string; total?: number; currency?: string; items?: Array<{ productId: string; name: string; quantity: number; price?: number; image?: string }> };
@@ -15,9 +16,15 @@ export async function loadAccountData() {
     safe(customerAwsApi<{ items: AccountOrder[] }>("v1/orders")),
     getProducts(), getRecipes(), getJournalPosts()
   ]);
+  const savedRecord = saved?.data ?? { productIds: [], recipeIds: [], journalIds: [], communityIds: [], recentlyViewedProductIds: [] };
+  const savedRecipeEntries = savedRecord.recipeIds.flatMap((persistedId) => {
+    const resolved = resolveSavedRecipe(persistedId, recipes);
+    return resolved ? [resolved] : [];
+  });
   return {
     profile: profile?.data?.profile ?? null,
-    saved: saved?.data ?? { productIds: [], recipeIds: [], journalIds: [], communityIds: [], recentlyViewedProductIds: [] },
+    saved: savedRecord,
+    savedRecipeEntries,
     addresses: addresses?.data?.items ?? [], orders: orders?.data?.items ?? [],
     products: products.map(product=>{const key=product.slug==="melt-co-mango-coconut"?"melt":product.slug==="co-botanica-body-moisturizer"?"botanica-moisturizer":product.slug.replace(/^co-/,"");return {...product,image:transparentProductAssets[key]?.src??product.image};}), recipes, journal,
     unavailable: { profile: !profile?.ok, saved: !saved?.ok, addresses: !addresses?.ok, orders: !orders?.ok }
