@@ -7,7 +7,6 @@ import { visibleFaqItemsForPage, type FAQPageSlug } from "../../lib/launch-pages
 import { absoluteCanonicalUrl, createPageMetadata, siteUrl } from "../../lib/seo/metadata";
 import { buildSitemapUrls, indexableStaticRoutes, noindexRoutePrefixes } from "../../lib/seo/routes";
 import { articleSchema, faqSchema, organizationSchema, productSchema, recipeSchema, websiteSchema } from "../../lib/seo/structured-data";
-import { homeFaqItems } from "../../lib/seo/public-content";
 import { serializeJsonLd } from "../../components/seo/StructuredData";
 import robots from "../../app/robots";
 
@@ -104,12 +103,8 @@ test("JSON-LD serialization cannot terminate its script element", () => {
 });
 
 test("FAQPage schemas contain exactly the FAQ content visible on each page", () => {
-  const homeVisibleItems = homeFaqItems.map(([question, answer]) => ({ question, answer }));
-  const homeSchema = faqSchema(homeVisibleItems);
-  assert.deepEqual(
-    homeSchema.mainEntity.map((item) => ({ question: item.name, answer: item.acceptedAnswer.text })),
-    homeVisibleItems,
-  );
+  const homeRoute = readFileSync(resolve("app/page.tsx"), "utf8");
+  assert.doesNotMatch(homeRoute, /faqSchema|homeFaqItems/, "Home must not emit FAQPage schema without a rendered FAQ section");
 
   (["faqs", "support"] as FAQPageSlug[]).forEach((slug) => {
     const visibleItems = visibleFaqItemsForPage(slug).map(({ title, body }) => ({
