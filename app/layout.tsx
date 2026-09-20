@@ -14,7 +14,6 @@ import { Footer } from "@/components/Footer";
 import { Navigation } from "@/components/Navigation";
 import { Analytics } from "@/components/seo/Analytics";
 import { ConsentDefaults } from "@/components/seo/ConsentDefaults";
-import { StructuredData } from "@/components/seo/StructuredData";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { CustomerAuthProvider } from "@/components/auth/CustomerAuthProvider";
 import { LenisProvider } from "@/components/providers/LenisProvider";
@@ -142,7 +141,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           <CartProvider catalog={products}>
             <LenisProvider>
               <MotionProvider>
-                <StructuredData includeGlobal />
                 {isAdminShell ? null : <GlobalWaterRipple image={rippleImage} />}
                 {isAdminShell ? null : <GlobalMotionEffects />}
                 {isAdminShell ? null : <Navigation />}

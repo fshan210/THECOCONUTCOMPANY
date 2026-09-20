@@ -6,51 +6,20 @@ export function organizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
     name: siteName,
     alternateName: [".CO", "The Coconut Company"],
     slogan: "Made for Living.",
     url: siteUrl,
     logo: `${siteUrl}/images/logo.svg`,
     description: "A coconut-origin food and beverage brand from Palakkad, Kerala.",
-    founder: [
-      {
-        "@type": "Person",
-        name: "Fazil Shersha",
-        jobTitle: "Co-founder"
-      },
-      {
-        "@type": "Person",
-        name: "Afsala Muthali",
-        jobTitle: "Co-founder"
-      }
-    ],
     brand: {
       "@type": "Brand",
       name: siteName,
       alternateName: ".CO",
       url: siteUrl,
       logo: `${siteUrl}/images/logo.svg`
-    },
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "customer support",
-      url: `${siteUrl}/contact`,
-      availableLanguage: ["English"]
-    },
-    foundingLocation: {
-      "@type": "Place",
-      name: "Palakkad, Kerala, India"
-    },
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Palakkad",
-      addressRegion: "Kerala",
-      addressCountry: "IN"
-    },
-    sameAs: [
-      "https://www.instagram.com/cothecoconutcompany",
-      "https://www.linkedin.com/company/dotcolife"
-    ]
+    }
   };
 }
 
@@ -58,14 +27,13 @@ export function websiteSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
     name: siteName,
     url: siteUrl,
     description: "A modern coconut-origin lifestyle brand. Made for Living.",
     inLanguage: "en-IN",
     publisher: {
-      "@type": "Organization",
-      name: siteName,
-      url: siteUrl
+      "@id": `${siteUrl}/#organization`
     }
   };
 }
@@ -82,9 +50,11 @@ export function siteNavigationSchema() {
 }
 
 export function breadcrumbSchema(items: Array<{ name: string; path: string }>) {
+  const pageUrl = `${siteUrl}${items.at(-1)?.path ?? "/"}`;
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    "@id": `${pageUrl}#breadcrumb`,
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -96,9 +66,11 @@ export function breadcrumbSchema(items: Array<{ name: string; path: string }>) {
 
 export function productSchema(product: ContentProduct) {
   if (typeof product.price !== "number" || !product.currency || !["in-stock", "out-of-stock"].includes(product.availabilityStatus)) return null;
+  const url = `${siteUrl}/shop/${product.slug}`;
   return {
     "@context": "https://schema.org",
     "@type": "Product",
+    "@id": `${url}#product`,
     name: product.name,
     description: product.shortDescription,
     image: product.images.length ? product.images.map((image) => image.startsWith("http") ? image : `${siteUrl}${image}`) : [product.image.startsWith("http") ? product.image : `${siteUrl}${product.image}`],
@@ -107,7 +79,7 @@ export function productSchema(product: ContentProduct) {
     brand: { "@type": "Brand", name: siteName },
     offers: {
       "@type": "Offer",
-      url: `${siteUrl}/shop/${product.slug}`,
+      url,
       price: product.price,
       priceCurrency: product.currency,
       availability: product.availabilityStatus === "in-stock" ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
@@ -116,19 +88,20 @@ export function productSchema(product: ContentProduct) {
 }
 
 export function recipeSchema(recipe: Pick<ContentRecipe, "title" | "description" | "image" | "time" | "difficulty" | "category" | "product" | "slug" | "ingredients" | "steps" | "prepTime" | "cookTime" | "servings" | "nutrition">) {
+  if (!recipe.title || !recipe.description || !recipe.image || !recipe.ingredients?.length || !recipe.steps?.length) return null;
   const minutes = Number.parseInt(recipe.time, 10);
-  const prepMinutes = Number.parseInt(recipe.prepTime, 10);
-  const cookMinutes = Number.parseInt(recipe.cookTime, 10);
   const image = recipe.image.startsWith("http") ? recipe.image : `${siteUrl}${recipe.image}`;
   const path = `/recipes/${recipe.slug}`;
+  const url = `${siteUrl}${path}`;
 
   return {
     "@context": "https://schema.org",
     "@type": "Recipe",
+    "@id": `${url}#recipe`,
     name: recipe.title,
     description: recipe.description,
     image: [image],
-    url: `${siteUrl}${path}`,
+    url,
     recipeCategory: recipe.category ?? recipe.difficulty,
     recipeIngredient: recipe.ingredients ?? [recipe.product],
     recipeInstructions: recipe.steps?.map((step, index) => ({
@@ -136,22 +109,18 @@ export function recipeSchema(recipe: Pick<ContentRecipe, "title" | "description"
       position: index + 1,
       text: step
     })),
-    prepTime: Number.isFinite(prepMinutes) ? `PT${prepMinutes}M` : undefined,
-    cookTime: Number.isFinite(cookMinutes) ? `PT${cookMinutes}M` : undefined,
     totalTime: Number.isFinite(minutes) ? `PT${minutes}M` : undefined,
     recipeYield: recipe.servings || undefined,
-    nutrition: recipe.nutrition ? { "@type": "NutritionInformation", description: recipe.nutrition } : undefined,
     publisher: {
-      "@type": "Organization",
-      name: siteName,
-      url: siteUrl
+      "@id": `${siteUrl}/#organization`
     },
-    mainEntityOfPage: `${siteUrl}${path}`
+    mainEntityOfPage: url
   };
 }
 
 export function articleSchema(post: ContentJournalPost) {
-  const path = post.seo.canonicalPath.startsWith("/journal/") ? post.seo.canonicalPath : `/journal#${post.slug}`;
+  if (!post.seo.canonicalPath.startsWith("/journal/")) return null;
+  const path = post.seo.canonicalPath;
   const image = post.image.startsWith("http") ? post.image : `${siteUrl}${post.image}`;
 
   const publishedDate = Number.isNaN(Date.parse(post.publishedDate)) ? undefined : new Date(post.publishedDate).toISOString();
@@ -159,26 +128,25 @@ export function articleSchema(post: ContentJournalPost) {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
+    "@id": `${siteUrl}${path}#article`,
     headline: post.title,
     description: post.excerpt,
     image: [image],
     datePublished: publishedDate,
-    dateModified: publishedDate,
     articleSection: post.category,
     author: { "@type": "Person", name: post.author },
     publisher: {
-      "@type": "Organization",
-      name: siteName,
-      logo: { "@type": "ImageObject", url: `${siteUrl}/images/logo.svg` }
+      "@id": `${siteUrl}/#organization`
     },
     mainEntityOfPage: `${siteUrl}${path}`
   };
 }
 
-export function faqSchema(items: Array<{ question: string; answer: string }>) {
+export function faqSchema(items: ReadonlyArray<{ question: string; answer: string }>, path = "/") {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    "@id": `${siteUrl}${path}#faq`,
     mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.question,
@@ -203,29 +171,31 @@ export function collectionPageSchema(input: {
   name: string;
   description: string;
   path: string;
-  items: Array<{ name: string; description: string; image: string }>;
+  items?: Array<{ name: string; description: string; image: string; path: string }>;
 }) {
   const url = `${siteUrl}${input.path}`;
+  const items = input.items ?? [];
 
   return {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
+    "@id": `${url}#collection`,
     name: input.name,
     description: input.description,
     url,
-    mainEntity: {
+    mainEntity: items.length ? {
       "@type": "ItemList",
-      itemListElement: input.items.map((item, index) => ({
+      itemListElement: items.map((item, index) => ({
         "@type": "ListItem",
         position: index + 1,
         item: {
           "@type": "CreativeWork",
           name: item.name,
           description: item.description,
-          image: `${siteUrl}${item.image}`,
-          url: `${url}#latest-articles`
+          image: item.image.startsWith("http") ? item.image : `${siteUrl}${item.image}`,
+          url: `${siteUrl}${item.path}`
         }
       }))
-    }
+    } : undefined
   };
 }

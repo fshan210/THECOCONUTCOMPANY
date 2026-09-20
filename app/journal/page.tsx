@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ReferenceJournalPage } from "@/components/journal/ReferenceJournalPage";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { createPageMetadata } from "@/lib/seo/metadata";
-import { articleSchema, collectionPageSchema } from "@/lib/seo/structured-data";
+import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { getJournalPosts, getSeoMetadata } from "@/lib/content/server";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -21,13 +21,7 @@ export default async function JournalPage() {
             name: ".CO Journal",
             description: "Editorial notes on coconut culture, taste, recipes, product thinking, and Made for Living.",
             path: "/journal",
-            items: journalEntries.map((entry) => ({
-              name: entry.title,
-              description: entry.excerpt,
-              image: entry.image
-            }))
           }),
-          ...journalEntries.map(articleSchema)
         ]}
       />
       <ReferenceJournalPage journalEntries={journalEntries} />

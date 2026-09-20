@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const isVercelNonProduction = Boolean(process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "production");
+
 const nextConfig = {
   poweredByHeader: false,
   serverExternalPackages: [
@@ -35,6 +37,12 @@ const nextConfig = {
       }
     ];
     return [
+      ...(isVercelNonProduction
+        ? [{
+            source: "/:path*",
+            headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }]
+          }]
+        : []),
       {
         source: "/:path*",
         headers: securityHeaders
@@ -66,6 +74,16 @@ const nextConfig = {
       {
         source: "/sign-up",
         destination: "/register",
+        permanent: true
+      },
+      {
+        source: "/terms",
+        destination: "/terms-and-conditions",
+        permanent: true
+      },
+      {
+        source: "/our-story",
+        destination: "/about",
         permanent: true
       },
       {

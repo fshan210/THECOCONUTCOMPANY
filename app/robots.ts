@@ -9,20 +9,13 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "*",
         allow: "/",
         disallow: [
-          "/admin",
-          "/account",
-          "/orders",
-          "/profile",
-          "/wishlist",
-          "/saved-recipes",
-          "/login",
-          "/register",
-          "/forgot-password",
-          "/reset-password"
+          "/admin/",
+          "/api/",
+          "/_/backend/"
         ]
       }
     ],
-    sitemap: [`${siteUrl}/sitemap.xml`, `${siteUrl}/image-sitemap.xml`, `${siteUrl}/news-sitemap.xml`],
+    sitemap: [`${siteUrl}/sitemap.xml`, `${siteUrl}/image-sitemap.xml`],
     host: siteUrl
   };
 }

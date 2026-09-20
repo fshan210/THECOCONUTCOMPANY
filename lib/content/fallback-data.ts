@@ -100,7 +100,7 @@ export const fallbackHomepage: HomepageContent = {
   featuredTestimonialIds: fallbackTestimonials.map((item) => item.id),
   impactCounters: defaultImpactCounterConfig,
   seo: {
-    title: ".CO | The Coconut Company",
+    title: ".CO The Coconut Company | Coconut Living, Reimagined",
     description: "A modern coconut-origin lifestyle brand from Palakkad, Kerala. Made for Living.",
     canonicalPath: "/"
   },
@@ -109,7 +109,7 @@ export const fallbackHomepage: HomepageContent = {
 
 export const fallbackSeoMetadata: SeoMetadataContent[] = [
   fallbackHomepage.seo,
-  { title: "Shop", description: "Explore .CO coconut water, ice cream, kitchen, botanica, wellness and lifestyle previews.", canonicalPath: "/shop" },
-  { title: "Recipes", description: "Coconut water drinks, smoothie bowls, and simple everyday recipes using .CO products.", canonicalPath: "/recipes" },
-  { title: "Journal", description: "Editorial notes on coconut culture, taste, recipes, product thinking, and Made for Living.", canonicalPath: "/journal" }
+  { title: "Shop Coconut Products", description: "Explore .CO coconut water, kitchen, care, wellness, and lifestyle products made for thoughtful everyday coconut living.", canonicalPath: "/shop" },
+  { title: "Coconut Recipes", description: "Discover coconut drinks, breakfasts, curries, bakes, and desserts made for everyday cooking with .CO coconut products.", canonicalPath: "/recipes" },
+  { title: ".CO Journal", description: "Read .CO stories about coconut culture, recipes, sourcing, product thinking, and a more thoughtful way of everyday living.", canonicalPath: "/journal" }
 ].map((seo) => ({ id: seo.canonicalPath === "/" ? "home" : seo.canonicalPath.slice(1), pagePath: seo.canonicalPath, ...seo, publicationStatus: "published" }));

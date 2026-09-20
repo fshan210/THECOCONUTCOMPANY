@@ -12,6 +12,8 @@ import { notFound } from "next/navigation";
 import { UtilityPage } from "@/components/launch/UtilityPage";
 import { launchPages, launchPageSlugs } from "@/lib/launch-pages";
 import { createPageMetadata } from "@/lib/seo/metadata";
+import { StructuredData } from "@/components/seo/StructuredData";
+import { faqSchema } from "@/lib/seo/structured-data";
 
 export const dynamicParams = false;
 
@@ -26,12 +28,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const page = launchPages[slug];
-  if (!page) return {};
+  if (!page) notFound();
+  const index = !["cart", "checkout", "track-order", "search", "payment"].includes(slug);
   return createPageMetadata({
     title: page.title,
     description: page.intro,
     path: `/${slug}`,
-    index: !["cart", "checkout", "track-order", "search"].includes(slug),
+    index,
+    follow: slug === "search",
   });
 }
 
@@ -43,6 +47,16 @@ export default async function LaunchUtilityRoute({
   const { slug } = await params;
   const page = launchPages[slug];
   if (!page) notFound();
+  const indexable = !["cart", "checkout", "track-order", "search", "payment"].includes(slug);
+  const schemas = indexable ? (
+    <StructuredData
+      breadcrumbs={[{ name: "Home", path: "/" }, { name: page.eyebrow, path: `/${slug}` }]}
+      extra={slug === "faqs" || slug === "support" ? [faqSchema(
+        [...launchPages.faqs.sections, ...launchPages.support.sections].map(({ title, body }) => ({ question: title, answer: body })),
+        `/${slug}`,
+      )] : []}
+    />
+  ) : null;
   if (slug === "track-order") return <TrackingSurface />;
   if (slug === "checkout") return <CheckoutSurface />;
   if (
@@ -58,7 +72,7 @@ export default async function LaunchUtilityRoute({
       "terms",
     ].includes(slug)
   )
-    return <InformationSurface slug={slug} />;
+    return <>{schemas}<InformationSurface slug={slug} /></>;
   if (slug === "search") {
     const [products, recipes, journal] = await Promise.all([
       getProducts(),
@@ -99,5 +113,5 @@ export default async function LaunchUtilityRoute({
     ];
     return <SearchSurface entries={entries} />;
   }
-  return <UtilityPage page={page} />;
+  return <>{schemas}<UtilityPage page={page} /></>;
 }

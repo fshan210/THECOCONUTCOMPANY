@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { AuthShell, CustomerLoginForm } from "@/components/auth/CustomerAuthForms";
-import { StructuredData } from "@/components/seo/StructuredData";
 import { safeReturnTo } from "@/lib/auth/verification-state";
 import { getCustomerSession } from "@/lib/customer/auth";
 import { createPageMetadata } from "@/lib/seo/metadata";
@@ -11,5 +10,5 @@ export const metadata: Metadata = createPageMetadata({ title: "Sign In", descrip
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ redirect?: string }> }) {
   const { redirect: returnTo } = await searchParams;
   if (await getCustomerSession()) redirect(safeReturnTo(returnTo));
-  return <><StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Sign in", path: "/login" }]} /><AuthShell variant="login" eyebrow="Welcome back" title={<>Your .CO,<br/><em>right where you left it.</em></>} description="Sign in to continue your journey with products that care for you and the planet."><CustomerLoginForm/></AuthShell></>;
+  return <AuthShell variant="login" eyebrow="Welcome back" title={<>Your .CO,<br/><em>right where you left it.</em></>} description="Sign in to continue your journey with products that care for you and the planet."><CustomerLoginForm/></AuthShell>;
 }

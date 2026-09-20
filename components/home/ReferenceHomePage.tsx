@@ -59,6 +59,7 @@ import { ImpactCounters } from "@/components/home/ImpactCounters";
 import { sustainabilityImpact } from "@/lib/content/impact";
 import { choreography } from "@/lib/motion/choreography";
 import { mediaUrl } from "@/lib/media";
+import { homeFaqItems } from "@/lib/seo/public-content";
 import { shopProducts } from "@/lib/catalog";
 import { CinematicHomeSequence } from "@/components/home/CinematicHomePage";
 
@@ -1544,14 +1545,6 @@ function CoNewsletterSection() {
   </section>;
 }
 
-const faqItems = [
-  ["Are your products 100% natural?", "Yes! All our products are 100% natural with no artificial colors, flavors or preservatives."],
-  ["Do you ship internationally?", "We currently deliver across India and are preparing selected international delivery routes."],
-  ["What is your return policy?", "Unopened products can be returned within 14 days of delivery. Contact our support team and we'll help."],
-  ["How should I store coconut water?", "Keep unopened bottles in a cool, dry place. Refrigerate after opening and enjoy promptly."],
-  ["How long does delivery take?", "Most orders arrive within 3–7 working days, depending on your location."]
-] as const;
-
 function FAQSection() {
   const [openIndex, setOpenIndex] = useState(0);
 
@@ -1574,7 +1567,7 @@ function FAQSection() {
           <h2 className="mt-3 font-['Cormorant_Garamond'] text-[38px] leading-[.95] md:text-[48px]">Got questions?<br />We&apos;ve got answers.</h2>
         </div>
         <div className="space-y-2">
-          {faqItems.map(([question, answer], index) => {
+          {homeFaqItems.map(([question, answer], index) => {
             const isOpen = openIndex === index;
             return (
               <article key={question} className="overflow-hidden rounded-[16px] border border-[#35271e]/7 bg-white/48 shadow-[0_8px_28px_rgba(53,39,30,.035)]">

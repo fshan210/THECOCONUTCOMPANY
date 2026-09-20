@@ -1,10 +1,7 @@
-import type { Metadata } from "next";
 import NotFound from "@/app/not-found";
+import { createNotFoundMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "Page not found | .CO The Coconut Company",
-  robots: { index: false, follow: false },
-};
+export const metadata = createNotFoundMetadata();
 
 export default function ExplicitNotFoundPage() {
   return <NotFound />;

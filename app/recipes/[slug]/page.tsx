@@ -34,11 +34,13 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const recipe = await findRecipe((await params).slug);
-  return recipe ? createPageMetadata({ title: recipe.title, description: recipe.description, path: `/recipes/${recipe.slug}`, ogImage: mediaUrl(recipe.image) }) : {};
+  if (!recipe) notFound();
+  return createPageMetadata({ title: recipe.title, description: recipe.description, path: `/recipes/${recipe.slug}`, ogImage: mediaUrl(recipe.image) });
 }
 
 export default async function RecipePage({ params }: { params: Promise<{ slug: string }> }) {
   const recipe = await findRecipe((await params).slug);
   if (!recipe) notFound();
-  return <><StructuredData breadcrumbs={[{name:"Home",path:"/"},{name:"Recipes",path:"/recipes"},{name:recipe.title,path:`/recipes/${recipe.slug}`}]} extra={[recipeSchema({ title:recipe.title,description:recipe.description,image:mediaUrl(recipe.image),time:String(recipe.time),difficulty:recipe.difficulty,category:recipe.category,product:recipe.products.map((p)=>p.name).join(", "),slug:recipe.slug,ingredients:recipe.ingredients,steps:recipe.steps,prepTime:String(recipe.time),cookTime:"",servings:"",nutrition:recipe.nutrition.join(", ") })]}/><RecipeDetailPage recipe={recipe}/></>;
+  const schema = recipeSchema({ title:recipe.title,description:recipe.description,image:mediaUrl(recipe.image),time:String(recipe.time),difficulty:recipe.difficulty,category:recipe.category,product:recipe.products.map((p)=>p.name).join(", "),slug:recipe.slug,ingredients:recipe.ingredients,steps:recipe.steps,prepTime:"",cookTime:"",servings:"",nutrition:"" });
+  return <><StructuredData breadcrumbs={[{name:"Home",path:"/"},{name:"Recipes",path:"/recipes"},{name:recipe.title,path:`/recipes/${recipe.slug}`}]} extra={schema ? [schema] : []}/><RecipeDetailPage recipe={recipe}/></>;
 }

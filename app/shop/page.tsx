@@ -3,6 +3,7 @@ import { ReferenceShopPage } from "@/components/shop/ReferenceShopPage";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { getProducts, getSeoMetadata } from "@/lib/content/server";
 import { createPageMetadata } from "@/lib/seo/metadata";
+import { collectionPageSchema } from "@/lib/seo/structured-data";
 
 export async function generateMetadata(): Promise<Metadata> {
   const seo = await getSeoMetadata("/shop");
@@ -19,7 +20,20 @@ export default async function ShopPage() {
   const products = await getProducts();
   return (
     <>
-      <StructuredData breadcrumbs={[{ name: "Home", path: "/" }, { name: "Shop", path: "/shop" }]} />
+      <StructuredData
+        breadcrumbs={[{ name: "Home", path: "/" }, { name: "Shop", path: "/shop" }]}
+        extra={[collectionPageSchema({
+          name: "Shop .CO coconut products",
+          description: "Explore .CO coconut water, kitchen, care and lifestyle products.",
+          path: "/shop",
+          items: products.map((product) => ({
+            name: product.name,
+            description: product.shortDescription,
+            image: product.image,
+            path: `/shop/${product.slug}`,
+          })),
+        })]}
+      />
       <ReferenceShopPage contentProducts={products} />
     </>
   );
