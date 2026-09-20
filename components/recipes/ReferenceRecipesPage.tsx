@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { ResponsiveImage } from "@/components/media/ResponsiveImage";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -1143,7 +1144,7 @@ export function ProductsUsed({
       {products.map((p) => (
         <Link href={`/shop?product=${p.slug}`} key={p.slug}>
           <span>
-            <Image
+            <ResponsiveImage
               src={p.image}
               alt={p.name}
               fill
