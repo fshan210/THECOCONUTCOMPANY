@@ -5,7 +5,7 @@ const canonicalOrigin = "https://cothecoconutcompany.com";
 const expectPreviewNoindex = process.env.EXPECT_PREVIEW_NOINDEX === "1";
 
 const routes = [
-  { path: "/", index: true, schemas: ["Organization", "WebSite", "FAQPage"] },
+  { path: "/", index: true, schemas: ["Organization", "WebSite"], faqCount: 0 },
   { path: "/about", index: true, schemas: ["BreadcrumbList"] },
   { path: "/shop", index: true, schemas: ["BreadcrumbList", "CollectionPage"] },
   { path: "/shop/co-water", index: true, schemas: ["BreadcrumbList"] },
@@ -15,7 +15,8 @@ const routes = [
   { path: "/sustainability", index: true, schemas: ["BreadcrumbList"] },
   { path: "/journal", index: true, schemas: ["BreadcrumbList", "CollectionPage"] },
   { path: "/journal/social-cocreation-hub", index: true, schemas: ["BreadcrumbList"] },
-  { path: "/support", index: true, schemas: ["BreadcrumbList", "FAQPage"] },
+  { path: "/faqs", index: true, schemas: ["BreadcrumbList", "FAQPage"], faqCount: 3 },
+  { path: "/support", index: true, schemas: ["BreadcrumbList", "FAQPage"], faqCount: 6 },
   { path: "/legal", index: true, schemas: ["BreadcrumbList"] },
   { path: "/privacy-policy", index: true, schemas: ["BreadcrumbList"] },
   { path: "/shipping-returns", index: true, schemas: ["BreadcrumbList"] },
@@ -49,15 +50,22 @@ function canonical(html) {
   return tag ? attribute(tag, "href") : undefined;
 }
 
-function schemaTypes(html) {
-  const types = [];
+function schemaDocuments(html) {
+  const documents = [];
   for (const match of html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
-    let parsed;
     try {
-      parsed = JSON.parse(match[1]);
+      const parsed = JSON.parse(match[1]);
+      documents.push(...(Array.isArray(parsed) ? parsed : [parsed]));
     } catch (error) {
       fail(`Invalid JSON-LD: ${error.message}`);
     }
+  }
+  return documents;
+}
+
+function schemaTypes(html) {
+  const types = [];
+  for (const parsed of schemaDocuments(html)) {
     const visit = (value) => {
       if (!value || typeof value !== "object") return;
       if (typeof value["@type"] === "string") types.push(value["@type"]);
@@ -67,6 +75,11 @@ function schemaTypes(html) {
     visit(parsed);
   }
   return types;
+}
+
+function faqEntityCount(html) {
+  const faq = schemaDocuments(html).find((document) => document?.["@type"] === "FAQPage");
+  return Array.isArray(faq?.mainEntity) ? faq.mainEntity.length : 0;
 }
 
 async function request(path) {
@@ -105,6 +118,9 @@ async function checkRoute(route) {
   const presentTypes = schemaTypes(html);
   for (const type of route.schemas || []) {
     if (!presentTypes.includes(type)) fail(`${route.path}: missing ${type} JSON-LD`);
+  }
+  if (typeof route.faqCount === "number" && faqEntityCount(html) !== route.faqCount) {
+    fail(`${route.path}: expected ${route.faqCount} FAQ schema items, found ${faqEntityCount(html)}`);
   }
 
   return { path: route.path, status: response.status, title, canonical: expectedCanonical, robots, h1Count, schemas: presentTypes };
