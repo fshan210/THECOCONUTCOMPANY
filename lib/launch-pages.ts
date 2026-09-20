@@ -1,8 +1,10 @@
+export type FAQItem = { title: string; body: string };
+
 export type LaunchPage = {
   title: string;
   eyebrow: string;
   intro: string;
-  sections: Array<{ title: string; body: string }>;
+  sections: FAQItem[];
   action?: { label: string; href: string };
   mode?: "search" | "track" | "cart" | "checkout";
 };
@@ -70,3 +72,10 @@ launchPages.legal = { ...launchPages["privacy-policy"], eyebrow: "Legal centre" 
 launchPages["shipping-returns"] = { ...launchPages["shipping-delivery"], eyebrow: "Help & support" };
 
 export const launchPageSlugs = Object.keys(launchPages);
+
+export type FAQPageSlug = "faqs" | "support";
+
+export function visibleFaqItemsForPage(slug: FAQPageSlug): FAQItem[] {
+  if (slug === "faqs") return launchPages.faqs.sections;
+  return [...launchPages.faqs.sections, ...launchPages.support.sections];
+}

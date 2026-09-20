@@ -3,9 +3,11 @@ import test from "node:test";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fallbackJournalPosts, fallbackProducts, fallbackRecipes } from "../../lib/content/fallback-data";
+import { visibleFaqItemsForPage, type FAQPageSlug } from "../../lib/launch-pages";
 import { absoluteCanonicalUrl, createPageMetadata, siteUrl } from "../../lib/seo/metadata";
 import { buildSitemapUrls, indexableStaticRoutes, noindexRoutePrefixes } from "../../lib/seo/routes";
-import { articleSchema, organizationSchema, productSchema, recipeSchema, websiteSchema } from "../../lib/seo/structured-data";
+import { articleSchema, faqSchema, organizationSchema, productSchema, recipeSchema, websiteSchema } from "../../lib/seo/structured-data";
+import { homeFaqItems } from "../../lib/seo/public-content";
 import { serializeJsonLd } from "../../components/seo/StructuredData";
 import robots from "../../app/robots";
 
@@ -99,6 +101,39 @@ test("JSON-LD serialization cannot terminate its script element", () => {
   assert.doesNotMatch(serialized, /<\/script>/i);
   assert.match(serialized, /\\u003c\/script\\u003e/);
   assert.match(serialized, /\\u0026/);
+});
+
+test("FAQPage schemas contain exactly the FAQ content visible on each page", () => {
+  const homeVisibleItems = homeFaqItems.map(([question, answer]) => ({ question, answer }));
+  const homeSchema = faqSchema(homeVisibleItems);
+  assert.deepEqual(
+    homeSchema.mainEntity.map((item) => ({ question: item.name, answer: item.acceptedAnswer.text })),
+    homeVisibleItems,
+  );
+
+  (["faqs", "support"] as FAQPageSlug[]).forEach((slug) => {
+    const visibleItems = visibleFaqItemsForPage(slug).map(({ title, body }) => ({
+      question: title,
+      answer: body,
+    }));
+    const schema = faqSchema(visibleItems, `/${slug}`);
+    const schemaItems = schema.mainEntity.map((item) => ({
+      question: item.name,
+      answer: item.acceptedAnswer.text,
+    }));
+
+    assert.deepEqual(schemaItems, visibleItems, `/${slug} must not contain schema-only FAQ content`);
+  });
+
+  assert.equal(visibleFaqItemsForPage("faqs").length, 3);
+  assert.equal(visibleFaqItemsForPage("support").length, 6);
+
+  const utilityRoute = readFileSync(resolve("app/[slug]/page.tsx"), "utf8");
+  const informationSurface = readFileSync(resolve("components/commerce/InformationSurface.tsx"), "utf8");
+  assert.match(utilityRoute, /visibleFaqItemsForPage\(slug\)/);
+  assert.match(informationSurface, /visibleFaqItemsForPage\("faqs"\)/);
+  assert.match(informationSurface, /visibleFaqItemsForPage\("support"\)/);
+  assert.doesNotMatch(utilityRoute, /\.\.\.launchPages\.faqs\.sections/);
 });
 
 test("every private route family has a permanent noindex declaration", () => {

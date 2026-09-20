@@ -1,7 +1,11 @@
 import { HelpQuestions } from "./HelpQuestions";
 import Link from "next/link";
 import { BookOpen, Heart, Leaf, Mail, Package, UserRound } from "lucide-react";
-import { launchPages } from "@/lib/launch-pages";
+import {
+  launchPages,
+  visibleFaqItemsForPage,
+  type FAQItem,
+} from "@/lib/launch-pages";
 import { ContactQuickForm } from "@/components/launch/ContactQuickForm";
 import { CookiePreferencesButton } from "@/components/launch/CookiePreferencesButton";
 import {
@@ -43,7 +47,9 @@ export function InformationSurface({ slug }: { slug: string }) {
       ? "privacy-policy"
       : slug === "terms"
         ? "terms-and-conditions"
-        : slug;
+          : slug;
+  const visibleSections =
+    slug === "faqs" ? visibleFaqItemsForPage("faqs") : page.sections;
   return (
     <CommerceSurface>
       <CommerceHero
@@ -109,7 +115,7 @@ export function InformationSurface({ slug }: { slug: string }) {
                   aria-label="In this page"
                 >
                   <h2>In this page</h2>
-                  {page.sections.map((section, i) => (
+                  {visibleSections.map((section, i) => (
                     <a key={section.title} href={`#document-${i}`}>
                       <span>{String(i + 1).padStart(2, "0")}</span>
                       {section.title}
@@ -132,7 +138,7 @@ export function InformationSurface({ slug }: { slug: string }) {
                 <p className="cm-eyebrow">{page.eyebrow}</p>
                 <h2>{page.title}</h2>
                 <p>{page.intro}</p>
-                {page.sections.map((section, i) => (
+                {visibleSections.map((section, i) => (
                   <section
                     id={`document-${i}`}
                     tabIndex={-1}
@@ -204,7 +210,7 @@ export function InformationSurface({ slug }: { slug: string }) {
             </div>
             <div className="cm-split">
               <div className="cm-stack">
-                <FAQ />
+                <FAQ questions={visibleFaqItemsForPage("support")} />
                 <section id="contact-form" className="cm-contact-form">
                   <ContactQuickForm />
                 </section>
@@ -292,7 +298,7 @@ export function InformationSurface({ slug }: { slug: string }) {
               <p className="cm-eyebrow">{page.eyebrow}</p>
               <h2>{page.title}</h2>
               <div className="cm-policy-grid">
-                {page.sections.map((section) => (
+                {visibleSections.map((section) => (
                   <article key={section.title}>
                     <Package />
                     <h3>{section.title}</h3>
@@ -306,7 +312,9 @@ export function InformationSurface({ slug }: { slug: string }) {
                 </CommerceLink>
               )}
             </section>
-            {slug !== "faqs" && <FAQ />}
+            {slug !== "faqs" && (
+              <FAQ questions={visibleFaqItemsForPage("support")} />
+            )}
           </>
         )}
         <CommerceClose />
@@ -315,13 +323,8 @@ export function InformationSurface({ slug }: { slug: string }) {
     </CommerceSurface>
   );
 }
-function FAQ() {
+function FAQ({ questions }: { questions: FAQItem[] }) {
   return (
-    <HelpQuestions
-      questions={[
-        ...launchPages.faqs.sections,
-        ...launchPages.support.sections,
-      ]}
-    />
+    <HelpQuestions questions={questions} />
   );
 }

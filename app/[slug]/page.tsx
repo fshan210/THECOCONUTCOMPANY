@@ -10,7 +10,7 @@ import { getProducts, getRecipes, getJournalPosts } from "@/lib/content/server";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { UtilityPage } from "@/components/launch/UtilityPage";
-import { launchPages, launchPageSlugs } from "@/lib/launch-pages";
+import { launchPages, launchPageSlugs, visibleFaqItemsForPage } from "@/lib/launch-pages";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { faqSchema } from "@/lib/seo/structured-data";
@@ -52,7 +52,7 @@ export default async function LaunchUtilityRoute({
     <StructuredData
       breadcrumbs={[{ name: "Home", path: "/" }, { name: page.eyebrow, path: `/${slug}` }]}
       extra={slug === "faqs" || slug === "support" ? [faqSchema(
-        [...launchPages.faqs.sections, ...launchPages.support.sections].map(({ title, body }) => ({ question: title, answer: body })),
+        visibleFaqItemsForPage(slug).map(({ title, body }) => ({ question: title, answer: body })),
         `/${slug}`,
       )] : []}
     />
