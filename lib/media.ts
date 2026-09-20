@@ -1,4 +1,5 @@
 export const MEDIA_BASE_PATH = "/site-media/v1";
+export const DEFAULT_MEDIA_BASE_URL = "https://media.cothecoconutcompany.com";
 
 const managedPrefixes = [
   "/assets/",
@@ -29,7 +30,9 @@ const bundledRuntimePrefixes = [
 ] as const;
 
 function configuredBaseUrl() {
-  return (process.env.NEXT_PUBLIC_MEDIA_BASE_URL ?? "").trim().replace(/\/+$/, "");
+  const configured = (process.env.NEXT_PUBLIC_MEDIA_BASE_URL ?? "").trim().replace(/\/+$/, "");
+  if (configured) return configured;
+  return process.env.NODE_ENV === "production" ? DEFAULT_MEDIA_BASE_URL : "";
 }
 
 export function normalizeMediaPath(src: string) {
