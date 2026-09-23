@@ -498,7 +498,7 @@
 .co-shop-trust { position: relative; padding-top: 54px; background: linear-gradient(180deg,#150a06,#180b07); }
 .co-shop-newsletter-shell { position: relative; isolation: isolate; padding: 86px 24px 72px; background: linear-gradient(180deg,#180b07,#120805); }
 .co-shop-newsletter-shell .co-newsletter-panel { position: relative; z-index: 4; }
-.co-shop-newsletter-shell .co-newsletter-farm { background-image: url('/assets/redesign/shop/backgrounds/6.png'); background-position: center; }
+.co-shop-newsletter-shell .co-newsletter-farm { background-image: url('/assets/redesign/shop/backgrounds/6.avif'); background-position: center; }
 .co-shop-footer-dissolve { height: 180px; margin-top: -90px; background: linear-gradient(to bottom,rgba(18,8,5,0),rgba(10,6,4,.96) 74%,#0a0604); pointer-events: none; }
 
 .co-shop-quick-overlay {
@@ -612,7 +612,7 @@
 
 @media (max-width: 767px) {
   .co-shop-hero { min-height: calc(100svh + 12px); padding: 104px 16px 18px; }
-  .co-shop-hero__environment { background-image: url('/assets/redesign/shop/backgrounds/1.png'); background-position: center; opacity: .78; }
+  .co-shop-hero__environment { background-image: url('/assets/redesign/shop/backgrounds/1.avif'); background-position: center; opacity: .78; }
   .co-shop-hero__film { opacity: .06; }
   .co-shop-hero__veil { background: linear-gradient(180deg,rgba(17,7,4,.58) 0%,rgba(20,9,5,.82) 47%,rgba(24,11,7,.12) 73%,#1d0e09 100%); }
   .co-shop-hero__layout { display: flex; min-height: 638px; flex-direction: column; gap: 4px; }
@@ -639,7 +639,7 @@
   .co-shop-product-card__image { aspect-ratio: .86; }
   .co-shop-product-card h2 { min-height: 40px; }
   .co-shop-ritual { min-height: 0; padding: 70px 12px 24px; }
-  .co-shop-ritual__canvas { display: grid; height: auto; aspect-ratio: auto; gap: 18px; border: 1px solid rgba(224,159,82,.17); border-radius: 30px; padding: 26px 14px 16px; background-image: linear-gradient(180deg,rgba(31,14,8,.58),rgba(20,9,5,.86)),url('/assets/redesign/shop/backgrounds/build your ritual-mobile.png'); background-position: center top; background-size: cover; box-shadow: inset 0 1px rgba(255,235,212,.08),0 22px 54px rgba(0,0,0,.28); }
+  .co-shop-ritual__canvas { display: grid; height: auto; aspect-ratio: auto; gap: 18px; border: 1px solid rgba(224,159,82,.17); border-radius: 30px; padding: 26px 14px 16px; background-image: linear-gradient(180deg,rgba(31,14,8,.58),rgba(20,9,5,.86)),url('/assets/redesign/shop/backgrounds/build your ritual-mobile.avif'); background-position: center top; background-size: cover; box-shadow: inset 0 1px rgba(255,235,212,.08),0 22px 54px rgba(0,0,0,.28); }
   .co-shop-ritual__copy { position: relative; top: auto; left: auto; width: auto; padding: 0 6px; }
   .co-shop-ritual__copy h2 { max-width: 9ch; margin-top: 12px; font-size: clamp(42px,12vw,56px); }
   .co-shop-ritual__copy > p:nth-of-type(2) { max-width: 40ch; margin-top: 18px; font-size: 12px; line-height: 1.6; }

@@ -19,7 +19,7 @@ const assetRoot = "/assets/redesign/home/cinematic";
 
 const environmentPlates = [
   "background-6.png",
-  "background-2.png",
+  "background-2.avif",
   "background-3.png",
   "background-4.png",
   "background-5.png",
@@ -312,7 +312,7 @@ export function HomePinnedScrubVideo() {
 
 function OriginScene() {
   return <section className={`${styles.scene} ${styles.origin}`} data-home-section="origin-everyday">
-    <Image src={`${assetRoot}/origin-to-everyday.png`} alt="A coconut-growing landscape flowing into an everyday kitchen scene" fill sizes="100vw" className="object-cover" />
+    <Image src={`${assetRoot}/origin-to-everyday.avif`} alt="A coconut-growing landscape flowing into an everyday kitchen scene" fill sizes="100vw" className="object-cover" />
     <span className={styles.originWash} />
     <div className={styles.originTitle}><span>From</span><strong>Origin</strong><i>to</i><strong>Everyday<br />Living</strong></div>
     <svg className={corrections.originCurrent} viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
@@ -435,7 +435,7 @@ function SustainabilitySection() {
     [MapPinned, "Farm relationships mapped"],
     [Recycle, "Waste streams identified"],
   ] as const;
-  return <section className={`${styles.scene} ${styles.sustainability} ${corrections.sustainability}`} data-home-section="sustainability"><Image src={`${assetRoot}/sustainability-farm.png`} alt="A coconut farm illuminated by warm morning light" fill sizes="100vw" className="object-cover" /><span className={`${styles.sustainabilityWash} ${corrections.sustainabilityWash}`} /><div className={styles.sustainabilityCopy}><p className={styles.eyebrow}>Sustainability in action</p><h2 style={{ marginBottom: 28 }}>Small choices.<br /><em>Big impact.</em></h2><p>Every drop, every jar, every choice is part of a more thoughtful coconut system.</p><Link href="/sustainability" className={styles.primaryButton}>Our Sustainability <ArrowRight size={15} /></Link></div><div className={`${styles.safeCounters} ${corrections.safeCounters}`} aria-label="Illustrative sustainability planning areas">{counters.map(([Icon, label], index) => <article key={label}><i className={corrections.counterIcon} aria-hidden="true"><Icon size={18} strokeWidth={1.5} /></i><strong>{String(index + 1).padStart(2, "0")}</strong><span>{label}</span></article>)}</div><SectionTransition /></section>;
+  return <section className={`${styles.scene} ${styles.sustainability} ${corrections.sustainability}`} data-home-section="sustainability"><Image src={`${assetRoot}/sustainability-farm.avif`} alt="A coconut farm illuminated by warm morning light" fill sizes="100vw" className="object-cover" /><span className={`${styles.sustainabilityWash} ${corrections.sustainabilityWash}`} /><div className={styles.sustainabilityCopy}><p className={styles.eyebrow}>Sustainability in action</p><h2 style={{ marginBottom: 28 }}>Small choices.<br /><em>Big impact.</em></h2><p>Every drop, every jar, every choice is part of a more thoughtful coconut system.</p><Link href="/sustainability" className={styles.primaryButton}>Our Sustainability <ArrowRight size={15} /></Link></div><div className={`${styles.safeCounters} ${corrections.safeCounters}`} aria-label="Illustrative sustainability planning areas">{counters.map(([Icon, label], index) => <article key={label}><i className={corrections.counterIcon} aria-hidden="true"><Icon size={18} strokeWidth={1.5} /></i><strong>{String(index + 1).padStart(2, "0")}</strong><span>{label}</span></article>)}</div><SectionTransition /></section>;
 }
 
 function NewsletterSection() {
@@ -462,7 +462,7 @@ function NewsletterSection() {
     return () => video.pause();
   }, [active, reducedMotion]);
   const restart = (event: SyntheticEvent<HTMLVideoElement>) => { const video = event.currentTarget; video.currentTime = 0.01; void video.play().catch(() => undefined); };
-  return <section ref={sectionRef} className={`${styles.scene} ${styles.newsletter} ${corrections.newsletter}`} data-home-section="newsletter"><video ref={videoRef} className={corrections.newsletterVideo} autoPlay={active} muted loop playsInline preload={active ? "auto" : "none"} poster={`${assetRoot}/sustainability-farm.png`} onPlaying={(event) => event.currentTarget.removeAttribute("poster")} onEnded={restart} aria-hidden="true">{active && !reducedMotion ? <source src={mediaUrl("/assets/video/homepage-v2/co-home-farm-1080p-v1.mp4")} type="video/mp4" /> : null}</video><span /><div><p className={styles.eyebrow}>Stay in the loop</p><h2>Good things, straight to you.</h2><p>Recipes, new drops and real stories.</p></div><NewsletterForm compact className={styles.newsletterForm} /><SectionTransition /></section>;
+  return <section ref={sectionRef} className={`${styles.scene} ${styles.newsletter} ${corrections.newsletter}`} data-home-section="newsletter"><video ref={videoRef} className={corrections.newsletterVideo} autoPlay={active} muted loop playsInline preload={active ? "auto" : "none"} poster={`${assetRoot}/sustainability-farm.avif`} onPlaying={(event) => event.currentTarget.removeAttribute("poster")} onEnded={restart} aria-hidden="true">{active && !reducedMotion ? <source src={mediaUrl("/assets/video/homepage-v2/co-home-farm-1080p-v1.mp4")} type="video/mp4" /> : null}</video><span /><div><p className={styles.eyebrow}>Stay in the loop</p><h2>Good things, straight to you.</h2><p>Recipes, new drops and real stories.</p></div><NewsletterForm compact className={styles.newsletterForm} /><SectionTransition /></section>;
 }
 
 export function CinematicHomeSequence({ homepage, products, recipes, testimonials }: { homepage: HomepageContent; products: ContentProduct[]; recipes: ContentRecipe[]; testimonials: ContentTestimonial[] }) {

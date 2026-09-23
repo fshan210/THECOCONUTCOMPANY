@@ -74,7 +74,7 @@ const recipes: Recipe[] = [
   {
     slug: recipeIndexIdentities[1].recipeId,
     title: recipeIndexIdentities[1].title,
-    image: `${A}THAILAND GREEN COCONUT CURRY.png`,
+    image: `${A}THAILAND GREEN COCONUT CURRY.avif`,
     time: 20,
     difficulty: "Medium",
     servings: 4,
@@ -420,7 +420,7 @@ export function ReferenceRecipesPage() {
         </nav>
         <section className="recipe-culture">
           <Scene
-            src={`${A}RECIPIE BRINGS CULTURE TOGETHER.png`}
+            src={`${A}RECIPIE BRINGS CULTURE TOGETHER.avif`}
             alt="Kerala backwaters with .CO kitchen products and shared dishes"
           />
           <div>
@@ -553,7 +553,7 @@ export function ReferenceRecipesPage() {
           <h2>Recipe of the Moment</h2>
           <div className="rd-split">
             <Scene
-              src={`${A}RED THAI COCONUT CURRY.png`}
+              src={`${A}RED THAI COCONUT CURRY.avif`}
               alt="Thai coconut red curry"
             />
             <div className="moment-copy">

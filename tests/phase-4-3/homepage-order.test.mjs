@@ -29,7 +29,7 @@ test("the Home route has one owner and one footer handoff", async () => {
 
 test("Home uses supplied assets, safe claims, and required newsletter behavior", async () => {
   const source = await readFile(new URL("../../components/home/CinematicHomePage.tsx", import.meta.url), "utf8");
-  for (const filename of ["sunrise-reset.png", "balanced-hustle.png", "evening-wind-down.png", "origin-to-everyday.png", "sustainability-farm.png", ...Array.from({ length: 6 }, (_, index) => `background-${index + 1}.png`)]) {
+  for (const filename of ["sunrise-reset.png", "balanced-hustle.png", "evening-wind-down.png", "origin-to-everyday.avif", "sustainability-farm.avif", "background-1.png", "background-2.avif", ...Array.from({ length: 4 }, (_, index) => `background-${index + 3}.png`)]) {
     assert.ok(source.includes(filename), `expected ${filename}`);
   }
   for (const forbidden of ["VAP", "execution milestones", "Phase-one", "verified impact dashboard", "CO₂e reduced", "plastic avoided", "verified buyer"]) {
@@ -53,7 +53,7 @@ test("Home uses supplied assets, safe claims, and required newsletter behavior",
 
 test("Home renders one Origin scene and deletes the scrub-stage duplicate", async () => {
   const source = await readFile(new URL("../../components/home/CinematicHomePage.tsx", import.meta.url), "utf8");
-  assert.equal(source.match(/origin-to-everyday\.png/g)?.length, 1);
+  assert.equal(source.match(/origin-to-everyday\.avif/g)?.length, 1);
   assert.equal(source.match(/data-home-section="origin-everyday"/g)?.length, 1);
   assert.equal(source.includes("scrubOriginPreview"), false, "the duplicate must be deleted from the render tree");
 });
