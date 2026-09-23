@@ -17,6 +17,6 @@ export const errorHandler: ErrorHandler<AppBindings> = (err, c) => {
     logWarn("validation_error", { requestId, fields });
     return c.json({ error: { code: "VALIDATION_ERROR", message: "Check the highlighted fields and try again.", fields }, requestId }, 400);
   }
-  logError("unhandled_error", { requestId, name: err.name, message: err.message });
+  logError("unhandled_error", { requestId, name: err.name });
   return c.json({ error: { code: "INTERNAL_ERROR", message: "Something went wrong. Please try again." }, requestId }, 500);
 };

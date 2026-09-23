@@ -1,17 +1,24 @@
-import { NextResponse } from "next/server";
 import { newsletterSubscriptionSchema } from "@dotco/contracts";
+import { isSameOriginMutation, privateJson, readBoundedJson } from "@/lib/security/http";
+import { checkRateLimit } from "@/lib/security/rate-limit";
 
 const timeoutMs = 8_000;
 
 export async function POST(request: Request) {
-  const parsed = newsletterSubscriptionSchema.safeParse(await request.json().catch(() => null));
+  if (!isSameOriginMutation(request)) return privateJson({ ok: false, message: "Origin not allowed." }, { status: 403 });
+  const requestBody = await readBoundedJson(request);
+  const parsed = newsletterSubscriptionSchema.safeParse(requestBody.ok ? requestBody.value : null);
   if (!parsed.success) {
-    return NextResponse.json({ ok: false, message: "Please enter a valid email and confirm your consent." }, { status: 400 });
+    return privateJson({ ok: false, message: requestBody.ok ? "Please enter a valid email and confirm your consent." : requestBody.message }, { status: requestBody.ok ? 400 : requestBody.status });
   }
+
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
+  const rate = await checkRateLimit({ key: ip + ":" + parsed.data.email.toLowerCase(), action: "newsletter", limit: 6, windowMs: 15 * 60_000, area: "forms" });
+  if (!rate.allowed) return privateJson({ ok: false, message: "Too many requests. Please wait a few minutes and try again." }, { status: 429 });
 
   const baseUrl = process.env.SERVER_API_BASE_URL;
   if (!baseUrl) {
-    return NextResponse.json({ ok: false, message: "Newsletter signup is temporarily unavailable." }, { status: 503 });
+    return privateJson({ ok: false, message: "Newsletter signup is temporarily unavailable." }, { status: 503 });
   }
 
   try {
@@ -24,10 +31,10 @@ export async function POST(request: Request) {
     });
     const payload = await response.json().catch(() => null) as { data?: { status?: string } } | null;
     if (!response.ok) {
-      return NextResponse.json({ ok: false, message: "We couldn't save your subscription right now." }, { status: response.status >= 500 ? 503 : 400 });
+      return privateJson({ ok: false, message: "We couldn't save your subscription right now." }, { status: response.status >= 500 ? 503 : 400 });
     }
-    return NextResponse.json({ ok: true, status: payload?.data?.status === "already_subscribed" ? "already_subscribed" : "subscribed" });
+    return privateJson({ ok: true, status: payload?.data?.status === "already_subscribed" ? "already_subscribed" : "subscribed" });
   } catch {
-    return NextResponse.json({ ok: false, message: "We couldn't save your subscription right now." }, { status: 503 });
+    return privateJson({ ok: false, message: "We couldn't save your subscription right now." }, { status: 503 });
   }
 }

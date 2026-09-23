@@ -20,5 +20,8 @@ export const strictCors: MiddlewareHandler<AppBindings> = async (c, next) => {
   if (c.req.method === "OPTIONS") {
     return c.body(null, allowed ? 204 : 403);
   }
+  if (origin && !allowed) {
+    return c.json({ error: { code: "FORBIDDEN", message: "Origin not allowed." }, requestId: c.get("requestId") }, 403);
+  }
   await next();
 };

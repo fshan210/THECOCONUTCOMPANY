@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import { getCustomerSession } from "@/lib/customer/auth";
+import { privateJson } from "@/lib/security/http";
 
 /**
  * A deliberately small BFF session read. The browser can learn whether a
@@ -18,8 +18,5 @@ export async function GET() {
       }
     : null;
 
-  return NextResponse.json(
-    { authenticated: Boolean(user), user },
-    { headers: { "Cache-Control": "private, no-store, max-age=0" } }
-  );
+  return privateJson({ authenticated: Boolean(user), user });
 }

@@ -1,7 +1,7 @@
 import "server-only";
 
 import { cookies } from "next/headers";
-import { awsSessionCookie, readAwsSession } from "@/lib/auth/aws-session";
+import { awsSessionCookieName, maxAwsSessionChunks, readAwsSession } from "@/lib/auth/aws-session";
 
 export type SavedContentRecord = {
   productIds: string[];
@@ -67,5 +67,7 @@ export async function getCustomerProfile() {
 }
 
 export function clearCustomerSessionCookie() {
-  return cookies().then((store) => store.delete(awsSessionCookie));
+  return cookies().then((store) => {
+    for (let index = 0; index < maxAwsSessionChunks; index += 1) store.delete(awsSessionCookieName(index));
+  });
 }

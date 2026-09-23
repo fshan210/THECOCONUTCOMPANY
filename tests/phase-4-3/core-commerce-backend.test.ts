@@ -145,6 +145,7 @@ test("commerce clients keep synchronous mutation guards, optimistic rollback and
   assert.match(savedSource, /pendingRef\.current/);
   assert.match(savedSource, /if \(removing\) next\.add\(itemId\); else next\.delete\(itemId\)/);
   assert.match(savedSource, /co-saved-content-changed/);
+  assert.match(savedSource, /inFlightSavedRead/);
   assert.doesNotMatch(detailSource, /localStorage/);
   assert.match(detailSource, /useSavedContent\("recipe"\)/);
 });

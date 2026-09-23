@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import type { CustomerSession } from "@/lib/customer/auth-config";
 
 const CustomerAuthContext = createContext<CustomerSession | null>(null);
@@ -24,21 +24,42 @@ function toCustomerSession(user: SafeSessionResponse["user"]): CustomerSession |
 
 export function CustomerAuthProvider({ session, children }: { session: CustomerSession | null; children: React.ReactNode }) {
   const [currentSession, setCurrentSession] = useState<CustomerSession | null>(session);
+  const generationRef = useRef(0);
+  const requestRef = useRef<AbortController | null>(null);
+  const serverScope = session ? session.email.toLowerCase() + ":" + session.expiresAt : "guest";
+  const serverScopeRef = useRef(serverScope);
+  if (serverScopeRef.current !== serverScope) {
+    serverScopeRef.current = serverScope;
+    generationRef.current += 1;
+    requestRef.current?.abort();
+    requestRef.current = null;
+  }
 
   // A server navigation (including the logout server action) is authoritative
   // and should replace a previously refreshed client-side value.
   useEffect(() => {
+    generationRef.current += 1;
+    requestRef.current?.abort();
+    requestRef.current = null;
     setCurrentSession(session);
-  }, [session]);
+  }, [serverScope, session]);
 
   const refreshSession = useCallback(async () => {
+    const generation = generationRef.current + 1;
+    generationRef.current = generation;
+    requestRef.current?.abort();
+    const controller = new AbortController();
+    requestRef.current = controller;
     try {
-      const response = await fetch("/api/auth/session", { cache: "no-store", credentials: "same-origin" });
+      const response = await fetch("/api/auth/session", { cache: "no-store", credentials: "same-origin", signal: controller.signal });
       if (!response.ok) return;
       const result = await response.json() as SafeSessionResponse;
+      if (generationRef.current !== generation) return;
       setCurrentSession(result.authenticated ? toCustomerSession(result.user) : null);
     } catch {
       // Keep the server-rendered session if a transient network error occurs.
+    } finally {
+      if (generationRef.current === generation) requestRef.current = null;
     }
   }, []);
 
@@ -55,6 +76,9 @@ export function CustomerAuthProvider({ session, children }: { session: CustomerS
       window.removeEventListener("co-auth-changed", handleAuthChange);
       window.removeEventListener("focus", handleAuthChange);
       document.removeEventListener("visibilitychange", handleVisibility);
+      generationRef.current += 1;
+      requestRef.current?.abort();
+      requestRef.current = null;
     };
   }, [refreshSession]);
 

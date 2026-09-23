@@ -40,5 +40,16 @@ test("public content and newsletter routes are not shadowed by protected middlew
 test("CORS does not approve unknown origins", async () => {
   const app = createApp();
   const response = await app.request("/v1/health", { headers: { origin: "https://evil.example" } });
+  assert.equal(response.status, 403);
   assert.equal(response.headers.get("access-control-allow-origin"), null);
+});
+
+test("private customer responses and errors cannot enter shared caches", async () => {
+  const app = createApp();
+  for (const path of ["/v1/me", "/v1/cart", "/v1/wishlist", "/v1/orders"]) {
+    const response = await app.request(path);
+    assert.equal(response.status, 401);
+    assert.equal(response.headers.get("cache-control"), "private, no-store, max-age=0");
+    assert.equal(response.headers.get("pragma"), "no-cache");
+  }
 });

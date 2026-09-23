@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { awsSessionCookie } from "@/lib/auth/aws-session";
+import { awsSessionCookieName, maxAwsSessionChunks } from "@/lib/auth/aws-session";
 import { customerAwsApi } from "@/lib/customer/aws-api";
 import { requireVerifiedCustomerSession } from "@/lib/customer/auth";
 
@@ -17,7 +17,8 @@ const profileSchema = z.object({
 });
 
 export async function logoutCustomer() {
-  (await cookies()).delete(awsSessionCookie);
+  const store = await cookies();
+  for (let index = 0; index < maxAwsSessionChunks; index += 1) store.delete(awsSessionCookieName(index));
   redirect("/");
 }
 
@@ -40,6 +41,7 @@ export async function deleteCustomerAccount(formData: FormData) {
   if (String(formData.get("confirmation") || "") !== "DELETE") redirect("/profile?status=delete-confirmation");
   const result = await customerAwsApi("v1/me", { method: "DELETE" });
   if (!result.ok) redirect("/profile?status=unavailable");
-  (await cookies()).delete(awsSessionCookie);
+  const store = await cookies();
+  for (let index = 0; index < maxAwsSessionChunks; index += 1) store.delete(awsSessionCookieName(index));
   redirect("/login?account=deleted");
 }

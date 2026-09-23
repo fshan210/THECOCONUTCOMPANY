@@ -5,6 +5,7 @@ import { awsSessionCookieName, maxAwsSessionChunks, sealAwsSession, splitAwsSess
 import { cognitoClient, cognitoClientId, cognitoErrorName, hasCognitoError, normalizeCognitoEmail, resendCognitoConfirmation } from "@/lib/auth/cognito-bff";
 import { clearPendingVerification, getPendingVerification, maskEmail, safeReturnTo, setPendingVerification } from "@/lib/auth/verification-state";
 import { checkRateLimit } from "@/lib/security/rate-limit";
+import { isSameOriginMutation, privateJson, readBoundedJson } from "@/lib/security/http";
 
 const input = z.object({
   action: z.enum(["login", "signup", "confirm", "resend", "forgot", "reset", "logout"]),
@@ -22,7 +23,7 @@ function requestId() {
 }
 
 function reply(requestIdValue: string, body: Record<string, unknown>, status = 200) {
-  return NextResponse.json({ ...body, requestId: requestIdValue }, { status });
+  return privateJson({ ...body, requestId: requestIdValue }, { status });
 }
 
 const sessionCookieOptions = {
@@ -54,16 +55,6 @@ function bad(requestIdValue: string, message: string, status = 400, flow?: strin
   return reply(requestIdValue, { ok: false, message, ...(flow ? { flow } : {}) }, status);
 }
 
-function isAllowedOrigin(request: Request) {
-  const origin = request.headers.get("origin");
-  if (!origin) return true;
-  try {
-    return new URL(origin).host === request.headers.get("host");
-  } catch {
-    return false;
-  }
-}
-
 function sourceKey(request: Request, email: string) {
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
   return `${ip}:${email}`;
@@ -73,7 +64,7 @@ async function applyRateLimit(request: Request, action: string, email: string, i
   const rate = await checkRateLimit({ key: sourceKey(request, email), action, limit: 3, windowMs: 60_000, area: "customer_auth" });
   if (rate.allowed) return null;
   const retryAfter = Math.max(1, Math.ceil((rate.resetAt - Date.now()) / 1000));
-  return NextResponse.json({ ok: false, message: "Please wait a moment before trying again.", requestId: id, retryAfter }, { status: 429, headers: { "retry-after": String(retryAfter) } });
+  return privateJson({ ok: false, message: "Please wait a moment before trying again.", requestId: id, retryAfter }, { status: 429, headers: { "retry-after": String(retryAfter) } });
 }
 
 async function beginVerification(email: string, returnTo?: string) {
@@ -83,9 +74,10 @@ async function beginVerification(email: string, returnTo?: string) {
 
 export async function POST(request: Request) {
   const id = requestId();
-  if (!isAllowedOrigin(request)) return bad(id, "This request was blocked for your protection.", 403);
-  if (Number(request.headers.get("content-length") || 0) > maxRequestBytes) return bad(id, "This request is too large.", 413);
-  const parsed = input.safeParse(await request.json().catch(() => null));
+  if (!isSameOriginMutation(request)) return bad(id, "This request was blocked for your protection.", 403);
+  const requestBody = await readBoundedJson(request, maxRequestBytes);
+  if (!requestBody.ok) return bad(id, requestBody.message, requestBody.status);
+  const parsed = input.safeParse(requestBody.value);
   if (!parsed.success) return bad(id, "Please check the information and try again.");
   const body = parsed.data;
   const appClientId = cognitoClientId();
@@ -96,6 +88,7 @@ export async function POST(request: Request) {
     if (body.action === "logout") {
       const response = reply(id, { ok: true });
       clearSessionCookies(response);
+      await clearPendingVerification();
       return response;
     }
 

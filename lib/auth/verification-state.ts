@@ -2,10 +2,11 @@ import "server-only";
 
 import crypto from "node:crypto";
 import { cookies } from "next/headers";
+import { safeReturnTo } from "@/lib/auth/safe-return";
+export { safeReturnTo } from "@/lib/auth/safe-return";
 
 const verificationCookie = "co_pending_verification";
 const maxAgeSeconds = 60 * 30;
-const allowedReturnPaths = new Set(["/shop", "/cart", "/wishlist", "/account", "/products"]);
 
 type VerificationState = {
   email: string;
@@ -17,12 +18,6 @@ function key() {
   const secret = process.env.COGNITO_SESSION_SECRET || process.env.ADMIN_SESSION_SECRET;
   if (!secret) throw new Error("COGNITO_SESSION_SECRET is not configured.");
   return crypto.createHash("sha256").update(`${secret}:pending-verification`).digest();
-}
-
-export function safeReturnTo(value?: string | null) {
-  if (!value || !value.startsWith("/") || value.startsWith("//")) return "/shop";
-  const path = value.split("?")[0] || "/shop";
-  return allowedReturnPaths.has(path) ? value : "/shop";
 }
 
 function seal(state: VerificationState) {
