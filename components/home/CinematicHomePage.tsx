@@ -126,7 +126,7 @@ function Hero({ homepage, products }: { homepage: HomepageContent; products: Con
       <motion.div className={corrections.heroMotion} style={reducedMotion ? undefined : { y: coconutY, scale: coconutScale }} aria-hidden="true">
         <div className={`${styles.heroVisual} ${corrections.heroVisual}`}>
           <span className={`${styles.orbit} ${corrections.orbit}`} />
-          <Image src="/assets/home/co-hero-coconut-transparent-v1.webp" alt="" fill priority sizes="(min-width: 900px) 62vw, 110vw" className={`${styles.coconut} ${corrections.heroCoconut}`} />
+          <Image src="/assets/home/co-hero-coconut-transparent-lcp-v1.webp" alt="" fill priority sizes="(min-width: 900px) 62vw, 110vw" className={`${styles.coconut} ${corrections.heroCoconut}`} />
           <span className={`${styles.coconutShadow} ${corrections.heroShadow}`} />
         </div>
       </motion.div>

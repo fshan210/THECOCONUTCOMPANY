@@ -118,7 +118,7 @@
 }
 .recipe-hero h1 span {
   display: block;
-  animation: recipe-rise 0.85s var(--ease) both;
+  animation: recipe-rise-visible 0.85s var(--ease) both;
 }
 .recipe-hero h1 span:nth-child(2) {
   animation-delay: 0.1s;
@@ -970,6 +970,10 @@
     opacity: 1;
     transform: none;
   }
+}
+@keyframes recipe-rise-visible {
+  from { transform: translateY(42px); }
+  to { transform: none; }
 }
 @keyframes world-route-travel {
   from {

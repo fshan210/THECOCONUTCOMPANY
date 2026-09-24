@@ -54,3 +54,19 @@ The Home and Shop byte and LCP reductions are material in this lab run. Recipes 
 - Journal, Sustainability, and Cart had 6.3–6.6 second mobile LCP in the older baseline despite modest transfer/TBT; contemporary lab runs of Journal and Sustainability remain slow. Their bottleneck needs route-specific LCP discovery/render-delay profiling. This existing PERF-P1 remains open and prevents a Production-ready claim.
 - Local lab results are not field Core Web Vitals. Single-run deltas below roughly 10% are not claimed as improvements.
 - Authenticated Account/API latency remains pending controlled immutable-Preview QA.
+
+## Final Gate C follow-up (2026-09-24)
+
+The [route-specific LCP analysis](./lcp-root-cause.md) records three immutable Preview baseline runs per route and a controlled exact-base local comparison. Home's actual LCP resource was the 307 KB hero coconut WebP, already preloaded and high priority. Recipes' actual LCP was an initially transparent hero heading span. Journal's mobile hero image was high priority and its 2.11 s median already met the requested 2.5 s target. No Journal runtime change was made.
+
+| Route | Immutable Preview before median | Exact-base local median | Candidate local median | Local delta | Status |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Home | 6,360 ms | 10,512 ms | 7,311 ms | −3,201 ms (−30%) | Material local improvement; >3 s residual |
+| Recipes | 5,331 ms | 5,695 ms | 4,892 ms | −803 ms (−14%) | Material local improvement; >3 s residual |
+| Journal | 2,110 ms | — | — | no change | Baseline median passes |
+
+The two candidate edits are limited to a separate, smaller encoding of the same Home hero artwork and a visible-first Recipes heading animation. The Home original asset remains. No video loading or private-data caching was changed. The updated performance script prints each run's route, run number, TTFB, LCP and candidate element/resource, CLS, TBT, transfer, request count, console errors, and asset failures, then prints route medians; `PERF_RUNS=3` enables a repeated gate.
+
+The authenticated API latency gate remains open until a signed-in session on the **exact final immutable Preview** can be measured. The current agent-visible Chrome session redirected `/account` on `ehjvu0bnw` to Sign In; a different older Preview hostname was signed in. The Mac locked before the provisional older-Preview timing run. Do not substitute the older Preview's numbers for final candidate measurements. No authenticated mutation or duplicate-request claim is made yet.
+
+Production readiness remains **blocked** while Home and Recipes are above 3 s and authenticated latency/final Preview QA are incomplete. Production and `main` are unchanged.
