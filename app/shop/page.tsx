@@ -20,6 +20,7 @@ export default async function ShopPage() {
   const products = await getProducts();
   return (
     <>
+      <link rel="preload" as="image" href="/assets/products/shop-hero/v1/mobile/co-product-ecosystem-v1.webp" media="(max-width: 767px)" fetchPriority="high" />
       <StructuredData
         breadcrumbs={[{ name: "Home", path: "/" }, { name: "Shop", path: "/shop" }]}
         extra={[collectionPageSchema({

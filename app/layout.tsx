@@ -125,7 +125,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const products = await getProducts();
   // jquery.ripples refracts the background image of its target. This deliberately
   // uses a detailed same-origin water material rather than a flat page colour.
-  const rippleImage = mediaUrl("/assets/backgrounds/water-material/co-coconut-water-material.png");
+  const rippleImage = mediaUrl("/assets/backgrounds/water-material/co-coconut-water-material.webp");
 
   return (
     <html

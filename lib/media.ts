@@ -22,6 +22,7 @@ const bundledRuntimePrefixes = [
   "/assets/redesign/journal/cinematic/",
   "/assets/redesign/sustainability/",
   "/assets/backgrounds/water-material/co-coconut-water-material.png",
+  "/assets/backgrounds/water-material/co-coconut-water-material.webp",
   "/assets/backgrounds/day-with-co/midday-kitchen.png",
   "/assets/products/transparent-current/",
   "/assets/products/shop-hero/",

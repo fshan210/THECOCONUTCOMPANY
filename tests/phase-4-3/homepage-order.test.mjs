@@ -29,7 +29,7 @@ test("the Home route has one owner and one footer handoff", async () => {
 
 test("Home uses supplied assets, safe claims, and required newsletter behavior", async () => {
   const source = await readFile(new URL("../../components/home/CinematicHomePage.tsx", import.meta.url), "utf8");
-  for (const filename of ["sunrise-reset.png", "balanced-hustle.png", "evening-wind-down.png", "origin-to-everyday.avif", "sustainability-farm.avif", "background-1.png", "background-2.avif", ...Array.from({ length: 4 }, (_, index) => `background-${index + 3}.png`)]) {
+  for (const filename of ["sunrise-reset.png", "balanced-hustle.png", "evening-wind-down.png", "origin-to-everyday.avif", "sustainability-farm.avif", "background-1.png", "background-2.avif", "background-3.png", "background-4.png", "background-5.png", "background-6.webp"]) {
     assert.ok(source.includes(filename), `expected ${filename}`);
   }
   for (const forbidden of ["VAP", "execution milestones", "Phase-one", "verified impact dashboard", "CO₂e reduced", "plastic avoided", "verified buyer"]) {

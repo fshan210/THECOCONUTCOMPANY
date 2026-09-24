@@ -18,7 +18,7 @@ import corrections from "./CinematicHomeCorrections.module.css";
 const assetRoot = "/assets/redesign/home/cinematic";
 
 const environmentPlates = [
-  "background-6.png",
+  "background-6.webp",
   "background-2.avif",
   "background-3.png",
   "background-4.png",
