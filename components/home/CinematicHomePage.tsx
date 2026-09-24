@@ -281,7 +281,7 @@ export function HomePinnedScrubVideo() {
             loop={isMobile}
             autoPlay={isMobile && sourceAttached && inView}
             preload={sourceAttached ? "metadata" : "none"}
-            poster="/assets/video/homepage-v2/co-home-scraping-poster-v1.jpg"
+            poster={sourceAttached ? "/assets/video/homepage-v2/co-home-scraping-poster-v1.jpg" : undefined}
             aria-label="Traditional coconut scraping"
             onLoadedData={() => { if (!isMobile) setMediaVisible(true); }}
             onPlaying={() => { setPlaying(true); setMediaVisible(true); }}
@@ -443,6 +443,8 @@ function NewsletterSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const reducedMotion = Boolean(useReducedMotion());
   const [active, setActive] = useState(false);
+  const [reducedMotionPoster, setReducedMotionPoster] = useState(false);
+  useEffect(() => setReducedMotionPoster(reducedMotion), [reducedMotion]);
   useEffect(() => {
     const section = sectionRef.current;
     if (!section || reducedMotion) return undefined;
@@ -462,7 +464,7 @@ function NewsletterSection() {
     return () => video.pause();
   }, [active, reducedMotion]);
   const restart = (event: SyntheticEvent<HTMLVideoElement>) => { const video = event.currentTarget; video.currentTime = 0.01; void video.play().catch(() => undefined); };
-  return <section ref={sectionRef} className={`${styles.scene} ${styles.newsletter} ${corrections.newsletter}`} data-home-section="newsletter"><video ref={videoRef} className={corrections.newsletterVideo} autoPlay={active} muted loop playsInline preload={active ? "auto" : "none"} poster={`${assetRoot}/sustainability-farm.avif`} onPlaying={(event) => event.currentTarget.removeAttribute("poster")} onEnded={restart} aria-hidden="true">{active && !reducedMotion ? <source src={mediaUrl("/assets/video/homepage-v2/co-home-farm-1080p-v1.mp4")} type="video/mp4" /> : null}</video><span /><div><p className={styles.eyebrow}>Stay in the loop</p><h2>Good things, straight to you.</h2><p>Recipes, new drops and real stories.</p></div><NewsletterForm compact className={styles.newsletterForm} /><SectionTransition /></section>;
+  return <section ref={sectionRef} className={`${styles.scene} ${styles.newsletter} ${corrections.newsletter}`} data-home-section="newsletter"><video ref={videoRef} className={corrections.newsletterVideo} autoPlay={active} muted loop playsInline preload={active ? "auto" : "none"} poster={active || reducedMotionPoster ? `${assetRoot}/sustainability-farm.avif` : undefined} onPlaying={(event) => event.currentTarget.removeAttribute("poster")} onEnded={restart} aria-hidden="true">{active && !reducedMotion ? <source src={mediaUrl("/assets/video/homepage-v2/co-home-farm-1080p-v1.mp4")} type="video/mp4" /> : null}</video><span /><div><p className={styles.eyebrow}>Stay in the loop</p><h2>Good things, straight to you.</h2><p>Recipes, new drops and real stories.</p></div><NewsletterForm compact className={styles.newsletterForm} /><SectionTransition /></section>;
 }
 
 export function CinematicHomeSequence({ homepage, products, recipes, testimonials }: { homepage: HomepageContent; products: ContentProduct[]; recipes: ContentRecipe[]; testimonials: ContentTestimonial[] }) {
