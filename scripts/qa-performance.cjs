@@ -60,10 +60,13 @@ try {
       const lcpInsight = audits["lcp-breakdown-insight"]?.details?.items || [];
       const lcpNode = lcpInsight.find((item) => item.type === "node");
       const lcpUrl = lcpNode?.snippet?.match(/\bsrc="([^"]+)"/)?.[1] || null;
-      const lcpResource = lcpUrl ? requests.find((request) => {
+      const exactLcpResource = lcpUrl && !lcpUrl.includes("…") ? requests.find((request) => {
         try { return new URL(request.url).pathname === new URL(lcpUrl, baseUrl).pathname; }
         catch { return false; }
       }) : null;
+      const lcpResource = exactLcpResource || (lcpNode?.selector?.includes("jn-hero-media")
+        ? requests.find((request) => /\/assets\/redesign\/journal\/cinematic\/hero(?:-mobile)?\.webp$/.test(request.url))
+        : null);
       const lcpParts = lcpInsight.find((item) => item.type === "table")?.items || [];
       const result = {
         route,
@@ -73,7 +76,7 @@ try {
         ttfbMs: Math.round(audits["server-response-time"].numericValue),
         lcpMs: Math.round(audits["largest-contentful-paint"].numericValue),
         lcpElement: lcpNode?.selector || lcpNode?.nodeLabel || null,
-        lcpResource: lcpResource?.url || lcpUrl,
+        lcpResource: lcpResource?.url || null,
         lcpResourceBytes: lcpResource?.transferSize ?? null,
         lcpRenderDelayMs: Math.round(lcpParts.find((part) => part.subpart === "elementRenderDelay")?.duration ?? 0),
         cls: Number(audits["cumulative-layout-shift"].numericValue.toFixed(3)),

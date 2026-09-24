@@ -63,10 +63,12 @@ The [route-specific LCP analysis](./lcp-root-cause.md) records three immutable P
 | --- | ---: | ---: | ---: | ---: | --- |
 | Home | 6,360 ms | 10,512 ms | 7,763 ms | −2,749 ms (−26%) | Material local improvement; >3 s residual |
 | Recipes | 5,331 ms | 5,695 ms | 4,892 ms | −803 ms (−14%) | Material local improvement; >3 s residual |
-| Journal | 2,110 ms | — | — | no change | Baseline median passes |
+| Journal | 2,110 ms | — | — | no change | Repeat base and candidate medians >4 s |
 
 The two candidate edits are limited to a separate, smaller encoding of the same Home hero artwork and a visible-first Recipes heading animation. The Home original asset remains. No video loading or private-data caching was changed. The updated performance script prints each run's route, run number, TTFB, LCP and candidate element/resource, CLS, TBT, transfer, request count, console errors, and asset failures, then prints route medians; `PERF_RUNS=3` enables a repeated gate.
 
 The authenticated API latency gate remains open until a signed-in session on the **exact final immutable Preview** can be measured. The current agent-visible Chrome session redirected `/account` on `ehjvu0bnw` to Sign In; a different older Preview hostname was signed in. The Mac locked before the provisional older-Preview timing run. Do not substitute the older Preview's numbers for final candidate measurements. No authenticated mutation or duplicate-request claim is made yet.
 
 Production readiness remains **blocked** while Home and Recipes are above 3 s and authenticated latency/final Preview QA are incomplete. Production and `main` are unchanged.
+
+The exact-SHA deployed follow-up at `881f20e50d592152cb86ded132378a4e5b761a4d` / `dpl_7dPnuBwTnxanrdq12Uar6ocZgQY4` returned three-run medians of Home **4,828 ms**, Recipes **4,022 ms**, and Journal **4,392 ms**. Home and Recipes improved against the first immutable baseline by 24% and 25% respectively, but both still exceed 3 s. Journal had no code change; a repeat of the old immutable Preview in the same window returned **4,210 ms** median, so its higher median is not assigned to the candidate. Home transfer fell from 2.67 MB to 2.38 MB median; Recipes remained near 1.86 MB. The 20-route deployed SEO QA, 58 sitemap URLs, and 140-asset public smoke passed. Authenticated performance is still unmeasured on this exact deployment.

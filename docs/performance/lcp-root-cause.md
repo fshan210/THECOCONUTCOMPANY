@@ -28,8 +28,20 @@ Measurement date: 2026-09-24. The immutable baseline is source `05ce63e6d574dcd4
 
 **Before.** The LCP candidate is the hero image in `JournalOpening`. At 390 px the `<picture>` selects `/assets/redesign/journal/cinematic/hero-mobile.webp`, 80,821 transferred bytes in the median trace. It starts around 944 ms, ends around 1,385 ms, and paints with about 77 ms render delay. The image is in initial server HTML, eager by default, and high priority. Intrinsic dimensions are 1448 × 1086 on the fallback `<img>`; CSS reserves the hero frame, and observed CLS was below 0.002.
 
-**Change.** None. The three-run median is already under 2.5 s. One 4.27 s outlier remains; a single outlier does not justify changing its image or animation. Repeat on a fresh Preview before declaring the gate closed.
+**Change.** None. The first three-run median was 2.11 s, but a contemporaneous repeat of the unchanged base Preview returned 4,210 / 4,223 / 2,138 ms (median 4,210 ms). The final runtime Preview returned 4,392 / 2,076 / 5,236 ms (median 4,392 ms). This is a 4% difference between contemporaneous medians without a Journal code change. The Lighthouse simulated result varies even when observed hero paint is around 1.2–1.5 s. Journal therefore does not have a stable <2.5 s gate result, and changing its already-small, high-priority hero asset is not supported by this evidence.
+
+## Exact-SHA deployed after measurement
+
+Source `881f20e50d592152cb86ded132378a4e5b761a4d`, immutable Preview `dpl_7dPnuBwTnxanrdq12Uar6ocZgQY4`. Three runs per route, same Lighthouse version, viewport, and throttling profile as the first baseline:
+
+| Route | Deployed LCP runs (ms) | Median | Delta vs first baseline | Median transfer | CLS range | Median TBT |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| Home | 3,394 / 5,473 / 4,828 | 4,828 ms | −1,532 ms (−24%) | 2.38 MB | 0–0.001 | 100 ms |
+| Recipes | 5,537 / 1,627 / 4,022 | 4,022 ms | −1,309 ms (−25%) | 1.86 MB | 0 | 54 ms |
+| Journal | 4,392 / 2,076 / 5,236 | 4,392 ms | +2,282 ms | 1.95 MB | 0 | 95 ms |
+
+The Journal delta against the first baseline is not a code regression claim: the unchanged baseline repeated at 4.21 s median in the same time window. Home's optimized asset returned 200 and transferred about 69 KB on the deployed Preview. The 20-route SEO QA, 58 sitemap URLs, and 140-asset public smoke passed on this deployment. Home, Recipes, and Journal remain above the requested threshold in this deployed set; Production readiness is blocked.
 
 ## Measurement limits
 
-The local comparison and immutable Preview baseline have different origin and cache conditions. Use a fresh exact-SHA Preview for final after measurements. Authenticated endpoints cannot be inferred from these public Lighthouse reports. Do not mix simulated LCP with observed trace subparts or claim that a low trace paint timestamp proves the throttled target.
+The local comparison and immutable Preview baseline have different origin and cache conditions. Authenticated endpoints cannot be inferred from these public Lighthouse reports. Do not mix simulated LCP with observed trace subparts or claim that a low trace paint timestamp proves the throttled target.
