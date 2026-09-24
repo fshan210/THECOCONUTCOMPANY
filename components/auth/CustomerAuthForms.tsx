@@ -54,12 +54,12 @@ const passwordRules = (password: string) => [
 ] as const;
 
 const authBackgrounds: Record<AuthVariant, { desktop: string; mobile: string }> = {
-  login: { desktop: "/assets/redesign/auth/backgrounds/sign-in-desktop.png", mobile: "/assets/redesign/auth/backgrounds/sign-in-mobile.png" },
-  register: { desktop: "/assets/redesign/auth/backgrounds/sign-in-desktop.png", mobile: "/assets/redesign/auth/backgrounds/sign-in-mobile.png" },
-  forgot: { desktop: "/assets/redesign/auth/backgrounds/recovery-desktop.png", mobile: "/assets/redesign/auth/backgrounds/recovery-mobile.png" },
-  reset: { desktop: "/assets/redesign/auth/backgrounds/recovery-desktop.png", mobile: "/assets/redesign/auth/backgrounds/recovery-mobile.png" },
-  verify: { desktop: "/assets/redesign/auth/backgrounds/verification-desktop.png", mobile: "/assets/redesign/auth/backgrounds/verification-mobile.png" },
-  verified: { desktop: "/assets/redesign/auth/backgrounds/verification-desktop.png", mobile: "/assets/redesign/auth/backgrounds/verification-mobile.png" }
+  login: { desktop: "/assets/redesign/auth/backgrounds/sign-in-desktop.webp", mobile: "/assets/redesign/auth/backgrounds/sign-in-mobile.webp" },
+  register: { desktop: "/assets/redesign/auth/backgrounds/sign-in-desktop.webp", mobile: "/assets/redesign/auth/backgrounds/sign-in-mobile.webp" },
+  forgot: { desktop: "/assets/redesign/auth/backgrounds/recovery-desktop.webp", mobile: "/assets/redesign/auth/backgrounds/recovery-mobile.webp" },
+  reset: { desktop: "/assets/redesign/auth/backgrounds/recovery-desktop.webp", mobile: "/assets/redesign/auth/backgrounds/recovery-mobile.webp" },
+  verify: { desktop: "/assets/redesign/auth/backgrounds/verification-desktop.webp", mobile: "/assets/redesign/auth/backgrounds/verification-mobile.webp" },
+  verified: { desktop: "/assets/redesign/auth/backgrounds/verification-desktop.webp", mobile: "/assets/redesign/auth/backgrounds/verification-mobile.webp" }
 };
 
 const authQuotes: Record<AuthVariant, ReactNode> = {
