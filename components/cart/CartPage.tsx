@@ -1,5 +1,5 @@
 "use client";
-import type { ReactNode } from "react";
+import { ResponsiveImage as Image } from "@/components/media/ResponsiveImage";
 import { Heart, ShoppingBag } from "lucide-react";
 import { useCart } from "@/lib/cart/cart-context";
 import {
@@ -13,7 +13,7 @@ import { CartItems } from "@/components/commerce/CartItems";
 export function CartPage({
   recipe,
 }: {
-  recipe?: ReactNode;
+  recipe?: { title: string; description: string; image: string; slug: string };
 }) {
   const cart = useCart();
   return (
@@ -41,7 +41,27 @@ export function CartPage({
                 </div>
                 <CartItems />
               </section>
-              {recipe}
+              {recipe && (
+                <section className="cm-panel cm-cart-recipe">
+                  <div className="cm-recipe-image">
+                    <Image
+                      src={recipe.image}
+                      alt={recipe.title}
+                      fill
+                      sizes="(max-width:600px) 85vw, 260px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <p className="cm-eyebrow">From the recipe collection</p>
+                    <h2>{recipe.title}</h2>
+                    <p>{recipe.description}</p>
+                    <CommerceLink href={`/recipes/${recipe.slug}`}>
+                      View recipe
+                    </CommerceLink>
+                  </div>
+                </section>
+              )}
               <section className="cm-panel">
                 <Heart />
                 <h2>Saved for another day.</h2>
