@@ -8,13 +8,14 @@ Design changes: none.
 
 The baseline showed image transfer—not JavaScript—as the dominant problem: Home 10.76 MB images, Shop 10.93 MB, and Recipes 19.87 MB on the mobile lab runs. Global Next.js runtime optimization was tested and rejected because cold local transforms increased LCP to 29–39 seconds and produced asset failures. `images.unoptimized` therefore remains enabled.
 
-Instead, nine measured oversized PNG references were replaced with static AVIF derivatives while preserving dimensions, crop, layout, motion, and source artwork:
+Instead, sixteen measured oversized PNG references were replaced with static AVIF derivatives while preserving dimensions, crop, layout, motion, and source artwork:
 
 | Surface | Replaced source bytes | AVIF bytes | Reduction |
 | --- | ---: | ---: | ---: |
 | Home, 3 environment plates | about 5.6 MB | about 232 KB | about 96% |
 | Shop, 3 measured backgrounds | about 5.0 MB | about 120 KB | about 98% |
 | Recipes, 3 measured curry images | about 6.5 MB | about 380 KB | about 94% |
+| Recipes, 7 remaining measured hero, stew, and section plates | about 13.0 MB | about 757 KB | about 94% |
 
 Original files remain in the repository; only the measured render references changed. This makes the change reversible and avoids broad asset churn.
 
@@ -40,16 +41,16 @@ The final candidate build passed the repeatable mobile gate on six routes: CLS <
 | --- | ---: | ---: | ---: | ---: |
 | Home | 35.0 s | 20.3 s | 11.66 MB | 6.10 MB |
 | Shop | 36.5 s | 6.1 s | 11.82 MB | 6.84 MB |
-| Recipes | 5.8 s | 6.0 s | 20.59 MB | 14.21 MB |
+| Recipes | 5.8 s | 5.9 s | 20.59 MB | 1.95 MB |
 | Journal | 9.2 s | 8.0 s | 1.71 MB | 1.76 MB |
 | Sustainability | 8.0 s | 8.3 s | 1.70 MB | 1.74 MB |
 | Account to Login | 23.1 s | 23.1 s | 4.07 MB | 4.11 MB |
 
-The Home and Shop byte and LCP reductions are material in this lab run. Recipes, Sustainability, and Account LCP differences are too small to claim as improvements or regressions. The absolute LCP estimates vary greatly from the 2026-09-21 local baseline and from a contemporary Production Home run (14.6 s); no field Core Web Vitals improvement is claimed. Lighthouse identifies the Home hero coconut as LCP and confirms it is eager, high priority, and discoverable in initial HTML. Additional large below-fold media still competes for the simulated mobile connection.
+The Home and Shop byte and LCP reductions are material in this lab run. Recipes transfer fell from 20.59 MB on the exact base to 1.95 MB after the second measured image batch; its LCP remained near 5.9 s, so no Recipes LCP improvement is claimed. Sustainability and Account LCP differences are too small to claim as improvements or regressions. The absolute LCP estimates vary greatly from the 2026-09-21 local baseline and from a contemporary Production Home run (14.6 s); no field Core Web Vitals improvement is claimed. Lighthouse identifies the Home hero coconut as LCP and confirms it is eager, high priority, and discoverable in initial HTML. The Recipes LCP node is hero title text, so the remaining delay needs render and font timing analysis rather than more blind image conversion.
 
 ## Residual performance risk
 
-- Recipes still transfers roughly 14 MB locally because additional large initial images remain. Further conversion requires another measured, visually reviewed batch.
+- Recipes image transfer is now about 1.16 MB locally, but mobile lab LCP remains about 5.9 s. A focused render and font timing pass is needed before claiming Core Web Vitals compliance.
 - Journal, Sustainability, and Cart had 6.3–6.6 second mobile LCP in the older baseline despite modest transfer/TBT; contemporary lab runs of Journal and Sustainability remain slow. Their bottleneck needs route-specific LCP discovery/render-delay profiling. This existing PERF-P1 remains open and prevents a Production-ready claim.
 - Local lab results are not field Core Web Vitals. Single-run deltas below roughly 10% are not claimed as improvements.
 - Authenticated Account/API latency remains pending controlled immutable-Preview QA.

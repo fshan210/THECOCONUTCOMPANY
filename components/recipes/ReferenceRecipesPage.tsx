@@ -89,7 +89,7 @@ const recipes: Recipe[] = [
   {
     slug: recipeIndexIdentities[2].recipeId,
     title: recipeIndexIdentities[2].title,
-    image: `${A}Kerala Vegetable Stew.png`,
+    image: `${A}Kerala Vegetable Stew.avif`,
     time: 25,
     difficulty: "Easy",
     servings: 4,
@@ -378,7 +378,7 @@ export function ReferenceRecipesPage() {
         <section className="recipe-hero">
           <Scene
             priority
-            src={`${A}RECIPIE HERO IMAGE.png`}
+            src={`${A}RECIPIE HERO IMAGE.avif`}
             alt=".CO products with curry, rice and coconut dishes"
           />
           <div className="recipe-hero-copy">
@@ -1000,7 +1000,7 @@ function Bg({ n }: { n: string }) {
   return (
     <div
       className="section-bg"
-      style={{ backgroundImage: `url('${B}${n}.png')` }}
+      style={{ backgroundImage: `url('${B}${n}.avif')` }}
     />
   );
 }
