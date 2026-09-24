@@ -14,6 +14,7 @@ const bundledRuntimePrefixes = [
   "/assets/about/about-hand-holding-coconut.png",
   "/assets/about/about-scraped-coconut-split.png",
   "/assets/home/co-hero-coconut-transparent-v1.webp",
+  "/assets/home/co-hero-coconut-transparent-lcp-v1.webp",
   "/assets/home/generated/",
   "/assets/redesign/home/cinematic/",
   "/assets/redesign/about/",

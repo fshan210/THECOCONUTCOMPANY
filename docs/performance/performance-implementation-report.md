@@ -61,7 +61,7 @@ The [route-specific LCP analysis](./lcp-root-cause.md) records three immutable P
 
 | Route | Immutable Preview before median | Exact-base local median | Candidate local median | Local delta | Status |
 | --- | ---: | ---: | ---: | ---: | --- |
-| Home | 6,360 ms | 10,512 ms | 7,311 ms | −3,201 ms (−30%) | Material local improvement; >3 s residual |
+| Home | 6,360 ms | 10,512 ms | 7,763 ms | −2,749 ms (−26%) | Material local improvement; >3 s residual |
 | Recipes | 5,331 ms | 5,695 ms | 4,892 ms | −803 ms (−14%) | Material local improvement; >3 s residual |
 | Journal | 2,110 ms | — | — | no change | Baseline median passes |
 
