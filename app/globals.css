@@ -2694,7 +2694,8 @@ html {
   --co-mobile-content-clearance: calc(var(--co-mobile-bottom-nav-height) + var(--co-mobile-safe-bottom) + 12px);
 }
 html { background: var(--co-document-canvas); }
-.co-site-content, [data-motion-element="route-shell"] { min-height: 100svh; background: var(--co-document-canvas); }
+.co-site-content { min-height: 100dvh; background: var(--co-document-canvas); }
+[data-motion-element="route-shell"] { min-height: 100svh; background: var(--co-document-canvas); }
 .co-route-pending { min-height: 100svh; background: var(--co-document-canvas); }
 .co-mobile-bottom-nav { min-height: calc(var(--co-mobile-bottom-nav-height) + var(--co-mobile-safe-bottom)); }
 .co-mobile-bottom-nav-spacer { height: var(--co-mobile-content-clearance); background: #0a0908; }
