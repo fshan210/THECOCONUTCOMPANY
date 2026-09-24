@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight, BookOpen, Check, CheckCircle2, ChefHat, CircleAl
 import { motion } from "framer-motion";
 import { ReferenceHeader } from "@/components/home/ReferenceHomePage";
 import { createClientSubmissionLock } from "@/lib/auth/client-submission-lock";
+import { safeReturnTo } from "@/lib/auth/safe-return";
 
 type AuthResult = { ok?: boolean; message?: string; status?: string; email?: string; flow?: string; returnTo?: string; retryAfter?: number; resumed?: boolean; data?: { delivery?: string; maskedDestination?: string } };
 type Notice = { kind: "success" | "error"; message: string } | null;
@@ -44,12 +45,6 @@ async function subscribeNewsletter(email: string) {
 }
 
 const emailIsValid = (email: string) => /^\S+@\S+\.\S+$/.test(email);
-const allowedClientReturnPaths = new Set(["/shop", "/cart", "/wishlist", "/account", "/products"]);
-const safeClientReturnTo = (value?: string | null) => {
-  if (!value || !value.startsWith("/") || value.startsWith("//")) return "/shop";
-  const path = value.split("?")[0] || "/shop";
-  return allowedClientReturnPaths.has(path) ? value : "/shop";
-};
 const passwordRules = (password: string) => [
   ["At least 10 characters", password.length >= 10],
   ["One uppercase letter", /[A-Z]/.test(password)],
@@ -141,27 +136,27 @@ export function CustomerLoginForm() {
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(true);
   const [notice, setNotice] = useState<Notice>(search.get("verified") ? { kind: "success", message: "Email verified. Sign in to continue." } : null);
-  const [pending, startTransition] = useTransition();
+  const [pending, setPending] = useState(false);
+  const submissionLock = useRef(createClientSubmissionLock());
   const emailError = email && !emailIsValid(email) ? "Enter a valid email address." : "";
   const passwordError = password && password.length < 10 ? "Use at least 10 characters." : "";
-  const returnTo = safeClientReturnTo(search.get("redirect"));
-  const submit = (event: React.FormEvent) => {
+  const returnTo = safeReturnTo(search.get("redirect") || "/account");
+  const submit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!emailIsValid(email) || password.length < 10) { setNotice({ kind: "error", message: "Check your email and password, then try again." }); return; }
-    startTransition(async () => {
-      try {
-        await cognitoAuth({ action: "login", email, password, returnTo });
-        if (!remember) window.sessionStorage.setItem("co-session-preference", "session");
-        setNotice({ kind: "success", message: "Welcome back to .CO." });
-        window.dispatchEvent(new Event("co-auth-changed"));
-        router.refresh();
-        window.setTimeout(() => router.replace(returnTo), 450);
-      } catch (error) {
-        if (error instanceof AuthApiError && error.flow === "verification_required") { router.replace(`/verify-email?notice=unconfirmed&returnTo=${encodeURIComponent(returnTo)}`); return; }
-        if (error instanceof AuthApiError && error.flow === "password_reset_required") { router.replace(`/forgot-password?email=${encodeURIComponent(email)}`); return; }
-        setNotice({ kind: "error", message: error instanceof Error ? error.message : "Unable to sign in." });
-      }
-    });
+    if (!submissionLock.current.tryAcquire()) return;
+    setPending(true);
+    try {
+      const result = await cognitoAuth({ action: "login", email, password, returnTo });
+      if (!remember) window.sessionStorage.setItem("co-session-preference", "session");
+      window.location.replace(safeReturnTo(result.returnTo || returnTo));
+    } catch (error) {
+      if (error instanceof AuthApiError && error.flow === "verification_required") { router.replace(`/verify-email?notice=unconfirmed&returnTo=${encodeURIComponent(returnTo)}`); return; }
+      if (error instanceof AuthApiError && error.flow === "password_reset_required") { router.replace(`/forgot-password?email=${encodeURIComponent(email)}`); return; }
+      setNotice({ kind: "error", message: error instanceof Error ? error.message : "Unable to sign in." });
+      submissionLock.current.release();
+      setPending(false);
+    }
   };
   return <><AuthTabs active="login" /><form onSubmit={submit} className="co-auth-form" noValidate><NoticePanel notice={notice} /><Field label="Email address" id="login-email" type="email" value={email} onChange={setEmail} autoComplete="username" inputMode="email" disabled={pending} error={emailError} icon={<Mail size={18} />} /><PasswordField label="Password" id="login-password" value={password} onChange={setPassword} autoComplete="current-password" disabled={pending} error={passwordError} /><div className="co-auth-inline"><label className="co-auth-check"><input type="checkbox" checked={remember} onChange={(event) => setRemember(event.target.checked)} /><span aria-hidden="true"><Check size={12} /></span>Remember me</label><Link href={`/forgot-password?email=${encodeURIComponent(email)}`}>Forgot password?</Link></div><PrimaryButton pending={pending}>{pending ? "Signing in" : "Sign in"}</PrimaryButton><div className="co-auth-divider"><span>or continue with</span></div><OAuthButtons /><p className="co-auth-privacy">We’ll never post without your permission. By continuing, you agree to our <Link href="/terms-and-conditions">Terms of Use</Link> and <Link href="/privacy-policy">Privacy Policy</Link>.</p></form></>;
 }
@@ -184,7 +179,7 @@ export function CustomerRegisterForm() {
   const [terms, setTerms] = useState(false);
   const [notice, setNotice] = useState<Notice>(null);
   const [pending, startTransition] = useTransition();
-  const returnTo = safeClientReturnTo(search.get("returnTo") || search.get("redirect"));
+  const returnTo = safeReturnTo(search.get("returnTo") || search.get("redirect"));
   const rules = passwordRules(password);
   const passwordReady = rules.every(([, fulfilled]) => fulfilled);
   const submit = (event: React.FormEvent) => {
@@ -222,7 +217,7 @@ export function CustomerVerifyEmailForm({ initialEmail = "", maskedDestination =
   const refs = useRef<Array<HTMLInputElement | null>>([]);
   const countdownRef = useRef<number | null>(null);
   const submissionLock = useRef(createClientSubmissionLock());
-  const returnTo = safeClientReturnTo(search.get("returnTo") || initialReturnTo);
+  const returnTo = safeReturnTo(search.get("returnTo") || initialReturnTo);
   useEffect(() => () => {
     if (countdownRef.current !== null) window.clearInterval(countdownRef.current);
   }, []);
@@ -306,7 +301,7 @@ export function CustomerResetPasswordForm() {
 
 export function EmailVerifiedCard() {
   const search = useSearchParams();
-  const returnTo = safeClientReturnTo(search.get("returnTo"));
+  const returnTo = safeReturnTo(search.get("returnTo"));
   const email = search.get("email") || "";
   const continuation = `/login?verified=1&redirect=${encodeURIComponent(returnTo)}${email ? `&email=${encodeURIComponent(email)}` : ""}`;
   return <div className="co-auth-verified-card"><motion.div initial={{ scale: 0.78, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 220, damping: 18 }} className="co-auth-verified-icon"><ShieldCheck size={36} /></motion.div><h2>Welcome to <em>.CO</em></h2><p>Your email is verified. Enter your password once to establish your secure session.</p><Link href={continuation} className="co-auth-primary"><span>Continue securely</span><ArrowRight size={18} /></Link><Link href="/shop" className="co-auth-back">Continue shopping</Link></div>;

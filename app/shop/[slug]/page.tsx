@@ -76,7 +76,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   {typeof product.price === "number" ? <p className="mt-3 text-lg font-bold text-[var(--co-brown)]">{new Intl.NumberFormat("en-IN", { style: "currency", currency: product.currency }).format(product.price)}</p> : null}
                   <p className="mt-7 max-w-xl text-base leading-7 text-[var(--co-muted)]">{product.shortDescription}</p>
                   <div className="mt-8 flex flex-wrap gap-3">
-                    <AddToCartButton slug={product.slug} label="Save product" />
+                    <AddToCartButton slug={product.slug} label="Add to cart" />
                     <CTAButton href="/register" variant="outline">Early access</CTAButton>
                   </div>
                 </div>
@@ -106,7 +106,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
               <p className="mt-1 text-xs uppercase tracking-[0.1em] text-[var(--co-muted)]">{product.status === "coming-soon" ? "Early access" : "Product preview"} / {product.format}</p>
             </div>
             <div className="flex flex-col gap-2 sm:flex-row">
-              <AddToCartButton slug={product.slug} label="Save to shelf" className="w-full sm:w-auto" />
+              <AddToCartButton slug={product.slug} label="Add to cart" className="w-full sm:w-auto" />
               <CTAButton href="/register" variant="outline" className="w-full sm:w-auto">Join early access</CTAButton>
             </div>
           </div>

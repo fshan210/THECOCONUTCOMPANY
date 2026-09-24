@@ -14,9 +14,13 @@ test("open redirects are reduced to an explicit same-site allowlist", () => {
     "/\\evil.example",
     "/%2f%2fevil.example",
     "/%252f%252fevil.example",
+    "/account/%2e%2e/api/customer/cart",
     "/account-security"
   ]) assert.equal(safeReturnTo(attack), "/shop");
   assert.equal(safeReturnTo("/account?tab=profile"), "/account?tab=profile");
+  for (const path of ["/account/addresses", "/orders/history", "/saved-recipes", "/profile", "/recipes/coconut-basbousa", "/journal/social-cocreation-hub"]) {
+    assert.equal(safeReturnTo(path), path);
+  }
 });
 
 test("session sealing uses unique nonces and rejects tampering, malformed fields, and expiry", () => {
