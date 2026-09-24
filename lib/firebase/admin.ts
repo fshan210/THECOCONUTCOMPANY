@@ -32,7 +32,11 @@ function parseServiceAccount() {
 }
 
 export function isFirebaseAdminConfigured() {
-  return Boolean(getVerifiedServiceAccount());
+  try {
+    return Boolean(getVerifiedServiceAccount());
+  } catch {
+    return false;
+  }
 }
 
 function getVerifiedServiceAccount() {
@@ -42,7 +46,8 @@ function getVerifiedServiceAccount() {
   const projectId = verifyFirebaseAdminProjectId(
     serviceAccount.project_id,
     process.env.FIREBASE_PROJECT_ID,
-    process.env.VERCEL_ENV
+    process.env.VERCEL_ENV,
+    process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID
   );
   if (process.env.VERCEL_ENV === "preview" && !previewProjectLogged) {
     console.info("firebaseAdminProjectId:", projectId);

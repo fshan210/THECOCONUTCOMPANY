@@ -3,6 +3,7 @@ import "server-only";
 import { getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
 import { firestoreCollections } from "@/lib/firebase/collections";
 import { getRequestContext, sanitizeLogValue } from "@/lib/security/request";
+import { getSecurityEnvironment } from "@/lib/security/environment";
 
 type SecurityEventInput = {
   actorId?: string | null;
@@ -22,6 +23,7 @@ export async function writeSecurityEvent(input: SecurityEventInput) {
       actorId: input.actorId || null,
       actorEmail: input.actorEmail?.toLowerCase() || null,
       action: input.action,
+      environment: getSecurityEnvironment(process.env.VERCEL_ENV),
       area: input.area,
       outcome: input.outcome,
       ipAddress: context.ipAddress,

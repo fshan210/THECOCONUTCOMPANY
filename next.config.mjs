@@ -32,6 +32,9 @@ const cspReportOnly = [
 ].join("; " );
 
 const nextConfig = {
+  env: {
+    NEXT_PUBLIC_FIREBASE_DEPLOYMENT_ENV: process.env.VERCEL_ENV || "development"
+  },
   poweredByHeader: false,
   serverExternalPackages: [
     "firebase-admin",

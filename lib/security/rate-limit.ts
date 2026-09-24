@@ -3,6 +3,7 @@ import "server-only";
 import { getFirebaseAdminDb, isFirebaseAdminConfigured } from "@/lib/firebase/admin";
 import { firestoreCollections } from "@/lib/firebase/collections";
 import { writeSecurityEvent } from "@/lib/security/events";
+import { getRateLimitKey, getSecurityEnvironment } from "@/lib/security/environment";
 
 type RateLimitOptions = {
   key: string;
@@ -14,12 +15,9 @@ type RateLimitOptions = {
 
 const memoryLimits = new Map<string, { count: number; resetAt: number }>();
 
-function normalizeKey(key: string) {
-  return key.trim().toLowerCase().replace(/[^a-z0-9@._:-]/gi, "-").slice(0, 160) || "anonymous";
-}
-
 export async function checkRateLimit({ key, action, limit, windowMs, area = "rate_limit" }: RateLimitOptions) {
-  const normalized = normalizeKey(`${action}:${key}`);
+  const environment = getSecurityEnvironment(process.env.VERCEL_ENV);
+  const normalized = getRateLimitKey(environment, action, key || "anonymous");
   const now = Date.now();
   const nowIso = new Date(now).toISOString();
 
@@ -36,6 +34,7 @@ export async function checkRateLimit({ key, action, limit, windowMs, area = "rat
       await ref.set(
         {
           action: "rate_limit_state",
+          environment,
           area,
           outcome: allowed ? "allowed" : "blocked",
           key: normalized,

@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 import { getFirestore, type Firestore } from "firebase/firestore";
 import { firebasePublicConfig, isFirebasePublicConfigured } from "@/lib/firebase/config";
+import { verifyFirebasePublicProjectId } from "@/lib/firebase/admin-project";
 
 let analyticsPromise: Promise<Analytics | null> | null = null;
 
@@ -23,12 +24,14 @@ export function getFirebaseClientApp(): FirebaseApp {
 }
 
 export function getFirebaseClientAuth(): Auth {
+  verifyFirebasePublicProjectId(firebasePublicConfig.projectId, process.env.NEXT_PUBLIC_FIREBASE_DEPLOYMENT_ENV);
   const auth = getAuth(getFirebaseClientApp());
   void setPersistence(auth, browserLocalPersistence);
   return auth;
 }
 
 export function getFirebaseClientDb(): Firestore {
+  verifyFirebasePublicProjectId(firebasePublicConfig.projectId, process.env.NEXT_PUBLIC_FIREBASE_DEPLOYMENT_ENV);
   return getFirestore(getFirebaseClientApp());
 }
 
