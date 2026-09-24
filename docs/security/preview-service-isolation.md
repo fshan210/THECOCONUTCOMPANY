@@ -1,8 +1,31 @@
 # Preview service isolation audit
 
-Audited: 2026-09-24. Application SHA: `1e4e09accba7d490da125a240d13510f95ad8f86`; immutable Preview: `dpl_6Qa6BeCBZjRfYPNrKBvi9AHhWDVL`. This is a read-only binding audit. No customer mutation, Vercel configuration change, or AWS mutation was made.
+## Current decision after Preview Firebase Admin isolation (2026-09-24)
 
-## Decision
+**Gate A remains blocked — C, UNSAFE / AMBIGUOUS for all authenticated Preview QA.** New immutable Preview `dpl_4PRe8Mib25wWBFt4Xc5mAbDm7vyU` at `https://my-website-gbedxvebg-fazil-s-projects1.vercel.app/` runs source SHA `460489311809641f27fd880b1b940afeeaf641c8`. Its server-side Firebase Admin credential project ID is **`cothecoconutcompany-preview`**. A no-cookie public `GET /admin/login` returned 200/MISS and caused a Preview function log containing only `firebaseAdminProjectId: cothecoconutcompany-preview`. The credential was created for the new project and set only in Vercel Preview; the separate Production secret entry's update timestamp did not change. The Preview service identity read a deliberately nonexistent document from the new Firestore database and received 404, proving read access without reading a record. No Firestore write probe was necessary or made.
+
+The exact **Production Firebase Admin credential project ID remains unproven** because Vercel masks its Sensitive value. Its credential entry was last updated on 2026-06-29, before the Preview Firebase project existed, so that existing Production entry cannot contain a valid key created for the new project. The canonical checkout's local credential and the deployed Production public client both identify `cothecoconutcompany`, but neither is direct proof of the Production Admin credential.
+
+There is a further mutable boundary: the **new Preview public Firebase client bundle still identifies `cothecoconutcompany`**. `components/admin/AdminForms.tsx` uses that client for admin sign-in and password reset, so Preview admin-auth actions can touch the shared Firebase Authentication project. Only the server-side Admin credential was authorized to change in this task. Admin login, password reset, and all authenticated customer QA remain stopped until this client binding is isolated or the shared-auth risk is explicitly accepted, and Production Admin identity is attested. The current customer-auth flow uses DEV Cognito; no customer sign-in was attempted.
+
+| Service | New Preview | Production | Shared? | QA safety |
+| --- | --- | --- | --- | --- |
+| Cognito | DEV pool/client from prior audit | Distinct live Production pool/client | No for audited configuration | Customer login remains paused by full Gate A |
+| Backend API | DEV `evba5qgrqi` from prior audit; no backend env change | Live Production `pt4om0dz42` | No for traced path | Public reads only |
+| Commerce persistence | DEV `dotco-dev-commerce` from prior audit | Production backend table `dotco-production-commerce` | No for traced path | Authenticated QA paused |
+| Firebase Admin / Firestore | Runtime ID `cothecoconutcompany-preview`; default Native database in `asia-south1` | Exact Admin ID unproven; Production credential entry unchanged | New project cannot be Production's existing key; exact Production ID unknown | Preview credential isolation proven; complete Gate A still blocked |
+| Firebase public client / Auth | `cothecoconutcompany` in new deployed bundle | Same project in deployed Production bundle | **Yes, mutable admin-auth service** | No Preview admin sign-in or password reset |
+| Media/CDN | Shared public read-only host | Same host | Yes, read-only | Public visual reads safe |
+
+`FIREBASE_PROJECT_ID=cothecoconutcompany-preview` was added as a non-secret **Preview-only** Vercel variable. `lib/firebase/admin.ts` checks that it matches the credential's `project_id`, refuses the known shared public project in Preview, sets the Admin app `projectId`, and emits the project ID once per Preview function process for operator-visible provenance. Production code and environment are unchanged. The credential has only `roles/datastore.user` on the new project; a temporary operator impersonation grant used for the empty-document read was removed and verified absent. No CMS records were copied: Preview public content is served by the existing DEV API adapter or curated fallback, and the security collection can be created on first legitimate write.
+
+The dedicated project, database, IAM grant, and Preview Vercel variables are recorded in [environment-resource-map.md](environment-resource-map.md). Billing is disabled. Source validation passed frontend/backend typechecks, lint, tests, security tests, build, infrastructure synth, local smoke, and SEO QA. New immutable Preview smoke passed 6 public routes, 4 infrastructure routes, and 139 assets with zero failures; Preview SEO QA passed 20 routes and 58 sitemap URLs. Unauthenticated customer cart/saved GET returned 401 with `private, no-store` caching. No authenticated mutation, diagnostic Firestore write, Production deployment, AWS change, or performance optimization was performed.
+
+## Prior read-only audit of the old Preview
+
+Audited: 2026-09-24. Application SHA: `1e4e09accba7d490da125a240d13510f95ad8f86`; immutable Preview: `dpl_6Qa6BeCBZjRfYPNrKBvi9AHhWDVL`. This historical section describes the old deployment before the authorized Preview configuration and source change. No customer mutation, Vercel configuration change, or AWS mutation was made in that earlier audit.
+
+## Prior decision
 
 **Classification: C — UNSAFE / AMBIGUOUS for authenticated mutation QA.** The existing Preview is strongly correlated to the DEV API by two uncached public server reads and DEV-only Lambda invocations. That Lambda is configured for DEV customer tables. Preview Cognito matches the DEV pool/client. The deployed Preview and Production public Firebase client bundles both name project `cothecoconutcompany`, but the Firebase **Admin** service-account project used for rate-limit/security-event writes remains unreadable. Shared public client configuration does not prove which Firestore project the server credential targets. A mere `preview` target or `NEXT_PUBLIC_APP_ENV=dev` label is not resource binding proof.
 
@@ -55,13 +78,13 @@ Vercel metadata dates below are UTC and describe variable entries, not the secre
 - The repository's older `AWS_CORRECTION_EXECUTION_LOG.md` says Preview API configuration was corrected to DEV in July. The fresh runtime correlation above supplies stronger current evidence than that historical note.
 - Vercel documents that a Sensitive environment variable is unreadable after creation, including through the dashboard and pull/API surfaces. A resource-owner attestation or safe runtime binding assertion is necessary; masked values cannot be compared.
 
-## Minimum closure evidence
+## Prior minimum closure evidence
 
 1. Prove the **Preview Firebase Admin service-account project ID** and the Production Admin project ID from an authoritative configuration record or a separately approved, narrowly scoped runtime identity assertion. Only the project IDs should be reported; no JSON, key, token, or email is needed. The public client project is already proven shared.
 2. If the Admin projects differ and Preview uses non-Production Firestore, Gate A can be reclassified **ISOLATED**. If they are the same, describe the exact `securityEvents` rate-limit/log writes and possible cross-environment interference, then seek explicit approval before classifying **SHARED BUT CONTROLLED** and doing authenticated QA.
 3. If the project IDs cannot be proved, retain **UNSAFE / AMBIGUOUS**. Possible minimum remedies for separate approval are a non-secret Preview resource identity variable, a controlled temporary diagnostic output exposing only project ID, or a Preview-specific Firebase Admin binding. Do not add endpoints or mutate Vercel/Firebase under this audit.
 
-## Firebase Admin provenance
+## Prior Firebase Admin provenance
 
 | Question | Finding |
 | --- | --- |
