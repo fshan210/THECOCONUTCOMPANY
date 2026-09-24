@@ -61,4 +61,24 @@ Vercel metadata dates below are UTC and describe variable entries, not the secre
 2. If the Admin projects differ and Preview uses non-Production Firestore, Gate A can be reclassified **ISOLATED**. If they are the same, describe the exact `securityEvents` rate-limit/log writes and possible cross-environment interference, then seek explicit approval before classifying **SHARED BUT CONTROLLED** and doing authenticated QA.
 3. If the project IDs cannot be proved, retain **UNSAFE / AMBIGUOUS**. Possible minimum remedies for separate approval are a non-secret Preview resource identity variable, a controlled temporary diagnostic output exposing only project ID, or a Preview-specific Firebase Admin binding. Do not add endpoints or mutate Vercel/Firebase under this audit.
 
+## Firebase Admin provenance
+
+| Question | Finding |
+| --- | --- |
+| Preview Firebase Admin project ID | **Unknown** for immutable deployment `dpl_6Qa6BeCBZjRfYPNrKBvi9AHhWDVL` |
+| Production Firebase Admin project ID | **Unknown** for canonical deployment `dpl_8di1DwrhhGeHh6butKXD1ixFYFYx` |
+| Same Admin project? | **Unknown**. Both deployed public client bundles name `cothecoconutcompany`, but that does not identify the server credential. |
+| Evidence method | Read-only source and configuration trace; sanitized Vercel environment pulls, deployment metadata and build-log inspection; local credential parsed internally for project ID only. No deployed Admin identity was available. |
+| QA implication | Gate A remains **C — UNSAFE / AMBIGUOUS**. No login, authenticated customer mutation, or performance work. |
+
+`lib/firebase/admin.ts` initializes Admin from `FIREBASE_SERVICE_ACCOUNT_JSON.project_id`, or from the split `FIREBASE_PROJECT_ID` credential trio. The canonical checkout's local service-account project ID is `cothecoconutcompany`, matching its local public ID. The local file has no verified linkage to either immutable Vercel deployment, so it is **not** Preview or Production proof. Both Vercel targets return masked Sensitive values from `env pull`; temporary pull files were created outside the repository and removed immediately. Deployment inspection and build logs supplied no Admin ID. Production runtime logs contained no Admin ID; the Preview runtime log query timed out. No diagnostic route was added.
+
+| Firestore collection/path | Purpose and data | Cross-environment impact if the Admin project is shared |
+| --- | --- | --- |
+| `securityEvents/rate-${action}:${key}` | Rate-limit state for customer/admin authentication and forms; `key` can include IP and email; `checkRateLimit` reads then writes a counter | The key has no environment partition. The same action, IP, and email could share a counter and throttle a Production user after Preview attempts. |
+| `securityEvents` generated documents | Security-event log with actor ID/email, IP, user agent, action, and outcome | Preview and Production events would mix in one collection. These records can contain customer identifiers even though storefront cart/saved/profile state is in DEV DynamoDB. |
+| `admins`, `auditLogs`, CMS content collections, `mediaLibrary` | Admin accounts/roles, audit history, content and media metadata; writes require their respective admin flows | Shared Admin use could affect Production admin/content state. Those flows are outside the proposed customer QA, but project isolation is still material. |
+
+No Firestore record was read or changed for this proof. Only the non-secret local project ID was extracted from a credential in memory; no credential fields were displayed. A public diagnostic endpoint would add exposure without proving the existing immutable deployment and was not implemented.
+
 Vercel reference: [Sensitive environment variables](https://vercel.com/docs/environment-variables/sensitive-environment-variables).
