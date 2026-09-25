@@ -1,6 +1,6 @@
 import { savedContentItemSchema } from "@dotco/contracts";
 import { customerAwsApi, type CustomerApiTiming, type SavedContentRecord } from "@/lib/customer/aws-api";
-import { isSameOriginMutation, privateJson, privateServerTiming, readBoundedJson } from "@/lib/security/http";
+import { isSameOriginMutation, privateJson, privateServerTiming, readBoundedJson, recordPrivateBffTiming } from "@/lib/security/http";
 
 export const dynamic = "force-dynamic";
 
@@ -9,14 +9,18 @@ function failure(status: number, message?: string, headers?: HeadersInit) {
   return privateJson({ error: { message: message ?? fallback } }, { status, headers });
 }
 
-function reply(result: { ok: boolean; status: number; data: SavedContentRecord | null; timing: CustomerApiTiming }, started: number) {
+function reply(result: { ok: boolean; status: number; data: SavedContentRecord | null; timing: CustomerApiTiming }, started: number, method: string) {
   const headers = privateServerTiming(result.timing, started);
-  return result.ok ? privateJson({ data: result.data }, { status: result.status, headers }) : failure(result.status, undefined, headers);
+  if (!result.ok) return failure(result.status, undefined, headers);
+  const body = { data: result.data };
+  const response = privateJson(body, { status: result.status, headers });
+  recordPrivateBffTiming("saved", method, result.status, started, result.timing, body);
+  return response;
 }
 
 export async function GET() {
   const started = performance.now();
-  return reply(await customerAwsApi<SavedContentRecord>("v1/wishlist"), started);
+  return reply(await customerAwsApi<SavedContentRecord>("v1/wishlist"), started, "GET");
 }
 
 export async function POST(request: Request) {
@@ -29,7 +33,7 @@ export async function POST(request: Request) {
   const { idempotencyKey: requestedKey, ...item } = parsed.data;
   const idempotencyKey = requestedKey ?? crypto.randomUUID();
   const result = await customerAwsApi<SavedContentRecord>("v1/saved", { method: "POST", body: JSON.stringify(item), headers: { "idempotency-key": idempotencyKey } });
-  return reply(result, started);
+  return reply(result, started, "POST");
 }
 
 export async function DELETE(request: Request) {
@@ -41,5 +45,5 @@ export async function DELETE(request: Request) {
   if (!parsed.success) return failure(400, "Invalid saved item.");
   const idempotencyKey = parsed.data.idempotencyKey ?? crypto.randomUUID();
   const result = await customerAwsApi<SavedContentRecord>(`v1/saved/${parsed.data.kind}/${encodeURIComponent(parsed.data.itemId)}?idempotencyKey=${encodeURIComponent(idempotencyKey)}`, { method: "DELETE", headers: { "idempotency-key": idempotencyKey } });
-  return reply(result, started);
+  return reply(result, started, "DELETE");
 }
