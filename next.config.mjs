@@ -83,6 +83,10 @@ const nextConfig = {
         headers: securityHeaders
       },
       {
+        source: "/",
+        headers: [{ key: "Link", value: "</assets/home/co-hero-coconut-transparent-lcp-v1.webp>; rel=preload; as=image; fetchpriority=high" }]
+      },
+      {
         source: "/assets-optimized/:path*",
         headers: immutableHeaders
       },
