@@ -119,10 +119,20 @@ export const viewport: Viewport = {
 };
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const started = performance.now();
   const customerSession = await getCustomerSession();
+  const authMs = performance.now() - started;
   const headerStore = await headers();
   const isAdminShell = headerStore.get("x-co-admin-rewrite") === "1";
+  const productsStarted = performance.now();
   const products = await getProducts();
+  if (process.env.VERCEL_ENV === "preview" || process.env.NODE_ENV === "development") {
+    console.info("co-layout-timing", JSON.stringify({
+      authMs: Math.round(authMs * 10) / 10,
+      productsMs: Math.round((performance.now() - productsStarted) * 10) / 10,
+      totalMs: Math.round((performance.now() - started) * 10) / 10
+    }));
+  }
   // jquery.ripples refracts the background image of its target. This deliberately
   // uses a detailed same-origin water material rather than a flat page colour.
   const rippleImage = mediaUrl("/assets/backgrounds/water-material/co-coconut-water-material.webp");
