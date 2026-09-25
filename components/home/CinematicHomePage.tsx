@@ -192,7 +192,7 @@ export function HomePinnedScrubVideo() {
         setSourceAttached(true);
         preloadObserver.disconnect();
       }
-    }, { rootMargin: "90% 0px" });
+    }, { rootMargin: "20% 0px" });
     const playbackObserver = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.12 });
     preloadObserver.observe(host);
     playbackObserver.observe(host);
