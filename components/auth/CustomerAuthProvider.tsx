@@ -44,7 +44,10 @@ export function CustomerAuthProvider({ session, children }: { session: CustomerS
     setCurrentSession(session);
   }, [serverScope, session]);
 
-  const refreshSession = useCallback(async () => {
+  const refreshSession = useCallback(async (force = false) => {
+    // Focus and visibilitychange often fire together; share the in-flight read.
+    // An explicit auth change still replaces a stale read immediately.
+    if (requestRef.current && !force) return;
     const generation = generationRef.current + 1;
     generationRef.current = generation;
     requestRef.current?.abort();
@@ -64,17 +67,18 @@ export function CustomerAuthProvider({ session, children }: { session: CustomerS
   }, []);
 
   useEffect(() => {
-    const handleAuthChange = () => { void refreshSession(); };
+    const handleAuthChange = () => { void refreshSession(true); };
+    const handleFocus = () => { void refreshSession(); };
     const handleVisibility = () => {
       if (document.visibilityState === "visible") void refreshSession();
     };
 
     window.addEventListener("co-auth-changed", handleAuthChange);
-    window.addEventListener("focus", handleAuthChange);
+    window.addEventListener("focus", handleFocus);
     document.addEventListener("visibilitychange", handleVisibility);
     return () => {
       window.removeEventListener("co-auth-changed", handleAuthChange);
-      window.removeEventListener("focus", handleAuthChange);
+      window.removeEventListener("focus", handleFocus);
       document.removeEventListener("visibilitychange", handleVisibility);
       generationRef.current += 1;
       requestRef.current?.abort();
