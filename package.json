@@ -12,6 +12,7 @@
     "test:seo": "tsx --test tests/seo/*.test.ts",
     "qa:seo": "node scripts/qa-seo.cjs",
     "qa:performance": "node scripts/qa-performance.cjs",
+    "qa:session-coalescing": "node scripts/qa-session-coalescing.cjs",
     "test:security": "tsx --test tests/phase-4-3/security-hardening.test.ts && npm --prefix backend test",
     "backend:typecheck": "npm --prefix packages/contracts run typecheck && npm --prefix backend run typecheck",
     "infra:synth": "npm --prefix infra run synth",
