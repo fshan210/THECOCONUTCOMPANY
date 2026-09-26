@@ -25,6 +25,13 @@ const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
       return link && Object.keys(link).some((key) => key.startsWith("__reactFiber$"));
     }, null, { timeout: 30_000 });
     await wait(250);
+    // Settle a mocked authenticated session before counting the refresh pair.
+    await page.evaluate(() => window.dispatchEvent(new Event("co-auth-changed")));
+    await wait(50);
+    assert.equal(count, 1);
+    await pending.shift().fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(member) });
+    await page.locator('a[aria-label="Open account for QA"]').waitFor({ timeout: 10_000 });
+    count = 0;
     await page.evaluate(() => {
       Object.defineProperty(document, "visibilityState", { configurable: true, get: () => "visible" });
       document.dispatchEvent(new Event("visibilitychange"));
@@ -32,7 +39,7 @@ const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     });
     await wait(150);
     assert.equal(count, 1, "visibilitychange and focus must share one in-flight session GET");
-    await pending.shift().fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(guest) });
+    await pending.shift().fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(member) });
     await wait(50);
 
     // A forced auth change is allowed to supersede an ordinary refresh.
@@ -66,7 +73,7 @@ const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     await page.evaluate((payload) => window.__sessionQa.resolvers[0](new Response(JSON.stringify(payload), { status: 200, headers: { "content-type": "application/json" } })), guest);
     await wait(100);
     assert.equal(await page.locator('a[aria-label="Open account for QA"]').count(), 1, "stale response overwrote newer auth state");
-    console.log(JSON.stringify({ normalOverlappingGets: 1, explicitReplacementGets: 2, staleResponseIgnored: true }));
+    console.log(JSON.stringify({ authenticatedPageSettled: true, normalOverlappingGets: 1, explicitReplacementGets: 2, staleResponseIgnored: true }));
     await page.close();
   } finally {
     await browser.close();
