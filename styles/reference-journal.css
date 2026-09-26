@@ -2209,6 +2209,7 @@ html:has(.jn-page)::-webkit-scrollbar-thumb {
   .jn-hero {
     height: auto;
     min-height: 820px;
+    max-height: none;
   }
   .jn-hero-media {
     inset: 0 0 auto;
@@ -2232,8 +2233,13 @@ html:has(.jn-page)::-webkit-scrollbar-thumb {
   }
   .jn-hero-copy h1 {
     font-size: clamp(40px, 10.7vw, 58px);
-    line-height: 1.03;
+    line-height: 1.12;
     margin: 20px 0;
+  }
+  .jn-hero-copy h1 > span {
+    animation: none;
+    clip-path: none;
+    transform: none;
   }
   .jn-hero-copy h1 > span:last-child {
     max-width: 390px;

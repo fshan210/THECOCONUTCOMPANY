@@ -1068,10 +1068,13 @@
   }
   .recipe-hero-copy {
     width: 100%;
-    padding: 420px 24px 40px;
+    padding: clamp(320px, 100vw, 420px) 24px 40px;
   }
   .recipe-hero h1 {
-    font-size: 62px;
+    gap: 0.06em;
+    margin: 20px 0 26px;
+    font-size: clamp(48px, 14vw, 62px);
+    line-height: 0.98;
   }
   .recipe-hero > .rd-scene img {
     object-position: 66% center;
@@ -1136,9 +1139,6 @@
   }
 }
 @media (max-width: 430px) {
-  .recipe-hero-copy {
-    padding-top: 390px;
-  }
   .recipe-hero-copy .rd-button {
     width: 100%;
     margin: 8px 0 0;
@@ -1206,11 +1206,6 @@
   }
   .rd-newsletter {
     margin-top: 30px;
-  }
-}
-@media (max-width: 390px) {
-  .recipe-hero-copy {
-    padding-top: 350px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
