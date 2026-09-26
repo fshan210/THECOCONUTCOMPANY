@@ -16,7 +16,6 @@ import { Analytics } from "@/components/seo/Analytics";
 import { ConsentDefaults } from "@/components/seo/ConsentDefaults";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { CustomerAuthProvider } from "@/components/auth/CustomerAuthProvider";
-import { LenisProvider } from "@/components/providers/LenisProvider";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { LaunchExperience } from "@/components/launch/LaunchExperience";
 import { GlobalWaterRipple } from "@/components/motion/GlobalWaterRipple";
@@ -34,6 +33,7 @@ import "../styles/reference-journal.css";
 import "../styles/reference-commerce.css";
 import "../styles/reference-newsletter.css";
 import "../styles/reference-auth.css";
+import "../styles/scroll-system.css";
 
 const roboto = localFont({
   src: [
@@ -140,7 +140,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html
       lang="en-IN"
-      data-scroll-behavior="smooth"
+      data-scroll-behavior="native"
       style={{ "--co-route-leaf-image": `url("${rippleImage}")` } as CSSProperties}
     >
       <head>
@@ -149,18 +149,16 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       <body className={`${roboto.variable} ${instrumentSerif.variable} font-sans antialiased`}>
         <CustomerAuthProvider session={customerSession}>
           <CartProvider catalog={products}>
-            <LenisProvider>
-              <MotionProvider>
-                {isAdminShell ? null : <GlobalWaterRipple image={rippleImage} />}
-                {isAdminShell ? null : <GlobalMotionEffects />}
-                {isAdminShell ? null : <Navigation />}
-                <main className="co-site-content">{children}</main>
-                {isAdminShell ? null : <Footer />}
-                {isAdminShell ? null : <CartDrawer />}
-                {isAdminShell ? null : <LaunchExperience />}
-                <Analytics />
-              </MotionProvider>
-            </LenisProvider>
+            <MotionProvider>
+              {isAdminShell ? null : <GlobalWaterRipple image={rippleImage} />}
+              {isAdminShell ? null : <GlobalMotionEffects />}
+              {isAdminShell ? null : <Navigation />}
+              <main className="co-site-content">{children}</main>
+              {isAdminShell ? null : <Footer />}
+              {isAdminShell ? null : <CartDrawer />}
+              {isAdminShell ? null : <LaunchExperience />}
+              <Analytics />
+            </MotionProvider>
           </CartProvider>
         </CustomerAuthProvider>
       </body>

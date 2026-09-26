@@ -8,14 +8,14 @@ import { useCart } from "@/lib/cart/cart-context";
 import type { ContentProduct, ContentRecipe } from "@/lib/content/types";
 import type { SavedCard } from "@/components/auth/SavedContentGrid";
 import { ActionLink, EmptyCard, Panel } from "./AccountShell";
+import { useNativeRailControls } from "@/lib/ui/use-native-rail-controls";
 export function ProductCard({product}:{product:ContentProduct}) {
  const cart=useCart();
  return <article className="ac-product"><Link href={`/shop?product=${product.slug}#all-products`} className="ac-product-image"><ResponsiveImage src={product.image} alt={product.name} fill sizes="(max-width:600px) 70vw, 240px" className="object-contain"/></Link><div className="ac-product-copy"><h3><Link href={`/shop?product=${product.slug}#all-products`}>{product.name}</Link></h3><p>{product.format}</p>{product.price!=null&&<span className="ac-price">₹{product.price.toLocaleString("en-IN")}</span>}<small className="ac-stock">{product.availabilityStatus === "in-stock" ? "In stock" : product.availabilityStatus === "out-of-stock" ? "Out of stock" : "Product preview"}</small><button className="ac-button" disabled={product.availabilityStatus==="out-of-stock"} onClick={()=>cart.addItem(product.slug)}><span>Add to cart</span><ArrowRight size={15}/></button></div></article>;
 }
 export function ProductRail({products,title="A little more .CO"}:{products:ContentProduct[];title?:string}) {
- const rail=useRef<HTMLDivElement>(null);
- const move=(direction:number)=>rail.current?.scrollBy({left:direction*(rail.current.clientWidth*.8),behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
- return <Panel title={title} className="ac-rail-panel" action={<div className="ac-rail-controls"><button aria-label={`Previous ${title}`} onClick={()=>move(-1)}><ArrowLeft size={18}/></button><button aria-label={`Next ${title}`} onClick={()=>move(1)}><ArrowRight size={18}/></button></div>}><div className="ac-rail" ref={rail}>{products.map(p=><ProductCard key={p.slug} product={p}/>)}</div></Panel>;
+ const {rail,canPrevious,canNext,move}=useNativeRailControls();
+ return <Panel title={title} className="ac-rail-panel" action={<div className="ac-rail-controls"><button aria-label={`Previous ${title}`} disabled={!canPrevious} onClick={()=>move(-1)}><ArrowLeft size={18}/></button><button aria-label={`Next ${title}`} disabled={!canNext} onClick={()=>move(1)}><ArrowRight size={18}/></button></div>}><div className="ac-rail" ref={rail} tabIndex={0} role="group" aria-label={title}>{products.map(p=><ProductCard key={p.slug} product={p}/>)}</div></Panel>;
 }
 export function RecipeCard({recipe}:{recipe:ContentRecipe}) {return <article className="ac-recipe"><Link className="ac-recipe-image" href={`/recipes/${recipe.slug}`}><ResponsiveImage src={recipe.image} alt={recipe.title} fill sizes="(max-width:600px) 85vw, 350px" className="object-cover"/></Link><div className="ac-recipe-copy"><h3>{recipe.title}</h3><p>{recipe.description}</p><div className="ac-recipe-meta"><span><Clock size={15}/>{recipe.time}</span><span><ChefHat size={15}/>{recipe.difficulty}</span></div><ActionLink href={`/recipes/${recipe.slug}`}>Cook this</ActionLink></div></article>;}
 export function SavedCollection({items:initialItems,recipes=false}:{items:SavedCard[];recipes?:boolean}) {

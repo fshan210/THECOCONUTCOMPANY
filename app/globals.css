@@ -720,7 +720,7 @@
 
 html {
   position: relative;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   overflow-x: clip;
 }
 

@@ -3,6 +3,7 @@
 import { ResponsiveImage as Image } from "@/components/media/ResponsiveImage";
 import { NewsletterForm } from "@/components/launch/NewsletterForm";
 import { useCart } from "@/lib/cart/cart-context";
+import { useNativeRailControls } from "@/lib/ui/use-native-rail-controls";
 import { shopProducts } from "@/lib/catalog";
 import type { ContentProduct, ContentRecipe, ContentTestimonial, HomepageContent } from "@/lib/content/types";
 import { mediaUrl } from "@/lib/media";
@@ -143,12 +144,12 @@ function Hero({ homepage, products }: { homepage: HomepageContent; products: Con
       <div className={styles.productRail} data-home-section="product-rail">
         <header>
           <div><span className={styles.eyebrow}>Explore by category</span><h2>Coconut, in every part of <em>your life.</em></h2></div>
-          <nav aria-label="Product categories">
+          <nav aria-label="Product categories" data-co-scroll-rail>
             {[[".CO Water", "Coconut%20Water"], [".CO Kitchen", "Kitchen"], ["BOTANiCA", "BOTANiCA"], ["MELT", "Ice%20Cream"]].map(([label, category]) => <Link key={label} href={`/shop?category=${category}`}>{label}</Link>)}
           </nav>
           <Link href="/shop" className={styles.textLink}>View All Products <ArrowRight size={15} /></Link>
         </header>
-        <div className={styles.productScroller}>
+        <div className={styles.productScroller} data-co-scroll-rail tabIndex={0} role="group" aria-label="Featured products">
           {featured.map((product) => <Link href={`/shop/${product.slug}`} key={product.slug} className={styles.productCard}>
             <span className={`${styles.productImage} ${corrections.productStage}`} data-light="top-left"><Image src={product.image} alt={product.name} fill sizes="180px" className={`object-contain ${corrections.productCutout}`} /></span>
             <span><strong>{product.name}</strong><small>{product.size}</small><b>{formatPrice(product.price)}</b></span>
@@ -361,7 +362,7 @@ function ReceiptSection({ products }: { products: ContentProduct[] }) {
 
   return <section className={`${styles.scene} ${styles.receiptSection}`} data-home-section="receipt">
     <div className={styles.sectionIntro}><p className={styles.eyebrow}>.CO Receipt</p><h2>Your .CO Day</h2><p>Build your perfect day with the goodness of coconut.</p><a className={styles.secondaryButton} href="#receipt-builder">How it works <ArrowRight size={14} /></a></div>
-    <div id="receipt-builder" className={styles.routineBuilder}>
+    <div id="receipt-builder" className={styles.routineBuilder} data-co-scroll-rail tabIndex={0} role="group" aria-label="Build your .CO day">
       {rows.map((row) => <article key={row.slug} className={styles.routineProduct}>
         <p>{row.time}</p><span className={corrections.productStage} data-light="top-left"><Image src={row.image} alt={row.name} fill sizes="150px" className={`object-contain ${corrections.productCutout}`} /></span><h3>{row.name}</h3><small>{row.size}</small>
         <div className={styles.quantity}><button type="button" onClick={() => adjust(row.slug, -1)} aria-label={`Remove one ${row.name}`}><Minus size={12} /></button><b>{quantities[row.slug]}</b><button type="button" onClick={() => adjust(row.slug, 1)} aria-label={`Add one ${row.name}`}><Plus size={12} /></button></div>
@@ -382,21 +383,20 @@ function RoutineSection({ testimonials }: { testimonials: ContentTestimonial[] }
     { id: "shared-1", name: "Ananya", role: "Kochi", quote: "Coconut water is my everyday hydration ritual.", source: "Shared routine", featured: true, publicationStatus: "published" as const },
     { id: "shared-2", name: "Rohit", role: "Bengaluru", quote: "The coconut oil is a familiar part of my kitchen.", source: "Shared routine", featured: true, publicationStatus: "published" as const },
   ];
-  const stripRef = useRef<HTMLDivElement>(null);
-  const shift = (direction: number) => stripRef.current?.scrollBy({ left: direction * 340, behavior: "smooth" });
+  const { rail, canPrevious, canNext, move } = useNativeRailControls();
   return <section className={`${styles.scene} ${styles.routines}`} data-home-section="routines">
     <header className={styles.sectionHeader}><div><p className={styles.eyebrow}>Steal the routine</p><h2>Steal someone else’s <em>.CO day.</em></h2></div><p>Real people. Real routines. Hand-picked rituals that actually work.</p><Link href="/shop" className={styles.textLink}>See more routines <ArrowRight size={15} /></Link></header>
-    <div className={styles.routineCards}>
+    <div className={styles.routineCards} data-co-scroll-rail tabIndex={0} role="group" aria-label="Routines">
       {[
         ["Bali", "Sunrise Reset", "sunrise-reset.png"], ["Mumbai", "Balanced Hustle", "balanced-hustle.png"], ["London", "Evening Wind Down", "evening-wind-down.png"],
       ].map(([city, title, image]) => <article key={title}><Image src={`${assetRoot}/${image}`} alt={`${title} .CO routine`} fill sizes="(min-width: 900px) 32vw, 88vw" className="object-cover" /><span /><div><p>{city}</p><h3>{title}</h3><Link href="/shop">Steal this routine <ArrowRight size={14} /></Link></div></article>)}
     </div>
-    <div className={styles.reviewStrip}><button type="button" onClick={() => shift(-1)} aria-label="Previous reviews"><ArrowLeft size={16} /></button><div ref={stripRef}>{reviews.map((review) => {
+    <div className={styles.reviewStrip} data-co-review-strip><button type="button" disabled={!canPrevious} onClick={() => move(-1)} aria-label="Previous reviews"><ArrowLeft size={16} /></button><div ref={rail} data-co-scroll-rail tabIndex={0} role="group" aria-label="Reviews">{reviews.map((review) => {
       const unsafeRolePattern = new RegExp([["verified", "buyer"].join(" "), "customer"].join("|"), "gi");
       const safeRole = (review.role || review.source || "Shared routine").replace(unsafeRolePattern, "Shared routine");
       const safeQuote = review.quote.replace(/sustainable approach/gi, "thoughtful direction");
       return <blockquote key={review.id}><span>{review.name.slice(0, 1)}</span><p>“{safeQuote}”<cite>{review.name}, {safeRole}</cite></p></blockquote>;
-    })}</div><button type="button" onClick={() => shift(1)} aria-label="Next reviews"><ArrowRight size={16} /></button></div>
+    })}</div><button type="button" disabled={!canNext} onClick={() => move(1)} aria-label="Next reviews"><ArrowRight size={16} /></button></div>
     <SectionTransition />
   </section>;
 }
@@ -424,7 +424,7 @@ function RecipeSection({ recipes }: { recipes: ContentRecipe[] }) {
     ["Green Coconut Smoothie", "green-coconut-smoothie", "/assets/recipes/generated/co-green-coconut-smoothie-editorial-4k.avif", "7 mins"],
     ["Creamy Coconut Curry", "coconut-milk-veggie-curry", "/assets/recipes/generated/coconut-milk-veggie-curry.jpg", "20 mins"],
   ] as const;
-  return <section className={`${styles.scene} ${styles.recipes}`} data-home-section="recipes"><div className={styles.recipeIntro}><p className={styles.eyebrow}>Made with coconut</p><h2>Recipes for<br /><em>real life.</em></h2><p>Simple, nourishing recipes with ingredients you trust.</p><Link className={styles.primaryButton} href="/recipes">Explore recipes <ArrowRight size={15} /></Link></div><div className={styles.recipeCards}>{requested.map(([title, slug, image, time]) => { const recipe = recipes.find((item) => item.slug === slug); return <Link href={recipe ? `/recipes/${recipe.slug}` : `/recipes/${slug}`} key={title}><span><Image src={image} alt={title} fill sizes="(min-width: 900px) 26vw, 82vw" className="object-cover" /></span><h3>{title}</h3><p>Ready in {time}</p></Link>; })}</div><SectionTransition /></section>;
+  return <section className={`${styles.scene} ${styles.recipes}`} data-home-section="recipes"><div className={styles.recipeIntro}><p className={styles.eyebrow}>Made with coconut</p><h2>Recipes for<br /><em>real life.</em></h2><p>Simple, nourishing recipes with ingredients you trust.</p><Link className={styles.primaryButton} href="/recipes">Explore recipes <ArrowRight size={15} /></Link></div><div className={styles.recipeCards} data-co-scroll-rail tabIndex={0} role="group" aria-label="Featured recipes">{requested.map(([title, slug, image, time]) => { const recipe = recipes.find((item) => item.slug === slug); return <Link href={recipe ? `/recipes/${recipe.slug}` : `/recipes/${slug}`} key={title}><span><Image src={image} alt={title} fill sizes="(min-width: 900px) 26vw, 82vw" className="object-cover" /></span><h3>{title}</h3><p>Ready in {time}</p></Link>; })}</div><SectionTransition /></section>;
 }
 
 function SustainabilitySection() {

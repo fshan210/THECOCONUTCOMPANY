@@ -1,0 +1,139 @@
+/* Shared native scroll visuals. No scroll position or input events are changed here. */
+:root {
+  --co-scroll-track: rgba(255, 255, 255, 0.025);
+  --co-scroll-thumb: rgba(194, 132, 72, 0.55);
+  --co-scroll-thumb-hover: rgba(224, 159, 82, 0.72);
+  --co-scroll-thumb-active: rgba(238, 176, 99, 0.82);
+  --co-scroll-size: 9px;
+  --co-rail-scroll-size: 5px;
+}
+
+:is([data-co-scroll-rail], .ac-rail):focus-visible {
+  outline: 2px solid var(--co-scroll-thumb-hover);
+  outline-offset: 3px;
+}
+
+:is(.ac-rail-controls button, [data-co-review-strip] > button):disabled {
+  opacity: 0.38;
+  cursor: default;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html,
+  body,
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--co-scroll-thumb) var(--co-scroll-track);
+  }
+
+  ::-webkit-scrollbar {
+    width: var(--co-scroll-size);
+    height: var(--co-scroll-size);
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--co-scroll-track);
+  }
+  ::-webkit-scrollbar-thumb {
+    border: 2px solid rgba(20, 10, 5, 0.38);
+    border-radius: 999px;
+    background: var(--co-scroll-thumb);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--co-scroll-thumb-hover);
+  }
+  ::-webkit-scrollbar-thumb:active {
+    background: var(--co-scroll-thumb-active);
+  }
+
+  /* Native horizontal rails share one treatment, including utility-based rails. */
+  :is(
+    [data-co-scroll-rail],
+    [class*="overflow-x-auto"],
+    .co-shop-categories__scroller,
+    .co-shop-curated__rail,
+    .co-shop-pairings__rail,
+    .co-home-hero__category-row,
+    .co-receipt-mobile__times,
+    .co-routine-section__tabs,
+    .co-testimonial-ribbon > div,
+    .co-outside-shelf__reel,
+    .co-lower-recipes__cards,
+    .recipe-categories,
+    .recipe-culture aside,
+    .world-cards,
+    .mood-grid,
+    .rd-sustainability .seasonal-chart,
+    .ac-tabs,
+    .ac-rail,
+    .ac-member-sidebar nav,
+    .cm-tabs
+  ) {
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--co-scroll-thumb) transparent !important;
+  }
+  :is(
+    [data-co-scroll-rail],
+    [class*="overflow-x-auto"],
+    .co-shop-categories__scroller,
+    .co-shop-curated__rail,
+    .co-shop-pairings__rail,
+    .co-home-hero__category-row,
+    .co-receipt-mobile__times,
+    .co-routine-section__tabs,
+    .co-testimonial-ribbon > div,
+    .co-outside-shelf__reel,
+    .co-lower-recipes__cards,
+    .recipe-categories,
+    .recipe-culture aside,
+    .world-cards,
+    .mood-grid,
+    .rd-sustainability .seasonal-chart,
+    .ac-tabs,
+    .ac-rail,
+    .ac-member-sidebar nav,
+    .cm-tabs
+  )::-webkit-scrollbar {
+    display: block !important;
+    height: var(--co-rail-scroll-size);
+  }
+
+  /* In engines with WebKit scrollbar pseudos, standard width/color overrides
+     otherwise take precedence over the narrower rail pseudo. */
+  @supports selector(::-webkit-scrollbar) {
+    :is(
+      [data-co-scroll-rail],
+      .ac-rail,
+      .co-shop-curated__rail,
+      .co-shop-pairings__rail,
+      .co-shop-categories__scroller,
+      .world-cards,
+      .recipe-categories,
+      .rd-sustainability .seasonal-chart
+    ) {
+      scrollbar-width: auto !important;
+      scrollbar-color: auto !important;
+    }
+  }
+
+  /* Desktop card rails can stop naturally instead of forcing a whole card jump. */
+  :is(.ac-rail, .co-shop-curated__rail, .co-shop-pairings__rail, .world-cards) {
+    scroll-snap-type: x proximity;
+  }
+}
+
+@media (forced-colors: active) {
+  html,
+  body,
+  * {
+    scrollbar-width: auto !important;
+    scrollbar-color: auto !important;
+  }
+  ::-webkit-scrollbar,
+  ::-webkit-scrollbar-track {
+    background: Canvas !important;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: ButtonText !important;
+    border-color: Canvas !important;
+  }
+}
