@@ -1,3 +1,4 @@
+import { assertResourceIsolation } from "@/lib/deployment/resources.mjs";
 import "server-only";
 
 import { CognitoIdentityProviderClient, ResendConfirmationCodeCommand } from "@aws-sdk/client-cognito-identity-provider";
@@ -5,6 +6,7 @@ import { CognitoIdentityProviderClient, ResendConfirmationCodeCommand } from "@a
 export const cognitoClient = new CognitoIdentityProviderClient({ region: process.env.DOTCO_AWS_REGION || "ap-south-1" });
 
 export function cognitoClientId() {
+  assertResourceIsolation();
   return process.env.COGNITO_APP_CLIENT_ID;
 }
 

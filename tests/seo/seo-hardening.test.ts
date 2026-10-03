@@ -173,7 +173,7 @@ test("every private route family has a permanent noindex declaration", () => {
 
 test("Preview noindex and canonical one-hop redirects are repository-owned", () => {
   const config = readFileSync(resolve("next.config.mjs"), "utf8");
-  assert.match(config, /VERCEL_ENV/);
+  assert.match(config, /resolveDeployment/);
   assert.match(config, /X-Robots-Tag/);
   assert.match(config, /noindex, nofollow, noarchive/);
   assert.match(config, /source:\s*"\/terms"[\s\S]*destination:\s*"\/terms-and-conditions"/);

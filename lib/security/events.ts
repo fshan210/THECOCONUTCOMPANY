@@ -23,7 +23,7 @@ export async function writeSecurityEvent(input: SecurityEventInput) {
       actorId: input.actorId || null,
       actorEmail: input.actorEmail?.toLowerCase() || null,
       action: input.action,
-      environment: getSecurityEnvironment(process.env.VERCEL_ENV),
+      environment: getSecurityEnvironment(),
       area: input.area,
       outcome: input.outcome,
       ipAddress: context.ipAddress,
