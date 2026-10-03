@@ -1,6 +1,10 @@
-/** @type {import('next').NextConfig} */
-const isVercelNonProduction = Boolean(process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "production");
-const isVercelProduction = process.env.VERCEL_ENV === "production";
+import { resolveDeployment } from "./lib/deployment/environment.mjs";
+import { assertResourceIsolation } from "./lib/deployment/resources.mjs";
+
+const deployment = resolveDeployment();
+assertResourceIsolation();
+const isNonProduction = deployment.environment !== "production";
+const isProduction = deployment.environment === "production";
 
 function configuredOrigin(value) {
   if (!value) return null;
@@ -31,9 +35,11 @@ const cspReportOnly = [
   "manifest-src 'self'"
 ].join("; " );
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
+  ...(process.env.DEPLOY_TARGET === "railway" ? { output: "standalone" } : {}),
   env: {
-    NEXT_PUBLIC_FIREBASE_DEPLOYMENT_ENV: process.env.VERCEL_ENV || "development"
+    NEXT_PUBLIC_FIREBASE_DEPLOYMENT_ENV: deployment.environment
   },
   poweredByHeader: false,
   serverExternalPackages: [
@@ -64,7 +70,7 @@ const nextConfig = {
       { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
       { key: "Content-Security-Policy-Report-Only", value: cspReportOnly }
     ];
-    if (isVercelProduction) securityHeaders.push({ key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains; preload" });
+    if (isProduction) securityHeaders.push({ key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains; preload" });
     const immutableHeaders = [
       {
         key: "Cache-Control",
@@ -72,7 +78,7 @@ const nextConfig = {
       }
     ];
     return [
-      ...(isVercelNonProduction
+      ...(isNonProduction
         ? [{
             source: "/:path*",
             headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }]

@@ -1,3 +1,4 @@
+import { resolveDeployment } from "@/lib/deployment/environment.mjs";
 import { getCustomerSession } from "@/lib/customer/auth";
 import { privateJson } from "@/lib/security/http";
 
@@ -20,7 +21,7 @@ export async function GET() {
       }
     : null;
 
-  const headers = process.env.VERCEL_ENV === "preview" || process.env.NODE_ENV === "development"
+  const headers = resolveDeployment().environment !== "production"
     ? { "server-timing": `auth;dur=${auth.toFixed(1)}, total;dur=${(performance.now() - started).toFixed(1)}` }
     : undefined;
   return privateJson({ authenticated: Boolean(user), user }, { headers });

@@ -1,3 +1,4 @@
+import { resolveDeployment } from "@/lib/deployment/environment.mjs";
 import "server-only";
 
 import type { App } from "firebase-admin/app";
@@ -46,10 +47,10 @@ function getVerifiedServiceAccount() {
   const projectId = verifyFirebaseAdminProjectId(
     serviceAccount.project_id,
     process.env.FIREBASE_PROJECT_ID,
-    process.env.VERCEL_ENV,
+    resolveDeployment().environment,
     process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID
   );
-  if (process.env.VERCEL_ENV === "preview" && !previewProjectLogged) {
+  if (resolveDeployment().environment === "preview" && !previewProjectLogged) {
     console.info("firebaseAdminProjectId:", projectId);
     previewProjectLogged = true;
   }

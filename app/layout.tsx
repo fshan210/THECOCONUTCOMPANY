@@ -1,3 +1,4 @@
+import { resolveDeployment } from "@/lib/deployment/environment.mjs";
 import type { CSSProperties } from "react";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
@@ -126,7 +127,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const isAdminShell = headerStore.get("x-co-admin-rewrite") === "1";
   const productsStarted = performance.now();
   const products = await getProducts();
-  if (process.env.VERCEL_ENV === "preview" || process.env.NODE_ENV === "development") {
+  if (resolveDeployment().environment !== "production") {
     console.info("co-layout-timing", JSON.stringify({
       authMs: Math.round(authMs * 10) / 10,
       productsMs: Math.round((performance.now() - productsStarted) * 10) / 10,

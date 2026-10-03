@@ -32,7 +32,10 @@ const DEFAULT_TTL = 600;
 loadEnvFiles([".env.local", ".env"]);
 
 const args = new Set(process.argv.slice(2));
-const shouldApply = args.has("--apply");
+if (args.has("--apply")) {
+  throw new Error("DNS writes are retired during the Railway migration. Use the reviewed cutover plan; this command is read-only.");
+}
+const shouldApply = false;
 const allowPublicDnsFallback = args.has("--allow-public-dns-fallback");
 const domain = process.env.GODADDY_DOMAIN || "cothecoconutcompany.com";
 const apiKey = process.env.GODADDY_API_KEY;

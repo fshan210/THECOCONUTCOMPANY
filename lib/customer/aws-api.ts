@@ -1,3 +1,5 @@
+import { assertResourceIsolation } from "@/lib/deployment/resources.mjs";
+import { resolveDeployment } from "@/lib/deployment/environment.mjs";
 import "server-only";
 
 import { cookies } from "next/headers";
@@ -15,7 +17,7 @@ function timingClass(path: string) {
 }
 
 function recordTiming(path: string, method: string, status: number, timing: CustomerApiTiming) {
-  if (process.env.VERCEL_ENV !== "preview" && process.env.NODE_ENV !== "development") return;
+  if (resolveDeployment().environment === "production") return;
   // Fixed route classes and durations only: never log paths, IDs, bodies, headers, or tokens.
   console.info("co-private-timing", JSON.stringify({
     route: timingClass(path), method, status,
@@ -55,6 +57,7 @@ export type CustomerProfileRecord = {
 };
 
 export async function customerAwsApi<T>(path: string, init: RequestInit = {}) {
+  assertResourceIsolation();
   const started = performance.now();
   const cookieStore = await cookies();
   const session = readAwsSession(cookieStore);

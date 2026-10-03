@@ -15,6 +15,8 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     env:
+      APP_DEPLOY_ENV: development
+      APP_HOST_PLATFORM: local
       NEXT_PUBLIC_MEDIA_BASE_URL: https://media.cothecoconutcompany.com
     steps:
       - uses: actions/checkout@v4
