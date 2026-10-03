@@ -22,3 +22,7 @@ Project `dotco-web`, environment `staging`, Next service only, Singapore `asia-s
 Current Railway documentation says new services cannot opt into deprecated `railway.json` / `railway.toml` Config as Code. Existing services have a 2026-12-01 cutoff. Use supported service settings and record their inspected values; do not add obsolete configuration just because older examples recommend it. Railway IaC can be evaluated separately if required for reproducible infrastructure management.
 
 References checked 2026-10-03: https://docs.railway.com/guides/nextjs, https://docs.railway.com/builds/dockerfiles, https://docs.railway.com/guides/build-time-vs-runtime-secrets, https://docs.railway.com/config-as-code, https://docs.railway.com/deployments/regions.
+
+## First staging deployment configuration
+
+Project `dotco-web`, service `dotco-next-staging`, environment `staging`. Git source is the migration branch. One Singapore replica (`asia-southeast1-eqsg3a`), 2 vCPU and 2 GB maximum per replica, serverless off, CDN caching off, health `/api/health` with 120-second timeout, on-failure restart limit 3. The generated domain targets PORT 8080. The runtime manifest binds `RAILWAY_GIT_COMMIT_SHA`; no manually maintained release SHA variable is used. Railway now deprecates legacy railway.json/toml for new services, so supported dashboard/API settings are used.

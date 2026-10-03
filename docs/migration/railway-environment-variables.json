@@ -1,5 +1,5 @@
 {
-  "reviewStatus": "PENDING HUMAN REVIEW",
+  "reviewStatus": "APPROVED BY USER 2026-10-03",
   "secretValuesIncluded": false,
   "variables": [
     {
@@ -187,7 +187,7 @@
       "category": "SERVER RUNTIME",
       "required": true,
       "secret": true,
-      "source": "New Railway-specific key for existing dotco-preview-admin service identity; no role changes; requires human review",
+      "source": "User-approved separate Railway key for existing dotco-preview-admin identity; created 2026-10-03 without role changes",
       "target": "Railway staging",
       "disposition": "set"
     },
@@ -336,20 +336,20 @@
       "disposition": "omit"
     },
     {
-      "name": "APP_RELEASE_SHA",
+      "name": "RAILWAY_GIT_COMMIT_SHA",
       "category": "SERVER RUNTIME",
       "required": true,
       "secret": false,
-      "source": "Reviewed Git commit SHA, bound into build and checked against Railway deployment metadata",
+      "source": "Railway Git deployment metadata supplied at build; compiled manifest exposes exact SHA via health",
       "target": "Railway staging",
-      "disposition": "set"
+      "disposition": "platform supplied"
     },
     {
       "name": "PORT",
       "category": "SERVER RUNTIME",
       "required": true,
       "secret": false,
-      "source": "Railway supplied PORT; 0.0.0.0 host; production Node runtime",
+      "source": "8080, matching the generated Railway domain target port",
       "target": "Railway staging",
       "disposition": "set"
     },
@@ -358,7 +358,7 @@
       "category": "SERVER RUNTIME",
       "required": true,
       "secret": false,
-      "source": "Railway supplied PORT; 0.0.0.0 host; production Node runtime",
+      "source": "0.0.0.0, also enforced by startup helper",
       "target": "Railway staging",
       "disposition": "set"
     },
@@ -367,7 +367,7 @@
       "category": "SERVER RUNTIME",
       "required": true,
       "secret": false,
-      "source": "Railway supplied PORT; 0.0.0.0 host; production Node runtime",
+      "source": "production Node runtime; APP_DEPLOY_ENV remains preview",
       "target": "Railway staging",
       "disposition": "set"
     },
@@ -434,5 +434,6 @@
       "target": "Local audit tools only",
       "disposition": "exclude"
     }
-  ]
+  ],
+  "approvalScope": "Verified DEV AWS identifiers, Preview Firebase configuration, fresh staging session keys, and separate key for existing dotco-preview-admin identity; no new IAM permissions."
 }
