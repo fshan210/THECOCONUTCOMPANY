@@ -1,4 +1,8 @@
 const baseUrl = (process.env.BASE_URL || "https://cothecoconutcompany.com").replace(/\/$/, "");
+const assetConcurrency = Number(process.env.SMOKE_ASSET_CONCURRENCY || 12);
+if (!Number.isInteger(assetConcurrency) || assetConcurrency < 1 || assetConcurrency > 20) {
+  throw new Error("SMOKE_ASSET_CONCURRENCY must be an integer from 1 to 20.");
+}
 
 const routes = [
   ["/", "Rooted in nature"],
@@ -72,15 +76,16 @@ for (const path of infrastructureRoutes) {
   }
 }
 
-await mapWithConcurrency(checkedAssets, 12, async (asset) => {
+await mapWithConcurrency(checkedAssets, assetConcurrency, async (asset) => {
   try {
     const response = await request(asset, { method: "HEAD" });
     if (!response.ok) failures.push(`asset ${asset}: HTTP ${response.status}`);
   } catch (error) {
-    failures.push(`asset ${asset}: ${error instanceof Error ? error.message : String(error)}`);
+    const cause = error instanceof Error && error.cause instanceof Error ? error.cause.message : "";
+    failures.push(`asset ${asset}: ${error instanceof Error ? error.message : String(error)}${cause ? ` (${cause})` : ""}`);
   }
 });
 
-const report = { baseUrl, routes: routes.length, infrastructureRoutes: infrastructureRoutes.length, assets: checkedAssets.size, failures };
+const report = { baseUrl, assetConcurrency, routes: routes.length, infrastructureRoutes: infrastructureRoutes.length, assets: checkedAssets.size, failures };
 process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
 if (failures.length) process.exitCode = 1;

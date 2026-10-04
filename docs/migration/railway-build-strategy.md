@@ -1,13 +1,13 @@
 # Railway build strategy
 
-Audit decision before implementation: use an explicit multi-stage Dockerfile for the Next.js runtime only. Node 22 matches repository CI and backend runtime support. No Docker engine is currently installed locally; the standalone directory can still be exercised locally, while the real image must be built and tested by Railway.
+Audit decision before implementation: use an explicit multi-stage Dockerfile for the Next.js runtime only. Node 22 matches repository CI and backend runtime support. No local Docker engine was used. The standalone directory was exercised locally; Railway subsequently built and started the real image successfully at commit edd9f387500a7a0cd547d6f6cbc8c4d81246cfcf. Full image-content inspection remains pending.
 
 | Option | Benefit | Limitation for this repository |
 | --- | --- | --- |
 | Railpack | Automatic Node detection and fewer files | Requires additional packaging control to reproduce the 798 existing public-file exclusions and separate local credentials/source archives |
 | Docker | Auditable build context, explicit package layout, non-root runtime, controlled public/static copies | Must maintain the small Dockerfile and validate image startup; selected |
 
-## Planned layout
+## Implemented layout
 
 1. Dependencies stage copies root package/lock files and local `packages/contracts` dependency before `npm ci`.
 2. Builder includes only the filtered source context. `DEPLOY_TARGET=railway` enables `output: standalone`. Declare build ARGs only for public browser configuration and nonsecret deployment/provenance labels. Never declare Admin credentials or session keys as build ARGs.

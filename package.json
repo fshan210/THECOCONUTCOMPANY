@@ -93,6 +93,9 @@
     "typescript": "^5.5.3"
   },
   "overrides": {
-    "postcss": "$postcss"
+    "postcss": "$postcss",
+    "@firebase/firestore": {
+      "@grpc/grpc-js": "1.14.5"
+    }
   }
 }

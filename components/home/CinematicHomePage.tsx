@@ -287,7 +287,13 @@ export function HomePinnedScrubVideo() {
             onLoadedData={() => { if (!isMobile) setMediaVisible(true); }}
             onPlaying={() => { setPlaying(true); setMediaVisible(true); }}
             onPause={() => setPlaying(false)}
-            onError={() => { setVideoFailed(true); setMediaVisible(false); }}
+            onError={(event) => {
+              // A rejected <source> candidate can bubble through React while
+              // the video is still selecting another playable source.
+              if (event.target !== event.currentTarget || !event.currentTarget.error) return;
+              setVideoFailed(true);
+              setMediaVisible(false);
+            }}
             style={{ opacity: mediaVisible ? 1 : 0 }}
           >
             {sourceAttached ? <>

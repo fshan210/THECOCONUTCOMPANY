@@ -1,22 +1,37 @@
 # Vercel versus Railway — measurement record
 
-**Current decision: MORE MEASUREMENT.** Railway staging has not yet been deployed. No latency, cost or performance winner is established. Production remains on Vercel.
+**Current decision: MORE MEASUREMENT.** Both Preview deployments run `edd9f387500a7a0cd547d6f6cbc8c4d81246cfcf`. Railway staging is deployed; Production remains on Vercel. No overall speed or cost winner is established.
 
-| Category | Vercel | Railway Singapore | Delta / observation |
-| --- | --- | --- | --- |
-| Account median/p75/p95/max (≥15) | Pending same-SHA DEV Preview | Pending deployment and manual DEV login | Not measured |
-| Preferences (≥15) | Pending | Pending | Not measured |
-| Saved (≥15) | Pending | Pending | Not measured |
-| Cart/wishlist/recipes/addresses (≥10 each) | Pending | Pending | Not measured |
-| Public TTFB | Pending controlled comparison | Pending | Not measured |
-| Home/Recipes/Journal/Shop/Sustainability LCP, CLS, TBT | Pending five equivalent mobile runs | Pending | Not measured |
-| Build time | Local compatibility build recorded in validation log; not provider duration | Pending real Docker build | Cannot compare local and hosted times |
-| CPU/memory/bandwidth | Pending platform reporting | No runtime yet | No estimate from minutes of activity |
-| Monthly cost | Pending actual current plan/usage | Pending Railway usage reporting | No claim that Pro is cheaper |
-| Deployment ergonomics | Existing integration | Explicit Docker and settings | Railway image not tested yet |
-| Rollback complexity | Existing live Production retained | DNS-first rollback planned | DNS cache propagation remains |
-| DNS complexity | Current GoDaddy A records | Requires compatible apex flattening | Separate DNS-host migration proposed |
-| Operational risk | Existing managed Next runtime | Single-instance self-hosting/cache ownership | Auth, proxy, ISR and restart need live proof |
+- Railway: `45c9a917-55b3-4173-985f-07cc5d6356a0`, Singapore `asia-southeast1-eqsg3a`, https://dotco-next-staging-staging.up.railway.app
+- Vercel Preview: `dpl_FfdCjmjga2Sd6KjqL7Vrfjd1MR9B`, `iad1`, https://my-website-ocsrmx33u-fazil-s-projects1.vercel.app
+
+## Public mobile results
+
+Five runs per route per host using the existing `qa:performance` script, identical source and test configuration. These were sequential host batches, not alternating samples; network and time drift limit causal conclusions. Both passed the script's configured gates, which does not mean every individual run met a good Core Web Vitals threshold. All 50 runs recorded zero asset failures and console errors. Initial video transfer was zero in every run. Film Play remains a separate unresolved functional check.
+
+| Route | Railway TTFB median ms | Vercel TTFB median ms | Railway LCP median [min–max] ms | Vercel LCP median [min–max] ms |
+| --- | ---: | ---: | ---: | ---: |
+| / | 103 | 174 | 2297 [2242–2816] | 3979 [2558–14831] |
+| /recipes | 101 | 80 | 1710 [1694–1743] | 1769 [1599–5180] |
+| /journal | 105 | 82 | 2162 [2158–2191] | 2089 [1997–5691] |
+| /shop | 107 | 78 | 1923 [1896–2066] | 3697 [1807–5771] |
+| /sustainability | 134 | 78 | 2753 [1761–2764] | 3020 [1585–7504] |
+
+Vercel median TTFB was lower on four routes; Railway LCP was less variable in these batches. This does not prove that Railway reduces authenticated AWS round-trip latency. Raw per-run metrics, including CLS, TBT, transfer sizes and failures: [performance evidence](evidence/public-performance-2026-10-04.json). Lighthouse raw trace files were removed by the existing script; only its emitted measurements are retained.
+
+## Remaining comparison gates
+
+| Category | Current evidence / gap |
+| --- | --- |
+| Account, Preferences, Saved ≥15 each | Pending authenticated route timings. Both sessions redirected to login on 2026-10-04; user reauthentication requested. |
+| Cart/wishlist/recipes/addresses ≥10 each | Pending matched timings; Railway cart and product save/restore functionally verified earlier. |
+| Build | Railway deployment created 18:08:59Z, success 18:12:09Z on Oct 3: ~190 seconds total deployment elapsed, not isolated build duration. Vercel comparable timing pending. |
+| Resources | Railway one-hour sample: 61 points, memory mean 0.225399 GB, max 0.225419 GB; CPU mean 0.0000423, max 0.001939. Mostly idle observation; not load capacity evidence. |
+| Monthly cost | Actual billing comparison pending. One-hour idle resource data cannot establish monthly cost or Pro savings. |
+| Asset smoke | Vercel: 137 assets, zero failures. Railway repeat: 12 connection failures; sampled error was UND_ERR_CONNECT_TIMEOUT. No missing-file HTTP status observed; unresolved. |
+| Deployment | Docker image built successfully on Railway; standalone server startup observed. Full deployed-image dependency inventory pending. |
+| Operations | One replica, serverless off, CDN off; restart/cache behavior requires additional live proof. |
+| DNS / rollback | No DNS edits. GoDaddy records inventoried; separate DNS-host migration and DNS-first rollback are planned. |
 
 ## Reproducible comparison protocol
 

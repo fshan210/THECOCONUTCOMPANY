@@ -1,0 +1,386 @@
+{
+  "url": "https://dotco-next-staging-staging.up.railway.app/assets/redesign/home/cinematic/lifestyle/coconut-oil.png",
+  "lookup": [
+    {
+      "address": "69.46.46.47",
+      "family": 4
+    }
+  ],
+  "node": "v24.16.0",
+  "rows": [
+    {
+      "kind": "fetch",
+      "tag": "single",
+      "ms": 419,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "five-sequential",
+      "ms": 356,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "five-sequential",
+      "ms": 666,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "five-sequential",
+      "ms": 971,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "five-sequential",
+      "ms": 958,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "five-sequential",
+      "ms": 298,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "five-concurrent",
+      "ms": 1317,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "five-concurrent",
+      "ms": 487,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "five-concurrent",
+      "ms": 484,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "five-concurrent",
+      "ms": 484,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "five-concurrent",
+      "ms": 486,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 339,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 344,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 488,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 356,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 357,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 1297,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 470,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 3301,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 348,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 418,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 10388,
+      "error": "fetch failed",
+      "cause": "Connect Timeout Error (attempted address: dotco-next-staging-staging.up.railway.app:443, timeout: 10000ms)",
+      "code": "UND_ERR_CONNECT_TIMEOUT"
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 413,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 2335,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 331,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 378,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 360,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 359,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 485,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 454,
+      "status": 200
+    },
+    {
+      "kind": "fetch",
+      "tag": "twenty-concurrent",
+      "ms": 358,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "single",
+      "ms": 361,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "five-sequential",
+      "ms": 293,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "five-sequential",
+      "ms": 290,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "five-sequential",
+      "ms": 1406,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "five-sequential",
+      "ms": 320,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "five-sequential",
+      "ms": 314,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "five-concurrent",
+      "ms": 1322,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "five-concurrent",
+      "ms": 1304,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "five-concurrent",
+      "ms": 307,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "five-concurrent",
+      "ms": 284,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "five-concurrent",
+      "ms": 260,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 431,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 395,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 429,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 538,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 427,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 426,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 426,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 389,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 424,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 535,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 462,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 421,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 454,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 453,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 539,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 539,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 558,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 444,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 560,
+      "status": 200
+    },
+    {
+      "kind": "https",
+      "tag": "twenty-concurrent",
+      "ms": 408,
+      "status": 200
+    }
+  ]
+}
