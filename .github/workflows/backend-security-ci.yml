@@ -12,9 +12,32 @@ permissions:
   id-token: write
 
 jobs:
+  railway-network-diagnostic:
+    if: github.event_name == 'pull_request' && github.head_ref == 'codex/railway-runtime-migration'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.16.0
+      - name: Five public asset checks from an independent network
+        env:
+          DIAGNOSTIC_SHA: ${{ github.event.pull_request.head.sha }}
+        run: node scripts/railway-network-diagnostic.mjs
+      - name: Preserve diagnostic results including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: railway-network-evidence
+          path: railway-network-evidence/
+          retention-days: 14
   validate:
     runs-on: ubuntu-latest
     env:
+      APP_DEPLOY_ENV: development
+      APP_HOST_PLATFORM: local
       NEXT_PUBLIC_MEDIA_BASE_URL: https://media.cothecoconutcompany.com
     steps:
       - uses: actions/checkout@v4
@@ -52,11 +75,11 @@ jobs:
           BASE_URL=http://127.0.0.1:3000 npm run smoke:production
       - name: Synthesize infrastructure
         run: npm run infra:synth
-      - name: Dependency audit (record known transitive findings)
+      - name: Dependency audit (explicit migration staging risk policy)
         run: |
-          npm audit --omit=dev --audit-level=high || true
+          node scripts/staging-audit-policy.mjs root
           npm --prefix backend audit --omit=dev --audit-level=high
-          npm --prefix infra audit --omit=dev --audit-level=high
+          node scripts/staging-audit-policy.mjs infra
           npm --prefix packages/contracts audit --omit=dev --audit-level=high
       - name: Configure AWS OIDC credentials for optional DEV checks
         if: ${{ vars.AWS_DEV_ROLE_ARN != '' }}

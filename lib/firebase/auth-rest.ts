@@ -1,3 +1,4 @@
+import { resolveDeployment } from "@/lib/deployment/environment.mjs";
 import "server-only";
 
 import { verifyFirebasePublicProjectId } from "@/lib/firebase/admin-project";
@@ -12,7 +13,7 @@ type FirebaseLookupUser = {
 };
 
 function getApiKey() {
-  verifyFirebasePublicProjectId(process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID, process.env.VERCEL_ENV);
+  verifyFirebasePublicProjectId(process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID, resolveDeployment().environment);
   const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
   if (!apiKey) throw new Error("Firebase Web API key is missing.");
   return apiKey;

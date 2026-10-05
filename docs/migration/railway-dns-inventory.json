@@ -1,0 +1,211 @@
+{
+  "source": "GoDaddy authenticated Export Zone File",
+  "date": "2026-10-03",
+  "recordCount": 29,
+  "zoneSha256": "6e485de2f3dcddada722738d6ae6c9e9374fe1a850ac286daf07a2963754e8e6",
+  "records": [
+    {
+      "name": "@",
+      "ttl": 3600,
+      "type": "SOA",
+      "data": "ns77.domaincontrol.com.\tdns.jomax.net. (",
+      "recordSha256": "5c062eba304c24249df22955a156611d4693afad6659892be7b32a605746ba70"
+    },
+    {
+      "name": "@",
+      "ttl": 600,
+      "type": "A",
+      "data": "76.76.21.21",
+      "recordSha256": "f7ddb2c2ed0750bc34e383781bc8354433b2aa479cef7fb4aee7a24d2818fded"
+    },
+    {
+      "name": "www",
+      "ttl": 600,
+      "type": "A",
+      "data": "76.76.21.21",
+      "recordSha256": "7e4cfa4a75449d1dcaa0d33d0e18c72fdef9f0a10f08762829ad29b7dbc92016"
+    },
+    {
+      "name": "email",
+      "ttl": 3600,
+      "type": "CNAME",
+      "data": "email.secureserver.net.",
+      "recordSha256": "b91d42cbbf23a6fa8eabe3f555e1144317a0ffb360a2ac0fa583e9ecee129773"
+    },
+    {
+      "name": "media",
+      "ttl": 3600,
+      "type": "CNAME",
+      "data": "d3rgg9a9eze2z6.cloudfront.net.",
+      "recordSha256": "1e5ad1edc6263f04fa192663ecfc8f5add549727d94d4d94427886069c17d1cb"
+    },
+    {
+      "name": "secureserver1._domainkey",
+      "ttl": 3600,
+      "type": "CNAME",
+      "data": "s1.dkim.cothecoconutcompany_com.99d.onsecureserver.net.",
+      "recordSha256": "cbf0fd47b44a28389da24609cebf98ab39837a187f3a91dae823d9bcd70c2d53"
+    },
+    {
+      "name": "secureserver2._domainkey",
+      "ttl": 3600,
+      "type": "CNAME",
+      "data": "s2.dkim.cothecoconutcompany_com.99d.onsecureserver.net.",
+      "recordSha256": "997c29b84f297d6bd3fd826f31f2e737b28739d7d446b5779a45171804731400"
+    },
+    {
+      "name": "_0cd4fcf96648a3e97e589c4afc78af14.media",
+      "ttl": 3600,
+      "type": "CNAME",
+      "data": "_0f0151ed5de466b0ec71577bc59cbdf7.jkddzztszm.acm-validations.aws.",
+      "recordSha256": "8b8230240707defd2c6426d03f39de8fba68371b391a7c57a8aaf166319dd004"
+    },
+    {
+      "name": "_domainconnect",
+      "ttl": 3600,
+      "type": "CNAME",
+      "data": "_domainconnect.gd.domaincontrol.com.",
+      "recordSha256": "9832bbdd99874b06c9d5eae03fdcedc8b731709f039d2d5ea6443c78c12c7a18"
+    },
+    {
+      "name": "@",
+      "ttl": 600,
+      "type": "MX",
+      "data": "10\tmx.zoho.in.",
+      "recordSha256": "970db6634a56b9f682f7053579f902b4b60f3fda63bdb06b99267fdd549cb60b"
+    },
+    {
+      "name": "@",
+      "ttl": 600,
+      "type": "MX",
+      "data": "20\tmx2.zoho.in.",
+      "recordSha256": "32dab8d7e904af2b3eacbbd35d4630e788b11e1c55bf5b8d6f5291a251d9d50d"
+    },
+    {
+      "name": "@",
+      "ttl": 600,
+      "type": "MX",
+      "data": "50\tmx3.zoho.in.",
+      "recordSha256": "af1e6be0a46dd07a6b3e5f7d7550ac3d3bdd6b86dca1a32767320c1a9474c827"
+    },
+    {
+      "name": "cioeu165103",
+      "ttl": 3600,
+      "type": "MX",
+      "data": "10\tmxa.eu.mailgun.org.",
+      "recordSha256": "dccc5d9cd5400d6d93b17e732dc99f9d6bd0c1b6316c0774b279003b6a2bc11e"
+    },
+    {
+      "name": "cioeu165103",
+      "ttl": 600,
+      "type": "MX",
+      "data": "10\tmxb.eu.mailgun.org.",
+      "recordSha256": "4af915626dfd77b6175dc19d995f20d7da505da895f8c740668d5843ef1aeebf"
+    },
+    {
+      "name": "@",
+      "ttl": 3600,
+      "type": "NS",
+      "data": "ns77.domaincontrol.com.",
+      "recordSha256": "4815ad3d9be88c95e3d12882f18cee52d5b48df49fdf86a45bda3bd9c7e0493d"
+    },
+    {
+      "name": "@",
+      "ttl": 3600,
+      "type": "NS",
+      "data": "ns78.domaincontrol.com.",
+      "recordSha256": "ed2a6f2437d9f8abcd1e3ce277bab4ab91884767b5483572e768f64004121d10"
+    },
+    {
+      "name": "_autodiscover._tcp.@",
+      "ttl": 3600,
+      "type": "SRV",
+      "data": "0\t0\t443\tautodiscover.secureserver.net.",
+      "recordSha256": "05c8f8f30f52d2f6c5822225b3e97abf67313d8d890b9193aca1b997ff8f1404"
+    },
+    {
+      "name": "@",
+      "ttl": 3600,
+      "type": "TXT",
+      "data": "[redacted]",
+      "recordSha256": "35edf4d762a2260e039bada828095729765f052a18ee5e00fa98e4b7e9b725fe"
+    },
+    {
+      "name": "@",
+      "ttl": 3600,
+      "type": "TXT",
+      "data": "[redacted]",
+      "recordSha256": "efde35f3964db07b4f8a78b2c211d3e38665df7b9e910bb4cfc1e322946bfc09"
+    },
+    {
+      "name": "@",
+      "ttl": 600,
+      "type": "TXT",
+      "data": "[redacted]",
+      "recordSha256": "9b8033c11a1fd3e513469c27218832042a2a5652737ba09e30911fdff7c1b7b0"
+    },
+    {
+      "name": "cio._domainkey.cioeu165103",
+      "ttl": 3600,
+      "type": "TXT",
+      "data": "[redacted]",
+      "recordSha256": "68e679d6dee68ee159d397f2c329ae120d2bceb17b89a22201406083211cc195"
+    },
+    {
+      "name": "cioeu165103",
+      "ttl": 3600,
+      "type": "TXT",
+      "data": "[redacted]",
+      "recordSha256": "929a189e85a23e20cc666efd19c0fc19a6d822884a884475ae875af80a91991b"
+    },
+    {
+      "name": "dc-1c336d5586._spfm.cioeu165103",
+      "ttl": 600,
+      "type": "TXT",
+      "data": "[redacted]",
+      "recordSha256": "e23084e5fac2337242f0bb27ee0c258bd28ba8034b73554e00b0e71a392094c6"
+    },
+    {
+      "name": "dc-8e814c8572._spfm",
+      "ttl": 3600,
+      "type": "TXT",
+      "data": "[redacted]",
+      "recordSha256": "96c3e9ef402436b60b638ca32c6c815ec06540d5b49d3708308e7505fd88a42f"
+    },
+    {
+      "name": "dc-8e814c8572._spfm",
+      "ttl": 3600,
+      "type": "TXT",
+      "data": "[redacted]",
+      "recordSha256": "d66e6c260dc6b8a2d4c878518dad483409bc77266f4621c6845b6308b61a94fe"
+    },
+    {
+      "name": "zmail._domainkey",
+      "ttl": 600,
+      "type": "TXT",
+      "data": "[redacted]",
+      "recordSha256": "d731d18716853477a4ea67f7ae3ab81f397892609686e846f4ab8a1ba812eb36"
+    },
+    {
+      "name": "zoho._domainkey",
+      "ttl": 3600,
+      "type": "TXT",
+      "data": "[redacted]",
+      "recordSha256": "17e04e8ed1641b45086d52e80995af0dc02a27ce6e35ebd9a3d1cb90707be45b"
+    },
+    {
+      "name": "_dmarc",
+      "ttl": 3600,
+      "type": "TXT",
+      "data": "[redacted]",
+      "recordSha256": "60116d57c95f820c9777bc138b7214a7250201c21f8f301187c6578e686e5b0f"
+    },
+    {
+      "name": "_dmarc",
+      "ttl": 3600,
+      "type": "TXT",
+      "data": "[redacted]",
+      "recordSha256": "b64da1e1fd06b14b006ab11491b551b3caac94b1714d3c80502dd9e3662e9bfc"
+    }
+  ]
+}

@@ -1,0 +1,439 @@
+{
+  "reviewStatus": "APPROVED BY USER 2026-10-03",
+  "secretValuesIncluded": false,
+  "variables": [
+    {
+      "name": "APP_DEPLOY_ENV",
+      "category": "SERVER RUNTIME",
+      "required": true,
+      "secret": false,
+      "source": "Explicit migration config: preview / railway / railway; also supplied at build",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "APP_HOST_PLATFORM",
+      "category": "SERVER RUNTIME",
+      "required": true,
+      "secret": false,
+      "source": "Explicit migration config: preview / railway / railway; also supplied at build",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "DEPLOY_TARGET",
+      "category": "SERVER RUNTIME",
+      "required": true,
+      "secret": false,
+      "source": "Explicit migration config: preview / railway / railway; also supplied at build",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "NEXT_PUBLIC_FIREBASE_API_KEY",
+      "category": "PUBLIC BUILD-TIME",
+      "required": true,
+      "secret": false,
+      "source": "Verified Vercel Preview public Firebase configuration; project cothecoconutcompany-preview",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "NEXT_PUBLIC_FIREBASE_APP_ID",
+      "category": "PUBLIC BUILD-TIME",
+      "required": true,
+      "secret": false,
+      "source": "Verified Vercel Preview public Firebase configuration; project cothecoconutcompany-preview",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN",
+      "category": "PUBLIC BUILD-TIME",
+      "required": true,
+      "secret": false,
+      "source": "Verified Vercel Preview public Firebase configuration; project cothecoconutcompany-preview",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "NEXT_PUBLIC_FIREBASE_PROJECT_ID",
+      "category": "PUBLIC BUILD-TIME",
+      "required": true,
+      "secret": false,
+      "source": "Verified Vercel Preview public Firebase configuration; project cothecoconutcompany-preview",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET",
+      "category": "PUBLIC BUILD-TIME",
+      "required": false,
+      "secret": false,
+      "source": "Vercel Preview optional public Firebase configuration",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID",
+      "category": "PUBLIC BUILD-TIME",
+      "required": false,
+      "secret": false,
+      "source": "Vercel Preview optional public Firebase configuration",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID",
+      "category": "PUBLIC BUILD-TIME",
+      "required": false,
+      "secret": false,
+      "source": "Vercel Preview optional public Firebase configuration",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "NEXT_PUBLIC_MEDIA_BASE_URL",
+      "category": "PUBLIC BUILD-TIME",
+      "required": true,
+      "secret": false,
+      "source": "Existing public media host and canonical apex; no secret values",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "NEXT_PUBLIC_SITE_URL",
+      "category": "PUBLIC BUILD-TIME",
+      "required": true,
+      "secret": false,
+      "source": "Existing public media host and canonical apex; no secret values",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "NEXT_PUBLIC_APP_ENV",
+      "category": "PUBLIC BUILD-TIME",
+      "required": true,
+      "secret": false,
+      "source": "Vercel Preview value dev",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "NEXT_PUBLIC_DOTCO_API_BASE_URL",
+      "category": "PUBLIC BUILD-TIME",
+      "required": false,
+      "secret": false,
+      "source": "Optional DEV endpoint; keep unset if not present in reviewed Vercel Preview",
+      "target": "Railway staging",
+      "disposition": "preserve absent"
+    },
+    {
+      "name": "SERVER_API_BASE_URL",
+      "category": "SERVER RUNTIME",
+      "required": true,
+      "secret": false,
+      "source": "Live verified DEV AWS resource identities in resource map",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "COGNITO_USER_POOL_ID",
+      "category": "SERVER RUNTIME",
+      "required": true,
+      "secret": false,
+      "source": "Live verified DEV AWS resource identities in resource map",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "COGNITO_APP_CLIENT_ID",
+      "category": "SERVER RUNTIME",
+      "required": true,
+      "secret": false,
+      "source": "Live verified DEV AWS resource identities in resource map",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "DOTCO_AWS_REGION",
+      "category": "SERVER RUNTIME",
+      "required": true,
+      "secret": false,
+      "source": "Live verified DEV AWS resource identities in resource map",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "DOTCO_USE_API_CONTENT",
+      "category": "SERVER RUNTIME",
+      "required": true,
+      "secret": false,
+      "source": "Verified Vercel Preview value true",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "FIREBASE_PROJECT_ID",
+      "category": "SERVER RUNTIME",
+      "required": true,
+      "secret": false,
+      "source": "Explicit cothecoconutcompany-preview",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "FIREBASE_SERVICE_ACCOUNT_JSON",
+      "category": "SERVER RUNTIME",
+      "required": true,
+      "secret": true,
+      "source": "User-approved separate Railway key for existing dotco-preview-admin identity; created 2026-10-03 without role changes",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "COGNITO_SESSION_SECRET",
+      "category": "PREVIEW/STAGING ONLY",
+      "required": true,
+      "secret": true,
+      "source": "Generate independent cryptographic staging keys; never copy shared Production/Admin key",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "ADMIN_SESSION_SECRET",
+      "category": "PREVIEW/STAGING ONLY",
+      "required": true,
+      "secret": true,
+      "source": "Generate independent cryptographic staging keys; never copy shared Production/Admin key",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "ADMIN_BASE_PATH",
+      "category": "SERVER RUNTIME",
+      "required": false,
+      "secret": false,
+      "source": "Existing application default /control-center",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "ADMIN_EMAIL",
+      "category": "PREVIEW/STAGING ONLY",
+      "required": false,
+      "secret": false,
+      "source": "No admin customer identity to be invented; omit until a controlled Preview admin is supplied",
+      "target": "Railway staging",
+      "disposition": "omit"
+    },
+    {
+      "name": "ADMIN_NAME",
+      "category": "PREVIEW/STAGING ONLY",
+      "required": false,
+      "secret": false,
+      "source": "No admin customer identity to be invented; omit until a controlled Preview admin is supplied",
+      "target": "Railway staging",
+      "disposition": "omit"
+    },
+    {
+      "name": "ADMIN_ROLE",
+      "category": "PREVIEW/STAGING ONLY",
+      "required": false,
+      "secret": false,
+      "source": "No admin customer identity to be invented; omit until a controlled Preview admin is supplied",
+      "target": "Railway staging",
+      "disposition": "omit"
+    },
+    {
+      "name": "NEXT_PUBLIC_GA_MEASUREMENT_ID",
+      "category": "PRODUCTION ONLY",
+      "required": false,
+      "secret": false,
+      "source": "Existing Production analytics/search bindings retained on Vercel; no Production values in staging",
+      "target": "Future Railway Production only",
+      "disposition": "omit"
+    },
+    {
+      "name": "NEXT_PUBLIC_GTM_ID",
+      "category": "PRODUCTION ONLY",
+      "required": false,
+      "secret": false,
+      "source": "Existing Production analytics/search bindings retained on Vercel; no Production values in staging",
+      "target": "Future Railway Production only",
+      "disposition": "omit"
+    },
+    {
+      "name": "NEXT_PUBLIC_CLARITY_PROJECT_ID",
+      "category": "PRODUCTION ONLY",
+      "required": false,
+      "secret": false,
+      "source": "Existing Production analytics/search bindings retained on Vercel; no Production values in staging",
+      "target": "Future Railway Production only",
+      "disposition": "omit"
+    },
+    {
+      "name": "NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION",
+      "category": "PRODUCTION ONLY",
+      "required": false,
+      "secret": false,
+      "source": "Existing Production analytics/search bindings retained on Vercel; no Production values in staging",
+      "target": "Future Railway Production only",
+      "disposition": "omit"
+    },
+    {
+      "name": "NEXT_PUBLIC_BING_SITE_VERIFICATION",
+      "category": "PRODUCTION ONLY",
+      "required": false,
+      "secret": false,
+      "source": "Existing Production analytics/search bindings retained on Vercel; no Production values in staging",
+      "target": "Future Railway Production only",
+      "disposition": "omit"
+    },
+    {
+      "name": "RECAPTCHA_SECRET_KEY",
+      "category": "PREVIEW/STAGING ONLY",
+      "required": false,
+      "secret": true,
+      "source": "Not configured in current Vercel Preview; any future key must permit only intended staging domains",
+      "target": "Railway staging",
+      "disposition": "omit"
+    },
+    {
+      "name": "NEXT_PUBLIC_RECAPTCHA_SITE_KEY",
+      "category": "PREVIEW/STAGING ONLY",
+      "required": false,
+      "secret": true,
+      "source": "Not configured in current Vercel Preview; any future key must permit only intended staging domains",
+      "target": "Railway staging",
+      "disposition": "omit"
+    },
+    {
+      "name": "NEXT_PUBLIC_FIREBASE_APPCHECK_SITE_KEY",
+      "category": "PREVIEW/STAGING ONLY",
+      "required": false,
+      "secret": true,
+      "source": "Not configured in current Vercel Preview; any future key must permit only intended staging domains",
+      "target": "Railway staging",
+      "disposition": "omit"
+    },
+    {
+      "name": "FIREBASE_CLIENT_EMAIL",
+      "category": "SERVER RUNTIME",
+      "required": false,
+      "secret": true,
+      "source": "Alternative to service-account JSON; use one credential method only",
+      "target": "Railway staging",
+      "disposition": "omit"
+    },
+    {
+      "name": "FIREBASE_PRIVATE_KEY",
+      "category": "SERVER RUNTIME",
+      "required": false,
+      "secret": true,
+      "source": "Alternative to service-account JSON; use one credential method only",
+      "target": "Railway staging",
+      "disposition": "omit"
+    },
+    {
+      "name": "RAILWAY_GIT_COMMIT_SHA",
+      "category": "SERVER RUNTIME",
+      "required": true,
+      "secret": false,
+      "source": "Railway Git deployment metadata supplied at build; compiled manifest exposes exact SHA via health",
+      "target": "Railway staging",
+      "disposition": "platform supplied"
+    },
+    {
+      "name": "PORT",
+      "category": "SERVER RUNTIME",
+      "required": true,
+      "secret": false,
+      "source": "8080, matching the generated Railway domain target port",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "HOSTNAME",
+      "category": "SERVER RUNTIME",
+      "required": true,
+      "secret": false,
+      "source": "0.0.0.0, also enforced by startup helper",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "NODE_ENV",
+      "category": "SERVER RUNTIME",
+      "required": true,
+      "secret": false,
+      "source": "production Node runtime; APP_DEPLOY_ENV remains preview",
+      "target": "Railway staging",
+      "disposition": "set"
+    },
+    {
+      "name": "AWS_PROFILE",
+      "category": "LOCAL ONLY",
+      "required": false,
+      "secret": true,
+      "source": "Never copy local operator credentials into Railway",
+      "target": "Local audit tools only",
+      "disposition": "exclude"
+    },
+    {
+      "name": "AWS_ACCESS_KEY_ID",
+      "category": "LOCAL ONLY",
+      "required": false,
+      "secret": true,
+      "source": "Never copy local operator credentials into Railway",
+      "target": "Local audit tools only",
+      "disposition": "exclude"
+    },
+    {
+      "name": "AWS_SECRET_ACCESS_KEY",
+      "category": "LOCAL ONLY",
+      "required": false,
+      "secret": true,
+      "source": "Never copy local operator credentials into Railway",
+      "target": "Local audit tools only",
+      "disposition": "exclude"
+    },
+    {
+      "name": "AWS_SESSION_TOKEN",
+      "category": "LOCAL ONLY",
+      "required": false,
+      "secret": true,
+      "source": "Never copy local operator credentials into Railway",
+      "target": "Local audit tools only",
+      "disposition": "exclude"
+    },
+    {
+      "name": "GODADDY_API_KEY",
+      "category": "LOCAL ONLY",
+      "required": false,
+      "secret": true,
+      "source": "Never copy local operator credentials into Railway",
+      "target": "Local audit tools only",
+      "disposition": "exclude"
+    },
+    {
+      "name": "GODADDY_API_SECRET",
+      "category": "LOCAL ONLY",
+      "required": false,
+      "secret": true,
+      "source": "Never copy local operator credentials into Railway",
+      "target": "Local audit tools only",
+      "disposition": "exclude"
+    },
+    {
+      "name": "VERCEL_OIDC_TOKEN",
+      "category": "LOCAL ONLY",
+      "required": false,
+      "secret": true,
+      "source": "Never copy local operator credentials into Railway",
+      "target": "Local audit tools only",
+      "disposition": "exclude"
+    }
+  ],
+  "approvalScope": "Verified DEV AWS identifiers, Preview Firebase configuration, fresh staging session keys, and separate key for existing dotco-preview-admin identity; no new IAM permissions."
+}

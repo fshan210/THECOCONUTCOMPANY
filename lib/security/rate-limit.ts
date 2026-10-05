@@ -16,7 +16,7 @@ type RateLimitOptions = {
 const memoryLimits = new Map<string, { count: number; resetAt: number }>();
 
 export async function checkRateLimit({ key, action, limit, windowMs, area = "rate_limit" }: RateLimitOptions) {
-  const environment = getSecurityEnvironment(process.env.VERCEL_ENV);
+  const environment = getSecurityEnvironment();
   const normalized = getRateLimitKey(environment, action, key || "anonymous");
   const now = Date.now();
   const nowIso = new Date(now).toISOString();

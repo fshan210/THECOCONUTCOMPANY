@@ -1,0 +1,34 @@
+[
+  {
+    "url": "https://cothecoconutcompany.com/assets/video/homepage-v2/co-home-scraping-scroll-desktop-v1.mp4",
+    "method": "GET",
+    "range": "bytes=0-1023",
+    "exitCode": 0,
+    "headers": "HTTP/2 206 \naccept-ranges: bytes\naccess-control-allow-origin: *\nage: 11452\ncache-control: public, max-age=31536000, immutable\ncontent-disposition: inline; filename=\"co-home-scraping-scroll-desktop-v1.mp4\"\ncontent-range: bytes 0-1023/9217095\ncontent-security-policy-report-only: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.clarity.ms https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://media.cothecoconutcompany.com https://www.google-analytics.com https://www.googletagmanager.com https://*.clarity.ms; font-src 'self' data:; connect-src 'self' https://media.cothecoconutcompany.com https://www.google-analytics.com https://*.google-analytics.com https://*.clarity.ms https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://media.cothecoconutcompany.com; media-src 'self' blob: https://media.cothecoconutcompany.com; frame-src 'self' https://www.google.com https://recaptcha.google.com; worker-src 'self' blob:; manifest-src 'self'\ncontent-type: video/mp4\ndate: Sun, 04 Oct 2026 14:41:54 GMT\netag: \"67d9e788fc39be8a76c365bdef200e53\"\nlast-modified: Sun, 04 Oct 2026 11:31:01 GMT\npermissions-policy: camera=(), microphone=(), geolocation=()\nreferrer-policy: strict-origin-when-cross-origin\nserver: Vercel\nstrict-transport-security: max-age=31536000; includeSubDomains; preload\nx-content-type-options: nosniff\nx-frame-options: DENY\nx-matched-path: /assets/video/homepage-v2/co-home-scraping-scroll-desktop-v1.mp4\nx-vercel-cache: HIT\nx-vercel-id: bom1::959ts-1791124914055-894e3fc8d524\ncontent-length: 1024\n\n",
+    "timing": {
+      "http_code": 206,
+      "time_namelookup": 0.042263,
+      "time_connect": 0.081901,
+      "time_appconnect": 0.180061,
+      "time_starttransfer": 0.271666,
+      "time_total": 0.271849,
+      "size_download": 1024
+    }
+  },
+  {
+    "url": "https://dotco-next-staging-staging.up.railway.app/assets/video/homepage-v2/co-home-scraping-scroll-desktop-v1.mp4",
+    "method": "GET",
+    "range": "bytes=0-1023",
+    "exitCode": 0,
+    "headers": "HTTP/2 206 \naccept-ranges: bytes\ncache-control: public, max-age=31536000, immutable\ncontent-range: bytes 0-1023/9217095\ncontent-security-policy-report-only: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.clarity.ms https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://media.cothecoconutcompany.com https://www.google-analytics.com https://www.googletagmanager.com https://*.clarity.ms; font-src 'self' data:; connect-src 'self' https://media.cothecoconutcompany.com https://www.google-analytics.com https://*.google-analytics.com https://*.clarity.ms https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://media.cothecoconutcompany.com; media-src 'self' blob: https://media.cothecoconutcompany.com; frame-src 'self' https://www.google.com https://recaptcha.google.com; worker-src 'self' blob:; manifest-src 'self'\ncontent-type: video/mp4\ndate: Sun, 04 Oct 2026 14:41:54 GMT\netag: W/\"8ca447-1a102f43040\"\nlast-modified: Sat, 03 Oct 2026 18:08:40 GMT\npermissions-policy: camera=(), microphone=(), geolocation=()\nreferrer-policy: strict-origin-when-cross-origin\nserver: railway-hikari\nx-content-type-options: nosniff\nx-frame-options: DENY\nx-railway-request-id: DKuLddGFRSCVSM5gV7rehQ\nx-robots-tag: noindex, nofollow, noarchive\ncontent-length: 1024\nx-hikari-trace: sin1.hs0s\nx-railway-edge: sin1\n\n",
+    "timing": {
+      "http_code": 206,
+      "time_namelookup": 0.004181,
+      "time_connect": 0.389066,
+      "time_appconnect": 0.493626,
+      "time_starttransfer": 0.594599,
+      "time_total": 0.594937,
+      "size_download": 1024
+    }
+  }
+]

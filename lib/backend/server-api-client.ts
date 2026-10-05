@@ -1,3 +1,4 @@
+import { assertResourceIsolation } from "@/lib/deployment/resources.mjs";
 import "server-only";
 
 import type { ApiEnvelope } from "@/lib/backend/api-client";
@@ -9,6 +10,7 @@ export function isServerApiConfigured() {
 }
 
 export async function serverApiGet<T>(path: string): Promise<T> {
+  assertResourceIsolation();
   if (!baseUrl) throw new Error("DEV API is not configured.");
   const response = await fetch(`${baseUrl.replace(/\/$/, "")}${path}`, {
     headers: { accept: "application/json" },

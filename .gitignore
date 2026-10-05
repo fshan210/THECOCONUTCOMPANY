@@ -49,3 +49,6 @@ migration-reports/final/*
 .env*
 .claude/settings.local.json*
 graphify-out/
+
+# Generated non-secret Railway provenance, created during build.
+deployment-build.json

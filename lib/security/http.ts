@@ -1,3 +1,4 @@
+import { resolveDeployment } from "@/lib/deployment/environment.mjs";
 import "server-only";
 
 import { NextResponse } from "next/server";
@@ -12,13 +13,13 @@ export function privateJson(body: unknown, init: ResponseInit = {}) {
 }
 
 export function privateServerTiming(timing: CustomerApiTiming, started: number): Record<string, string> | undefined {
-  if (process.env.VERCEL_ENV !== "preview" && process.env.NODE_ENV !== "development") return undefined;
+  if (resolveDeployment().environment === "production") return undefined;
   const duration = (value: number) => Math.max(0, value).toFixed(1);
   return { "server-timing": `auth;dur=${duration(timing.auth)}, upstream;dur=${duration(timing.upstream)}, total;dur=${duration(performance.now() - started)}` };
 }
 
 export function recordPrivateBffTiming(route: "cart" | "saved", method: string, status: number, started: number, timing: CustomerApiTiming, body: unknown) {
-  if (process.env.VERCEL_ENV !== "preview" && process.env.NODE_ENV !== "development") return;
+  if (resolveDeployment().environment === "production") return;
   console.info("co-private-bff-timing", JSON.stringify({
     route, method, status,
     totalMs: Math.round((performance.now() - started) * 10) / 10,
