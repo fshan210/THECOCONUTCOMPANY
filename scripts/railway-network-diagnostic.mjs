@@ -19,7 +19,7 @@ while (Date.now() < deadline) {
   await new Promise((done) => setTimeout(done, 10_000));
 }
 writeFileSync(`${output}/lineage.json`, JSON.stringify({ expected: sha, observed: health, node: process.version, platform: process.platform }, null, 2));
-if (health?.build !== sha) throw new Error('Matching Railway deployment did not become ready');
+if (health?.build !== sha || health?.platform !== 'railway' || health?.environment !== 'preview') throw new Error('Matching Railway deployment did not become ready');
 const runs = [];
 for (let run = 1; run <= 5; run++) {
   const startedAt = new Date().toISOString();
