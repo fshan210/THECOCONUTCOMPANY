@@ -12,6 +12,27 @@ permissions:
   id-token: write
 
 jobs:
+  railway-network-diagnostic:
+    if: github.event_name == 'pull_request' && github.head_ref == 'codex/railway-runtime-migration'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.16.0
+      - name: Five public asset checks from an independent network
+        env:
+          DIAGNOSTIC_SHA: ${{ github.event.pull_request.head.sha }}
+        run: node scripts/railway-network-diagnostic.mjs
+      - name: Preserve diagnostic results including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: railway-network-evidence
+          path: railway-network-evidence/
+          retention-days: 14
   validate:
     runs-on: ubuntu-latest
     env:
