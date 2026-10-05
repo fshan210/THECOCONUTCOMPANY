@@ -32,3 +32,12 @@ test('fails closed on malformed audit, unresolved propagation, or error', () => 
 test('a genuinely clean audit passes without any exception', () => {
   assert.equal(evaluate({ auditReportVersion: 2, vulnerabilities: {}, metadata: { vulnerabilities: { total: 0 } } }, { ...context, branch: 'main', environment: 'production' }).pass, true);
 });
+test('accepts npm peer propagation only when it resolves to the approved leaf', () => {
+  const data = { auditReportVersion: 2, metadata: { vulnerabilities: { total: 2 } }, vulnerabilities: {
+    braces: { severity: 'high', nodes: ['node_modules/braces'], via: [{ url: 'https://github.com/advisories/GHSA-vfj7-8cjw-p6xm', severity: 'high' }] },
+    'tailwindcss-animate': { severity: 'high', nodes: ['node_modules/tailwindcss-animate'], via: ['braces'] }
+  } };
+  assert.equal(assessAudit(data, 'root', context, policy.root.nodes).pass, true);
+  data.vulnerabilities['tailwindcss-animate'].via = ['unapproved-peer'];
+  assert.equal(assessAudit(data, 'root', context, policy.root.nodes).pass, false);
+});

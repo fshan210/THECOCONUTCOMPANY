@@ -13,7 +13,8 @@ export const policy = {
       'node_modules/chokidar': '3.6.0',
       'node_modules/fast-glob': '3.3.3',
       'node_modules/micromatch': '4.0.8',
-      'node_modules/tailwindcss': '3.4.19'
+      'node_modules/tailwindcss': '3.4.19',
+      'node_modules/tailwindcss-animate': '1.0.7'
     },
     advisories: ['GHSA-vfj7-8cjw-p6xm']
   },
