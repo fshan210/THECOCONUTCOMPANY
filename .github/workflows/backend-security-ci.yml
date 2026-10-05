@@ -54,11 +54,11 @@ jobs:
           BASE_URL=http://127.0.0.1:3000 npm run smoke:production
       - name: Synthesize infrastructure
         run: npm run infra:synth
-      - name: Dependency audit (record known transitive findings)
+      - name: Dependency audit (explicit migration staging risk policy)
         run: |
-          npm audit --omit=dev --audit-level=high || true
+          node scripts/staging-audit-policy.mjs root
           npm --prefix backend audit --omit=dev --audit-level=high
-          npm --prefix infra audit --omit=dev --audit-level=high
+          node scripts/staging-audit-policy.mjs infra
           npm --prefix packages/contracts audit --omit=dev --audit-level=high
       - name: Configure AWS OIDC credentials for optional DEV checks
         if: ${{ vars.AWS_DEV_ROLE_ARN != '' }}
